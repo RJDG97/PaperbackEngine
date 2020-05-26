@@ -13,13 +13,22 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Frame Rate Controller">
+      <UniqueIdentifier>{b917f644-ce58-4569-9d1a-943e2c8f1989}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FrameRateController.cpp">
+      <Filter>Frame Rate Controller</Filter>
+    </ClCompile>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FrameRateController.h">
+      <Filter>Frame Rate Controller</Filter>
+    </ClInclude>
     <ClInclude Include="Source.h">
       <Filter>Source Files</Filter>
     </ClInclude>
