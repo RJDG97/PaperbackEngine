@@ -1,5 +1,7 @@
 #include "FrameRateController.h"
 
+FrameRateController PE_FrameRate;
+
 void Time_Channel::TimerStart()
 {
 	running = true;
@@ -78,7 +80,11 @@ void FrameRateController::FrameControllerEnd()
 		_FrameTime = end - start;
 	}
 	// Set Delta as frametime
-	Dt = end - start;
+	Delta = end - start;
+	frametime = Delta;
+	timeelapsed += frametime;
+	Dt = PE_FrameRate.Delta.count();
+	
 	// increment frames
 	Frames++;
 }
@@ -87,29 +93,6 @@ void FrameRateController::SetFPS(float x)
 {
 	// Change Frames per Second
 	FPS = x;
+	MinFrameTime = 1 / FPS;
 }
-
-//void FrameRateController::Test()
-//{
-//	std::cout << "FPS: " << FPS << std::endl;
-//	std::cout << "MinFrameTime: " << MinFrameTime << std::endl;
-//	std::cout << "TimeElapsed: " << timeelapsed.count() << std::endl;
-//}
-//
-//void Print()
-//{
-//	Time_Channel check;
-//	FrameRateController framerate;
-//	check.TimerStart();
-//	while (check.TimeElapsed(s)<3.0f)
-//	{
-//		framerate.FrameControllerStart();
-//		check.TimerUpdate();
-//		framerate.FrameControllerEnd();
-//	}
-//	check.TimerStop();
-//	std::cout << framerate.GetFrames() << std::endl;
-//	std::cout << check.TimeElapsed(ms) << std::endl;
-//	std::cout << framerate.Dt.count() << std::endl;
-//}
 

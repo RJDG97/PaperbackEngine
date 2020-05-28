@@ -49,10 +49,11 @@ class FrameRateController : public Time_Channel
 	int Frames = 0;
 	float FPS = 60.0f;
 	float MinFrameTime = 1 / FPS;
+	std::chrono::duration<float> Delta;
 
 public:
 
-	std::chrono::duration<float> Dt;
+	float Dt;
 
 	// Get Number of Frames
 	int GetFrames();
@@ -63,5 +64,7 @@ public:
 	// Change FPS
 	void SetFPS(float);
 };
+
+extern FrameRateController PE_FrameRate;
 
 #endif // FrameRateController_H
