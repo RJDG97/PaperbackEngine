@@ -26,7 +26,7 @@ void Time_Channel::TimerUpdate()
 	// Start new frame time
 	start = std::chrono::high_resolution_clock::now();
 	// Update Timer is running
-	if(running)
+	if (running)
 		timeelapsed += frametime;
 }
 
@@ -84,9 +84,36 @@ void FrameRateController::FrameControllerEnd()
 	frametime = Delta;
 	timeelapsed += frametime;
 	Dt = PE_FrameRate.Delta.count();
-	
+
 	// increment frames
 	Frames++;
+}
+
+void FrameRateController::FrameRateLoop()
+{
+	if (Frames == 0)
+		start = std::chrono::high_resolution_clock::now();
+	// Get Current time
+	std::chrono::time_point<std::chrono::steady_clock> currenttime = std::chrono::high_resolution_clock::now();
+	// Check whether time elapsed is past min frame time
+	std::chrono::duration<float> _FrameTime = currenttime - start;
+	while (_FrameTime.count() < MinFrameTime)
+	{
+		// Check whether current time is more than min frame time
+		end = std::chrono::high_resolution_clock::now();
+		_FrameTime = end - start;
+	}
+	// Set Delta as frametime
+	Delta = end - start;
+	frametime = Delta;
+	timeelapsed += frametime;
+	Dt = PE_FrameRate.Delta.count();
+
+	// increment frames
+	Frames++;
+
+	// Get time at start of frame
+	start = std::chrono::high_resolution_clock::now();
 }
 
 void FrameRateController::SetFPS(float x)
@@ -95,4 +122,5 @@ void FrameRateController::SetFPS(float x)
 	FPS = x;
 	MinFrameTime = 1 / FPS;
 }
+
 

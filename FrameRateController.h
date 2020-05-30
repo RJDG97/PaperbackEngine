@@ -61,6 +61,9 @@ public:
 	void FrameControllerStart();
 	// End of Framerate Controller loop
 	void FrameControllerEnd();
+	// Merged FrameRateController
+	void FrameRateLoop();
+
 	// Change FPS
 	void SetFPS(float);
 };
