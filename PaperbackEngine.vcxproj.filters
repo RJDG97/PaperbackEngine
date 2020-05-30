@@ -16,6 +16,18 @@
     <Filter Include="Frame Rate Controller">
       <UniqueIdentifier>{b917f644-ce58-4569-9d1a-943e2c8f1989}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{ebeb2066-502c-412b-b210-1796c09f3153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\InputSystem">
+      <UniqueIdentifier>{e34f2000-4d88-49ed-86d2-3f2dfcaf1f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\WindowsSystem">
+      <UniqueIdentifier>{4edf8eaa-d0fb-496d-ab91-c7e40ec1781f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\SoundSystem">
+      <UniqueIdentifier>{ae2d0950-2793-463e-84ea-f349d4515137}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FrameRateController.cpp">
@@ -24,6 +36,15 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WindowsSystem.cpp">
+      <Filter>Systems\WindowsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSystem.cpp">
+      <Filter>Systems\SoundSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Systems\InputSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameRateController.h">
@@ -31,6 +52,15 @@
     </ClInclude>
     <ClInclude Include="Source.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsSystem.h">
+      <Filter>Systems\WindowsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Systems\SoundSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Systems\InputSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
