@@ -155,6 +155,7 @@
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="Source.h" />
     <ClInclude Include="WindowsSystem.h" />
+    <ClInclude Include="WinKeyCodes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

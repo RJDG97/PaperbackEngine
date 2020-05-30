@@ -114,6 +114,7 @@ void FrameRateController::FrameRateLoop()
 
 	// Get time at start of frame
 	start = std::chrono::high_resolution_clock::now();
+	
 }
 
 void FrameRateController::SetFPS(float x)

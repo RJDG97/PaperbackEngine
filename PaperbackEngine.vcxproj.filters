@@ -62,5 +62,8 @@
     <ClInclude Include="InputSystem.h">
       <Filter>Systems\InputSystem</Filter>
     </ClInclude>
+    <ClInclude Include="WinKeyCodes.h">
+      <Filter>Systems\InputSystem</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

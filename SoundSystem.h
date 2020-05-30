@@ -5,8 +5,8 @@
 #include "Extern/inc/fmod.hpp"
 #include "Extern/inc/fmod_common.h"
 
-bool bSoundMute;
-bool bPaused;
+extern bool bSoundMute;
+extern bool bPaused;
 
 enum class SoundCall
 {
