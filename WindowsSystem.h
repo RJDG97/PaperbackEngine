@@ -40,4 +40,6 @@ public:
 	HWND getHandle();
 };
 
+void createDebugWindow();
+
 #endif

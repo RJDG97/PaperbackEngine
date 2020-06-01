@@ -1,5 +1,7 @@
 #include "WindowsSystem.h"
+#include <memory>
 
+FILE* file;
 WindowsSystem* WindowsSystem::w_Instance = nullptr;
 
 LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam) {
@@ -66,4 +68,18 @@ void WindowsSystem::UnloadInstance() {
 
 HWND WindowsSystem::getHandle() {
 	return hwnd;
+}
+
+void createDebugWindow() {
+	// Create Debug Window
+	if (AllocConsole())
+	{
+		LPCWSTR Name = L"Debug Window";
+		// Message stuff (lets you use print in command)
+		freopen_s(&file, "CONOUT$", "wt", stdout);
+		freopen_s(&file, "CONOUT$", "wt", stderr);
+		freopen_s(&file, "CONOUT$", "wt", stdin);
+
+		SetConsoleTitle(Name);
+	}
 }

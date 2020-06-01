@@ -145,15 +145,19 @@
   <ItemGroup>
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="Matrix3x3.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="WindowsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Matrix3x3.h" />
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="Source.h" />
+    <ClInclude Include="Vector2D.h" />
     <ClInclude Include="WindowsSystem.h" />
     <ClInclude Include="WinKeyCodes.h" />
   </ItemGroup>

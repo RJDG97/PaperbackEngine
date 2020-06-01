@@ -28,6 +28,9 @@
     <Filter Include="Systems\SoundSystem">
       <UniqueIdentifier>{ae2d0950-2793-463e-84ea-f349d4515137}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\MathLibrary">
+      <UniqueIdentifier>{e7c086ad-0274-4a09-99de-fdfaf997abf7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FrameRateController.cpp">
@@ -44,6 +47,12 @@
     </ClCompile>
     <ClCompile Include="InputSystem.cpp">
       <Filter>Systems\InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Systems\MathLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix3x3.cpp">
+      <Filter>Systems\MathLibrary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="WinKeyCodes.h">
       <Filter>Systems\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Systems\MathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix3x3.h">
+      <Filter>Systems\MathLibrary</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
