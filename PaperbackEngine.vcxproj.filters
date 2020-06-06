@@ -31,6 +31,12 @@
     <Filter Include="Systems\MathLibrary">
       <UniqueIdentifier>{e7c086ad-0274-4a09-99de-fdfaf997abf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Scene/State Manager">
+      <UniqueIdentifier>{373b97f9-2631-450f-9e11-921086ea301e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Scene/State Manager\Test States">
+      <UniqueIdentifier>{c3996147-acc3-4e82-ac35-cade7a0fa0f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FrameRateController.cpp">
@@ -53,6 +59,18 @@
     </ClCompile>
     <ClCompile Include="Matrix3x3.cpp">
       <Filter>Systems\MathLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Systems\Scene/State Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +97,21 @@
     </ClInclude>
     <ClInclude Include="Matrix3x3.h">
       <Filter>Systems\MathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Systems\Scene/State Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Systems\Scene/State Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

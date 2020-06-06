@@ -144,8 +144,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FrameRateController.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Matrix3x3.cpp" />
+    <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="PauseState.cpp" />
+    <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Vector2D.cpp" />
@@ -153,8 +157,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameRateController.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Matrix3x3.h" />
+    <ClInclude Include="MenuState.h" />
+    <ClInclude Include="PauseState.h" />
+    <ClInclude Include="PlayState.h" />
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="Source.h" />
     <ClInclude Include="Vector2D.h" />

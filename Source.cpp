@@ -5,6 +5,9 @@
 #include "Vector2D.h"
 #include "Matrix3x3.h"
 
+#include "Game.h"
+#include "MenuState.h"
+
 #define EPSILON		0.0001f
 #define PI			3.14159265358f
 int running = 1;
@@ -12,6 +15,8 @@ int running = 1;
 void testMath();
 
 int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR cmdLine, INT cmdCount) {
+
+	Game game;
 
 	UNREFERENCED_PARAMETER(previousInstance);
 	UNREFERENCED_PARAMETER(cmdLine);
@@ -30,7 +35,11 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	ShowWindow(WindowsSystem::Instance()->getHandle(), cmdCount);
 	UpdateWindow(WindowsSystem::Instance()->getHandle());
 
-	while (running)
+	game.init();
+	// Push the menu state onto the stack
+	game.ChangeState(MenuState::Instance());
+
+	while (game.Running())
 	{
 		// FrameRateController
 		PE_FrameRate.FrameRateLoop();
@@ -83,7 +92,16 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 		/********Frame Test********/
 
+		/*** State/Scene Manager ***/
+
+		game.update();
+		game.draw();
+
+		/*** State/Scene Manager ***/
+
 	}
+
+	game.free();
 
 	WindowsSystem::Instance()->UnloadInstance();
 	return 0;
