@@ -16,13 +16,18 @@ LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM
 			DestroyWindow(hwnd);
 		}
 		return 0;
+	case WM_SIZE:
+		RECT rect;
+		GetClientRect(hwnd, &rect);
+		WindowsSystem::Instance()->setWinWidth(rect.right - rect.left);
+		WindowsSystem::Instance()->setWinHeight(rect.bottom - rect.top);
 	default:
 		return DefWindowProc(hwnd, msg, param, lparam);
 	}
 }
 
 // Default constructor for WindowsSystem Class
-WindowsSystem::WindowsSystem() : wc{}, msg{}, hwnd() {}
+WindowsSystem::WindowsSystem() : wc{}, msg{}, hwnd(), wWidth{ 0 }, wHeight{ 0 } {}
 
 void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, int _x, int _y, LPCSTR _className, HCURSOR _cursor, HBRUSH _bgColor) {
 
@@ -42,6 +47,11 @@ void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, in
 		CW_USEDEFAULT, CW_USEDEFAULT,								// Window initial position
 		_x, _y,														// Window size
 		nullptr, nullptr, nullptr, nullptr);
+
+	RECT rect = { 0 };
+	GetClientRect(hwnd, &rect);
+	wWidth = rect.right - rect.left;
+	wHeight = rect.bottom - rect.top;
 }
 
 void WindowsSystem::ProcessMessage() {
@@ -68,6 +78,22 @@ void WindowsSystem::UnloadInstance() {
 
 HWND WindowsSystem::getHandle() {
 	return hwnd;
+}
+
+int WindowsSystem::getWinWidth() const {
+	return wWidth;
+}
+
+int WindowsSystem::getWinHeight() const {
+	return wHeight;
+}
+
+void WindowsSystem::setWinWidth(int _width) {
+	wWidth = _width;
+}
+
+void WindowsSystem::setWinHeight(int _height) {
+	wHeight = _height;
 }
 
 void createDebugWindow() {

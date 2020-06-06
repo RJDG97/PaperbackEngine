@@ -29,6 +29,12 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	// Register the window class
 	WindowsSystem::Instance()->Init(currentInstance, "GAM200 MonkeyTypewriters", 800, 600);
+	// Create a sound class
+	SoundSystem EngineSoundSystem;
+
+	EngineSoundSystem.loadSound("Resources/SoundCache/KK_BBG.mp3", "BGM", 1);
+	EngineSoundSystem.loadSound("Resources/SoundCache/Kachow.mp3", "Kachow");
+	EngineSoundSystem.playSound("BGM");
 
 
 	// Display Window
@@ -73,7 +79,44 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 		sys_input.UpdateKeyInput(PE_E, forward);
 
+		if (sys_input.CheckTriggeredInput(PE_LBUTTON)) {
+			Vector2D vec;
+			sys_input.GetCursorPosition(vec);
+		}
+
+		if (sys_input.CheckCurrentInput(PE_RBUTTON)) {
+			Vector2D vec2;
+			sys_input.GetCursorPositionDelta(vec2, PE_RBUTTON);
+		}
+
 		/********Input Test********/
+
+		/********Sound Test********/
+
+		if (sys_input.CheckTriggeredInput(PE_5)) {
+			EngineSoundSystem.playSound("Kachow");
+		}
+
+		if (sys_input.CheckTriggeredInput(PE_6)) {
+			EngineSoundSystem.stopSound("BGM");
+		}
+
+		if (sys_input.CheckTriggeredInput(PE_7)) {
+			EngineSoundSystem.loadSound("Resources/SoundCache/KK_BBG.mp3", "BGM");
+			EngineSoundSystem.playSound("BGM");
+		}
+
+		if (sys_input.CheckTriggeredInput(PE_8)) {
+			EngineSoundSystem.muteSound();
+		}
+
+		if (sys_input.CheckTriggeredInput(PE_9)) {
+			EngineSoundSystem.pauseSound();
+		}
+
+		EngineSoundSystem.updateSound();
+
+		/********Sound Test********/
 
 		/********Frame Test********/
 

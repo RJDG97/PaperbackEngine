@@ -1,145 +1,118 @@
 #include "SoundSystem.h"
 
-// Declaring class variable (Singleton)
-Sound* Sound::s_Instance = nullptr;
-// Bool to mute sounds
-extern bool bSoundMute = false;
-extern bool bPaused = false;
-
-void Sound::Mute()
-{
-	// Get status of sound (Playing or Paused)
-	bgm->getMute(&bSoundMute);
-	bSoundMute = !bSoundMute;
-	// Update status of sound
-	bgm->setMute(bSoundMute);
-}
-
-void Sound::Pause()
-{
-	// Update status of sound
-	bgm->setPaused(bPaused);
-}
-
-void Sound::Load()
-{
+SoundSystem::SoundSystem() : bMute{ false }, bPaused{ false } {
 	// Create system
 	FMOD::System_Create(&f_system);
 	// Initialize system
 	f_system->init(32, FMOD_INIT_NORMAL, f_system);
 }
 
-void Sound::Initialize(SoundCall sCase)
-{
-	// Load sounds
-	f_system->createSound("../Assets/Music/MenuBGM.wav", FMOD_LOOP_NORMAL, 0, &MenuBGM);
-	f_system->createSound("../Assets/Music/GameBGM.wav", FMOD_LOOP_NORMAL, 0, &GameBGM);
-	f_system->createSound("../Assets/Music/BossBGM.wav", FMOD_LOOP_NORMAL, 0, &BossBGM);
-	f_system->createSound("../Assets/Music/PlayerAttack.wav", FMOD_DEFAULT, 0, &PlayerAttack);
-	f_system->createSound("../Assets/Music/PlayerHit.wav", FMOD_DEFAULT, 0, &PlayerHit);
-	f_system->createSound("../Assets/Music/PlayerJump.wav", FMOD_DEFAULT, 0, &PlayerJump);
-	f_system->createSound("../Assets/Music/CameraFlash.wav", FMOD_DEFAULT, 0, &PlayerSkill);
-	f_system->createSound("../Assets/Music/BossSFX.wav", FMOD_LOOP_NORMAL, 0, &BossSFX);
-
-	// Load background sounds that will loop
-	switch (sCase)
-	{
-	case SoundCall::MAINMENU_BGM:
-		bgm->setVolume(0.1f);
-		f_system->playSound(MenuBGM, 0, false, &bgm); // Sound set to menu's music & allocated to bgm channel
-		break;
-	case SoundCall::GAME_BGM:
-		f_system->playSound(GameBGM, 0, false, &bgm); // Sound set to game's music & allocated to bgm channel
-		break;
-	case SoundCall::BOSS_BGM:
-		f_system->playSound(BossBGM, 0, false, &bgm); // Sound set to boss's music & allocated to bgm channel
-		break;
+bool SoundSystem::checkError(FMOD_RESULT fResult) {
+	if (fResult == FMOD_OK) {
+		return 1;
 	}
-	bgm->setMute(bSoundMute);
+	else {
+		std::cout << "FMOD Error: " << fResult << std::endl;
+		return 0;
+	}
 }
 
-void Sound::Update(SoundCall sCase)
-{
-	(void)sCase;
-	// Pauses BGM soundtrack
-	//if (AEInputCheckTriggered(AEVK_L))
-	//{
-	//	bool bSoundPaused;
-	//	// Get status of sound (Playing or Paused)
-	//	bgm->getPaused(&bSoundPaused);
-	//	bSoundPaused = !bSoundPaused;
-	//	// Update status of sound
-	//	bgm->setPaused(bSoundPaused);
-	//}
+void SoundSystem::loadSound(std::string fileLocation, std::string fileID, bool loopStatus) {
+	std::map<std::string, FMOD::Sound*>::iterator it = soundLibrary.find(fileID);
+	FMOD_MODE mode = FMOD_DEFAULT;
+	mode |= loopStatus ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF;
 
-
-	//// Switch between different enum cases to play different sounds
-	//if (current == GS_LEVEL1 || current == GS_LEVEL2 || current == GS_LEVEL3 || current == GS_BOSS_STAGE)
-	//{
-	//	switch (sCase)
-	//	{
-	//	case SoundCall::PLAYER_ATK:
-	//		f_system->playSound(PlayerAttack, 0, false, &sfx);
-	//		break;
-
-	//	case SoundCall::PLAYER_SKILL:
-	//		f_system->playSound(PlayerSkill, 0, false, &sfx);
-	//		break;
-
-	//	case SoundCall::PLAYER_JUMP:
-	//		f_system->playSound(PlayerJump, 0, false, &sfx);
-	//		break;
-
-	//	case SoundCall::PLAYER_HIT:
-	//		f_system->playSound(PlayerHit, 0, false, &sfx);
-	//		break;
-
-	//	case SoundCall::BOSS_SFX:
-	//		f_system->playSound(BossSFX, 0, false, &sfx);
-	//		break;
-
-	//	default:
-	//		break;
-	//	}
-	//}
-
-
-	// Toggle mute
-	sfx->setMute(bSoundMute);
+	if (it == soundLibrary.end()) {
+		FMOD::Sound* sound = nullptr;
+		if (checkError(f_system->createSound(fileLocation.c_str(), mode, 0, &sound))) {
+			if (sound != nullptr) {
+				soundLibrary.insert(std::pair<std::string, FMOD::Sound*>(fileID, sound));
+			}
+		}
+	}
 }
 
-void Sound::Free()
-{
-	// Free allocated channels to stop music
-	bgm->stop();
-	sfx->stop();
+void SoundSystem::playSound(std::string fileID) {
+	std::map<std::string, FMOD::Sound*>::iterator it = soundLibrary.find(fileID);
+
+	if (it != soundLibrary.end()) {
+		auto channelIT = channelLibrary.find(fileID);
+		if (channelIT == channelLibrary.end()) {
+			FMOD::Channel* channel = nullptr;
+			if (checkError(f_system->playSound(it->second, 0, false, &channel))) {
+				if (channel != nullptr) {
+					channelLibrary.insert(std::pair<std::string, FMOD::Channel*>(fileID, channel));
+				}
+			}
+		}
+	}
+	else {
+		std::cout << fileID.c_str() << " does not exist!" << std::endl;
+		return;
+	}
 }
 
-void Sound::Unload()
-{
-	// Free allocated tracks
-	PlayerAttack->release();
-	PlayerHit->release();
-	PlayerJump->release();
-	PlayerSkill->release();
-	BossSFX->release();
+void SoundSystem::updateSound() {
+	std::vector<std::map<std::string, FMOD::Channel*>::iterator> completedChannel;
 
+	for (auto channel = channelLibrary.begin(); channel != channelLibrary.end(); ++channel) {
+		bool bPlaying = false;
+		channel->second->isPlaying(&bPlaying);
+		if (!bPlaying) {
+			completedChannel.push_back(channel);
+		}
+	}
+
+	for (auto& channel : completedChannel) {
+		std::cout << "Deleting completed channel: " << channel->first.c_str() << std::endl;
+		channelLibrary.erase(channel);
+	}
+}
+
+void SoundSystem::stopSound(std::string fileID, bool stopAllChannels) {
+	if (!stopAllChannels) {
+		std::map<std::string, FMOD::Channel*>::iterator it = channelLibrary.find(fileID);
+
+		if (it != channelLibrary.end()) {
+			it->second->stop();
+		}
+	}
+	else {
+		for (auto& it : channelLibrary) {
+			it.second->stop();
+		}
+	}
+}
+
+void SoundSystem::muteSound() {
+	if (channelLibrary.begin() == channelLibrary.end())
+		return;
+
+	channelLibrary.begin()->second->getMute(&bMute);
+	bMute = !bMute;
+
+	for (auto& it : channelLibrary) {
+		it.second->setMute(bMute);
+	}
+}
+
+void SoundSystem::pauseSound() {
+	if (channelLibrary.begin() == channelLibrary.end())
+		return;
+
+	channelLibrary.begin()->second->getPaused(&bPaused);
+	bPaused = !bPaused;
+
+	for (auto& it : channelLibrary) {
+		it.second->setPaused(bPaused);
+	}
+}
+
+void SoundSystem::unloadSound() {
+	for (auto begin = soundLibrary.begin(); begin != soundLibrary.end(); ++begin) {
+		begin->second->release();
+	}
 	// Terminate system
 	f_system->close();
 	f_system->release();
-}
-
-Sound* Sound::Instance()
-{
-	// Create a new Sound class
-	if (!s_Instance)
-		s_Instance = new Sound;
-	return s_Instance;
-}
-
-void Sound::UnloadInstance()
-{
-	// Delete Sound class
-	delete s_Instance;
-	s_Instance = nullptr;
 }

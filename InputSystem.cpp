@@ -1,8 +1,11 @@
 #include "InputSystem.h"
+#include "WinKeyCodes.h"
+#include "WindowsSystem.h"
+
 
 InputSystem sys_input;
 
-InputSystem::InputSystem() : currentkey{ 0 }, previouskey{ 0 }, keyreleased{ 0 }, change{ 0 } {}
+InputSystem::InputSystem() : currentkey{ 0 }, previouskey{ 0 }, keyreleased{ 0 }, bChange{ false }, initial{}, bToggle{ false } {}
 
 bool InputSystem::CheckCurrentInput(int key) {
 	return (GetAsyncKeyState(key));
@@ -43,13 +46,13 @@ bool InputSystem::KeyPoll(int& key) {
 void InputSystem::UpdateKeyInput(int trigger, int& key) {
 	if (sys_input.CheckTriggeredInput(trigger)) {
 		std::cout << "Change Key to: ";
-		change = 1;
+		bChange = 1;
 	}
 
-	if (change) {
+	if (bChange) {
 		if (sys_input.KeyPoll(key))
 		{
-			change = 0;
+			bChange = 0;
 			std::cout << GetKeyValue(key) << std::endl;
 		}
 	}
@@ -111,5 +114,37 @@ char InputSystem::GetKeyValue(int key)
 		break;
 	case 0x5A: return 'Z';
 		break;
+	}
+}
+
+// Returns current cursor position
+void InputSystem::GetCursorPosition(Vector2D& pos) {
+	POINT p;
+	if (GetCursorPos(&p)) {
+		if (ScreenToClient(WindowsSystem::Instance()->getHandle(), &p)) {
+			pos.x = static_cast<float>(p.x - WindowsSystem::Instance()->getWinWidth() / 2);
+			pos.y = static_cast<float>((-p.y) + WindowsSystem::Instance()->getWinHeight() / 2);
+			std::cout << "x: " << pos.x << std::endl;
+			std::cout << "y: " << pos.y << std::endl;
+		}
+	}
+}
+
+// Distance between initial click and end click (Currently not working)
+void InputSystem::GetCursorPositionDelta(Vector2D& pos, int key) {
+	if (!bToggle) {
+		bToggle = true;
+		GetCursorPosition(initial);
+	}
+	else if (CheckReleasedInput(key)) {
+		bToggle = false;
+		GetCursorPosition(pos);
+		pos.x = max(pos.x, initial.x) - min(pos.x, initial.x);
+		pos.x = (pos.x) < 0 ? (-pos.x) : pos.x;
+		pos.y = max(pos.y, initial.y) - min(pos.y, initial.y);
+		pos.y = (pos.y) < 0 ? (-pos.y) : pos.y;
+
+		std::cout << "delta x: " << pos.x << std::endl;
+		std::cout << "delta y: " << pos.y << std::endl;
 	}
 }

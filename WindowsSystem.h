@@ -3,6 +3,7 @@
 #define _WINDOWS_SYSTEM_H_
 
 #include <windows.h>
+#include <iostream>
 
 LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam);
 
@@ -15,11 +16,11 @@ class WindowsSystem {
 	MSG msg;
 	// Windows handle
 	HWND hwnd;
-
-
+	// Store windows dimensions
+	int wWidth, wHeight;
 
 public:
-	
+
 	// Constructor for WindowsSystem
 	WindowsSystem();
 	// Initializes the window, cursor, background
@@ -38,6 +39,14 @@ public:
 	void UnloadInstance();
 
 	HWND getHandle();
+
+	int getWinWidth() const;
+
+	int getWinHeight() const;
+
+	void setWinWidth(int _width);
+
+	void setWinHeight(int _height);
 };
 
 void createDebugWindow();
