@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IncludePath>$(SolutionDir)lib\glew-2.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)lib\fmod\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>fmodL_vc.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)lib\fmod\bin\fmodL.dll" "$(TargetDir)fmodL.dll" /Y
+copy "$(SolutionDir)lib\fmod\bin\fmod.dll" "$(TargetDir)fmod.dll" /Y
+copy "$(SolutionDir)lib\glew-2.1.0\bin\Release\Win32\glew32.dll" "$(TargetDir)glew32.dll" /Y</Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
