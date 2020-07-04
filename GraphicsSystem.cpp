@@ -2,7 +2,6 @@
 ----------------------------------------------------------------------------- */
 #define _USE_MATH_DEFINES
 
-#include <GL/glew.h> // for access to OpenGL API declarations 
 #include "GraphicsSystem.h"
 #include "WindowsSystem.h"
 #include <cmath>
@@ -10,8 +9,165 @@
 #include <array>
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */
+PFNWGLCREATECONTEXTATTRIBSARBPROC GraphicsSystem::wglCreateContextAttribsARB = nullptr;
+PFNWGLCHOOSEPIXELFORMATARBPROC GraphicsSystem::wglChoosePixelFormatARB = nullptr;
 GraphicsSystem graphicsSystem;
+HDC GraphicsSystem::hdc;
+
 std::vector<GraphicsSystem::GLModel> GraphicsSystem::models;
+
+void GraphicsSystem::OpenGLExtensionsInit(HINSTANCE hInstance)
+{
+    LPTSTR windowClass = WindowsSystem::Instance()->getWindowClass();
+    DWORD style = WS_CAPTION | WS_SYSMENU | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+
+    HWND fakeWND = CreateWindow(
+        windowClass, L"Fake Window",
+        style,
+        0, 0,						// position x, y
+        1, 1,						// width, height
+        NULL, NULL,					// parent window, menu
+        hInstance, NULL);			// instance, param
+
+    HDC fakeDC = GetDC(fakeWND);    // Device Context
+
+    PIXELFORMATDESCRIPTOR fakePFD;
+    ZeroMemory(&fakePFD, sizeof(fakePFD));
+    fakePFD.nSize = sizeof(fakePFD);
+    fakePFD.nSize = sizeof(fakePFD);
+    fakePFD.nVersion = 1;
+    fakePFD.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+    fakePFD.iPixelType = PFD_TYPE_RGBA;
+    fakePFD.cColorBits = 32;
+    fakePFD.cAlphaBits = 8;
+    fakePFD.cDepthBits = 24;
+
+    const int fakePFDID = ChoosePixelFormat(fakeDC, &fakePFD);
+    if (fakePFDID == 0)
+    {
+        std::cout << "ChoosePixelFormat() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+    if (SetPixelFormat(fakeDC, fakePFDID, &fakePFD) == false)
+    {
+        std::cout << "SetPixelFormat() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+    HGLRC fakeRC = wglCreateContext(fakeDC);    // Rendering Contex
+
+    if (fakeRC == 0)
+    {
+        std::cout << "wglCreateContext() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+    if (!wglMakeCurrent(fakeDC, fakeRC))
+    {
+        std::cout << "wglMakeCurrent() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+    wglChoosePixelFormatARB = reinterpret_cast<PFNWGLCHOOSEPIXELFORMATARBPROC>(
+                                        wglGetProcAddress("wglChoosePixelFormatARB"));
+
+    if (wglChoosePixelFormatARB == nullptr)
+    {
+        std::cout << "wglGetProcAddress() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+    wglCreateContextAttribsARB = reinterpret_cast<PFNWGLCREATECONTEXTATTRIBSARBPROC>(
+                                        wglGetProcAddress("wglCreateContextAttribsARB"));
+    
+    if (wglCreateContextAttribsARB == nullptr)
+    {
+        std::cout << "wglGetProcAddress() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+    wglMakeCurrent(nullptr, nullptr);
+    wglDeleteContext(fakeRC);
+    ReleaseDC(fakeWND, fakeDC);
+    DestroyWindow(fakeWND);
+}
+
+void GraphicsSystem::OpenGLInit()
+{
+    const int pixelAttribs[] = {
+        WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
+        WGL_SUPPORT_OPENGL_ARB, GL_TRUE,
+        WGL_DOUBLE_BUFFER_ARB, GL_TRUE,
+        WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_ARB,
+        WGL_ACCELERATION_ARB, WGL_FULL_ACCELERATION_ARB,
+        WGL_COLOR_BITS_ARB, 32,
+        WGL_ALPHA_BITS_ARB, 8,
+        WGL_DEPTH_BITS_ARB, 24,
+        WGL_STENCIL_BITS_ARB, 8,
+        WGL_SAMPLE_BUFFERS_ARB, GL_TRUE,
+        WGL_SAMPLES_ARB, 4,
+        0
+    };
+
+    HGLRC hglrc;
+    HWND hwnd = WindowsSystem::Instance()->getHandle();
+    hdc = GetDC(hwnd);
+
+    int pixelFormatID; UINT numFormats;
+    bool status = wglChoosePixelFormatARB(hdc, pixelAttribs, 0, 1, &pixelFormatID, &numFormats);
+
+    if (status == false || numFormats == 0) {
+        std::cout << "wglChoosePixelFormatARB() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+    PIXELFORMATDESCRIPTOR PFD;
+    DescribePixelFormat(hdc, pixelFormatID, sizeof(PFD), &PFD);
+    
+    if (SetPixelFormat(hdc, pixelFormatID, &PFD) == false)
+    {
+        std::cout << "SetPixelFormat() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+    const int major_min = 4, minor_min = 5;
+    int  contextAttribs[] = {
+        WGL_CONTEXT_MAJOR_VERSION_ARB, major_min,
+        WGL_CONTEXT_MINOR_VERSION_ARB, minor_min,
+        WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+        0
+    };
+
+    hglrc = wglCreateContextAttribsARB(hdc, 0, contextAttribs);
+    if (!hglrc) {
+        std::cout << "wglCreateContextAttribsARB() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+
+    if (!wglMakeCurrent(hdc, hglrc)) {
+        std::cout << "wglMakeCurrent() failed.";
+        std::exit(EXIT_FAILURE);
+    }
+
+    GLenum err = glewInit();
+    if (GLEW_OK != err)
+    {
+        std::cerr << "Unable to initialize GLEW - error: "
+            << glewGetErrorString(err) << " abort program" << std::endl;
+    }
+
+    if (GLEW_VERSION_4_5) {
+        std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
+        std::cout << "Driver supports OpenGL 4.5\n" << std::endl;
+    }
+
+    else {
+        std::cerr << "Driver doesn't support OpenGL 4.5 - abort program" << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+}
 
 /*  _________________________________________________________________________ */
 /*! GraphicsSystem::init
@@ -25,44 +181,12 @@ Context information.
 */
 void GraphicsSystem::init() {
 
-    PIXELFORMATDESCRIPTOR pfd = {
-    sizeof(PIXELFORMATDESCRIPTOR),
-        1,
-        PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    // Flags
-        PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
-        32,                   // Colordepth of the framebuffer.
-        0, 0, 0, 0, 0, 0,
-        0,
-        0,
-        0,
-        0, 0, 0, 0,
-        24,                   // Number of bits for the depthbuffer
-        8,                    // Number of bits for the stencilbuffer
-        0,                    // Number of Aux buffers in the framebuffer.
-        PFD_MAIN_PLANE,
-        0,
-        0, 0, 0
-    };
-
-    HDC hdc;
-    HGLRC hglrc;
-    int PixelFormat;
-
-    hdc = GetDC(WindowsSystem::Instance()->getHandle());
-    PixelFormat = ChoosePixelFormat(hdc, &pfd);
-    SetPixelFormat(hdc, PixelFormat, &pfd);
-    hglrc = wglCreateContext(hdc);
-    wglMakeCurrent(hdc, hglrc);
-
-    GLenum err = glewInit();
-    if (GLEW_OK != err)
-    {
-        std::cerr << "Unable to initialize GLEW - error: "
-            << glewGetErrorString(err) << " abort program" << std::endl;
-    }
+    glClearDepth(1.0f);                         // Depth Buffer Setup
+    glEnable(GL_DEPTH_TEST);                        // Enables Depth Testing
+    glDepthFunc(GL_LEQUAL);
 
     // Part 1: clear colorbuffer with white color ...
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
     // Part 2: split color buffer into four viewports ...
     GLint w{ WindowsSystem::Instance()->getWinWidth() }, h{ WindowsSystem::Instance()->getWinHeight() };
@@ -105,6 +229,8 @@ void GraphicsSystem::draw() {
 
     // render rectangular shape from NDC coordinates to viewport
     GraphicsSystem::models[0].draw();
+
+    SwapBuffers(hdc);
 }
 
 /*  _________________________________________________________________________ */
@@ -319,7 +445,6 @@ void GraphicsSystem::GLModel::draw()
     shdr_pgm.Use();
     
     glBindVertexArray(vaoid);
-
     /*
     if (3 <= task && task <= 6)
     {

@@ -7,6 +7,7 @@
 
 #include "Game.h"
 #include "MenuState.h"
+#include "GraphicsSystem.h"
 
 #define EPSILON		0.0001f
 #define PI			3.14159265358f
@@ -29,6 +30,9 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	// Register the window class
 	WindowsSystem::Instance()->Init(currentInstance, "GAM200 MonkeyTypewriters", 800, 600);
+	// Set up OpenGL context
+	GraphicsSystem::OpenGLInit();
+
 	// Create a sound class
 	SoundSystem EngineSoundSystem;
 

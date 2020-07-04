@@ -173,6 +173,7 @@
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="Source.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="wglext.h" />
     <ClInclude Include="WindowsSystem.h" />
     <ClInclude Include="WinKeyCodes.h" />
   </ItemGroup>

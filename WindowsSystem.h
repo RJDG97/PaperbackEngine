@@ -11,7 +11,8 @@ class WindowsSystem {
 	// Singleton declaration
 	static WindowsSystem* w_Instance;
 	// Windows class declaration
-	WNDCLASS wc;
+	WNDCLASSEX wcex;
+	LPTSTR windowClass;
 	// Message class declaration
 	MSG msg;
 	// Windows handle
@@ -39,6 +40,8 @@ public:
 	void UnloadInstance();
 
 	HWND getHandle();
+
+	LPTSTR getWindowClass();
 
 	int getWinWidth() const;
 

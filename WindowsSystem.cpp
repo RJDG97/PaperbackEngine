@@ -1,4 +1,5 @@
 #include "WindowsSystem.h"
+#include "GraphicsSystem.h"
 #include <memory>
 
 FILE* file;
@@ -27,7 +28,7 @@ LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM
 }
 
 // Default constructor for WindowsSystem Class
-WindowsSystem::WindowsSystem() : wc{}, msg{}, hwnd(), wWidth{ 0 }, wHeight{ 0 } {}
+WindowsSystem::WindowsSystem() : wcex{}, msg{}, hwnd(), wWidth{ 0 }, wHeight{ 0 } {}
 
 void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, int _x, int _y, LPCSTR _className, HCURSOR _cursor, HBRUSH _bgColor) {
 
@@ -35,18 +36,28 @@ void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, in
 	UNREFERENCED_PARAMETER(_className);
 
 	LPCWSTR Name = L"MyWindows";
-	wc.hInstance = _currentInstance;								// Current instance
-	wc.lpszClassName = Name;										// Name of class
-	wc.hCursor = _cursor;											// Cursor type (Style)
-	wc.hbrBackground = _bgColor;									// Background color of console window
-	wc.lpfnWndProc = WindowProcessMessages;							// Process messages (Not done)
-	RegisterClass(&wc);												// Register the Windows Class
+	ZeroMemory(&wcex, sizeof(wcex));
+	wcex.cbSize = sizeof(wcex);
+	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	wcex.hInstance = _currentInstance;								// Current instance
+	wcex.lpszClassName = Name;										// Name of class
+	wcex.hCursor = _cursor;											// Cursor type (Style)
+	wcex.hbrBackground = _bgColor;									// Background color of console window
+	wcex.lpfnWndProc = WindowProcessMessages;						// Process messages (Not done)
+	windowClass = MAKEINTATOM(RegisterClassEx(&wcex));
+	
+	if (windowClass == 0) {
+		std::cout << "RegisterClassEx() failed.";
+		std::exit;
+	}
+
+	GraphicsSystem::OpenGLExtensionsInit(_currentInstance);
 
 	hwnd = CreateWindow(Name, Name,									// Name of class, name of console window
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,							// Window style
 		CW_USEDEFAULT, CW_USEDEFAULT,								// Window initial position
 		_x, _y,														// Window size
-		nullptr, nullptr, nullptr, nullptr);
+		nullptr, nullptr, _currentInstance, nullptr);
 
 	RECT rect = { 0 };
 	GetClientRect(hwnd, &rect);
@@ -78,6 +89,11 @@ void WindowsSystem::UnloadInstance() {
 
 HWND WindowsSystem::getHandle() {
 	return hwnd;
+}
+
+LPTSTR WindowsSystem::getWindowClass()
+{
+	return windowClass;
 }
 
 int WindowsSystem::getWinWidth() const {

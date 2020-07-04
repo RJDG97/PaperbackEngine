@@ -128,5 +128,8 @@
     <ClInclude Include="GraphicsSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
+    <ClInclude Include="wglext.h">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
