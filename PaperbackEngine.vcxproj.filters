@@ -78,7 +78,7 @@
     <ClCompile Include="glslshader.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
-    <ClCompile Include="glapp.cpp">
+    <ClCompile Include="GraphicsSystem.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,7 +125,7 @@
     <ClInclude Include="glslshader.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="glapp.h">
+    <ClInclude Include="GraphicsSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,18 +1,16 @@
 /*                                                                      guard
 ----------------------------------------------------------------------------- */
-#ifndef GLAPP_H
-#define GLAPP_H
+#ifndef GRAPHICSSYSTEM_H
+#define GRAPHICSSYSTEM_H
 
 /*                                                                   includes
 ----------------------------------------------------------------------------- */
 #include <GL/glew.h> // for access to OpenGL API declarations
 #include "glslshader.h"
 
-struct GLApp {
-
-  static bool tPressed;
-  static bool mPressed;
-  static bool aPressed;
+class GraphicsSystem
+{
+public:
 
   static void init();
   static void update(double delta_time);
@@ -20,7 +18,8 @@ struct GLApp {
   static void cleanup();
 
   // encapsulates state required to render a geometrical model
-  struct GLModel {
+  struct GLModel
+  {
       GLenum     primitive_type;
       GLuint     primitive_cnt;
       GLuint     vaoid;
@@ -38,4 +37,6 @@ struct GLApp {
   static std::vector<GLModel> models;
 };
 
-#endif /* GLAPP_H */
+extern GraphicsSystem graphicsSystem;
+
+#endif

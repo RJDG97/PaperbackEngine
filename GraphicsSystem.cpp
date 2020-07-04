@@ -2,30 +2,19 @@
 ----------------------------------------------------------------------------- */
 #define _USE_MATH_DEFINES
 
-#include "glapp.h"
+#include <GL/glew.h> // for access to OpenGL API declarations 
+#include "GraphicsSystem.h"
 #include "WindowsSystem.h"
 #include <cmath>
 #include <string>
 #include <array>
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */
-static GLApp    g_glapp;
-std::vector<GLApp::GLModel> GLApp::models;
-
-static GLint task = 0;
-static GLint modulate = 0;
-static int alphaBlending = 0;
-static GLfloat size = 0.0f;
-static double time = 0.0;
-static double easing = 0.0;
-static double totalTime = 20.0;
-
-bool GLApp::mPressed = false;
-bool GLApp::tPressed = false;
-bool GLApp::aPressed = false;
+GraphicsSystem graphicsSystem;
+std::vector<GraphicsSystem::GLModel> GraphicsSystem::models;
 
 /*  _________________________________________________________________________ */
-/*! GLApp::init
+/*! GraphicsSystem::init
 
 @param none
 
@@ -34,7 +23,44 @@ bool GLApp::aPressed = false;
 Initializes the OpenGL rendering pipeline, and then prints the OpenGL
 Context information.
 */
-void GLApp::init() {
+void GraphicsSystem::init() {
+
+    PIXELFORMATDESCRIPTOR pfd = {
+    sizeof(PIXELFORMATDESCRIPTOR),
+        1,
+        PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    // Flags
+        PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
+        32,                   // Colordepth of the framebuffer.
+        0, 0, 0, 0, 0, 0,
+        0,
+        0,
+        0,
+        0, 0, 0, 0,
+        24,                   // Number of bits for the depthbuffer
+        8,                    // Number of bits for the stencilbuffer
+        0,                    // Number of Aux buffers in the framebuffer.
+        PFD_MAIN_PLANE,
+        0,
+        0, 0, 0
+    };
+
+    HDC hdc;
+    HGLRC hglrc;
+    int PixelFormat;
+
+    hdc = GetDC(WindowsSystem::Instance()->getHandle());
+    PixelFormat = ChoosePixelFormat(hdc, &pfd);
+    SetPixelFormat(hdc, PixelFormat, &pfd);
+    hglrc = wglCreateContext(hdc);
+    wglMakeCurrent(hdc, hglrc);
+
+    GLenum err = glewInit();
+    if (GLEW_OK != err)
+    {
+        std::cerr << "Unable to initialize GLEW - error: "
+            << glewGetErrorString(err) << " abort program" << std::endl;
+    }
+
     // Part 1: clear colorbuffer with white color ...
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -43,76 +69,28 @@ void GLApp::init() {
     glViewport(0, 0, w, h);
 
     // Part 3: create different geometries and insert them into
-    // repository container GLApp::models ...
+    // repository container GraphicsSystem::models ...
 
-    GLApp::models.push_back(
-        GLApp::tristrips_model(1, 1, "../shaders/tutorial-5.vert",
-            "../shaders/tutorial-5.frag"));
+    GraphicsSystem::models.push_back(
+        GraphicsSystem::tristrips_model(1, 1, "Shaders/default.vert",
+            "Shaders/default.frag"));
 }
 
 /*  _________________________________________________________________________ */
-/*! GLApp::update
+/*! GraphicsSystem::update
 
 @param double delta_time
 
 @return void
 
-When T is pressed, task is changed.
-When M is pressed, modulation is turned off/on.
-When A is pressed, alpha blending mode is turned off/on.
-
 This also updates the size of the squares to be rendered in one of the tasks.
 */
-void GLApp::update(double delta_time) {
+void GraphicsSystem::update(double delta_time) {
 
-    if (tPressed == true)
-    {
-        task = (task + 1) % 7;
-
-        if (task == 3)
-        {
-            time = 0.0f;
-        }
-
-        tPressed = false;
-    }
-
-    if (mPressed == true)
-    {
-        modulate = (modulate + 1) % 2;
-        mPressed = false;
-    }
-
-    if (aPressed == true)
-    {
-        alphaBlending = (alphaBlending + 1) % 2;
-
-        if (alphaBlending)
-        {
-            glEnable(GL_BLEND);
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        }
-
-        else
-        {
-            glDisable(GL_BLEND);
-        }
-
-        aPressed = false;
-    }
-
-    if (task == 2)
-    {
-        time += delta_time;
-        time > 40.0 ? time -= 40.0 : time;
-        double t = time / totalTime;
-        easing = (sin(M_PI * t - M_PI / 2) + 1) / 2;
-        size = static_cast<GLfloat>(16.0f + easing * (256.0 - 16.0));
-    }
 }
 
 /*  _________________________________________________________________________ */
-/*! GLApp::draw
+/*! GraphicsSystem::draw
 
 @param none
 
@@ -120,19 +98,17 @@ void GLApp::update(double delta_time) {
 
 Clears the buffer and then draws a rectangular model in the viewport.
 */
-void GLApp::draw() {
-    //write window title
-   //GLHelper::title.append
+void GraphicsSystem::draw() {
 
     //clear back buffer as before...
     glClear(GL_COLOR_BUFFER_BIT);
 
     // render rectangular shape from NDC coordinates to viewport
-    GLApp::models[0].draw();
+    GraphicsSystem::models[0].draw();
 }
 
 /*  _________________________________________________________________________ */
-/*! GLApp::cleanup
+/*! GraphicsSystem::cleanup
 
 @param none
 
@@ -140,12 +116,12 @@ void GLApp::draw() {
 
 Returns allocated resources
 */
-void GLApp::cleanup() {
+void GraphicsSystem::cleanup() {
   // empty for now
 }
 
 /*  _________________________________________________________________________ */
-/*! GLApp::setup_shdrpgm
+/*! GraphicsSystem::setup_shdrpgm
 
 @param none
 
@@ -154,7 +130,7 @@ void GLApp::cleanup() {
 Loads the shader files and uses the shader program pipeline functionality
 implemented in class GLSLShader
 */
-void GLApp::GLModel::setup_shdrpgm(std::string vtx_shdr, std::string frg_shdr)
+void GraphicsSystem::GLModel::setup_shdrpgm(std::string vtx_shdr, std::string frg_shdr)
 {
     std::vector<std::pair<GLenum, std::string>> shdr_files; 
     shdr_files.push_back(std::make_pair(GL_VERTEX_SHADER, vtx_shdr));
@@ -169,6 +145,7 @@ void GLApp::GLModel::setup_shdrpgm(std::string vtx_shdr, std::string frg_shdr)
     }
 }
 
+//IGNORE THIS ONE NEED TO CHANGE TO USE FREEIMAGE
 GLuint setup_texobj(std::string pathname)
 {
     // remember all our images have width and height of 256 texels and
@@ -200,7 +177,7 @@ GLuint setup_texobj(std::string pathname)
 
 
 /*  _________________________________________________________________________ */
-/*! GLApp::tristrips_model
+/*! GraphicsSystem::tristrips_model
 
 @param slices
 Number of subintervals divided horizontally
@@ -219,20 +196,14 @@ Contains information about the model to be rendered
 
 Sets up a model comprising of triangle fans, using AOS.
 */
-GLApp::GLModel GLApp::tristrips_model(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr)
+GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr)
 {
     // Generates the vertices required to render triangle strips
 
-    struct vertex
-    {
-        glm::vec2 pos_vtx;
-        glm::vec3 clr_vtx;
-        glm::vec2 tex_vtx;
-    };
-
-    std::array<vertex, 4> vertices;
-
     int const count{ (stacks + 1) * (slices + 1) };
+    std::vector<glm::vec2> pos_vtx(count);
+    std::vector<glm::vec3> clr_vtx(count);
+    //std::vector<glm::vec2> tex_vtx(4);
 
     float const u{ 2.f / static_cast<float>(slices) };
     float const v{ 2.f / static_cast<float>(stacks) };
@@ -241,24 +212,20 @@ GLApp::GLModel GLApp::tristrips_model(int slices, int stacks, std::string vtx_sh
     {
         for (int col{ 0 }; col <= slices; ++col)
         {
-            vertex temp;
+            pos_vtx[index] = glm::vec2(u * static_cast<float>(col) - 1.f, v* static_cast<float>(row) - 1.f);
 
-            temp.pos_vtx = glm::vec2{ u * static_cast<float>(col) - 1.f, v* static_cast<float>(row) - 1.f };
-            
             // Randomly generate r, g, b values for vertex color attribute
-            temp.clr_vtx = glm::vec3{static_cast<float>(row)/stacks,
-                                        static_cast<float>(col)/slices,
-                                            1.0 - static_cast<float>(row) / stacks - static_cast<float>(col) / slices };
-
-            temp.tex_vtx = glm::vec2{ col, row };
-
-            vertices[index++] = temp;
+            clr_vtx[index] = glm::vec3(static_cast<GLfloat>(rand() % 255 / 255.0f),
+                               static_cast<GLfloat>(rand() % 255 / 255.0f),
+                               static_cast<GLfloat>(rand() % 255 / 255.0f));
+            
+            //tex_vtx[index++] = glm::vec2{ col, row };
         }
     }
 
     // Generate the triangle strip's index or element list
 
-    std::vector<GLushort> idx_vtx(((slices + 1) * 2 + 2) * stacks - 2);
+    std::vector<GLushort> idx_vtx((slices + 1) * 2 + 2 * stacks - 2);
 
     for (int row{ 0 }, index{ 0 }; row <= stacks - 1; ++row)
     {
@@ -280,29 +247,41 @@ GLApp::GLModel GLApp::tristrips_model(int slices, int stacks, std::string vtx_sh
         }
     }
 
-    // Generate a VAO handle to encapsulate the VBO(s) and state of this triangle mesh
+    // Generate a VAO handle to encapsulate the VBO(s) and state of this triangle mesh 
+
     GLuint vbo_hdl;
     glCreateBuffers(1, &vbo_hdl);
-    glNamedBufferStorage(vbo_hdl, sizeof(vertices), vertices.data(), GL_DYNAMIC_STORAGE_BIT);
-    //glNamedBufferSubData(vbo_hdl, 0, sizeof(vertices), vertices.data());
+    glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
+                                  sizeof(glm::vec3) * clr_vtx.size(),// +
+                                  //sizeof(glm::vec2) * tex_vtx.size(),
+                                        nullptr, GL_DYNAMIC_STORAGE_BIT);
+
+    glNamedBufferSubData(vbo_hdl, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
+
+    glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(),
+        sizeof(glm::vec3) * clr_vtx.size(), clr_vtx.data());
+
+    //glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(),
+    //    sizeof(glm::vec2) * tex_vtx.size(), tex_vtx.data());
 
     GLuint vao_hdl;
     glCreateVertexArrays(1, &vao_hdl);
-
     glEnableVertexArrayAttrib(vao_hdl, 0);
-    glVertexArrayVertexBuffer(vao_hdl, 0, vbo_hdl, 0, sizeof(vertex));
+    glVertexArrayVertexBuffer(vao_hdl, 0, vbo_hdl, 0, sizeof(glm::vec2));
     glVertexArrayAttribFormat(vao_hdl, 0, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 0, 0);
 
     glEnableVertexArrayAttrib(vao_hdl, 1);
-    glVertexArrayVertexBuffer(vao_hdl, 1, vbo_hdl, offsetof(vertex, vertex::clr_vtx), sizeof(vertex));
+    glVertexArrayVertexBuffer(vao_hdl, 1, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(), sizeof(glm::vec3));
     glVertexArrayAttribFormat(vao_hdl, 1, 3, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 1, 1);
 
+    /*
     glEnableVertexArrayAttrib(vao_hdl, 2);
-    glVertexArrayVertexBuffer(vao_hdl, 2, vbo_hdl, offsetof(vertex, vertex::tex_vtx), sizeof(vertex));
+    glVertexArrayVertexBuffer(vao_hdl, 2, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(), sizeof(glm::vec2));
     glVertexArrayAttribFormat(vao_hdl, 2, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 2, 2);
+    */
 
     GLuint ebo_hdl;
     glCreateBuffers(1, &ebo_hdl);
@@ -313,8 +292,9 @@ GLApp::GLModel GLApp::tristrips_model(int slices, int stacks, std::string vtx_sh
     glVertexArrayElementBuffer(vao_hdl, ebo_hdl);
     glBindVertexArray(0);
 
-    // Return an appropriately initialized instance of GLApp::GLModel
-    GLApp::GLModel mdl;
+    // Return an appropriately initialized instance of GraphicsSystem::GLModel
+
+    GraphicsSystem::GLModel mdl;
     mdl.vaoid = vao_hdl;
     mdl.primitive_type = GL_TRIANGLE_STRIP;
     mdl.setup_shdrpgm(vtx_shdr, frg_shdr);
@@ -324,7 +304,7 @@ GLApp::GLModel GLApp::tristrips_model(int slices, int stacks, std::string vtx_sh
 }
 
 /*  _________________________________________________________________________ */
-/*! GLApp::GLModel::draw
+/*! GraphicsSystem::GLModel::draw
 
 @param none
 
@@ -332,7 +312,7 @@ GLApp::GLModel GLApp::tristrips_model(int slices, int stacks, std::string vtx_sh
 
 Renders the model in a viewport.
 */
-void GLApp::GLModel::draw()
+void GraphicsSystem::GLModel::draw()
 {
     // there are many shader programs initialized - here we're saying
     // which specific shader program should be used to render geometry
@@ -340,6 +320,7 @@ void GLApp::GLModel::draw()
     
     glBindVertexArray(vaoid);
 
+    /*
     if (3 <= task && task <= 6)
     {
         GLuint texobj = setup_texobj("duck-rgba-256");
@@ -371,43 +352,7 @@ void GLApp::GLModel::draw()
         GLuint tex_loc = glGetUniformLocation(shdr_pgm.GetHandle(), "uTex2d");
         glUniform1i(tex_loc, 6);
     }
-
-    // copy object's model-to-NDC matrix to vertex shader's uniform variable uModelToNDC
-    GLint uniform_var_task =
-        glGetUniformLocation(shdr_pgm.GetHandle(), "task");
-
-    if (uniform_var_task >= 0) {
-        glUniform1i(uniform_var_task, task);
-    }
-
-    else {
-        std::cout << "Uniform variable doesn't exist!!!\n";
-        std::exit(EXIT_FAILURE);
-    }
-
-    GLint uniform_var_modulate =
-        glGetUniformLocation(shdr_pgm.GetHandle(), "modulate");
-
-    if (uniform_var_modulate >= 0) {
-        glUniform1i(uniform_var_modulate, modulate);
-    }
-
-    else {
-        std::cout << "Uniform variable doesn't exist!!!\n";
-        std::exit(EXIT_FAILURE);
-    }
-
-    GLint uniform_var_size =
-        glGetUniformLocation(shdr_pgm.GetHandle(), "size");
-
-    if (uniform_var_size >= 0) {
-        glUniform1f(uniform_var_size, size);
-    }
-
-    else {
-        std::cout << "Uniform variable doesn't exist!!!\n";
-        std::exit(EXIT_FAILURE);
-    }
+    */
 
     glDrawElements(GL_TRIANGLE_STRIP, draw_cnt, GL_UNSIGNED_SHORT, NULL);
 

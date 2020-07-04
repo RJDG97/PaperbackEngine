@@ -8,6 +8,8 @@
 #include "WinKeyCodes.h"
 #include "WindowsSystem.h"
 
+#include "GraphicsSystem.h"
+
 //SAMPLE MENU STATE
 
 MenuState MenuState::m_MenuState;
@@ -19,6 +21,8 @@ void MenuState::init()
 	std::cout << "Press SPACE to START" << std::endl;
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
+
+	GraphicsSystem::init();
 }
 
 void MenuState::free()
@@ -70,6 +74,7 @@ void MenuState::update(Game* game)
 
 void MenuState::draw(Game* game)
 {
+	GraphicsSystem::draw();
 	UNREFERENCED_PARAMETER(game);
 }
 

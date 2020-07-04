@@ -5,18 +5,11 @@ layout (location=1) in vec3 vVertexClrCoord;
 layout (location=2) in vec2 vVertexTexCoord;
 
 layout (location=0) out vec3 vClrCoord;
-layout (location=1) out vec2 vTexCoord;
-
-uniform int task;
+/*layout (location=1) out vec2 vTexCoord;*/
 
 void main() {
         
     gl_Position = vec4(vVertexPosition, 0.0, 1.0);
     vClrCoord = vVertexClrCoord;
-
-    switch (task)
-    {
-        case 3: vTexCoord = vVertexTexCoord; break;
-        default: vTexCoord = vVertexTexCoord * 4; break;
-    }
+    /*vTexCoord = vVertexTexCoord;*/
 }
