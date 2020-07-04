@@ -106,11 +106,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>copy "$(SolutionDir)lib\fmod\bin\fmodL.dll" "$(TargetDir)fmodL.dll" /Y</Command>
-    </PostBuildEvent>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -150,6 +147,8 @@
   <ItemGroup>
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="glapp.cpp" />
+    <ClCompile Include="glslshader.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Matrix3x3.cpp" />
     <ClCompile Include="MenuState.cpp" />
@@ -164,6 +163,8 @@
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="glapp.h" />
+    <ClInclude Include="glslshader.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Matrix3x3.h" />
     <ClInclude Include="MenuState.h" />
