@@ -16,9 +16,20 @@ HDC GraphicsSystem::hdc;
 
 std::vector<GraphicsSystem::GLModel> GraphicsSystem::models;
 
+GLuint vertexbuffer;
+
 void GraphicsSystem::OpenGLExtensionsInit(HINSTANCE hInstance)
 {
-    LPTSTR windowClass = WindowsSystem::Instance()->getWindowClass();
+    WNDCLASSEX wcex;
+    ZeroMemory(&wcex, sizeof(wcex));
+    wcex.cbSize = sizeof(wcex);
+    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+    wcex.lpfnWndProc = WindowProcessMessages;
+    wcex.hInstance = hInstance;
+    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex.lpszClassName = L"FakeWindow";
+    LPTSTR windowClass = MAKEINTATOM(RegisterClassEx(&wcex));
+
     DWORD style = WS_CAPTION | WS_SYSMENU | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 
     HWND fakeWND = CreateWindow(
@@ -91,6 +102,7 @@ void GraphicsSystem::OpenGLExtensionsInit(HINSTANCE hInstance)
     wglDeleteContext(fakeRC);
     ReleaseDC(fakeWND, fakeDC);
     DestroyWindow(fakeWND);
+    UnregisterClass(L"FakeWindow", hInstance);
 }
 
 void GraphicsSystem::OpenGLInit()
@@ -123,7 +135,11 @@ void GraphicsSystem::OpenGLInit()
     }
 
     PIXELFORMATDESCRIPTOR PFD;
-    DescribePixelFormat(hdc, pixelFormatID, sizeof(PFD), &PFD);
+    if (DescribePixelFormat(hdc, pixelFormatID, sizeof(PFD), &PFD) == false)
+    {
+        std::cout << "DescribePixelFormat() failed.";
+        std::exit(EXIT_FAILURE);
+    }
     
     if (SetPixelFormat(hdc, pixelFormatID, &PFD) == false)
     {
@@ -198,6 +214,21 @@ void GraphicsSystem::init() {
     GraphicsSystem::models.push_back(
         GraphicsSystem::tristrips_model(1, 1, "Shaders/default.vert",
             "Shaders/default.frag"));
+
+    static const GLfloat g_vertex_buffer_data[] = {
+       -1.0f, -1.0f, 0.0f,
+       1.0f, -1.0f, 0.0f,
+       0.0f,  1.0f, 0.0f,
+    };
+
+    // This will identify our vertex buffer
+
+    // Generate 1 buffer, put the resulting identifier in vertexbuffer
+    glGenBuffers(1, &vertexbuffer);
+    // The following commands will talk about our 'vertexbuffer' buffer
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    // Give our vertices to OpenGL.
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 }
 
 /*  _________________________________________________________________________ */
@@ -211,6 +242,24 @@ This also updates the size of the squares to be rendered in one of the tasks.
 */
 void GraphicsSystem::update(double delta_time) {
 
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // 1st attribute buffer : vertices
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glVertexAttribPointer(
+        0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+        3,                  // size
+        GL_FLOAT,           // type
+        GL_FALSE,           // normalized?
+        0,                  // stride
+        (void*)0            // array buffer offset
+    );
+    // Draw the triangle !
+    glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+    glDisableVertexAttribArray(0);
+
+    SwapBuffers(hdc);
 }
 
 /*  _________________________________________________________________________ */
@@ -329,7 +378,6 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
     int const count{ (stacks + 1) * (slices + 1) };
     std::vector<glm::vec2> pos_vtx(count);
     std::vector<glm::vec3> clr_vtx(count);
-    //std::vector<glm::vec2> tex_vtx(4);
 
     float const u{ 2.f / static_cast<float>(slices) };
     float const v{ 2.f / static_cast<float>(stacks) };
@@ -341,17 +389,15 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
             pos_vtx[index] = glm::vec2(u * static_cast<float>(col) - 1.f, v* static_cast<float>(row) - 1.f);
 
             // Randomly generate r, g, b values for vertex color attribute
-            clr_vtx[index] = glm::vec3(static_cast<GLfloat>(rand() % 255 / 255.0f),
-                               static_cast<GLfloat>(rand() % 255 / 255.0f),
-                               static_cast<GLfloat>(rand() % 255 / 255.0f));
-            
-            //tex_vtx[index++] = glm::vec2{ col, row };
+            clr_vtx[index++] = glm::vec3(static_cast<GLfloat>(rand() % 255 / 255.0f),
+                static_cast<GLfloat>(rand() % 255 / 255.0f),
+                static_cast<GLfloat>(rand() % 255 / 255.0f));
         }
     }
 
     // Generate the triangle strip's index or element list
 
-    std::vector<GLushort> idx_vtx((slices + 1) * 2 + 2 * stacks - 2);
+    std::vector<GLushort> idx_vtx(((slices + 1) * 2 + 2) * stacks - 2);
 
     for (int row{ 0 }, index{ 0 }; row <= stacks - 1; ++row)
     {
@@ -378,17 +424,13 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
     GLuint vbo_hdl;
     glCreateBuffers(1, &vbo_hdl);
     glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
-                                  sizeof(glm::vec3) * clr_vtx.size(),// +
-                                  //sizeof(glm::vec2) * tex_vtx.size(),
-                                        nullptr, GL_DYNAMIC_STORAGE_BIT);
+        sizeof(glm::vec3) * clr_vtx.size(),
+        nullptr, GL_DYNAMIC_STORAGE_BIT);
 
     glNamedBufferSubData(vbo_hdl, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
 
     glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(),
         sizeof(glm::vec3) * clr_vtx.size(), clr_vtx.data());
-
-    //glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(),
-    //    sizeof(glm::vec2) * tex_vtx.size(), tex_vtx.data());
 
     GLuint vao_hdl;
     glCreateVertexArrays(1, &vao_hdl);
@@ -402,13 +444,6 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
     glVertexArrayAttribFormat(vao_hdl, 1, 3, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 1, 1);
 
-    /*
-    glEnableVertexArrayAttrib(vao_hdl, 2);
-    glVertexArrayVertexBuffer(vao_hdl, 2, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(), sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_hdl, 2, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_hdl, 2, 2);
-    */
-
     GLuint ebo_hdl;
     glCreateBuffers(1, &ebo_hdl);
     glNamedBufferStorage(ebo_hdl,
@@ -418,7 +453,7 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
     glVertexArrayElementBuffer(vao_hdl, ebo_hdl);
     glBindVertexArray(0);
 
-    // Return an appropriately initialized instance of GraphicsSystem::GLModel
+    // Return an appropriately initialized instance of GLApp::GLModel
 
     GraphicsSystem::GLModel mdl;
     mdl.vaoid = vao_hdl;

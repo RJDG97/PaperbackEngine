@@ -35,6 +35,8 @@ void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, in
 	UNREFERENCED_PARAMETER(_windowName);
 	UNREFERENCED_PARAMETER(_className);
 
+	GraphicsSystem::OpenGLExtensionsInit(_currentInstance);
+
 	LPCWSTR Name = L"MyWindows";
 	ZeroMemory(&wcex, sizeof(wcex));
 	wcex.cbSize = sizeof(wcex);
@@ -50,8 +52,6 @@ void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, in
 		std::cout << "RegisterClassEx() failed.";
 		std::exit;
 	}
-
-	GraphicsSystem::OpenGLExtensionsInit(_currentInstance);
 
 	hwnd = CreateWindow(Name, Name,									// Name of class, name of console window
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,							// Window style
