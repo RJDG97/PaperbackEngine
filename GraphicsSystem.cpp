@@ -214,21 +214,6 @@ void GraphicsSystem::init() {
     GraphicsSystem::models.push_back(
         GraphicsSystem::tristrips_model(1, 1, "Shaders/default.vert",
             "Shaders/default.frag"));
-
-    static const GLfloat g_vertex_buffer_data[] = {
-       -1.0f, -1.0f, 0.0f,
-       1.0f, -1.0f, 0.0f,
-       0.0f,  1.0f, 0.0f,
-    };
-
-    // This will identify our vertex buffer
-
-    // Generate 1 buffer, put the resulting identifier in vertexbuffer
-    glGenBuffers(1, &vertexbuffer);
-    // The following commands will talk about our 'vertexbuffer' buffer
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    // Give our vertices to OpenGL.
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 }
 
 /*  _________________________________________________________________________ */
@@ -242,24 +227,6 @@ This also updates the size of the squares to be rendered in one of the tasks.
 */
 void GraphicsSystem::update(double delta_time) {
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // 1st attribute buffer : vertices
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glVertexAttribPointer(
-        0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-        3,                  // size
-        GL_FLOAT,           // type
-        GL_FALSE,           // normalized?
-        0,                  // stride
-        (void*)0            // array buffer offset
-    );
-    // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
-    glDisableVertexAttribArray(0);
-
-    SwapBuffers(hdc);
 }
 
 /*  _________________________________________________________________________ */
@@ -389,9 +356,9 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
             pos_vtx[index] = glm::vec2(u * static_cast<float>(col) - 1.f, v* static_cast<float>(row) - 1.f);
 
             // Randomly generate r, g, b values for vertex color attribute
-            clr_vtx[index++] = glm::vec3(static_cast<GLfloat>(rand() % 255 / 255.0f),
-                static_cast<GLfloat>(rand() % 255 / 255.0f),
-                static_cast<GLfloat>(rand() % 255 / 255.0f));
+            clr_vtx[index++] = glm::vec3{ static_cast<float>(row) / stacks,
+                                        static_cast<float>(col) / slices,
+                                            1.0 - static_cast<float>(row) / stacks - static_cast<float>(col) / slices };
         }
     }
 
