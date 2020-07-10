@@ -22,14 +22,15 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	UNREFERENCED_PARAMETER(previousInstance);
 	UNREFERENCED_PARAMETER(cmdLine);
 
-	// Checking for memory leaks
-#if defined(DEBUG) | defined(_DEBUG)
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	createDebugWindow();
-#endif
-
 	// Register the window class
 	WindowsSystem::Instance()->Init(currentInstance, "GAM200 MonkeyTypewriters", 800, 600);
+
+	// Checking for memory leaks
+	#if defined(DEBUG) | defined(_DEBUG)
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	createDebugWindow();
+	#endif
+
 	// Set up OpenGL context
 	GraphicsSystem::OpenGLInit();
 

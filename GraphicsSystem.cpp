@@ -174,18 +174,15 @@ void GraphicsSystem::OpenGLInit()
             << glewGetErrorString(err) << " abort program" << std::endl;
     }
 
-    std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
-
-    /*
-    if (GLEW_VERSION_4_5) {
+    if (GLEW_VERSION_4_3) {
         std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
-        std::cout << "Driver supports OpenGL 4.5\n" << std::endl;
+        std::cout << "Driver supports OpenGL 4.3\n" << std::endl;
     }
 
     else {
-        std::cerr << "Driver doesn't support OpenGL 4.5 - abort program" << std::endl;
+        std::cerr << "Driver doesn't support OpenGL 4.3 - abort program" << std::endl;
         std::exit(EXIT_FAILURE);
-    }*/
+    }
 }
 
 /*  _________________________________________________________________________ */
