@@ -147,7 +147,7 @@ void GraphicsSystem::OpenGLInit()
         std::exit(EXIT_FAILURE);
     }
 
-    const int major_min = 4, minor_min = 5;
+    const int major_min = 4, minor_min = 3;
     int  contextAttribs[] = {
         WGL_CONTEXT_MAJOR_VERSION_ARB, major_min,
         WGL_CONTEXT_MINOR_VERSION_ARB, minor_min,
@@ -174,6 +174,9 @@ void GraphicsSystem::OpenGLInit()
             << glewGetErrorString(err) << " abort program" << std::endl;
     }
 
+    std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
+
+    /*
     if (GLEW_VERSION_4_5) {
         std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
         std::cout << "Driver supports OpenGL 4.5\n" << std::endl;
@@ -182,7 +185,7 @@ void GraphicsSystem::OpenGLInit()
     else {
         std::cerr << "Driver doesn't support OpenGL 4.5 - abort program" << std::endl;
         std::exit(EXIT_FAILURE);
-    }
+    }*/
 }
 
 /*  _________________________________________________________________________ */
