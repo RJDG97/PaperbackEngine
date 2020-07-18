@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="glhelper.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="glslshader.cpp" />
     <ClCompile Include="InputSystem.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="glhelper.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="glslshader.h" />
     <ClInclude Include="InputSystem.h" />

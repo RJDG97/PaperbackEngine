@@ -3,20 +3,20 @@
 #define _USE_MATH_DEFINES
 
 #include "GraphicsSystem.h"
-#include "WindowsSystem.h"
 #include <cmath>
 #include <string>
 #include <array>
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */
-PFNWGLCREATECONTEXTATTRIBSARBPROC GraphicsSystem::wglCreateContextAttribsARB = nullptr;
-PFNWGLCHOOSEPIXELFORMATARBPROC GraphicsSystem::wglChoosePixelFormatARB = nullptr;
+//PFNWGLCREATECONTEXTATTRIBSARBPROC GraphicsSystem::wglCreateContextAttribsARB = nullptr;
+//PFNWGLCHOOSEPIXELFORMATARBPROC GraphicsSystem::wglChoosePixelFormatARB = nullptr;
 GraphicsSystem graphicsSystem;
-HDC GraphicsSystem::hdc;
+//HDC GraphicsSystem::hdc;
 
 std::vector<GraphicsSystem::GLModel> GraphicsSystem::models;
 
-GLuint vertexbuffer;
+
+/*
 
 void GraphicsSystem::OpenGLExtensionsInit(HINSTANCE hInstance)
 {
@@ -183,7 +183,7 @@ void GraphicsSystem::OpenGLInit()
         std::cerr << "Driver doesn't support OpenGL 4.3 - abort program" << std::endl;
         std::exit(EXIT_FAILURE);
     }
-}
+}*/
 
 /*  _________________________________________________________________________ */
 /*! GraphicsSystem::init
@@ -197,15 +197,11 @@ Context information.
 */
 void GraphicsSystem::init() {
 
-    glClearDepth(1.0f);                         // Depth Buffer Setup
-    glEnable(GL_DEPTH_TEST);                        // Enables Depth Testing
-    glDepthFunc(GL_LEQUAL);
-
     // Part 1: clear colorbuffer with white color ...
     glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
     // Part 2: split color buffer into four viewports ...
-    GLint w{ WindowsSystem::Instance()->getWinWidth() }, h{ WindowsSystem::Instance()->getWinHeight() };
+    GLint w{ GLHelper::width }, h{ GLHelper::height };
     glViewport(0, 0, w, h);
 
     // Part 3: create different geometries and insert them into
@@ -246,7 +242,7 @@ void GraphicsSystem::draw() {
     // render rectangular shape from NDC coordinates to viewport
     GraphicsSystem::models[0].draw();
 
-    SwapBuffers(hdc);
+    glfwSwapBuffers(GLHelper::ptr_window);
 }
 
 /*  _________________________________________________________________________ */

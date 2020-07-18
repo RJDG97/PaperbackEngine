@@ -6,22 +6,24 @@
 /*                                                                   includes
 ----------------------------------------------------------------------------- */
 #include <GL/glew.h> // for access to OpenGL API declarations
+#include <GLFW/glfw3.h>
+#include "glhelper.h"
 #include "glslshader.h"
-#include "wglext.h"
+//#include "wglext.h"
 
 class GraphicsSystem
 {
 public:
-    static void OpenGLExtensionsInit(HINSTANCE hInstance);
-    static void OpenGLInit();
+    //static void OpenGLExtensionsInit(HINSTANCE hInstance);
+    //static void OpenGLInit();
     static void init();
     static void update(double delta_time);
     static void draw();
     static void cleanup();
 
-    static HDC hdc;
-    static PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB;
-    static PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
+    //static HDC hdc;
+    //static PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB;
+    //static PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
 
     // encapsulates state required to render a geometrical model
     struct GLModel

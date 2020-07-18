@@ -3,19 +3,20 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glm-0.9.9.7;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)lib\fmod\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glm-0.9.9.7;$(SolutionDir)lib\glfw-3.3.2.bin.WIN64\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)lib\fmod\lib;$(SolutionDir)lib\glfw-3.3.2.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>fmodL_vc.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodL_vc.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)lib\fmod\bin\fmodL.dll" "$(TargetDir)fmodL.dll" /Y
 copy "$(SolutionDir)lib\fmod\bin\fmod.dll" "$(TargetDir)fmod.dll" /Y
-copy "$(SolutionDir)lib\glew-2.1.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y</Command>
+copy "$(SolutionDir)lib\glew-2.1.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
+copy "$(SolutionDir)lib\glfw-3.3.2.bin.WIN64\lib-vc2019\glfw3.dll" "$(TargetDir)glfw3.dll" /Y</Command>
     </PostBuildEvent>
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>

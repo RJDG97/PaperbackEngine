@@ -1,5 +1,4 @@
 #include "WindowsSystem.h"
-#include "GraphicsSystem.h"
 #include <memory>
 
 FILE* file;
@@ -35,7 +34,7 @@ void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, in
 	UNREFERENCED_PARAMETER(_windowName);
 	UNREFERENCED_PARAMETER(_className);
 
-	GraphicsSystem::OpenGLExtensionsInit(_currentInstance);
+	//GraphicsSystem::OpenGLExtensionsInit(_currentInstance);
 
 	LPCWSTR Name = L"MyWindows";
 	ZeroMemory(&wcex, sizeof(wcex));
