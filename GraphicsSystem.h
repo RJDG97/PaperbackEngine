@@ -6,8 +6,6 @@
 /*                                                                   includes
 ----------------------------------------------------------------------------- */
 #include <GL/glew.h> // for access to OpenGL API declarations
-//#include <GLFW/glfw3.h>
-//#include "glhelper.h"
 #include "glslshader.h"
 #include "wglext.h"
 

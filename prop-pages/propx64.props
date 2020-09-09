@@ -3,12 +3,12 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glm-0.9.9.7;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)lib\fmod\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glm-0.9.9.7;$(SolutionDir)lib\FreeImage\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)lib\fmod\lib;$(SolutionDir)lib\FreeImage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>fmodL_vc.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodL_vc.lib;opengl32.lib;glew32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -16,7 +16,7 @@
       <Command>copy "$(SolutionDir)lib\fmod\bin\fmodL.dll" "$(TargetDir)fmodL.dll" /Y
 copy "$(SolutionDir)lib\fmod\bin\fmod.dll" "$(TargetDir)fmod.dll" /Y
 copy "$(SolutionDir)lib\glew-2.1.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
-</Command>
+copy "$(SolutionDir)lib\FreeImage\bin\FreeImage.dll" "$(TargetDir)FreeImage.dll" /Y</Command>
     </PostBuildEvent>
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>

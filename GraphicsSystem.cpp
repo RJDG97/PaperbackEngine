@@ -4,6 +4,7 @@
 
 #include "WindowsSystem.h"
 #include "GraphicsSystem.h"
+#include <FreeImage.h>
 #include <cmath>
 #include <string>
 #include <array>
@@ -208,6 +209,10 @@ void GraphicsSystem::init() {
     GraphicsSystem::models.push_back(
         GraphicsSystem::tristrips_model(1, 1, "Shaders/default.vert",
             "Shaders/default.frag"));
+
+    //Initialize FreeImage
+    FreeImage_Initialise();
+    std::cout << "FreeImage Version " << FreeImage_GetVersion() << std::endl;
 }
 
 /*  _________________________________________________________________________ */
