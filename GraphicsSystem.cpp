@@ -2,190 +2,29 @@
 ----------------------------------------------------------------------------- */
 #define _USE_MATH_DEFINES
 
-#include "WindowsSystem.h"
 #include "GraphicsSystem.h"
+#include "glhelper.h"
 #include <FreeImage.h>
 #include <cmath>
 #include <string>
-#include <array>
+#include <set>
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */
-PFNWGLCREATECONTEXTATTRIBSARBPROC GraphicsSystem::wglCreateContextAttribsARB = nullptr;
-PFNWGLCHOOSEPIXELFORMATARBPROC GraphicsSystem::wglChoosePixelFormatARB = nullptr;
-GraphicsSystem graphicsSystem;
-HDC GraphicsSystem::hdc;
+GraphicsSystem* GraphicsSystem::graphicsSystem = nullptr;
 
+std::map<unsigned int, GLuint> textures;
 std::vector<GraphicsSystem::GLModel> GraphicsSystem::models;
 
-void GraphicsSystem::OpenGLExtensionsInit(HINSTANCE hInstance)
+
+GraphicsSystem* GraphicsSystem::Instance()
 {
-    WNDCLASSEX wcex;
-    ZeroMemory(&wcex, sizeof(wcex));
-    wcex.cbSize = sizeof(wcex);
-    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-    wcex.lpfnWndProc = WindowProcessMessages;
-    wcex.hInstance = hInstance;
-    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.lpszClassName = L"FakeWindow";
-    LPTSTR windowClass = MAKEINTATOM(RegisterClassEx(&wcex));
-
-    DWORD style = WS_CAPTION | WS_SYSMENU | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
-
-    HWND fakeWND = CreateWindow(
-        windowClass, L"Fake Window",
-        style,
-        0, 0,						// position x, y
-        1, 1,						// width, height
-        NULL, NULL,					// parent window, menu
-        hInstance, NULL);			// instance, param
-
-    HDC fakeDC = GetDC(fakeWND);    // Device Context
-
-    PIXELFORMATDESCRIPTOR fakePFD;
-    ZeroMemory(&fakePFD, sizeof(fakePFD));
-    fakePFD.nSize = sizeof(fakePFD);
-    fakePFD.nSize = sizeof(fakePFD);
-    fakePFD.nVersion = 1;
-    fakePFD.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-    fakePFD.iPixelType = PFD_TYPE_RGBA;
-    fakePFD.cColorBits = 32;
-    fakePFD.cAlphaBits = 8;
-    fakePFD.cDepthBits = 24;
-
-    const int fakePFDID = ChoosePixelFormat(fakeDC, &fakePFD);
-    if (fakePFDID == 0)
-    {
-        std::cout << "ChoosePixelFormat() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-    if (SetPixelFormat(fakeDC, fakePFDID, &fakePFD) == false)
-    {
-        std::cout << "SetPixelFormat() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-    HGLRC fakeRC = wglCreateContext(fakeDC);    // Rendering Contex
-
-    if (fakeRC == 0)
-    {
-        std::cout << "wglCreateContext() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-    if (!wglMakeCurrent(fakeDC, fakeRC))
-    {
-        std::cout << "wglMakeCurrent() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-    wglChoosePixelFormatARB = reinterpret_cast<PFNWGLCHOOSEPIXELFORMATARBPROC>(
-                                        wglGetProcAddress("wglChoosePixelFormatARB"));
-
-    if (wglChoosePixelFormatARB == nullptr)
-    {
-        std::cout << "wglGetProcAddress() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-    wglCreateContextAttribsARB = reinterpret_cast<PFNWGLCREATECONTEXTATTRIBSARBPROC>(
-                                        wglGetProcAddress("wglCreateContextAttribsARB"));
-    
-    if (wglCreateContextAttribsARB == nullptr)
-    {
-        std::cout << "wglGetProcAddress() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-    wglMakeCurrent(nullptr, nullptr);
-    wglDeleteContext(fakeRC);
-    ReleaseDC(fakeWND, fakeDC);
-    DestroyWindow(fakeWND);
-    UnregisterClass(L"FakeWindow", hInstance);
-}
-
-void GraphicsSystem::OpenGLInit()
-{
-    const int pixelAttribs[] = {
-        WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
-        WGL_SUPPORT_OPENGL_ARB, GL_TRUE,
-        WGL_DOUBLE_BUFFER_ARB, GL_TRUE,
-        WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_ARB,
-        WGL_ACCELERATION_ARB, WGL_FULL_ACCELERATION_ARB,
-        WGL_COLOR_BITS_ARB, 32,
-        WGL_ALPHA_BITS_ARB, 8,
-        WGL_DEPTH_BITS_ARB, 24,
-        WGL_STENCIL_BITS_ARB, 8,
-        WGL_SAMPLE_BUFFERS_ARB, GL_TRUE,
-        WGL_SAMPLES_ARB, 4,
-        0
-    };
-
-    HGLRC hglrc;
-    HWND hwnd = WindowsSystem::Instance()->getHandle();
-    hdc = GetDC(hwnd);
-
-    int pixelFormatID; UINT numFormats;
-    bool status = wglChoosePixelFormatARB(hdc, pixelAttribs, 0, 1, &pixelFormatID, &numFormats);
-
-    if (status == false || numFormats == 0) {
-        std::cout << "wglChoosePixelFormatARB() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-    PIXELFORMATDESCRIPTOR PFD;
-    if (DescribePixelFormat(hdc, pixelFormatID, sizeof(PFD), &PFD) == false)
-    {
-        std::cout << "DescribePixelFormat() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-    
-    if (SetPixelFormat(hdc, pixelFormatID, &PFD) == false)
-    {
-        std::cout << "SetPixelFormat() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-    const int major_min = 4, minor_min = 3;
-    int  contextAttribs[] = {
-        WGL_CONTEXT_MAJOR_VERSION_ARB, major_min,
-        WGL_CONTEXT_MINOR_VERSION_ARB, minor_min,
-        WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
-        0
-    };
-
-    hglrc = wglCreateContextAttribsARB(hdc, 0, contextAttribs);
-    if (!hglrc) {
-        std::cout << "wglCreateContextAttribsARB() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-
-    if (!wglMakeCurrent(hdc, hglrc)) {
-        std::cout << "wglMakeCurrent() failed.";
-        std::exit(EXIT_FAILURE);
-    }
-
-    GLenum err = glewInit();
-    if (GLEW_OK != err)
-    {
-        std::cerr << "Unable to initialize GLEW - error: "
-            << glewGetErrorString(err) << " abort program" << std::endl;
-    }
-
-    if (GLEW_VERSION_4_3) {
-        std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
-        std::cout << "Driver supports OpenGL 4.3\n" << std::endl;
-    }
-
-    else {
-        std::cerr << "Driver doesn't support OpenGL 4.3 - abort program" << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
+    if (!graphicsSystem)
+        graphicsSystem = new GraphicsSystem;
+    return graphicsSystem;
 }
 
 /*  _________________________________________________________________________ */
-/*! GraphicsSystem::init
+/*! GraphicsSystem::Init
 
 @param none
 
@@ -200,7 +39,7 @@ void GraphicsSystem::init() {
     glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
     // Part 2: split color buffer into four viewports ...
-    GLint w{ WindowsSystem::Instance()->getWinWidth() }, h{ WindowsSystem::Instance()->getWinHeight() };
+    GLint w{ GLHelper::Instance()->width }, h{ GLHelper::Instance()->height }; // THIS PART IS HARDCODED FOR NOW!!!
     glViewport(0, 0, w, h);
 
     // Part 3: create different geometries and insert them into
@@ -213,6 +52,9 @@ void GraphicsSystem::init() {
     //Initialize FreeImage
     FreeImage_Initialise();
     std::cout << "FreeImage Version " << FreeImage_GetVersion() << std::endl;
+
+    //load textures
+    setup_texobj("Resources\\Sprites\\tiles.png", 0);
 }
 
 /*  _________________________________________________________________________ */
@@ -242,10 +84,10 @@ void GraphicsSystem::draw() {
     //clear back buffer as before...
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // render rectangular shape from NDC coordinates to viewport
     GraphicsSystem::models[0].draw();
 
-    SwapBuffers(hdc);
+    glfwSwapBuffers(GLHelper::Instance()->ptr_window);
+
 }
 
 /*  _________________________________________________________________________ */
@@ -286,34 +128,92 @@ void GraphicsSystem::GLModel::setup_shdrpgm(std::string vtx_shdr, std::string fr
     }
 }
 
-//IGNORE THIS ONE NEED TO CHANGE TO USE FREEIMAGE
-GLuint setup_texobj(std::string pathname)
+GLuint GraphicsSystem::setup_texobj(const char* filename, const unsigned int texID)
 {
-    // remember all our images have width and height of 256 texels and
-    // use 32-bit RGBA texel format
-    GLint width {256}, height {256}, bytes_per_texel {4};
-    char* ptr_texels = new char[width * height * bytes_per_texel];
-
-    std::string path = "../images/" + pathname + ".tex";
-    std::ifstream ifs{ path, std::ios::binary };
-    ifs.read(ptr_texels, static_cast<int>(static_cast<double>(width) * height * bytes_per_texel));
-
+    //image format
+    FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
+    //pointer to the image, once loaded
+    FIBITMAP* dib(0);
+    //OpenGL's image ID to map to
     GLuint texobj_hdl;
-    // define and initialize a handle to texture object that will
-    // encapsulate two-dimensional textures
-    glCreateTextures(GL_TEXTURE_2D, 1, &texobj_hdl);
-    
-    // allocate GPU storage for texture image data loaded from file
-    glTextureStorage2D(texobj_hdl, 1, GL_RGBA8, width, height);
-    // copy image data from client memory to GPU texture buffer memory
-    glTextureSubImage2D(texobj_hdl, 0, 0, 0, width, height,
-                            GL_RGBA, GL_UNSIGNED_BYTE, ptr_texels);
-    
-    // client memory not required since image is buffered in GPU memory
-    delete[] ptr_texels;
-    ifs.close();
 
-    return texobj_hdl;
+    //check the file signature and deduce its format
+    fif = FreeImage_GetFileType(filename, 0);
+    //if still unknown, try to guess the file format from the file extension
+    if (fif == FIF_UNKNOWN)
+        fif = FreeImage_GetFIFFromFilename(filename);
+    //if still unkown, return failure
+    if (fif == FIF_UNKNOWN)
+    {
+        std::cout << "Failed to load image " << filename << std::endl;
+        return false;
+    }
+
+    //check that the plugin has reading capabilities and load the file
+    if (FreeImage_FIFSupportsReading(fif))
+    {
+        dib = FreeImage_Load(fif, filename, PNG_DEFAULT);
+
+        if (FreeImage_GetBPP(dib) != 32)
+        {
+            dib = FreeImage_ConvertTo32Bits(FreeImage_Load(fif, filename, PNG_DEFAULT));
+        }
+    }
+
+    //if the image failed to load, return failure
+    if (!dib)
+    {
+        std::cout << "Failed to load image " << filename << std::endl;
+        return false;
+    }
+
+    //get the image width and height
+    int width = FreeImage_GetWidth(dib);
+    int height = FreeImage_GetHeight(dib);
+
+    //retrieve the image data
+    BYTE* bits = FreeImage_GetBits(dib);
+    BYTE* pixels = new BYTE[width * height * 4];
+
+    //if this somehow one of these failed (they shouldn't), return failure
+    if ((bits == 0) || (width == 0) || (height == 0))
+    {
+        std::cout << "Failed to load image " << filename << std::endl;
+        return false;
+    }
+
+    for (int i = 0; i < width * height; i++)
+    {
+        pixels[i * 4 + 0] = bits[i * 4 + 2];
+        pixels[i * 4 + 1] = bits[i * 4 + 1];
+        pixels[i * 4 + 2] = bits[i * 4 + 0];
+        pixels[i * 4 + 3] = bits[i * 4 + 3];
+    }
+
+    //if this texture ID is in use, unload the current texture
+    if (textures.find(texID) != textures.end())
+    {
+        glDeleteTextures(1, &(textures[texID]));
+    }
+
+    glGenTextures(1, &texobj_hdl);
+    glBindTexture(GL_TEXTURE_2D, texobj_hdl);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
+                 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+    textures[texID] = texobj_hdl;
+
+    //Free FreeImage's copy of the data
+    FreeImage_Unload(dib);
+
+    //return success
+    return true;
 }
 
 
@@ -344,6 +244,7 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
     int const count{ (stacks + 1) * (slices + 1) };
     std::vector<glm::vec2> pos_vtx(count);
     std::vector<glm::vec3> clr_vtx(count);
+    std::vector<glm::vec2> tex_vtx(count);
 
     float const u{ 2.f / static_cast<float>(slices) };
     float const v{ 2.f / static_cast<float>(stacks) };
@@ -355,9 +256,11 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
             pos_vtx[index] = glm::vec2(u * static_cast<float>(col) - 1.f, v* static_cast<float>(row) - 1.f);
 
             // Randomly generate r, g, b values for vertex color attribute
-            clr_vtx[index++] = glm::vec3{ static_cast<float>(row) / stacks,
+            clr_vtx[index] = glm::vec3{ static_cast<float>(row) / stacks,
                                         static_cast<float>(col) / slices,
                                             1.0 - static_cast<float>(row) / stacks - static_cast<float>(col) / slices };
+
+            tex_vtx[index++] = glm::vec2{ col, row };
         }
     }
 
@@ -390,13 +293,17 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
     GLuint vbo_hdl;
     glCreateBuffers(1, &vbo_hdl);
     glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
-        sizeof(glm::vec3) * clr_vtx.size(),
-        nullptr, GL_DYNAMIC_STORAGE_BIT);
+                                  sizeof(glm::vec3) * clr_vtx.size() +
+                                  sizeof(glm::vec2) * tex_vtx.size(),
+                                        nullptr, GL_DYNAMIC_STORAGE_BIT);
 
     glNamedBufferSubData(vbo_hdl, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
 
     glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(),
-        sizeof(glm::vec3) * clr_vtx.size(), clr_vtx.data());
+                         sizeof(glm::vec3) * clr_vtx.size(), clr_vtx.data());
+
+    glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(),
+                         sizeof(glm::vec2) * tex_vtx.size(), tex_vtx.data());
 
     GLuint vao_hdl;
     glCreateVertexArrays(1, &vao_hdl);
@@ -409,6 +316,11 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
     glVertexArrayVertexBuffer(vao_hdl, 1, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(), sizeof(glm::vec3));
     glVertexArrayAttribFormat(vao_hdl, 1, 3, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 1, 1);
+
+    glEnableVertexArrayAttrib(vao_hdl, 2);
+    glVertexArrayVertexBuffer(vao_hdl, 2, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(), sizeof(glm::vec2));
+    glVertexArrayAttribFormat(vao_hdl, 2, 2, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(vao_hdl, 2, 2);
 
     GLuint ebo_hdl;
     glCreateBuffers(1, &ebo_hdl);
@@ -446,39 +358,13 @@ void GraphicsSystem::GLModel::draw()
     shdr_pgm.Use();
     
     glBindVertexArray(vaoid);
-    /*
-    if (3 <= task && task <= 6)
-    {
-        GLuint texobj = setup_texobj("duck-rgba-256");
-        // suppose texture object is to use texture image unit 6
-        glBindTextureUnit(6, texobj);
-
-        // set what happens when sampler accesses textures outside [0, 1]
-        switch (task)
-        {
-            case 3:
-            case 4: glTextureParameteri(texobj, GL_TEXTURE_WRAP_S, GL_REPEAT);
-                    glTextureParameteri(texobj, GL_TEXTURE_WRAP_T, GL_REPEAT);
-                    break;
-            
-            case 5: glTextureParameteri(texobj, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-                    glTextureParameteri(texobj, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-                    break;
-
-            case 6: glTextureParameteri(texobj, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-                    glTextureParameteri(texobj, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-                    break;
-        }
-
-        // suppose shdrpgm is the handle to shader program object
-        // that will render the rectangular model
-        glUseProgram(shdr_pgm.GetHandle());
-
-        // tell fragment shader sampler uTex2d will use texture image unit 6
-        GLuint tex_loc = glGetUniformLocation(shdr_pgm.GetHandle(), "uTex2d");
-        glUniform1i(tex_loc, 6);
-    }
-    */
+    glBindTexture(GL_TEXTURE_2D, textures[0]);
+    glBindTextureUnit(6, textures[0]);
+    glTextureParameteri(textures[0], GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTextureParameteri(textures[0], GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glUseProgram(shdr_pgm.GetHandle());
+    GLuint tex_loc = glGetUniformLocation(shdr_pgm.GetHandle(), "uTex2d");
+    glUniform1i(tex_loc, 6);
 
     glDrawElements(GL_TRIANGLE_STRIP, draw_cnt, GL_UNSIGNED_SHORT, NULL);
 

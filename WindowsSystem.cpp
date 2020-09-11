@@ -34,7 +34,7 @@ void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, in
 
 	UNREFERENCED_PARAMETER(_windowName);
 	UNREFERENCED_PARAMETER(_className);
-
+	/*
 	GraphicsSystem::OpenGLExtensionsInit(_currentInstance);
 
 	LPCWSTR Name = L"MyWindows";
@@ -62,7 +62,7 @@ void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, in
 	RECT rect = { 0 };
 	GetClientRect(hwnd, &rect);
 	wWidth = rect.right - rect.left;
-	wHeight = rect.bottom - rect.top;
+	wHeight = rect.bottom - rect.top;*/
 }
 
 void WindowsSystem::ProcessMessage() {

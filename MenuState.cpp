@@ -22,7 +22,7 @@ void MenuState::init()
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	GraphicsSystem::init();
+	GraphicsSystem::Instance()->init();
 }
 
 void MenuState::free()
@@ -74,7 +74,7 @@ void MenuState::update(Game* game)
 
 void MenuState::draw(Game* game)
 {
-	GraphicsSystem::draw();
+	GraphicsSystem::Instance()->draw();
 	UNREFERENCED_PARAMETER(game);
 }
 

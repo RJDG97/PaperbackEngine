@@ -6,22 +6,20 @@
 /*                                                                   includes
 ----------------------------------------------------------------------------- */
 #include <GL/glew.h> // for access to OpenGL API declarations
+#include <GLFW/glfw3.h>
 #include "glslshader.h"
-#include "wglext.h"
 
 class GraphicsSystem
 {
 public:
-    static void OpenGLExtensionsInit(HINSTANCE hInstance);
-    static void OpenGLInit();
+
+    static GraphicsSystem* graphicsSystem;
+    static GraphicsSystem* Instance();
+
     static void init();
     static void update(double delta_time);
     static void draw();
     static void cleanup();
-
-    static HDC hdc;
-    static PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB;
-    static PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
 
     // encapsulates state required to render a geometrical model
     struct GLModel
@@ -39,10 +37,9 @@ public:
     };
     
     static GLModel tristrips_model(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr);
+    static GLuint setup_texobj(const char* filename, const unsigned int texID);
     
     static std::vector<GLModel> models;
 };
-
-extern GraphicsSystem graphicsSystem;
 
 #endif
