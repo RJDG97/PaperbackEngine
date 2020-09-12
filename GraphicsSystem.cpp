@@ -13,7 +13,7 @@
 GraphicsSystem* GraphicsSystem::graphicsSystem = nullptr;
 
 std::map<unsigned int, GLuint> textures;
-std::vector<GraphicsSystem::GLModel> GraphicsSystem::models;
+std::vector<GraphicsSystem::Model> GraphicsSystem::models;
 
 
 GraphicsSystem* GraphicsSystem::Instance()
@@ -33,7 +33,7 @@ GraphicsSystem* GraphicsSystem::Instance()
 Initializes the OpenGL rendering pipeline, and then prints the OpenGL
 Context information.
 */
-void GraphicsSystem::init() {
+void GraphicsSystem::Init() {
 
     // Part 1: clear colorbuffer with white color ...
     glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
@@ -46,7 +46,7 @@ void GraphicsSystem::init() {
     // repository container GraphicsSystem::models ...
 
     GraphicsSystem::models.push_back(
-        GraphicsSystem::tristrips_model(1, 1, "Shaders/default.vert",
+        GraphicsSystem::TristripsModel(1, 1, "Shaders/default.vert",
             "Shaders/default.frag"));
 
     //Initialize FreeImage
@@ -54,7 +54,7 @@ void GraphicsSystem::init() {
     std::cout << "FreeImage Version " << FreeImage_GetVersion() << std::endl;
 
     //load textures
-    setup_texobj("Resources\\Sprites\\tiles.png", 0);
+    LoadTexture("Resources\\Sprites\\tiles.png", 0);
 }
 
 /*  _________________________________________________________________________ */
@@ -66,12 +66,12 @@ void GraphicsSystem::init() {
 
 This also updates the size of the squares to be rendered in one of the tasks.
 */
-void GraphicsSystem::update(double delta_time) {
+void GraphicsSystem::Update(double delta_time) {
 
 }
 
 /*  _________________________________________________________________________ */
-/*! GraphicsSystem::draw
+/*! GraphicsSystem::Draw
 
 @param none
 
@@ -79,19 +79,19 @@ void GraphicsSystem::update(double delta_time) {
 
 Clears the buffer and then draws a rectangular model in the viewport.
 */
-void GraphicsSystem::draw() {
+void GraphicsSystem::Draw() {
 
     //clear back buffer as before...
     glClear(GL_COLOR_BUFFER_BIT);
 
-    GraphicsSystem::models[0].draw();
+    GraphicsSystem::models[0].Draw();
 
     glfwSwapBuffers(GLHelper::Instance()->ptr_window);
 
 }
 
 /*  _________________________________________________________________________ */
-/*! GraphicsSystem::cleanup
+/*! GraphicsSystem::Cleanup
 
 @param none
 
@@ -99,7 +99,7 @@ void GraphicsSystem::draw() {
 
 Returns allocated resources
 */
-void GraphicsSystem::cleanup() {
+void GraphicsSystem::CleanUp() {
   // empty for now
 }
 
@@ -113,7 +113,7 @@ void GraphicsSystem::cleanup() {
 Loads the shader files and uses the shader program pipeline functionality
 implemented in class GLSLShader
 */
-void GraphicsSystem::GLModel::setup_shdrpgm(std::string vtx_shdr, std::string frg_shdr)
+void GraphicsSystem::Model::SetupShdrpgm(std::string vtx_shdr, std::string frg_shdr)
 {
     std::vector<std::pair<GLenum, std::string>> shdr_files; 
     shdr_files.push_back(std::make_pair(GL_VERTEX_SHADER, vtx_shdr));
@@ -128,7 +128,7 @@ void GraphicsSystem::GLModel::setup_shdrpgm(std::string vtx_shdr, std::string fr
     }
 }
 
-GLuint GraphicsSystem::setup_texobj(const char* filename, const unsigned int texID)
+bool GraphicsSystem::LoadTexture(const char* filename, const unsigned int texID)
 {
     //image format
     FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -218,7 +218,7 @@ GLuint GraphicsSystem::setup_texobj(const char* filename, const unsigned int tex
 
 
 /*  _________________________________________________________________________ */
-/*! GraphicsSystem::tristrips_model
+/*! GraphicsSystem::TristripsModel
 
 @param slices
 Number of subintervals divided horizontally
@@ -237,7 +237,7 @@ Contains information about the model to be rendered
 
 Sets up a model comprising of triangle fans, using AOS.
 */
-GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr)
+GraphicsSystem::Model GraphicsSystem::TristripsModel(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr)
 {
     // Generates the vertices required to render triangle strips
 
@@ -333,17 +333,17 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
 
     // Return an appropriately initialized instance of GLApp::GLModel
 
-    GraphicsSystem::GLModel mdl;
+    GraphicsSystem::Model mdl;
     mdl.vaoid = vao_hdl;
     mdl.primitive_type = GL_TRIANGLE_STRIP;
-    mdl.setup_shdrpgm(vtx_shdr, frg_shdr);
+    mdl.SetupShdrpgm(vtx_shdr, frg_shdr);
     mdl.draw_cnt = idx_vtx.size();           // number of vertices
     mdl.primitive_cnt = count;               // number of triangles
     return mdl;
 }
 
 /*  _________________________________________________________________________ */
-/*! GraphicsSystem::GLModel::draw
+/*! GraphicsSystem::GLModel::Draw
 
 @param none
 
@@ -351,7 +351,7 @@ GraphicsSystem::GLModel GraphicsSystem::tristrips_model(int slices, int stacks, 
 
 Renders the model in a viewport.
 */
-void GraphicsSystem::GLModel::draw()
+void GraphicsSystem::Model::Draw()
 {
     // there are many shader programs initialized - here we're saying
     // which specific shader program should be used to render geometry

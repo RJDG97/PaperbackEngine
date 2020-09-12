@@ -16,13 +16,13 @@ public:
     static GraphicsSystem* graphicsSystem;
     static GraphicsSystem* Instance();
 
-    static void init();
-    static void update(double delta_time);
-    static void draw();
-    static void cleanup();
+    static void Init();
+    static void Update(double delta_time);
+    static void Draw();
+    static void CleanUp();
 
     // encapsulates state required to render a geometrical model
-    struct GLModel
+    struct Model
     {
         GLenum     primitive_type;
         GLuint     primitive_cnt;
@@ -32,14 +32,14 @@ public:
         GLSLShader shdr_pgm;
     
         // member functions defined in glapp.cpp
-        void setup_shdrpgm(std::string vtx_shdr, std::string frg_shdr);
-        void draw();
+        void SetupShdrpgm(std::string vtx_shdr, std::string frg_shdr);
+        void Draw();
     };
     
-    static GLModel tristrips_model(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr);
-    static GLuint setup_texobj(const char* filename, const unsigned int texID);
+    static Model TristripsModel(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr);
+    static bool LoadTexture(const char* filename, const unsigned int texID);
     
-    static std::vector<GLModel> models;
+    static std::vector<Model> models;
 };
 
 #endif

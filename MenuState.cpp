@@ -21,8 +21,6 @@ void MenuState::init()
 	std::cout << "Press SPACE to START" << std::endl;
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
-
-	GraphicsSystem::Instance()->init();
 }
 
 void MenuState::free()
@@ -74,7 +72,7 @@ void MenuState::update(Game* game)
 
 void MenuState::draw(Game* game)
 {
-	GraphicsSystem::Instance()->draw();
+	GraphicsSystem::Instance()->Draw();
 	UNREFERENCED_PARAMETER(game);
 }
 
