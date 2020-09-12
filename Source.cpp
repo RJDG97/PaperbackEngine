@@ -37,7 +37,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	//graphicsSystem.OpenGLInit();
 
 	GLHelper::Instance()->init(800, 600, "Placeholder");
-	GraphicsSystem::Instance()->Init();
+	GraphicsSystem::Instance().Init();
 
 	// Create a sound class
 	SoundSystem EngineSoundSystem;

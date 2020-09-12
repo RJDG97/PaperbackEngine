@@ -72,7 +72,7 @@ void MenuState::update(Game* game)
 
 void MenuState::draw(Game* game)
 {
-	GraphicsSystem::Instance()->Draw();
+	GraphicsSystem::Instance().Draw();
 	UNREFERENCED_PARAMETER(game);
 }
 
