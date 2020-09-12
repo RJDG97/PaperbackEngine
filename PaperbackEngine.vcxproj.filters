@@ -84,6 +84,9 @@
     <ClCompile Include="glhelper.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameRateController.h">
@@ -132,6 +135,9 @@
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="glhelper.h">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
   </ItemGroup>
