@@ -256,7 +256,7 @@ void GraphicsSystem::Model::Draw()
     // which specific shader program should be used to render geometry
     shdr_pgm.Use();
     
-    GLuint texture = texture_manager.textures[0];
+    GLuint texture = texture_manager.textures[TextureNames::Plank];
 
     glBindVertexArray(vaoid);
     glBindTexture(GL_TEXTURE_2D, texture);

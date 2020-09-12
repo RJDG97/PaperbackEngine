@@ -9,10 +9,10 @@ void TextureManager::Init()
     std::cout << "FreeImage Version " << FreeImage_GetVersion() << std::endl;
 
     //load textures
-    LoadTexture("Resources\\Sprites\\tiles.png", 0);
+    LoadTexture("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles, 32);
 }
 
-bool TextureManager::LoadTexture(const char* filename, size_t texID)
+bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<TextureNames> tile_names, size_t tile_size)
 {
     //image format
     FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -51,50 +51,66 @@ bool TextureManager::LoadTexture(const char* filename, size_t texID)
         return false;
     }
 
+    //retrieve the image data
+    BYTE* bits = FreeImage_GetBits(dib);
     //get the image width and height
     int width = FreeImage_GetWidth(dib);
     int height = FreeImage_GetHeight(dib);
 
-    //retrieve the image data
-    BYTE* bits = FreeImage_GetBits(dib);
-    BYTE* pixels = new BYTE[width * height * 4];
-
-    //if this somehow one of these failed (they shouldn't), return failure
     if ((bits == 0) || (width == 0) || (height == 0))
     {
         std::cout << "Failed to load image " << filename << std::endl;
         return false;
     }
 
-    for (int i = 0; i < width * height; i++)
+    BYTE* pixels = new BYTE[tile_size * tile_size * 4];
+
+    for (int currentTile = 0; currentTile < columns * rows; ++currentTile)
     {
-        pixels[i * 4 + 0] = bits[i * 4 + 2];
-        pixels[i * 4 + 1] = bits[i * 4 + 1];
-        pixels[i * 4 + 2] = bits[i * 4 + 0];
-        pixels[i * 4 + 3] = bits[i * 4 + 3];
+        if (tile_names[currentTile] == Empty)
+        {
+            continue;
+        }
+
+        //if this texture ID is in use, unload the current texture
+        if (textures.find(tile_names[currentTile]) != textures.end())
+        {
+            glDeleteTextures(1, &(textures[tile_names[currentTile]]));
+        }
+
+        const int startY = (rows - 1 - currentTile / columns) * tile_size;
+        const int startX = (currentTile % columns) * tile_size;
+        int i = 0;
+
+        for (int y = startY; y < startY + tile_size; ++y)
+        {
+            for (int x = startX; x < startX + tile_size; ++x, ++i)
+            {
+                int j = y * tile_size * columns + x;
+                pixels[i * 4 + 0] = bits[j * 4 + 2];
+                pixels[i * 4 + 1] = bits[j * 4 + 1];
+                pixels[i * 4 + 2] = bits[j * 4 + 0];
+                pixels[i * 4 + 3] = bits[j * 4 + 3];
+            }
+        }
+
+        glGenTextures(1, &texobj_hdl);
+        glBindTexture(GL_TEXTURE_2D, texobj_hdl);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tile_size, tile_size,
+            0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+        textures[tile_names[currentTile]] = texobj_hdl;
     }
-
-    //if this texture ID is in use, unload the current texture
-    if (textures.find(texID) != textures.end())
-    {
-        glDeleteTextures(1, &(textures[texID]));
-    }
-
-    glGenTextures(1, &texobj_hdl);
-    glBindTexture(GL_TEXTURE_2D, texobj_hdl);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-        0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-
-    textures[texID] = texobj_hdl;
 
     //Free FreeImage's copy of the data
     FreeImage_Unload(dib);
+    delete []pixels;
 
     //return success
     return true;
