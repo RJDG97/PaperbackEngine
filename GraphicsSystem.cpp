@@ -12,10 +12,21 @@
 ----------------------------------------------------------------------------- */
 GraphicsSystem GraphicsSystem::graphics_system;
 TextureManager GraphicsSystem::texture_manager;
+AnimationManager GraphicsSystem::animation_manager;
 
-GraphicsSystem GraphicsSystem::Instance()
+GraphicsSystem& GraphicsSystem::Instance()
 {
     return graphics_system;
+}
+
+TextureManager& GraphicsSystem::GetTextureManager()
+{
+    return texture_manager;
+}
+
+AnimationManager& GraphicsSystem::GetAnimationManager()
+{
+    return animation_manager;
 }
 
 /*  _________________________________________________________________________ */
@@ -39,8 +50,14 @@ void GraphicsSystem::Init() {
 
     // Part 3: create different geometries and insert them into
     // repository container GraphicsSystem::models ...
-
     graphics_system.models.push_back( TristripsModel(1, 1, "Shaders/default.vert", "Shaders/default.frag"));
+
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glDepthMask(GL_FALSE);
+    glClearDepth(1.0f);
+    glDepthFunc(GL_LESS);
 
     texture_manager.Init();
 }
@@ -256,7 +273,7 @@ void GraphicsSystem::Model::Draw()
     // which specific shader program should be used to render geometry
     shdr_pgm.Use();
     
-    GLuint texture = texture_manager.textures[TextureNames::Plank];
+    GLuint texture = *(texture_manager.GetTexture(TextureName::Plank));
 
     glBindVertexArray(vaoid);
     glBindTexture(GL_TEXTURE_2D, texture);

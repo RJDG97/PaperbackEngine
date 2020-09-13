@@ -9,6 +9,7 @@
 #include <GLFW/glfw3.h>
 #include "glslshader.h"
 #include "TextureManager.h"
+#include "AnimationManager.h"
 
 class GraphicsSystem
 {
@@ -33,16 +34,20 @@ class GraphicsSystem
     // handles all the textures
     static TextureManager texture_manager;
 
+    // handles all the animations
+    static AnimationManager animation_manager;
+
 public:
 
     static GraphicsSystem graphics_system;
-    static GraphicsSystem Instance();
+    static GraphicsSystem& Instance();
+    static TextureManager& GetTextureManager();
+    static AnimationManager& GetAnimationManager();
 
     void Init();
     void Update(double delta_time);
     void Draw();
     void CleanUp();
-    
 };
 
 #endif
