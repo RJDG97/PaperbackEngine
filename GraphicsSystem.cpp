@@ -13,6 +13,7 @@
 GraphicsSystem GraphicsSystem::graphics_system;
 TextureManager GraphicsSystem::texture_manager;
 AnimationManager GraphicsSystem::animation_manager;
+LightingSystem GraphicsSystem::lighting_system;
 
 GraphicsSystem& GraphicsSystem::Instance()
 {
@@ -27,6 +28,11 @@ TextureManager& GraphicsSystem::GetTextureManager()
 AnimationManager& GraphicsSystem::GetAnimationManager()
 {
     return animation_manager;
+}
+
+LightingSystem& GraphicsSystem::GetLightingSystem()
+{
+    return lighting_system;
 }
 
 /*  _________________________________________________________________________ */
@@ -45,12 +51,15 @@ void GraphicsSystem::Init() {
     glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
     // Part 2: split color buffer into four viewports ...
-    GLint w{ GLHelper::Instance()->width }, h{ GLHelper::Instance()->height };
-    glViewport(0, 0, w, h);
+    GLint width = GLHelper::Instance()->width;
+    GLint height = GLHelper::Instance()->height;
+    glViewport(0, 0, width, height);
 
     // Part 3: create different geometries and insert them into
     // repository container GraphicsSystem::models ...
-    graphics_system.models.push_back( TristripsModel(1, 1, "Shaders/default.vert", "Shaders/default.frag"));
+    graphics_system.models.push_back( TristripsModel(1, 1, "Shaders/final.vert", "Shaders/final.frag"));
+    //graphics_system.models.push_back(TristripsModel(1, 1, "Shaders/default.vert", "Shaders/default.frag"));
+    //graphics_system.models.push_back(TristripsModel(1, 1, "Shaders/final.vert", "Shaders/final.frag"));
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
@@ -60,6 +69,8 @@ void GraphicsSystem::Init() {
     glDepthFunc(GL_LESS);
 
     texture_manager.Init();
+    animation_manager.Init();
+    //lighting_system.Init();
 }
 
 /*  _________________________________________________________________________ */
@@ -86,12 +97,28 @@ Clears the buffer and then draws a rectangular model in the viewport.
 */
 void GraphicsSystem::Draw() {
 
-    //clear back buffer as before...
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    models[0].Draw();
+    models[0].Draw(*(texture_manager.GetTexture(TextureName::Rock)));
 
     glfwSwapBuffers(GLHelper::Instance()->ptr_window);
+
+    /*
+    glBindFramebuffer(GL_FRAMEBUFFER, lighting_system.GetFrameBuffer());
+    GLint width = GLHelper::Instance()->width;
+    GLint height = GLHelper::Instance()->height;
+    glViewport(0, 0, width, height);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    models[0].Draw(*(texture_manager.GetTexture(TextureName::Rock)));
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, width, height);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    models[1].Draw(*(texture_manager.GetTexture(lighting_system.GetFinalTexture())));
+
+    glfwSwapBuffers(GLHelper::Instance()->ptr_window);*/
 
 }
 
@@ -267,13 +294,11 @@ GraphicsSystem::Model GraphicsSystem::TristripsModel(int slices, int stacks, std
 
 Renders the model in a viewport.
 */
-void GraphicsSystem::Model::Draw()
+void GraphicsSystem::Model::Draw(GLuint texture)
 {
     // there are many shader programs initialized - here we're saying
     // which specific shader program should be used to render geometry
     shdr_pgm.Use();
-    
-    GLuint texture = *(texture_manager.GetTexture(TextureName::Plank));
 
     glBindVertexArray(vaoid);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -283,11 +308,10 @@ void GraphicsSystem::Model::Draw()
     glUseProgram(shdr_pgm.GetHandle());
     GLuint tex_loc = glGetUniformLocation(shdr_pgm.GetHandle(), "uTex2d");
     glUniform1i(tex_loc, 6);
-
     glDrawElements(GL_TRIANGLE_STRIP, draw_cnt, GL_UNSIGNED_SHORT, NULL);
 
     // after completing the rendering, we tell the driver that the VAO vaoid
     // and the current shader program are no longer current
     glBindVertexArray(0);
-    shdr_pgm.UnUse(); 
+    shdr_pgm.UnUse();
 }

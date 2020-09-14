@@ -93,6 +93,9 @@
     <ClCompile Include="AnimationManager.cpp">
       <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
     </ClCompile>
+    <ClCompile Include="LightingSystem.cpp">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameRateController.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="AnimationManager.h">
       <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="LightingSystem.h">
+      <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

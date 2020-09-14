@@ -10,6 +10,7 @@
 #include "glslshader.h"
 #include "TextureManager.h"
 #include "AnimationManager.h"
+#include "LightingSystem.h"
 
 class GraphicsSystem
 {
@@ -25,7 +26,7 @@ class GraphicsSystem
 
         // member functions defined in glapp.cpp
         void SetupShdrpgm(std::string vtx_shdr, std::string frg_shdr);
-        void Draw();
+        void Draw(GLuint texture);
     };
 
     Model TristripsModel(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr);
@@ -37,12 +38,15 @@ class GraphicsSystem
     // handles all the animations
     static AnimationManager animation_manager;
 
-public:
+    static LightingSystem lighting_system;
 
     static GraphicsSystem graphics_system;
+
+public:
     static GraphicsSystem& Instance();
     static TextureManager& GetTextureManager();
     static AnimationManager& GetAnimationManager();
+    static LightingSystem& GetLightingSystem();
 
     void Init();
     void Update(double delta_time);

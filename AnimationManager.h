@@ -17,13 +17,13 @@ class AnimationManager
 
 	std::map<size_t, Animation> animations;
 	
-	TextureManager& texture_manager;
+	TextureManager* texture_manager;
 
 public:
 
-	AnimationManager();
 	void Init();
 	void AddAnimation(AnimationName name, size_t num_frames, size_t texID);
+	bool DeleteAnimation(AnimationName name);
 };
 
 #endif
