@@ -40,6 +40,9 @@
     <Filter Include="Systems\GraphicsSystem">
       <UniqueIdentifier>{707765b0-cef9-4294-91e4-211866991ae3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\GraphicsSystem\ResourceManagers">
+      <UniqueIdentifier>{d2a4b4ba-d708-4233-b19e-ad1ce1c39e11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FrameRateController.cpp">
@@ -75,10 +78,22 @@
     <ClCompile Include="PauseState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="glhelper.cpp">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClCompile>
     <ClCompile Include="glslshader.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsSystem.cpp">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="LightingSystem.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,13 +137,22 @@
     <ClInclude Include="PauseState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="glhelper.h">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClInclude>
     <ClInclude Include="glslshader.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="wglext.h">
+    <ClInclude Include="AnimationManager.h">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="LightingSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
   </ItemGroup>

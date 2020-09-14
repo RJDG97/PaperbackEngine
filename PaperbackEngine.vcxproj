@@ -145,35 +145,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="glhelper.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="glslshader.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="LightingSystem.cpp" />
     <ClCompile Include="Matrix3x3.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="WindowsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="glhelper.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="glslshader.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="LightingSystem.h" />
     <ClInclude Include="Matrix3x3.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="Source.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Vector2D.h" />
-    <ClInclude Include="wglext.h" />
     <ClInclude Include="WindowsSystem.h" />
     <ClInclude Include="WinKeyCodes.h" />
   </ItemGroup>

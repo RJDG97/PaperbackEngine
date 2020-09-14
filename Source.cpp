@@ -9,7 +9,7 @@
 #include "MenuState.h"
 #include "GraphicsSystem.h"
 
-//#include "glhelper.h"
+#include "glhelper.h"
 
 #define EPSILON		0.0001f
 #define PI			3.14159265358f
@@ -25,7 +25,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	UNREFERENCED_PARAMETER(cmdLine);
 
 	// Register the window class
-	WindowsSystem::Instance()->Init(currentInstance, "GAM200 MonkeyTypewriters", 800, 600);
+	//WindowsSystem::Instance()->Init(currentInstance, "GAM200 MonkeyTypewriters", 800, 600);
 
 	// Checking for memory leaks
 	#if defined(DEBUG) | defined(_DEBUG)
@@ -34,7 +34,10 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	#endif
 
 	// Set up OpenGL context
-	graphicsSystem.OpenGLInit();
+	//graphicsSystem.OpenGLInit();
+
+	GLHelper::Instance()->init(800, 600, "Placeholder");
+	GraphicsSystem::Instance().Init();
 
 	// Create a sound class
 	SoundSystem EngineSoundSystem;
@@ -45,8 +48,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 
 	// Display Window
-	ShowWindow(WindowsSystem::Instance()->getHandle(), cmdCount);
-	UpdateWindow(WindowsSystem::Instance()->getHandle());
+	//ShowWindow(WindowsSystem::Instance()->getHandle(), cmdCount);
+	//UpdateWindow(WindowsSystem::Instance()->getHandle());
 
 	game.init();
 	// Push the menu state onto the stack
@@ -58,7 +61,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		PE_FrameRate.FrameRateLoop();
 
 		// Process windows messages
-		WindowsSystem::Instance()->ProcessMessage();
+		//WindowsSystem::Instance()->ProcessMessage();
 
 		/********Math Test*********/
 
@@ -153,7 +156,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	game.free();
 
-	WindowsSystem::Instance()->UnloadInstance();
+	//WindowsSystem::Instance()->UnloadInstance();
 	return 0;
 }
 
