@@ -159,6 +159,8 @@
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TestFiles\Composition.cpp" />
+    <ClCompile Include="TestFiles\Factory.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="WindowsSystem.cpp" />
@@ -179,6 +181,12 @@
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="Source.h" />
+    <ClInclude Include="TestFiles\ComponentCreator.h" />
+    <ClInclude Include="TestFiles\ComponentTypes.h" />
+    <ClInclude Include="TestFiles\Composition.h" />
+    <ClInclude Include="TestFiles\Factory.h" />
+    <ClInclude Include="TestFiles\IComponent.h" />
+    <ClInclude Include="TestFiles\ISystem.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="WindowsSystem.h" />

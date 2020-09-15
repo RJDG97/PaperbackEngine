@@ -43,6 +43,9 @@
     <Filter Include="Systems\GraphicsSystem\ResourceManagers">
       <UniqueIdentifier>{d2a4b4ba-d708-4233-b19e-ad1ce1c39e11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TestIntegration">
+      <UniqueIdentifier>{0f0220e6-435f-45d8-8965-60cf6cd58d09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FrameRateController.cpp">
@@ -95,6 +98,12 @@
     </ClCompile>
     <ClCompile Include="LightingSystem.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFiles\Composition.cpp">
+      <Filter>TestIntegration</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFiles\Factory.cpp">
+      <Filter>TestIntegration</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +163,24 @@
     </ClInclude>
     <ClInclude Include="LightingSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\Composition.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\IComponent.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\ISystem.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\ComponentTypes.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\Factory.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\ComponentCreator.h">
+      <Filter>TestIntegration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
