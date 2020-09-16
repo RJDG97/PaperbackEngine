@@ -6,7 +6,15 @@ enum MessageIDTypes
 	None = 0,
 	Exit,
 	Rotate,
-	HP
+	HP,
+
+	// Sound System
+	BGM_Play,
+	BGM_Stop,
+	BGM_Pause,
+	BGM_Mute,
+	BGM_Completed,
+	BGM_Reload
 };
 
 class Message

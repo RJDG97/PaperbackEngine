@@ -172,6 +172,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	engine->AddSystem(new EntityFactory());
 	engine->AddSystem(new Physics());
+	engine->AddSystem(new SoundSystem());
 	engine->Initialize();
 
 	Entity* testEntity = FACTORY->create("Debug");
