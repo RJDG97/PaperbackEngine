@@ -28,6 +28,7 @@ Entity* EntityFactory::create(const std::string& filename) {
 	if (entity) {
 		entity->init();
 	}
+
 	return entity;
 }
 
@@ -38,7 +39,7 @@ void EntityFactory::destroy(Entity* entity) {
 }
 
 
-void EntityFactory::update() {
+void EntityFactory::update(float frametime) {
 	// Begin and end iterators
 	EntityIt begin = _objectsToDeleted.begin();
 	EntityIt end = _objectsToDeleted.end();
@@ -84,10 +85,27 @@ Entity* EntityFactory::CreateEmptyEntity() {
 	return entity;
 }
 
-/*
+
 Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
 	
-}*/
+	Entity* ret = new Entity();
+
+	ComponentCreator* creator = _componentMap.find("Transform")->second;
+
+	Component* component = creator->create();
+
+	ret->AddComponent(creator->_typeId, component);
+
+	creator = _componentMap.find("Health")->second;
+
+	component = creator->create();
+
+	ret->AddComponent(creator->_typeId, component);
+
+	StoreEntityID(ret);
+
+	return ret;
+}
 
 void EntityFactory::StoreEntityID(Entity* entity) {
 	
@@ -101,7 +119,7 @@ void EntityFactory::StoreEntityID(Entity* entity) {
 void EntityFactory::AddComponentCreator(const std::string& name, ComponentCreator* creator) {
 	
 	//binds component creator to entry with component name
-	_componentMap[name] = creator;
+	_componentMap.emplace(name, creator);
 }
 
 Entity* EntityFactory::GetObjectWithID(EntityID id) {
@@ -114,4 +132,8 @@ Entity* EntityFactory::GetObjectWithID(EntityID id) {
 	}
 	// Else, return null
 	return NULL;
+}
+
+void EntityFactory::SendMessageD(Message* msg) {
+	
 }

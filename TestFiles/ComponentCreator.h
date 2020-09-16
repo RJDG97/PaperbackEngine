@@ -8,11 +8,14 @@ public:
 	ComponentTypes _typeId;
 
 	ComponentCreator(ComponentTypes typeId) : _typeId(typeId) {}
+
+	virtual Component* create() = 0;
+	virtual ~ComponentCreator() = default;
 };
 
 
 template <typename type>
-class ComponentCreatorType : ComponentCreator {
+class ComponentCreatorType : public ComponentCreator {
 public:
 	ComponentCreatorType(ComponentTypes id) : ComponentCreator(id) 
 	{}

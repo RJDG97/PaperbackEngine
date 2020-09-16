@@ -102,7 +102,19 @@
     <ClCompile Include="TestFiles\Composition.cpp">
       <Filter>TestIntegration</Filter>
     </ClCompile>
+    <ClCompile Include="TestFiles\Physics.cpp">
+      <Filter>TestIntegration</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFiles\Core.cpp">
+      <Filter>TestIntegration</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFiles\Transform.cpp">
+      <Filter>TestIntegration</Filter>
+    </ClCompile>
     <ClCompile Include="TestFiles\Factory.cpp">
+      <Filter>TestIntegration</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFiles\Health.cpp">
       <Filter>TestIntegration</Filter>
     </ClCompile>
   </ItemGroup>
@@ -180,6 +192,21 @@
       <Filter>TestIntegration</Filter>
     </ClInclude>
     <ClInclude Include="TestFiles\ComponentCreator.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\Physics.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\Message.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\Core.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\Transform.h">
+      <Filter>TestIntegration</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFiles\Health.h">
       <Filter>TestIntegration</Filter>
     </ClInclude>
   </ItemGroup>

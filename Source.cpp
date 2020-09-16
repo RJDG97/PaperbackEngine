@@ -11,6 +11,14 @@
 
 #include "glhelper.h"
 
+/*
+temp headers
+*/
+#include "TestFiles/Core.h"
+#include "TestFiles/Physics.h"
+#include "TestFiles/Factory.h"
+
+
 #define EPSILON		0.0001f
 #define PI			3.14159265358f
 int running = 1;
@@ -19,196 +27,167 @@ void testMath();
 
 int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR cmdLine, INT cmdCount) {
 
-	Game game;
+	//Game game;
 
 	UNREFERENCED_PARAMETER(previousInstance);
 	UNREFERENCED_PARAMETER(cmdLine);
 
 	// Register the window class
-	//WindowsSystem::Instance()->Init(currentInstance, "GAM200 MonkeyTypewriters", 800, 600);
+	WindowsSystem::Instance()->Init(currentInstance, "GAM200 MonkeyTypewriters", 800, 600);
 
 	// Checking for memory leaks
-	#if defined(DEBUG) | defined(_DEBUG)
+#if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	createDebugWindow();
-	#endif
+#endif
 
 	// Set up OpenGL context
 	//graphicsSystem.OpenGLInit();
 
-	GLHelper::Instance()->init(800, 600, "Placeholder");
-	GraphicsSystem::Instance().Init();
+	//GLHelper::Instance()->init(800, 600, "Placeholder");
+	//GraphicsSystem::Instance().Init();
 
-	// Create a sound class
-	SoundSystem EngineSoundSystem;
+	// // Create a sound class
+	// SoundSystem EngineSoundSystem;
 
-	EngineSoundSystem.loadSound("Resources/SoundCache/KK_BBG.mp3", "BGM", 1);
-	EngineSoundSystem.loadSound("Resources/SoundCache/Kachow.mp3", "Kachow");
-	EngineSoundSystem.playSound("BGM");
+	// EngineSoundSystem.loadSound("Resources/SoundCache/KK_BBG.mp3", "BGM", 1);
+	// EngineSoundSystem.loadSound("Resources/SoundCache/Kachow.mp3", "Kachow");
+	// EngineSoundSystem.playSound("BGM");
 
 
 	// Display Window
-	//ShowWindow(WindowsSystem::Instance()->getHandle(), cmdCount);
-	//UpdateWindow(WindowsSystem::Instance()->getHandle());
+	ShowWindow(WindowsSystem::Instance()->getHandle(), cmdCount);
+	UpdateWindow(WindowsSystem::Instance()->getHandle());
 
-	game.init();
+	//game.init();
 	// Push the menu state onto the stack
-	game.ChangeState(MenuState::Instance());
+	//game.ChangeState(MenuState::Instance());
 
-	while (game.Running())
-	{
-		// FrameRateController
-		PE_FrameRate.FrameRateLoop();
+	//while (game.Running())
+	//{
+	//	// FrameRateController
+	//	PE_FrameRate.FrameRateLoop();
 
-		// Process windows messages
-		//WindowsSystem::Instance()->ProcessMessage();
+	//	// Process windows messages
+	//	//WindowsSystem::Instance()->ProcessMessage();
 
-		/********Math Test*********/
+	//	/********Math Test*********/
 
-		if (sys_input.CheckTriggeredInput(PE_K))
-			testMath();
+	//	if (sys_input.CheckTriggeredInput(PE_K))
+	//		testMath();
 
-		/********Math Test*********/
+	//	/********Math Test*********/
 
-		/********Input Test********/
+	//	/********Input Test********/
 
-		static int forward = PE_W;
+	//	static int forward = PE_W;
 
-		if (sys_input.CheckTriggeredInput(PE_S))
-			std::cout << "Pressed" << std::endl;
+	//	if (sys_input.CheckTriggeredInput(PE_S))
+	//		std::cout << "Pressed" << std::endl;
 
-		if (sys_input.CheckCurrentInput(PE_S))
-			std::cout << "S" << std::endl;
+	//	if (sys_input.CheckCurrentInput(PE_S))
+	//		std::cout << "S" << std::endl;
 
-		if (sys_input.CheckReleasedInput(PE_S))
-			std::cout << "Released" << std::endl;
+	//	if (sys_input.CheckReleasedInput(PE_S))
+	//		std::cout << "Released" << std::endl;
 
-		if (sys_input.CheckTriggeredInput(forward))
-			std::cout << "Forward" << std::endl;
-		std::cin >> forward;
+	//	if (sys_input.CheckTriggeredInput(forward))
+	//		std::cout << "Forward" << std::endl;
+	//	std::cin >> forward;
 
-		sys_input.UpdateKeyInput(PE_E, forward);
+	//	sys_input.UpdateKeyInput(PE_E, forward);
 
-		if (sys_input.CheckTriggeredInput(PE_LBUTTON)) {
-			Vector2D vec;
-			sys_input.GetCursorPosition(vec);
-		}
+	//	if (sys_input.CheckTriggeredInput(PE_LBUTTON)) {
+	//		Vector2D vec;
+	//		sys_input.GetCursorPosition(vec);
+	//	}
 
-		if (sys_input.CheckCurrentInput(PE_RBUTTON)) {
-			Vector2D vec2;
-			sys_input.GetCursorPositionDelta(vec2, PE_RBUTTON);
-		}
+	//	if (sys_input.CheckCurrentInput(PE_RBUTTON)) {
+	//		Vector2D vec2;
+	//		sys_input.GetCursorPositionDelta(vec2, PE_RBUTTON);
+	//	}
 
-		/********Input Test********/
+	//	/********Input Test********/
 
-		/********Sound Test********/
+	//	/********Sound Test********/
 
-		if (sys_input.CheckTriggeredInput(PE_5)) {
-			EngineSoundSystem.playSound("Kachow");
-		}
+	//	if (sys_input.CheckTriggeredInput(PE_5)) {
+	//		EngineSoundSystem.playSound("Kachow");
+	//	}
 
-		if (sys_input.CheckTriggeredInput(PE_6)) {
-			EngineSoundSystem.stopSound("BGM");
-		}
+	//	if (sys_input.CheckTriggeredInput(PE_6)) {
+	//		EngineSoundSystem.stopSound("BGM");
+	//	}
 
-		if (sys_input.CheckTriggeredInput(PE_7)) {
-			EngineSoundSystem.loadSound("Resources/SoundCache/KK_BBG.mp3", "BGM");
-			EngineSoundSystem.playSound("BGM");
-		}
+	//	if (sys_input.CheckTriggeredInput(PE_7)) {
+	//		EngineSoundSystem.loadSound("Resources/SoundCache/KK_BBG.mp3", "BGM");
+	//		EngineSoundSystem.playSound("BGM");
+	//	}
 
-		if (sys_input.CheckTriggeredInput(PE_8)) {
-			EngineSoundSystem.muteSound();
-		}
+	//	if (sys_input.CheckTriggeredInput(PE_8)) {
+	//		EngineSoundSystem.muteSound();
+	//	}
 
-		if (sys_input.CheckTriggeredInput(PE_9)) {
-			EngineSoundSystem.pauseSound();
-		}
+	//	if (sys_input.CheckTriggeredInput(PE_9)) {
+	//		EngineSoundSystem.pauseSound();
+	//	}
 
-		EngineSoundSystem.updateSound();
+	//	EngineSoundSystem.updateSound();
 
-		/********Sound Test********/
+	//	/********Sound Test********/
 
-		/********Frame Test********/
+	//	/********Frame Test********/
 
-		if (sys_input.CheckTriggeredInput(PE_TAB))
-		{
-			std::cout << PE_FrameRate.GetFrames() << std::endl;
-			std::cout << PE_FrameRate.Dt << std::endl;
-			std::cout << PE_FrameRate.TimeElapsed(s) << std::endl;
-		}
+	//	if (sys_input.CheckTriggeredInput(PE_TAB))
+	//	{
+	//		std::cout << PE_FrameRate.GetFrames() << std::endl;
+	//		std::cout << PE_FrameRate.Dt << std::endl;
+	//		std::cout << PE_FrameRate.TimeElapsed(s) << std::endl;
+	//	}
 
-		// Change FPS
-		if (sys_input.CheckTriggeredInput(PE_1))
-			PE_FrameRate.SetFPS(90);
-		if (sys_input.CheckTriggeredInput(PE_2))
-			PE_FrameRate.SetFPS(60);
+	//	// Change FPS
+	//	if (sys_input.CheckTriggeredInput(PE_1))
+	//		PE_FrameRate.SetFPS(90);
+	//	if (sys_input.CheckTriggeredInput(PE_2))
+	//		PE_FrameRate.SetFPS(60);
 
-		/********Frame Test********/
+	//	/********Frame Test********/
 
-		/*** State/Scene Manager ***/
+	//	/*** State/Scene Manager ***/
 
-		game.update();
-		game.draw();
+	//	game.update();
+	//	game.draw();
 
-		/*** State/Scene Manager ***/
+	//	/*** State/Scene Manager ***/
 
-	}
+	//}
 
-	game.free();
+	//game.free();
 
-	//WindowsSystem::Instance()->UnloadInstance();
+	WindowsSystem::Instance()->UnloadInstance();
+	//return 0;
+
+	std::cout << "Testing" << std::endl;
+	CoreEngine* engine = new CoreEngine();
+
+	engine->AddSystem(new EntityFactory());
+	engine->AddSystem(new Physics());
+	engine->Initialize();
+
+	Entity* testEntity = FACTORY->create("Debug");
+
+	engine->GameLoop();
+
+	FACTORY->DestroyAllEntities();
+
+	engine->DestroySystems();
+
+	delete engine;
+
+	WindowsSystem::Instance()->UnloadInstance();
+
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*************************************************************************/

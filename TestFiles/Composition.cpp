@@ -1,6 +1,7 @@
 #include "Composition.h"
 #include "IComponent.h"
 #include <algorithm>
+#include "Factory.h"
 
 //Used to sort components using their type Id.
 struct ComponentSorter
@@ -72,5 +73,5 @@ Component* Entity::GetComponent(ComponentTypes typeId) {
 }
 
 void Entity::destroy() {
-	// FACTORY::Destroy(this);
+	FACTORY->destroy(this);
 }

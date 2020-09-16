@@ -33,7 +33,7 @@ public:
 	void destroy(Entity* entity);
 
 	//updates factory and destroys dead entities
-	virtual void update();
+	virtual void update(float frametime);
 
 	virtual std::string GetName() { return "Factory"; }
 
@@ -57,6 +57,8 @@ public:
 	//returns an entity with the id
 	//returns NULL if no longer existing
 	Entity* GetObjectWithID(EntityID id);
+
+	void SendMessageD(Message* msg);
 };
 
 extern EntityFactory* FACTORY;
