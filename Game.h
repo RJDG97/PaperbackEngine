@@ -2,17 +2,19 @@
 #define GAME_H
 
 #include <vector>
+#include "TestFiles/ISystem.h"
+#include "TestFiles/Message.h"
 
 class GameState;
 
-class Game
+class Game : public ISystem
 {
 public:
 	Game();
 
 	// state functions
-	void init();
-	void update();
+	//void init();
+	//void update();
 	void draw();
 	void free();
 
@@ -35,12 +37,26 @@ public:
 		m_bRunning = false;
 	}
 
+	void init();
+	void update(float frametime);
+	virtual std::string GetName() { return "Game State Manager"; }
+	virtual void SendMessageD(Message* m);
+
 private:
 	// stack to hold the states
 	std::vector<GameState*> states;
 
 	// for the game loop
 	bool m_bRunning;
+};
+
+
+struct Message_CustomState : public Message
+{
+	GameState* _state;
+	Message_CustomState(GameState* state, MessageIDTypes messagetype) : Message { messagetype },
+																		_state { state }
+	{}
 };
 
 #endif /*GAME_H*/

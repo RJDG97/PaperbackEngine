@@ -4,7 +4,7 @@
 #include "IComponent.h"
 #include <vector>
 
-using EntityID = unsigned int;
+using EntityID = size_t;
 
 using ComponentArr = std::vector<Component*>;
 

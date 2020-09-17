@@ -19,20 +19,22 @@ public:
 
 	// Implement Singleton Pattern
 	// Returns a pointer to a static instance of the class
-	static MenuState* Instance()
-	{
-		return &m_MenuState;
-	}
+	//static MenuState* Instance()
+	//{
+	//	return &m_MenuState;
+	//}
 
-protected:
+//protected:
 
 	MenuState() {}
 
-private:
+//private:
 
-	static MenuState m_MenuState;
+	//static MenuState m_MenuState;
 	
 };
+
+extern MenuState m_MenuState;
 
 #endif /*MENUSTATE_H*/
 

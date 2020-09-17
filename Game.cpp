@@ -2,6 +2,9 @@
 
 #include "Game.h"
 #include "GameState.h"
+#include "InputSystem.h"
+#include "TestFiles/Core.h"
+#include "MenuState.h"
 
 	Game::Game()
 	{}
@@ -30,8 +33,9 @@
 	}
 
 	// temporarily pushes a new state onto the stack
-	void Game::PushState(GameState* state)
+	void Game::PushState(GameState* state) // need to check if current state already exists in stack
 	{
+
 		// pause the current state
 		if (!states.empty())
 		{
@@ -41,6 +45,7 @@
 		//store and init the new state
 		states.push_back(state);
 		states.back()->init();
+		std::cout << "States in stack after push: " << states.size();
 	}
 	void Game::PopState()
 	{
@@ -56,12 +61,38 @@
 		{
 			states.back()->resume();
 		}
+
+		std::cout << "States in stack after pop: " << states.size();
 	}
 
-	void Game::update()
+	void Game::update(float frametime)
 	{
 		// let the current state take control
-		states.back()->update(this);
+		if (!states.empty()) {
+		
+			states.back()->update(this);
+		}
+
+		// Swap to event systems
+		if (sys_input.CheckTriggeredInput(0x34)) { // Number 4
+			Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_ChangeState }; // pass in another existing state?
+			CORE->BroadcastMessage(&msg);
+		}
+
+		if (sys_input.CheckTriggeredInput(0x35)) {
+			Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_PushState }; // push maybe game state
+			CORE->BroadcastMessage(&msg);
+		}
+
+		if (sys_input.CheckTriggeredInput(0x36)) {
+			Message msg{ MessageIDTypes::GSM_PopState };
+			CORE->BroadcastMessage(&msg);
+		}
+
+		/*if (sys_input.CheckTriggeredInput(0x34)) {
+			Message msg{ MessageIDTypes::GSM_PauseState };
+			CORE->BroadcastMessage(&msg);
+		}*/
 	}
 	void Game::draw()
 	{
@@ -75,5 +106,34 @@
 		{
 			states.back()->free();
 			states.pop_back();
+		}
+	}
+
+	void Game::SendMessageD(Message* m) {
+
+		std::cout << "Message received by Game" << std::endl;
+
+		if (m->MessageID == MessageIDTypes::GSM_PushState) {
+
+			Message_CustomState* msg = dynamic_cast<Message_CustomState*>(m);
+
+			PushState(msg->_state);
+		}
+
+		if (m->MessageID == MessageIDTypes::GSM_ChangeState) {
+
+			Message_CustomState* msg = dynamic_cast<Message_CustomState*>(m);
+
+			ChangeState(msg->_state);
+		}
+
+		if (m->MessageID == MessageIDTypes::GSM_PauseState) {
+
+
+		}
+
+		if (m->MessageID == MessageIDTypes::GSM_PopState) {
+
+			PopState();
 		}
 	}

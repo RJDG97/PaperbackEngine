@@ -24,23 +24,23 @@ void CoreEngine::Initialize() {
 void CoreEngine::GameLoop() {
 	while (GameActive) {
 		
-		if (sys_input.CheckTriggeredInput(0x51)) {
+		if (sys_input.CheckTriggeredInput(0x51)) { // Q key
 
 			GameActive = false;
 		}
 
-		if (sys_input.CheckTriggeredInput(0x39)) {
+		if (sys_input.CheckTriggeredInput(0x39)) { // 9 key on number row
 			std::cout << "triggered general rotation" << std::endl;
 
-			MessageRotation msg;
+			MessageRotation msg{ 1 };
 			CORE->BroadcastMessage(&msg);
 		}
 
-		if (sys_input.CheckTriggeredInput(0x30)) {
+		if (sys_input.CheckTriggeredInput(0x30)) { // 0 key on number row
 
 			std::cout << "triggered general hp decrement" << std::endl;
 
-			MessageHPDecre msg;
+			MessageHPDecre msg{ 2 };
 			CORE->BroadcastMessage(&msg);
 		}
 

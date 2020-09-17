@@ -37,18 +37,32 @@ void Physics::SendMessageD(Message* msg) {
 
 	if (msg->MessageID == MessageIDTypes::Rotate) {
 		std::cout << "prepare to rotate" << std::endl;
+
+		MessageRotation* m = dynamic_cast<MessageRotation*>(msg);
+
 		for (PosIt it = PHYSICS->Transforms.begin(); it != PHYSICS->Transforms.end(); ++it) {
 
-			Rotate(&*it);
+			if (it->GetOwner()->GetID() == m->entityone) {
+				
+				Rotate(&*it);
+				break;
+			}
 		}
 	}
 
 	if (msg->MessageID == MessageIDTypes::HP) {
 
 		std::cout << "prepare to decrement hp" << std::endl;
+
+		MessageHPDecre* m = dynamic_cast<MessageHPDecre*>(msg);
+
 		for (HPIt it = PHYSICS->HPs.begin(); it != PHYSICS->HPs.end(); ++it) {
 
-			DecreaseHP(&*it);
+			if (it->GetOwner()->GetID() == m->entityone) {
+
+				DecreaseHP(&*it);
+				break;
+			}
 		}
 	}
 }
@@ -57,12 +71,20 @@ void Physics::Rotate(Transform* pos) {
 
 	pos->_rotation += 0.2;
 
-	std::cout << "Message recieved, rotation success, currently at: " << pos->_rotation << std::endl;
+	std::cout << "Message recieved, rotation success, currently at: " 
+			  << pos->_rotation 
+			  << " ; Entity ID: " 
+			  << pos->GetOwner()->GetID()
+			  << std::endl;
 }
 
 void Physics::DecreaseHP(Health* hp) {
 
 	hp->currentHealth -= 1;
 
-	std::cout << "Message recieved, health decremented successfully, currently at: " << hp->currentHealth << std::endl;
+	std::cout << "Message recieved, health decremented successfully, currently at: "
+			  << hp->currentHealth
+			  << " ; Entity ID: "
+			  << hp->GetOwner()->GetID()
+			  << std::endl;
 }

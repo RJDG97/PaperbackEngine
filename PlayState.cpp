@@ -56,7 +56,7 @@ void PlayState::update(Game* game)
 	if (sys_input.CheckTriggeredInput(PE_ESCAPE))
 	{
 		std::cout << "GOING BACK TO MAIN MENU" << std::endl;
-		game->ChangeState(MenuState::Instance());
+		//game->ChangeState(MenuState::Instance());
 	}
 }
 

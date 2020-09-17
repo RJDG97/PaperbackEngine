@@ -151,28 +151,28 @@ void SoundSystem::init() {
 
 void SoundSystem::update(float frametime) {
 	// Shift to input system in the future
-	if (sys_input.CheckTriggeredInput(0x34)) {
+	if (sys_input.CheckTriggeredInput(0x34)) { //4 key on number row
 
 		MessageBGM_Play msg{ std::string{"Kachow"} };
 		CORE->BroadcastMessage(&msg);
 	}
 
-	if (sys_input.CheckTriggeredInput(0x35)) {
+	if (sys_input.CheckTriggeredInput(0x35)) { // 5 key on number row
 		Message msg(MessageIDTypes::BGM_Stop);
 		CORE->BroadcastMessage(&msg);
 	}
 
-	if (sys_input.CheckTriggeredInput(0x36)) {
+	if (sys_input.CheckTriggeredInput(0x36)) { // 6 key on number row
 		MessageBGM_Play msg{ std::string{"BGM"} };
 		CORE->BroadcastMessage(&msg);
 	}
 
-	if (sys_input.CheckTriggeredInput(0x37)) {
+	if (sys_input.CheckTriggeredInput(0x37)) { // 7 key on number row
 		Message msg(MessageIDTypes::BGM_Mute);
 		CORE->BroadcastMessage(&msg);
 	}
 
-	if (sys_input.CheckTriggeredInput(0x38)) {
+	if (sys_input.CheckTriggeredInput(0x38)) { // 8 key on number row
 		Message msg(MessageIDTypes::BGM_Pause);
 		CORE->BroadcastMessage(&msg);
 	}

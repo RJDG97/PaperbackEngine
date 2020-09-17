@@ -1,6 +1,7 @@
 #include "Factory.h"
 #include "Composition.h"
 #include "ComponentCreator.h"
+#include <iostream>
 
 EntityFactory* FACTORY = NULL;
 
@@ -114,6 +115,7 @@ void EntityFactory::StoreEntityID(Entity* entity) {
 	entity->_objectID = _lastEntityId;
 
 	_entityIdMap[_lastEntityId] = entity;
+	std::cout << "Entity stored with ID: " << _lastEntityId << std::endl;
 }
 
 void EntityFactory::AddComponentCreator(const std::string& name, ComponentCreator* creator) {

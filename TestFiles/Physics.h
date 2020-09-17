@@ -11,18 +11,18 @@
 #include "Factory.h"
 #include <list>
 
-class MessageRotation : public Message
+class MessageRotation : public Entity_Message
 {
 public:
-	MessageRotation() : Message(MessageIDTypes::Rotate) {}
+	MessageRotation(size_t entityID) : Entity_Message{ MessageIDTypes::Rotate, entityID } {}
 	//GOC * CollidedWith;
 	~MessageRotation() = default;
 };
 
-class MessageHPDecre : public Message
+class MessageHPDecre : public Entity_Message
 {
 public:
-	MessageHPDecre() : Message(MessageIDTypes::HP) {}
+	MessageHPDecre(size_t entityID) : Entity_Message{ MessageIDTypes::HP, entityID } {}
 	//GOC * CollidedWith;
 	~MessageHPDecre() = default;
 };
@@ -53,6 +53,7 @@ public:
 
 	using PosIt = std::list<Transform>::iterator;
 	std::list<Transform> Transforms;
+
 	using HPIt = std::list<Health>::iterator;
 	std::list<Health> HPs;
 };

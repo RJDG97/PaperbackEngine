@@ -12,7 +12,8 @@
 
 //SAMPLE MENU STATE
 
-MenuState MenuState::m_MenuState;
+//MenuState MenuState::m_MenuState;
+MenuState m_MenuState;
 
 void MenuState::init()
 {
