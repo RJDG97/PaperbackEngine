@@ -1,5 +1,5 @@
 #include "Factory.h"
-#include "Composition.h"
+#include "Entity.h"
 #include "ComponentCreator.h"
 #include <iostream>
 

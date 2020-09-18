@@ -8,10 +8,14 @@ using EntityID = size_t;
 
 using ComponentArr = std::vector<Component*>;
 
+// defines a single entity that owns components
+// aka gameobject in Unity terms
 class Entity {
 	using EntityIt = std::vector<Component*>::iterator;
 
+	// Vector of components attached to the entity
 	ComponentArr _components;
+	// Unique ID of an entity (Begins at 1)
 	EntityID _objectID;
 
 	// For use in FACTORY only

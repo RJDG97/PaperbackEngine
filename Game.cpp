@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "GameState.h"
 #include "InputSystem.h"
-#include "TestFiles/Core.h"
+#include "Core.h"
 #include "MenuState.h"
 
 	Game::Game()
@@ -62,7 +62,7 @@
 			states.back()->resume();
 		}
 
-		std::cout << "States in stack after pop: " << states.size();
+		std::cout << "States in stack after pop: " << states.size() << std::endl;
 	}
 
 	void Game::update(float frametime)
@@ -72,27 +72,6 @@
 		
 			states.back()->update(this);
 		}
-
-		// Swap to event systems
-		if (sys_input.CheckTriggeredInput(0x34)) { // Number 4
-			Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_ChangeState }; // pass in another existing state?
-			CORE->BroadcastMessage(&msg);
-		}
-
-		if (sys_input.CheckTriggeredInput(0x35)) {
-			Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_PushState }; // push maybe game state
-			CORE->BroadcastMessage(&msg);
-		}
-
-		if (sys_input.CheckTriggeredInput(0x36)) {
-			Message msg{ MessageIDTypes::GSM_PopState };
-			CORE->BroadcastMessage(&msg);
-		}
-
-		/*if (sys_input.CheckTriggeredInput(0x34)) {
-			Message msg{ MessageIDTypes::GSM_PauseState };
-			CORE->BroadcastMessage(&msg);
-		}*/
 	}
 	void Game::draw()
 	{
@@ -113,6 +92,7 @@
 
 		std::cout << "Message received by Game" << std::endl;
 
+		//swap to switch case
 		if (m->MessageID == MessageIDTypes::GSM_PushState) {
 
 			Message_CustomState* msg = dynamic_cast<Message_CustomState*>(m);

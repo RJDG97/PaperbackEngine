@@ -14,9 +14,9 @@
 /*
 temp headers
 */
-#include "TestFiles/Core.h"
-#include "TestFiles/Physics.h"
-#include "TestFiles/Factory.h"
+#include "Core.h"
+#include "Physics.h"
+#include "Factory.h"
 #include "Game.h"
 
 
@@ -171,10 +171,13 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	std::cout << "Testing" << std::endl;
 	CoreEngine* engine = new CoreEngine();
 
-	engine->AddSystem(new EntityFactory());
+	//to reorder based on what system has priority over the other
+	engine->AddSystem(new InputSystem());
 	engine->AddSystem(new Physics());
+	engine->AddSystem(new EntityFactory());
 	engine->AddSystem(new SoundSystem());
 	engine->AddSystem(new Game());
+
 	engine->Initialize();
 
 	//creating duplicate entities

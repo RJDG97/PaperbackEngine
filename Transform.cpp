@@ -1,10 +1,10 @@
 #include "Transform.h"
-#include "../Vector2D.h"
+#include "Vector2D.h"
 #include "Physics.h"
 
 Transform::Transform() {
-	_position = Vec2{ 0,0 };
-	_rotation = 0.0f;
+	position_ = Vec2{ 0,0 };
+	rotation_ = 0.0f;
 }
 
 void Transform::init() {

@@ -12,17 +12,7 @@
 /*
 newly added isystem stuff
 */
-#include "TestFiles/ISystem.h"
-
-class MessageBGM_Play : public Message {
-public:
-	std::string _fileID;
-
-	MessageBGM_Play(const std::string fileID) :
-		Message(MessageIDTypes::BGM_Play),
-		_fileID{ fileID }
-	{}
-};
+#include "ISystem.h"
 
 class SoundSystem : public ISystem
 {

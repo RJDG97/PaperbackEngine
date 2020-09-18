@@ -9,8 +9,9 @@ Physics::Physics() {
 }
 
 void Physics::init() {
-	FACTORY->AddComponentCreator("Transform", new ComponentCreatorType<Transform>( static_cast<ComponentTypes>(TRANSFORM) ));
-	FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(static_cast<ComponentTypes>(HEALTH)));
+	// Temporary addition for debugging
+	FACTORY->AddComponentCreator("Transform", new ComponentCreatorType<Transform>( ComponentTypes::TRANSFORM));
+	FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
 }
 
 void Physics::update(float frametime) {
@@ -42,8 +43,8 @@ void Physics::SendMessageD(Message* msg) {
 
 		for (PosIt it = PHYSICS->Transforms.begin(); it != PHYSICS->Transforms.end(); ++it) {
 
+			// look into swapping from std::list to std::unordered_map<entityid, component*> to allow for std::find usage
 			if (it->GetOwner()->GetID() == m->entityone) {
-				
 				Rotate(&*it);
 				break;
 			}
@@ -69,10 +70,10 @@ void Physics::SendMessageD(Message* msg) {
 
 void Physics::Rotate(Transform* pos) {
 
-	pos->_rotation += 0.2;
+	pos->rotation_ += 0.2f;
 
 	std::cout << "Message recieved, rotation success, currently at: " 
-			  << pos->_rotation 
+			  << pos->rotation_
 			  << " ; Entity ID: " 
 			  << pos->GetOwner()->GetID()
 			  << std::endl;
@@ -80,10 +81,10 @@ void Physics::Rotate(Transform* pos) {
 
 void Physics::DecreaseHP(Health* hp) {
 
-	hp->currentHealth -= 1;
+	hp->current_health_ -= 1;
 
 	std::cout << "Message recieved, health decremented successfully, currently at: "
-			  << hp->currentHealth
+			  << hp->current_health_
 			  << " ; Entity ID: "
 			  << hp->GetOwner()->GetID()
 			  << std::endl;

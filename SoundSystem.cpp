@@ -1,5 +1,5 @@
 #include "SoundSystem.h"
-#include "TestFiles/Core.h"
+#include "Core.h"
 #include "InputSystem.h"
 
 SoundSystem::SoundSystem() : bMute{ false }, bPaused{ false } {
@@ -150,32 +150,6 @@ void SoundSystem::init() {
 }
 
 void SoundSystem::update(float frametime) {
-	// Shift to input system in the future
-	if (sys_input.CheckTriggeredInput(0x34)) { //4 key on number row
-
-		MessageBGM_Play msg{ std::string{"Kachow"} };
-		CORE->BroadcastMessage(&msg);
-	}
-
-	if (sys_input.CheckTriggeredInput(0x35)) { // 5 key on number row
-		Message msg(MessageIDTypes::BGM_Stop);
-		CORE->BroadcastMessage(&msg);
-	}
-
-	if (sys_input.CheckTriggeredInput(0x36)) { // 6 key on number row
-		MessageBGM_Play msg{ std::string{"BGM"} };
-		CORE->BroadcastMessage(&msg);
-	}
-
-	if (sys_input.CheckTriggeredInput(0x37)) { // 7 key on number row
-		Message msg(MessageIDTypes::BGM_Mute);
-		CORE->BroadcastMessage(&msg);
-	}
-
-	if (sys_input.CheckTriggeredInput(0x38)) { // 8 key on number row
-		Message msg(MessageIDTypes::BGM_Pause);
-		CORE->BroadcastMessage(&msg);
-	}
 
 	/*!
 		Check all active channel's status (Done playing?)
@@ -210,9 +184,10 @@ std::string SoundSystem::GetName() {
 //receives message as base class pointer and uses them based on message id value
 void SoundSystem::SendMessageD(Message* m) {
 	
+	std::cout << "Message received by SoundSystem" << std::endl;
 	//plays a fileID as included in the message
 	if (m->MessageID == MessageIDTypes::BGM_Play) {
-
+		std::cout << "Message to play" << std::endl;
 		MessageBGM_Play* msg = dynamic_cast<MessageBGM_Play*>(m);
 		playSound(msg->_fileID);
 	}

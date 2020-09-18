@@ -46,14 +46,11 @@
     <Filter Include="TestIntegration">
       <UniqueIdentifier>{0f0220e6-435f-45d8-8965-60cf6cd58d09}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TestIntegration\Component">
-      <UniqueIdentifier>{3d8ee58d-3bf8-4f2f-ba6d-f17476817da3}</UniqueIdentifier>
+    <Filter Include="Systems\Physics">
+      <UniqueIdentifier>{8bfe5313-3d35-4544-88d1-53b25f7cd9a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TestIntegration\System">
-      <UniqueIdentifier>{374a3eaa-2fe4-4694-9afa-a13c171ed4ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TestIntegration\Component\Components">
-      <UniqueIdentifier>{bfcfec1b-2177-40ef-b8c3-763b69514f18}</UniqueIdentifier>
+    <Filter Include="Systems\Core">
+      <UniqueIdentifier>{0422d752-aac9-46b9-8a1b-4ea081b650c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,23 +105,26 @@
     <ClCompile Include="LightingSystem.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
-    <ClCompile Include="TestFiles\Composition.cpp">
-      <Filter>TestIntegration\Component</Filter>
+    <ClCompile Include="Factory.cpp">
+      <Filter>TestIntegration</Filter>
     </ClCompile>
-    <ClCompile Include="TestFiles\Factory.cpp">
-      <Filter>TestIntegration\System</Filter>
+    <ClCompile Include="Transform.cpp">
+      <Filter>TestIntegration</Filter>
     </ClCompile>
-    <ClCompile Include="TestFiles\Physics.cpp">
-      <Filter>TestIntegration\System</Filter>
+    <ClCompile Include="Health.cpp">
+      <Filter>TestIntegration</Filter>
     </ClCompile>
-    <ClCompile Include="TestFiles\Core.cpp">
-      <Filter>TestIntegration\System</Filter>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Systems\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="TestFiles\Transform.cpp">
-      <Filter>TestIntegration\Component\Components</Filter>
+    <ClCompile Include="Core.cpp">
+      <Filter>Systems\Core</Filter>
     </ClCompile>
-    <ClCompile Include="TestFiles\Health.cpp">
-      <Filter>TestIntegration\Component\Components</Filter>
+    <ClCompile Include="Message.cpp">
+      <Filter>TestIntegration</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>TestIntegration</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,38 +185,38 @@
     <ClInclude Include="LightingSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\ComponentCreator.h">
-      <Filter>TestIntegration\Component</Filter>
+    <ClInclude Include="Transform.h">
+      <Filter>TestIntegration</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\ComponentTypes.h">
-      <Filter>TestIntegration\Component</Filter>
+    <ClInclude Include="Message.h">
+      <Filter>TestIntegration</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\Composition.h">
-      <Filter>TestIntegration\Component</Filter>
+    <ClInclude Include="Health.h">
+      <Filter>TestIntegration</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\IComponent.h">
-      <Filter>TestIntegration\Component</Filter>
+    <ClInclude Include="ComponentTypes.h">
+      <Filter>TestIntegration</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\Factory.h">
-      <Filter>TestIntegration\System</Filter>
+    <ClInclude Include="ComponentCreator.h">
+      <Filter>TestIntegration</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\ISystem.h">
-      <Filter>TestIntegration\System</Filter>
+    <ClInclude Include="Factory.h">
+      <Filter>TestIntegration</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\Physics.h">
-      <Filter>TestIntegration\System</Filter>
+    <ClInclude Include="IComponent.h">
+      <Filter>TestIntegration</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\Core.h">
-      <Filter>TestIntegration\System</Filter>
+    <ClInclude Include="ISystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\Health.h">
-      <Filter>TestIntegration\Component\Components</Filter>
+    <ClInclude Include="Physics.h">
+      <Filter>Systems\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\Transform.h">
-      <Filter>TestIntegration\Component\Components</Filter>
+    <ClInclude Include="Core.h">
+      <Filter>Systems\Core</Filter>
     </ClInclude>
-    <ClInclude Include="TestFiles\Message.h">
-      <Filter>TestIntegration\System</Filter>
+    <ClInclude Include="Entity.h">
+      <Filter>TestIntegration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

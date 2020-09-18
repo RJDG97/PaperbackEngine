@@ -1,4 +1,4 @@
-#include "Composition.h"
+#include "Entity.h"
 #include "IComponent.h"
 #include <algorithm>
 #include "Factory.h"
@@ -8,7 +8,7 @@ struct ComponentSorter
 {
 	bool operator()(Component* left, Component* right) const
 	{
-		return left->_typeId < right->_typeId;
+		return left->GetComponentType() < right->GetComponentType();
 	}
 };
 
@@ -21,13 +21,13 @@ Component* BinaryComponentSearch(ComponentArr& components, ComponentTypes name)
 	while(begin < end)
 	{
 		size_t mid = (begin+end) / 2;
-		if(components[mid]->_typeId < name)
+		if(components[mid]->GetComponentType() < name)
 			begin = mid + 1;
 		else
 			end = mid;
 	}
 
-	if((begin < components.size()) && (components[begin]->_typeId == name))
+	if((begin < components.size()) && (components[begin]->GetComponentType() == name))
 		return components[begin];
 	else
 		return NULL;
@@ -40,16 +40,18 @@ void Entity::init() {
 
 	for (EntityIt it = _components.begin(); it != _components.end(); ++it) {
 
-		(*it)->_owner = this;
+		(*it)->owner_ = this;
 		(*it)->init();
 	}
 };
 
 Entity::Entity() {
 
+	// Initialise id to 0 since it will be assigned by factory
 	_objectID = 0;
 }
 
+// Destroys all components attached to an entity
 Entity::~Entity() {
 	EntityIt begin = _components.begin();
 	EntityIt end = _components.end();
@@ -58,20 +60,23 @@ Entity::~Entity() {
 	}
 }
 
+// Attach a new component to the entity and sort the components according to the order in 
+// ComponentTypes.h
 void Entity::AddComponent(ComponentTypes typeId, Component* component) {
 
-	component->_typeId = typeId;
+	component->type_id_ = typeId;
 	_components.push_back(component);
 
 	std::sort(_components.begin(), _components.end(), ComponentSorter());
 }
 
-
+// Returns a pointer to a component attached to an entity
 Component* Entity::GetComponent(ComponentTypes typeId) {
 	
 	return BinaryComponentSearch(_components, typeId);
 }
 
+// Destructs the entity through the factory
 void Entity::destroy() {
 	FACTORY->destroy(this);
 }

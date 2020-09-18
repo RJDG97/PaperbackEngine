@@ -1,7 +1,7 @@
 #include "Core.h"
 #include <iostream>
 #include "Physics.h"
-#include "../InputSystem.h"
+#include "InputSystem.h"
 //#include "../WinKeyCodes.h"
 
 // Global pointer to core engine
@@ -27,21 +27,6 @@ void CoreEngine::GameLoop() {
 		if (sys_input.CheckTriggeredInput(0x51)) { // Q key
 
 			GameActive = false;
-		}
-
-		if (sys_input.CheckTriggeredInput(0x39)) { // 9 key on number row
-			std::cout << "triggered general rotation" << std::endl;
-
-			MessageRotation msg{ 1 };
-			CORE->BroadcastMessage(&msg);
-		}
-
-		if (sys_input.CheckTriggeredInput(0x30)) { // 0 key on number row
-
-			std::cout << "triggered general hp decrement" << std::endl;
-
-			MessageHPDecre msg{ 2 };
-			CORE->BroadcastMessage(&msg);
 		}
 
 		for (size_t i = 0; i < Systems.size(); ++i) {

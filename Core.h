@@ -3,7 +3,7 @@
 
 #include "ISystem.h"
 #include "Message.h"
-#include "../FrameRateController.h"
+#include "FrameRateController.h"
 #include <vector>
 
 class CoreEngine

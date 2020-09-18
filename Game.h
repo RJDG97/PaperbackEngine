@@ -2,8 +2,8 @@
 #define GAME_H
 
 #include <vector>
-#include "TestFiles/ISystem.h"
-#include "TestFiles/Message.h"
+#include "ISystem.h"
+#include "Message.h"
 
 class GameState;
 
@@ -48,15 +48,6 @@ private:
 
 	// for the game loop
 	bool m_bRunning;
-};
-
-
-struct Message_CustomState : public Message
-{
-	GameState* _state;
-	Message_CustomState(GameState* state, MessageIDTypes messagetype) : Message { messagetype },
-																		_state { state }
-	{}
 };
 
 #endif /*GAME_H*/

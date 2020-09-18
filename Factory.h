@@ -1,6 +1,6 @@
 #pragma once
 #include "ISystem.h"
-#include "Composition.h"
+#include "Entity.h"
 #include <set>
 #include <map>
 #include <string>

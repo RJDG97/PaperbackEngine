@@ -2,7 +2,7 @@
 #define _PHYSICS_H_
 
 #include "ISystem.h"
-#include "Composition.h"
+#include "Entity.h"
 #include "ComponentTypes.h"
 #include "ComponentCreator.h"
 #include "Message.h"
@@ -10,22 +10,6 @@
 #include "Health.h"
 #include "Factory.h"
 #include <list>
-
-class MessageRotation : public Entity_Message
-{
-public:
-	MessageRotation(size_t entityID) : Entity_Message{ MessageIDTypes::Rotate, entityID } {}
-	//GOC * CollidedWith;
-	~MessageRotation() = default;
-};
-
-class MessageHPDecre : public Entity_Message
-{
-public:
-	MessageHPDecre(size_t entityID) : Entity_Message{ MessageIDTypes::HP, entityID } {}
-	//GOC * CollidedWith;
-	~MessageHPDecre() = default;
-};
 
 class Physics : public ISystem
 {

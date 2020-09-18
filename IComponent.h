@@ -10,11 +10,10 @@ class Entity;
 class Component {
 
 	// Pointer to the entity that owns the component
-	Entity* _owner;
+	Entity* owner_;
+	ComponentTypes type_id_;
 
 public:
-
-	ComponentTypes _typeId;
 
 	friend class Entity;
 
@@ -25,7 +24,10 @@ public:
 	//virtual void serialize(ISerialiser& str){};
 
 	// Returns the pointer to the entity that owns the component
-	Entity* GetOwner() { return _owner; }
+	Entity* GetOwner() { return owner_; }
+
+	//returns type id
+	ComponentTypes GetComponentType() { return type_id_; }
 
 protected:
 	// Double check why protected
