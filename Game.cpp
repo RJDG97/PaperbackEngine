@@ -5,6 +5,7 @@
 #include "InputSystem.h"
 #include "Core.h"
 #include "MenuState.h"
+#include <algorithm>
 
 	Game::Game()
 	{}
@@ -42,10 +43,20 @@
 			states.back()->pause();
 		}
 
+		auto CheckExist = [state](GameState* s) {
+			if (s == state) {
+				std::cout << "Error: State already exists on stack" << std::endl;
+				return true;
+			}
+			return false;
+		};
+
 		//store and init the new state
-		states.push_back(state);
-		states.back()->init();
-		std::cout << "States in stack after push: " << states.size();
+		if (std::find_if(states.begin(), states.end(), CheckExist) == states.end()) {
+			states.push_back(state);
+			states.back()->init();
+			std::cout << "States in stack after push: " << states.size() << std::endl;
+		}
 	}
 	void Game::PopState()
 	{
@@ -92,28 +103,30 @@
 
 		std::cout << "Message received by Game" << std::endl;
 
-		//swap to switch case
-		if (m->MessageID == MessageIDTypes::GSM_PushState) {
+		switch (m->MessageID) {
 
+		case MessageIDTypes::GSM_PushState:
+		{
 			Message_CustomState* msg = dynamic_cast<Message_CustomState*>(m);
-
 			PushState(msg->_state);
+			break;
 		}
-
-		if (m->MessageID == MessageIDTypes::GSM_ChangeState) {
-
+		case MessageIDTypes::GSM_ChangeState:
+		{	
 			Message_CustomState* msg = dynamic_cast<Message_CustomState*>(m);
-
 			ChangeState(msg->_state);
+			break;
 		}
-
-		if (m->MessageID == MessageIDTypes::GSM_PauseState) {
-
-
+		case MessageIDTypes::GSM_PauseState:
+		{
+			break;
 		}
-
-		if (m->MessageID == MessageIDTypes::GSM_PopState) {
-
+		case MessageIDTypes::GSM_PopState:
+		{
 			PopState();
+			break;
+		}
+		default:
+			break;
 		}
 	}

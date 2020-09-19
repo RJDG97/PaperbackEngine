@@ -8,7 +8,8 @@ Transform::Transform() {
 }
 
 void Transform::init() {
-	PHYSICS->Transforms.push_back(*this);
+	//PHYSICS->Transforms.push_back(*this);
+	PHYSICS->Transforms[Component::GetOwner()->GetID()] = *this;
 }
 
 void Transform::PublishResults() {

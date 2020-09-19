@@ -9,7 +9,7 @@
 #include "Transform.h"
 #include "Health.h"
 #include "Factory.h"
-#include <list>
+#include <unordered_map>
 
 class Physics : public ISystem
 {
@@ -35,11 +35,11 @@ public:
 	virtual void update(float frametime);
 	virtual std::string GetName() { return "Physics"; }
 
-	using PosIt = std::list<Transform>::iterator;
-	std::list<Transform> Transforms;
+	using TransformIt = std::unordered_map<EntityID, Transform>::iterator;
+	std::unordered_map<EntityID,Transform> Transforms;
 
-	using HPIt = std::list<Health>::iterator;
-	std::list<Health> HPs;
+	using HPIt = std::unordered_map<EntityID, Health>::iterator;
+	std::unordered_map<EntityID, Health> HPs;
 };
 
 extern Physics* PHYSICS;

@@ -23,8 +23,13 @@ void Physics::DetectCollision() {
 }
 
 void Physics::PublishResults() {
-	for (PosIt it = Transforms.begin(); it != Transforms.end(); ++it) {
+
+	/*for (PosIt it = Transforms.begin(); it != Transforms.end(); ++it) {
 		(it)->PublishResults();
+	}*/
+
+	for (TransformIt it = Transforms.begin(); it != Transforms.end(); ++it) {
+		it->second.PublishResults();
 	}
 }
 
@@ -40,15 +45,19 @@ void Physics::SendMessageD(Message* msg) {
 		std::cout << "prepare to rotate" << std::endl;
 
 		MessageRotation* m = dynamic_cast<MessageRotation*>(msg);
+		TransformIt it = PHYSICS->Transforms.find(m->entityone);
 
-		for (PosIt it = PHYSICS->Transforms.begin(); it != PHYSICS->Transforms.end(); ++it) {
+		if (it != PHYSICS->Transforms.end()) {
+			Rotate(&it->second);
+		}
+		/*for (PosIt it = PHYSICS->Transforms.begin(); it != PHYSICS->Transforms.end(); ++it) {
 
 			// look into swapping from std::list to std::unordered_map<entityid, component*> to allow for std::find usage
 			if (it->GetOwner()->GetID() == m->entityone) {
 				Rotate(&*it);
 				break;
 			}
-		}
+		}*/
 	}
 
 	if (msg->MessageID == MessageIDTypes::HP) {
@@ -56,7 +65,13 @@ void Physics::SendMessageD(Message* msg) {
 		std::cout << "prepare to decrement hp" << std::endl;
 
 		MessageHPDecre* m = dynamic_cast<MessageHPDecre*>(msg);
+		HPIt it = PHYSICS->HPs.find(m->entityone);
 
+		if (it != PHYSICS->HPs.end()) {
+			DecreaseHP(&it->second);
+		}
+
+		/*
 		for (HPIt it = PHYSICS->HPs.begin(); it != PHYSICS->HPs.end(); ++it) {
 
 			if (it->GetOwner()->GetID() == m->entityone) {
@@ -65,6 +80,7 @@ void Physics::SendMessageD(Message* msg) {
 				break;
 			}
 		}
+		*/
 	}
 }
 

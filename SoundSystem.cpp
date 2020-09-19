@@ -183,37 +183,47 @@ std::string SoundSystem::GetName() {
 
 //receives message as base class pointer and uses them based on message id value
 void SoundSystem::SendMessageD(Message* m) {
-	
-	std::cout << "Message received by SoundSystem" << std::endl;
-	//plays a fileID as included in the message
-	if (m->MessageID == MessageIDTypes::BGM_Play) {
-		std::cout << "Message to play" << std::endl;
+
+	switch (m->MessageID) {
+	case MessageIDTypes::BGM_Play:
+	{
+		//plays a fileID as included in the message
 		MessageBGM_Play* msg = dynamic_cast<MessageBGM_Play*>(m);
+		std::cout << "Playing Sound File: " << msg->_fileID << std::endl;
 		playSound(msg->_fileID);
+		break;
 	}
-
-	//pauses the current BGM
-	if (m->MessageID == MessageIDTypes::BGM_Pause) {
+	case MessageIDTypes::BGM_Pause:
+	{
+		// Pause all current active channels
 		pauseSound();
+		break;
 	}
-
-	//mutes the current BGM
-	if (m->MessageID == MessageIDTypes::BGM_Mute) {
+	case MessageIDTypes::BGM_Mute:
+	{
+		// Mute all current active channels
 		muteSound();
+		break;
 	}
-
-	// stops the current BGM
-	if (m->MessageID == MessageIDTypes::BGM_Stop) {
+	case MessageIDTypes::BGM_Stop:
+	{
+		// stops the current BGM
+		//need to check id of song to stop
 		stopSound("BGM");
+		break;
 	}
-
-	// Reload bgm and play
-	if (m->MessageID == MessageIDTypes::BGM_Reload) {
+	case MessageIDTypes::BGM_Reload:
+	{
+		// Reload bgm and play
 		loadSound("Resources/SoundCache/KK_BBG.mp3", "BGM");
 		playSound("BGM");
 	}
-
-	if (m->MessageID == MessageIDTypes::BGM_Completed) {
+	case MessageIDTypes::BGM_Completed:
+	{
 		removeCompletedChannel();
+		break;
+	}
+	default:
+		break;
 	}
 }

@@ -43,14 +43,44 @@
     <Filter Include="Systems\GraphicsSystem\ResourceManagers">
       <UniqueIdentifier>{d2a4b4ba-d708-4233-b19e-ad1ce1c39e11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TestIntegration">
-      <UniqueIdentifier>{0f0220e6-435f-45d8-8965-60cf6cd58d09}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Systems\Physics">
       <UniqueIdentifier>{8bfe5313-3d35-4544-88d1-53b25f7cd9a6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Systems\Core">
       <UniqueIdentifier>{0422d752-aac9-46b9-8a1b-4ea081b650c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Factory">
+      <UniqueIdentifier>{48a4eeb7-c078-4578-8005-a15ffb227bfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity">
+      <UniqueIdentifier>{0f0220e6-435f-45d8-8965-60cf6cd58d09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components">
+      <UniqueIdentifier>{e12860c8-b7b0-49bb-b4b2-fe8b708773e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Transform">
+      <UniqueIdentifier>{46f7e6dc-9f82-445e-a3fb-ed4b3117b2c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Health">
+      <UniqueIdentifier>{721822b5-cbf6-4246-9942-01a6f7700383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Motion">
+      <UniqueIdentifier>{832fa90d-4ec8-4d4c-b324-8e85dc3f2d9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\AABB">
+      <UniqueIdentifier>{ab805f28-9fff-4501-bef2-aac489818424}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Scale">
+      <UniqueIdentifier>{a0305a14-e414-44b9-82d6-e4d832f7ecb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Attack">
+      <UniqueIdentifier>{ab8a7ae1-d46d-4249-9501-0f4c49277a23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Visibility">
+      <UniqueIdentifier>{14cd28a7-f952-410b-91a7-23cb2363977b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Status">
+      <UniqueIdentifier>{d0c27e9d-4b52-4c3c-b430-9f9ffdcd2482}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,26 +135,44 @@
     <ClCompile Include="LightingSystem.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Factory.cpp">
-      <Filter>TestIntegration</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>TestIntegration</Filter>
-    </ClCompile>
-    <ClCompile Include="Health.cpp">
-      <Filter>TestIntegration</Filter>
-    </ClCompile>
     <ClCompile Include="Physics.cpp">
       <Filter>Systems\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>Systems\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>TestIntegration</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>TestIntegration</Filter>
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Systems\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Message.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Entity\Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Entity\Components\Health</Filter>
+    </ClCompile>
+    <ClCompile Include="Motion.cpp">
+      <Filter>Entity\Components\Motion</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>Entity\Components\AABB</Filter>
+    </ClCompile>
+    <ClCompile Include="Scale.cpp">
+      <Filter>Entity\Components\Scale</Filter>
+    </ClCompile>
+    <ClCompile Include="Attack.cpp">
+      <Filter>Entity\Components\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Visibility.cpp">
+      <Filter>Entity\Components\Visibility</Filter>
+    </ClCompile>
+    <ClCompile Include="Status.cpp">
+      <Filter>Entity\Components\Status</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,27 +233,6 @@
     <ClInclude Include="LightingSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>TestIntegration</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.h">
-      <Filter>TestIntegration</Filter>
-    </ClInclude>
-    <ClInclude Include="Health.h">
-      <Filter>TestIntegration</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentTypes.h">
-      <Filter>TestIntegration</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentCreator.h">
-      <Filter>TestIntegration</Filter>
-    </ClInclude>
-    <ClInclude Include="Factory.h">
-      <Filter>TestIntegration</Filter>
-    </ClInclude>
-    <ClInclude Include="IComponent.h">
-      <Filter>TestIntegration</Filter>
-    </ClInclude>
     <ClInclude Include="ISystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
@@ -216,7 +243,46 @@
       <Filter>Systems\Core</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>TestIntegration</Filter>
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Systems\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCreator.h">
+      <Filter>Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTypes.h">
+      <Filter>Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Entity\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>Entity\Components\Health</Filter>
+    </ClInclude>
+    <ClInclude Include="Motion.h">
+      <Filter>Entity\Components\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>Entity\Components\AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="Scale.h">
+      <Filter>Entity\Components\Scale</Filter>
+    </ClInclude>
+    <ClInclude Include="Attack.h">
+      <Filter>Entity\Components\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Visibility.h">
+      <Filter>Entity\Components\Visibility</Filter>
+    </ClInclude>
+    <ClInclude Include="Status.h">
+      <Filter>Entity\Components\Status</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

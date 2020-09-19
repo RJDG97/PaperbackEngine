@@ -231,6 +231,16 @@ void InputSystem::update(float frametime) {
 				break;
 			}
 			case 0x41: 	//'A'
+				// e.g. let A Pause game in play state and quit game in menu state
+
+				//Method 1
+				//check current state
+				// run Fn1 if (curr state is play) and Fn2 if state is menu
+
+				//Method 2
+				//wrap custom message w/ custom message id targetting Game ISystem
+				// send message
+				// let Game sort out what to do
 				break;
 			case 0x42: 	//'B'
 				break;

@@ -8,7 +8,8 @@ Health::Health() {
 
 void Health::init() {
 	// Push back component into container
-	PHYSICS->HPs.push_back(*this); // Containers that encapsulate all components should be in a general system (Possibly core)
+	//PHYSICS->HPs.push_back(*this); // Containers that encapsulate all components should be in a general system (Possibly core)
+	PHYSICS->HPs[Component::GetOwner()->GetID()] = *this;
 }
 
 // Consult sample engine as to purpose 
