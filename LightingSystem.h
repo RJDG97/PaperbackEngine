@@ -5,6 +5,7 @@
 
 class LightingSystem
 {
+	//we'll use this temporarily later on replace with components and stuff
 	struct PointLight
 	{
 		GLint x_, y_;
@@ -18,8 +19,6 @@ class LightingSystem
 				   GLfloat red, GLfloat green, GLfloat blue,
 				   GLfloat radius,
 				   GLfloat intensity);
-
-		void Render();
 	};
 
 	GLuint frame_buffer;
@@ -27,8 +26,6 @@ class LightingSystem
 	GLuint final_texture;
 	GLuint lighting_buffer;
 	GLuint lighting_texture;
-
-	PointLight temp_lights;
 
 public:
 
@@ -38,4 +35,5 @@ public:
 	void Cleanup();
 	GLuint& GetFrameBuffer();
 	GLuint& GetFinalTexture();
+	GLuint& GetLightingTexture();
 };

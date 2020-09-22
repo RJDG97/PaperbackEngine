@@ -27,6 +27,8 @@ class GraphicsSystem
         // member functions defined in glapp.cpp
         void SetupShdrpgm(std::string vtx_shdr, std::string frg_shdr);
         void Draw(GLuint texID);
+        void DrawLight(glm::vec3 light_color, glm::vec2 light_center,
+                       float intensity, float radius);
     };
 
     Model TristripsModel(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr);

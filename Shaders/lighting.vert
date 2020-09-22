@@ -5,10 +5,8 @@ layout (location=1) in vec3 vVertexClrCoord;
 
 layout (location=0) out vec3 vClrCoord;
 
-uniform int task;
-
 void main() {
         
     gl_Position = vec4(vVertexPosition, 0.0, 1.0);
-    vClrCoord = vVertexClrCoord;
+    //vClrCoord = vVertexClrCoord;
 }
