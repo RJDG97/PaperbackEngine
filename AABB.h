@@ -3,19 +3,34 @@
 
 #include "Entity.h" 
 #include "Vector2D.h"
-//#include "Collision.h"
 
 class AABB : public Component {
-	Vector2D top_left_;
-    Vector2D bottom_right_;
+	Vector2D top_right_;
+    Vector2D bottom_left_;
 public:
-	//friend class Collision;
+	friend class Collision;
 
 	AABB();
 
-	void init();
+	Vector2D GetBottomLeft() const { 
+		return bottom_left_;
+	}
+
+	Vector2D GetTopRight() const {
+		return top_right_;
+	}
+
+	void SetBottomLeft(const Vector2D bottom_left) { 
+		bottom_left_ = bottom_left;
+	}
+
+	void SetTopRight(const Vector2D& top_right) {
+		top_right_ = top_right;
+	}
+
+	void Init();
 	void PublishResults();
-	//void serialize(ISerializer& str);
+	//void Serialize(ISerializer& str);
 };
 
 #endif

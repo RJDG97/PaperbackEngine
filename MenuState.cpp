@@ -44,27 +44,27 @@ void MenuState::update(Game* game)
 	// input test
 	UNREFERENCED_PARAMETER(game);
 
-	if (sys_input.CheckTriggeredInput(PE_M))
+	if (sys_input_.CheckTriggeredInput(PE_M))
 	{
 		std::cout << "you are in the MAIN MENU" << std::endl;
 	}	
 	
-	if (sys_input.CheckTriggeredInput(PE_SPACE))
+	if (sys_input_.CheckTriggeredInput(PE_SPACE))
 	{
 		std::cout << "GAME STARTING....." << std::endl;
-		game->ChangeState(PlayState::Instance());
+		//game->ChangeState(PlayState::Instance());
 	}
-	if (sys_input.CheckTriggeredInput(PE_ESCAPE))
+	if (sys_input_.CheckTriggeredInput(PE_ESCAPE))
 	{
 		pause();
 	}
 
-	if (sys_input.CheckTriggeredInput(PE_Y))
+	if (sys_input_.CheckTriggeredInput(PE_Y))
 	{
 		game->Quit();
 	}	
 	
-	if (sys_input.CheckTriggeredInput(PE_N))
+	if (sys_input_.CheckTriggeredInput(PE_N))
 	{
 		resume();
 	}
@@ -77,4 +77,11 @@ void MenuState::draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
+void MenuState::StateInputHandler(int key_val) {
+	(void)key_val;
+	//0x25 //LEFT ARROW key
+	//0x26 //UP ARROW key
+	//0x27 //RIGHT ARROW key
+	//0x28 //DOWN ARROW key
 
+}

@@ -2,16 +2,16 @@
 #include "WinKeyCodes.h"
 #include "WindowsSystem.h"
 #include "Core.h"
-#include "MenuState.h"
+#include "PlayState.h"
 
-InputSystem sys_input;
+InputSystem sys_input_;
 
-InputSystem::InputSystem() : currentkey{ 0 }, 
-							 previouskey{ 0 }, 
-							 keyreleased{ 0 }, 
-							 bChange{ false },
-							 bToggle{ false },
-							 initial{}
+InputSystem::InputSystem() : currentkey_{ 0 }, 
+							 previouskey_{ 0 }, 
+							 keyreleased_{ 0 }, 
+							 b_change_{ false },
+							 b_toggle_{ false },
+							 initial_{}
 {}
 
 bool InputSystem::CheckCurrentInput(int key) {
@@ -19,25 +19,25 @@ bool InputSystem::CheckCurrentInput(int key) {
 }
 
 bool InputSystem::CheckTriggeredInput(int key) {
-	previouskey[key] = currentkey[key];
+	previouskey_[key] = currentkey_[key];
 	if (GetAsyncKeyState(key)) {
-		currentkey[key] = true;
-		if (previouskey[key])
+		currentkey_[key] = true;
+		if (previouskey_[key])
 			return false;
 	}
 	else {
-		currentkey[key] = false;
-		if (previouskey[key])
-			keyreleased[key] = true;
+		currentkey_[key] = false;
+		if (previouskey_[key])
+			keyreleased_[key] = true;
 		else
-			keyreleased[key] = false;
+			keyreleased_[key] = false;
 		return false;
 	}
 	return true;
 }
 
 bool InputSystem::CheckReleasedInput(int key) {
-	return (keyreleased[key]);
+	return (keyreleased_[key]);
 }
 
 // In general unused
@@ -52,15 +52,15 @@ bool InputSystem::KeyPoll(int& key) {
 }
 
 void InputSystem::UpdateKeyInput(int trigger, int& key) {
-	if (sys_input.CheckTriggeredInput(trigger)) {
+	if (sys_input_.CheckTriggeredInput(trigger)) {
 		std::cout << "Change Key to: ";
-		bChange = 1;
+		b_change_ = 1;
 	}
 
-	if (bChange) {
-		if (sys_input.KeyPoll(key))
+	if (b_change_) {
+		if (sys_input_.KeyPoll(key))
 		{
-			bChange = 0;
+			b_change_ = 0;
 			std::cout << GetKeyValue(key) << std::endl;
 		}
 	}
@@ -123,6 +123,8 @@ char InputSystem::GetKeyValue(int key)
 		break;
 	case 0x5A: return 'Z';
 		break;
+	default:
+		return '/';
 	}
 }
 
@@ -141,16 +143,16 @@ void InputSystem::GetCursorPosition(Vector2D& pos) {
 
 // Distance between initial click and end click (Currently not working)
 void InputSystem::GetCursorPositionDelta(Vector2D& pos, int key) {
-	if (!bToggle) {
-		bToggle = true;
-		GetCursorPosition(initial);
+	if (!b_toggle_) {
+		b_toggle_ = true;
+		GetCursorPosition(initial_);
 	}
 	else if (CheckReleasedInput(key)) {
-		bToggle = false;
+		b_toggle_ = false;
 		GetCursorPosition(pos);
-		pos.x = max(pos.x, initial.x) - min(pos.x, initial.x);
+		pos.x = max(pos.x, initial_.x) - min(pos.x, initial_.x);
 		pos.x = (pos.x) < 0 ? (-pos.x) : pos.x;
-		pos.y = max(pos.y, initial.y) - min(pos.y, initial.y);
+		pos.y = max(pos.y, initial_.y) - min(pos.y, initial_.y);
 		pos.y = (pos.y) < 0 ? (-pos.y) : pos.y;
 
 		std::cout << "delta x: " << pos.x << std::endl;
@@ -158,13 +160,34 @@ void InputSystem::GetCursorPositionDelta(Vector2D& pos, int key) {
 	}
 }
 
-void InputSystem::init() {
+void InputSystem::Init() {
 
 }
 
-void InputSystem::update(float frametime) {
+void InputSystem::Update(float frametime) {
 
-	for (int i = 0x30; i < 0x5A; ++i) {
+	(void)frametime;
+
+	//for keys requiring to check buttons held down
+	for (int i = 0x25; i <= 0x28; ++i) {
+		if (CheckCurrentInput(i)) {
+			switch (i)
+			{
+			case 0x25: //LEFT ARROW key
+			case 0x26: //UP ARROW key
+			case 0x27: //RIGHT ARROW key
+			case 0x28: //DOWN ARROW key
+			{
+				//send message to game logc of button press
+				Message_Input msg{ MessageIDTypes::M_ButtonPress, i };
+				CORE->BroadcastMessage(&msg);
+				break;
+			}
+			}
+		}
+	}
+
+	for (int i = 0x30; i <= 0x5A; ++i) {
 		if (CheckTriggeredInput(i)) {
 			switch (i)
 			{
@@ -177,13 +200,13 @@ void InputSystem::update(float frametime) {
 			}
 			case 0x31:	//'1'
 			{
-				Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_ChangeState }; // pass in another existing state?
+				Message_CustomState msg{ &m_PlayState, MessageIDTypes::GSM_ChangeState }; // pass in another existing state?
 				CORE->BroadcastMessage(&msg);
 				break;
 			}
 			case 0x32:	//'2'
 			{
-				Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_PushState }; // push maybe game state
+				Message_CustomState msg{ &m_PlayState, MessageIDTypes::GSM_PushState }; // push maybe game state
 				CORE->BroadcastMessage(&msg);
 				break;
 			}

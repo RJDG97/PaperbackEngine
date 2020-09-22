@@ -8,12 +8,12 @@
 #include "Vector2D.h"
 
 class InputSystem : public ISystem {
-	bool currentkey[164];
-	bool previouskey[164];
-	bool keyreleased[164];
-	bool bChange;
-	bool bToggle;
-	Vector2D initial;
+	bool currentkey_[164];
+	bool previouskey_[164];
+	bool keyreleased_[164];
+	bool b_change_;
+	bool b_toggle_;
+	Vector2D initial_;
 public:
 	InputSystem();
 	bool CheckCurrentInput(int key);
@@ -27,12 +27,12 @@ public:
 	void GetCursorPositionDelta(Vector2D& pos, int key);
 
 	// ISystem
-	void init();
-	void update(float frametime);
-	std::string GetName() { return "Input System"; }
-	void SendMessageD(Message* m);
+	void Init() override;
+	void Update(float frametime) override;
+	std::string GetName() override { return "Input System"; }
+	void SendMessageD(Message* m) override;
 };
 
-extern InputSystem sys_input;
+extern InputSystem sys_input_;
 
 #endif

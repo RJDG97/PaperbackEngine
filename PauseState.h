@@ -16,6 +16,8 @@ public:
 	void pause();
 	void resume();
 
+	void StateInputHandler(int key_val);
+
 	// Implement Singleton Pattern
 	// Returns a pointer to a static instance of the class
 	static PauseState* Instance()

@@ -7,15 +7,16 @@ Transform::Transform() {
 	rotation_ = 0.0f;
 }
 
-void Transform::init() {
+void Transform::Init() {
 	//PHYSICS->Transforms.push_back(*this);
-	PHYSICS->Transforms[Component::GetOwner()->GetID()] = *this;
+	//PHYSICS->Transforms_[Component::GetOwner()->GetID()] = *this;
+	PHYSICS->AddTransformComponent(Component::GetOwner()->GetID(), this);
 }
 
 void Transform::PublishResults() {
 	//transform->_position = position;
 }
 
-//void Position::serialize(ISerializer& str) {
+//void Transform::Serialize(ISerializer& str) {
 //	
 //}

@@ -18,6 +18,7 @@ temp headers
 #include "Physics.h"
 #include "Factory.h"
 #include "Game.h"
+#include "Collision.h"
 
 
 #define EPSILON		0.0001f
@@ -174,6 +175,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	//to reorder based on what system has priority over the other
 	engine->AddSystem(new InputSystem());
 	engine->AddSystem(new Physics());
+	engine->AddSystem(new Collision());
 	engine->AddSystem(new EntityFactory());
 	engine->AddSystem(new SoundSystem());
 	engine->AddSystem(new Game());
@@ -181,8 +183,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	engine->Initialize();
 
 	//creating duplicate entities
-	FACTORY->create("Entity1");
-	FACTORY->create("Entity2");
+	FACTORY->Create("Entity1");
+	FACTORY->Create("Entity2");
 
 	engine->GameLoop();
 

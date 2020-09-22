@@ -37,11 +37,11 @@ void PauseState::resume()
 void PauseState::update(Game* game)
 {
 	UNREFERENCED_PARAMETER(game);
-	if (sys_input.CheckTriggeredInput(PE_B))
+	if (sys_input_.CheckTriggeredInput(PE_B))
 	{
 		std::cout << "THE GAME IS PAUSED" << std::endl;
 	}
-	if (sys_input.CheckTriggeredInput(PE_SPACE))
+	if (sys_input_.CheckTriggeredInput(PE_SPACE))
 	{
 		std::cout << "RESUMING...." << std::endl;
 		game->PopState();
@@ -54,3 +54,8 @@ void PauseState::draw(Game* game)
 }
 
 
+
+void PauseState::StateInputHandler(int key_val) {
+	(void)key_val;
+
+}

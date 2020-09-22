@@ -2,13 +2,14 @@
 #include "IComponent.h"
 #include <algorithm>
 #include "Factory.h"
+#include <iostream>
 
 //Used to sort components using their type Id.
 struct ComponentSorter
 {
 	bool operator()(Component* left, Component* right) const
 	{
-		return left->GetComponentType() < right->GetComponentType();
+		return left->GetComponentTypeID() < right->GetComponentTypeID();
 	}
 };
 
@@ -21,40 +22,46 @@ Component* BinaryComponentSearch(ComponentArr& components, ComponentTypes name)
 	while(begin < end)
 	{
 		size_t mid = (begin+end) / 2;
-		if(components[mid]->GetComponentType() < name)
+		if(components[mid]->GetComponentTypeID() < name)
 			begin = mid + 1;
 		else
 			end = mid;
 	}
 
-	if((begin < components.size()) && (components[begin]->GetComponentType() == name))
+	if((begin < components.size()) && (components[begin]->GetComponentTypeID() == name))
 		return components[begin];
 	else
 		return NULL;
 }
 
-void Entity::init() {
+int counter = 1;
+
+void Entity::Init() {
 
 	//inits all components owned by entity and set the component's owner
 	//allows each component to be initialised separate from ctor
 
-	for (EntityIt it = _components.begin(); it != _components.end(); ++it) {
+	entity_type_ = static_cast<EntityTypes>(counter++);
+
+	std::cout << "Initialising entity with type: " << static_cast<int>(entity_type_) << std::endl;
+
+	for (EntityIt it = components_.begin(); it != components_.end(); ++it) {
 
 		(*it)->owner_ = this;
-		(*it)->init();
+		(*it)->Init();
 	}
 };
 
 Entity::Entity() {
-
 	// Initialise id to 0 since it will be assigned by factory
-	_objectID = 0;
+	object_id_ = 0;
+	entity_type_ = EntityTypes::None;
 }
 
 // Destroys all components attached to an entity
 Entity::~Entity() {
-	EntityIt begin = _components.begin();
-	EntityIt end = _components.end();
+	EntityIt begin = components_.begin();
+	EntityIt end = components_.end();
 	for (; begin < end; ++begin) {
 		delete* begin;
 	}
@@ -65,18 +72,27 @@ Entity::~Entity() {
 void Entity::AddComponent(ComponentTypes typeId, Component* component) {
 
 	component->type_id_ = typeId;
-	_components.push_back(component);
+	components_.push_back(component);
 
-	std::sort(_components.begin(), _components.end(), ComponentSorter());
+	std::sort(components_.begin(), components_.end(), ComponentSorter());
 }
 
 // Returns a pointer to a component attached to an entity
 Component* Entity::GetComponent(ComponentTypes typeId) {
 	
-	return BinaryComponentSearch(_components, typeId);
+	return BinaryComponentSearch(components_, typeId);
 }
 
+//A more advanced type safe way of accessing components.
+//Interface becomes Transform* transform = object->has(Transform);
+template<typename return_type>
+return_type* Entity::GetComponentType(ComponentTypes typeId)
+{
+	return static_cast<return_type*>(GetComponent(typeId));
+}
+
+
 // Destructs the entity through the factory
-void Entity::destroy() {
-	FACTORY->destroy(this);
+void Entity::Destroy() {
+	FACTORY->Destroy(this);
 }

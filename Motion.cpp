@@ -1,18 +1,20 @@
 #include "Motion.h"
+#include "Physics.h"
 
 Motion::Motion() : velocity_{},
 				   acceleration_{}
 {}
 
-void Motion::init() {
+void Motion::Init() {
 	// Create the map afterwards
 	//PHYSICS->Motions[Component::GetOwner()->GetID()] = *this;
+	PHYSICS->AddMotionComponent(Component::GetOwner()->GetID(), this);
 }
 
 void Motion::PublishResults() {
 	//transform->_position = position;
 }
 
-//void Motion::serialize(ISerializer& str) {
+//void Motion::Serialize(ISerializer& str) {
 //	
 //}

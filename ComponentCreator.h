@@ -4,15 +4,18 @@
 class Component;
 
 class ComponentCreator {
+
+	ComponentTypes type_id_;
 public:
-	ComponentTypes _typeId; // Might be able to make it private
 
 	// Instantiate component with it's Type ID
-	ComponentCreator(ComponentTypes typeId) : _typeId(typeId) 
+	ComponentCreator(ComponentTypes type_id) : type_id_(type_id)
 	{}
 
+	ComponentTypes GetComponentTypeID() const { return type_id_; }
+
 	// Create a component
-	virtual Component* create() = 0;
+	virtual Component* Create() = 0;
 
 	virtual ~ComponentCreator() = default;
 };
@@ -26,7 +29,7 @@ public:
 	{}
 
 	// Returns a new instance of a component that it is templated for
-	virtual Component* create() {
+	virtual Component* Create() {
 		return new type();
 	}
 };

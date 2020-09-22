@@ -9,9 +9,11 @@
 #include "InputSystem.h"
 #include "WinKeyCodes.h"
 
+#include "Core.h"
+
 // SAMPLE PLAY STATE
 
-PlayState PlayState::m_PlayState;
+PlayState m_PlayState;
 
 void PlayState::init()
 {
@@ -42,18 +44,18 @@ void PlayState::update(Game* game)
 {
 	UNREFERENCED_PARAMETER(game);
 
-	if (sys_input.CheckTriggeredInput(PE_N))
+	if (sys_input_.CheckTriggeredInput(PE_N))
 	{
 		std::cout << "YOU ARE IN THE PLAY STATE" << std::endl;
 	}
 
-	if (sys_input.CheckTriggeredInput(PE_SPACE))
+	if (sys_input_.CheckTriggeredInput(PE_SPACE))
 	{
 		std::cout << "PAUSING....." << std::endl;
 		game->PushState(PauseState::Instance());
 	}
 
-	if (sys_input.CheckTriggeredInput(PE_ESCAPE))
+	if (sys_input_.CheckTriggeredInput(PE_ESCAPE))
 	{
 		std::cout << "GOING BACK TO MAIN MENU" << std::endl;
 		//game->ChangeState(MenuState::Instance());
@@ -65,5 +67,42 @@ void PlayState::draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
+void PlayState::StateInputHandler(int key_val) {
 
+	switch (key_val)
+	{
+	case 0x25: //LEFT ARROW key
+	{
+		std::cout << "Play State: Moving Left" << std::endl;
+		Vector2D accel{ -1, 0 };
+		MessagePhysics_Accel msg{ MessageIDTypes::PHY_UpdateAccel, accel };
+		CORE->BroadcastMessage(&msg);
+		break;
+	}
+	case 0x26: //UP ARROW key
+	{
+		std::cout << "Play State: Moving Up" << std::endl;
+		Vector2D accel{ 0, 1 };
+		MessagePhysics_Accel msg{ MessageIDTypes::PHY_UpdateAccel, accel };
+		CORE->BroadcastMessage(&msg);
+		break;
+	}
+	case 0x27: //RIGHT ARROW key
+	{
+		std::cout << "Play State: Moving Right" << std::endl;
+		Vector2D accel{ 1, 0 };
+		MessagePhysics_Accel msg{ MessageIDTypes::PHY_UpdateAccel, accel };
+		CORE->BroadcastMessage(&msg);
+		break;
+	}
+	case 0x28: //DOWN ARROW key
+	{
+		std::cout << "Play State: Moving Down" << std::endl;
+		Vector2D accel{ 0, -1 };
+		MessagePhysics_Accel msg{ MessageIDTypes::PHY_UpdateAccel, accel };
+		CORE->BroadcastMessage(&msg);
+		break;
+	}
 
+	}
+}

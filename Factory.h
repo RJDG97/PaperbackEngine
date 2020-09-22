@@ -10,32 +10,34 @@ class ComponentCreator;
 class EntityFactory : public ISystem {
 
 	//contains incrementally generated id
-	unsigned int _lastEntityId;
+	unsigned int last_entity_id_;
 
 	using ComponentMapType = std::map<std::string, ComponentCreator*>;
-	ComponentMapType _componentMap;
+	ComponentMapType component_map_;
 
-	using EntityIdMapType = std::map<unsigned int, Entity*>;
+	using EntityIdMapType = std::map<EntityID, Entity*>;
 	using EntityIdMapTypeIt = EntityIdMapType::iterator;
-	EntityIdMapType _entityIdMap;
+	EntityIdMapType entity_id_map_;
 
 	using EntityIt = std::set<Entity*>::iterator;
-	std::set<Entity*> _objectsToDeleted;
+	std::set<Entity*> objects_to_delete;
 
 public:
 	EntityFactory();
 	~EntityFactory();
 
 	//create, init & id new entity from file
-	Entity* create(const std::string& filename);
+	Entity* Create(const std::string& filename);
 
 	//adds entity to destroy list
-	void destroy(Entity* entity);
+	void Destroy(Entity* entity);
 
 	//updates factory and destroys dead entities
-	virtual void update(float frametime);
+	virtual void Update(float frametime) override;
 
-	virtual std::string GetName() { return "Factory"; }
+	virtual std::string GetName() override { return "Factory"; }
+
+	void SendMessageD(Message* msg) override;
 
 	// Used to destroy all entities in the game (Final shutdown)
 	void DestroyAllEntities();
@@ -57,8 +59,6 @@ public:
 	//returns an entity with the id
 	//returns NULL if no longer existing
 	Entity* GetObjectWithID(EntityID id);
-
-	void SendMessageD(Message* msg);
 };
 
 extern EntityFactory* FACTORY;

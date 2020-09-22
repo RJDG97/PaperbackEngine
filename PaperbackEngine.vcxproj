@@ -148,6 +148,7 @@
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Attack.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Factory.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="glslshader.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="ISerializer.cpp" />
     <ClCompile Include="LightingSystem.cpp" />
     <ClCompile Include="Matrix3x3.cpp" />
     <ClCompile Include="MenuState.cpp" />
@@ -180,6 +182,7 @@
     <ClInclude Include="AABB.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Attack.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="ComponentCreator.h" />
     <ClInclude Include="ComponentTypes.h" />
     <ClInclude Include="Core.h" />
@@ -194,6 +197,7 @@
     <ClInclude Include="Health.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="ISerializer.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="LightingSystem.h" />
     <ClInclude Include="Matrix3x3.h" />

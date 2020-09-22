@@ -3,7 +3,6 @@
 
 #include "Entity.h" 
 #include "Vector2D.h"
-//#include "Physics.h"
 
 class Motion : public Component {
 	Vector2D velocity_;
@@ -13,7 +12,7 @@ public:
 
 	Motion();
 
-	void init();
+	void Init();
 	void PublishResults();
 	//void serialize(ISerializer& str);
 };

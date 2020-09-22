@@ -3,78 +3,88 @@
 #include "ComponentCreator.h"
 #include <iostream>
 
+/*
+#include "ISerializer.h"
+#include "istreamwrapper.h"
+#include "reader.h"
+#include "writer.h"
+
+#include <fstream>*/
+
 EntityFactory* FACTORY = NULL;
 
 EntityFactory::EntityFactory() {
 
 	FACTORY = this;
-	_lastEntityId = 0;
+	last_entity_id_ = 0;
 }
 
 EntityFactory::~EntityFactory() {
 
-	ComponentMapType::iterator it = _componentMap.begin();
+	ComponentMapType::iterator it = component_map_.begin();
 
 	//loops through and deleles every component creator
-	for (; it != _componentMap.end(); ++it) {
+	for (; it != component_map_.end(); ++it) {
 
 		delete it->second;
 	}
 }
 
-Entity* EntityFactory::create(const std::string& filename) {
+Entity* EntityFactory::Create(const std::string& filename) {
 	// Create the entity and initialize all components from file
 	Entity* entity = BuildAndSerialize(filename);
 	// If entity was successfully created, initialize
 	if (entity) {
-		entity->init();
+		entity->Init();
 	}
 
 	return entity;
 }
 
 
-void EntityFactory::destroy(Entity* entity) {
+void EntityFactory::Destroy(Entity* entity) {
 	// Insert the entity into the set for deletion next update loop
-	_objectsToDeleted.insert(entity);
+	objects_to_delete.insert(entity);
 }
 
 
-void EntityFactory::update(float frametime) {
+void EntityFactory::Update(float frametime) {
 	// Begin and end iterators
-	EntityIt begin = _objectsToDeleted.begin();
-	EntityIt end = _objectsToDeleted.end();
+
+	(void)frametime;
+	EntityIt begin = objects_to_delete.begin();
+	EntityIt end = objects_to_delete.end();
 
 	// Loop through all entities that are to be removed and remove them
 	for (; begin != end; ++begin) {
 		Entity* entity = *begin;
 
 		// Get entity's id
-		EntityID id = entity->_objectID;
+		EntityID id = entity->object_id_;
 		// Check whether id exists within the map
-		EntityIdMapTypeIt beginIt = _entityIdMap.find(id);
+		EntityIdMapTypeIt beginIt = entity_id_map_.find(id);
 
 		// If it still exists, delete the entity
-		if (beginIt != _entityIdMap.end()) {
+		if (beginIt != entity_id_map_.end()) {
 			delete entity;
-			_entityIdMap.erase(beginIt);
+			entity_id_map_.erase(beginIt);
 		}
 	}
 	// Clear and resize the set
-	_objectsToDeleted.clear();
+	objects_to_delete.clear();
 }
 
 void EntityFactory::DestroyAllEntities() {
 	
-	EntityIdMapType::iterator it = _entityIdMap.begin();
+	EntityIdMapType::iterator it = entity_id_map_.begin();
 
 	// Loop through all entities
-	for (; it != _entityIdMap.end(); ++it) {
+	for (; it != entity_id_map_.end(); ++it) {
 		// Delete all entities
 		delete it->second;
 	}
 	// Clear and resize map
-	_entityIdMap.clear();
+	entity_id_map_.clear();
 }
 
 Entity* EntityFactory::CreateEmptyEntity() {
@@ -89,19 +99,39 @@ Entity* EntityFactory::CreateEmptyEntity() {
 
 Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
 	
+	(void)filename;
+
 	Entity* ret = new Entity();
 
-	ComponentCreator* creator = _componentMap.find("Transform")->second;
+	ComponentCreator* creator = component_map_.find("Motion")->second;
 
-	Component* component = creator->create();
+	Component* component = creator->Create();
 
-	ret->AddComponent(creator->_typeId, component);
+	ret->AddComponent(creator->GetComponentTypeID(), component);
 
-	creator = _componentMap.find("Health")->second;
+	/*creator = _componentMap.find("Health")->second;
 
 	component = creator->create();
 
-	ret->AddComponent(creator->_typeId, component);
+	ret->AddComponent(creator->_typeId, component);*/
+
+	creator = component_map_.find("Transform")->second;
+
+	component = creator->Create();
+
+	ret->AddComponent(creator->GetComponentTypeID(), component);
+
+	/*const char* json_test = "{\"hello\" : \"world\"}";
+
+	rapidjson::FileReadStream{}
+	std::ifstream test;
+	rapidjson::IStreamWrapper wrap{test};
+
+	rapidjson::Document test_doc;
+
+	test_doc.ParseStream(wrap);
+	rapidjson::Reader read{};
+	rapidjson::Reader reader;*/
 
 	StoreEntityID(ret);
 
@@ -111,25 +141,25 @@ Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
 void EntityFactory::StoreEntityID(Entity* entity) {
 	
 	//increment counter and store entity into id map
-	++_lastEntityId;
-	entity->_objectID = _lastEntityId;
+	++last_entity_id_;
+	entity->object_id_ = last_entity_id_;
 
-	_entityIdMap[_lastEntityId] = entity;
-	std::cout << "Entity stored with ID: " << _lastEntityId << std::endl;
+	entity_id_map_[last_entity_id_] = entity;
+	std::cout << "Entity stored with ID: " << last_entity_id_ << std::endl;
 }
 
 void EntityFactory::AddComponentCreator(const std::string& name, ComponentCreator* creator) {
 	
 	//binds component creator to entry with component name
-	_componentMap.emplace(name, creator);
+	component_map_.emplace(name, creator);
 }
 
 Entity* EntityFactory::GetObjectWithID(EntityID id) {
 	
-	EntityIdMapType::iterator it = _entityIdMap.find(id);
+	EntityIdMapType::iterator it = entity_id_map_.find(id);
 
 	// If entity id exists, return pointer to entity
-	if (it != _entityIdMap.end()) {
+	if (it != entity_id_map_.end()) {
 		return it->second;
 	}
 	// Else, return null
@@ -138,4 +168,5 @@ Entity* EntityFactory::GetObjectWithID(EntityID id) {
 
 void EntityFactory::SendMessageD(Message* msg) {
 	
+	(void)msg;
 }

@@ -2,25 +2,25 @@
 #include "Core.h"
 #include "InputSystem.h"
 
-SoundSystem::SoundSystem() : bMute{ false }, bPaused{ false } {
+SoundSystem::SoundSystem() : b_mute_{ false }, b_paused_{ false } {
 	// Create system
-	FMOD::System_Create(&f_system);
+	FMOD::System_Create(&f_system_);
 	// Initialize system
-	f_system->init(32, FMOD_INIT_NORMAL, f_system);
+	f_system_->init(32, FMOD_INIT_NORMAL, f_system_);
 }
 
 SoundSystem::~SoundSystem() {
 	// Iterate through sound library and release all files
-	for (auto begin = soundLibrary.begin(); begin != soundLibrary.end(); ++begin) {
+	for (auto begin = sound_library_.begin(); begin != sound_library_.end(); ++begin) {
 		begin->second->release();
 	}
 
 	// Terminate system
-	f_system->close();
-	f_system->release();
+	f_system_->close();
+	f_system_->release();
 }
 
-bool SoundSystem::checkError(FMOD_RESULT fResult) {
+bool SoundSystem::CheckError(FMOD_RESULT fResult) {
 	if (fResult == FMOD_OK) {
 		return 1;
 	}
@@ -30,44 +30,44 @@ bool SoundSystem::checkError(FMOD_RESULT fResult) {
 	}
 }
 
-void SoundSystem::loadSound(std::string fileLocation, std::string fileID, bool loopStatus) {
+void SoundSystem::LoadSound(std::string file_location, std::string file_id, bool loop_status) {
 	// Determine whether sound file already exists within sound library
-	SoundIt it = soundLibrary.find(fileID);
+	SoundIt it = sound_library_.find(file_id);
 
 	FMOD_MODE mode = FMOD_DEFAULT;
-	mode |= loopStatus ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF;
+	mode |= loop_status ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF;
 
 	// If sound file does not exist within sound library, include it
-	if (it == soundLibrary.end()) {
+	if (it == sound_library_.end()) {
 		FMOD::Sound* sound = nullptr;
 		// Load the sound file
-		if (checkError(f_system->createSound(fileLocation.c_str(), mode, 0, &sound))) {
+		if (CheckError(f_system_->createSound(file_location.c_str(), mode, 0, &sound))) {
 			// If sound file is successfully loaded
 			if (sound != nullptr) {
 				// Insert sound file into sound library
-				soundLibrary.insert(std::pair<std::string, FMOD::Sound*>(fileID, sound));
+				sound_library_.insert(std::pair<std::string, FMOD::Sound*>(file_id, sound));
 			}
 		}
 	}
 }
 
-void SoundSystem::playSound(std::string fileID) {
+void SoundSystem::PlaySounds(std::string fileID) {
 	// Check whether sound file exists within sound library
-	SoundIt it = soundLibrary.find(fileID);
+	SoundIt it = sound_library_.find(fileID);
 
 	// If sound file exists within the sound library
-	if (it != soundLibrary.end()) {
+	if (it != sound_library_.end()) {
 		// Check whether current sound file is already playing
-		ChannelIt channelIT = channelLibrary.find(fileID);
+		ChannelIt channelIT = channel_library_.find(fileID);
 		// If sound file is currently not playing
-		if (channelIT == channelLibrary.end()) {
+		if (channelIT == channel_library_.end()) {
 			FMOD::Channel* channel = nullptr;
 			// Load the channel with the sound file and play
-			if (checkError(f_system->playSound(it->second, 0, false, &channel))) {
+			if (CheckError(f_system_->playSound(it->second, 0, false, &channel))) {
 				// If channel is playing the sound file successfully
 				if (channel != nullptr) {
 					// Insert channel into channel library
-					channelLibrary.insert(std::pair<std::string, FMOD::Channel*>(fileID, channel));
+					channel_library_.insert(std::pair<std::string, FMOD::Channel*>(fileID, channel));
 				}
 			}
 		}
@@ -78,14 +78,14 @@ void SoundSystem::playSound(std::string fileID) {
 	}
 }
 
-void SoundSystem::stopSound(std::string fileID, bool stopAllChannels) {
+void SoundSystem::StopSound(std::string fileID, bool stopAllChannels) {
 	// Stop a single channel
 	if (!stopAllChannels) {
 		// Check whether sound file is currently playing in a channel
-		ChannelIt it = channelLibrary.find(fileID);
+		ChannelIt it = channel_library_.find(fileID);
 
 		// If sound file is current playing in a channel
-		if (it != channelLibrary.end()) {
+		if (it != channel_library_.end()) {
 			// Stop the channel
 			it->second->stop();
 		}
@@ -93,81 +93,83 @@ void SoundSystem::stopSound(std::string fileID, bool stopAllChannels) {
 	// Stop all channels (End of level)
 	else {
 		// Iterate through all active channels
-		for (auto& it : channelLibrary) {
+		for (auto& it : channel_library_) {
 			// Stop the channel
 			it.second->stop();
 		}
 	}
 }
 
-void SoundSystem::muteSound() {
+void SoundSystem::MuteSound() {
 	// If there are no active channels, return
-	if (channelLibrary.begin() == channelLibrary.end())
+	if (channel_library_.begin() == channel_library_.end())
 		return;
 
 	// Get the status of channels (Muted / Not Muted)
-	channelLibrary.begin()->second->getMute(&bMute);
+	channel_library_.begin()->second->getMute(&b_mute_);
 	// Toggle mute status
-	bMute = !bMute;
+	b_mute_ = !b_mute_;
 
 	// Assign updated status to all active channels
-	for (auto& it : channelLibrary) {
-		it.second->setMute(bMute);
+	for (auto& it : channel_library_) {
+		it.second->setMute(b_mute_);
 	}
 }
 
-void SoundSystem::pauseSound() {
+void SoundSystem::PauseSound() {
 	// If there are no active channels, return
-	if (channelLibrary.begin() == channelLibrary.end())
+	if (channel_library_.begin() == channel_library_.end())
 		return;
 
 	// Get the status of channels (Paused / Not Paused)
-	channelLibrary.begin()->second->getPaused(&bPaused);
+	channel_library_.begin()->second->getPaused(&b_paused_);
 	// Toggle pause status
-	bPaused = !bPaused;
+	b_paused_ = !b_paused_;
 
 	// Assign updated status to all active channels
-	for (auto& it : channelLibrary) {
-		it.second->setPaused(bPaused);
+	for (auto& it : channel_library_) {
+		it.second->setPaused(b_paused_);
 	}
 }
 
-void SoundSystem::removeCompletedChannel() {
+void SoundSystem::RemoveCompletedChannel() {
 	// Iterate through all completed channels
-	for (auto& channel : completedChannel) {
+	for (auto& channel : completed_channel_) {
 		std::cout << "Deleting completed channel: " << channel->first.c_str() << std::endl;
-		channelLibrary.erase(channel);
+		channel_library_.erase(channel);
 	}
 
 	// Clear and resize completed channel
-	completedChannel.clear();
+	completed_channel_.clear();
 }
 
-void SoundSystem::init() {
+void SoundSystem::Init() {
 	// Load all sound files
-	loadSound("Resources/SoundCache/KK_BBG.mp3", "BGM", 1);
-	loadSound("Resources/SoundCache/Kachow.mp3", "Kachow");
+	LoadSound("Resources/SoundCache/KK_BBG.mp3", "BGM", 1);
+	LoadSound("Resources/SoundCache/Kachow.mp3", "Kachow");
 }
 
-void SoundSystem::update(float frametime) {
+void SoundSystem::Update(float frametime) {
 
 	/*!
 		Check all active channel's status (Done playing?)
 		- Push all completed channels into vector for deletion
 	*/
+	(void)frametime;
+	
 	{
 		// Iterate through all active channels
-		for (auto channel = channelLibrary.begin(); channel != channelLibrary.end(); ++channel) {
-			bool bPlaying = false;
+		for (auto channel = channel_library_.begin(); channel != channel_library_.end(); ++channel) {
+			bool b_playing = false;
 			// Get channel's status (Playing / Completed)
-			channel->second->isPlaying(&bPlaying);
-			if (!bPlaying) {
+			channel->second->isPlaying(&b_playing);
+			if (!b_playing) {
 				// Push back the completed channel after its completed
-				completedChannel.push_back(channel);
+				completed_channel_.push_back(channel);
 			}
 		}
 
-		if (completedChannel.size() > 0) {
+		if (completed_channel_.size() > 0) {
 			// If channel has completed playing sound file, notify
 			// system to remove it
 			Message msg(MessageIDTypes::BGM_Completed);
@@ -184,43 +186,43 @@ std::string SoundSystem::GetName() {
 //receives message as base class pointer and uses them based on message id value
 void SoundSystem::SendMessageD(Message* m) {
 
-	switch (m->MessageID) {
+	switch (m->message_id_) {
 	case MessageIDTypes::BGM_Play:
 	{
 		//plays a fileID as included in the message
 		MessageBGM_Play* msg = dynamic_cast<MessageBGM_Play*>(m);
-		std::cout << "Playing Sound File: " << msg->_fileID << std::endl;
-		playSound(msg->_fileID);
+		std::cout << "Playing Sound File: " << msg->file_id_ << std::endl;
+		PlaySounds(msg->file_id_);
 		break;
 	}
 	case MessageIDTypes::BGM_Pause:
 	{
 		// Pause all current active channels
-		pauseSound();
+		PauseSound();
 		break;
 	}
 	case MessageIDTypes::BGM_Mute:
 	{
 		// Mute all current active channels
-		muteSound();
+		MuteSound();
 		break;
 	}
 	case MessageIDTypes::BGM_Stop:
 	{
 		// stops the current BGM
 		//need to check id of song to stop
-		stopSound("BGM");
+		StopSound("BGM");
 		break;
 	}
 	case MessageIDTypes::BGM_Reload:
 	{
 		// Reload bgm and play
-		loadSound("Resources/SoundCache/KK_BBG.mp3", "BGM");
-		playSound("BGM");
+		LoadSound("Resources/SoundCache/KK_BBG.mp3", "BGM");
+		PlaySounds("BGM");
 	}
 	case MessageIDTypes::BGM_Completed:
 	{
-		removeCompletedChannel();
+		RemoveCompletedChannel();
 		break;
 	}
 	default:

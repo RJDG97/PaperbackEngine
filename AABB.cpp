@@ -1,18 +1,20 @@
 #include "AABB.h"
+#include "Collision.h"
 
-AABB::AABB() : top_left_{},
-			   bottom_right_{}
+AABB::AABB() : top_right_{},
+			   bottom_left_{}
 {}
 
-void AABB::init() {
+void AABB::Init() {
 	// Create the map afterwards
 	//COLLISION->AABBs[Component::GetOwner()->GetID()] = *this;
+	COLLISION->AddAABBComponent(Component::GetOwner()->GetID(), this);
 }
 
 void AABB::PublishResults() {
 	//transform->_position = position;
 }
 
-//void AABB::serialize(ISerializer& str) {
+//void AABB::Serialize(ISerializer& str) {
 //	
 //}

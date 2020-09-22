@@ -1,4 +1,7 @@
 #include "ComponentTypes.h"
+#include "ISerializer.h"
+#include "lib/rapidjson/filereadstream.h"
+#include "lib/rapidjson/document.h"
 
 #ifndef _COMPONENT_H_
 #define _COMPONENT_H_
@@ -18,16 +21,16 @@ public:
 	friend class Entity;
 
 	// Inits the component ingame 
-	virtual void init() {};
+	virtual void Init() {};
 
 	// Reads and initializes the component's data members from a stream
-	//virtual void serialize(ISerialiser& str){};
+	virtual void Serialize(ISerializer& str){};
 
 	// Returns the pointer to the entity that owns the component
 	Entity* GetOwner() { return owner_; }
 
 	//returns type id
-	ComponentTypes GetComponentType() { return type_id_; }
+	ComponentTypes GetComponentTypeID() { return type_id_; }
 
 protected:
 	// Double check why protected

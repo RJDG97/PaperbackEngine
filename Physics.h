@@ -9,13 +9,12 @@
 #include "Transform.h"
 #include "Health.h"
 #include "Factory.h"
+#include "Motion.h"
 #include <unordered_map>
 
 class Physics : public ISystem
 {
-	// Check whether entities are colliding
-	void DetectCollision();
-
+public:
 	// Broadcast physics collision messages after physics has updated
 	// the entities position
 	void PublishResults();
@@ -23,23 +22,32 @@ class Physics : public ISystem
 	// Draw debugging boxes
 	void DebugDraw();
 
+	void ChangeAcceleration(Message* m);
+
 	void Rotate(Transform* pos);
 
-	void DecreaseHP(Health* hp);
+	//void DecreaseHP(Health* hp);
 
-	void SendMessageD(Message* msg);
+	void AddTransformComponent(EntityID id, Transform* transform);
 
-public:
+	void AddMotionComponent(EntityID id, Motion* motion);
+
 	Physics();
-	void init();
-	virtual void update(float frametime);
-	virtual std::string GetName() { return "Physics"; }
 
+	void Init() override;
+	virtual void Update(float frametime) override;
+	virtual std::string GetName() override { return "Physics"; }
+	void SendMessageD(Message* msg) override;
+
+private:
 	using TransformIt = std::unordered_map<EntityID, Transform>::iterator;
-	std::unordered_map<EntityID,Transform> Transforms;
+	std::unordered_map<EntityID,Transform> transform_arr_;
 
-	using HPIt = std::unordered_map<EntityID, Health>::iterator;
-	std::unordered_map<EntityID, Health> HPs;
+	/*using HPIt = std::unordered_map<EntityID, Health>::iterator;
+	std::unordered_map<EntityID, Health> hp_arr_;*/
+
+	using MotionIt = std::unordered_map<EntityID, Motion>::iterator;
+	std::unordered_map<EntityID, Motion> motion_arr_;
 };
 
 extern Physics* PHYSICS;

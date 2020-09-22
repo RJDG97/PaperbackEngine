@@ -8,10 +8,10 @@ class ISystem {
 public:
 
 	//init function called to initialise a system
-	virtual void init() {}
+	virtual void Init() {}
 
 	//contains logic executed during the update loop of a game
-	virtual void update(float frametime) = 0;
+	virtual void Update(float frametime) = 0;
 
 	//returns the name of the system for debug use
 	virtual std::string GetName() = 0;

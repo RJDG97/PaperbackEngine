@@ -4,7 +4,7 @@ Scale::Scale() : width_scale_{},
 			     height_scale_{}
 {}
 
-void Scale::init() {
+void Scale::Init() {
 	// Create the map afterwards
 	//GRAPHICS->Scales[Component::GetOwner()->GetID()] = *this;
 }
@@ -13,6 +13,6 @@ void Scale::PublishResults() {
 	//transform->_position = position;
 }
 
-//void Scale::serialize(ISerializer& str) {
+//void Scale::Serialize(ISerializer& str) {
 //	
 //}

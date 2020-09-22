@@ -9,9 +9,9 @@ public:
 
 	Attack();
 
-	void init();
+	void Init();
 	void PublishResults();
-	//void serialize(ISerializer& str);
+	//void Serialize(ISerializer& str);
 };
 
 #endif

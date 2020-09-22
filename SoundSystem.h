@@ -8,48 +8,44 @@
 #include <string>
 #include <vector>
 #include <map>
-
-/*
-newly added isystem stuff
-*/
 #include "ISystem.h"
 
 class SoundSystem : public ISystem
 {
 	// Container to hold sound files
-	std::map<std::string, FMOD::Sound*> soundLibrary;		// Format: <name, soundFile>
+	std::map<std::string, FMOD::Sound*> sound_library_;		// Format: <name, soundFile>
 	// Sound library iterator
 	using SoundIt = std::map<std::string, FMOD::Sound*>::iterator;
 
 	// Container to hold fmod channels (Max 32)
-	std::map<std::string, FMOD::Channel*> channelLibrary;	// Format: <name, channelName>
+	std::map<std::string, FMOD::Channel*> channel_library_;	// Format: <name, channelName>
 	// Channel library iterator
 	using ChannelIt = std::map<std::string, FMOD::Channel*>::iterator;
 
 	// Container to hold completed channels to be deleted
-	std::vector<ChannelIt> completedChannel;
+	std::vector<ChannelIt> completed_channel_;
 
 	// Create system
-	FMOD::System* f_system = nullptr;
+	FMOD::System* f_system_ = nullptr;
 	// Mute or Pause system
-	bool bMute;
-	bool bPaused;
+	bool b_mute_;
+	bool b_paused_;
 
 public:
 	SoundSystem();
 	~SoundSystem();
-	bool checkError(FMOD_RESULT fResult);
-	void loadSound(std::string fileLocation, std::string fileID, bool loopStatus = 0);
-	void playSound(std::string fileID);
-	void stopSound(std::string fileID, bool stopAllChannels = 0);
-	void muteSound();
-	void pauseSound();
-	void removeCompletedChannel();
+	bool CheckError(FMOD_RESULT f_result);
+	void LoadSound(std::string file_location, std::string file_id, bool loop_status = 0);
+	void PlaySounds(std::string file_id);
+	void StopSound(std::string file_id, bool stop_all_channels = 0);
+	void MuteSound();
+	void PauseSound();
+	void RemoveCompletedChannel();
 
-	virtual void init();
-	virtual void update(float frametime);
-	virtual std::string GetName();
-	virtual void SendMessageD(Message* m);
+	virtual void Init() override;
+	virtual void Update(float frametime) override;
+	virtual std::string GetName() override;
+	virtual void SendMessageD(Message* m) override;
 };
 
 #endif

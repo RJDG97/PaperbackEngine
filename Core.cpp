@@ -16,7 +16,7 @@ CoreEngine::CoreEngine() {
 void CoreEngine::Initialize() {
 
 	for (size_t i = 0; i < Systems.size(); ++i) {
-		Systems[i]->init();
+		Systems[i]->Init();
 	}
 }
 
@@ -24,13 +24,13 @@ void CoreEngine::Initialize() {
 void CoreEngine::GameLoop() {
 	while (GameActive) {
 		
-		if (sys_input.CheckTriggeredInput(0x51)) { // Q key
+		if (sys_input_.CheckTriggeredInput(0x51)) { // Q key
 
 			GameActive = false;
 		}
 
 		for (size_t i = 0; i < Systems.size(); ++i) {
-			Systems[i]->update(PE_FrameRate.Dt);
+			Systems[i]->Update(PE_FrameRate.Dt);
 		}
 	}
 }
@@ -47,7 +47,7 @@ void CoreEngine::DestroySystems() {
 ///Broadcasts a message to all systems.
 void CoreEngine::BroadcastMessage(Message* m) {
 	
-	if (m->MessageID == MessageIDTypes::Exit) {
+	if (m->message_id_ == MessageIDTypes::Exit) {
 
 		//set game bool to false
 		GameActive = false;

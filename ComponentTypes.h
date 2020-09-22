@@ -5,6 +5,7 @@
 enum class ComponentTypes {
 
 	NONE = 0,
+	MOTION,
 	TRANSFORM,
 	HEALTH,
 	CAMERA,

@@ -15,8 +15,8 @@ public:
 	// state functions
 	//void init();
 	//void update();
-	void draw();
-	void free();
+	void Draw();
+	void Free();
 
 	// functions for changing the game state
 	void ChangeState(GameState* state);
@@ -29,26 +29,25 @@ public:
 
 	bool Running() // getter function
 	{
-		return m_bRunning;
+		return b_running_;
 	}
 
 	void Quit() // setter function
 	{
-		m_bRunning = false;
+		b_running_ = false;
 	}
 
-	void init();
-	void update(float frametime);
-	virtual std::string GetName() { return "Game State Manager"; }
-	virtual void SendMessageD(Message* m);
+	void Init() override;
+	void Update(float frametime) override;
+	virtual std::string GetName() override { return "Game State Manager"; }
+	virtual void SendMessageD(Message* m) override;
 
 private:
 	// stack to hold the states
-	std::vector<GameState*> states;
+	std::vector<GameState*> states_;
 
 	// for the game loop
-	bool m_bRunning;
+	bool b_running_;
 };
 
 #endif /*GAME_H*/
-
