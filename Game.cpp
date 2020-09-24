@@ -6,6 +6,14 @@
 #include "MenuState.h"
 #include <algorithm>
 
+bool Game::CheckExist(GameState* compare) {
+	if (!states_.empty() && states_.back() == compare) {
+		std::cout << "Error: State already exists on stack" << std::endl;
+		return true;
+	}
+	return false;
+};
+
 Game::Game()
 {}
 
@@ -13,11 +21,27 @@ void Game::Init()
 {
 	b_running_ = true;
 	std::cout << "Game Initialized Successfully" << std::endl;
+
+	ChangeState(&m_MenuState);
 }
 
 // takes a pointer to a gamestate
 void Game::ChangeState(GameState* state)
 {
+
+	if (!CheckExist(state)) {
+		// Remove current state
+		if (!states_.empty()) {
+		
+			states_.back()->free();
+			states_.pop_back();
+		}
+
+		states_.push_back(state);
+		states_.back()->init();
+	}
+
+	/*
 	// cleanup the current state
 	if (!states_.empty())
 	{
@@ -30,6 +54,7 @@ void Game::ChangeState(GameState* state)
 	states_.push_back(state);
 	states_.back()->init();
 	// back(); refers to the last element on the stack
+	*/
 }
 
 // temporarily pushes a new state onto the stack
@@ -37,25 +62,17 @@ void Game::PushState(GameState* state) // need to check if current state already
 {
 
 	// pause the current state
-	if (!states_.empty())
+	/*if (!states_.empty())
 	{
 		states_.back()->pause();
 	}
-
-	auto CheckExist = [state](GameState* s) {
-		if (s == state) {
-			std::cout << "Error: State already exists on stack" << std::endl;
-			return true;
-		}
-		return false;
-	};
-
+	
 	//store and init the new state
 	if (std::find_if(states_.begin(), states_.end(), CheckExist) == states_.end()) {
 		states_.push_back(state);
 		states_.back()->init();
 		std::cout << "States in stack after push: " << states_.size() << std::endl;
-	}
+	}*/
 }
 void Game::PopState()
 {
@@ -67,10 +84,10 @@ void Game::PopState()
 	}
 
 	//resume the previous state
-	if (!states_.empty())
+	/*if (!states_.empty())
 	{
 		states_.back()->resume();
-	}
+	}*/
 
 	std::cout << "States in stack after pop: " << states_.size() << std::endl;
 }

@@ -2,9 +2,14 @@
 #include "Vector2D.h"
 #include "Physics.h"
 
-Transform::Transform() {
-	position_ = Vec2{ 0,0 };
-	rotation_ = 0.0f;
+Transform::Transform() : 
+	position_{ },
+	rotation_{ } 
+{}
+
+Transform::~Transform() {
+
+	PHYSICS->RemoveTransformComponent(Component::GetOwner()->GetID());
 }
 
 void Transform::Init() {

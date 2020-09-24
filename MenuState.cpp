@@ -9,6 +9,7 @@
 #include "WindowsSystem.h"
 
 #include "GraphicsSystem.h"
+#include "Factory.h"
 
 //SAMPLE MENU STATE
 
@@ -22,11 +23,17 @@ void MenuState::init()
 	std::cout << "Press SPACE to START" << std::endl;
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
+
+	//creating duplicate entities
+	FACTORY->Create("Entity1");
+	FACTORY->Create("Entity2");
 }
 
 void MenuState::free()
 {
 	std::cout << "MenuState clean Successful" << std::endl;
+
+	FACTORY->DestroyAllEntities();
 }
 
 void MenuState::pause()
@@ -44,7 +51,7 @@ void MenuState::update(Game* game)
 	// input test
 	UNREFERENCED_PARAMETER(game);
 
-	if (sys_input_.CheckTriggeredInput(PE_M))
+	/*if (sys_input_.CheckTriggeredInput(PE_M))
 	{
 		std::cout << "you are in the MAIN MENU" << std::endl;
 	}	
@@ -67,7 +74,7 @@ void MenuState::update(Game* game)
 	if (sys_input_.CheckTriggeredInput(PE_N))
 	{
 		resume();
-	}
+	}*/
 
 }
 

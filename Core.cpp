@@ -24,6 +24,8 @@ void CoreEngine::Initialize() {
 void CoreEngine::GameLoop() {
 	while (GameActive) {
 		
+		PE_FrameRate.FrameRateLoop();
+
 		if (sys_input_.CheckTriggeredInput(0x51)) { // Q key
 
 			GameActive = false;
@@ -32,6 +34,8 @@ void CoreEngine::GameLoop() {
 		for (size_t i = 0; i < Systems.size(); ++i) {
 			Systems[i]->Update(PE_FrameRate.Dt);
 		}
+
+		//PE_FrameRate.SetFPS(30);
 	}
 }
 

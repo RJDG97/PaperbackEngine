@@ -45,6 +45,7 @@ Entity* EntityFactory::Create(const std::string& filename) {
 void EntityFactory::Destroy(Entity* entity) {
 	// Insert the entity into the set for deletion next update loop
 	objects_to_delete.insert(entity);
+	std::cout << "Entity destroyed" << std::endl;
 }
 
 
@@ -85,6 +86,8 @@ void EntityFactory::DestroyAllEntities() {
 	}
 	// Clear and resize map
 	entity_id_map_.clear();
+
+	std::cout << "Purged all entities" << std::endl;
 }
 
 Entity* EntityFactory::CreateEmptyEntity() {
@@ -168,5 +171,23 @@ Entity* EntityFactory::GetObjectWithID(EntityID id) {
 
 void EntityFactory::SendMessageD(Message* msg) {
 	
-	(void)msg;
+	switch (msg->message_id_)
+	{
+	case MessageIDTypes::FTY_Purge:
+	{
+
+		DestroyAllEntities();
+		break;
+	}
+	case MessageIDTypes::FTY_Delete:
+	{
+
+		Entity_Message* m = dynamic_cast<Entity_Message*>(msg);
+		EntityIdMapTypeIt ent = entity_id_map_.find(m->entity_one_);
+		Destroy(&*ent->second);
+		break;
+	}
+	default:
+		break;
+	}
 }

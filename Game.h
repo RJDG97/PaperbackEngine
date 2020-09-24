@@ -48,6 +48,8 @@ private:
 
 	// for the game loop
 	bool b_running_;
+
+	bool CheckExist(GameState* compare);
 };
 
 #endif /*GAME_H*/

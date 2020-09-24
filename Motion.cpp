@@ -5,6 +5,11 @@ Motion::Motion() : velocity_{},
 				   acceleration_{}
 {}
 
+Motion::~Motion() {
+
+	PHYSICS->RemoveMotionComponent(Component::GetOwner()->GetID());
+}
+
 void Motion::Init() {
 	// Create the map afterwards
 	//PHYSICS->Motions[Component::GetOwner()->GetID()] = *this;

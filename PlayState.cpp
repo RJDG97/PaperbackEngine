@@ -10,6 +10,7 @@
 #include "WinKeyCodes.h"
 
 #include "Core.h"
+#include "Factory.h"
 
 // SAMPLE PLAY STATE
 
@@ -22,11 +23,17 @@ void PlayState::init()
 	std::cout << "press SPACE to PAUSE" << std::endl;
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
+
+	//creating duplicate entities
+	FACTORY->Create("Entity1");
+	FACTORY->Create("Entity2");
 }
 
 void PlayState::free()
 {
 	std::cout << "PlayState clean Successful" << std::endl;
+
+	FACTORY->DestroyAllEntities();
 }
 
 void PlayState::pause()
@@ -44,7 +51,7 @@ void PlayState::update(Game* game)
 {
 	UNREFERENCED_PARAMETER(game);
 
-	if (sys_input_.CheckTriggeredInput(PE_N))
+	/*if (sys_input_.CheckTriggeredInput(PE_N))
 	{
 		std::cout << "YOU ARE IN THE PLAY STATE" << std::endl;
 	}
@@ -59,7 +66,7 @@ void PlayState::update(Game* game)
 	{
 		std::cout << "GOING BACK TO MAIN MENU" << std::endl;
 		//game->ChangeState(MenuState::Instance());
-	}
+	}*/
 }
 
 void PlayState::draw(Game* game)

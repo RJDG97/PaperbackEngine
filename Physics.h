@@ -29,8 +29,10 @@ public:
 	//void DecreaseHP(Health* hp);
 
 	void AddTransformComponent(EntityID id, Transform* transform);
+	void RemoveTransformComponent(EntityID id);
 
 	void AddMotionComponent(EntityID id, Motion* motion);
+	void RemoveMotionComponent(EntityID id);
 
 	Physics();
 

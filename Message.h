@@ -28,11 +28,15 @@ enum class MessageIDTypes
 	GSM_PopState,
 	GSM_PauseState, // TBC
 
-	//Message to Game System
+	// Message to Game System
 	M_ButtonPress,
 
 	// Physics System
-	PHY_UpdateAccel
+	PHY_UpdateAccel,
+
+	// Factory
+	FTY_Purge,
+	FTY_Delete
 };
 
 // Message Interface

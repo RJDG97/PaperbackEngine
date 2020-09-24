@@ -11,6 +11,7 @@ public:
 	friend class Physics;
 
 	Motion();
+	~Motion();
 
 	void Init();
 	void PublishResults();

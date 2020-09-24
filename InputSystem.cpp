@@ -3,6 +3,7 @@
 #include "WindowsSystem.h"
 #include "Core.h"
 #include "PlayState.h"
+#include "MenuState.h"
 
 InputSystem sys_input_;
 
@@ -206,7 +207,7 @@ void InputSystem::Update(float frametime) {
 			}
 			case 0x32:	//'2'
 			{
-				Message_CustomState msg{ &m_PlayState, MessageIDTypes::GSM_PushState }; // push maybe game state
+				Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_ChangeState }; // push maybe game state
 				CORE->BroadcastMessage(&msg);
 				break;
 			}
@@ -314,7 +315,11 @@ void InputSystem::Update(float frametime) {
 			case 0x59: 	//'Y'
 				break;	
 			case 0x5A: 	//'Z'
+			{
+				Message msg{ MessageIDTypes::FTY_Purge };
+				CORE->BroadcastMessage(&msg);
 				break;
+			}
 			default:
 				std::cout << "Input System: [Error] Key is not bound" << std::endl;
 			}

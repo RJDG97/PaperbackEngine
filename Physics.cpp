@@ -1,4 +1,5 @@
 #include  "Physics.h"
+#include "Core.h"
 #include <iostream>
 
 Physics* PHYSICS;
@@ -18,6 +19,7 @@ void Physics::Init() {
 void Physics::Update(float frametime) {
 	// Updating entity's velocity
 	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
+
 		// Perform update of entity's motion component
 		//std::cout << "Frametime: " << frametime << std::endl;
 		motion->second.velocity_ = motion->second.velocity_ + motion->second.acceleration_ * frametime;
@@ -27,7 +29,7 @@ void Physics::Update(float frametime) {
 		if (xform != transform_arr_.end()) {
 			// Perform update of entity's transform component
 			xform->second.position_ += motion->second.velocity_;
-			//std::cout << "Position: " << xform->second.position_.x << ", " << xform->second.position_.y << std::endl;
+			std::cout << "Position: " << xform->second.position_.x << ", " << xform->second.position_.y << std::endl;
 		}
 	}
 }
@@ -67,7 +69,7 @@ void Physics::ChangeAcceleration(Message* m) {
 			//update the acceleration data member of that component with the message's
 			motion->second.acceleration_ = msg->new_acceleration_;
 
-			std::cout << "New Acceleration: " << motion->second.acceleration_.x << ", " << motion->second.acceleration_.x << std::endl;
+			std::cout << "New Acceleration: " << motion->second.acceleration_.x << ", " << motion->second.acceleration_.y << std::endl;
 		}
 	}
 }
@@ -77,9 +79,29 @@ void Physics::AddTransformComponent(EntityID id, Transform* transform) {
 	transform_arr_[id] = *transform;
 }
 
+void Physics::RemoveTransformComponent(EntityID id) {
+
+	TransformIt it = transform_arr_.find(id);
+
+	if (it != transform_arr_.end()) {
+
+		transform_arr_.erase(it);
+	}
+}
+
 void Physics::AddMotionComponent(EntityID id, Motion* motion) {
 
 	motion_arr_[id] = *motion;
+}
+
+void Physics::RemoveMotionComponent(EntityID id) {
+
+	MotionIt it = motion_arr_.find(id);
+
+	if (it != motion_arr_.end()) {
+
+		motion_arr_.erase(it);
+	}
 }
 
 void Physics::SendMessageD(Message* msg) {
@@ -93,7 +115,7 @@ void Physics::SendMessageD(Message* msg) {
 		TransformIt it = PHYSICS->transform_arr_.find(m->entity_one_);
 
 		if (it != PHYSICS->transform_arr_.end()) {
-			Rotate(&it->second);
+			Rotate((&it->second));
 		}
 		/*for (PosIt it = PHYSICS->Transforms.begin(); it != PHYSICS->Transforms.end(); ++it) {
 

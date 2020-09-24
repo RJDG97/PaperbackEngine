@@ -182,10 +182,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	engine->Initialize();
 
-	//creating duplicate entities
-	FACTORY->Create("Entity1");
-	FACTORY->Create("Entity2");
-
 	engine->GameLoop();
 
 	FACTORY->DestroyAllEntities();

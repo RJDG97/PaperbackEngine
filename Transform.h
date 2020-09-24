@@ -12,6 +12,7 @@ public:
 	friend class Physics;
 
 	Transform();
+	~Transform();
 
 	void Init();
 	void PublishResults();
