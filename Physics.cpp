@@ -22,14 +22,16 @@ void Physics::Update(float frametime) {
 
 		// Perform update of entity's motion component
 		//std::cout << "Frametime: " << frametime << std::endl;
-		motion->second.velocity_ = motion->second.velocity_ + motion->second.acceleration_ * frametime;
+		motion->second.velocity_ += motion->second.acceleration_ * frametime;
+		//std::cout << "Acc: " << motion->second.acceleration_.x << ", " << motion->second.acceleration_.y << std::endl;
+		//std::cout << "Vel: " << motion->second.velocity_.x << ", " << motion->second.velocity_.y << std::endl;
 
 		// Check whether the entity owns a transform component by checking entity ID
 		TransformIt xform = transform_arr_.find(motion->first);
 		if (xform != transform_arr_.end()) {
 			// Perform update of entity's transform component
 			xform->second.position_ += motion->second.velocity_;
-			std::cout << "Position: " << xform->second.position_.x << ", " << xform->second.position_.y << std::endl;
+			//std::cout << "Position: " << xform->second.position_.x << ", " << xform->second.position_.y << std::endl;
 		}
 	}
 }
@@ -63,7 +65,7 @@ void Physics::ChangeAcceleration(Message* m) {
 	//locate the motion component that contains a matching entityID as in the message
 	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
 
-		std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
+		//std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
 		if (motion->second.GetOwner()->GetType() == EntityTypes::Player) {
 
 			//update the acceleration data member of that component with the message's
