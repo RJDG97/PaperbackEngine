@@ -92,6 +92,4 @@ public:
 	~TextureManager();
 };
 
-
-
 #endif

@@ -3,7 +3,9 @@
 #define _USE_MATH_DEFINES
 
 #include "GraphicsSystem.h"
-#include "glhelper.h"
+#include "LightingSystem.h"
+#include "WindowsSystem.h"
+#include "Core.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <FreeImage.h>
 #include <cmath>
@@ -11,15 +13,8 @@
 #include <set>
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */
-GraphicsSystem GraphicsSystem::graphics_system;
 TextureManager GraphicsSystem::texture_manager;
 AnimationManager GraphicsSystem::animation_manager;
-LightingSystem GraphicsSystem::lighting_system;
-
-GraphicsSystem& GraphicsSystem::Instance()
-{
-    return graphics_system;
-}
 
 TextureManager& GraphicsSystem::GetTextureManager()
 {
@@ -29,11 +24,6 @@ TextureManager& GraphicsSystem::GetTextureManager()
 AnimationManager& GraphicsSystem::GetAnimationManager()
 {
     return animation_manager;
-}
-
-LightingSystem& GraphicsSystem::GetLightingSystem()
-{
-    return lighting_system;
 }
 
 /*  _________________________________________________________________________ */
@@ -52,20 +42,19 @@ void GraphicsSystem::Init() {
     glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
     // Part 2: split color buffer into four viewports ...
-    GLint width = GLHelper::Instance()->width;
-    GLint height = GLHelper::Instance()->height;
-    glViewport(0, 0, width, height);
+    window_width = CORE->GetSystem<WindowsSystem>("WindowsSystem")->getWinWidth();
+    window_height = CORE->GetSystem<WindowsSystem>("WindowsSystem")->getWinHeight();
+    glViewport(0, 0, window_width, window_height);
 
     // Part 3: create different geometries and insert them into
     // repository container GraphicsSystem::models ...
-    graphics_system.models.push_back(TristripsModel(1, 1, "Shaders/default.vert", "Shaders/default.frag"));
-    graphics_system.models.push_back(TristripsModel(1, 1, "Shaders/lighting.vert", "Shaders/lighting.frag"));
+    models.push_back(TristripsModel(1, 1, "Shaders/default.vert", "Shaders/default.frag"));
+    models.push_back(TristripsModel(1, 1, "Shaders/lighting.vert", "Shaders/lighting.frag"));
 
     glEnable(GL_CULL_FACE);
 
     texture_manager.Init();
     animation_manager.Init();
-    lighting_system.Init();
 }
 
 /*  _________________________________________________________________________ */
@@ -77,7 +66,7 @@ void GraphicsSystem::Init() {
 
 This also updates the size of the squares to be rendered in one of the tasks.
 */
-void GraphicsSystem::Update(double delta_time) {
+void GraphicsSystem::Update(float frametime) {
 
 }
 
@@ -92,10 +81,8 @@ Clears the buffer and then draws a rectangular model in the viewport.
 */
 void GraphicsSystem::Draw() {
 
-    GLint width = GLHelper::Instance()->width;
-    GLint height = GLHelper::Instance()->height;
-    glViewport(0, 0, width, height);
-    glBindFramebuffer(GL_FRAMEBUFFER, lighting_system.GetFrameBuffer());
+    glViewport(0, 0, window_width, window_height);
+    glBindFramebuffer(GL_FRAMEBUFFER, CORE->GetSystem<LightingSystem>("LightingSystem")->GetFrameBuffer());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -106,19 +93,18 @@ void GraphicsSystem::Draw() {
     
     //lighting system stuff
     glDisable(GL_DEPTH_TEST);
-    lighting_system.Draw();
-
+    CORE->GetSystem<LightingSystem>("LightingSystem")->TestDraw();
+    
     //render the final texture
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, window_width, window_height);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    models[0].Draw(lighting_system.GetFinalTexture());
+    models[0].Draw(CORE->GetSystem<LightingSystem>("LightingSystem")->GetFinalTexture());
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    models[0].Draw(lighting_system.GetLightingTexture());
+    models[0].Draw(CORE->GetSystem<LightingSystem>("LightingSystem")->GetLightingTexture());
 
-
-    glfwSwapBuffers(GLHelper::Instance()->ptr_window);
+    glfwSwapBuffers(CORE->GetSystem<WindowsSystem>("WindowsSystem")->ptr_window);
 }
 
 /*  _________________________________________________________________________ */
@@ -132,6 +118,15 @@ Returns allocated resources
 */
 void GraphicsSystem::CleanUp() {
   // empty for now
+}
+
+std::string GraphicsSystem::GetName()
+{
+    return "GraphicsSystem";
+}
+
+void GraphicsSystem::SendMessageD(Message* m)
+{
 }
 
 /*  _________________________________________________________________________ */

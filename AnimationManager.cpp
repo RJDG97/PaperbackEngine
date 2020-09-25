@@ -3,7 +3,7 @@
 
 void AnimationManager::Init()
 {
-	texture_manager = &(GraphicsSystem::Instance().GetTextureManager());
+	//texture_manager = &(GraphicsSystem::Instance().GetTextureManager());
 }
 
 void AnimationManager::AddAnimation(AnimationName name, size_t num_frames, size_t texID)

@@ -25,6 +25,8 @@ class WindowsSystem : public ISystem{
 
 public:
 
+	GLFWwindow* ptr_window;
+
 	// Constructor for WindowsSystem
 	WindowsSystem();
 	// Initializes the window, cursor, background
@@ -59,5 +61,7 @@ public:
 };
 
 void createDebugWindow();
+
+extern WindowsSystem* WINDOWSSYSTEM;
 
 #endif

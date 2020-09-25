@@ -13,6 +13,8 @@ public:
 	//contains logic executed during the update loop of a game
 	virtual void Update(float frametime) = 0;
 
+	virtual void Draw() {}
+
 	//returns the name of the system for debug use
 	virtual std::string GetName() = 0;
 

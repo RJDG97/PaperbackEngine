@@ -33,6 +33,7 @@ void CoreEngine::GameLoop() {
 
 		for (size_t i = 0; i < Systems.size(); ++i) {
 			Systems[i]->Update(PE_FrameRate.Dt);
+			Systems[i]->Draw();
 		}
 
 		//PE_FrameRate.SetFPS(30);

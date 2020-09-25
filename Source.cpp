@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "MenuState.h"
 #include "GraphicsSystem.h"
+#include "LightingSystem.h"
 
 #include "glhelper.h"
 
@@ -58,8 +59,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 
 	// Display Window
-	ShowWindow(WindowsSystem::Instance()->getHandle(), cmdCount);
-	UpdateWindow(WindowsSystem::Instance()->getHandle());
+	//ShowWindow(WindowsSystem::Instance()->getHandle(), cmdCount);
+	//UpdateWindow(WindowsSystem::Instance()->getHandle());
 
 	//game.init();
 	// Push the menu state onto the stack
@@ -166,15 +167,16 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	//game.free();
 
-	WindowsSystem::Instance()->UnloadInstance();
+	//WindowsSystem::Instance()->UnloadInstance();
 	//return 0;
 
 	std::cout << "Testing" << std::endl;
 	CoreEngine* engine = new CoreEngine();
 
 	//to reorder based on what system has priority over the other
-	//engine->AddSystem(new GraphicsSystem());
 	engine->AddSystem(new WindowsSystem());
+	engine->AddSystem(new LightingSystem());
+	engine->AddSystem(new GraphicsSystem());
 	engine->AddSystem(new InputSystem());
 	engine->AddSystem(new Physics());
 	engine->AddSystem(new Collision());
@@ -192,7 +194,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	delete engine;
 
-	WindowsSystem::Instance()->UnloadInstance();
+	//WindowsSystem::Instance()->UnloadInstance();
 
 	return 0;
 }

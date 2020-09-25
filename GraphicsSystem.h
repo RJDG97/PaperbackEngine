@@ -10,9 +10,9 @@
 #include "glslshader.h"
 #include "TextureManager.h"
 #include "AnimationManager.h"
-#include "LightingSystem.h"
+#include "ISystem.h"
 
-class GraphicsSystem
+class GraphicsSystem : public ISystem
 {
     // encapsulates state required to render a geometrical model
     struct Model
@@ -39,22 +39,24 @@ class GraphicsSystem
     // handles all the animations
     static AnimationManager animation_manager;
 
-    static LightingSystem lighting_system;
-
-    static GraphicsSystem graphics_system;
-
-    //GLint buffer;
+    GLint window_width;
+    GLint window_height;
 
 public:
-    static GraphicsSystem& Instance();
+
     static TextureManager& GetTextureManager();
     static AnimationManager& GetAnimationManager();
-    static LightingSystem& GetLightingSystem();
 
     void Init();
-    void Update(double delta_time);
-    void Draw();
+    void Update(float frametime);
+    void Draw() override;
     void CleanUp();
+
+    //returns the name of the system for debug use
+    virtual std::string GetName();
+
+    //function more akin to "What to do when message is received" for internal logic
+    virtual void SendMessageD(Message* m);
 
     std::vector<Model> models;
 };

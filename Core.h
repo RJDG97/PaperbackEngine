@@ -21,6 +21,17 @@ public:
 	void AddSystem(ISystem* system);
 	///Initializes all systems in the game.
 	void Initialize();
+
+	template <typename SystemType>
+	SystemType* GetSystem(std::string system_name) {
+		for (size_t i = 0; i < Systems.size(); ++i) {
+			if (Systems[i]->GetName() == system_name) {
+				return dynamic_cast<SystemType*>(Systems[i]);
+			}
+		}
+		return nullptr;
+	}
+
 private:
 	//Tracks all the systems the game uses
 	std::vector<ISystem*> Systems;

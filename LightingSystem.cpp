@@ -1,6 +1,7 @@
 #include "LightingSystem.h"
-#include "glhelper.h"
 #include "GraphicsSystem.h"
+#include "Core.h"
+#include "WindowsSystem.h"
 
 LightingSystem::PointLight::PointLight(GLint x, GLint y,
 									   GLfloat red, GLfloat green, GLfloat blue,
@@ -16,10 +17,8 @@ LightingSystem::PointLight::PointLight(GLint x, GLint y,
 
 void LightingSystem::Init()
 {
-	//temp_light = PointLight{ 400, 300, 1.0f, 0.95f, 0.8f, 50.0f, 1.0f };
-
-	GLint width = GLHelper::Instance()->width;
-	GLint height = GLHelper::Instance()->height;
+	GLint width = CORE->GetSystem<WindowsSystem>("WindowsSystem")->getWinWidth();
+	GLint height = CORE->GetSystem<WindowsSystem>("WindowsSystem")->getWinHeight();
 
 	glGenFramebuffers(1, &frame_buffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer);
@@ -66,12 +65,12 @@ void LightingSystem::Init()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void LightingSystem::Update()
+void LightingSystem::Update(float frametime)
 {
 
 }
 
-void LightingSystem::Draw()
+void LightingSystem::TestDraw()
 {
 	//reset the lighting texture
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
@@ -81,17 +80,17 @@ void LightingSystem::Draw()
 	//render the lights here
 	glBlendFunc(GL_ONE, GL_ONE);
 	glViewport(400/2 - 150, 300/2 - 150, 150 * 2, 150 * 2); //Use this equation BUT need multiply stuff by intensity!!
-	GraphicsSystem::Instance().models[1].DrawLight(glm::vec3{ 1.0f, 1.0f, 0.5f },
+	CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->models[1].DrawLight(glm::vec3{ 1.0f, 1.0f, 0.5f },
 												   glm::vec2{ 400/2, 300/2},
 							  					   1.0f, 150.0f);
 	
 	glViewport(200 / 2 - 150, 100 / 2 - 150, 150 * 2, 150 * 2);
-	GraphicsSystem::Instance().models[1].DrawLight(glm::vec3{ 0.3f, 0.9f, 1.0f },
+	CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->models[1].DrawLight(glm::vec3{ 0.3f, 0.9f, 1.0f },
 		glm::vec2{ 200/2, 100/2 },
 		1.0f, 150.0f);
 
 	glViewport(600 / 2 - 150, 100 / 2 - 150, 150 * 2, 150 * 2);
-	GraphicsSystem::Instance().models[1].DrawLight(glm::vec3{ 1.0f, 0.3f, 1.0f },
+	CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->models[1].DrawLight(glm::vec3{ 1.0f, 0.3f, 1.0f },
 		glm::vec2{ 600/2, 100/2 },
 		1.0f, 150.0f);
 }
@@ -116,4 +115,13 @@ GLuint& LightingSystem::GetFinalTexture()
 GLuint& LightingSystem::GetLightingTexture()
 {
 	return lighting_texture;
+}
+
+std::string LightingSystem::GetName()
+{
+	return "LightingSystem";
+}
+
+void LightingSystem::SendMessageD(Message* m)
+{
 }
