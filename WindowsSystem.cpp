@@ -30,39 +30,69 @@ LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM
 // Default constructor for WindowsSystem Class
 WindowsSystem::WindowsSystem() : wcex{}, msg{}, hwnd(), wWidth{ 0 }, wHeight{ 0 } {}
 
-void WindowsSystem::Init(HINSTANCE _currentInstance, const char* _windowName, int _x, int _y, LPCSTR _className, HCURSOR _cursor, HBRUSH _bgColor) {
+void WindowsSystem::Init() {
 
-	UNREFERENCED_PARAMETER(_windowName);
-	UNREFERENCED_PARAMETER(_className);
-	/*
-	GraphicsSystem::OpenGLExtensionsInit(_currentInstance);
-
-	LPCWSTR Name = L"MyWindows";
-	ZeroMemory(&wcex, sizeof(wcex));
-	wcex.cbSize = sizeof(wcex);
-	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-	wcex.hInstance = _currentInstance;								// Current instance
-	wcex.lpszClassName = Name;										// Name of class
-	wcex.hCursor = _cursor;											// Cursor type (Style)
-	wcex.hbrBackground = _bgColor;									// Background color of console window
-	wcex.lpfnWndProc = WindowProcessMessages;						// Process messages (Not done)
-	windowClass = MAKEINTATOM(RegisterClassEx(&wcex));
-	
-	if (windowClass == 0) {
-		std::cout << "RegisterClassEx() failed.";
-		std::exit;
+	if (!glfwInit()) {
+		std::cout << "GLFW init has failed - abort program!!!" << std::endl;
+		std::exit(EXIT_FAILURE);
 	}
 
-	hwnd = CreateWindow(Name, Name,									// Name of class, name of console window
-		WS_OVERLAPPEDWINDOW | WS_VISIBLE,							// Window style
-		CW_USEDEFAULT, CW_USEDEFAULT,								// Window initial position
-		_x, _y,														// Window size
-		nullptr, nullptr, _currentInstance, nullptr);
+	// In case a GLFW function fails, an error is reported to callback function
+	glfwSetErrorCallback(GLHelper::error_cb);
 
-	RECT rect = { 0 };
-	GetClientRect(hwnd, &rect);
-	wWidth = rect.right - rect.left;
-	wHeight = rect.bottom - rect.top;*/
+	wWidth = 800;
+	wHeight = 600;
+
+	// Before asking GLFW to create an OpenGL context, we specify the minimum constraints
+	// in that context:
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
+	glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
+	glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); // window dimensions are static
+
+	GLHelper::ptr_window = glfwCreateWindow(wWidth, wHeight, "Placeholder", NULL, NULL);
+
+	if (!GLHelper::ptr_window) {
+		std::cerr << "GLFW unable to create OpenGL context - abort program\n";
+		glfwTerminate();
+		std::exit(EXIT_FAILURE);
+	}
+
+	glfwMakeContextCurrent(GLHelper::ptr_window);
+
+	glfwSetFramebufferSizeCallback(GLHelper::ptr_window, GLHelper::fbsize_cb);
+	glfwSetKeyCallback(GLHelper::ptr_window, GLHelper::key_cb);
+	glfwSetMouseButtonCallback(GLHelper::ptr_window, GLHelper::mousebutton_cb);
+	glfwSetCursorPosCallback(GLHelper::ptr_window, GLHelper::mousepos_cb);
+	glfwSetScrollCallback(GLHelper::ptr_window, GLHelper::mousescroll_cb);
+
+	// this is the default setting ...
+	glfwSetInputMode(GLHelper::ptr_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+	// Part 2: Initialize entry points to OpenGL functions and extensions
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		std::cerr << "Unable to initialize GLEW - error: "
+			<< glewGetErrorString(err) << " abort program" << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
+}
+
+void WindowsSystem::Update(float frametime)
+{
+
+}
+
+std::string WindowsSystem::GetName()
+{
+	return std::string();
+}
+
+void WindowsSystem::SendMessageD(Message* m)
+{
 }
 
 void WindowsSystem::ProcessMessage() {

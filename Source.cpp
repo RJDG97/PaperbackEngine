@@ -35,7 +35,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	UNREFERENCED_PARAMETER(cmdLine);
 
 	// Register the window class
-	WindowsSystem::Instance()->Init(currentInstance, "GAM200 MonkeyTypewriters", 800, 600);
+	//WindowsSystem::Instance()->Init(currentInstance, "GAM200 MonkeyTypewriters", 800, 600);
 
 	// Checking for memory leaks
 #if defined(DEBUG) | defined(_DEBUG)
@@ -173,6 +173,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	CoreEngine* engine = new CoreEngine();
 
 	//to reorder based on what system has priority over the other
+	//engine->AddSystem(new GraphicsSystem());
+	engine->AddSystem(new WindowsSystem());
 	engine->AddSystem(new InputSystem());
 	engine->AddSystem(new Physics());
 	engine->AddSystem(new Collision());

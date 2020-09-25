@@ -2,12 +2,15 @@
 #ifndef _WINDOWS_SYSTEM_H_
 #define _WINDOWS_SYSTEM_H_
 
+#include <GL/glew.h> // for access to OpenGL API declarations 
+#include <GLFW/glfw3.h>
 #include <windows.h>
 #include <iostream>
+#include "ISystem.h"
 
 LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam);
 
-class WindowsSystem {
+class WindowsSystem : public ISystem{
 	// Singleton declaration
 	static WindowsSystem* w_Instance;
 	// Windows class declaration
@@ -25,10 +28,13 @@ public:
 	// Constructor for WindowsSystem
 	WindowsSystem();
 	// Initializes the window, cursor, background
-	void Init(HINSTANCE _currentInstance, const char* _windowName, int _x, int _y,
-		LPCSTR _className = "MyWindowsSystem",
-		HCURSOR _cursor = LoadCursor(nullptr, IDC_ARROW),
-		HBRUSH _bgColor = (HBRUSH)COLOR_WINDOW);
+	void Init();
+
+	void Update(float frametime);
+
+	std::string GetName();
+
+	void SendMessageD(Message* m);
 
 	// Processes messages
 	void ProcessMessage();
