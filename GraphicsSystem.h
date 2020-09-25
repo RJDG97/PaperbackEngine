@@ -26,11 +26,12 @@ class GraphicsSystem
 
         // member functions defined in glapp.cpp
         void SetupShdrpgm(std::string vtx_shdr, std::string frg_shdr);
-        void Draw(GLuint texture);
+        void Draw(GLuint texID);
+        void DrawLight(glm::vec3 light_color, glm::vec2 light_center,
+                       float intensity, float radius);
     };
 
     Model TristripsModel(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr);
-    std::vector<Model> models;
 
     // handles all the textures
     static TextureManager texture_manager;
@@ -42,6 +43,8 @@ class GraphicsSystem
 
     static GraphicsSystem graphics_system;
 
+    //GLint buffer;
+
 public:
     static GraphicsSystem& Instance();
     static TextureManager& GetTextureManager();
@@ -52,6 +55,8 @@ public:
     void Update(double delta_time);
     void Draw();
     void CleanUp();
+
+    std::vector<Model> models;
 };
 
 #endif

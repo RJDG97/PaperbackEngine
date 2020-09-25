@@ -38,6 +38,7 @@ void TextureManager::CreateQuadTexture(TextureName texture_name, unsigned char r
         0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
     textures[texture_name] = texobj_hdl;
+    delete[] pixels;
 }
 
 void TextureManager::LoadMiscTextures()
@@ -129,7 +130,6 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
 
         glGenTextures(1, &texobj_hdl);
         glBindTexture(GL_TEXTURE_2D, texobj_hdl);
-
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glEnable(GL_BLEND);
