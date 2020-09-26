@@ -78,6 +78,9 @@ Entity::~Entity() {
 // ComponentTypes.h
 void Entity::AddComponent(ComponentTypes typeId, Component* component) {
 
+	//ensure pointer is not nullptr
+	assert(component);
+
 	component->type_id_ = typeId;
 	components_.push_back(component);
 
@@ -98,6 +101,20 @@ return_type* Entity::GetComponentType(ComponentTypes typeId)
 	return static_cast<return_type*>(GetComponent(typeId));
 }
 
+//used for creating copies from a protoype/archetype
+Entity* Entity::Clone() {
+
+	Entity* cloned = FACTORY->CreateEmptyEntity();
+
+	for (Component* component : components_) {
+
+		cloned->AddComponent(component->GetComponentTypeID(), component->Clone());
+	}
+
+	cloned->Init();
+
+	return cloned;
+}
 
 // Destructs the entity through the factory
 void Entity::Destroy() {

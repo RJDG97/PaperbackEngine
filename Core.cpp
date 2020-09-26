@@ -8,32 +8,32 @@
 CoreEngine* CORE;
 
 CoreEngine::CoreEngine() {
-	GameActive = true;
+	b_game_active_ = true;
 	CORE = this;
 }
 
 ///Initializes all systems in the game.
 void CoreEngine::Initialize() {
 
-	for (size_t i = 0; i < Systems.size(); ++i) {
-		Systems[i]->Init();
+	for (size_t i = 0; i < systems_.size(); ++i) {
+		systems_[i]->Init();
 	}
 }
 
 ///Update all the systems until the game is no longer active.
 void CoreEngine::GameLoop() {
-	while (GameActive) {
+	while (b_game_active_) {
 		
 		PE_FrameRate.FrameRateLoop();
 
 		if (sys_input_.CheckTriggeredInput(0x51)) { // Q key
 
-			GameActive = false;
+			b_game_active_ = false;
 		}
 
-		for (size_t i = 0; i < Systems.size(); ++i) {
-			Systems[i]->Update(PE_FrameRate.Dt);
-			Systems[i]->Draw();
+		for (size_t i = 0; i < systems_.size(); ++i) {
+			systems_[i]->Update(PE_FrameRate.Dt);
+			systems_[i]->Draw();
 		}
 
 		//PE_FrameRate.SetFPS(30);
@@ -43,29 +43,29 @@ void CoreEngine::GameLoop() {
 ///Destroy all systems in reverse order that they were added.
 void CoreEngine::DestroySystems() {
 	
-	for (unsigned int i = 0; i < Systems.size(); ++i) {
+	for (unsigned int i = 0; i < systems_.size(); ++i) {
 
-		delete Systems[Systems.size() - i - 1];
+		delete systems_[systems_.size() - i - 1];
 	}
 }
 
-///Broadcasts a message to all systems.
+///Broadcasts a message to all systems_.
 void CoreEngine::BroadcastMessage(Message* m) {
 	
 	if (m->message_id_ == MessageIDTypes::Exit) {
 
 		//set game bool to false
-		GameActive = false;
+		b_game_active_ = false;
 	}
 
-	for (unsigned int i = 0; i < Systems.size(); ++i) {
+	for (unsigned int i = 0; i < systems_.size(); ++i) {
 
-		Systems[i]->SendMessageD(m);
+		systems_[i]->SendMessageD(m);
 	}
 }
 
 ///Adds a new system to the game.
 void CoreEngine::AddSystem(ISystem* system) {
 
-	Systems.push_back(system);
+	systems_.push_back(system);
 }

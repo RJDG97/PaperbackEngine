@@ -18,3 +18,13 @@ void AABB::PublishResults() {
 //void AABB::Serialize(ISerializer& str) {
 //	
 //}
+
+AABB* AABB::Clone() {
+
+	AABB* cloned = new AABB;
+
+	cloned->bottom_left_ = bottom_left_;
+	cloned->top_right_ = top_right_;
+
+	return cloned;
+}

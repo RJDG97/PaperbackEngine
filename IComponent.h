@@ -32,6 +32,8 @@ public:
 	//returns type id
 	ComponentTypes GetComponentTypeID() { return type_id_; }
 
+	virtual Component* Clone() { return nullptr; };
+
 protected:
 	// Double check why protected
 	virtual ~Component() = default;

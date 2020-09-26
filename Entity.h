@@ -47,6 +47,8 @@ public:
 	EntityID GetID() { return object_id_; };
 
 	EntityTypes GetType() { return entity_type_; };
+
+	Entity* Clone();
 };
 
 enum class EntityTypes {

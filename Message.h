@@ -100,4 +100,11 @@ struct Message_CustomState : public Message
 	GameState* state_;
 	Message_CustomState(GameState* state, MessageIDTypes message_type);
 };
+
+///Message to tell the game to quit
+class MessageQuit : public Message
+{
+public:
+	MessageQuit() : Message(MessageIDTypes::Exit) {};
+};
 #endif

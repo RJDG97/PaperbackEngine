@@ -22,6 +22,9 @@ class EntityFactory : public ISystem {
 	using EntityIt = std::set<Entity*>::iterator;
 	std::set<Entity*> objects_to_delete;
 
+	//used for creating fixed entities w/ predetermined components
+	Entity* TestBuild();
+
 public:
 	EntityFactory();
 	~EntityFactory();

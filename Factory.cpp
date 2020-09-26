@@ -2,6 +2,8 @@
 #include "Entity.h"
 #include "ComponentCreator.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 /*
 #include "ISerializer.h"
@@ -32,7 +34,9 @@ EntityFactory::~EntityFactory() {
 
 Entity* EntityFactory::Create(const std::string& filename) {
 	// Create the entity and initialize all components from file
-	Entity* entity = BuildAndSerialize(filename);
+	
+	BuildAndSerialize(filename);
+	Entity* entity = TestBuild(); //BuildAndSerialize(filename);
 	// If entity was successfully created, initialize
 	if (entity) {
 		entity->Init();
@@ -100,9 +104,7 @@ Entity* EntityFactory::CreateEmptyEntity() {
 }
 
 
-Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
-	
-	(void)filename;
+Entity* EntityFactory::TestBuild() {
 
 	Entity* ret = new Entity();
 
@@ -130,21 +132,53 @@ Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
 
 	ret->AddComponent(creator->GetComponentTypeID(), component);
 
-	/*const char* json_test = "{\"hello\" : \"world\"}";
-
-	rapidjson::FileReadStream{}
-	std::ifstream test;
-	rapidjson::IStreamWrapper wrap{test};
-
-	rapidjson::Document test_doc;
-
-	test_doc.ParseStream(wrap);
-	rapidjson::Reader read{};
-	rapidjson::Reader reader;*/
-
 	StoreEntityID(ret);
 
 	return ret;
+}
+
+Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
+
+	(void)filename;
+	
+	//Entity* built = new Entity{};
+
+	std::ifstream input_stream("TestJSON/test.json");
+	assert(input_stream);
+	
+	std::stringstream json_doc_buffer;
+	std::string input;
+
+	//reformats stream into format that can be parsed by rapidjson's Document class
+	while (std::getline(input_stream, input)) {
+		
+		json_doc_buffer << input << "\n";
+	}
+
+	input_stream.close();
+
+	rapidjson::Document doc;
+	doc.Parse(json_doc_buffer.str().c_str());
+
+	//treats entire filestream at index as array
+	const rapidjson::Value& value_arr = doc["player"];
+	assert(value_arr.IsArray());
+	
+	for (rapidjson::Value::ConstValueIterator it = value_arr.Begin(); it != value_arr.End(); ++it) {
+
+		//each value is essentially a container for multiple members
+		//IsObject enforces that the member is an object that will contain data:key pairs
+		const rapidjson::Value& member = *it;
+		assert(member.IsObject());
+		
+		for (rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
+
+			//each member contains multiple data:key pairs that can be read and interpreted
+			std::cout << it2->name.GetString() << std::endl;
+		}
+	}
+
+	return nullptr;
 }
 
 void EntityFactory::StoreEntityID(Entity* entity) {

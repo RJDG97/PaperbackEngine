@@ -24,9 +24,9 @@ public:
 
 	template <typename SystemType>
 	SystemType* GetSystem(std::string system_name) {
-		for (size_t i = 0; i < Systems.size(); ++i) {
-			if (Systems[i]->GetName() == system_name) {
-				return dynamic_cast<SystemType*>(Systems[i]);
+		for (size_t i = 0; i < systems_.size(); ++i) {
+			if (systems_[i]->GetName() == system_name) {
+				return dynamic_cast<SystemType*>(systems_[i]);
 			}
 		}
 		return nullptr;
@@ -34,18 +34,11 @@ public:
 
 private:
 	//Tracks all the systems the game uses
-	std::vector<ISystem*> Systems;
+	std::vector<ISystem*> systems_;
 	////The last time the game was updated
 	//unsigned LastTime;
 	//Is the game running (true) or being shut down (false)?
-	bool GameActive;
-};
-
-///Message to tell the game to quit
-class MessageQuit : public Message
-{
-public:
-	MessageQuit() : Message(MessageIDTypes::Exit) {};
+	bool b_game_active_;
 };
 
 extern CoreEngine* CORE;

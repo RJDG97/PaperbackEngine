@@ -31,6 +31,8 @@ public:
 	void Init();
 	void PublishResults();
 	//void Serialize(ISerializer& str);
+
+	AABB* Clone() override;
 };
 
 #endif
