@@ -1,13 +1,15 @@
-#include "Renderer.h"
+#include "AnimationRenderer.h"
 #include "Core.h"
 #include "GraphicsSystem.h"
 #include <glm/gtc/type_ptr.hpp>
 
 #define M_PI       3.14159265358979323846
 
-Renderer::Renderer()
+AnimationRenderer::AnimationRenderer()
 {
-    texture_ = *TEXTUREMANAGER->GetTexture(TextureName::Rock);
+    SetAnimation(AnimationName::Player_Attack);
+    play_animation_ = true;
+    has_finished_animating = false;
     scaling_ = glm::vec2{ 50.0f, 50.0f };
     orientation_ = glm::vec2{ 0.0f, 10.0f };
     position_ = glm::vec2{ 100.0f, 100.0f };
@@ -15,36 +17,28 @@ Renderer::Renderer()
     shdr_pgm_ = SHADERMANAGER->GetShdrpgm(ShaderType::TextureShader);
 }
 
-Renderer::~Renderer()
+AnimationRenderer::~AnimationRenderer()
 {
-    CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->RemoveRendererComponent(Component::GetOwner()->GetID());
+    CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->RemoveAnimationRendererComponent(Component::GetOwner()->GetID());
 }
 
-void Renderer::Init()
+void AnimationRenderer::Init()
 {
-    CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->AddRendererComponent(Component::GetOwner()->GetID(), this);
+    CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
 }
 
-void Renderer::PublishResults()
+void AnimationRenderer::PublishResults()
 {
 }
 
-void Renderer::ChangeTexture(GLint tex_id)
+void AnimationRenderer::SetAnimation(GLint animation_id)
 {
-    texture_ = *TEXTUREMANAGER->GetTexture(tex_id);
+    current_animation_ = ANIMATIONMANAGER->GetAnimation(animation_id);
+    current_frame_ = current_animation_->GetFirstFrame();
+    time_elapsed = 0.0f;
 }
 
-void Renderer::ChangeModel(GLint model_id)
-{
-    model_ = MODELMANAGER->GetModel(model_id);
-}
-
-void Renderer::ChangeShdrpgm(GLint shdr_pgm_id)
-{
-    shdr_pgm_ = SHADERMANAGER->GetShdrpgm(shdr_pgm_id);
-}
-
-void Renderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
+void AnimationRenderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
 {
     glm::mat3 scale, rot, trans;
 
@@ -64,15 +58,34 @@ void Renderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
                        position_.x, position_.y, 1.0f };
 
     mdl_to_ndc_xform_ = world_to_ndc_xform * trans * rot * scale;
+
+    if (play_animation_ == true)
+    {
+        time_elapsed += frametime;
+        has_finished_animating = false;
+
+        if (time_elapsed >= current_animation_->GetFrameDuration())
+        {
+            ++current_frame_;
+
+            if (current_frame_ == current_animation_->GetLastFrame())
+            {
+                has_finished_animating = true;
+                current_frame_ = current_animation_->GetFirstFrame();
+            }
+
+            time_elapsed = 0.0f;
+        }
+    }
 }
 
-void Renderer::Draw()
+void AnimationRenderer::Draw()
 {
     shdr_pgm_.Use();
     glBindVertexArray(model_.vaoid_);
 
-    glBindTexture(GL_TEXTURE_2D, texture_);
-    glBindTextureUnit(0, texture_);
+    glBindTexture(GL_TEXTURE_2D, **current_frame_);
+    glBindTextureUnit(0, **current_frame_);
     glUseProgram(shdr_pgm_.GetHandle());
     GLuint tex_loc = glGetUniformLocation(shdr_pgm_.GetHandle(), "uTex2d");
     glUniform1i(tex_loc, 0);

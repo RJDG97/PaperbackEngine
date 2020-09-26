@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="AnimationRenderer.cpp" />
     <ClCompile Include="Attack.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Core.cpp" />
@@ -183,6 +184,7 @@
   <ItemGroup>
     <ClInclude Include="AABB.h" />
     <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="AnimationRenderer.h" />
     <ClInclude Include="Attack.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ComponentCreator.h" />

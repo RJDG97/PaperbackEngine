@@ -38,15 +38,15 @@ enum TextureName
 
 class TextureManager
 {
-	std::map<size_t, Texture> textures;
+	std::map<size_t, Texture> textures_;
 
-	std::vector<TextureName> misc_tiles
+	std::vector<TextureName> misc_tiles_
 	{
 		BlackQuad,
 		WhiteQuad
 	};
 
-	std::vector<TextureName> environment_tiles
+	std::vector<TextureName> environment_tiles_
 	{
 		Carpet_TopLeft,
 		Carpet_TopMid,
@@ -84,11 +84,11 @@ public:
 	bool LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<TextureName> texture_names, size_t tile_size);
 
 	//Cleanup
-	bool UnloadTexture(size_t texID);
+	bool UnloadTexture(GLint tex_id);
 	void UnloadAllTextures();
 
 	//Getter
-	Texture* GetTexture(size_t texID);
+	Texture* GetTexture(GLint tex_id);
 
 	TextureManager();
 	~TextureManager();

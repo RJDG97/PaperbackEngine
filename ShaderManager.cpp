@@ -367,7 +367,7 @@ ShaderManager::ShaderManager()
     SHADERMANAGER = this;
 }
 
-void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, ShaderType shader_type)
+void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, GLint shader_type)
 {
     std::vector<std::pair<GLenum, std::string>> shdr_files
     {
@@ -387,10 +387,10 @@ void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, Shade
 
     // add compiled, linked, and validated shader program to
     // std::map container GLApp::shdrpgms
-    shaders[shader_type] = shdr_pgm;
+    shaders_[shader_type] = shdr_pgm;
 }
 
-Shader ShaderManager::GetShdrpgm(ShaderType shader_type)
+Shader ShaderManager::GetShdrpgm(GLint shader_type)
 {
-    return shaders[shader_type];
+    return shaders_[shader_type];
 }

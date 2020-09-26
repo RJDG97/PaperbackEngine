@@ -1,30 +1,82 @@
 #include "AnimationManager.h"
 #include "GraphicsSystem.h"
 
-void AnimationManager::Init()
+AnimationManager* ANIMATIONMANAGER;
+
+Animation::Animation(std::list <Texture*> animation_frames, GLfloat frame_duration)
+	: animation_frames_{ animation_frames },
+	  frame_duration_{ frame_duration }
 {
-	//texture_manager = &(GraphicsSystem::Instance().GetTextureManager());
+
 }
 
-void AnimationManager::AddAnimation(AnimationName name, size_t num_frames, size_t texID)
+void Animation::ChangeFrameDuration(GLfloat frame_duration)
 {
-	std::vector<Texture*> temp;
+	frame_duration_ = frame_duration;
+}
+
+float Animation::GetFrameDuration()
+{
+	return frame_duration_;
+}
+
+std::list<Texture*>::iterator Animation::GetLastFrame()
+{
+	return animation_frames_.end();
+}
+
+std::list<Texture*>::iterator Animation::GetFirstFrame()
+{
+	return animation_frames_.begin();
+}
+
+AnimationManager::AnimationManager()
+{
+	ANIMATIONMANAGER = this;
+}
+
+void AnimationManager::Init()
+{
+	
+}
+
+void AnimationManager::TempFunctionForTesting()
+{
+	AddAnimation(AnimationName::Player_Attack, 6, TextureName::Carpet_Brick_BtmRight, 0.5f);
+}
+
+void AnimationManager::AddAnimation(GLint animation_id,
+									size_t num_frames,
+									size_t texID,
+									GLfloat frame_duration)
+{
+	std::list<Texture*> temp;
 
 	for (int i = 0; i < num_frames; ++i)
 	{
-		temp.push_back(texture_manager->GetTexture(texID + i));
+		temp.push_back(TEXTUREMANAGER->GetTexture(texID + i));
 	}
 
-	animations[name] = temp;
+	animations_[animation_id] = Animation{ temp, frame_duration };
 }
 
-bool AnimationManager::DeleteAnimation(AnimationName name)
+bool AnimationManager::DeleteAnimation(GLint animation_id)
 {
-	if (animations.find(name) != animations.end())
+	if (animations_.find(animation_id) != animations_.end())
 	{
-		animations.erase(name);
+		animations_.erase(animation_id);
 		return true;
 	}
 
 	return false;
+}
+
+Animation* AnimationManager::GetAnimation(GLint animation_id)
+{
+	return &animations_[animation_id];
+}
+
+void AnimationManager::ChangeAnimationFrameDuration(GLint animation_id, GLfloat new_frame_duration)
+{
+	animations_[animation_id].ChangeFrameDuration(new_frame_duration);
 }

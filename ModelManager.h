@@ -15,19 +15,19 @@ enum ModelType
 
 struct Model
 {
-    GLenum     primitive_type;
-    GLuint     primitive_cnt;
-    GLuint     vaoid;
-    GLuint     draw_cnt;
+    GLenum     primitive_type_;
+    GLuint     primitive_cnt_;
+    GLuint     vaoid_;
+    GLuint     draw_cnt_;
 };
 
 class ModelManager
 {
-    std::map<GLint, Model> models;
+    std::map<GLint, Model> models_;
 
 public:
 
-    void AddTristripsModel(int slices, int stacks, ModelType model_type);
+    void AddTristripsModel(int slices, int stacks, GLint model_type);
 
     Model GetModel(GLint model_id);
 

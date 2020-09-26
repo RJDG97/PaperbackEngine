@@ -2,7 +2,7 @@
 
 ModelManager* MODELMANAGER;
 
-void ModelManager::AddTristripsModel(int slices, int stacks, ModelType model_type)
+void ModelManager::AddTristripsModel(int slices, int stacks, GLint model_type)
 {
     // Generates the vertices required to render triangle strips
 
@@ -99,16 +99,16 @@ void ModelManager::AddTristripsModel(int slices, int stacks, ModelType model_typ
     // Return an appropriately initialized instance of GLApp::GLModel
 
     Model mdl;
-    mdl.vaoid = vao_hdl;
-    mdl.primitive_type = GL_TRIANGLE_STRIP;
-    mdl.draw_cnt = idx_vtx.size();           // number of vertices
-    mdl.primitive_cnt = count;               // number of triangles
-    models[model_type] = mdl;
+    mdl.vaoid_ = vao_hdl;
+    mdl.primitive_type_ = GL_TRIANGLE_STRIP;
+    mdl.draw_cnt_ = idx_vtx.size();           // number of vertices
+    mdl.primitive_cnt_ = count;               // number of triangles
+    models_[model_type] = mdl;
 }
 
 Model ModelManager::GetModel(GLint model_id)
 {
-    return models[model_id];
+    return models_[model_id];
 }
 
 ModelManager::ModelManager()

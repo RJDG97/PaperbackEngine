@@ -16,6 +16,7 @@
 #include "Factory.h"
 #include <unordered_map>
 #include "WindowsSystem.h"
+#include "AnimationRenderer.h"
 
 class GraphicsSystem : public ISystem
 {
@@ -26,11 +27,11 @@ class GraphicsSystem : public ISystem
     //LightingSystem* lighting_system;
 
     //temp camera, will make it into a gameobject next time!
-    glm::vec2 cam_pos;
-    glm::vec2 cam_size;
-    glm::mat3 view_xform;
-    glm::mat3 camwin_to_ndc_xform;
-    glm::mat3 world_to_ndc_xform;
+    glm::vec2 cam_pos_;
+    glm::vec2 cam_size_;
+    glm::mat3 view_xform_;
+    glm::mat3 camwin_to_ndc_xform_;
+    glm::mat3 world_to_ndc_xform_;
 
     void CameraInit();
     void CameraUpdate();
@@ -52,9 +53,14 @@ public:
     void AddRendererComponent(EntityID id, Renderer* renderer);
     void RemoveRendererComponent(EntityID id);
 
+    using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer>::iterator;
+    void AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer);
+    void RemoveAnimationRendererComponent(EntityID id);
+
     void TempMoveCamera();
 
     std::unordered_map<EntityID, Renderer> renderer_arr_;
+    std::unordered_map<EntityID, AnimationRenderer> anim_renderer_arr_;
 };
 
 #endif

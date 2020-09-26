@@ -126,7 +126,7 @@ Entity* EntityFactory::TestBuild() {
 
 	ret->AddComponent(creator->GetComponentTypeID(), component);
 
-	creator = component_map_.find("Renderer")->second;
+	creator = component_map_.find("AnimationRenderer")->second;
 
 	component = creator->Create();
 

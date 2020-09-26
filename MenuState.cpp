@@ -8,6 +8,7 @@
 #include "WinKeyCodes.h"
 #include "WindowsSystem.h"
 #include "TextureManager.h"
+#include "AnimationManager.h"
 
 #include "Core.h" //FOR TESTING
 
@@ -28,6 +29,7 @@ void MenuState::init()
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
 	TEXTUREMANAGER->TempFunctionForTesting();
+	ANIMATIONMANAGER->TempFunctionForTesting();
 
 	//creating duplicate entities
 	FACTORY->Create("Entity1");

@@ -17,7 +17,7 @@ void TextureManager::TempFunctionForTesting()
     LoadMiscTextures();
 
     //load textures
-    LoadTexture("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles, 32);
+    LoadTexture("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_, 32);
 }
 
 void TextureManager::CreateQuadTexture(TextureName texture_name, unsigned char red,
@@ -42,7 +42,7 @@ void TextureManager::CreateQuadTexture(TextureName texture_name, unsigned char r
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1,
         0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
-    textures[texture_name] = texobj_hdl;
+    textures_[texture_name] = texobj_hdl;
     delete[] pixels;
 }
 
@@ -143,7 +143,7 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tile_size, tile_size,
             0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
-        textures[texture_names[currentTile]] = texobj_hdl;
+        textures_[texture_names[currentTile]] = texobj_hdl;
     }
 
     //Free FreeImage's copy of the data
@@ -155,14 +155,14 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
     return true;
 }
 
-bool TextureManager::UnloadTexture(size_t texID)
+bool TextureManager::UnloadTexture(GLint tex_id)
 {
     //if this texture ID is in use, unload the current texture
-    if (textures.find(texID) != textures.end())
+    if (textures_.find(tex_id) != textures_.end())
     {
-        glDeleteTextures(1, &(textures[texID]));
-        textures.erase(texID);
-        std::cout << "Texture " << texID << "is unloaded" << std::endl;
+        glDeleteTextures(1, &(textures_[tex_id]));
+        textures_.erase(tex_id);
+        std::cout << "Texture " << tex_id << "is unloaded" << std::endl;
         return true;
     }
 
@@ -171,12 +171,12 @@ bool TextureManager::UnloadTexture(size_t texID)
 
 void TextureManager::UnloadAllTextures()
 {
-    glDeleteTextures(textures.size(), &(textures[0]));
+    glDeleteTextures(textures_.size(), &(textures_[0]));
 }
 
-Texture* TextureManager::GetTexture(size_t texID)
+Texture* TextureManager::GetTexture(GLint tex_id)
 {
-    return &textures[texID];
+    return &textures_[tex_id];
 }
 
 TextureManager::TextureManager()

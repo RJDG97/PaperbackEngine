@@ -18,32 +18,32 @@
 
 void GraphicsSystem::CameraInit()
 {
-    cam_pos = glm::vec2{ 0, 0 };
-    cam_size = glm::vec2{ 800, 600 };
+    cam_pos_ = glm::vec2{ 0, 0 };
+    cam_size_ = glm::vec2{ 800, 600 };
 
-    view_xform = glm::mat3{ 1 , 0 , 0,
+    view_xform_ = glm::mat3{ 1 , 0 , 0,
                             0 , 1 , 0,
-                            cam_pos.x , cam_pos.y , 1 };
+                            cam_pos_.x , cam_pos_.y , 1 };
 
     // compute other matrices ...
-    camwin_to_ndc_xform = glm::mat3{ 2 / cam_size.x , 0 , 0,
-                                    0 , 2 / cam_size.y , 0,
+    camwin_to_ndc_xform_ = glm::mat3{ 2 / cam_size_.x , 0 , 0,
+                                    0 , 2 / cam_size_.y , 0,
                                     0 , 0 , 1 };
 
-    world_to_ndc_xform = camwin_to_ndc_xform * view_xform;
+    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
 }
 
 void GraphicsSystem::CameraUpdate()
 {
-    view_xform = glm::mat3{ 1 , 0 , 0,
+    view_xform_ = glm::mat3{ 1 , 0 , 0,
                             0 , 1 , 0,
-                            cam_pos.x , cam_pos.y , 1 };
+                            cam_pos_.x , cam_pos_.y , 1 };
 
-    camwin_to_ndc_xform = glm::mat3{ 2.0f / cam_size.x , 0.0f , 0.0f,
-                                     0.0f , 2.0f / cam_size.y , 0.0f,
+    camwin_to_ndc_xform_ = glm::mat3{ 2.0f / cam_size_.x , 0.0f , 0.0f,
+                                     0.0f , 2.0f / cam_size_.y , 0.0f,
                                      0.0f , 0.0f , 1.0f };
 
-    world_to_ndc_xform = camwin_to_ndc_xform * view_xform;
+    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
 }
 
 /*  _________________________________________________________________________ */
@@ -73,7 +73,8 @@ void GraphicsSystem::Init() {
     SHADERMANAGER->AddShdrpgm("Shaders/default.vert", "Shaders/default.frag", ShaderType::TextureShader);
     SHADERMANAGER->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", ShaderType::LightShader);
 
-    FACTORY->AddComponentCreator("Renderer", new ComponentCreatorType<Renderer>(ComponentTypes::RENDERER));
+    //FACTORY->AddComponentCreator("Renderer", new ComponentCreatorType<Renderer>(ComponentTypes::RENDERER));
+    FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreatorType<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 
     CameraInit();
 
@@ -92,11 +93,16 @@ This also updates the size of the squares to be rendered in one of the tasks.
 void GraphicsSystem::Update(float frametime) {
 
     CameraUpdate();
-
+    
     //updates all the renderer components
-    for (RendererIt renderer = renderer_arr_.begin(); renderer != renderer_arr_.end(); ++renderer)
+    for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it)
     {
-        (*renderer).second.Update(frametime, world_to_ndc_xform);
+        (*it).second.Update(frametime, world_to_ndc_xform_);
+    }
+
+    for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it)
+    {
+        (*it).second.Update(frametime, world_to_ndc_xform_);
     }
 
 }
@@ -113,11 +119,17 @@ Clears the buffer and then draws a rectangular model in the viewport.
 void GraphicsSystem::Draw() {
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     //draws all the renderer components
-    for (RendererIt renderer = renderer_arr_.begin(); renderer != renderer_arr_.end(); ++renderer)
+    for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it)
     {
-        (*renderer).second.Draw();
+        (*it).second.Draw();
+    }
+
+    for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it)
+    {
+        (*it).second.Draw();
     }
 
     /* all these work btw*/
@@ -189,9 +201,24 @@ void GraphicsSystem::RemoveRendererComponent(EntityID id)
     }
 }
 
+void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer)
+{
+    anim_renderer_arr_[id] = *animation_renderer;
+}
+
+void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
+{
+    AnimRendererIt it = anim_renderer_arr_.find(id);
+
+    if (it != anim_renderer_arr_.end()) {
+
+        anim_renderer_arr_.erase(it);
+    }
+}
+
 void GraphicsSystem::TempMoveCamera()
 {
-    cam_pos -= glm::vec2{ 10.0f, 10.0f };
+    cam_pos_ -= glm::vec2{ 10.0f, 10.0f };
 }
 
 /*

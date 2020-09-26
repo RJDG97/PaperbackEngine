@@ -15,6 +15,7 @@
 #include "ModelManager.h"
 #include "TextureManager.h"
 #include "ShaderManager.h"
+#include "AnimationManager.h"
 
 /*
 temp headers
@@ -192,6 +193,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	ModelManager model_manager;
 	TextureManager texture_manager;
 	ShaderManager shader_manager;
+	AnimationManager animation_manager;
 	texture_manager.Init();
 
 	engine->Initialize();

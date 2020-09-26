@@ -96,15 +96,15 @@ enum ShaderType
 
 class ShaderManager
 {
-    std::map<ShaderType, Shader> shaders;
+    std::map<GLint, Shader> shaders_;
 
 public:
 
     ShaderManager();
 
-    void AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, ShaderType shader_type);
+    void AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, GLint shader_type);
 
-    Shader GetShdrpgm(ShaderType shader_type);
+    Shader GetShdrpgm(GLint shader_type);
 };
 
 extern ShaderManager* SHADERMANAGER;
