@@ -1,24 +1,22 @@
-#include "glslshader.h"
+#include "ShaderManager.h"
 
-GLint
-GLSLShader::GetUniformLocation(GLchar const *name) {
+ShaderManager* SHADERMANAGER;
+
+GLint Shader::GetUniformLocation(GLchar const *name) {
   return glGetUniformLocation(pgm_handle, name); 
 }
 
-GLboolean
-GLSLShader::FileExists(std::string const& file_name) {
+GLboolean Shader::FileExists(std::string const& file_name) {
   std::ifstream infile(file_name); return infile.good();
 }
 
-void
-GLSLShader::DeleteShaderProgram() {
+void Shader::DeleteShaderProgram() {
   if (pgm_handle > 0) {
     glDeleteProgram(pgm_handle);
   }
 }
 
-GLboolean
-GLSLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec) {
+GLboolean Shader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec) {
   for (auto& elem : vec) {
     if (GL_FALSE == CompileShaderFromFile(elem.first, elem.second.c_str())) {
       return GL_FALSE;
@@ -36,8 +34,7 @@ GLSLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec)
   return GL_TRUE;
 }
 
-GLboolean
-GLSLShader::CompileShaderFromFile(GLenum shader_type, const std::string& file_name) {
+GLboolean Shader::CompileShaderFromFile(GLenum shader_type, const std::string& file_name) {
   if (GL_FALSE == FileExists(file_name)) {
     log_string = "File not found";
     return GL_FALSE;
@@ -61,8 +58,7 @@ GLSLShader::CompileShaderFromFile(GLenum shader_type, const std::string& file_na
   return CompileShaderFromString(shader_type, buffer.str());
 }
 
-GLboolean
-GLSLShader::CompileShaderFromString(GLenum shader_type, 
+GLboolean Shader::CompileShaderFromString(GLenum shader_type,
   const std::string&                       shader_src) {
   if (pgm_handle <= 0) {
     pgm_handle = glCreateProgram();
@@ -114,7 +110,7 @@ GLSLShader::CompileShaderFromString(GLenum shader_type,
   }
 }
 
-GLboolean GLSLShader::Link() {
+GLboolean Shader::Link() {
   if (GL_TRUE == is_linked) {
     return GL_TRUE;
   }
@@ -143,17 +139,17 @@ GLboolean GLSLShader::Link() {
   return is_linked = GL_TRUE;
 }
 
-void GLSLShader::Use() {
+void Shader::Use() {
   if (pgm_handle > 0 && is_linked == GL_TRUE) {
     glUseProgram(pgm_handle);
   }
 }
 
-void GLSLShader::UnUse() {
+void Shader::UnUse() {
   glUseProgram(0);
 }
 
-GLboolean GLSLShader::Validate() {
+GLboolean Shader::Validate() {
   if (pgm_handle <= 0 || is_linked == GL_FALSE) {
     return GL_FALSE;
   }
@@ -179,27 +175,27 @@ GLboolean GLSLShader::Validate() {
   }
 }
 
-GLuint GLSLShader::GetHandle() const {
+GLuint Shader::GetHandle() const {
   return pgm_handle;
 }
 
-GLboolean GLSLShader::IsLinked() const {
+GLboolean Shader::IsLinked() const {
   return is_linked;
 }
 
-std::string GLSLShader::GetLog() const {
+std::string Shader::GetLog() const {
   return log_string;
 }
 
-void GLSLShader::BindAttribLocation(GLuint index, GLchar const *name) {
+void Shader::BindAttribLocation(GLuint index, GLchar const *name) {
   glBindAttribLocation(pgm_handle, index, name);
 }
 
-void GLSLShader::BindFragDataLocation(GLuint color_number, GLchar const *name) {
+void Shader::BindFragDataLocation(GLuint color_number, GLchar const *name) {
   glBindFragDataLocation(pgm_handle, color_number, name);
 }
 
-void GLSLShader::SetUniform(GLchar const *name, GLboolean val) {
+void Shader::SetUniform(GLchar const *name, GLboolean val) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniform1i(loc, val);
@@ -209,7 +205,7 @@ void GLSLShader::SetUniform(GLchar const *name, GLboolean val) {
   }
 }
 
-void GLSLShader::SetUniform(GLchar const *name, GLint val) {
+void Shader::SetUniform(GLchar const *name, GLint val) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniform1i(loc, val);
@@ -219,7 +215,7 @@ void GLSLShader::SetUniform(GLchar const *name, GLint val) {
   }
 }
 
-void GLSLShader::SetUniform(GLchar const *name, GLfloat val) {
+void Shader::SetUniform(GLchar const *name, GLfloat val) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniform1f(loc, val);
@@ -229,7 +225,7 @@ void GLSLShader::SetUniform(GLchar const *name, GLfloat val) {
   }
 }
 
-void GLSLShader::SetUniform(GLchar const *name, GLfloat x, GLfloat y) {
+void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniform2f(loc, x, y);
@@ -238,7 +234,7 @@ void GLSLShader::SetUniform(GLchar const *name, GLfloat x, GLfloat y) {
   }
 }
 
-void GLSLShader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z) {
+void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniform3f(loc, x, y, z);
@@ -249,7 +245,7 @@ void GLSLShader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z)
 }
 
 void 
-GLSLShader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w) {
+Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniform4f(loc, x, y, z, w);
@@ -258,7 +254,7 @@ GLSLShader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z, GLfl
   }
 }
 
-void GLSLShader::SetUniform(GLchar const *name, glm::vec2 &val) {
+void Shader::SetUniform(GLchar const *name, glm::vec2 &val) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniform2f(loc, val.x, val.y);
@@ -268,7 +264,7 @@ void GLSLShader::SetUniform(GLchar const *name, glm::vec2 &val) {
   }
 }
 
-void GLSLShader::SetUniform(GLchar const *name, glm::vec3 &val) {
+void Shader::SetUniform(GLchar const *name, glm::vec3 &val) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniform3f(loc, val.x, val.y, val.z);
@@ -278,7 +274,7 @@ void GLSLShader::SetUniform(GLchar const *name, glm::vec3 &val) {
   }
 }
 
-void GLSLShader::SetUniform(GLchar const *name, glm::vec4 &val) {
+void Shader::SetUniform(GLchar const *name, glm::vec4 &val) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniform4f(loc, val.x, val.y, val.z, val.w);
@@ -288,7 +284,7 @@ void GLSLShader::SetUniform(GLchar const *name, glm::vec4 &val) {
   }
 }
 
-void GLSLShader::SetUniform(GLchar const *name, glm::mat3 &val) {
+void Shader::SetUniform(GLchar const *name, glm::mat3 &val) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniformMatrix3fv(loc, 1, GL_FALSE, &val[0][0]);
@@ -298,7 +294,7 @@ void GLSLShader::SetUniform(GLchar const *name, glm::mat3 &val) {
   }
 }
 
-void GLSLShader::SetUniform(GLchar const *name, glm::mat4 &val) {
+void Shader::SetUniform(GLchar const *name, glm::mat4 &val) {
   GLint loc = glGetUniformLocation(pgm_handle, name);
   if (loc >= 0) {
     glUniformMatrix4fv(loc, 1, GL_FALSE, &val[0][0]);
@@ -308,7 +304,7 @@ void GLSLShader::SetUniform(GLchar const *name, glm::mat4 &val) {
   }
 }
 
-void GLSLShader::PrintActiveAttribs() const {
+void Shader::PrintActiveAttribs() const {
 #if 1
   GLint max_length, num_attribs;
   glGetProgramiv(pgm_handle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &max_length);
@@ -346,7 +342,7 @@ void GLSLShader::PrintActiveAttribs() const {
 #endif
 }
 
-void GLSLShader::PrintActiveUniforms() const {
+void Shader::PrintActiveUniforms() const {
   GLint max_length;
   glGetProgramiv(pgm_handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_length);
   GLchar *pname = new GLchar[max_length];
@@ -364,4 +360,37 @@ void GLSLShader::PrintActiveUniforms() const {
   }
   std::cout << "----------------------------------------------------------------------\n";
   delete[] pname;
+}
+
+ShaderManager::ShaderManager()
+{
+    SHADERMANAGER = this;
+}
+
+void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, ShaderType shader_type)
+{
+    std::vector<std::pair<GLenum, std::string>> shdr_files
+    {
+        std::make_pair(GL_VERTEX_SHADER, vtx_shdr),
+        std::make_pair(GL_FRAGMENT_SHADER, frg_shdr)
+    };
+
+    Shader shdr_pgm;
+    shdr_pgm.CompileLinkValidate(shdr_files);
+
+    if (GL_FALSE == shdr_pgm.IsLinked())
+    {
+        std::cout << "Unable to compile/link/validate shader programs\n";
+        std::cout << shdr_pgm.GetLog() << "\n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    // add compiled, linked, and validated shader program to
+    // std::map container GLApp::shdrpgms
+    shaders[shader_type] = shdr_pgm;
+}
+
+Shader ShaderManager::GetShdrpgm(ShaderType shader_type)
+{
+    return shaders[shader_type];
 }

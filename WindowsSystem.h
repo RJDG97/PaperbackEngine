@@ -62,6 +62,4 @@ public:
 
 void createDebugWindow();
 
-extern WindowsSystem* WINDOWSSYSTEM;
-
 #endif

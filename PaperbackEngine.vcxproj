@@ -156,7 +156,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="glhelper.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
-    <ClCompile Include="glslshader.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="ISerializer.cpp" />
@@ -164,10 +164,12 @@
     <ClCompile Include="Matrix3x3.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Message.cpp" />
+    <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="Motion.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scale.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -193,7 +195,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="glhelper.h" />
     <ClInclude Include="GraphicsSystem.h" />
-    <ClInclude Include="glslshader.h" />
+    <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="InputSystem.h" />
@@ -203,10 +205,12 @@
     <ClInclude Include="Matrix3x3.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="ModelManager.h" />
     <ClInclude Include="Motion.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scale.h" />
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="Source.h" />

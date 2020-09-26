@@ -12,6 +12,10 @@
 
 #include "glhelper.h"
 
+#include "ModelManager.h"
+#include "TextureManager.h"
+#include "ShaderManager.h"
+
 /*
 temp headers
 */
@@ -169,13 +173,13 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	//WindowsSystem::Instance()->UnloadInstance();
 	//return 0;
-
+	
 	std::cout << "Testing" << std::endl;
 	CoreEngine* engine = new CoreEngine();
 
 	//to reorder based on what system has priority over the other
 	engine->AddSystem(new WindowsSystem());
-	engine->AddSystem(new LightingSystem());
+	//engine->AddSystem(new LightingSystem());
 	engine->AddSystem(new GraphicsSystem());
 	engine->AddSystem(new InputSystem());
 	engine->AddSystem(new Physics());
@@ -183,6 +187,12 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	engine->AddSystem(new EntityFactory());
 	engine->AddSystem(new SoundSystem());
 	engine->AddSystem(new Game());
+
+	//just for testing!!
+	ModelManager model_manager;
+	TextureManager texture_manager;
+	ShaderManager shader_manager;
+	texture_manager.Init();
 
 	engine->Initialize();
 

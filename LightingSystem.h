@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 #include "glhelper.h"
 #include "ISystem.h"
+#include "WindowsSystem.h"
 
 class LightingSystem : public ISystem
 {
@@ -30,6 +31,8 @@ class LightingSystem : public ISystem
 	GLuint final_texture;
 	GLuint lighting_buffer;
 	GLuint lighting_texture;
+
+	WindowsSystem* windows_system;
 
 public:
 

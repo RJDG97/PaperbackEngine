@@ -124,6 +124,12 @@ Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
 
 	ret->AddComponent(creator->GetComponentTypeID(), component);
 
+	creator = component_map_.find("Renderer")->second;
+
+	component = creator->Create();
+
+	ret->AddComponent(creator->GetComponentTypeID(), component);
+
 	/*const char* json_test = "{\"hello\" : \"world\"}";
 
 	rapidjson::FileReadStream{}

@@ -9,5 +9,5 @@ uniform sampler2D uTex2d;
 
 void main () {
 
-  fFragClr = texture(uTex2d, vTexCoord);// * vec4(0.25,0.2,0.35,1.0);
+  fFragClr = texture(uTex2d, vTexCoord);
 }

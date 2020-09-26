@@ -2,6 +2,7 @@
 #include "GraphicsSystem.h"
 #include "Core.h"
 #include "WindowsSystem.h"
+#include "ModelManager.h"
 
 LightingSystem::PointLight::PointLight(GLint x, GLint y,
 									   GLfloat red, GLfloat green, GLfloat blue,
@@ -17,8 +18,12 @@ LightingSystem::PointLight::PointLight(GLint x, GLint y,
 
 void LightingSystem::Init()
 {
-	GLint width = CORE->GetSystem<WindowsSystem>("WindowsSystem")->getWinWidth();
-	GLint height = CORE->GetSystem<WindowsSystem>("WindowsSystem")->getWinHeight();
+	windows_system = CORE->GetSystem<WindowsSystem>("WindowsSystem");
+
+	GLint width = windows_system->getWinWidth();
+	GLint height = windows_system->getWinHeight();
+
+	//MODELMANAGER->AddTristripsModel(1, 1, "Shaders/lighting.vert", "Shaders/lighting.frag", ModelType::LightModel);
 
 	glGenFramebuffers(1, &frame_buffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer);
@@ -72,6 +77,7 @@ void LightingSystem::Update(float frametime)
 
 void LightingSystem::TestDraw()
 {
+	/*
 	//reset the lighting texture
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -92,7 +98,7 @@ void LightingSystem::TestDraw()
 	glViewport(600 / 2 - 150, 100 / 2 - 150, 150 * 2, 150 * 2);
 	CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->models[1].DrawLight(glm::vec3{ 1.0f, 0.3f, 1.0f },
 		glm::vec2{ 600/2, 100/2 },
-		1.0f, 150.0f);
+		1.0f, 150.0f);*/
 }
 
 void LightingSystem::Cleanup()

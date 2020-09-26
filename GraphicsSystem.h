@@ -7,45 +7,35 @@
 ----------------------------------------------------------------------------- */
 #include <GL/glew.h> // for access to OpenGL API declarations
 #include <GLFW/glfw3.h>
-#include "glslshader.h"
+#include "ShaderManager.h"
+#include "LightingSystem.h"
 #include "TextureManager.h"
 #include "AnimationManager.h"
 #include "ISystem.h"
+#include "Renderer.h"
+#include "Factory.h"
+#include <unordered_map>
+#include "WindowsSystem.h"
 
 class GraphicsSystem : public ISystem
 {
-    // encapsulates state required to render a geometrical model
-    struct Model
-    {
-        GLenum     primitive_type;
-        GLuint     primitive_cnt;
-        GLuint     vaoid;
+    GLint window_width_;
+    GLint window_height_;
+    
+    WindowsSystem* windows_system_;
+    //LightingSystem* lighting_system;
 
-        GLuint     draw_cnt;
-        GLSLShader shdr_pgm;
+    //temp camera, will make it into a gameobject next time!
+    glm::vec2 cam_pos;
+    glm::vec2 cam_size;
+    glm::mat3 view_xform;
+    glm::mat3 camwin_to_ndc_xform;
+    glm::mat3 world_to_ndc_xform;
 
-        // member functions defined in glapp.cpp
-        void SetupShdrpgm(std::string vtx_shdr, std::string frg_shdr);
-        void Draw(GLuint texID);
-        void DrawLight(glm::vec3 light_color, glm::vec2 light_center,
-                       float intensity, float radius);
-    };
-
-    Model TristripsModel(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr);
-
-    // handles all the textures
-    static TextureManager texture_manager;
-
-    // handles all the animations
-    static AnimationManager animation_manager;
-
-    GLint window_width;
-    GLint window_height;
+    void CameraInit();
+    void CameraUpdate();
 
 public:
-
-    static TextureManager& GetTextureManager();
-    static AnimationManager& GetAnimationManager();
 
     void Init();
     void Update(float frametime);
@@ -58,7 +48,13 @@ public:
     //function more akin to "What to do when message is received" for internal logic
     virtual void SendMessageD(Message* m);
 
-    std::vector<Model> models;
+    using RendererIt = std::unordered_map<EntityID, Renderer>::iterator;
+    void AddRendererComponent(EntityID id, Renderer* renderer);
+    void RemoveRendererComponent(EntityID id);
+
+    void TempMoveCamera();
+
+    std::unordered_map<EntityID, Renderer> renderer_arr_;
 };
 
 #endif

@@ -5,8 +5,6 @@
 FILE* file;
 WindowsSystem* WindowsSystem::w_Instance = nullptr;
 
-WindowsSystem* WINDOWSSYSTEM;
-
 LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam) {
 	switch (msg) {
 	case WM_DESTROY:
@@ -32,7 +30,7 @@ LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM
 // Default constructor for WindowsSystem Class
 WindowsSystem::WindowsSystem() : wcex{}, msg{}, hwnd(), wWidth{ 0 }, wHeight{ 0 }
 {
-	WINDOWSSYSTEM = this;
+	
 }
 
 void WindowsSystem::Init() {

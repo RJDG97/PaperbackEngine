@@ -7,6 +7,9 @@
 #include "InputSystem.h"
 #include "WinKeyCodes.h"
 #include "WindowsSystem.h"
+#include "TextureManager.h"
+
+#include "Core.h" //FOR TESTING
 
 #include "GraphicsSystem.h"
 #include "Factory.h"
@@ -23,6 +26,8 @@ void MenuState::init()
 	std::cout << "Press SPACE to START" << std::endl;
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
+
+	TEXTUREMANAGER->TempFunctionForTesting();
 
 	//creating duplicate entities
 	FACTORY->Create("Entity1");
@@ -90,5 +95,12 @@ void MenuState::StateInputHandler(int key_val) {
 	//0x26 //UP ARROW key
 	//0x27 //RIGHT ARROW key
 	//0x28 //DOWN ARROW key
+
+	switch (key_val)
+	{
+		case 0x25:
+			CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->TempMoveCamera();
+			break;
+	}
 
 }

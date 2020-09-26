@@ -5,6 +5,8 @@
 #include <map>
 #include <vector>
 
+typedef GLuint Texture; //idk if this should be here
+
 enum TextureName
 {
 	Empty,
@@ -36,7 +38,6 @@ enum TextureName
 
 class TextureManager
 {
-	typedef GLuint Texture;
 	std::map<size_t, Texture> textures;
 
 	std::vector<TextureName> misc_tiles
@@ -73,6 +74,7 @@ class TextureManager
 public:
 
 	void Init();
+	void TempFunctionForTesting();
 
 	//Used for misc textures
 	void CreateQuadTexture(TextureName texture_name, unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
@@ -88,8 +90,10 @@ public:
 	//Getter
 	Texture* GetTexture(size_t texID);
 
-	TextureManager() = default;
+	TextureManager();
 	~TextureManager();
 };
+
+extern TextureManager* TEXTUREMANAGER;
 
 #endif

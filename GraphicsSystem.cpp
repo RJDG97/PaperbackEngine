@@ -3,27 +3,47 @@
 #define _USE_MATH_DEFINES
 
 #include "GraphicsSystem.h"
-#include "LightingSystem.h"
-#include "WindowsSystem.h"
 #include "Core.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <FreeImage.h>
 #include <cmath>
 #include <string>
 #include <set>
+#include "ModelManager.h"
+#include "ComponentTypes.h"
+#include "ComponentCreator.h"
+
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */
-TextureManager GraphicsSystem::texture_manager;
-AnimationManager GraphicsSystem::animation_manager;
 
-TextureManager& GraphicsSystem::GetTextureManager()
+void GraphicsSystem::CameraInit()
 {
-    return texture_manager;
+    cam_pos = glm::vec2{ 0, 0 };
+    cam_size = glm::vec2{ 800, 600 };
+
+    view_xform = glm::mat3{ 1 , 0 , 0,
+                            0 , 1 , 0,
+                            cam_pos.x , cam_pos.y , 1 };
+
+    // compute other matrices ...
+    camwin_to_ndc_xform = glm::mat3{ 2 / cam_size.x , 0 , 0,
+                                    0 , 2 / cam_size.y , 0,
+                                    0 , 0 , 1 };
+
+    world_to_ndc_xform = camwin_to_ndc_xform * view_xform;
 }
 
-AnimationManager& GraphicsSystem::GetAnimationManager()
+void GraphicsSystem::CameraUpdate()
 {
-    return animation_manager;
+    view_xform = glm::mat3{ 1 , 0 , 0,
+                            0 , 1 , 0,
+                            cam_pos.x , cam_pos.y , 1 };
+
+    camwin_to_ndc_xform = glm::mat3{ 2.0f / cam_size.x , 0.0f , 0.0f,
+                                     0.0f , 2.0f / cam_size.y , 0.0f,
+                                     0.0f , 0.0f , 1.0f };
+
+    world_to_ndc_xform = camwin_to_ndc_xform * view_xform;
 }
 
 /*  _________________________________________________________________________ */
@@ -41,20 +61,23 @@ void GraphicsSystem::Init() {
     // Part 1: clear colorbuffer with white color ...
     glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
-    // Part 2: split color buffer into four viewports ...
-    window_width = CORE->GetSystem<WindowsSystem>("WindowsSystem")->getWinWidth();
-    window_height = CORE->GetSystem<WindowsSystem>("WindowsSystem")->getWinHeight();
-    glViewport(0, 0, window_width, window_height);
+    //lighting_system = CORE->GetSystem<LightingSystem>("LightingSystem");
+    windows_system_ = CORE->GetSystem<WindowsSystem>("WindowsSystem");
 
-    // Part 3: create different geometries and insert them into
-    // repository container GraphicsSystem::models ...
-    models.push_back(TristripsModel(1, 1, "Shaders/default.vert", "Shaders/default.frag"));
-    models.push_back(TristripsModel(1, 1, "Shaders/lighting.vert", "Shaders/lighting.frag"));
+    // Part 2: split color buffer into four viewports ...
+    window_width_ = windows_system_->getWinWidth();
+    window_height_ = windows_system_->getWinHeight();
+    glViewport(0, 0, window_width_, window_height_);
+
+    MODELMANAGER->AddTristripsModel(1, 1, ModelType::BoxModel);
+    SHADERMANAGER->AddShdrpgm("Shaders/default.vert", "Shaders/default.frag", ShaderType::TextureShader);
+    SHADERMANAGER->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", ShaderType::LightShader);
+
+    FACTORY->AddComponentCreator("Renderer", new ComponentCreatorType<Renderer>(ComponentTypes::RENDERER));
+
+    CameraInit();
 
     glEnable(GL_CULL_FACE);
-
-    texture_manager.Init();
-    animation_manager.Init();
 }
 
 /*  _________________________________________________________________________ */
@@ -67,6 +90,14 @@ void GraphicsSystem::Init() {
 This also updates the size of the squares to be rendered in one of the tasks.
 */
 void GraphicsSystem::Update(float frametime) {
+
+    CameraUpdate();
+
+    //updates all the renderer components
+    for (RendererIt renderer = renderer_arr_.begin(); renderer != renderer_arr_.end(); ++renderer)
+    {
+        (*renderer).second.Update(frametime, world_to_ndc_xform);
+    }
 
 }
 
@@ -81,30 +112,44 @@ Clears the buffer and then draws a rectangular model in the viewport.
 */
 void GraphicsSystem::Draw() {
 
-    glViewport(0, 0, window_width, window_height);
-    glBindFramebuffer(GL_FRAMEBUFFER, CORE->GetSystem<LightingSystem>("LightingSystem")->GetFrameBuffer());
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    //draws all the renderer components
+    for (RendererIt renderer = renderer_arr_.begin(); renderer != renderer_arr_.end(); ++renderer)
+    {
+        (*renderer).second.Draw();
+    }
+
+    /* all these work btw*/
+    /*
+    glViewport(0, 0, window_width_, window_height_);
+    glBindFramebuffer(GL_FRAMEBUFFER, lighting_system_->GetFrameBuffer());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glDepthMask(GL_FALSE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //will be settled by the components itself
-    models[0].Draw(*(texture_manager.GetTexture(TextureName::Rock)));
+    //Draw should be in some component shet so i go see wat it is tmr!!!!
+    //aim is make the renderer and light component
+    //then do camera transforms
+    //then do animation
+    //and in tat order
+    MODELMANAGER->GetModel(ModelType::RegularModel).Draw(*(TEXTUREMANAGER.GetTexture(TextureName::Rock)));
     
     //lighting system stuff
     glDisable(GL_DEPTH_TEST);
-    CORE->GetSystem<LightingSystem>("LightingSystem")->TestDraw();
+    lighting_system->TestDraw();
     
     //render the final texture
     glViewport(0, 0, window_width, window_height);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    models[0].Draw(CORE->GetSystem<LightingSystem>("LightingSystem")->GetFinalTexture());
+    models[0].Draw(lighting_system->GetFinalTexture());
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    models[0].Draw(CORE->GetSystem<LightingSystem>("LightingSystem")->GetLightingTexture());
+    models[0].Draw(lighting_system->GetLightingTexture());*/
 
-    glfwSwapBuffers(CORE->GetSystem<WindowsSystem>("WindowsSystem")->ptr_window);
+    glfwSwapBuffers(windows_system_->ptr_window);
 }
 
 /*  _________________________________________________________________________ */
@@ -129,185 +174,27 @@ void GraphicsSystem::SendMessageD(Message* m)
 {
 }
 
-/*  _________________________________________________________________________ */
-/*! GraphicsSystem::setup_shdrpgm
-
-@param none
-
-@return void
-
-Loads the shader files and uses the shader program pipeline functionality
-implemented in class GLSLShader
-*/
-void GraphicsSystem::Model::SetupShdrpgm(std::string vtx_shdr, std::string frg_shdr)
+void GraphicsSystem::AddRendererComponent(EntityID id, Renderer* renderer)
 {
-    std::vector<std::pair<GLenum, std::string>> shdr_files; 
-    shdr_files.push_back(std::make_pair(GL_VERTEX_SHADER, vtx_shdr));
-    shdr_files.push_back(std::make_pair(GL_FRAGMENT_SHADER, frg_shdr));
-    shdr_pgm.CompileLinkValidate(shdr_files);
+    renderer_arr_[id] = *renderer;
+}
 
-    if (GL_FALSE == shdr_pgm.IsLinked())
-    {
-        std::cout << "Unable to compile/link/validate shader programs" << std::endl;
-        std::cout << shdr_pgm.GetLog() << std::endl;
-        std::exit(EXIT_FAILURE);
+void GraphicsSystem::RemoveRendererComponent(EntityID id)
+{
+    RendererIt it = renderer_arr_.find(id);
+
+    if (it != renderer_arr_.end()) {
+
+        renderer_arr_.erase(it);
     }
 }
 
-/*  _________________________________________________________________________ */
-/*! GraphicsSystem::TristripsModel
-
-@param slices
-Number of subintervals divided horizontally
-
-@param stacks
-Number of subintervals divided vertically
-
-@param vtx_shdr
-Vertex shader used to render the points
-
-@param frg_shdr
-Fragment shader used to render the points
-
-@return GLModel
-Contains information about the model to be rendered
-
-Sets up a model comprising of triangle fans, using AOS.
-*/
-GraphicsSystem::Model GraphicsSystem::TristripsModel(int slices, int stacks, std::string vtx_shdr, std::string frg_shdr)
+void GraphicsSystem::TempMoveCamera()
 {
-    // Generates the vertices required to render triangle strips
-
-    int const count{ (stacks + 1) * (slices + 1) };
-    std::vector<glm::vec2> pos_vtx(count);
-    std::vector<glm::vec3> clr_vtx(count);
-    std::vector<glm::vec2> tex_vtx(count);
-
-    float const u{ 2.f / static_cast<float>(slices) };
-    float const v{ 2.f / static_cast<float>(stacks) };
-
-    for (int row{ 0 }, index{ 0 }; row <= stacks; ++row)
-    {
-        for (int col{ 0 }; col <= slices; ++col)
-        {
-            pos_vtx[index] = glm::vec2(u * static_cast<float>(col) - 1.f, v* static_cast<float>(row) - 1.f);
-
-            // Randomly generate r, g, b values for vertex color attribute
-            clr_vtx[index] = glm::vec3{ static_cast<float>(row) / stacks,
-                                        static_cast<float>(col) / slices,
-                                            1.0 - static_cast<float>(row) / stacks - static_cast<float>(col) / slices };
-
-            tex_vtx[index++] = glm::vec2{ col, row };
-        }
-    }
-
-    // Generate the triangle strip's index or element list
-
-    std::vector<GLushort> idx_vtx(((slices + 1) * 2 + 2) * stacks - 2);
-
-    for (int row{ 0 }, index{ 0 }; row <= stacks - 1; ++row)
-    {
-        for (int col{ 0 }; col <= slices; ++col)
-        {
-            if (index != 0 && col == 0)
-            {
-                idx_vtx[index++] = (row + 1) * (slices + 1) + col;
-            }
-
-            idx_vtx[index++] = (row + 1) * (slices + 1) + col;
-            idx_vtx[index++] = row * (slices + 1) + col;
-        }
-
-        if (row != stacks - 1)
-        {
-            idx_vtx[index] = idx_vtx[index - 1];
-            ++index;
-        }
-    }
-
-    // Generate a VAO handle to encapsulate the VBO(s) and state of this triangle mesh 
-
-    GLuint vbo_hdl;
-    glCreateBuffers(1, &vbo_hdl);
-    glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
-                                  sizeof(glm::vec3) * clr_vtx.size() +
-                                  sizeof(glm::vec2) * tex_vtx.size(),
-                                        nullptr, GL_DYNAMIC_STORAGE_BIT);
-
-    glNamedBufferSubData(vbo_hdl, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
-
-    glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(),
-                         sizeof(glm::vec3) * clr_vtx.size(), clr_vtx.data());
-
-    glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(),
-                         sizeof(glm::vec2) * tex_vtx.size(), tex_vtx.data());
-
-    GLuint vao_hdl;
-    glCreateVertexArrays(1, &vao_hdl);
-    glEnableVertexArrayAttrib(vao_hdl, 0);
-    glVertexArrayVertexBuffer(vao_hdl, 0, vbo_hdl, 0, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_hdl, 0, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_hdl, 0, 0);
-
-    glEnableVertexArrayAttrib(vao_hdl, 1);
-    glVertexArrayVertexBuffer(vao_hdl, 1, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(), sizeof(glm::vec3));
-    glVertexArrayAttribFormat(vao_hdl, 1, 3, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_hdl, 1, 1);
-
-    glEnableVertexArrayAttrib(vao_hdl, 2);
-    glVertexArrayVertexBuffer(vao_hdl, 2, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(), sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_hdl, 2, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_hdl, 2, 2);
-
-    GLuint ebo_hdl;
-    glCreateBuffers(1, &ebo_hdl);
-    glNamedBufferStorage(ebo_hdl,
-        sizeof(GLushort) * idx_vtx.size(),
-        reinterpret_cast<GLvoid*>(idx_vtx.data()),
-        GL_DYNAMIC_STORAGE_BIT);
-    glVertexArrayElementBuffer(vao_hdl, ebo_hdl);
-    glBindVertexArray(0);
-
-    // Return an appropriately initialized instance of GLApp::GLModel
-
-    GraphicsSystem::Model mdl;
-    mdl.vaoid = vao_hdl;
-    mdl.primitive_type = GL_TRIANGLE_STRIP;
-    mdl.SetupShdrpgm(vtx_shdr, frg_shdr);
-    mdl.draw_cnt = idx_vtx.size();           // number of vertices
-    mdl.primitive_cnt = count;               // number of triangles
-    return mdl;
+    cam_pos -= glm::vec2{ 10.0f, 10.0f };
 }
 
-/*  _________________________________________________________________________ */
-/*! GraphicsSystem::GLModel::Draw
-
-@param none
-
-@return void
-
-Renders the model in a viewport.
-*/
-void GraphicsSystem::Model::Draw(GLuint texID)
-{
-    // there are many shader programs initialized - here we're saying
-    // which specific shader program should be used to render geometry
-    shdr_pgm.Use();
-    glBindVertexArray(vaoid);
-    glBindTexture(GL_TEXTURE_2D, texID);
-    glBindTextureUnit(0, texID);
-    glUseProgram(shdr_pgm.GetHandle());
-    GLuint tex_loc = glGetUniformLocation(shdr_pgm.GetHandle(), "uTex2d");
-    glUniform1i(tex_loc, 0);
-    glDrawElements(GL_TRIANGLE_STRIP, draw_cnt, GL_UNSIGNED_SHORT, NULL);
-
-    // after completing the rendering, we tell the driver that the VAO vaoid
-    // and the current shader program are no longer current
-    glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    shdr_pgm.UnUse();
-}
-
+/*
 void GraphicsSystem::Model::DrawLight(glm::vec3 light_color, glm::vec2 light_center,
                                       float intensity, float radius)
 {
@@ -365,4 +252,4 @@ void GraphicsSystem::Model::DrawLight(glm::vec3 light_color, glm::vec2 light_cen
     glDrawElements(GL_TRIANGLE_STRIP, draw_cnt, GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
     shdr_pgm.UnUse();
-}
+}*/

@@ -2,12 +2,17 @@
 #include <FreeImage.h>
 #include <iostream>
 
+TextureManager* TEXTUREMANAGER;
+
 void TextureManager::Init()
 {
     //Initialize FreeImage
     FreeImage_Initialise();
     std::cout << "FreeImage Version " << FreeImage_GetVersion() << std::endl;
+}
 
+void TextureManager::TempFunctionForTesting()
+{
     //create misc textures
     LoadMiscTextures();
 
@@ -169,9 +174,14 @@ void TextureManager::UnloadAllTextures()
     glDeleteTextures(textures.size(), &(textures[0]));
 }
 
-TextureManager::Texture* TextureManager::GetTexture(size_t texID)
+Texture* TextureManager::GetTexture(size_t texID)
 {
     return &textures[texID];
+}
+
+TextureManager::TextureManager()
+{
+    TEXTUREMANAGER = this;
 }
 
 TextureManager::~TextureManager()
