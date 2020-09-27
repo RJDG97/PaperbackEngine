@@ -12,13 +12,21 @@ class EntityFactory : public ISystem {
 	//contains incrementally generated id
 	unsigned int last_entity_id_;
 
+	// 
 	using ComponentMapType = std::map<std::string, ComponentCreator*>;
 	ComponentMapType component_map_;
 
+	// 
 	using EntityIdMapType = std::map<EntityID, Entity*>;
 	using EntityIdMapTypeIt = EntityIdMapType::iterator;
 	EntityIdMapType entity_id_map_;
 
+	// 
+	using EntityArchetypeMapType = std::map<EntityTypes, Entity*>;
+	using EntityArchetypeMapTypeIt = EntityArchetypeMapType::iterator;
+	EntityArchetypeMapType entity_archetype_map_;
+
+	// For storing entities that are to be deleted in update loop
 	using EntityIt = std::set<Entity*>::iterator;
 	std::set<Entity*> objects_to_delete;
 
@@ -31,6 +39,9 @@ public:
 
 	//create, init & id new entity from file
 	Entity* Create(const std::string& filename);
+
+	//creates new archetype and adds to map of archetypes
+	Entity* SerializeArchetype(const std::string& filename, const std::string& entity_name, EntityTypes id);
 
 	//adds entity to destroy list
 	void Destroy(Entity* entity);

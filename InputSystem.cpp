@@ -174,18 +174,25 @@ void InputSystem::Update(float frametime) {
 		if (CheckCurrentInput(i)) {
 			switch (i)
 			{
-			case 0x25: //LEFT ARROW key
-			case 0x26: //UP ARROW key
-			case 0x27: //RIGHT ARROW key
-			case 0x28: //DOWN ARROW key
-			{
-				//send message to game logc of button press
-				Message_Input msg{ MessageIDTypes::M_ButtonPress, i };
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
+				case 0x25: //LEFT ARROW key
+				case 0x26: //UP ARROW key
+				case 0x27: //RIGHT ARROW key
+				case 0x28: //DOWN ARROW key
+				{
+					//send message to game logc of button press
+					Message_Input msg{ MessageIDTypes::M_ButtonPress, i };
+					CORE->BroadcastMessage(&msg);
+					break;
+				}
 			}
 		}
+		/*else if (i == 0x28 || i == 0x25 || i == 0x26 || i == 0x27) {
+
+			//send message to game logc of button press
+			Message_Input msg{ MessageIDTypes::M_ButtonPress, 404 };
+			CORE->BroadcastMessage(&msg);
+			break;
+		}*/
 	}
 
 	for (int i = 0x30; i <= 0x5A; ++i) {

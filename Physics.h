@@ -22,7 +22,7 @@ public:
 	// Draw debugging boxes
 	void DebugDraw();
 
-	void ChangeAcceleration(Message* m);
+	void ChangeVelocity(Message* m);
 
 	void Rotate(Transform* pos);
 

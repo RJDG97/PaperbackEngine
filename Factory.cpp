@@ -4,14 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
-/*
-#include "ISerializer.h"
-#include "istreamwrapper.h"
-#include "reader.h"
-#include "writer.h"
-
-#include <fstream>*/
+#include <assert.h>
 
 EntityFactory* FACTORY = NULL;
 
@@ -34,13 +27,13 @@ EntityFactory::~EntityFactory() {
 
 Entity* EntityFactory::Create(const std::string& filename) {
 	// Create the entity and initialize all components from file
-	
-	BuildAndSerialize(filename);
-	Entity* entity = TestBuild(); //BuildAndSerialize(filename);
+
+	//SerializeArchetype("Player", EntityTypes::Player);
+	Entity* entity = SerializeArchetype(filename, "Player", EntityTypes::Player);//TestBuild(); //BuildAndSerialize(filename);
 	// If entity was successfully created, initialize
-	if (entity) {
+	/*if (entity) {
 		entity->Init();
-	}
+	}*/
 
 	return entity;
 }
@@ -90,6 +83,13 @@ void EntityFactory::DestroyAllEntities() {
 	}
 	// Clear and resize map
 	entity_id_map_.clear();
+
+	//clean up archetypes
+	
+	for (EntityArchetypeMapTypeIt it2 = entity_archetype_map_.begin(); it2 != entity_archetype_map_.end(); ++it2) {
+
+		delete it2->second;
+	}
 
 	std::cout << "Purged all entities" << std::endl;
 }
@@ -169,7 +169,7 @@ Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
 		//each value is essentially a container for multiple members
 		//IsObject enforces that the member is an object that will contain data:key pairs
 		const rapidjson::Value& member = *it;
-		assert(member.IsObject());
+		assert(member.IsObject() && "Not object??");
 		
 		for (rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
 
@@ -180,6 +180,101 @@ Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
 
 	return nullptr;
 }
+
+//serialises single archetype 
+Entity* EntityFactory::SerializeArchetype(const std::string& filename, const std::string& entity_name, EntityTypes id) {
+	// Create an empty entity
+	Entity* archetype = new Entity();
+
+	archetype->entity_type_ = id;
+
+	// Load the input file (.json) and ensure it is open
+	std::ifstream input_file(filename.c_str()/*"TestJSON/2compTest.json"*/);
+	assert(input_file);
+
+	// Read each line separated by a '\n' into a stringstream
+	std::stringstream json_doc_buffer;
+	std::string input;
+
+	while (std::getline(input_file, input)) {
+
+		json_doc_buffer << input << "\n";
+	}
+
+	// Close the file (.json) after
+	input_file.close();
+
+	// Parse the stringstream into document (DOM) format
+	rapidjson::Document doc;
+	doc.Parse(json_doc_buffer.str().c_str());
+
+	// Treats entire filestream at index as array and ensure that it is an array
+	const rapidjson::Value& value_arr = doc[entity_name.c_str()];
+	assert(value_arr.IsArray());
+
+	// Iterate through the body of the "Header"
+	for (rapidjson::Value::ConstValueIterator it = value_arr.Begin(); it != value_arr.End(); ++it) {
+
+		// Each value is essentially a container for multiple members
+		// IsObject enforces that the member is an object that will contain data:key pairs
+		const rapidjson::Value& member = *it;
+		
+		assert(member.IsObject());
+
+		ComponentCreator* creator;
+		Component* component;
+
+		// For every new component in the "Entity"s body
+		if (member.MemberBegin()->name == "component") {
+
+			// Check whether the component's name has been registered
+			creator = component_map_.find(member.MemberBegin()->value.GetString())->second;
+			
+			component = creator->Create();
+
+			//stores the data into a stream that is easier to read data from
+			std::stringstream stream;
+
+			for (rapidjson::Value::ConstMemberIterator it2 = ++member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
+
+				stream << it2->value.GetString() << " ";
+			}
+
+			//passes the converted data to the component to read
+			component->Serialize(stream);
+
+			// Attaches the component to the entity
+			archetype->AddComponent(creator->GetComponentTypeID(), component);
+		}
+		
+		/*
+		for (rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
+
+			//each member contains multiple data:key pairs that can be read and interpreted
+			std::cout << it2->name.GetString() << ": " << it2->value.GetString() << std::endl;
+
+			//component->Serialize();
+
+				//ComponentCreator* creator = component_map_.find("Motion")->second;
+				//Component* component = creator->Create();
+				//ret->AddComponent(creator->GetComponentTypeID(), component);
+		}
+		*/
+	}
+
+	//entity_archetype_map_[id] = archetype;
+	
+	// Sets the owner of the component to be "archetype" (*this) and adds the relevant
+	// component pointers to their main systems
+	archetype->Init();
+
+	//adds entity to entity_id_map_
+	//ideally to use archetype design so remove in favor of that once implementation is done
+	StoreEntityID(archetype);
+
+	return archetype;
+}
+
 
 void EntityFactory::StoreEntityID(Entity* entity) {
 	
@@ -213,13 +308,13 @@ void EntityFactory::SendMessageD(Message* msg) {
 	
 	switch (msg->message_id_)
 	{
-	case MessageIDTypes::FTY_Purge:
+	case MessageIDTypes::FTY_Purge: // Delete all entities
 	{
 
 		DestroyAllEntities();
 		break;
 	}
-	case MessageIDTypes::FTY_Delete:
+	case MessageIDTypes::FTY_Delete: // Delete a specific entity stored within the message
 	{
 
 		Entity_Message* m = dynamic_cast<Entity_Message*>(msg);

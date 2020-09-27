@@ -5,9 +5,16 @@ AABB::AABB() : top_right_{},
 			   bottom_left_{}
 {}
 
+/*AABB::~AABB() {
+
+	//if (Component::GetOwner())
+		//COLLISION->RemoveAABBComponent(Component::GetOwner()->GetID());
+}*/
+
 void AABB::Init() {
 	// Create the map afterwards
 	//COLLISION->AABBs[Component::GetOwner()->GetID()] = *this;
+	//if (Component::GetOwner())
 	COLLISION->AddAABBComponent(Component::GetOwner()->GetID(), this);
 }
 

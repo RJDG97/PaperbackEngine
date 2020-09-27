@@ -9,11 +9,10 @@ Entity_Message::Entity_Message(MessageIDTypes id, size_t id_1, size_t id_2) :
 	entity_two_{ id_2 }
 {}
 
-MessagePhysics_Accel::MessagePhysics_Accel(MessageIDTypes id, Vector2D new_acceleration) : 
+MessagePhysics_Motion::MessagePhysics_Motion(MessageIDTypes id, Vector2D new_vector) :
 	Message{ id },
-	new_acceleration_{ new_acceleration }
+	new_vec_{ new_vector }
 {}
-
 
 Message_Input::Message_Input(MessageIDTypes id, int input) : 
 	Message{ id },

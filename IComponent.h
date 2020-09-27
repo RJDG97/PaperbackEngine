@@ -24,7 +24,7 @@ public:
 	virtual void Init() {};
 
 	// Reads and initializes the component's data members from a stream
-	virtual void Serialize(ISerializer& str){};
+	virtual void Serialize(std::stringstream& data) { (void)data; };
 
 	// Returns the pointer to the entity that owns the component
 	Entity* GetOwner() { return owner_; }

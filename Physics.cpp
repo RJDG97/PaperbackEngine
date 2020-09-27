@@ -30,7 +30,7 @@ void Physics::Update(float frametime) {
 		TransformIt xform = transform_arr_.find(motion->first);
 		if (xform != transform_arr_.end()) {
 			// Perform update of entity's transform component
-			xform->second->position_ += motion->second->velocity_;
+			xform->second->position_ += motion->second->velocity_ * frametime;
 			//std::cout << "Position in Physics: " << xform->second.position_.x << ", " << xform->second.position_.y << std::endl;
 		}
 	}
@@ -54,7 +54,7 @@ void Physics::DebugDraw() {
 // Interprets a message that contains an updated acceleration Vec2D
 // that will replace the old acceleration vector
 // Assumes that the new acceleration vector has been calculated prior to receiving it
-void Physics::ChangeAcceleration(Message* m) {
+/*void Physics::ChangeAcceleration(Message* m) {
 	// If there are multiple players the results will be duplicated
 	// because there is no specific entity id at the moment
 
@@ -69,9 +69,31 @@ void Physics::ChangeAcceleration(Message* m) {
 		if (motion->second->GetOwner()->GetType() == EntityTypes::Player) {
 
 			//update the acceleration data member of that component with the message's
-			motion->second->acceleration_ = msg->new_acceleration_;
+			motion->second->velocity_ = msg->new_acceleration_;
 
-			std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
+			//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
+		}
+	}
+}*/
+
+void Physics::ChangeVelocity(Message* m) {
+	// If there are multiple players the results will be duplicated
+	// because there is no specific entity id at the moment
+
+	std::cout << "Entered ChangeAcceleration" << std::endl;
+	//dynamic cast from message base class to derived message class
+	MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
+
+	//locate the motion component that contains a matching entityID as in the message
+	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
+
+		//std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
+		if (motion->second->GetOwner()->GetType() == EntityTypes::Player) {
+
+			//update the acceleration data member of that component with the message's
+			motion->second->velocity_ = msg->new_vec_;
+
+			//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
 		}
 	}
 }
@@ -79,10 +101,6 @@ void Physics::ChangeAcceleration(Message* m) {
 void Physics::AddTransformComponent(EntityID id, Transform* transform) {
 
 	transform_arr_[id] = transform;
-
-	std::cout << "Received in Physics: " << transform << std::endl;
-
-	std::cout << "Verifying address in Physics: " << &transform_arr_[id] << std::endl;
 }
 
 void Physics::RemoveTransformComponent(EntityID id) {
@@ -147,12 +165,19 @@ void Physics::SendMessageD(Message* msg) {
 
 	switch (msg->message_id_)
 	{
-	case MessageIDTypes::PHY_UpdateAccel:
-	{
-		std::cout << "Physics System: Updating acceleration of player" << std::endl;
-		ChangeAcceleration(msg);
-		break;
-	}
+		case MessageIDTypes::PHY_UpdateAccel:
+		{
+			std::cout << "Physics System: Updating acceleration of player" << std::endl;
+			//ChangeVelocity(msg);
+			//ChangeAcceleration(msg)
+			break;
+		}
+		case MessageIDTypes::PHY_UpdateVel:
+		{
+			std::cout << "Physics System: Updating velocity of player" << std::endl;
+			ChangeVelocity(msg);
+			break;
+		}
 	}
 }
 

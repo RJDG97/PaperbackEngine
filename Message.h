@@ -33,6 +33,7 @@ enum class MessageIDTypes
 
 	// Physics System
 	PHY_UpdateAccel,
+	PHY_UpdateVel,
 
 	// Factory
 	FTY_Purge,
@@ -58,11 +59,11 @@ struct Entity_Message : public Message
 	virtual ~Entity_Message() = default;
 };
 
-struct MessagePhysics_Accel : public Message
-{
-	Vector2D new_acceleration_;
+struct MessagePhysics_Motion : public Message {
 
-	MessagePhysics_Accel(MessageIDTypes id, Vector2D new_acceleration);
+	Vec2 new_vec_;
+
+	MessagePhysics_Motion(MessageIDTypes id, Vector2D new_vector);
 };
 
 struct Message_Input : public Message

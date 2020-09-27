@@ -17,7 +17,7 @@ public:
 
 	void Init();
 	void PublishResults();
-	//void Serialize(ISerializer& str);
+	void Serialize(std::stringstream& data) override;
 };
 
 #endif

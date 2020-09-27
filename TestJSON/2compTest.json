@@ -1,0 +1,32 @@
+{
+  "Player": [
+    {
+      "component": "Transform",
+      "position": "1.0 0.5",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "AnimationRenderer"
+    }
+  ],
+  "Enemy": [
+    {
+      "component": "Transform",
+      "position": "1.5 5.6",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "AnimationRenderer"
+    }
+  ]
+}

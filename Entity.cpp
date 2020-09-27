@@ -43,12 +43,12 @@ void Entity::Init() {
 
 	//temporary method to alternate tags
 	//should be offload to build&serialize
-	{
+	/*{
 		entity_type_ = static_cast<EntityTypes>(++counter);
 
 		if (counter > 1)
 			counter = 0;
-	}
+	}*/
 
 	std::cout << "Initialising entity with type: " << static_cast<int>(entity_type_) << std::endl;
 

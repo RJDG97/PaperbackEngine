@@ -61,6 +61,8 @@ void AnimationRenderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
 
     Transform* test = dynamic_cast<Transform*>(GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
+    assert(test);
+
     trans = glm::mat3{ 1.0f, 0.0f, 0.0f,
                        0.0f, 1.0f, 0.0f,
                        test->position_.x, test->position_.y, 1.0f };
@@ -113,4 +115,24 @@ void AnimationRenderer::Draw()
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shdr_pgm_.UnUse();
+}
+
+void AnimationRenderer::Serialize(std::stringstream& data) {
+
+    (void)data;
+
+    std::cout << "Serializing AnimationRenderer" << std::endl;
+
+
+
+    /*
+    SetAnimation(AnimationName::Player_Attack);
+    play_animation_ = true;
+    has_finished_animating = false;
+    scaling_ = glm::vec2{ 50.0f, 50.0f };
+    orientation_ = glm::vec2{ 0.0f, 10.0f };
+    position_ = glm::vec2{ 100.0f, 100.0f };
+    model_ = MODELMANAGER->GetModel(ModelType::BoxModel);
+    shdr_pgm_ = SHADERMANAGER->GetShdrpgm(ShaderType::TextureShader);
+    */
 }

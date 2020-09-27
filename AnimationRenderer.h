@@ -42,6 +42,7 @@ public:
 
 	void Update(float frametime, glm::mat3 world_to_ndc_xform);
 	void Draw();
+	void Serialize(std::stringstream& data) override;
 };
 
 #endif

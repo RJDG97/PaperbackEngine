@@ -3,6 +3,7 @@
 
 #include "Entity.h" 
 #include "Vector2D.h"
+#include <sstream>
 
 class Motion : public Component {
 	Vector2D velocity_;
@@ -15,7 +16,7 @@ public:
 
 	void Init();
 	void PublishResults();
-	//void serialize(ISerializer& str);
+	void Serialize(std::stringstream& data) override;
 };
 
 #endif
