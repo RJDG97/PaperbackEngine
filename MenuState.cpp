@@ -100,9 +100,40 @@ void MenuState::StateInputHandler(int key_val) {
 
 	switch (key_val)
 	{
-		case 0x25:
-			CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->TempMoveCamera();
-			break;
+	case 0x25: //LEFT ARROW key
+	{
+		std::cout << "Play State: Moving Left" << std::endl;
+		Vector2D accel{ -1, 0 };
+		MessagePhysics_Accel msg{ MessageIDTypes::PHY_UpdateAccel, accel };
+		CORE->BroadcastMessage(&msg);
+		//CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->TempMoveCamera();
+		break;
+	}
+	case 0x26: //UP ARROW key
+	{
+		std::cout << "Play State: Moving Up" << std::endl;
+		Vector2D accel{ 0, 1 };
+		MessagePhysics_Accel msg{ MessageIDTypes::PHY_UpdateAccel, accel };
+		CORE->BroadcastMessage(&msg);
+		break;
+	}
+	case 0x27: //RIGHT ARROW key
+	{
+		std::cout << "Play State: Moving Right" << std::endl;
+		Vector2D accel{ 1, 0 };
+		MessagePhysics_Accel msg{ MessageIDTypes::PHY_UpdateAccel, accel };
+		CORE->BroadcastMessage(&msg);
+		break;
+	}
+	case 0x28: //DOWN ARROW key
+	{
+		std::cout << "Play State: Moving Down" << std::endl;
+		Vector2D accel{ 0, -1 };
+		MessagePhysics_Accel msg{ MessageIDTypes::PHY_UpdateAccel, accel };
+		CORE->BroadcastMessage(&msg);
+		break;
+	}
+
 	}
 
 }

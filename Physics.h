@@ -42,14 +42,14 @@ public:
 	void SendMessageD(Message* msg) override;
 
 private:
-	using TransformIt = std::unordered_map<EntityID, Transform>::iterator;
-	std::unordered_map<EntityID,Transform> transform_arr_;
+	using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
+	std::unordered_map<EntityID,Transform*> transform_arr_;
 
 	/*using HPIt = std::unordered_map<EntityID, Health>::iterator;
 	std::unordered_map<EntityID, Health> hp_arr_;*/
 
-	using MotionIt = std::unordered_map<EntityID, Motion>::iterator;
-	std::unordered_map<EntityID, Motion> motion_arr_;
+	using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
+	std::unordered_map<EntityID, Motion*> motion_arr_;
 };
 
 extern Physics* PHYSICS;

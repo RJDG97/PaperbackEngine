@@ -114,5 +114,5 @@ void Collision::SendMessageD(Message* m) {
 
 void Collision::AddAABBComponent(EntityID id, AABB* aabb) {
 
-	aabb_arr_[id] = *aabb;
+	aabb_arr_[id] = aabb;
 }

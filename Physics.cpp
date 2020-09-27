@@ -22,7 +22,7 @@ void Physics::Update(float frametime) {
 
 		// Perform update of entity's motion component
 		//std::cout << "Frametime: " << frametime << std::endl;
-		motion->second.velocity_ += motion->second.acceleration_ * frametime;
+		motion->second->velocity_ += motion->second->acceleration_ * frametime;
 		//std::cout << "Acc: " << motion->second.acceleration_.x << ", " << motion->second.acceleration_.y << std::endl;
 		//std::cout << "Vel: " << motion->second.velocity_.x << ", " << motion->second.velocity_.y << std::endl;
 
@@ -30,8 +30,8 @@ void Physics::Update(float frametime) {
 		TransformIt xform = transform_arr_.find(motion->first);
 		if (xform != transform_arr_.end()) {
 			// Perform update of entity's transform component
-			xform->second.position_ += motion->second.velocity_;
-			//std::cout << "Position: " << xform->second.position_.x << ", " << xform->second.position_.y << std::endl;
+			xform->second->position_ += motion->second->velocity_;
+			//std::cout << "Position in Physics: " << xform->second.position_.x << ", " << xform->second.position_.y << std::endl;
 		}
 	}
 }
@@ -43,7 +43,7 @@ void Physics::PublishResults() {
 	}*/
 
 	for (TransformIt it = transform_arr_.begin(); it != transform_arr_.end(); ++it) {
-		it->second.PublishResults();
+		it->second->PublishResults();
 	}
 }
 
@@ -66,19 +66,23 @@ void Physics::ChangeAcceleration(Message* m) {
 	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
 
 		//std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
-		if (motion->second.GetOwner()->GetType() == EntityTypes::Player) {
+		if (motion->second->GetOwner()->GetType() == EntityTypes::Player) {
 
 			//update the acceleration data member of that component with the message's
-			motion->second.acceleration_ = msg->new_acceleration_;
+			motion->second->acceleration_ = msg->new_acceleration_;
 
-			std::cout << "New Acceleration: " << motion->second.acceleration_.x << ", " << motion->second.acceleration_.y << std::endl;
+			std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
 		}
 	}
 }
 
 void Physics::AddTransformComponent(EntityID id, Transform* transform) {
 
-	transform_arr_[id] = *transform;
+	transform_arr_[id] = transform;
+
+	std::cout << "Received in Physics: " << transform << std::endl;
+
+	std::cout << "Verifying address in Physics: " << &transform_arr_[id] << std::endl;
 }
 
 void Physics::RemoveTransformComponent(EntityID id) {
@@ -93,7 +97,7 @@ void Physics::RemoveTransformComponent(EntityID id) {
 
 void Physics::AddMotionComponent(EntityID id, Motion* motion) {
 
-	motion_arr_[id] = *motion;
+	motion_arr_[id] = motion;
 }
 
 void Physics::RemoveMotionComponent(EntityID id) {
@@ -110,7 +114,7 @@ void Physics::SendMessageD(Message* msg) {
 	
 	std::cout << "Message received by Physics" << std::endl;
 
-	if (msg->message_id_ == MessageIDTypes::Rotate) {
+	/*if (msg->message_id_ == MessageIDTypes::Rotate) {
 		std::cout << "prepare to rotate" << std::endl;
 
 		MessageRotation* m = dynamic_cast<MessageRotation*>(msg);
@@ -126,8 +130,8 @@ void Physics::SendMessageD(Message* msg) {
 				Rotate(&*it);
 				break;
 			}
-		}*/
-	}
+		}
+	}*/
 
 	/*if (msg->message_id_ == MessageIDTypes::HP) {
 

@@ -86,7 +86,7 @@ void PlayState::StateInputHandler(int key_val) {
 		Vector2D accel{ -1, 0 };
 		MessagePhysics_Accel msg{ MessageIDTypes::PHY_UpdateAccel, accel };
 		CORE->BroadcastMessage(&msg);
-		CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->TempMoveCamera();
+		//CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->TempMoveCamera();
 		break;
 	}
 	case 0x26: //UP ARROW key

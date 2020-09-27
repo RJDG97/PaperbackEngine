@@ -3,6 +3,8 @@
 #include "GraphicsSystem.h"
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Transform.h"
+
 #define M_PI       3.14159265358979323846
 
 AnimationRenderer::AnimationRenderer()
@@ -53,9 +55,15 @@ void AnimationRenderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
                       0.0f, 0.0f, 1.0f };
 
 
+    /*trans = glm::mat3{ 1.0f, 0.0f, 0.0f,
+                       0.0f, 1.0f, 0.0f,
+                       position_.x, position_.y, 1.0f };*/
+
+    Transform* test = dynamic_cast<Transform*>(GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+
     trans = glm::mat3{ 1.0f, 0.0f, 0.0f,
                        0.0f, 1.0f, 0.0f,
-                       position_.x, position_.y, 1.0f };
+                       test->position_.x, test->position_.y, 1.0f };
 
     mdl_to_ndc_xform_ = world_to_ndc_xform * trans * rot * scale;
 

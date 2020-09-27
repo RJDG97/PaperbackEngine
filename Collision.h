@@ -9,8 +9,8 @@
 
 class Collision : public ISystem {
 
-	using AABBIt = std::unordered_map<EntityID, AABB>::iterator;
-	std::unordered_map<EntityID, AABB> aabb_arr_;
+	using AABBIt = std::unordered_map<EntityID, AABB*>::iterator;
+	std::unordered_map<EntityID, AABB*> aabb_arr_;
 public:
 	Collision();
 

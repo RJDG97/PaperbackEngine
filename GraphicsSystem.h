@@ -49,18 +49,18 @@ public:
     //function more akin to "What to do when message is received" for internal logic
     virtual void SendMessageD(Message* m);
 
-    using RendererIt = std::unordered_map<EntityID, Renderer>::iterator;
+    using RendererIt = std::unordered_map<EntityID, Renderer*>::iterator;
     void AddRendererComponent(EntityID id, Renderer* renderer);
     void RemoveRendererComponent(EntityID id);
 
-    using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer>::iterator;
+    using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer*>::iterator;
     void AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer);
     void RemoveAnimationRendererComponent(EntityID id);
 
     void TempMoveCamera();
 
-    std::unordered_map<EntityID, Renderer> renderer_arr_;
-    std::unordered_map<EntityID, AnimationRenderer> anim_renderer_arr_;
+    std::unordered_map<EntityID, Renderer*> renderer_arr_;
+    std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
 };
 
 #endif

@@ -97,12 +97,12 @@ void GraphicsSystem::Update(float frametime) {
     //updates all the renderer components
     for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it)
     {
-        (*it).second.Update(frametime, world_to_ndc_xform_);
+        (*it).second->Update(frametime, world_to_ndc_xform_);
     }
 
     for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it)
     {
-        (*it).second.Update(frametime, world_to_ndc_xform_);
+        (*it).second->Update(frametime, world_to_ndc_xform_);
     }
 
 }
@@ -124,12 +124,12 @@ void GraphicsSystem::Draw() {
     //draws all the renderer components
     for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it)
     {
-        (*it).second.Draw();
+        (*it).second->Draw();
     }
 
     for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it)
     {
-        (*it).second.Draw();
+        (*it).second->Draw();
     }
 
     /* all these work btw*/
@@ -188,7 +188,7 @@ void GraphicsSystem::SendMessageD(Message* m)
 
 void GraphicsSystem::AddRendererComponent(EntityID id, Renderer* renderer)
 {
-    renderer_arr_[id] = *renderer;
+    renderer_arr_[id] = renderer;
 }
 
 void GraphicsSystem::RemoveRendererComponent(EntityID id)
@@ -203,7 +203,7 @@ void GraphicsSystem::RemoveRendererComponent(EntityID id)
 
 void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer)
 {
-    anim_renderer_arr_[id] = *animation_renderer;
+    anim_renderer_arr_[id] = animation_renderer;
 }
 
 void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
