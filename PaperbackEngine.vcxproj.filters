@@ -90,235 +90,235 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FrameRateController.cpp">
-      <Filter>Frame Rate Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowsSystem.cpp">
-      <Filter>Systems\WindowsSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundSystem.cpp">
-      <Filter>Systems\SoundSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="InputSystem.cpp">
-      <Filter>Systems\InputSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2D.cpp">
-      <Filter>Systems\MathLibrary</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix3x3.cpp">
-      <Filter>Systems\MathLibrary</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Systems\Scene/State Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>Systems\Scene/State Manager\Test States</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayState.cpp">
-      <Filter>Systems\Scene/State Manager\Test States</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseState.cpp">
-      <Filter>Systems\Scene/State Manager\Test States</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
-    </ClCompile>
-    <ClCompile Include="glhelper.cpp">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsSystem.cpp">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationManager.cpp">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
-    </ClCompile>
-    <ClCompile Include="LightingSystem.cpp">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics.cpp">
-      <Filter>Systems\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Core.cpp">
-      <Filter>Systems\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Factory.cpp">
-      <Filter>Systems\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Entity\Components\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Health.cpp">
-      <Filter>Entity\Components\Health</Filter>
-    </ClCompile>
-    <ClCompile Include="Motion.cpp">
-      <Filter>Entity\Components\Motion</Filter>
-    </ClCompile>
-    <ClCompile Include="AABB.cpp">
+    <ClCompile Include="Source\Components\AABB.cpp">
       <Filter>Entity\Components\AABB</Filter>
     </ClCompile>
-    <ClCompile Include="Scale.cpp">
-      <Filter>Entity\Components\Scale</Filter>
-    </ClCompile>
-    <ClCompile Include="Attack.cpp">
+    <ClCompile Include="Source\Components\Attack.cpp">
       <Filter>Entity\Components\Attack</Filter>
     </ClCompile>
-    <ClCompile Include="Visibility.cpp">
-      <Filter>Entity\Components\Visibility</Filter>
+    <ClCompile Include="Source\Components\Health.cpp">
+      <Filter>Entity\Components\Health</Filter>
     </ClCompile>
-    <ClCompile Include="Status.cpp">
+    <ClCompile Include="Source\Components\Motion.cpp">
+      <Filter>Entity\Components\Motion</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\AnimationRenderer.cpp">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Renderer.cpp">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Scale.cpp">
+      <Filter>Entity\Components\Scale</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Status.cpp">
       <Filter>Entity\Components\Status</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
+    <ClCompile Include="Source\Components\Transform.cpp">
+      <Filter>Entity\Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Visibility.cpp">
+      <Filter>Entity\Components\Visibility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Entity.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Collision.cpp">
       <Filter>Systems\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="ISerializer.cpp">
-      <Filter>Systems</Filter>
+    <ClCompile Include="Source\Systems\Factory.cpp">
+      <Filter>Systems\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="ModelManager.cpp">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Entity\Components\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderManager.cpp">
+    <ClCompile Include="Source\Systems\GraphicsSystem.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationRenderer.cpp">
-      <Filter>Entity\Components\Renderer</Filter>
+    <ClCompile Include="Source\Systems\LightingSystem.cpp">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\InputSystem.cpp">
+      <Filter>Systems\InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Physics.cpp">
+      <Filter>Systems\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Game.cpp">
+      <Filter>Systems\Scene/State Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\SoundSystem.cpp">
+      <Filter>Systems\SoundSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Core.cpp">
+      <Filter>Systems\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\WindowsSystem.cpp">
+      <Filter>Systems\WindowsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\MenuState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\PauseState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\PlayState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\AnimationManager.cpp">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ModelManager.cpp">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\TextureManager.cpp">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ShaderManager.cpp">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MathLib\Matrix3x3.cpp">
+      <Filter>Systems\MathLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MathLib\Vector2D.cpp">
+      <Filter>Systems\MathLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\FrameRateController.cpp">
+      <Filter>Frame Rate Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\ISerializer.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Message.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\glhelper.cpp">
+      <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FrameRateController.h">
-      <Filter>Frame Rate Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Source.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowsSystem.h">
-      <Filter>Systems\WindowsSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundSystem.h">
-      <Filter>Systems\SoundSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="InputSystem.h">
-      <Filter>Systems\InputSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="WinKeyCodes.h">
-      <Filter>Systems\InputSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>Systems\MathLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix3x3.h">
-      <Filter>Systems\MathLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Systems\Scene/State Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Systems\Scene/State Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuState.h">
-      <Filter>Systems\Scene/State Manager\Test States</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayState.h">
-      <Filter>Systems\Scene/State Manager\Test States</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseState.h">
-      <Filter>Systems\Scene/State Manager\Test States</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
-    </ClInclude>
-    <ClInclude Include="glhelper.h">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsSystem.h">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationManager.h">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
-    </ClInclude>
-    <ClInclude Include="LightingSystem.h">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ISystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics.h">
-      <Filter>Systems\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>Systems\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
+    <ClInclude Include="Include\Entity\Entity.h">
       <Filter>Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Factory.h">
-      <Filter>Systems\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="IComponent.h">
+    <ClInclude Include="Include\Components\IComponent.h">
       <Filter>Entity\Components</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentCreator.h">
-      <Filter>Entity\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentTypes.h">
-      <Filter>Entity\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Entity\Components\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Health.h">
-      <Filter>Entity\Components\Health</Filter>
-    </ClInclude>
-    <ClInclude Include="Motion.h">
-      <Filter>Entity\Components\Motion</Filter>
-    </ClInclude>
-    <ClInclude Include="AABB.h">
+    <ClInclude Include="Include\Components\AABB.h">
       <Filter>Entity\Components\AABB</Filter>
     </ClInclude>
-    <ClInclude Include="Scale.h">
-      <Filter>Entity\Components\Scale</Filter>
+    <ClInclude Include="Include\Components\AnimationRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Attack.h">
+    <ClInclude Include="Include\Components\Renderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Attack.h">
       <Filter>Entity\Components\Attack</Filter>
     </ClInclude>
-    <ClInclude Include="Visibility.h">
-      <Filter>Entity\Components\Visibility</Filter>
+    <ClInclude Include="Include\Components\Health.h">
+      <Filter>Entity\Components\Health</Filter>
     </ClInclude>
-    <ClInclude Include="Status.h">
+    <ClInclude Include="Include\Components\Motion.h">
+      <Filter>Entity\Components\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Scale.h">
+      <Filter>Entity\Components\Scale</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Status.h">
       <Filter>Entity\Components\Status</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
+    <ClInclude Include="Include\Components\Transform.h">
+      <Filter>Entity\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Visibility.h">
+      <Filter>Entity\Components\Visibility</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Collision.h">
       <Filter>Systems\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="ISerializer.h">
-      <Filter>Systems</Filter>
+    <ClInclude Include="Include\Engine\Core.h">
+      <Filter>Systems\Core</Filter>
     </ClInclude>
-    <ClInclude Include="ModelManager.h">
+    <ClInclude Include="Include\Systems\Factory.h">
+      <Filter>Systems\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\AnimationManager.h">
       <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Entity\Components\Renderer</Filter>
+    <ClInclude Include="Include\Manager\ModelManager.h">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderManager.h">
+    <ClInclude Include="Include\Manager\TextureManager.h">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\ShaderManager.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationRenderer.h">
-      <Filter>Entity\Components\Renderer</Filter>
+    <ClInclude Include="Include\Systems\LightingSystem.h">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\GraphicsSystem.h">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Game.h">
+      <Filter>Systems\Scene/State Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\InputSystem.h">
+      <Filter>Systems\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\ISystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Physics.h">
+      <Filter>Systems\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\SoundSystem.h">
+      <Filter>Systems\SoundSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\WindowsSystem.h">
+      <Filter>Systems\WindowsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\MathLib\Matrix3x3.h">
+      <Filter>Systems\MathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\MathLib\Vector2D.h">
+      <Filter>Systems\MathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\MenuState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\PauseState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\PlayState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\GameState.h">
+      <Filter>Systems\Scene/State Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Entity\ComponentTypes.h">
+      <Filter>Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Entity\ComponentCreator.h">
+      <Filter>Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\FrameRateController.h">
+      <Filter>Frame Rate Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\ISerializer.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Message.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Source.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\glhelper.h">
+      <Filter>Systems\GraphicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\WinKeyCodes.h">
+      <Filter>Systems\InputSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
