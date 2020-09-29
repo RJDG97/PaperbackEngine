@@ -169,31 +169,43 @@ void InputSystem::Update(float frametime) {
 
 	(void)frametime;
 
+	unsigned char input_flag = 0; //used for checking what directional buttons are held
+
 	//for keys requiring to check buttons held down
 	for (int i = 0x25; i <= 0x28; ++i) {
 		if (CheckCurrentInput(i)) {
 			switch (i)
 			{
 				case 0x25: //LEFT ARROW key
+				{
+					input_flag |= LEFT_FLAG;
+					break;
+				}
 				case 0x26: //UP ARROW key
+				{
+					input_flag |= UP_FLAG;
+					break;
+				}
 				case 0x27: //RIGHT ARROW key
+				{
+					input_flag |= RIGHT_FLAG;
+					break;
+				}
 				case 0x28: //DOWN ARROW key
 				{
 					//send message to game logc of button press
-					Message_Input msg{ MessageIDTypes::M_ButtonPress, i };
-					CORE->BroadcastMessage(&msg);
+					/*Message_Input msg{ MessageIDTypes::M_ButtonPress, i };
+					CORE->BroadcastMessage(&msg);*/
+					input_flag |= DOWN_FLAG;
 					break;
 				}
 			}
 		}
-		/*else if (i == 0x28 || i == 0x25 || i == 0x26 || i == 0x27) {
-
-			//send message to game logc of button press
-			Message_Input msg{ MessageIDTypes::M_ButtonPress, 404 };
-			CORE->BroadcastMessage(&msg);
-			break;
-		}*/
 	}
+
+	//send the message with the updated flag to be processed
+	Message_PlayerInput input_msg{ MessageIDTypes::M_ButtonPress, input_flag };
+	CORE->BroadcastMessage(&input_msg);
 
 	for (int i = 0x30; i <= 0x5A; ++i) {
 		if (CheckTriggeredInput(i)) {

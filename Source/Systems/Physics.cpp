@@ -24,14 +24,14 @@ void Physics::Update(float frametime) {
 		//std::cout << "Frametime: " << frametime << std::endl;
 		motion->second->velocity_ += motion->second->acceleration_ * frametime;
 		//std::cout << "Acc: " << motion->second.acceleration_.x << ", " << motion->second.acceleration_.y << std::endl;
-		//std::cout << "Vel: " << motion->second.velocity_.x << ", " << motion->second.velocity_.y << std::endl;
+		//std::cout << "Vel: " << motion->second->velocity_.x << ", " << motion->second->velocity_.y << std::endl;
 
 		// Check whether the entity owns a transform component by checking entity ID
 		TransformIt xform = transform_arr_.find(motion->first);
 		if (xform != transform_arr_.end()) {
 			// Perform update of entity's transform component
 			xform->second->position_ += motion->second->velocity_ * frametime;
-			//std::cout << "Position in Physics: " << xform->second.position_.x << ", " << xform->second.position_.y << std::endl;
+			//std::cout << "Position in Physics: " << xform->second->position_.x << ", " << xform->second->position_.y << std::endl;
 		}
 	}
 }
@@ -76,7 +76,7 @@ void Physics::ChangeVelocity(Message* m) {
 	// If there are multiple players the results will be duplicated
 	// because there is no specific entity id at the moment
 
-	std::cout << "Entered ChangeAcceleration" << std::endl;
+	std::cout << "Entered ChangeVelocity" << std::endl;
 	//dynamic cast from message base class to derived message class
 	MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
 

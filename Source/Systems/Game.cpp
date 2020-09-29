@@ -148,9 +148,9 @@ void Game::SendMessageD(Message* m) {
 	case MessageIDTypes::M_ButtonPress: 
 	{
 		std::cout << "GSM: Button press event, dispatching to Game State" << std::endl;
-		Message_Input* msg = dynamic_cast<Message_Input*>(m);
+		Message_PlayerInput* msg = dynamic_cast<Message_PlayerInput*>(m);
 		if (msg) {
-			states_.back()->StateInputHandler(msg->input_);
+			states_.back()->StateInputHandler(msg->input_flag_);
 		}
 		break;
 	}

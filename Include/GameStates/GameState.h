@@ -31,7 +31,7 @@ public:
 	// Resume current state
 	virtual void resume() = 0;
 
-	virtual void StateInputHandler(int key_val) = 0;
+	virtual void StateInputHandler(unsigned char key_val) = 0;
 
 	// change to the next game state
 	void ChangeState(Game* game, GameState* state)

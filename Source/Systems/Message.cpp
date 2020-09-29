@@ -19,6 +19,11 @@ Message_Input::Message_Input(MessageIDTypes id, int input) :
 	input_{ input }
 {}
 
+Message_PlayerInput::Message_PlayerInput(MessageIDTypes id, unsigned char input_flag) :
+	Message{ id },
+	input_flag_{ input_flag }
+{}
+
 MessageBGM_Play::MessageBGM_Play(const std::string file_id) :
 	Message(MessageIDTypes::BGM_Play),
 	file_id_ { file_id }

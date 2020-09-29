@@ -4,6 +4,11 @@
 #include <string>
 #include "MathLib/Vector2D.h"
 
+const unsigned char UP_FLAG = 1;		// 0000 0000 0000 0001
+const unsigned char DOWN_FLAG = 2;		// 0000 0000 0000 0010
+const unsigned char LEFT_FLAG = 4;		// 0000 0000 0000 0100
+const unsigned char RIGHT_FLAG = 8;		// 0000 0000 0000 1000
+
 class GameState;
 
 enum class MessageIDTypes
@@ -71,6 +76,13 @@ struct Message_Input : public Message
 	int input_;
 
 	Message_Input(MessageIDTypes id, int input);
+};
+
+struct Message_PlayerInput : public Message
+{
+	unsigned char input_flag_;
+
+	Message_PlayerInput(MessageIDTypes id, unsigned char input_flag);
 };
 
 struct MessageBGM_Play : public Message 

@@ -54,7 +54,7 @@ void PauseState::draw(Game* game)
 
 
 
-void PauseState::StateInputHandler(int key_val) {
+void PauseState::StateInputHandler(unsigned char key_val) {
 	(void)key_val;
 
 }

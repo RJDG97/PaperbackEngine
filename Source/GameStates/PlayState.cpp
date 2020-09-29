@@ -77,9 +77,9 @@ void PlayState::draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
-void PlayState::StateInputHandler(int key_val) {
+void PlayState::StateInputHandler(unsigned char key_val) {
 
-	switch (key_val)
+	/*switch (key_val)
 	{
 	case 0x25: //LEFT ARROW key
 	{
@@ -115,5 +115,33 @@ void PlayState::StateInputHandler(int key_val) {
 		break;
 	}
 
+	}*/
+	
+	// set up velocity based input flag value
+	Vec2 new_vel{};
+
+	if (key_val & UP_FLAG) {
+
+		new_vel.y += 100.0f;
 	}
+
+	if (key_val & DOWN_FLAG) {
+
+		new_vel.y -= 100.0f;
+	}
+
+	if (key_val & LEFT_FLAG) {
+
+		new_vel.x -= 100.0f;
+	}
+
+	if (key_val & RIGHT_FLAG) {
+
+		new_vel.x += 100.0f;
+	}
+
+	//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
+
+	MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, new_vel };
+	CORE->BroadcastMessage(&msg);
 }

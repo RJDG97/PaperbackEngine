@@ -17,7 +17,7 @@ public:
 	void pause();
 	void resume();
 
-	void StateInputHandler(int key_val);
+	void StateInputHandler(unsigned char key_val);
 	// Implement Singleton Pattern
 	// Returns a pointer to a static instance of the class
 	//static PlayState* Instance()
