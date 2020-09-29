@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <map>
 #include <vector>
+#include "Manager/IManager.h"
 
 typedef GLuint Texture; //idk if this should be here
 
@@ -36,7 +37,7 @@ enum TextureName
 	Rock
 };
 
-class TextureManager
+class TextureManager : public IManager
 {
 	std::map<size_t, Texture> textures_;
 
@@ -73,7 +74,7 @@ class TextureManager
 
 public:
 
-	void Init();
+	void Init() override;
 	void TempFunctionForTesting();
 
 	//Used for misc textures

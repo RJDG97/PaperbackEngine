@@ -12,11 +12,15 @@ CoreEngine::CoreEngine() {
 	CORE = this;
 }
 
-///Initializes all systems in the game.
+///Initializes all Systems & Managers in the game.
 void CoreEngine::Initialize() {
 
 	for (size_t i = 0; i < systems_.size(); ++i) {
 		systems_[i]->Init();
+	}
+
+	for (std::pair<std::string, IManager*> manager : managers_) {
+		manager.second->Init();
 	}
 }
 
@@ -32,20 +36,30 @@ void CoreEngine::GameLoop() {
 		}
 
 		for (size_t i = 0; i < systems_.size(); ++i) {
+			
 			systems_[i]->Update(PE_FrameRate.Dt);
 			systems_[i]->Draw();
 		}
+	}
 
 		//PE_FrameRate.SetFPS(30);
-	}
+	
 }
 
 ///Destroy all systems in reverse order that they were added.
 void CoreEngine::DestroySystems() {
 	
-	for (unsigned int i = 0; i < systems_.size(); ++i) {
+	for (size_t i = 0; i < systems_.size(); ++i) {
 
-		delete systems_[systems_.size() - i - 1];
+		delete systems_[systems_.size() - 1 - i];
+	}
+}
+
+///Destroy all systems in reverse order that they were added.
+void CoreEngine::DestroyManagers() {
+	
+	for (std::pair<std::string, IManager*> manager : managers_) {
+		delete manager.second;
 	}
 }
 
@@ -58,14 +72,8 @@ void CoreEngine::BroadcastMessage(Message* m) {
 		b_game_active_ = false;
 	}
 
-	for (unsigned int i = 0; i < systems_.size(); ++i) {
+	for (size_t i = 0; i < systems_.size(); ++i) {
 
 		systems_[i]->SendMessageD(m);
 	}
-}
-
-///Adds a new system to the game.
-void CoreEngine::AddSystem(ISystem* system) {
-
-	systems_.push_back(system);
 }

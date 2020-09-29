@@ -179,22 +179,27 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	CoreEngine* engine = new CoreEngine();
 
 	//to reorder based on what system has priority over the other
-	engine->AddSystem(new WindowsSystem());
+	engine->AddSystem<WindowsSystem>();
 	//engine->AddSystem(new LightingSystem());
-	engine->AddSystem(new GraphicsSystem());
-	engine->AddSystem(new InputSystem());
-	engine->AddSystem(new Physics());
-	engine->AddSystem(new Collision());
-	engine->AddSystem(new EntityFactory());
-	engine->AddSystem(new SoundSystem());
-	engine->AddSystem(new Game());
+	engine->AddSystem<GraphicsSystem>();
+	engine->AddSystem<InputSystem>();
+	engine->AddSystem<Physics>();
+	engine->AddSystem<Collision>();
+	engine->AddSystem<EntityFactory>();
+	engine->AddSystem<SoundSystem>();
+	engine->AddSystem<Game>();
 
 	//just for testing!!
-	ModelManager model_manager;
+	/*ModelManager model_manager;
 	TextureManager texture_manager;
 	ShaderManager shader_manager;
 	AnimationManager animation_manager;
-	texture_manager.Init();
+	texture_manager.Init();*/
+
+	engine->AddManager<ModelManager>();
+	engine->AddManager<TextureManager>();
+	engine->AddManager<ShaderManager>();
+	engine->AddManager<AnimationManager>();
 
 	engine->Initialize();
 
@@ -203,6 +208,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	FACTORY->DestroyAllEntities();
 
 	engine->DestroySystems();
+
+	engine->DestroyManagers();
 
 	delete engine;
 

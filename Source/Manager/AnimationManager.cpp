@@ -37,7 +37,7 @@ AnimationManager::AnimationManager()
 
 void AnimationManager::Init()
 {
-	
+	// Empty implementation for now
 }
 
 void AnimationManager::TempFunctionForTesting()

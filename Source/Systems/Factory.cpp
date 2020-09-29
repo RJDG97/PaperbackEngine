@@ -235,6 +235,7 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 		if (member.MemberBegin()->name == "component") {
 
 			// Check whether the component's name has been registered
+			//component_map_.find(member.MemberBegin()->value.GetString())->second;
 			creator = component_map_.find(member.MemberBegin()->value.GetString())->second;
 			
 			component = creator->Create();

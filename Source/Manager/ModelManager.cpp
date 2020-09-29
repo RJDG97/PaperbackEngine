@@ -2,6 +2,10 @@
 
 ModelManager* MODELMANAGER;
 
+void ModelManager::Init() {
+    
+}
+
 void ModelManager::AddTristripsModel(int slices, int stacks, GLint model_type)
 {
     // Generates the vertices required to render triangle strips

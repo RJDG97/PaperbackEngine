@@ -367,6 +367,10 @@ ShaderManager::ShaderManager()
     SHADERMANAGER = this;
 }
 
+void ShaderManager::Init() {
+
+}
+
 void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, GLint shader_type)
 {
     std::vector<std::pair<GLenum, std::string>> shdr_files

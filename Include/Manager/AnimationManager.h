@@ -2,6 +2,7 @@
 #ifndef _ANIMATION_MANAGER_H_
 #define _ANIMATION_MANAGER_H_
 #include "Manager/TextureManager.h"
+#include "Manager/IManager.h"
 #include <list>
 
 enum AnimationName
@@ -27,7 +28,7 @@ public:
 	std::list<Texture*>::iterator GetFirstFrame();
 };
 
-class AnimationManager
+class AnimationManager : public IManager
 {
 	std::map<size_t, Animation> animations_;
 	
@@ -37,7 +38,7 @@ public:
 
 	AnimationManager();
 
-	void Init();
+	void Init() override;
 	void TempFunctionForTesting();
 	void AddAnimation(GLint animation_id, size_t num_frames, size_t texID, GLfloat frame_duration);
 	bool DeleteAnimation(GLint animation_id);

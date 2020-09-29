@@ -171,9 +171,6 @@
     <ClCompile Include="Source\Manager\TextureManager.cpp">
       <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Manager\ShaderManager.cpp">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp">
       <Filter>Systems\MathLibrary</Filter>
     </ClCompile>
@@ -194,6 +191,9 @@
     </ClCompile>
     <ClCompile Include="Source\glhelper.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ShaderManager.cpp">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,9 +250,6 @@
     </ClInclude>
     <ClInclude Include="Include\Manager\TextureManager.h">
       <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\ShaderManager.h">
-      <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\LightingSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
@@ -319,6 +316,12 @@
     </ClInclude>
     <ClInclude Include="Include\WinKeyCodes.h">
       <Filter>Systems\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\IManager.h">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\ShaderManager.h">
+      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

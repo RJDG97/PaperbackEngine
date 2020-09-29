@@ -15,8 +15,8 @@ AnimationRenderer::AnimationRenderer()
     scaling_ = glm::vec2{ 50.0f, 50.0f };
     orientation_ = glm::vec2{ 0.0f, 10.0f };
     position_ = glm::vec2{ 100.0f, 100.0f };
-    model_ = MODELMANAGER->GetModel(ModelType::BoxModel);
-    shdr_pgm_ = SHADERMANAGER->GetShdrpgm(ShaderType::TextureShader);
+    model_ = CORE->GetManager<ModelManager>()->GetModel(ModelType::BoxModel);
+    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(ShaderType::TextureShader);
 }
 
 AnimationRenderer::~AnimationRenderer()
@@ -35,7 +35,7 @@ void AnimationRenderer::PublishResults()
 
 void AnimationRenderer::SetAnimation(GLint animation_id)
 {
-    current_animation_ = ANIMATIONMANAGER->GetAnimation(animation_id);
+    current_animation_ = CORE->GetManager<AnimationManager>()->GetAnimation(animation_id);
     current_frame_ = current_animation_->GetFirstFrame();
     time_elapsed = 0.0f;
 }

@@ -203,6 +203,7 @@
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\glhelper.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
+    <ClInclude Include="Include\Manager\IManager.h" />
     <ClInclude Include="Include\Manager\ModelManager.h" />
     <ClInclude Include="Include\Manager\ShaderManager.h" />
     <ClInclude Include="Include\Manager\TextureManager.h" />

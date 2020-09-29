@@ -5,6 +5,7 @@
 
 /*                                                                   includes
 ----------------------------------------------------------------------------- */
+#include "Manager/IManager.h"
 #include <GL/glew.h> // for access to OpenGL API declarations 
 #include <glm/glm.hpp>
 #include <iostream>
@@ -94,13 +95,15 @@ enum ShaderType
     LightShader
 };
 
-class ShaderManager
+class ShaderManager : public IManager
 {
     std::map<GLint, Shader> shaders_;
 
 public:
 
     ShaderManager();
+
+    void Init() override;
 
     void AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, GLint shader_type);
 
