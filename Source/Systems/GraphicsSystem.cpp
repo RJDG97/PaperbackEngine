@@ -62,7 +62,7 @@ void GraphicsSystem::Init() {
     glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
     //lighting_system = CORE->GetSystem<LightingSystem>("LightingSystem");
-    windows_system_ = CORE->GetSystem<WindowsSystem>("WindowsSystem");
+    windows_system_ = CORE->GetSystem<WindowsSystem>();
 
     // Part 2: split color buffer into four viewports ...
     window_width_ = windows_system_->getWinWidth();

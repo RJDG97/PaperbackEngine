@@ -18,7 +18,7 @@ LightingSystem::PointLight::PointLight(GLint x, GLint y,
 
 void LightingSystem::Init()
 {
-	windows_system = CORE->GetSystem<WindowsSystem>("WindowsSystem");
+	windows_system = CORE->GetSystem<WindowsSystem>();
 
 	GLint width = windows_system->getWinWidth();
 	GLint height = windows_system->getWinHeight();

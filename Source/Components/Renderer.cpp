@@ -17,12 +17,12 @@ Renderer::Renderer()
 
 Renderer::~Renderer()
 {
-    CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->RemoveRendererComponent(Component::GetOwner()->GetID());
+    CORE->GetSystem<GraphicsSystem>()->RemoveRendererComponent(Component::GetOwner()->GetID());
 }
 
 void Renderer::Init()
 {
-    CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->AddRendererComponent(Component::GetOwner()->GetID(), this);
+    CORE->GetSystem<GraphicsSystem>()->AddRendererComponent(Component::GetOwner()->GetID(), this);
 }
 
 void Renderer::PublishResults()

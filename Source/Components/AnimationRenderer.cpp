@@ -21,12 +21,12 @@ AnimationRenderer::AnimationRenderer()
 
 AnimationRenderer::~AnimationRenderer()
 {
-    CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->RemoveAnimationRendererComponent(Component::GetOwner()->GetID());
+    CORE->GetSystem<GraphicsSystem>()->RemoveAnimationRendererComponent(Component::GetOwner()->GetID());
 }
 
 void AnimationRenderer::Init()
 {
-    CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
+    CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
 }
 
 void AnimationRenderer::PublishResults()

@@ -16,7 +16,7 @@ CoreEngine::CoreEngine() {
 void CoreEngine::Initialize() {
 
 	for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
-		(*system)->Init();
+		system->second->Init();
 	}
 
 	for (ManagerIt manager = managers_.begin(); manager != managers_.end(); ++manager) {
@@ -37,9 +37,16 @@ void CoreEngine::GameLoop() {
 
 		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
 			
-			(*system)->Update(PE_FrameRate.Dt);
-			(*system)->Draw();
+			system->second->Update(PE_FrameRate.Dt);
+			system->second->Draw();
 		}
+
+		std::cout << "Begin Order" << std::endl;
+		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
+
+			std::cout << system->second->GetName() << std::endl;
+		}
+		std::cout << "End Order" << std::endl;
 	}
 
 		//PE_FrameRate.SetFPS(30);
@@ -50,7 +57,7 @@ void CoreEngine::GameLoop() {
 void CoreEngine::DestroySystems() {
 	
 	for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
-		delete *system;
+		delete system->second;
 	}
 }
 
@@ -73,6 +80,6 @@ void CoreEngine::BroadcastMessage(Message* m) {
 
 	for (SystemIt system = systems_.begin(); system != systems_.end(); ++ system) {
 
-		(*system)->SendMessageD(m);
+		system->second->SendMessageD(m);
 	}
 }
