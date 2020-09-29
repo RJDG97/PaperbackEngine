@@ -1,4 +1,11 @@
 #include "Systems/Collision.h"
+#include "Systems/Factory.h"
+#include "Components/Scale.h"
+#include "Components/Transform.h"
+#include "Entity/ComponentCreator.h"
+#include "Entity/ComponentTypes.h"
+#include "Components/AABB.h"
+#include <iostream>
 
 Collision* COLLISION;
 
@@ -98,11 +105,24 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 //init function called to initialise a system
 void Collision::Init() {
 
+	FACTORY->AddComponentCreator("AABB", new ComponentCreatorType<AABB>(ComponentTypes::AABB));
 }
 
 //contains logic executed during the update loop of a game
 void Collision::Update(float frametime) {
 	(void)frametime;
+	size_t counter = 0;
+	UpdateBoundingBox();
+
+	for (AABBIt box = aabb_arr_.begin(); box != aabb_arr_.end(); ++ box) {
+		
+		std::cout << "AABB " << counter << ": "
+				  << "Top left: " << box->second->bottom_left_.x
+				  << ", " << box->second->bottom_left_.y
+				  << "\nBottom right: " << box->second->top_right_.x
+				  << ", " << box->second->top_right_.y
+				  << std::endl;
+	}
 	//CheckCollision()
 }
 
@@ -119,4 +139,29 @@ void Collision::SendMessageD(Message* m) {
 void Collision::AddAABBComponent(EntityID id, AABB* aabb) {
 
 	aabb_arr_[id] = aabb;
+}
+
+void Collision::RemoveAABBComponent(EntityID id) {
+
+	AABBIt it = aabb_arr_.find(id);
+
+	if (it != aabb_arr_.end()) {
+
+		aabb_arr_.erase(it);
+	}
+}
+
+void Collision::UpdateBoundingBox() {
+
+	for (AABBIt aabb = aabb_arr_.begin(); aabb != aabb_arr_.end(); ++aabb) {
+		
+		Entity* entity = aabb->second->GetOwner();
+		assert(entity && "Entity does not exist");
+
+		Scale* entity_scale = dynamic_cast<Scale*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::SCALE));
+		Transform* entity_position = dynamic_cast<Transform*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+
+		aabb->second->bottom_left_ = entity_position->position_ - (0.5 * entity_scale->scale_);
+		aabb->second->top_right_ = entity_position->position_ + (0.5 * entity_scale->scale_);
+	}
 }

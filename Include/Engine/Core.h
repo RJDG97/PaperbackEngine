@@ -64,7 +64,10 @@ public:
 
 private:
 	// Tracks all the systems the game uses
+	using SystemIt = std::vector<ISystem*>::iterator;
 	std::vector<ISystem*> systems_;
+
+	using ManagerIt = std::unordered_map<std::string, IManager*>::iterator;
 	// Tracks all the managers the system uses
 	std::unordered_map<std::string, IManager*> managers_;
 

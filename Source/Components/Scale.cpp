@@ -1,7 +1,6 @@
 #include "Components/Scale.h"
 
-Scale::Scale() : width_scale_{},
-			     height_scale_{}
+Scale::Scale() : scale_{}
 {}
 
 void Scale::Init() {
@@ -13,6 +12,7 @@ void Scale::PublishResults() {
 	//transform->_position = position;
 }
 
-//void Scale::Serialize(ISerializer& str) {
-//	
-//}
+void Scale::Serialize(std::stringstream& data) {
+
+	data >> scale_.x >> scale_.y;
+}

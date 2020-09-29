@@ -15,12 +15,12 @@ CoreEngine::CoreEngine() {
 ///Initializes all Systems & Managers in the game.
 void CoreEngine::Initialize() {
 
-	for (size_t i = 0; i < systems_.size(); ++i) {
-		systems_[i]->Init();
+	for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
+		(*system)->Init();
 	}
 
-	for (std::pair<std::string, IManager*> manager : managers_) {
-		manager.second->Init();
+	for (ManagerIt manager = managers_.begin(); manager != managers_.end(); ++manager) {
+		manager->second->Init();
 	}
 }
 
@@ -49,17 +49,16 @@ void CoreEngine::GameLoop() {
 ///Destroy all systems in reverse order that they were added.
 void CoreEngine::DestroySystems() {
 	
-	for (size_t i = 0; i < systems_.size(); ++i) {
-
-		delete systems_[systems_.size() - 1 - i];
+	for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
+		delete *system;
 	}
 }
 
 ///Destroy all systems in reverse order that they were added.
 void CoreEngine::DestroyManagers() {
 	
-	for (std::pair<std::string, IManager*> manager : managers_) {
-		delete manager.second;
+	for (ManagerIt manager = managers_.begin(); manager != managers_.end(); ++manager) {
+		delete manager->second;
 	}
 }
 

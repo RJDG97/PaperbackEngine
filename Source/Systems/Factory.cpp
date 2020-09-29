@@ -6,6 +6,8 @@
 #include <sstream>
 #include <assert.h>
 
+#include "Components/Scale.h"
+
 EntityFactory* FACTORY = NULL;
 
 EntityFactory::EntityFactory() {
@@ -23,6 +25,11 @@ EntityFactory::~EntityFactory() {
 
 		delete it->second;
 	}
+}
+
+void EntityFactory::Init() {
+
+	FACTORY->AddComponentCreator("Scale", new ComponentCreatorType<Scale>(ComponentTypes::SCALE));
 }
 
 Entity* EntityFactory::Create(const std::string& filename) {
@@ -236,7 +243,10 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 
 			// Check whether the component's name has been registered
 			//component_map_.find(member.MemberBegin()->value.GetString())->second;
-			creator = component_map_.find(member.MemberBegin()->value.GetString())->second;
+			ComponentMapType::iterator component_it = component_map_.find(member.MemberBegin()->value.GetString());
+
+			assert((component_it != component_map_.end()) && "Component == nullptr");
+			creator = component_it->second;
 			
 			component = creator->Create();
 
@@ -271,14 +281,14 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 	}
 
 	//entity_archetype_map_[id] = archetype;
-	
-	// Sets the owner of the component to be "archetype" (*this) and adds the relevant
-	// component pointers to their main systems
-	archetype->Init();
 
 	//adds entity to entity_id_map_
 	//ideally to use archetype design so remove in favor of that once implementation is done
 	StoreEntityID(archetype);
+	
+	// Sets the owner of the component to be "archetype" (*this) and adds the relevant
+	// component pointers to their main systems
+	archetype->Init();
 
 	return archetype;
 }

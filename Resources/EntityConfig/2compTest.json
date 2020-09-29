@@ -11,13 +11,20 @@
       "acceleration": "0.0 0.0"
     },
     {
+      "component": "Scale",
+      "scale": "1.0 1.0"
+    },
+    {
       "component": "AnimationRenderer"
+    },
+    {
+      "component": "AABB"
     }
   ],
   "Enemy": [
     {
       "component": "Transform",
-      "position": "1.5 5.6",
+      "position": "-150.0 100.0",
       "rotation": "0.0" 
     },
     {
@@ -26,7 +33,14 @@
       "acceleration": "0.0 0.0"
     },
     {
+      "component": "Scale",
+      "scale": "1.0 1.0"
+    },
+    {
       "component": "AnimationRenderer"
+    },
+    {
+      "component": "AABB"
     }
   ]
 }

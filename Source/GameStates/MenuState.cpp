@@ -33,7 +33,7 @@ void MenuState::init()
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);
-
+	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::Enemy);
 
 	//FACTORY->Create("Entity2");
 }

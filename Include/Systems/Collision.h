@@ -11,6 +11,10 @@ class Collision : public ISystem {
 
 	using AABBIt = std::unordered_map<EntityID, AABB*>::iterator;
 	std::unordered_map<EntityID, AABB*> aabb_arr_;
+
+	//recalculates the component's bounding box coordinates
+	//utilises scale component
+	void UpdateBoundingBox();
 public:
 	Collision();
 
@@ -19,6 +23,7 @@ public:
 						const float dt);
 
 	void AddAABBComponent(EntityID id, AABB* aabb);
+	void RemoveAABBComponent(EntityID id);
 
 	//init function called to initialise a system
 	virtual void Init() override;
@@ -27,7 +32,7 @@ public:
 	virtual void Update(float frametime) override;
 
 	//returns the name of the system for debug use
-	virtual std::string GetName() override { return "Collision System"; }
+	virtual std::string GetName() override { return "Collision"; }
 
 	//function more akin to "What to do when message is received" for internal logic
 	virtual void SendMessageD(Message* m) override;

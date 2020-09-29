@@ -11,6 +11,7 @@ class Transform : public Component {
 public:
 	friend class Physics;
 	friend class AnimationRenderer;
+	friend class Collision;
 
 	Transform();
 	~Transform();

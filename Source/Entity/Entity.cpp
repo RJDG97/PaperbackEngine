@@ -34,21 +34,10 @@ Component* BinaryComponentSearch(ComponentArr& components, ComponentTypes name)
 		return NULL;
 }
 
-int counter = 0;
-
 void Entity::Init() {
 
 	//inits all components owned by entity and set the component's owner
 	//allows each component to be initialised separate from ctor
-
-	//temporary method to alternate tags
-	//should be offload to build&serialize
-	/*{
-		entity_type_ = static_cast<EntityTypes>(++counter);
-
-		if (counter > 1)
-			counter = 0;
-	}*/
 
 	std::cout << "Initialising entity with type: " << static_cast<int>(entity_type_) << std::endl;
 
@@ -96,8 +85,8 @@ Component* Entity::GetComponent(ComponentTypes typeId) {
 //A more advanced type safe way of accessing components.
 //Interface becomes Transform* transform = object->has(Transform);
 template<typename return_type>
-return_type* Entity::GetComponentType(ComponentTypes typeId)
-{
+return_type* Entity::GetComponentType(ComponentTypes typeId) {
+
 	return static_cast<return_type*>(GetComponent(typeId));
 }
 

@@ -70,6 +70,8 @@ public:
 	//adds component creator for data driven composition
 	void AddComponentCreator(const std::string& name, ComponentCreator* creator);
 
+	void Init() override;
+
 	//returns an entity with the id
 	//returns NULL if no longer existing
 	Entity* GetObjectWithID(EntityID id);
