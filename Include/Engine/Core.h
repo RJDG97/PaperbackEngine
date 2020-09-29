@@ -41,9 +41,9 @@ public:
 	template <typename SystemType>
 	SystemType* GetSystem(std::string system_name) {
 		
-		for (size_t i = 0; i < systems_.size(); ++i) {
-			if (systems_[i]->GetName() == system_name) {
-				return dynamic_cast<SystemType*>(systems_[i]);
+		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
+			if ((*system)->GetName() == system_name) {
+				return dynamic_cast<SystemType*>(*system);
 			}
 		}
 		return nullptr;

@@ -35,10 +35,10 @@ void CoreEngine::GameLoop() {
 			b_game_active_ = false;
 		}
 
-		for (size_t i = 0; i < systems_.size(); ++i) {
+		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
 			
-			systems_[i]->Update(PE_FrameRate.Dt);
-			systems_[i]->Draw();
+			(*system)->Update(PE_FrameRate.Dt);
+			(*system)->Draw();
 		}
 	}
 
@@ -71,8 +71,8 @@ void CoreEngine::BroadcastMessage(Message* m) {
 		b_game_active_ = false;
 	}
 
-	for (size_t i = 0; i < systems_.size(); ++i) {
+	for (SystemIt system = systems_.begin(); system != systems_.end(); ++ system) {
 
-		systems_[i]->SendMessageD(m);
+		(*system)->SendMessageD(m);
 	}
 }
