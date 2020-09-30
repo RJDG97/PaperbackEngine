@@ -9,7 +9,7 @@
 #include <iostream>
 #include <assert.h>
 
-#define EPSILON 0.0001f
+#define EPSILON 0.1f
 
 Collision* COLLISION;
 
@@ -42,16 +42,17 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 	if ((aab1_bot_left.x > aab2_top_right.x || aab1_top_right.x < aab2_bot_left.x) ||
 		(aab1_bot_left.y > aab2_top_right.y || aab1_top_right.y < aab2_bot_left.y))
 	{
+		
 		Vector2D Vb;
 		float tFirst = 0, tLast = dt; // g_dt does not exist yet
 		Vb.x = vel2.x - vel1.x;
 		Vb.y = vel2.y - vel1.y;
 
-		if (Vb.x == 0 || Vb.y == 0)
+		if ((Vb.x < EPSILON && Vb.x > -EPSILON) || (Vb.y > -EPSILON && Vb.y < EPSILON))
 			return 0;
 
 		// X-Axis check
-		if (Vb.x < EPSILON)
+		if (Vb.x < -EPSILON)
 		{
 			//case 1
 			if (aab1_bot_left.x > aab2_top_right.x)
@@ -79,7 +80,7 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 		tFirst = 0, tLast = dt;
 
 		// Y-Axis check
-		if (Vb.y < EPSILON)
+		if (Vb.y < -EPSILON)
 		{
 			//case 1
 			if (aab1_bot_left.y > aab2_top_right.y)
@@ -105,6 +106,16 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 			return 0;
 	}
 	return 1;
+	
+	/*
+	if (((aab1_bot_left.x <= aab2_top_right.x && aab1_bot_left.x >= aab2_bot_left.x) ||
+		(aab1_top_right.x >= aab2_bot_left.x && aab1_top_right.x <= aab2_top_right.x)) &&
+		((aab1_bot_left.y >= aab2_bot_left.y && aab1_bot_left.y <= aab2_top_right.y) ||
+		 (aab1_top_right.y >= aab2_bot_left.y && aab1_top_right.y <= aab2_top_right.y))) {
+		return 1;
+	}
+	return 0;
+	*/
 }
 
 //init function called to initialise a system
@@ -115,7 +126,6 @@ void Collision::Init() {
 
 //contains logic executed during the update loop of a game
 void Collision::Update(float frametime) {
-	(void)frametime;
 	size_t counter = 0;
 	UpdateBoundingBox();
 
@@ -151,9 +161,19 @@ void Collision::Update(float frametime) {
 			vel2 = (motion2 != nullptr) ? &motion2->velocity_ : &Vec2{};
 
 			if (CheckCollision(*aabb1->second, *vel1, *aabb2->second, *vel2, frametime)) {
-
+				/*
 				std::cout << "Collision detected between " << aabb1->second->GetOwner()->GetID() 
 					<< " and " << aabb2->second->GetOwner()->GetID() << std::endl;
+					*/
+				std::cout << "AABB1 bottom left: " << aabb1->second->bottom_left_.x << ", " << aabb1->second->bottom_left_.y
+					<< " | AABB1 top right: " << aabb1->second->top_right_.x << ", " << aabb1->second->top_right_.y << std::endl;
+			
+				std::cout
+				<< "AABB2 bottom left: " << aabb2->second->bottom_left_.x
+				<< ", " << aabb2->second->bottom_left_.y
+				<< " | AABB2 top right: " << aabb2->second->top_right_.x
+				<< ", " << aabb2->second->top_right_.y
+				<< std::endl;
 			}
 		}
 	}

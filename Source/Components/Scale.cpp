@@ -12,6 +12,10 @@ void Scale::PublishResults() {
 	//transform->_position = position;
 }
 
+Vector2D Scale::GetScale() const {
+	return scale_;
+}
+
 void Scale::Serialize(std::stringstream& data) {
 
 	data >> scale_.x >> scale_.y;

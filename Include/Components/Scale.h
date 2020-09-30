@@ -16,6 +16,7 @@ public:
 
 	void Init();
 	void PublishResults();
+	Vector2D GetScale() const;
 	void Serialize(std::stringstream& data) override;
 };
 

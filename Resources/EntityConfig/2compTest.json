@@ -2,7 +2,7 @@
   "Player": [
     {
       "component": "Transform",
-      "position": "0.0 0.0",
+      "position": "0.0 0.0 ",
       "rotation": "0.0" 
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "component": "Scale",
-      "scale": "1.0 1.0"
+      "scale": "100.0 100.0"
     },
     {
       "component": "AnimationRenderer"
@@ -34,7 +34,7 @@
     },
     {
       "component": "Scale",
-      "scale": "1.0 1.0"
+      "scale": "60.0 60.0"
     },
     {
       "component": "AnimationRenderer"

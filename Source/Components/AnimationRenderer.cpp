@@ -1,4 +1,5 @@
 #include "Components/AnimationRenderer.h"
+#include "Components/Scale.h"
 #include "Engine/Core.h"
 #include "Systems/GraphicsSystem.h"
 #include <glm/gtc/type_ptr.hpp>
@@ -21,11 +22,18 @@ AnimationRenderer::AnimationRenderer()
 
 AnimationRenderer::~AnimationRenderer()
 {
+  
     CORE->GetSystem<GraphicsSystem>()->RemoveAnimationRendererComponent(Component::GetOwner()->GetID());
 }
 
 void AnimationRenderer::Init()
 {
+    // Testing purposes
+    Scale* e_scale = dynamic_cast<Scale*>(Component::GetOwner()->GetComponent(ComponentTypes::SCALE));
+    assert(e_scale && "entity does not have a scale component");
+    scaling_.x = e_scale->GetScale().x * 0.5f;
+    scaling_.y = e_scale->GetScale().y * 0.5f;
+
     CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
 }
 
