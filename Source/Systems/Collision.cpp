@@ -9,7 +9,7 @@
 #include <iostream>
 #include <assert.h>
 
-#define EPSILON 0.1f
+#define EPSILON 0.001f
 
 Collision* COLLISION;
 
@@ -29,7 +29,7 @@ auto min = [](float a, float b) {
 
 bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 							   const AABB& aabb2, const Vec2& vel2,
-							   const float dt) {
+							   const float dt, float& tFirst) {
 
 	// AABB_1
 	Vector2D aab1_bot_left = aabb1.GetBottomLeft();
@@ -44,7 +44,8 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 	{
 		
 		Vector2D Vb;
-		float tFirst = 0, tLast = dt; // g_dt does not exist yet
+		tFirst = 0;
+		float tLast = dt; // g_dt does not exist yet
 		Vb.x = vel2.x - vel1.x;
 		Vb.y = vel2.y - vel1.y;
 
@@ -160,12 +161,14 @@ void Collision::Update(float frametime) {
 
 			vel2 = (motion2 != nullptr) ? &motion2->velocity_ : &Vec2{};
 
-			if (CheckCollision(*aabb1->second, *vel1, *aabb2->second, *vel2, frametime)) {
+			float t_first{};
+
+			if (CheckCollision(*aabb1->second, *vel1, *aabb2->second, *vel2, frametime, t_first)) {
 				/*
 				std::cout << "Collision detected between " << aabb1->second->GetOwner()->GetID() 
 					<< " and " << aabb2->second->GetOwner()->GetID() << std::endl;
 					*/
-				std::cout << "AABB1 bottom left: " << aabb1->second->bottom_left_.x << ", " << aabb1->second->bottom_left_.y
+				/*std::cout << "AABB1 bottom left: " << aabb1->second->bottom_left_.x << ", " << aabb1->second->bottom_left_.y
 					<< " | AABB1 top right: " << aabb1->second->top_right_.x << ", " << aabb1->second->top_right_.y << std::endl;
 			
 				std::cout
@@ -173,10 +176,26 @@ void Collision::Update(float frametime) {
 				<< ", " << aabb2->second->bottom_left_.y
 				<< " | AABB2 top right: " << aabb2->second->top_right_.x
 				<< ", " << aabb2->second->top_right_.y
-				<< std::endl;
+				<< std::endl;*/
+
+				std::cout << "time to collision: " << t_first << std::endl;
+				Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
+				Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
+
+				Transform* transform1 = dynamic_cast<Transform*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+				Transform* transform2 = dynamic_cast<Transform*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+
+				std::cout << "Inverse vector 1: " << inverse_vector_1.x << ", " << inverse_vector_1.y << std::endl;
+				std::cout << "Inverse vector 2: " << inverse_vector_2.x << ", " << inverse_vector_2.y << std::endl;
+
+				transform1->position_ += inverse_vector_1;
+				transform2->position_ += inverse_vector_2;
 			}
 		}
 	}
+
+	// Test it here as well
+	//UpdateBoundingBox();
 }
 
 //void Collision::Draw() {

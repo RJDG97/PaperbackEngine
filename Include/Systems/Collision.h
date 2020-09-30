@@ -20,7 +20,7 @@ public:
 
 	bool CheckCollision(const AABB &aabb1, const Vec2 &vel1, 
 						const AABB &aabb2, const Vec2 &vel2,
-						const float dt);
+						const float dt, float& tFirst);
 
 	void AddAABBComponent(EntityID id, AABB* aabb);
 	void RemoveAABBComponent(EntityID id);
