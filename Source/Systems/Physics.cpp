@@ -76,7 +76,7 @@ void Physics::ChangeVelocity(Message* m) {
 	// If there are multiple players the results will be duplicated
 	// because there is no specific entity id at the moment
 
-	std::cout << "Entered ChangeVelocity" << std::endl;
+	//std::cout << "Entered ChangeVelocity" << std::endl;
 	//dynamic cast from message base class to derived message class
 	MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
 
@@ -126,7 +126,7 @@ void Physics::RemoveMotionComponent(EntityID id) {
 
 void Physics::SendMessageD(Message* msg) {
 	
-	std::cout << "Message received by Physics" << std::endl;
+	//std::cout << "Message received by Physics" << std::endl;
 
 	/*if (msg->message_id_ == MessageIDTypes::Rotate) {
 		std::cout << "prepare to rotate" << std::endl;
@@ -170,7 +170,7 @@ void Physics::SendMessageD(Message* msg) {
 		}
 		case MessageIDTypes::PHY_UpdateVel:
 		{
-			std::cout << "Physics System: Updating velocity of player" << std::endl;
+			//std::cout << "Physics System: Updating velocity of player" << std::endl;
 			ChangeVelocity(msg);
 			break;
 		}

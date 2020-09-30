@@ -48,7 +48,7 @@ void AnimationRenderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
                        0.0f, scaling_.y, 0.0f,
                        0.0f, 0.0f, 1.0f };
 
-    orientation_.x += orientation_.y * static_cast<float>(frametime);
+    //orientation_.x += orientation_.y * static_cast<float>(frametime);
 
     rot = glm::mat3{  glm::cos(orientation_.x * M_PI / 180), glm::sin(orientation_.x * M_PI / 180), 0.0f,
                      -glm::sin(orientation_.x * M_PI / 180), glm::cos(orientation_.x * M_PI / 180), 0.0f,

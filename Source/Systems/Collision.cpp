@@ -5,7 +5,11 @@
 #include "Entity/ComponentCreator.h"
 #include "Entity/ComponentTypes.h"
 #include "Components/AABB.h"
+#include "Components/Motion.h"
 #include <iostream>
+#include <assert.h>
+
+#define EPSILON 0.0001f
 
 Collision* COLLISION;
 
@@ -26,6 +30,7 @@ auto min = [](float a, float b) {
 bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 							   const AABB& aabb2, const Vec2& vel2,
 							   const float dt) {
+
 	// AABB_1
 	Vector2D aab1_bot_left = aabb1.GetBottomLeft();
 	Vector2D aab1_top_right = aabb1.GetTopRight();
@@ -46,7 +51,7 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 			return 0;
 
 		// X-Axis check
-		if (Vb.x < 0.0f)
+		if (Vb.x < EPSILON)
 		{
 			//case 1
 			if (aab1_bot_left.x > aab2_top_right.x)
@@ -57,7 +62,7 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 			if (aab1_bot_left.x < aab2_top_right.x)
 				tLast = min((aab1_bot_left.x - aab2_top_right.x) / Vb.x, tLast);
 		}
-		if (Vb.x > 0.0f)
+		if (Vb.x > EPSILON)
 		{
 			//case 2
 			if (aab1_bot_left.x > aab2_top_right.x)
@@ -74,7 +79,7 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 		tFirst = 0, tLast = dt;
 
 		// Y-Axis check
-		if (Vb.y < 0.0f)
+		if (Vb.y < EPSILON)
 		{
 			//case 1
 			if (aab1_bot_left.y > aab2_top_right.y)
@@ -85,7 +90,7 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 			if (aab1_bot_left.y < aab2_top_right.y)
 				tLast = min((aab1_bot_left.y - aab2_top_right.y) / Vb.y, tLast);
 		}
-		if (Vb.y > 0.0f)
+		if (Vb.y > EPSILON)
 		{
 			//case 2
 			if (aab1_bot_left.y > aab2_top_right.y)
@@ -114,7 +119,7 @@ void Collision::Update(float frametime) {
 	size_t counter = 0;
 	UpdateBoundingBox();
 
-	for (AABBIt box = aabb_arr_.begin(); box != aabb_arr_.end(); ++ box) {
+	/*for (AABBIt box = aabb_arr_.begin(); box != aabb_arr_.end(); ++ box) {
 		
 		std::cout << "AABB " << counter << ": "
 				  << "Top left: " << box->second->bottom_left_.x
@@ -122,8 +127,36 @@ void Collision::Update(float frametime) {
 				  << "\nBottom right: " << box->second->top_right_.x
 				  << ", " << box->second->top_right_.y
 				  << std::endl;
+	}*/
+
+	for (AABBIt aabb1 = aabb_arr_.begin(); aabb1 != aabb_arr_.end(); ++aabb1) {
+
+		AABBIt aabb2 = aabb1;
+		Motion* motion1 = dynamic_cast<Motion*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+		//assert(motion1 != nullptr && "aabb1 does not have a motion component");
+
+		Vec2* vel1{};
+
+		vel1 = (motion1 != nullptr) ? &motion1->velocity_ : &Vec2{};
+
+		++aabb2;
+		
+		for (; aabb2 != aabb_arr_.end(); ++aabb2) {
+
+			Motion* motion2 = dynamic_cast<Motion*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+			//assert(motion2 != nullptr && "aabb2 does not have a motion component");
+
+			Vec2* vel2{};
+
+			vel2 = (motion2 != nullptr) ? &motion2->velocity_ : &Vec2{};
+
+			if (CheckCollision(*aabb1->second, *vel1, *aabb2->second, *vel2, frametime)) {
+
+				std::cout << "Collision detected between " << aabb1->second->GetOwner()->GetID() 
+					<< " and " << aabb2->second->GetOwner()->GetID() << std::endl;
+			}
+		}
 	}
-	//CheckCollision()
 }
 
 //void Collision::Draw() {

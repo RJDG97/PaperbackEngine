@@ -2,7 +2,7 @@
   "Player": [
     {
       "component": "Transform",
-      "position": "1.0 0.5",
+      "position": "0.0 0.0",
       "rotation": "0.0" 
     },
     {

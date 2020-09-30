@@ -40,13 +40,6 @@ void CoreEngine::GameLoop() {
 			system->second->Update(PE_FrameRate.Dt);
 			system->second->Draw();
 		}
-
-		std::cout << "Begin Order" << std::endl;
-		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
-
-			std::cout << system->second->GetName() << std::endl;
-		}
-		std::cout << "End Order" << std::endl;
 	}
 
 		//PE_FrameRate.SetFPS(30);

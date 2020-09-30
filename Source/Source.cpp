@@ -27,8 +27,8 @@ temp headers
 #include "Systems/Collision.h"
 
 
-#define EPSILON		0.0001f
-#define PI			3.14159265358f
+//#define EPSILON		0.0001f
+//#define PI			3.14159265358f
 int running = 1;
 
 void testMath();
@@ -201,6 +201,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	engine->AddManager<ShaderManager>();
 	engine->AddManager<AnimationManager>();
 
+	Physics* test_phy = engine->GetSystem<Physics>();
+
 	engine->Initialize();
 
 	engine->GameLoop();
@@ -218,10 +220,10 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	return 0;
 }
 
-
-/*************************************************************************/
-/*                            Testing Math Fn's                          */
-/*************************************************************************/
+/*
+*************************************************************************
+*                            Testing Math Fn's                          *
+*************************************************************************
 
 void PrintVector(char* txt, const Vec2& pVec0)
 {
@@ -603,3 +605,5 @@ void testMath() {
 		quit = true;
 	}
 }
+
+*/

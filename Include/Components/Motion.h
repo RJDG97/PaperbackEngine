@@ -10,6 +10,7 @@ class Motion : public Component {
     Vector2D acceleration_;
 public:
 	friend class Physics;
+	friend class Collision;
 
 	Motion();
 	~Motion();

@@ -89,7 +89,7 @@ void Game::PopState()
 		states_.back()->resume();
 	}*/
 
-	std::cout << "States in stack after pop: " << states_.size() << std::endl;
+	//std::cout << "States in stack after pop: " << states_.size() << std::endl;
 }
 
 void Game::Update(float frametime)
@@ -120,7 +120,7 @@ void Game::Free()
 
 void Game::SendMessageD(Message* m) {
 
-	std::cout << "Message received by Game" << std::endl;
+	//std::cout << "Message received by Game" << std::endl;
 
 	switch (m->message_id_) {
 
@@ -147,7 +147,7 @@ void Game::SendMessageD(Message* m) {
 	}
 	case MessageIDTypes::M_ButtonPress: 
 	{
-		std::cout << "GSM: Button press event, dispatching to Game State" << std::endl;
+		//std::cout << "GSM: Button press event, dispatching to Game State" << std::endl;
 		Message_PlayerInput* msg = dynamic_cast<Message_PlayerInput*>(m);
 		if (msg) {
 			states_.back()->StateInputHandler(msg->input_flag_);
