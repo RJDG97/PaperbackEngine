@@ -20,11 +20,11 @@ Collision::Collision() {
 
 // Comparison function
 auto max = [](float a, float b) {
-	return (a < b) ? a : b;
+	return (a > b) ? a : b;
 };
 
 auto min = [](float a, float b) {
-	return (a > b) ? a : b;
+	return (a < b) ? a : b;
 };
 
 bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
@@ -59,17 +59,17 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 				return 0;
 			//case 4
 			if (aab1_top_right.x < aab2_bot_left.x)
-				tFirst = max((aab1_top_right.x - aab2_bot_left.x) / Vb.x, tFirst);
+				tFirst = max(abs(aab1_top_right.x - aab2_bot_left.x) / Vb.x, tFirst);
 			if (aab1_bot_left.x < aab2_top_right.x)
-				tLast = min((aab1_bot_left.x - aab2_top_right.x) / Vb.x, tLast);
+				tLast = min(abs(aab1_bot_left.x - aab2_top_right.x) / Vb.x, tLast);
 		}
 		if (Vb.x > EPSILON)
 		{
 			//case 2
 			if (aab1_bot_left.x > aab2_top_right.x)
-				tFirst = max((aab1_bot_left.x - aab2_top_right.x) / Vb.x, tFirst);
+				tFirst = max(abs(aab1_bot_left.x - aab2_top_right.x) / Vb.x, tFirst);
 			if (aab1_top_right.x > aab2_bot_left.x)
-				tLast = min((aab1_top_right.x - aab2_bot_left.x) / Vb.x, tLast);
+				tLast = min(abs(aab1_top_right.x - aab2_bot_left.x) / Vb.x, tLast);
 			//case3
 			if (aab1_top_right.x < aab2_bot_left.x)
 				return 0;
@@ -87,17 +87,17 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 				return 0;
 			//case 4
 			if (aab1_top_right.y < aab2_bot_left.y)
-				tFirst = max((aab1_top_right.y - aab2_bot_left.y) / Vb.y, tFirst);
+				tFirst = max(abs(aab1_top_right.y - aab2_bot_left.y) / Vb.y, tFirst);
 			if (aab1_bot_left.y < aab2_top_right.y)
-				tLast = min((aab1_bot_left.y - aab2_top_right.y) / Vb.y, tLast);
+				tLast = min(abs(aab1_bot_left.y - aab2_top_right.y) / Vb.y, tLast);
 		}
 		if (Vb.y > EPSILON)
 		{
 			//case 2
 			if (aab1_bot_left.y > aab2_top_right.y)
-				tFirst = max((aab1_bot_left.y - aab2_top_right.y) / Vb.y, tFirst);
+				tFirst = max(abs(aab1_bot_left.y - aab2_top_right.y) / Vb.y, tFirst);
 			if (aab1_top_right.y > aab2_bot_left.y)
-				tLast = min((aab1_top_right.y - aab2_bot_left.y) / Vb.y, tLast);
+				tLast = min(abs(aab1_top_right.y - aab2_bot_left.y) / Vb.y, tLast);
 			//case3
 			if (aab1_top_right.y < aab2_bot_left.y)
 				return 0;
