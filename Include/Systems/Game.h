@@ -43,6 +43,8 @@ public:
 	virtual void SendMessageD(Message* m) override;
 
 private:
+	bool debug_;
+
 	// stack to hold the states
 	std::vector<GameState*> states_;
 

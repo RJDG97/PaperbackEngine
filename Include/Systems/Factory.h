@@ -9,6 +9,8 @@ class ComponentCreator;
 
 class EntityFactory : public ISystem {
 
+	bool debug_;
+
 	//contains incrementally generated id
 	unsigned int last_entity_id_;
 

@@ -1,5 +1,6 @@
 #include "Systems/WindowsSystem.h"
 #include "Systems/GraphicsSystem.h"
+#include "Systems/Debug.h"
 #include <memory>
 
 FILE* file;
@@ -83,6 +84,8 @@ void WindowsSystem::Init() {
 			<< glewGetErrorString(err) << " abort program" << std::endl;
 		std::exit(EXIT_FAILURE);
 	}
+
+	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }
 
 void WindowsSystem::Update(float frametime)

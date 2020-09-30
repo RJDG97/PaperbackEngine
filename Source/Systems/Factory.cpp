@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <assert.h>
+#include "Systems/Debug.h"
 
 #include "Components/Scale.h"
 
@@ -13,6 +14,7 @@ EntityFactory* FACTORY = NULL;
 EntityFactory::EntityFactory() {
 
 	FACTORY = this;
+	debug_ = false;
 	last_entity_id_ = 0;
 }
 
@@ -30,6 +32,8 @@ EntityFactory::~EntityFactory() {
 void EntityFactory::Init() {
 
 	FACTORY->AddComponentCreator("Scale", new ComponentCreatorType<Scale>(ComponentTypes::SCALE));
+
+	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }
 
 Entity* EntityFactory::Create(const std::string& filename) {

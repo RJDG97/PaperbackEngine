@@ -22,6 +22,8 @@
 #include "Systems/Factory.h"
 #include "Systems/Game.h"
 #include "Systems/Collision.h"
+#include "Systems/Debug.h"
+#include <sstream>
 
 
 //#define EPSILON		0.0001f
@@ -70,6 +72,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	engine->DestroyManagers();
 
 	delete engine;
+	EngineDebug::DeleteInstance();
 
 	return 0;
 }

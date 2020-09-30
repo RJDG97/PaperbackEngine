@@ -9,6 +9,7 @@ CoreEngine* CORE;
 
 CoreEngine::CoreEngine() {
 	b_game_active_ = true;
+	debug_ = false;
 	CORE = this;
 }
 
@@ -27,16 +28,20 @@ void CoreEngine::Initialize() {
 ///Update all the systems until the game is no longer active.
 void CoreEngine::GameLoop() {
 	while (b_game_active_) {
+		if (debug_)
+			M_DEBUG->WriteDebugMessage("Core Engine Update:\n");
 		
 		PE_FrameRate.FrameRateLoop();
 
 		if (sys_input_.CheckTriggeredInput(0x51)) { // Q key
-
+			M_DEBUG->WriteDebugMessage("TERMINATE GAME LOOP\n");
 			b_game_active_ = false;
 		}
 
 		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
-			
+			if (debug_)
+				// Log system message to "Source/Debug.txt"
+				M_DEBUG->WriteDebugMessage("Begining update for: " + system->second->GetName() + "\n");
 			system->second->Update(PE_FrameRate.Dt);
 			system->second->Draw();
 		}
@@ -50,6 +55,7 @@ void CoreEngine::GameLoop() {
 void CoreEngine::DestroySystems() {
 	
 	for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
+		M_DEBUG->WriteDebugMessage("Destroying System: " + system->second->GetName() + "\n");
 		delete system->second;
 	}
 }
@@ -58,6 +64,8 @@ void CoreEngine::DestroySystems() {
 void CoreEngine::DestroyManagers() {
 	
 	for (ManagerIt manager = managers_.begin(); manager != managers_.end(); ++manager) {
+		// Log system message to "Source/Debug.txt"
+		M_DEBUG->WriteDebugMessage("Destroying Manager: " + manager->first + "\n");
 		delete manager->second;
 	}
 }

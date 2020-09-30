@@ -1,4 +1,5 @@
 #include "Manager/ShaderManager.h"
+#include "Systems/Debug.h"
 
 ShaderManager* SHADERMANAGER;
 
@@ -369,6 +370,7 @@ ShaderManager::ShaderManager()
 
 void ShaderManager::Init() {
 
+    M_DEBUG->WriteDebugMessage("Shader Manager Init\n");
 }
 
 void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, GLint shader_type)

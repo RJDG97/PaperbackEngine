@@ -4,15 +4,18 @@
 #include "Engine/Core.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/MenuState.h"
+#include "Systems/Debug.h"
 
 InputSystem sys_input_;
 
-InputSystem::InputSystem() : currentkey_{ 0 }, 
-							 previouskey_{ 0 }, 
-							 keyreleased_{ 0 }, 
-							 b_change_{ false },
-							 b_toggle_{ false },
-							 initial_{}
+InputSystem::InputSystem() : 
+	currentkey_{ 0 }, 
+	previouskey_{ 0 }, 
+	keyreleased_{ 0 }, 
+	b_change_{ false },
+	b_toggle_{ false },
+	initial_{},
+	debug_{ false }
 {}
 
 bool InputSystem::CheckCurrentInput(int key) {
@@ -163,6 +166,7 @@ void InputSystem::GetCursorPositionDelta(Vector2D& pos, int key) {
 
 void InputSystem::Init() {
 
+	M_DEBUG->WriteDebugMessage("Input System Init\n");
 }
 
 void InputSystem::Update(float frametime) {

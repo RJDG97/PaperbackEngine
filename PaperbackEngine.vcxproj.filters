@@ -88,6 +88,9 @@
     <Filter Include="Entity\Components\Renderer">
       <UniqueIdentifier>{fd8cfe5a-21e7-439d-b956-6bd0eb723a80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Debug">
+      <UniqueIdentifier>{87f1006f-464f-417c-8f6b-c27ec92c99df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -194,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="Source\Manager\ShaderManager.cpp">
       <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Debug.cpp">
+      <Filter>Systems\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="Include\Manager\ShaderManager.h">
       <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Debug.h">
+      <Filter>Systems\Debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

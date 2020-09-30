@@ -1,5 +1,6 @@
 #include "Manager/AnimationManager.h"
 #include "Systems/GraphicsSystem.h"
+#include "Systems/Debug.h"
 
 AnimationManager* ANIMATIONMANAGER;
 
@@ -38,6 +39,7 @@ AnimationManager::AnimationManager()
 void AnimationManager::Init()
 {
 	// Empty implementation for now
+	M_DEBUG->WriteDebugMessage("Animation Manager Init\n");
 }
 
 void AnimationManager::TempFunctionForTesting()

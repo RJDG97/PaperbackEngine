@@ -3,6 +3,7 @@
 
 #include "Systems/ISystem.h"
 #include "Systems/Message.h"
+#include "Systems/Debug.h"
 #include "Systems/FrameRateController.h"
 
 #include "Manager/IManager.h"
@@ -13,6 +14,7 @@
 #include <string>
 #include <iostream>
 #include <assert.h>
+#include <sstream>
 
 class CoreEngine
 {
@@ -27,10 +29,6 @@ public:
 	void DestroyManagers();
 	///Broadcasts a message to all systems.
 	void BroadcastMessage(Message* m);
-	///Adds a new system to the game.
-	//void AddSystem(ISystem* system);
-	///Adds a new manager to the system.
-	//void AddManager(IManager* manager);
 	///Initializes all systems in the game.
 	void Initialize();
 
@@ -40,44 +38,36 @@ public:
 			assert(begin->first != typeid(SystemType).name() && "System already exists");
 		}
 		systems_.push_back({ typeid(SystemType).name(), new SystemType() });
-		
 
-		/*
-		//systems_.push_back(new SystemType);
-		assert(systems_.find(typeid(SystemType).name()) == systems.end() && "System already exists");
-		systems_[typeid(SystemType).name()] = new SystemType;
-		*/
+		// Log system message to "Source/Debug.txt"
+		M_DEBUG->WriteDebugMessage("Adding System: " + systems_.back().first + "\n");
 	}
 
 	template <typename SystemType>
 	SystemType* GetSystem() {
-		/*
-		assert(systems_.find(typeid(SystemType).name()) != systems_.end() && "System does not exist");
-		ISystem* return_val = systems_.find(typeid(SystemType).name())->second;
-		return dynamic_cast<SystemType*>(return_val);
-		*/
 
 		SystemIt begin = systems_.begin();
 		for (; begin != systems_.end(); ++begin) {
 			if (begin->first == typeid(SystemType).name()) {
+				if (debug_) {
+					// Log system message to "Source/Debug.txt"
+					M_DEBUG->WriteDebugMessage("Getting System: " + begin->first + "\n");
+				}
 				return dynamic_cast<SystemType*>(begin->second);
 			}
 		}
 		assert((begin != systems_.end()) && "System does not exist");
-
-		/*
-		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
-			if (system->second->GetName() == system_name) {
-				return dynamic_cast<SystemType*>(*system->second);
-			}
-		}
-		return nullptr;
-		*/
 	}
 
 	template <typename ManagerType>
 	void AddManager() {
 		assert(managers_.find(typeid(ManagerType).name()) == managers_.end() && "Manager already exists");
+
+		// Log system message to "Source/Debug.txt"
+		std::stringstream str;
+		str << "Adding Manager: " << typeid(ManagerType).name() << "\n";
+		M_DEBUG->WriteDebugMessage(str.str());
+
 		managers_[typeid(ManagerType).name()] = new ManagerType;
 	}
 
@@ -85,10 +75,21 @@ public:
 	ManagerType* GetManager() {
 		assert(managers_.find(typeid(ManagerType).name()) != managers_.end() && "Manager does not exist");
 		IManager* return_val = managers_.find(typeid(ManagerType).name())->second;
+
+		if (debug_) {
+			// Log system message to "Source/Debug.txt"
+			std::stringstream str;
+			str << "Getting Manager: " << typeid(ManagerType).name() << "\n";
+			M_DEBUG->WriteDebugMessage(str.str());
+		}
+		
 		return dynamic_cast<ManagerType*>(return_val);
 	}
 
 private:
+
+	bool debug_;
+
 	// Tracks all the systems the game uses
 	using SystemIt = std::vector< std::pair<std::string, ISystem*> >::iterator;
 	std::vector< std::pair<std::string, ISystem*> > systems_;

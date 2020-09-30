@@ -8,6 +8,8 @@
 #include "MathLib/Vector2D.h"
 
 class InputSystem : public ISystem {
+	bool debug_;
+
 	bool currentkey_[164];
 	bool previouskey_[164];
 	bool keyreleased_[164];

@@ -3,6 +3,7 @@
 #include "Engine/Core.h"
 #include "Systems/WindowsSystem.h"
 #include "Manager/ModelManager.h"
+#include "Systems/Debug.h"
 
 LightingSystem::PointLight::PointLight(GLint x, GLint y,
 									   GLfloat red, GLfloat green, GLfloat blue,
@@ -68,6 +69,8 @@ void LightingSystem::Init()
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	M_DEBUG->WriteDebugMessage("Lighting System Init\n");
 }
 
 void LightingSystem::Update(float frametime)

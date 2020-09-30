@@ -1,12 +1,13 @@
 #include "Systems/Physics.h"
 #include "Engine/Core.h"
 #include <iostream>
+#include "Systems/Debug.h"
 
 Physics* PHYSICS;
 
 Physics::Physics() {
 	PHYSICS = this;
-
+	debug = false;
 }
 
 void Physics::Init() {
@@ -14,6 +15,8 @@ void Physics::Init() {
 	FACTORY->AddComponentCreator("Transform", new ComponentCreatorType<Transform>( ComponentTypes::TRANSFORM));
 	//FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
 	FACTORY->AddComponentCreator("Motion", new ComponentCreatorType<Motion>(ComponentTypes::MOTION));
+
+	M_DEBUG->WriteDebugMessage("Physics System Init\n");
 }
 
 void Physics::Update(float frametime) {

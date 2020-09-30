@@ -1,8 +1,13 @@
 #include "Systems/SoundSystem.h"
 #include "Engine/Core.h"
 #include "Systems/InputSystem.h"
+#include "Systems/Debug.h"
 
-SoundSystem::SoundSystem() : b_mute_{ false }, b_paused_{ false } {
+SoundSystem::SoundSystem() : 
+	b_mute_{ false }, 
+	b_paused_{ false },
+	debug_{ false }
+{
 	// Create system
 	FMOD::System_Create(&f_system_);
 	// Initialize system
@@ -147,6 +152,8 @@ void SoundSystem::Init() {
 	// Load all sound files
 	LoadSound("Resources/SoundCache/KK_BBG.mp3", "BGM", 1);
 	LoadSound("Resources/SoundCache/Kachow.mp3", "Kachow");
+
+	M_DEBUG->WriteDebugMessage("Sound System Init\n");
 }
 
 void SoundSystem::Update(float frametime) {

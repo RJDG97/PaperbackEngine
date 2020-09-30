@@ -1,4 +1,5 @@
 #include "Manager/TextureManager.h"
+#include "Systems/Debug.h"
 #include <FreeImage.h>
 #include <iostream>
 
@@ -9,6 +10,8 @@ void TextureManager::Init()
     //Initialize FreeImage
     FreeImage_Initialise();
     std::cout << "FreeImage Version " << FreeImage_GetVersion() << std::endl;
+
+    M_DEBUG->WriteDebugMessage("Texture Manager Init\n");
 }
 
 void TextureManager::TempFunctionForTesting()

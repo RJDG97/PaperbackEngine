@@ -1,5 +1,6 @@
 #include "Systems/Collision.h"
 #include "Systems/Factory.h"
+#include "Systems/Debug.h"
 #include "Components/Scale.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
@@ -15,6 +16,7 @@ Collision* COLLISION;
 
 Collision::Collision() {
 	
+	debug_ = false;
 	COLLISION = this;
 }
 
@@ -123,6 +125,8 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 void Collision::Init() {
 
 	FACTORY->AddComponentCreator("AABB", new ComponentCreatorType<AABB>(ComponentTypes::AABB));
+
+	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }
 
 //contains logic executed during the update loop of a game
@@ -178,18 +182,29 @@ void Collision::Update(float frametime) {
 				<< ", " << aabb2->second->top_right_.y
 				<< std::endl;*/
 
-				std::cout << "time to collision: " << t_first << std::endl;
+				//std::cout << "time to collision: " << t_first << std::endl;
 				Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
 				Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
 
 				Transform* transform1 = dynamic_cast<Transform*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 				Transform* transform2 = dynamic_cast<Transform*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
-				std::cout << "Inverse vector 1: " << inverse_vector_1.x << ", " << inverse_vector_1.y << std::endl;
-				std::cout << "Inverse vector 2: " << inverse_vector_2.x << ", " << inverse_vector_2.y << std::endl;
+				//std::cout << "Inverse vector 1: " << inverse_vector_1.x << ", " << inverse_vector_1.y << std::endl;
+				//std::cout << "Inverse vector 2: " << inverse_vector_2.x << ", " << inverse_vector_2.y << std::endl;
 
 				transform1->position_ += inverse_vector_1;
 				transform2->position_ += inverse_vector_2;
+
+				if (debug_) {
+					std::string debug_str{};
+					debug_str += "time to collision: " + std::to_string(t_first) + "\n"
+								+ "Inverse vector 1: " + std::to_string(inverse_vector_1.x) + ", " 
+								+ std::to_string(inverse_vector_1.y) + "\n";
+					M_DEBUG->WriteDebugMessage(debug_str);
+
+					std::cout << debug_str << std::endl;
+					debug_ = !debug_;
+				}
 			}
 		}
 	}
@@ -209,11 +224,17 @@ void Collision::SendMessageD(Message* m) {
 }
 
 void Collision::AddAABBComponent(EntityID id, AABB* aabb) {
+	std::string str{};
+	str += "Adding AABB Component to entity: " + std::to_string(id) + "\n";
+	M_DEBUG->WriteDebugMessage(str);
 
 	aabb_arr_[id] = aabb;
 }
 
 void Collision::RemoveAABBComponent(EntityID id) {
+	std::string str{};
+	str += "Removing AABB Component from entity: " + std::to_string(id) + "\n";
+	M_DEBUG->WriteDebugMessage(str);
 
 	AABBIt it = aabb_arr_.find(id);
 
@@ -224,6 +245,8 @@ void Collision::RemoveAABBComponent(EntityID id) {
 }
 
 void Collision::UpdateBoundingBox() {
+	if (debug_)
+		M_DEBUG->WriteDebugMessage("Collision System: Updating Bounding Boxes\n");
 
 	for (AABBIt aabb = aabb_arr_.begin(); aabb != aabb_arr_.end(); ++aabb) {
 		

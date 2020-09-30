@@ -20,6 +20,8 @@
 
 class GraphicsSystem : public ISystem
 {
+    bool debug_;
+
     GLint window_width_;
     GLint window_height_;
     

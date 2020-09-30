@@ -39,6 +39,9 @@ public:
 	void SendMessageD(Message* msg) override;
 
 private:
+
+	bool debug;
+
 	using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
 	std::unordered_map<EntityID,Transform*> transform_arr_;
 

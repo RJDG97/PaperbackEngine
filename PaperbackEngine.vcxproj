@@ -169,6 +169,7 @@
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
     <ClCompile Include="Source\Source.cpp" />
     <ClCompile Include="Source\Systems\Collision.cpp" />
+    <ClCompile Include="Source\Systems\Debug.cpp" />
     <ClCompile Include="Source\Systems\Factory.cpp" />
     <ClCompile Include="Source\Systems\FrameRateController.cpp" />
     <ClCompile Include="Source\Systems\Game.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="Include\MathLib\Matrix3x3.h" />
     <ClInclude Include="Include\MathLib\Vector2D.h" />
     <ClInclude Include="Include\Systems\Collision.h" />
+    <ClInclude Include="Include\Systems\Debug.h" />
     <ClInclude Include="Include\Systems\Factory.h" />
     <ClInclude Include="Include\Systems\FrameRateController.h" />
     <ClInclude Include="Include\Systems\Game.h" />

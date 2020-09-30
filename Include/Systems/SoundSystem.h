@@ -30,6 +30,7 @@ class SoundSystem : public ISystem
 	// Mute or Pause system
 	bool b_mute_;
 	bool b_paused_;
+	bool debug_;
 
 public:
 	SoundSystem();

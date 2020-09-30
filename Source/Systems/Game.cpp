@@ -4,6 +4,7 @@
 #include "Systems/InputSystem.h"
 #include "Engine/Core.h"
 #include "GameStates/MenuState.h"
+#include "Systems/Debug.h"
 #include <algorithm>
 
 bool Game::CheckExist(GameState* compare) {
@@ -14,15 +15,17 @@ bool Game::CheckExist(GameState* compare) {
 	return false;
 };
 
-Game::Game()
+Game::Game() :
+	debug_{ false }
 {}
 
 void Game::Init()
 {
 	b_running_ = true;
-	std::cout << "Game Initialized Successfully" << std::endl;
 
 	ChangeState(&m_MenuState);
+
+	M_DEBUG->WriteDebugMessage("Game System Init\n");
 }
 
 // takes a pointer to a gamestate

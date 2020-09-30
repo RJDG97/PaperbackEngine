@@ -1,9 +1,11 @@
 #include "Manager/ModelManager.h"
+#include "Systems/Debug.h"
 
 ModelManager* MODELMANAGER;
 
 void ModelManager::Init() {
-    
+
+    M_DEBUG->WriteDebugMessage("Model Manager Init\n");
 }
 
 void ModelManager::AddTristripsModel(int slices, int stacks, GLint model_type)

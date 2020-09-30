@@ -10,6 +10,8 @@
 
 class LightingSystem : public ISystem
 {
+	bool debug_;
+
 	//we'll use this temporarily later on replace with components and stuff
 	struct PointLight
 	{

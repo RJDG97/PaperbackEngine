@@ -12,6 +12,7 @@
 #include "Manager/ModelManager.h"
 #include "Entity/ComponentTypes.h"
 #include "Entity/ComponentCreator.h"
+#include "Systems/Debug.h"
 
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */
@@ -31,6 +32,8 @@ void GraphicsSystem::CameraInit()
                                     0 , 0 , 1 };
 
     world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
+
+    M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
 
 void GraphicsSystem::CameraUpdate()
