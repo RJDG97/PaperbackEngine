@@ -18,6 +18,7 @@ enum class MessageIDTypes
 	Exit,
 	Rotate,
 	HP,
+	DEBUG_ALL,
 
 	// Sound System
 	BGM_Play,

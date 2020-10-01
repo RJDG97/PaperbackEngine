@@ -13,6 +13,7 @@
 #include "Entity/ComponentTypes.h"
 #include "Entity/ComponentCreator.h"
 #include "Systems/Debug.h"
+#include "Systems/Message.h"
 
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */
@@ -32,8 +33,6 @@ void GraphicsSystem::CameraInit()
                                     0 , 0 , 1 };
 
     world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
-
-    M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
 
 void GraphicsSystem::CameraUpdate()
@@ -82,6 +81,8 @@ void GraphicsSystem::Init() {
     CameraInit();
 
     glEnable(GL_CULL_FACE);
+
+    M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
 
 /*  _________________________________________________________________________ */
@@ -94,17 +95,26 @@ void GraphicsSystem::Init() {
 This also updates the size of the squares to be rendered in one of the tasks.
 */
 void GraphicsSystem::Update(float frametime) {
+    if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Update Debug Log:\n"); }
 
     CameraUpdate();
     
     //updates all the renderer components
     for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it)
     {
+        if (debug_) {
+			// Log id of entity and it's updated components that are being updated
+			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Scale, Rotation & Translation matrix updated)\n");
+		}
         (*it).second->Update(frametime, world_to_ndc_xform_);
     }
 
     for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it)
     {
+        if (debug_) {
+            // Log id of entity and it's updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Texture animation updated)\n");
+        }
         (*it).second->Update(frametime, world_to_ndc_xform_);
     }
 
@@ -120,6 +130,7 @@ void GraphicsSystem::Update(float frametime) {
 Clears the buffer and then draws a rectangular model in the viewport.
 */
 void GraphicsSystem::Draw() {
+    if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -127,11 +138,19 @@ void GraphicsSystem::Draw() {
     //draws all the renderer components
     for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it)
     {
+        if (debug_) {
+			// Log id of entity and it's updated components that are being updated
+			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+		}
         (*it).second->Draw();
     }
 
     for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it)
     {
+        if (debug_) {
+			// Log id of entity and it's updated components that are being updated
+			M_DEBUG->WriteDebugMessage("Rendering entity: " + std::to_string(it->first) + "\n");
+		}
         (*it).second->Draw();
     }
 
@@ -164,6 +183,8 @@ void GraphicsSystem::Draw() {
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     models[0].Draw(lighting_system->GetLightingTexture());*/
 
+    if (debug_) { debug_ = !debug_; }
+
     glfwSwapBuffers(windows_system_->ptr_window);
 }
 
@@ -187,10 +208,24 @@ std::string GraphicsSystem::GetName()
 
 void GraphicsSystem::SendMessageD(Message* m)
 {
+    switch(m->message_id_)
+    {
+        case MessageIDTypes::DEBUG_ALL:
+        {
+            debug_ = true;
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
 }
 
 void GraphicsSystem::AddRendererComponent(EntityID id, Renderer* renderer)
 {
+    M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
+
     renderer_arr_[id] = renderer;
 }
 
@@ -200,12 +235,15 @@ void GraphicsSystem::RemoveRendererComponent(EntityID id)
 
     if (it != renderer_arr_.end()) {
 
+        M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
         renderer_arr_.erase(it);
     }
 }
 
 void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer)
 {
+    M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: " + std::to_string(id) + "\n");
+
     anim_renderer_arr_[id] = animation_renderer;
 }
 
@@ -215,6 +253,7 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
 
     if (it != anim_renderer_arr_.end()) {
 
+        M_DEBUG->WriteDebugMessage("Removing Animation Renderer Component from entity: " + std::to_string(id) + "\n");
         anim_renderer_arr_.erase(it);
     }
 }

@@ -1,5 +1,6 @@
 #include "Components/AABB.h"
 #include "Systems/Collision.h"
+#include "Systems/Debug.h"
 #include <iostream>
 
 AABB::AABB() : top_right_{},
@@ -15,7 +16,7 @@ AABB::~AABB() {
 void AABB::Init() {
 	// Create the map afterwards
 	//COLLISION->AABBs[Component::GetOwner()->GetID()] = *this;
-	//if (Component::GetOwner())
+	//if (Component::GetOwner()
 	COLLISION->AddAABBComponent(Component::GetOwner()->GetID(), this);
 }
 
@@ -24,15 +25,10 @@ void AABB::PublishResults() {
 }
 
 void AABB::Serialize(std::stringstream& data) {
-	std::cout << "Serializing AABB Component" << std::endl;
-
 	// Not required since it's going to be computed
-	/*
-	data >> top_right_.x >> top_right_.y >> bottom_left_.x >> bottom_left_.y;
-	std::cout << "Top Right: " << top_right_.x << top_right_.y
-			  << "Bottom Left: " << bottom_left_.x << bottom_left_.y
-			  << std::endl;
-	*/
+	std::cout << "Serializing AABB Component" << std::endl;
+	(void)data;
+	
 }
 
 AABB* AABB::Clone() {

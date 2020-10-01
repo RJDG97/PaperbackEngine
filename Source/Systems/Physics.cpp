@@ -7,7 +7,7 @@ Physics* PHYSICS;
 
 Physics::Physics() {
 	PHYSICS = this;
-	debug = false;
+	debug_ = false;
 }
 
 void Physics::Init() {
@@ -20,23 +20,37 @@ void Physics::Init() {
 }
 
 void Physics::Update(float frametime) {
+	if (debug_) { M_DEBUG->WriteDebugMessage("\nPhysics System Update Debug Log:\n"); }
+
 	// Updating entity's velocity
 	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
 
 		// Perform update of entity's motion component
-		//std::cout << "Frametime: " << frametime << std::endl;
 		motion->second->velocity_ += motion->second->acceleration_ * frametime;
-		//std::cout << "Acc: " << motion->second.acceleration_.x << ", " << motion->second.acceleration_.y << std::endl;
-		//std::cout << "Vel: " << motion->second->velocity_.x << ", " << motion->second->velocity_.y << std::endl;
 
 		// Check whether the entity owns a transform component by checking entity ID
 		TransformIt xform = transform_arr_.find(motion->first);
 		if (xform != transform_arr_.end()) {
+			if (debug_) {
+				// Log id of entity and it's updated components that are being updated
+				std::stringstream ss;
+				ss << "Updating entity: " << std::to_string(xform->first) << "\n";
+				ss << "\tCurrent Position: " << xform->second->position_.x << ", " << xform->second->position_.y << "\n";
+				M_DEBUG->WriteDebugMessage(ss.str());
+			}
+
 			// Perform update of entity's transform component
 			xform->second->position_ += motion->second->velocity_ * frametime;
-			//std::cout << "Position in Physics: " << xform->second->position_.x << ", " << xform->second->position_.y << std::endl;
+
+			if (debug_) {
+				// Log id of entity and it's updated components that are being updated
+				std::stringstream ss;
+				ss << "\tUpdated Position: " << xform->second->position_.x << ", " << xform->second->position_.y << "\n";
+				M_DEBUG->WriteDebugMessage(ss.str());
+			}
 		}
 	}
+	if (debug_) { debug_ = !debug_; }
 }
 
 void Physics::PublishResults() {
@@ -99,6 +113,7 @@ void Physics::ChangeVelocity(Message* m) {
 
 void Physics::AddTransformComponent(EntityID id, Transform* transform) {
 
+	M_DEBUG->WriteDebugMessage("Adding Transform Component to entity: " + std::to_string(id) + "\n");
 	transform_arr_[id] = transform;
 }
 
@@ -108,12 +123,14 @@ void Physics::RemoveTransformComponent(EntityID id) {
 
 	if (it != transform_arr_.end()) {
 
+		M_DEBUG->WriteDebugMessage("Removing Transform Component from entity: " + std::to_string(id) + "\n");
 		transform_arr_.erase(it);
 	}
 }
 
 void Physics::AddMotionComponent(EntityID id, Motion* motion) {
 
+	M_DEBUG->WriteDebugMessage("Adding Motion Component to entity: " + std::to_string(id) + "\n");
 	motion_arr_[id] = motion;
 }
 
@@ -123,6 +140,7 @@ void Physics::RemoveMotionComponent(EntityID id) {
 
 	if (it != motion_arr_.end()) {
 
+		M_DEBUG->WriteDebugMessage("Removing Motion Component from entity: " + std::to_string(id) + "\n");
 		motion_arr_.erase(it);
 	}
 }
@@ -177,6 +195,15 @@ void Physics::SendMessageD(Message* msg) {
 			ChangeVelocity(msg);
 			break;
 		}
+		case MessageIDTypes::DEBUG_ALL:
+        {
+            debug_ = true;
+			break;
+        }
+		default:
+        {
+            break;
+        }
 	}
 }
 

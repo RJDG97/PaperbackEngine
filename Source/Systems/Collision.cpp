@@ -131,7 +131,8 @@ void Collision::Init() {
 
 //contains logic executed during the update loop of a game
 void Collision::Update(float frametime) {
-	size_t counter = 0;
+	if (debug_) { M_DEBUG->WriteDebugMessage("\nCollision System Update Debug Log:\n"); }
+
 	UpdateBoundingBox();
 
 	/*for (AABBIt box = aabb_arr_.begin(); box != aabb_arr_.end(); ++ box) {
@@ -201,9 +202,6 @@ void Collision::Update(float frametime) {
 								+ "Inverse vector 1: " + std::to_string(inverse_vector_1.x) + ", " 
 								+ std::to_string(inverse_vector_1.y) + "\n";
 					M_DEBUG->WriteDebugMessage(debug_str);
-
-					std::cout << debug_str << std::endl;
-					debug_ = !debug_;
 				}
 			}
 		}
@@ -211,6 +209,7 @@ void Collision::Update(float frametime) {
 
 	// Test it here as well
 	//UpdateBoundingBox();
+	if (debug_) { debug_ = !debug_; }
 }
 
 //void Collision::Draw() {
@@ -220,26 +219,35 @@ void Collision::Update(float frametime) {
 //function more akin to "What to do when message is received" for internal logic
 void Collision::SendMessageD(Message* m) {
 
-	(void)m;
+	switch (m->message_id_) {
+
+		case MessageIDTypes::DEBUG_ALL:
+		{
+			debug_ = true;
+			break;
+		}
+		default:
+		{
+			break;
+		}
+	}
 }
 
 void Collision::AddAABBComponent(EntityID id, AABB* aabb) {
-	std::string str{};
-	str += "Adding AABB Component to entity: " + std::to_string(id) + "\n";
-	M_DEBUG->WriteDebugMessage(str);
+
+	M_DEBUG->WriteDebugMessage("Adding AABB Component to entity: " + std::to_string(id) + "\n");
 
 	aabb_arr_[id] = aabb;
 }
 
 void Collision::RemoveAABBComponent(EntityID id) {
-	std::string str{};
-	str += "Removing AABB Component from entity: " + std::to_string(id) + "\n";
-	M_DEBUG->WriteDebugMessage(str);
+
 
 	AABBIt it = aabb_arr_.find(id);
 
 	if (it != aabb_arr_.end()) {
 
+		M_DEBUG->WriteDebugMessage("Removing AABB Component from entity: " + std::to_string(id) + "\n");
 		aabb_arr_.erase(it);
 	}
 }

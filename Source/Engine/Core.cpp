@@ -16,6 +16,8 @@ CoreEngine::CoreEngine() {
 ///Initializes all Systems & Managers in the game.
 void CoreEngine::Initialize() {
 
+	M_DEBUG->WriteDebugMessage("Core Engine System Init\n");
+
 	for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
 		system->second->Init();
 	}
@@ -29,7 +31,7 @@ void CoreEngine::Initialize() {
 void CoreEngine::GameLoop() {
 	while (b_game_active_) {
 		if (debug_)
-			M_DEBUG->WriteDebugMessage("Core Engine Update:\n");
+			M_DEBUG->WriteDebugMessage("Core Engine System Update:\n");
 		
 		PE_FrameRate.FrameRateLoop();
 

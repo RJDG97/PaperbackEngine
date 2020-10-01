@@ -40,7 +40,7 @@ public:
 
 private:
 
-	bool debug;
+	bool debug_;
 
 	using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
 	std::unordered_map<EntityID,Transform*> transform_arr_;

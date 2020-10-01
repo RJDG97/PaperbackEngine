@@ -82,6 +82,7 @@ void EntityFactory::Update(float frametime) {
 
 		// If it still exists, delete the entity
 		if (beginIt != entity_id_map_.end()) {
+			M_DEBUG->WriteDebugMessage("Deleting entity id: " + std::to_string(beginIt->first) + "\n");
 			delete entity;
 			entity_id_map_.erase(beginIt);
 		}
@@ -91,11 +92,13 @@ void EntityFactory::Update(float frametime) {
 }
 
 void EntityFactory::DestroyAllEntities() {
-	
+	M_DEBUG->WriteDebugMessage("Deleting all entities!\n");
 	EntityIdMapType::iterator it = entity_id_map_.begin();
 
 	// Loop through all entities
 	for (; it != entity_id_map_.end(); ++it) {
+		// Log id of entity that is being deleted
+		M_DEBUG->WriteDebugMessage("Deleting entity id: " + std::to_string(it->first) + "\n");
 		// Delete all entities
 		delete it->second;
 	}
@@ -105,7 +108,11 @@ void EntityFactory::DestroyAllEntities() {
 	//clean up archetypes
 	
 	for (EntityArchetypeMapTypeIt it2 = entity_archetype_map_.begin(); it2 != entity_archetype_map_.end(); ++it2) {
-
+		// Log EntityType of entity that is being deleted (Archetype)
+		std::stringstream str;
+		str << "Deleting entity of type: " << typeid(it2->first).name() << "\n";
+		M_DEBUG->WriteDebugMessage(str.str());
+		// Delete all entities
 		delete it2->second;
 	}
 
@@ -210,6 +217,8 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 	std::ifstream input_file(filename.c_str()/*"TestJSON/2compTest.json"*/);
 	assert(input_file);
 
+	M_DEBUG->WriteDebugMessage("Creating a new entity of type: " + entity_name + "\n");
+
 	// Read each line separated by a '\n' into a stringstream
 	std::stringstream json_doc_buffer;
 	std::string input;
@@ -305,7 +314,8 @@ void EntityFactory::StoreEntityID(Entity* entity) {
 	entity->object_id_ = last_entity_id_;
 
 	entity_id_map_[last_entity_id_] = entity;
-	std::cout << "Entity stored with ID: " << last_entity_id_ << std::endl;
+	
+	M_DEBUG->WriteDebugMessage("Storing entity with ID: " + std::to_string(last_entity_id_) + "\n");
 }
 
 void EntityFactory::AddComponentCreator(const std::string& name, ComponentCreator* creator) {
@@ -343,6 +353,11 @@ void EntityFactory::SendMessageD(Message* msg) {
 		EntityIdMapTypeIt ent = entity_id_map_.find(m->entity_one_);
 		Destroy(&*ent->second);
 		break;
+	}
+	case MessageIDTypes::DEBUG_ALL:
+	{
+
+		debug_ = true;
 	}
 	default:
 		break;

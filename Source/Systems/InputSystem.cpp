@@ -207,6 +207,14 @@ void InputSystem::Update(float frametime) {
 		}
 	}
 
+	// Temporary placeholder before Input System conversion
+	if (CheckCurrentInput(0x42)) {
+		
+		//for debug bomb
+		Message msg(MessageIDTypes::DEBUG_ALL);
+		CORE->BroadcastMessage(&msg);
+	}
+
 	//send the message with the updated flag to be processed
 	Message_PlayerInput input_msg{ MessageIDTypes::M_ButtonPress, input_flag };
 	CORE->BroadcastMessage(&input_msg);
@@ -290,6 +298,12 @@ void InputSystem::Update(float frametime) {
 				// let Game sort out what to do
 				break;
 			case 0x42: 	//'B'
+			/*{
+				//for debug bomb
+				Message msg(MessageIDTypes::DEBUG_ALL);
+				CORE->BroadcastMessage(&msg);
+				break;
+			}*/
 				break;
 			case 0x43: 	//'C'
 				break;

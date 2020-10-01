@@ -157,6 +157,11 @@ void Game::SendMessageD(Message* m) {
 		}
 		break;
 	}
+	case MessageIDTypes::DEBUG_ALL:
+	{
+
+		debug_ = true;
+	}
 	default:
 		break;
 	}
