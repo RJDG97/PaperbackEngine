@@ -1,0 +1,46 @@
+{
+  "Player": [
+    {
+      "component": "Transform",
+      "position": "0.0 0.0 ",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "100.0 100.0"
+    },
+    {
+      "component": "AnimationRenderer"
+    },
+    {
+      "component": "AABB"
+    }
+  ],
+  "Enemy": [
+    {
+      "component": "Transform",
+      "position": "-150.0 100.0",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "60.0 60.0"
+    },
+    {
+      "component": "AnimationRenderer"
+    },
+    {
+      "component": "AABB"
+    }
+  ]
+}
