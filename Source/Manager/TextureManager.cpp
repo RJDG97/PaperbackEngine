@@ -19,6 +19,8 @@ void TextureManager::TempFunctionForTesting()
 
     //load textures
     LoadTexture("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_, 32, 32);
+
+    LoadTexture("Resources\\Sprites\\MC_Walk.png", 8, 1, player_walk_, 60, 128);
 }
 
 void TextureManager::CreateQuadTexture(TextureName texture_name, unsigned char red,
@@ -136,8 +138,8 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
 
         glGenTextures(1, &texobj_hdl);
         glBindTexture(GL_TEXTURE_2D, texobj_hdl);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

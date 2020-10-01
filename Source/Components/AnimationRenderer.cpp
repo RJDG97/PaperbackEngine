@@ -10,10 +10,10 @@
 
 AnimationRenderer::AnimationRenderer()
 {
-    SetAnimation(AnimationName::Player_Attack);
+    AddAnimation(AnimationName::Player_Walk);
+    SetAnimation(AnimationName::Player_Walk);
     play_animation_ = true;
     has_finished_animating = false;
-    scaling_ = glm::vec2{ 50.0f, 50.0f };
     orientation_ = glm::vec2{ 0.0f, 10.0f };
     position_ = glm::vec2{ 100.0f, 100.0f };
     model_ = CORE->GetManager<ModelManager>()->GetModel(ModelType::BoxModel);
@@ -41,10 +41,17 @@ void AnimationRenderer::PublishResults()
 {
 }
 
+void AnimationRenderer::AddAnimation(GLint animation_id)
+{
+    obj_animations_[animation_id] = CORE->GetManager<AnimationManager>()->GetAnimation(animation_id);
+    current_animation_ = obj_animations_[animation_id];
+    current_frame_ = obj_animations_[animation_id]->GetFirstFrame();
+}
+
 void AnimationRenderer::SetAnimation(GLint animation_id)
 {
-    current_animation_ = CORE->GetManager<AnimationManager>()->GetAnimation(animation_id);
-    current_frame_ = current_animation_->GetFirstFrame();
+    current_frame_ = obj_animations_[animation_id]->GetFirstFrame();
+    current_animation_ = obj_animations_[animation_id];
     time_elapsed = 0.0f;
 }
 

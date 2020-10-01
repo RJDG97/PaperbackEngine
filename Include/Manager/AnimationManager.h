@@ -38,7 +38,7 @@ public:
 
 	void Init() override;
 	void TempFunctionForTesting();
-	void AddAnimation(GLint animation_id, size_t num_frames, size_t texID, GLfloat frame_duration);
+	void CreateAnimation(GLint animation_id, size_t num_frames, size_t texID, GLfloat frame_duration);
 	bool DeleteAnimation(GLint animation_id);
 
 	Animation* GetAnimation(GLint animation_id);

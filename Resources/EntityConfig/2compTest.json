@@ -12,7 +12,7 @@
     },
     {
       "component": "Scale",
-      "scale": "100.0 100.0"
+      "scale": "50.0 100.0"
     },
     {
       "component": "AnimationRenderer"
@@ -34,7 +34,7 @@
     },
     {
       "component": "Scale",
-      "scale": "60.0 60.0"
+      "scale": "30.0 60.0"
     },
     {
       "component": "AnimationRenderer"

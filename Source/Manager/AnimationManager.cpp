@@ -38,13 +38,13 @@ void AnimationManager::Init()
 
 void AnimationManager::TempFunctionForTesting()
 {
-	AddAnimation(AnimationName::Player_Attack, 6, TextureName::Carpet_Brick_BtmRight, 0.5f);
+	CreateAnimation(AnimationName::Player_Walk, 8, TextureName::Player_Walk1, 0.07f);
 }
 
-void AnimationManager::AddAnimation(GLint animation_id,
-									size_t num_frames,
-									size_t texID,
-									GLfloat frame_duration)
+void AnimationManager::CreateAnimation(GLint animation_id,
+									   size_t num_frames,
+									   size_t texID,
+									   GLfloat frame_duration)
 {
 	std::list<Texture*> temp;
 

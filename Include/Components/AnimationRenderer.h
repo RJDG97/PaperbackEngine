@@ -14,6 +14,7 @@ class AnimationRenderer : public Component {
 	Model model_;
 	Shader shdr_pgm_;
 
+	std::map<size_t, Animation*> obj_animations_;	// all possible animations that an object can switch between
 	Animation* current_animation_;					// current animation playing
 	std::list<Texture*>::iterator current_frame_;	// current frame of current animation
 
@@ -38,6 +39,7 @@ public:
 	void PublishResults();
 	//void Serialize(ISerializer& str);
 
+	void AddAnimation(GLint animation_id);
 	void SetAnimation(GLint animation_id);
 
 	void Update(float frametime, glm::mat3 world_to_ndc_xform);

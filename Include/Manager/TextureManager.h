@@ -34,7 +34,17 @@ enum TextureName
 	Brick_Right,
 	Plank,
 	Stone,
-	Rock
+	Rock,
+
+	//Player_Walk
+	Player_Walk1,
+	Player_Walk2,
+	Player_Walk3,
+	Player_Walk4,
+	Player_Walk5,
+	Player_Walk6,
+	Player_Walk7,
+	Player_Walk8
 };
 
 class TextureManager : public IManager
@@ -70,6 +80,18 @@ class TextureManager : public IManager
 		Empty,
 		Empty,
 		Rock
+	};
+
+	std::vector<TextureName> player_walk_
+	{
+		Player_Walk1,
+		Player_Walk2,
+		Player_Walk3,
+		Player_Walk4,
+		Player_Walk5,
+		Player_Walk6,
+		Player_Walk7,
+		Player_Walk8
 	};
 
 public:
