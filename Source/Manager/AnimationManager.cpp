@@ -1,8 +1,7 @@
 #include "Manager/AnimationManager.h"
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Debug.h"
-
-AnimationManager* ANIMATIONMANAGER;
+#include "Engine/Core.h"
 
 Animation::Animation(std::list <Texture*> animation_frames, GLfloat frame_duration)
 	: animation_frames_{ animation_frames },
@@ -31,11 +30,6 @@ std::list<Texture*>::iterator Animation::GetFirstFrame()
 	return animation_frames_.begin();
 }
 
-AnimationManager::AnimationManager()
-{
-	ANIMATIONMANAGER = this;
-}
-
 void AnimationManager::Init()
 {
 	// Empty implementation for now
@@ -56,7 +50,7 @@ void AnimationManager::AddAnimation(GLint animation_id,
 
 	for (int i = 0; i < num_frames; ++i)
 	{
-		temp.push_back(TEXTUREMANAGER->GetTexture(texID + i));
+		temp.push_back(CORE->GetManager<TextureManager>()->GetTexture(texID + i));
 	}
 
 	animations_[animation_id] = Animation{ temp, frame_duration };

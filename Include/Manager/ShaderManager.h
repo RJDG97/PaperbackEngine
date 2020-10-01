@@ -101,15 +101,11 @@ class ShaderManager : public IManager
 
 public:
 
-    ShaderManager();
-
     void Init() override;
 
     void AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, GLint shader_type);
 
     Shader GetShdrpgm(GLint shader_type);
 };
-
-extern ShaderManager* SHADERMANAGER;
 
 #endif

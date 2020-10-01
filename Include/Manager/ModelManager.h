@@ -33,10 +33,6 @@ public:
 
     Model GetModel(GLint model_id);
 
-    ModelManager();
-
 };
-
-extern ModelManager* MODELMANAGER;
 
 #endif

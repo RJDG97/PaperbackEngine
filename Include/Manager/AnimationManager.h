@@ -36,8 +36,6 @@ class AnimationManager : public IManager
 
 public:
 
-	AnimationManager();
-
 	void Init() override;
 	void TempFunctionForTesting();
 	void AddAnimation(GLint animation_id, size_t num_frames, size_t texID, GLfloat frame_duration);
@@ -47,7 +45,5 @@ public:
 
 	void ChangeAnimationFrameDuration(GLint animation_id, GLfloat new_frame_duration);
 };
-
-extern AnimationManager* ANIMATIONMANAGER;
 
 #endif

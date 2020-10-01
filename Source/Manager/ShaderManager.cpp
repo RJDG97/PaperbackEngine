@@ -1,8 +1,6 @@
 #include "Manager/ShaderManager.h"
 #include "Systems/Debug.h"
 
-ShaderManager* SHADERMANAGER;
-
 GLint Shader::GetUniformLocation(GLchar const *name) {
   return glGetUniformLocation(pgm_handle, name); 
 }
@@ -361,11 +359,6 @@ void Shader::PrintActiveUniforms() const {
   }
   std::cout << "----------------------------------------------------------------------\n";
   delete[] pname;
-}
-
-ShaderManager::ShaderManager()
-{
-    SHADERMANAGER = this;
 }
 
 void ShaderManager::Init() {

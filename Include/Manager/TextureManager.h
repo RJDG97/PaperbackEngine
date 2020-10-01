@@ -82,7 +82,7 @@ public:
 	void LoadMiscTextures();
 
 	//Used for all other textures
-	bool LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<TextureName> texture_names, size_t tile_size);
+	bool LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<TextureName> texture_names, size_t tile_width, size_t tile_height);
 
 	//Cleanup
 	bool UnloadTexture(GLint tex_id);
@@ -91,10 +91,7 @@ public:
 	//Getter
 	Texture* GetTexture(GLint tex_id);
 
-	TextureManager();
 	~TextureManager();
 };
-
-extern TextureManager* TEXTUREMANAGER;
 
 #endif

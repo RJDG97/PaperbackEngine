@@ -116,8 +116,3 @@ Model ModelManager::GetModel(GLint model_id)
 {
     return models_[model_id];
 }
-
-ModelManager::ModelManager()
-{
-    MODELMANAGER = this;
-}

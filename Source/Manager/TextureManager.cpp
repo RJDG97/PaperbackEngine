@@ -3,8 +3,6 @@
 #include <FreeImage.h>
 #include <iostream>
 
-TextureManager* TEXTUREMANAGER;
-
 void TextureManager::Init()
 {
     //Initialize FreeImage
@@ -20,7 +18,7 @@ void TextureManager::TempFunctionForTesting()
     LoadMiscTextures();
 
     //load textures
-    LoadTexture("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_, 32);
+    LoadTexture("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_, 32, 32);
 }
 
 void TextureManager::CreateQuadTexture(TextureName texture_name, unsigned char red,
@@ -55,7 +53,7 @@ void TextureManager::LoadMiscTextures()
     CreateQuadTexture(TextureName::WhiteQuad, 255, 255, 255, 255);
 }
 
-bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<TextureName> texture_names, size_t tile_size)
+bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<TextureName> texture_names, size_t tile_width, size_t tile_height)
 {
     std::cout << "Tileset is being loaded." << std::endl;
 
@@ -108,7 +106,7 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
         return false;
     }
 
-    BYTE* pixels = new BYTE[tile_size * tile_size * 4];
+    BYTE* pixels = new BYTE[tile_width * tile_height * 4];
 
     for (int currentTile = 0; currentTile < columns * rows; ++currentTile)
     {
@@ -120,15 +118,15 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
         //if this texture ID is in use, unload the current texture
         UnloadTexture(texture_names[currentTile]);
 
-        const int startY = (rows - 1 - currentTile / columns) * tile_size;
-        const int startX = (currentTile % columns) * tile_size;
+        const int startY = (rows - 1 - currentTile / columns) * tile_height;
+        const int startX = (currentTile % columns) * tile_width;
         int i = 0;
 
-        for (int y = startY; y < startY + tile_size; ++y)
+        for (int y = startY; y < startY + tile_height; ++y)
         {
-            for (int x = startX; x < startX + tile_size; ++x, ++i)
+            for (int x = startX; x < startX + tile_width; ++x, ++i)
             {
-                int j = y * tile_size * columns + x;
+                int j = y * tile_width * columns + x;
                 pixels[i * 4 + 0] = bits[j * 4 + 2];
                 pixels[i * 4 + 1] = bits[j * 4 + 1];
                 pixels[i * 4 + 2] = bits[j * 4 + 0];
@@ -143,7 +141,7 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tile_size, tile_size,
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tile_width, tile_height,
             0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
         textures_[texture_names[currentTile]] = texobj_hdl;
@@ -151,7 +149,7 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
 
     //Free FreeImage's copy of the data
     FreeImage_Unload(dib);
-    delete []pixels;
+    delete[]pixels;
 
     //return success
     std::cout << "Tileset successfully loaded!" << std::endl;
@@ -180,11 +178,6 @@ void TextureManager::UnloadAllTextures()
 Texture* TextureManager::GetTexture(GLint tex_id)
 {
     return &textures_[tex_id];
-}
-
-TextureManager::TextureManager()
-{
-    TEXTUREMANAGER = this;
 }
 
 TextureManager::~TextureManager()
