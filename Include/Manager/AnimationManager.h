@@ -5,12 +5,13 @@
 #include "Manager/IManager.h"
 #include <list>
 
+/*
 enum AnimationName
 {
 	Player_Idle,
 	Player_Walk,
 	Player_Attack
-};
+};*/
 
 class Animation
 {
@@ -30,7 +31,7 @@ public:
 
 class AnimationManager : public IManager
 {
-	std::map<size_t, Animation> animations_;
+	std::map<std::string, Animation> animations_;
 	
 	TextureManager* texture_manager_;
 
@@ -38,12 +39,12 @@ public:
 
 	void Init() override;
 	void TempFunctionForTesting();
-	void CreateAnimation(GLint animation_id, size_t num_frames, size_t texID, GLfloat frame_duration);
-	bool DeleteAnimation(GLint animation_id);
+	void CreateAnimation(std::string animation_name, size_t num_frames, std::string texture_name, GLfloat frame_duration);
+	bool DeleteAnimation(std::string animation_name);
 
-	Animation* GetAnimation(GLint animation_id);
+	Animation* GetAnimation(std::string animation_name);
 
-	void ChangeAnimationFrameDuration(GLint animation_id, GLfloat new_frame_duration);
+	void ChangeAnimationFrameDuration(std::string animation_name, GLfloat new_frame_duration);
 };
 
 #endif

@@ -1,14 +1,12 @@
 #include "Manager/ModelManager.h"
 #include "Systems/Debug.h"
 
-ModelManager* MODELMANAGER;
-
 void ModelManager::Init() {
 
     M_DEBUG->WriteDebugMessage("Model Manager Init\n");
 }
 
-void ModelManager::AddTristripsModel(int slices, int stacks, GLint model_type)
+void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name)
 {
     // Generates the vertices required to render triangle strips
 
@@ -109,10 +107,10 @@ void ModelManager::AddTristripsModel(int slices, int stacks, GLint model_type)
     mdl.primitive_type_ = GL_TRIANGLE_STRIP;
     mdl.draw_cnt_ = idx_vtx.size();           // number of vertices
     mdl.primitive_cnt_ = count;               // number of triangles
-    models_[model_type] = mdl;
+    models_[model_name] = mdl;
 }
 
-Model ModelManager::GetModel(GLint model_id)
+Model ModelManager::GetModel(std::string model_name)
 {
-    return models_[model_id];
+    return models_[model_name];
 }

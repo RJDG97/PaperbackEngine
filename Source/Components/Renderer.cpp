@@ -7,12 +7,12 @@
 
 Renderer::Renderer()
 {
-    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(TextureName::Rock);
+    texture_ = *CORE->GetManager<TextureManager>()->GetTexture("Rock");
     scaling_ = glm::vec2{ 50.0f, 50.0f };
     orientation_ = glm::vec2{ 0.0f, 10.0f };
     position_ = glm::vec2{ 100.0f, 100.0f };
-    model_ = CORE->GetManager<ModelManager>()->GetModel(ModelType::BoxModel);
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(ShaderType::TextureShader);
+    model_ = CORE->GetManager<ModelManager>()->GetModel("BoxModel");
+    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm("TextureShader");
 }
 
 Renderer::~Renderer()
@@ -29,19 +29,19 @@ void Renderer::PublishResults()
 {
 }
 
-void Renderer::ChangeTexture(GLint tex_id)
+void Renderer::ChangeTexture(std::string texture_name)
 {
-    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(tex_id);
+    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name);
 }
 
-void Renderer::ChangeModel(GLint model_id)
+void Renderer::ChangeModel(std::string model_name)
 {
-    model_ = CORE->GetManager<ModelManager>()->GetModel(model_id);
+    model_ = CORE->GetManager<ModelManager>()->GetModel(model_name);
 }
 
-void Renderer::ChangeShdrpgm(GLint shdr_pgm_id)
+void Renderer::ChangeShdrpgm(std::string shdr_pgm_name)
 {
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm_id);
+    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm_name);
 }
 
 void Renderer::Update(float frametime, glm::mat3 world_to_ndc_xform)

@@ -38,41 +38,41 @@ void AnimationManager::Init()
 
 void AnimationManager::TempFunctionForTesting()
 {
-	CreateAnimation(AnimationName::Player_Walk, 8, TextureName::Player_Walk1, 0.07f);
+	CreateAnimation("Player_Walk", 8, "Player_Walk", 0.07f);
 }
 
-void AnimationManager::CreateAnimation(GLint animation_id,
+void AnimationManager::CreateAnimation(std::string animation_name,
 									   size_t num_frames,
-									   size_t texID,
+									   std::string texture_name,
 									   GLfloat frame_duration)
 {
 	std::list<Texture*> temp;
 
 	for (int i = 0; i < num_frames; ++i)
 	{
-		temp.push_back(CORE->GetManager<TextureManager>()->GetTexture(texID + i));
+		temp.push_back(CORE->GetManager<TextureManager>()->GetTexture(texture_name + std::to_string(i)));
 	}
 
-	animations_[animation_id] = Animation{ temp, frame_duration };
+	animations_[animation_name] = Animation{ temp, frame_duration };
 }
 
-bool AnimationManager::DeleteAnimation(GLint animation_id)
+bool AnimationManager::DeleteAnimation(std::string animation_name)
 {
-	if (animations_.find(animation_id) != animations_.end())
+	if (animations_.find(animation_name) != animations_.end())
 	{
-		animations_.erase(animation_id);
+		animations_.erase(animation_name);
 		return true;
 	}
 
 	return false;
 }
 
-Animation* AnimationManager::GetAnimation(GLint animation_id)
+Animation* AnimationManager::GetAnimation(std::string animation_name)
 {
-	return &animations_[animation_id];
+	return &animations_[animation_name];
 }
 
-void AnimationManager::ChangeAnimationFrameDuration(GLint animation_id, GLfloat new_frame_duration)
+void AnimationManager::ChangeAnimationFrameDuration(std::string animation_name, GLfloat new_frame_duration)
 {
-	animations_[animation_id].ChangeFrameDuration(new_frame_duration);
+	animations_[animation_name].ChangeFrameDuration(new_frame_duration);
 }

@@ -14,19 +14,17 @@ class AnimationRenderer : public Component {
 	Model model_;
 	Shader shdr_pgm_;
 
-	std::map<size_t, Animation*> obj_animations_;	// all possible animations that an object can switch between
-	Animation* current_animation_;					// current animation playing
-	std::list<Texture*>::iterator current_frame_;	// current frame of current animation
+	std::map<std::string, Animation*> obj_animations_;	// all possible animations that an object can switch between
+	Animation* current_animation_;						// current animation playing
+	std::list<Texture*>::iterator current_frame_;		// current frame of current animation
 
-	glm::mat3 mdl_to_ndc_xform_;					// model-to-NDC transform
-	glm::mat3 mdl_xform_;							// model (model-to-world)
+	glm::mat3 mdl_to_ndc_xform_;						// model-to-NDC transform
+	glm::mat3 mdl_xform_;								// model (model-to-world)
 
-	glm::vec2 orientation_;							// x - angle of rotation in degrees, y - speed of rotation
-	glm::vec2 scaling_;								// scaling parameters
-	glm::vec2 position_;							// translation vector coordinates
+	glm::vec2 orientation_;								// x - angle of rotation in degrees, y - speed of rotation
 
-	bool play_animation_;							// true - play animation, false - stop playing animation
-	bool has_finished_animating;					// true - animation has not finished, false - still in middle of animation
+	bool play_animation_;								// true - play animation, false - stop playing animation
+	bool has_finished_animating;						// true - animation has not finished, false - still in middle of animation
 
 	float time_elapsed;
 
@@ -39,8 +37,8 @@ public:
 	void PublishResults();
 	//void Serialize(ISerializer& str);
 
-	void AddAnimation(GLint animation_id);
-	void SetAnimation(GLint animation_id);
+	void AddAnimation(std::string animation_name);
+	void SetAnimation(std::string animation_name);
 
 	void Update(float frametime, glm::mat3 world_to_ndc_xform);
 	void Draw();

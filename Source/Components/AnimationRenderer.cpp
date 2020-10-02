@@ -10,14 +10,13 @@
 
 AnimationRenderer::AnimationRenderer()
 {
-    AddAnimation(AnimationName::Player_Walk);
-    SetAnimation(AnimationName::Player_Walk);
+    AddAnimation("Player_Walk");
+    SetAnimation("Player_Walk");
     play_animation_ = true;
     has_finished_animating = false;
     orientation_ = glm::vec2{ 0.0f, 10.0f };
-    position_ = glm::vec2{ 100.0f, 100.0f };
-    model_ = CORE->GetManager<ModelManager>()->GetModel(ModelType::BoxModel);
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(ShaderType::TextureShader);
+    model_ = CORE->GetManager<ModelManager>()->GetModel("BoxModel");
+    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm("TextureShader");
 }
 
 AnimationRenderer::~AnimationRenderer()
@@ -28,11 +27,11 @@ AnimationRenderer::~AnimationRenderer()
 
 void AnimationRenderer::Init()
 {
-    // Testing purposes
+    /* Testing purposes
     Scale* e_scale = dynamic_cast<Scale*>(Component::GetOwner()->GetComponent(ComponentTypes::SCALE));
     assert(e_scale && "entity does not have a scale component");
     scaling_.x = e_scale->GetScale().x * 0.5f;
-    scaling_.y = e_scale->GetScale().y * 0.5f;
+    scaling_.y = e_scale->GetScale().y * 0.5f;*/
 
     CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
 }
@@ -41,48 +40,45 @@ void AnimationRenderer::PublishResults()
 {
 }
 
-void AnimationRenderer::AddAnimation(GLint animation_id)
+void AnimationRenderer::AddAnimation(std::string animation_name)
 {
-    obj_animations_[animation_id] = CORE->GetManager<AnimationManager>()->GetAnimation(animation_id);
-    current_animation_ = obj_animations_[animation_id];
-    current_frame_ = obj_animations_[animation_id]->GetFirstFrame();
+    obj_animations_[animation_name] = CORE->GetManager<AnimationManager>()->GetAnimation(animation_name);
+    current_animation_ = obj_animations_[animation_name];
+    current_frame_ = obj_animations_[animation_name]->GetFirstFrame();
 }
 
-void AnimationRenderer::SetAnimation(GLint animation_id)
+void AnimationRenderer::SetAnimation(std::string animation_name)
 {
-    current_frame_ = obj_animations_[animation_id]->GetFirstFrame();
-    current_animation_ = obj_animations_[animation_id];
+    current_frame_ = obj_animations_[animation_name]->GetFirstFrame();
+    current_animation_ = obj_animations_[animation_name];
     time_elapsed = 0.0f;
 }
 
 void AnimationRenderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
 {
-    glm::mat3 scale, rot, trans;
+    glm::mat3 scaling, rotation, translation;
 
-    scale = glm::mat3{ scaling_.x, 0.0f, 0.0f,
-                       0.0f, scaling_.y, 0.0f,
-                       0.0f, 0.0f, 1.0f };
+    Vector2D scale = dynamic_cast<Scale*>(Component::GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
+
+    scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
+                         0.0f, scale.y, 0.0f,
+                         0.0f, 0.0f, 1.0f };
 
     //orientation_.x += orientation_.y * static_cast<float>(frametime);
 
-    rot = glm::mat3{  glm::cos(orientation_.x * M_PI / 180), glm::sin(orientation_.x * M_PI / 180), 0.0f,
-                     -glm::sin(orientation_.x * M_PI / 180), glm::cos(orientation_.x * M_PI / 180), 0.0f,
-                      0.0f, 0.0f, 1.0f };
-
-
-    /*trans = glm::mat3{ 1.0f, 0.0f, 0.0f,
-                       0.0f, 1.0f, 0.0f,
-                       position_.x, position_.y, 1.0f };*/
+    rotation = glm::mat3{  glm::cos(orientation_.x * M_PI / 180), glm::sin(orientation_.x * M_PI / 180), 0.0f,
+                          -glm::sin(orientation_.x * M_PI / 180), glm::cos(orientation_.x * M_PI / 180), 0.0f,
+                           0.0f, 0.0f, 1.0f };
 
     Transform* test = dynamic_cast<Transform*>(GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
     assert(test);
 
-    trans = glm::mat3{ 1.0f, 0.0f, 0.0f,
+    translation = glm::mat3{ 1.0f, 0.0f, 0.0f,
                        0.0f, 1.0f, 0.0f,
                        test->position_.x, test->position_.y, 1.0f };
 
-    mdl_to_ndc_xform_ = world_to_ndc_xform * trans * rot * scale;
+    mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
 
     if (play_animation_ == true)
     {
@@ -134,11 +130,7 @@ void AnimationRenderer::Draw()
 
 void AnimationRenderer::Serialize(std::stringstream& data) {
 
-    (void)data;
-
     std::cout << "Serializing AnimationRenderer" << std::endl;
-
-
 
     /*
     SetAnimation(AnimationName::Player_Attack);

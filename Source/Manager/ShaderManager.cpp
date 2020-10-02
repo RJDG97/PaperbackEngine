@@ -366,7 +366,7 @@ void ShaderManager::Init() {
     M_DEBUG->WriteDebugMessage("Shader Manager Init\n");
 }
 
-void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, GLint shader_type)
+void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, std::string shader_type)
 {
     std::vector<std::pair<GLenum, std::string>> shdr_files
     {
@@ -389,7 +389,7 @@ void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, GLint
     shaders_[shader_type] = shdr_pgm;
 }
 
-Shader ShaderManager::GetShdrpgm(GLint shader_type)
+Shader ShaderManager::GetShdrpgm(std::string shader_name)
 {
-    return shaders_[shader_type];
+    return shaders_[shader_name];
 }

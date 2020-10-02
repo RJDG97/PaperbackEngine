@@ -8,10 +8,11 @@
 #include "Manager/ShaderManager.h"
 #include "Manager/IManager.h"
 
+/*
 enum ModelType
 {
     BoxModel
-};
+};*/
 
 struct Model
 {
@@ -23,15 +24,15 @@ struct Model
 
 class ModelManager : public IManager
 {
-    std::map<GLint, Model> models_;
+    std::map<std::string, Model> models_;
 
 public:
 
     void Init() override;
 
-    void AddTristripsModel(int slices, int stacks, GLint model_type);
+    void AddTristripsModel(int slices, int stacks, std::string model_name);
 
-    Model GetModel(GLint model_id);
+    Model GetModel(std::string model_name);
 
 };
 

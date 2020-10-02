@@ -21,9 +21,11 @@ void TextureManager::TempFunctionForTesting()
     LoadTexture("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_, 32, 32);
 
     LoadTexture("Resources\\Sprites\\MC_Walk.png", 8, 1, player_walk_, 60, 128);
+
+    LoadTexture("Resources\\Sprites\\Background.png", 1, 1, background_, 1524, 854);
 }
 
-void TextureManager::CreateQuadTexture(TextureName texture_name, unsigned char red,
+void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char red,
                                        unsigned char green, unsigned char blue, unsigned char alpha)
 {
     GLuint texobj_hdl;
@@ -51,11 +53,11 @@ void TextureManager::CreateQuadTexture(TextureName texture_name, unsigned char r
 
 void TextureManager::LoadMiscTextures()
 {
-    CreateQuadTexture(TextureName::BlackQuad, 0, 0, 0, 255);
-    CreateQuadTexture(TextureName::WhiteQuad, 255, 255, 255, 255);
+    CreateQuadTexture("BlackQuad", 0, 0, 0, 255);
+    CreateQuadTexture("WhiteQuad", 255, 255, 255, 255);
 }
 
-bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<TextureName> texture_names, size_t tile_width, size_t tile_height)
+bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names, size_t tile_width, size_t tile_height)
 {
     std::cout << "Tileset is being loaded." << std::endl;
 
@@ -112,7 +114,7 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
 
     for (int currentTile = 0; currentTile < columns * rows; ++currentTile)
     {
-        if (texture_names[currentTile] == Empty)
+        if (texture_names[currentTile] == "Empty")
         {
             continue;
         }
@@ -158,14 +160,14 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
     return true;
 }
 
-bool TextureManager::UnloadTexture(GLint tex_id)
+bool TextureManager::UnloadTexture(std::string texture_name)
 {
     //if this texture ID is in use, unload the current texture
-    if (textures_.find(tex_id) != textures_.end())
+    if (textures_.find(texture_name) != textures_.end())
     {
-        glDeleteTextures(1, &(textures_[tex_id]));
-        textures_.erase(tex_id);
-        std::cout << "Texture " << tex_id << "is unloaded" << std::endl;
+        glDeleteTextures(1, &(textures_[texture_name]));
+        textures_.erase(texture_name);
+        std::cout << "Texture " << texture_name << "is unloaded" << std::endl;
         return true;
     }
 
@@ -177,9 +179,9 @@ void TextureManager::UnloadAllTextures()
     glDeleteTextures(textures_.size(), &(textures_[0]));
 }
 
-Texture* TextureManager::GetTexture(GLint tex_id)
+Texture* TextureManager::GetTexture(std::string texture_name)
 {
-    return &textures_[tex_id];
+    return &textures_[texture_name];
 }
 
 TextureManager::~TextureManager()

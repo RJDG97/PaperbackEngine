@@ -71,9 +71,9 @@ void GraphicsSystem::Init() {
     window_height_ = windows_system_->getWinHeight();
     glViewport(0, 0, window_width_, window_height_);
 
-    CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, ModelType::BoxModel);
-    CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/default.vert", "Shaders/default.frag", ShaderType::TextureShader);
-    CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", ShaderType::LightShader);
+    CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "BoxModel");
+    CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/default.vert", "Shaders/default.frag", "TextureShader");
+    CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
 
     //FACTORY->AddComponentCreator("Renderer", new ComponentCreatorType<Renderer>(ComponentTypes::RENDERER));
     FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreatorType<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));

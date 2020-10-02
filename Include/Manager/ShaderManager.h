@@ -89,23 +89,24 @@ private:
     GLboolean FileExists(std::string const& file_name);
 };
 
+/*
 enum ShaderType
 {
     TextureShader,
     LightShader
-};
+};*/
 
 class ShaderManager : public IManager
 {
-    std::map<GLint, Shader> shaders_;
+    std::map<std::string, Shader> shaders_;
 
 public:
 
     void Init() override;
 
-    void AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, GLint shader_type);
+    void AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, std::string shader_type);
 
-    Shader GetShdrpgm(GLint shader_type);
+    Shader GetShdrpgm(std::string shader_type);
 };
 
 #endif

@@ -32,9 +32,9 @@ public:
 	void PublishResults();
 	//void Serialize(ISerializer& str);
 
-	void ChangeTexture(GLint tex_id);
-	void ChangeModel(GLint model_id);
-	void ChangeShdrpgm(GLint shdrpgm_id);
+	void ChangeTexture(std::string texture_name);
+	void ChangeModel(std::string model_name);
+	void ChangeShdrpgm(std::string shdr_pgm_name);
 
 	void Update(float frametime, glm::mat3 world_to_ndc_xform);
 	void Draw();
