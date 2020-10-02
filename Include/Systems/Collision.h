@@ -5,11 +5,17 @@
 #include "Systems/Message.h"
 #include "ISystem.h"
 #include "Components/AABB.h"
+#include "Manager/ShaderManager.h"
+#include "Manager/ModelManager.h"
 #include <unordered_map>
 
 class Collision : public ISystem {
 
+	//For debug drawing
 	bool debug_;
+	Model model_;
+	Shader shdr_pgm_;
+	glm::mat3* world_to_ndc_xform_;
 
 	using AABBIt = std::unordered_map<EntityID, AABB*>::iterator;
 	std::unordered_map<EntityID, AABB*> aabb_arr_;
@@ -32,6 +38,8 @@ public:
 
 	//contains logic executed during the update loop of a game
 	virtual void Update(float frametime) override;
+
+	virtual void Draw() override;
 
 	//returns the name of the system for debug use
 	virtual std::string GetName() override { return "Collision"; }

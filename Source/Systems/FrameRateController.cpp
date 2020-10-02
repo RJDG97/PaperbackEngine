@@ -91,29 +91,12 @@ void FrameRateController::FrameControllerEnd()
 
 void FrameRateController::FrameRateLoop()
 {
+	// Get time at start of frame
 	if (Frames == 0)
 		start = std::chrono::high_resolution_clock::now();
-	// Get Current time
-	std::chrono::time_point<std::chrono::steady_clock> currenttime = std::chrono::high_resolution_clock::now();
-	// Check whether time elapsed is past min frame time
-	std::chrono::duration<float> _FrameTime = currenttime - start;
-	while (_FrameTime.count() < MinFrameTime)
-	{
-		// Check whether current time is more than min frame time
-		end = std::chrono::high_resolution_clock::now();
-		_FrameTime = end - start;
-	}
-	// Set Delta as frametime
-	Delta = end - start;
-	frametime = Delta;
-	timeelapsed += frametime;
-	Dt = PE_FrameRate.Delta.count();
-
-	// increment frames
-	Frames++;
-
+	FrameControllerEnd();
 	// Get time at start of frame
-	start = std::chrono::high_resolution_clock::now();
+	FrameControllerStart();
 	
 }
 

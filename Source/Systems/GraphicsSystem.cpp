@@ -74,6 +74,7 @@ void GraphicsSystem::Init() {
     CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "BoxModel");
     CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/default.vert", "Shaders/default.frag", "TextureShader");
     CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
+    CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
 
     FACTORY->AddComponentCreator("Renderer", new ComponentCreatorType<Renderer>(ComponentTypes::RENDERER));
     FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreatorType<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
@@ -132,6 +133,7 @@ Clears the buffer and then draws a rectangular model in the viewport.
 void GraphicsSystem::Draw() {
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
 
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -185,7 +187,7 @@ void GraphicsSystem::Draw() {
 
     if (debug_) { debug_ = !debug_; }
 
-    glfwSwapBuffers(windows_system_->ptr_window);
+    //glfwSwapBuffers(windows_system_->ptr_window);
 }
 
 /*  _________________________________________________________________________ */

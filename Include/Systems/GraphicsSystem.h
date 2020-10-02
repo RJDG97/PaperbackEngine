@@ -28,17 +28,18 @@ class GraphicsSystem : public ISystem
     WindowsSystem* windows_system_;
     //LightingSystem* lighting_system;
 
-    //temp camera, will make it into a gameobject next time!
+    //temp camera, will make it into a component next time!
     glm::vec2 cam_pos_;
     glm::vec2 cam_size_;
     glm::mat3 view_xform_;
     glm::mat3 camwin_to_ndc_xform_;
-    glm::mat3 world_to_ndc_xform_;
 
     void CameraInit();
     void CameraUpdate();
 
 public:
+
+    glm::mat3 world_to_ndc_xform_;
 
     void Init();
     void Update(float frametime);

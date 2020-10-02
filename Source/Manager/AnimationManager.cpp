@@ -34,6 +34,7 @@ void AnimationManager::Init()
 {
 	// Empty implementation for now
 	M_DEBUG->WriteDebugMessage("Animation Manager Init\n");
+	texture_manager_ = CORE->GetManager<TextureManager>();
 }
 
 void AnimationManager::TempFunctionForTesting()
@@ -50,7 +51,7 @@ void AnimationManager::CreateAnimation(std::string animation_name,
 
 	for (int i = 0; i < num_frames; ++i)
 	{
-		temp.push_back(CORE->GetManager<TextureManager>()->GetTexture(texture_name + std::to_string(i)));
+		temp.push_back(texture_manager_->GetTexture(texture_name + std::to_string(i)));
 	}
 
 	animations_[animation_name] = Animation{ temp, frame_duration };

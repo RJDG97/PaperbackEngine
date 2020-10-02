@@ -1,3 +1,5 @@
+#include "Engine/Core.h"
+#include "Systems/GraphicsSystem.h"
 #include "Systems/Collision.h"
 #include "Systems/Factory.h"
 #include "Systems/Debug.h"
@@ -9,6 +11,7 @@
 #include "Components/Motion.h"
 #include <iostream>
 #include <assert.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #define EPSILON 0.001f
 
@@ -16,7 +19,7 @@ Collision* COLLISION;
 
 Collision::Collision() {
 	
-	debug_ = false;
+	debug_ = true;
 	COLLISION = this;
 }
 
@@ -126,6 +129,10 @@ void Collision::Init() {
 
 	FACTORY->AddComponentCreator("AABB", new ComponentCreatorType<AABB>(ComponentTypes::AABB));
 
+	shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
+	model_ = CORE->GetManager<ModelManager>()->GetModel("BoxModel");
+	world_to_ndc_xform_ = &(CORE->GetSystem<GraphicsSystem>()->world_to_ndc_xform_);
+
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }
 
@@ -209,12 +216,66 @@ void Collision::Update(float frametime) {
 
 	// Test it here as well
 	//UpdateBoundingBox();
-	if (debug_) { debug_ = !debug_; }
+	if (debug_)
+	{
+
+	}
 }
 
-//void Collision::Draw() {
-//	
-//}
+void Collision::Draw() {
+
+	if (debug_)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glLineWidth(3.0f);
+
+		for (AABBIt aabb = aabb_arr_.begin(); aabb != aabb_arr_.end(); ++aabb)
+		{
+			Vector2D top_right = (*aabb).second->top_right_;
+			Vector2D bottom_left = (*aabb).second->bottom_left_;
+
+			Vector2D aabb_middle = bottom_left + (top_right - bottom_left)/2;
+
+			glm::mat3 scaling = glm::mat3{ (top_right.x - bottom_left.x)/2, 0.0f, 0.0f,
+										   0.0f, (top_right.y - bottom_left.y)/2, 0.0f,
+										   0.0f, 0.0f, 1.0f };
+
+			glm::mat3 translation{ 1.0f, 0.0f, 0.0f,
+								   0.0f, 1.0f, 0.0f,
+								   aabb_middle.x, aabb_middle.y, 1.0f };
+
+			glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_) * translation * scaling;
+
+			shdr_pgm_.Use();
+
+			glBindVertexArray(model_.vaoid_);
+
+			GLint uniform_var_loc1 =
+				glGetUniformLocation(shdr_pgm_.GetHandle(), "uModel_to_NDC");
+
+			if (uniform_var_loc1 >= 0) {
+				glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE,
+					glm::value_ptr(mdl_to_ndc_xform));
+			}
+
+			else {
+				std::cout << "Uniform variable doesn't exist!!!\n";
+				std::exit(EXIT_FAILURE);
+			}
+
+			glVertexAttrib3f(1, 0.0f, 0.0f, 1.0f); 
+			glDrawElements(model_.primitive_type_, model_.draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+
+			// after completing the rendering, we tell the driver that the VAO vaoid
+			// and the current shader program are no longer current
+			glBindVertexArray(0);
+
+			shdr_pgm_.UnUse();
+		}
+
+		glLineWidth(1.0f);
+	}
+}
 
 //function more akin to "What to do when message is received" for internal logic
 void Collision::SendMessageD(Message* m) {
@@ -264,7 +325,7 @@ void Collision::UpdateBoundingBox() {
 		Scale* entity_scale = dynamic_cast<Scale*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::SCALE));
 		Transform* entity_position = dynamic_cast<Transform*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
-		aabb->second->bottom_left_ = entity_position->position_ - (0.5 * entity_scale->scale_);
-		aabb->second->top_right_ = entity_position->position_ + (0.5 * entity_scale->scale_);
+		aabb->second->bottom_left_ = entity_position->position_ - entity_scale->scale_;
+		aabb->second->top_right_ = entity_position->position_ + entity_scale->scale_;
 	}
 }

@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Systems/Physics.h"
 #include "Systems/InputSystem.h"
+#include "Systems/WindowsSystem.h"
 //#include "../WinKeyCodes.h"
 
 // Global pointer to core engine
@@ -18,17 +19,20 @@ void CoreEngine::Initialize() {
 
 	M_DEBUG->WriteDebugMessage("Core Engine System Init\n");
 
-	for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
-		system->second->Init();
-	}
-
 	for (ManagerIt manager = managers_.begin(); manager != managers_.end(); ++manager) {
 		manager->second->Init();
+	}
+
+	for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
+		system->second->Init();
 	}
 }
 
 ///Update all the systems until the game is no longer active.
 void CoreEngine::GameLoop() {
+
+	GLFWwindow* window = CORE->GetSystem<WindowsSystem>()->ptr_window;
+
 	while (b_game_active_) {
 		if (debug_)
 			M_DEBUG->WriteDebugMessage("Core Engine System Update:\n");
@@ -47,6 +51,8 @@ void CoreEngine::GameLoop() {
 			system->second->Update(PE_FrameRate.Dt);
 			system->second->Draw();
 		}
+
+		glfwSwapBuffers(window);
 	}
 
 		//PE_FrameRate.SetFPS(30);

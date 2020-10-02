@@ -61,8 +61,8 @@ void AnimationRenderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
                            0.0f, 0.0f, 1.0f };
 
     translation = glm::mat3{ 1.0f, 0.0f, 0.0f,
-                       0.0f, 1.0f, 0.0f,
-                       position.x, position.y, 1.0f };
+                             0.0f, 1.0f, 0.0f,
+                             position.x, position.y, 1.0f };
 
     mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
 
