@@ -20,10 +20,6 @@ void AABB::Init() {
 	COLLISION->AddAABBComponent(Component::GetOwner()->GetID(), this);
 }
 
-void AABB::PublishResults() {
-	//transform->_position = position;
-}
-
 void AABB::Serialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing AABB Component" << std::endl;

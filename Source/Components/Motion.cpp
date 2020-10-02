@@ -18,10 +18,6 @@ void Motion::Init() {
 	PHYSICS->AddMotionComponent(Component::GetOwner()->GetID(), this);
 }
 
-void Motion::PublishResults() {
-	//transform->_position = position;
-}
-
 void Motion::Serialize(std::stringstream& data) {
 	std::cout << "Entered Serialize Motion w/ stream" << std::endl;
 	

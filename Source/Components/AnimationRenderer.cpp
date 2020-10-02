@@ -22,10 +22,6 @@ void AnimationRenderer::Init()
     CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
 }
 
-void AnimationRenderer::PublishResults()
-{
-}
-
 void AnimationRenderer::AddAnimation(std::string animation_name)
 {
     obj_animations_[animation_name] = CORE->GetManager<AnimationManager>()->GetAnimation(animation_name);

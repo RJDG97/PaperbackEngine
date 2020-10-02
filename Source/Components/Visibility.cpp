@@ -9,10 +9,6 @@ void Visibility::Init() {
 	//GAMELOGIC->Visibilities[Component::GetOwner()->GetID()] = *this;
 }
 
-void Visibility::PublishResults() {
-	//transform->_position = position;
-}
-
 //void Visibility::Serialize(ISerializer& str) {
 //	
 //}

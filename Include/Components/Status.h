@@ -12,7 +12,7 @@ public:
 	Status();
 
 	void Init();
-	void PublishResults();
+
 	//void Serialize(ISerializer& str);
 };
 

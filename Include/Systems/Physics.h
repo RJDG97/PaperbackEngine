@@ -15,9 +15,6 @@
 class Physics : public ISystem
 {
 public:
-	// Broadcast physics collision messages after physics has updated
-	// the entities position
-	void PublishResults();
 
 	void ChangeVelocity(Message* m);
 

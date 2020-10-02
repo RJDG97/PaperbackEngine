@@ -22,10 +22,6 @@ void Renderer::Init()
     CORE->GetSystem<GraphicsSystem>()->AddRendererComponent(Component::GetOwner()->GetID(), this);
 }
 
-void Renderer::PublishResults()
-{
-}
-
 void Renderer::ChangeTexture(std::string texture_name)
 {
     texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name);

@@ -10,7 +10,6 @@ public:
 	Attack();
 
 	void Init();
-	void PublishResults();
 	//void Serialize(ISerializer& str);
 };
 

@@ -20,10 +20,6 @@ void Transform::Init() {
 	PHYSICS->AddTransformComponent(Component::GetOwner()->GetID(), this);
 }
 
-void Transform::PublishResults() {
-	//transform->_position = position;
-}
-
 void Transform::Serialize(std::stringstream& data) {
 	/*
 	rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin()

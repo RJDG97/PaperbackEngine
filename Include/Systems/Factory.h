@@ -62,10 +62,6 @@ public:
 	// After components have been added, call Entity->init()
 	Entity* CreateEmptyEntity();
 
-	//builds composition & serialise from data file w/o initialising Entity
-	//creates composition and modify data before initialisation
-	Entity* BuildAndSerialize(const std::string& filename);
-
 	// Identify the object and store it inside the enti map
 	void StoreEntityID(Entity* entity);
 

@@ -41,7 +41,6 @@ public:
 	*/
 
 	void Init();
-	void PublishResults();
 	void Serialize(std::stringstream& data) override;
 
 	AABB* Clone() override;

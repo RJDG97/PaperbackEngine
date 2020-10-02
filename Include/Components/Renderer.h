@@ -25,7 +25,6 @@ public:
 	~Renderer();
 
 	void Init();
-	void PublishResults();
 
 	void ChangeTexture(std::string texture_name);
 	void ChangeModel(std::string model_name);
