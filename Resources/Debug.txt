@@ -206,665 +206,63 @@ Collision System: Updating Bounding Boxes
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -1.666690
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -1.666670
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -1.666670
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666710, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.667300, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666720, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666720, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666720, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666710, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666710, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666790, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666710, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666720, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
@@ -889,37 +287,27 @@ Inverse vector 1: 1.666670, -0.000000
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 time to collision: 0.000000
+Inverse vector 1: 1.666670, -0.000000
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+time to collision: 0.000000
+Inverse vector 1: 1.666690, -0.000000
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+time to collision: 0.000000
+Inverse vector 1: 1.666690, -0.000000
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+time to collision: 0.000000
 Inverse vector 1: 1.666680, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666720, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
+Inverse vector 1: 1.666670, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
@@ -934,145 +322,7 @@ Inverse vector 1: 1.666690, -0.000000
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -1.666690
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -1.666690
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -1.666690
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -1.666680
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -1.666670
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -1.666670
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -1.666700
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -1.666690
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -1.666680
+Inverse vector 1: 1.666670, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
@@ -1082,7 +332,12 @@ Inverse vector 1: 1.666680, -0.000000
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
+Inverse vector 1: 1.666670, -0.000000
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+time to collision: 0.000000
+Inverse vector 1: 1.666680, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
@@ -1102,52 +357,12 @@ Inverse vector 1: 1.666680, -0.000000
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
 Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.669320, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666710, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 time to collision: 0.000000
 Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666800, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
@@ -1172,7 +387,7 @@ Inverse vector 1: 1.666690, -0.000000
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
+Inverse vector 1: 1.666670, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
@@ -1183,41 +398,6 @@ Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 time to collision: 0.000000
 Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666720, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
@@ -1237,338 +417,7 @@ Inverse vector 1: 1.666680, -0.000000
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
 Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666710, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666740, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666900, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666690, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666720, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666670, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666680, -0.000000
-
-Collision System Update Debug Log:
-Collision System: Updating Bounding Boxes
-time to collision: 0.000000
-Inverse vector 1: 1.666700, -0.000000
 
 Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
@@ -1776,4 +625,141 @@ Collision System Update Debug Log:
 Collision System: Updating Bounding Boxes
 
 Collision System Update Debug Log:
-C
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update Debug Log:
+Collision System: Updating Bounding Boxes
+
+Collision System Update De

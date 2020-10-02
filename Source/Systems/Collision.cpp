@@ -130,7 +130,7 @@ void Collision::Init() {
 	FACTORY->AddComponentCreator("AABB", new ComponentCreatorType<AABB>(ComponentTypes::AABB));
 
 	shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
-	model_ = CORE->GetManager<ModelManager>()->GetModel("BoxModel");
+	model_ = CORE->GetManager<ModelManager>()->GetModel("LinesModel");
 	world_to_ndc_xform_ = &(CORE->GetSystem<GraphicsSystem>()->world_to_ndc_xform_);
 	glLineWidth(2.0f);
 
@@ -281,8 +281,7 @@ void Collision::Draw() {
 				std::exit(EXIT_FAILURE);
 			}
 
-			glVertexAttrib3f(1, 0.0f, 0.0f, 1.0f); 
-			glDrawElements(model_.primitive_type_, model_.draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+			glDrawArrays(GL_LINES, 0, model_.draw_cnt_);
 
 			// after completing the rendering, we tell the driver that the VAO vaoid
 			// and the current shader program are no longer current

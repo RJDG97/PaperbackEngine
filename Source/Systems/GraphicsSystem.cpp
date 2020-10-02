@@ -72,6 +72,7 @@ void GraphicsSystem::Init() {
     glViewport(0, 0, window_width_, window_height_);
 
     CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "BoxModel");
+    CORE->GetManager<ModelManager>()->AddLinesModel(1, 1, "LinesModel");
     CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/default.vert", "Shaders/default.frag", "TextureShader");
     CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
     CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
