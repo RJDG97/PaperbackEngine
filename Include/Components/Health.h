@@ -16,7 +16,6 @@ public:
 	Health();
 
 	void Init();
-	void PublishResults();
 	//Serialize
 };
 

@@ -12,11 +12,6 @@ void Health::Init() {
 	//PHYSICS->HPs_[Component::GetOwner()->GetID()] = *this;
 }
 
-// Consult sample engine as to purpose 
-void Health::PublishResults() {
-	
-}
-
 //void Health::Serialize(ISerializer& str) {
 	
 //}

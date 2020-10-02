@@ -8,10 +8,6 @@ void Scale::Init() {
 	//GRAPHICS->Scales[Component::GetOwner()->GetID()] = *this;
 }
 
-void Scale::PublishResults() {
-	//transform->_position = position;
-}
-
 Vector2D Scale::GetScale() const {
 	return scale_;
 }

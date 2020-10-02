@@ -8,10 +8,6 @@ void Attack::Init() {
 	//GAMELOGIC->Attacks[Component::GetOwner()->GetID()] = *this;
 }
 
-void Attack::PublishResults() {
-	//transform->_position = position;
-}
-
 //void Attack::Serialize(ISerializer& str) {
 //	
 //}

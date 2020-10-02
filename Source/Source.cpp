@@ -59,7 +59,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	engine->AddManager<ShaderManager>();
 	engine->AddManager<AnimationManager>();
 
-	Physics* test_phy = engine->GetSystem<Physics>();
+	//Physics* test_phy = engine->GetSystem<Physics>();
 
 	engine->Initialize();
 

@@ -32,7 +32,6 @@ public:
 	~AnimationRenderer();
 
 	void Init();
-	void PublishResults();
 
 	void AddAnimation(std::string animation_name);
 	void SetAnimation(std::string animation_name);

@@ -53,17 +53,6 @@ void Physics::Update(float frametime) {
 	if (debug_) { debug_ = !debug_; }
 }
 
-void Physics::PublishResults() {
-
-	/*for (PosIt it = Transforms.begin(); it != Transforms.end(); ++it) {
-		(it)->PublishResults();
-	}*/
-
-	for (TransformIt it = transform_arr_.begin(); it != transform_arr_.end(); ++it) {
-		it->second->PublishResults();
-	}
-}
-
 // Interprets a message that contains an updated acceleration Vec2D
 // that will replace the old acceleration vector
 // Assumes that the new acceleration vector has been calculated prior to receiving it
