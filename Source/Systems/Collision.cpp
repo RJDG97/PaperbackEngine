@@ -132,6 +132,7 @@ void Collision::Init() {
 	shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
 	model_ = CORE->GetManager<ModelManager>()->GetModel("BoxModel");
 	world_to_ndc_xform_ = &(CORE->GetSystem<GraphicsSystem>()->world_to_ndc_xform_);
+	glLineWidth(2.0f);
 
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }
@@ -175,6 +176,9 @@ void Collision::Update(float frametime) {
 
 			float t_first{};
 
+			aabb1->second->collided = false;
+			aabb2->second->collided = false;
+
 			if (CheckCollision(*aabb1->second, *vel1, *aabb2->second, *vel2, frametime, t_first)) {
 				/*
 				std::cout << "Collision detected between " << aabb1->second->GetOwner()->GetID() 
@@ -203,6 +207,9 @@ void Collision::Update(float frametime) {
 				transform1->position_ += inverse_vector_1;
 				transform2->position_ += inverse_vector_2;
 
+				aabb1->second->collided = true;
+				aabb2->second->collided = true;
+
 				if (debug_) {
 					std::string debug_str{};
 					debug_str += "time to collision: " + std::to_string(t_first) + "\n"
@@ -227,7 +234,6 @@ void Collision::Draw() {
 	if (debug_)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glLineWidth(3.0f);
 
 		for (AABBIt aabb = aabb_arr_.begin(); aabb != aabb_arr_.end(); ++aabb)
 		{
@@ -250,12 +256,24 @@ void Collision::Draw() {
 
 			glBindVertexArray(model_.vaoid_);
 
-			GLint uniform_var_loc1 =
+			GLint uniform_var_transform =
 				glGetUniformLocation(shdr_pgm_.GetHandle(), "uModel_to_NDC");
 
-			if (uniform_var_loc1 >= 0) {
-				glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE,
-					glm::value_ptr(mdl_to_ndc_xform));
+			if (uniform_var_transform >= 0) {
+				glUniformMatrix3fv(uniform_var_transform, 1, GL_FALSE,
+								   glm::value_ptr(mdl_to_ndc_xform));
+			}
+
+			else {
+				std::cout << "Uniform variable doesn't exist!!!\n";
+				std::exit(EXIT_FAILURE);
+			}
+
+			GLint uniform_var_collided =
+				glGetUniformLocation(shdr_pgm_.GetHandle(), "collided");
+
+			if (uniform_var_collided >= 0) {
+				glUniform1i(uniform_var_collided, (*aabb).second->collided);
 			}
 
 			else {
@@ -272,8 +290,6 @@ void Collision::Draw() {
 
 			shdr_pgm_.UnUse();
 		}
-
-		glLineWidth(1.0f);
 	}
 }
 
