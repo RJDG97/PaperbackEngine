@@ -1,0 +1,61 @@
+Adding System: class WindowsSystem
+Adding System: class GraphicsSystem
+Adding System: class InputSystem
+Adding System: class Physics
+Adding System: class Collision
+Adding System: class EntityFactory
+Adding System: class SoundSystem
+Adding System: class Game
+Adding Manager: class ModelManager
+Adding Manager: class TextureManager
+Adding Manager: class ShaderManager
+Adding Manager: class AnimationManager
+Core Engine System Init
+Collision System Init
+Graphics System Init
+Input System Init
+Physics System Init
+Collision System Init
+EntityFactory System Init
+Sound System Init
+Creating a new entity of type: Player
+Storing entity with ID: 1
+Adding Motion Component to entity: 1
+Adding Transform Component to entity: 1
+Adding Animation Renderer Component to entity: 1
+Adding AABB Component to entity: 1
+Creating a new entity of type: Enemy
+Storing entity with ID: 2
+Adding Motion Component to entity: 2
+Adding Transform Component to entity: 2
+Adding Renderer Component to entity: 2
+Adding AABB Component to entity: 2
+Game System Init
+Model Manager Init
+Texture Manager Init
+Shader Manager Init
+Animation Manager Init
+TERMINATE GAME LOOP
+Deleting all entities!
+Deleting entity id: 1
+Removing Motion Component from entity: 1
+Removing Transform Component from entity: 1
+Removing Animation Renderer Component from entity: 1
+Removing AABB Component from entity: 1
+Deleting entity id: 2
+Removing Motion Component from entity: 2
+Removing Transform Component from entity: 2
+Removing Renderer Component from entity: 2
+Removing AABB Component from entity: 2
+Destroying System: WindowsSystem
+Destroying System: GraphicsSystem
+Destroying System: Input System
+Destroying System: Physics
+Destroying System: Collision
+Destroying System: Factory
+Destroying System: SoundSystem
+Destroying System: Game State Manager
+Destroying Manager: class ModelManager
+Destroying Manager: class TextureManager
+Destroying Manager: class ShaderManager
+Destroying Manager: class AnimationManager

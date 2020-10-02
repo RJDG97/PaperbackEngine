@@ -75,7 +75,7 @@ void GraphicsSystem::Init() {
     CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/default.vert", "Shaders/default.frag", "TextureShader");
     CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
 
-    //FACTORY->AddComponentCreator("Renderer", new ComponentCreatorType<Renderer>(ComponentTypes::RENDERER));
+    FACTORY->AddComponentCreator("Renderer", new ComponentCreatorType<Renderer>(ComponentTypes::RENDERER));
     FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreatorType<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 
     CameraInit();

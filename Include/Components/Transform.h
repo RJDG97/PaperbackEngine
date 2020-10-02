@@ -10,6 +10,7 @@ class Transform : public Component {
 	float rotation_;
 public:
 	friend class Physics;
+	friend class Renderer;
 	friend class AnimationRenderer;
 	friend class Collision;
 

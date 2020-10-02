@@ -19,10 +19,6 @@ class Renderer : public Component {
 	glm::mat3 mdl_to_ndc_xform_;		//model-to-NDC transform
 	glm::mat3 mdl_xform_;				//model (model-to-world)
 
-	glm::vec2 orientation_;				// x - angle of rotation in degrees, y - speed of rotation
-	glm::vec2 scaling_;					//scaling parameters
-	glm::vec2 position_;				//translation vector coordinates
-
 public:
 
 	Renderer();
@@ -30,7 +26,6 @@ public:
 
 	void Init();
 	void PublishResults();
-	//void Serialize(ISerializer& str);
 
 	void ChangeTexture(std::string texture_name);
 	void ChangeModel(std::string model_name);
@@ -38,6 +33,8 @@ public:
 
 	void Update(float frametime, glm::mat3 world_to_ndc_xform);
 	void Draw();
+
+	void Serialize(std::stringstream& data) override;
 };
 
 #endif

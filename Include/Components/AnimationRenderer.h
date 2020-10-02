@@ -21,12 +21,10 @@ class AnimationRenderer : public Component {
 	glm::mat3 mdl_to_ndc_xform_;						// model-to-NDC transform
 	glm::mat3 mdl_xform_;								// model (model-to-world)
 
-	glm::vec2 orientation_;								// x - angle of rotation in degrees, y - speed of rotation
-
 	bool play_animation_;								// true - play animation, false - stop playing animation
-	bool has_finished_animating;						// true - animation has not finished, false - still in middle of animation
+	bool has_finished_animating_;						// true - animation has not finished, false - still in middle of animation
 
-	float time_elapsed;
+	float time_elapsed_;
 
 public:
 
@@ -35,7 +33,6 @@ public:
 
 	void Init();
 	void PublishResults();
-	//void Serialize(ISerializer& str);
 
 	void AddAnimation(std::string animation_name);
 	void SetAnimation(std::string animation_name);

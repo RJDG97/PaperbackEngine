@@ -118,6 +118,7 @@ public:
 
 	//Cleanup
 	bool UnloadTexture(std::string texture_name);
+	void UnloadTexture(std::map<std::string, Texture>::iterator texture_iterator);
 	void UnloadAllTextures();
 
 	//Getter

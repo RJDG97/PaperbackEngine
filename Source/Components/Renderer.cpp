@@ -1,4 +1,6 @@
 #include "Components/Renderer.h"
+#include "Components/Transform.h"
+#include "Components/Scale.h"
 #include "Engine/Core.h"
 #include "Systems/GraphicsSystem.h"
 #include <glm/gtc/type_ptr.hpp>
@@ -7,12 +9,7 @@
 
 Renderer::Renderer()
 {
-    texture_ = *CORE->GetManager<TextureManager>()->GetTexture("Rock");
-    scaling_ = glm::vec2{ 50.0f, 50.0f };
-    orientation_ = glm::vec2{ 0.0f, 10.0f };
-    position_ = glm::vec2{ 100.0f, 100.0f };
-    model_ = CORE->GetManager<ModelManager>()->GetModel("BoxModel");
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm("TextureShader");
+    
 }
 
 Renderer::~Renderer()
@@ -46,24 +43,29 @@ void Renderer::ChangeShdrpgm(std::string shdr_pgm_name)
 
 void Renderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
 {
-    glm::mat3 scale, rot, trans;
+    glm::mat3 scaling, rotation, translation;
 
-    scale = glm::mat3{ scaling_.x, 0.0f, 0.0f,
-                       0.0f, scaling_.y, 0.0f,
-                       0.0f, 0.0f, 1.0f };
+    Vector2D scale = dynamic_cast<Scale*>(Component::GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
 
-    orientation_.x += orientation_.y * static_cast<float>(frametime);
+    scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
+                         0.0f, scale.y, 0.0f,
+                         0.0f, 0.0f, 1.0f };
 
-    rot = glm::mat3{  glm::cos(orientation_.x * M_PI / 180), glm::sin(orientation_.x * M_PI / 180), 0.0f,
-                     -glm::sin(orientation_.x * M_PI / 180), glm::cos(orientation_.x * M_PI / 180), 0.0f,
-                      0.0f, 0.0f, 1.0f };
+    Transform* transform = dynamic_cast<Transform*>(GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+    assert(transform);
 
+    float orientation = transform->rotation_;
+    Vector2D position = transform->position_;
 
-    trans = glm::mat3{ 1.0f, 0.0f, 0.0f,
+    rotation = glm::mat3{ glm::cos(orientation * M_PI / 180), glm::sin(orientation * M_PI / 180), 0.0f,
+                          -glm::sin(orientation * M_PI / 180), glm::cos(orientation * M_PI / 180), 0.0f,
+                           0.0f, 0.0f, 1.0f };
+
+    translation = glm::mat3{ 1.0f, 0.0f, 0.0f,
                        0.0f, 1.0f, 0.0f,
-                       position_.x, position_.y, 1.0f };
+                       position.x, position.y, 1.0f };
 
-    mdl_to_ndc_xform_ = world_to_ndc_xform * trans * rot * scale;
+    mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
 }
 
 void Renderer::Draw()
@@ -92,4 +94,17 @@ void Renderer::Draw()
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shdr_pgm_.UnUse();
+}
+
+void Renderer::Serialize(std::stringstream& data)
+{
+    std::string texture;
+    std::string model;
+    std::string shdr_pgm;
+
+    data >> texture >> model >> shdr_pgm;
+
+    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture);
+    model_ = CORE->GetManager<ModelManager>()->GetModel(model);
+    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }
