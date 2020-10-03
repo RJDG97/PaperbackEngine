@@ -16,6 +16,7 @@ enum class ComponentTypes {
 	ANIMATIONRENDERER,
 	AABB,
 	SCALE,
+	STATUS,
 	POINTLIGHT,
 	CONELIGHT,
 	MAX

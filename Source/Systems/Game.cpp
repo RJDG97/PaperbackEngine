@@ -13,7 +13,7 @@ bool Game::CheckExist(GameState* compare) {
 		return true;
 	}
 	return false;
-};
+}
 
 Game::Game() :
 	debug_{ false }
@@ -36,12 +36,12 @@ void Game::ChangeState(GameState* state)
 		// Remove current state
 		if (!states_.empty()) {
 		
-			states_.back()->free();
+			states_.back()->Free();
 			states_.pop_back();
 		}
 
 		states_.push_back(state);
-		states_.back()->init();
+		states_.back()->Init();
 	}
 
 	/*
@@ -77,12 +77,13 @@ void Game::PushState(GameState* state) // need to check if current state already
 		std::cout << "States in stack after push: " << states_.size() << std::endl;
 	}*/
 }
+
 void Game::PopState()
 {
 	// cleanup the current state
 	if (!states_.empty())
 	{
-		states_.back()->free();
+		states_.back()->Free();
 		states_.pop_back();
 	}
 
@@ -98,25 +99,41 @@ void Game::PopState()
 void Game::Update(float frametime)
 {
 
-	(void)frametime;
-
 	// let the current state take control
 	if (!states_.empty()) {
 	
-		states_.back()->update(this);
+		states_.back()->Update(this, frametime);
 	}
 }
+
+void Game::AddStatusComponent(EntityID id, Status* status) {
+
+	M_DEBUG->WriteDebugMessage("Adding Status Component to entity: " + std::to_string(id) + "\n");
+	status_arr_[id] = status;
+}
+
+void Game::RemoveStatusComponent(EntityID id) {
+
+	StatusIt it = status_arr_.find(id);
+
+	if (it != status_arr_.end()) {
+
+		M_DEBUG->WriteDebugMessage("Removing Status Component from entity: " + std::to_string(id) + "\n");
+		status_arr_.erase(it);
+	}
+}
+
 void Game::Draw()
 {
 	// let the current state take control
-	states_.back()->draw(this);
+	states_.back()->Draw(this);
 }
 
 void Game::Free()
 {
 	while (!states_.empty())
 	{
-		states_.back()->free();
+		states_.back()->Free();
 		states_.pop_back();
 	}
 }

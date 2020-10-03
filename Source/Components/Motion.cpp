@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Components/Motion.h"
 #include "Systems/Physics.h"
+#include "Engine/Core.h"
 
 Motion::Motion() : velocity_{},
 				   acceleration_{}
@@ -8,14 +9,14 @@ Motion::Motion() : velocity_{},
 
 Motion::~Motion() {
 
-	PHYSICS->RemoveMotionComponent(Component::GetOwner()->GetID());
+	CORE->GetSystem<Physics>()->RemoveMotionComponent(Component::GetOwner()->GetID());
 
 }
 
 void Motion::Init() {
 	// Create the map afterwards
 	//PHYSICS->Motions[Component::GetOwner()->GetID()] = *this;
-	PHYSICS->AddMotionComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetSystem<Physics>()->AddMotionComponent(Component::GetOwner()->GetID(), this);
 }
 
 void Motion::Serialize(std::stringstream& data) {

@@ -1,14 +1,47 @@
 #include "Components/Status.h"
+#include "Engine/Core.h"
+#include "Systems/Game.h"
 
-Status::Status() : b_player_hit_{false},
-				   counter_{}
+/******************************************************************************/
+/*!
+  \fn Status()
+
+  \brief Initialize the component attached to the entity during compile time
+*/
+/******************************************************************************/
+Status::Status() : 
+	status_{ StatusType::NONE },
+	status_timer_{},
+    cooldown_timer_{}
 {}
 
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Initialize the component attached to the entity during compile time
+*/
+/******************************************************************************/
 void Status::Init() {
-	// Create the map afterwards
-	//GAMELOGIC->Visibilities[Component::GetOwner()->GetID()] = *this;
+
+	CORE->GetSystem<Game>()->AddStatusComponent(Component::GetOwner()->GetID(), this);
 }
 
-//void Visibility::Serialize(ISerializer& str) {
-//	
-//}
+/******************************************************************************/
+/*!
+  \fn Serialize
+
+  \brief Retrieves the data from the stringstream to initialize data members
+*/
+/******************************************************************************/
+void Status::Serialize(std::stringstream& data) {
+	(void)data;
+    /*
+    data >> status_;
+    */
+}
+
+Status::~Status() {
+
+	CORE->GetSystem<Game>()->RemoveStatusComponent(Component::GetOwner()->GetID());
+}

@@ -53,6 +53,7 @@ void CoreEngine::GameLoop() {
 		}
 
 		glfwSwapBuffers(window);
+		M_DEBUG->SaveDebug();
 	}
 
 		//PE_FrameRate.SetFPS(30);

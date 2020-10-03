@@ -8,6 +8,8 @@
 #include "Systems/Debug.h"
 
 #include "Components/Scale.h"
+#include "Components/Status.h"
+#include "Components/Health.h"
 
 EntityFactory* FACTORY = NULL;
 
@@ -32,6 +34,8 @@ EntityFactory::~EntityFactory() {
 void EntityFactory::Init() {
 
 	FACTORY->AddComponentCreator("Scale", new ComponentCreatorType<Scale>(ComponentTypes::SCALE));
+	FACTORY->AddComponentCreator("Status", new ComponentCreatorType<Status>(ComponentTypes::STATUS));
+	FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }

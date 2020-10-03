@@ -3,7 +3,6 @@
 
 #include "Systems/Game.h"
 #include "GameStates/PlayState.h"
-#include "GameStates/PauseState.h"
 #include "GameStates/MenuState.h"
 
 #include "Systems/InputSystem.h"
@@ -18,7 +17,7 @@
 
 PlayState m_PlayState;
 
-void PlayState::init()
+void PlayState::Init()
 {
 	std::cout << "-----------------------------" << std::endl << std::endl;
 	std::cout << "PlayState init Successful" << std::endl;
@@ -32,47 +31,20 @@ void PlayState::init()
 	//FACTORY->Create("Entity2");
 }
 
-void PlayState::free()
+void PlayState::Free()
 {
 	std::cout << "PlayState clean Successful" << std::endl;
 
 	FACTORY->DestroyAllEntities();
 }
 
-void PlayState::pause()
-{
-	std::cout << "PlayState Paused" << std::endl;
-}
-
-void PlayState::resume()
-{
-	std::cout << "PlayState Resumed" << std::endl;
-	std::cout << "-----------------------------" << std::endl << std::endl;
-}
-
-void PlayState::update(Game* game)
+void PlayState::Update(Game* game, float frametime)
 {
 	UNREFERENCED_PARAMETER(game);
 
-	/*if (sys_input_.CheckTriggeredInput(PE_N))
-	{
-		std::cout << "YOU ARE IN THE PLAY STATE" << std::endl;
-	}
-
-	if (sys_input_.CheckTriggeredInput(PE_SPACE))
-	{
-		std::cout << "PAUSING....." << std::endl;
-		game->PushState(PauseState::Instance());
-	}
-
-	if (sys_input_.CheckTriggeredInput(PE_ESCAPE))
-	{
-		std::cout << "GOING BACK TO MAIN MENU" << std::endl;
-		//game->ChangeState(MenuState::Instance());
-	}*/
 }
 
-void PlayState::draw(Game* game)
+void PlayState::Draw(Game* game)
 {
 	UNREFERENCED_PARAMETER(game);
 }

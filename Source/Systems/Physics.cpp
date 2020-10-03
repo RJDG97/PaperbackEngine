@@ -2,11 +2,11 @@
 #include "Engine/Core.h"
 #include <iostream>
 #include "Systems/Debug.h"
-
-Physics* PHYSICS;
+#include "Components/Status.h""
+#include <assert.h>
 
 Physics::Physics() {
-	PHYSICS = this;
+
 	debug_ = false;
 }
 
@@ -53,31 +53,6 @@ void Physics::Update(float frametime) {
 	if (debug_) { debug_ = !debug_; }
 }
 
-// Interprets a message that contains an updated acceleration Vec2D
-// that will replace the old acceleration vector
-// Assumes that the new acceleration vector has been calculated prior to receiving it
-/*void Physics::ChangeAcceleration(Message* m) {
-	// If there are multiple players the results will be duplicated
-	// because there is no specific entity id at the moment
-
-	std::cout << "Entered ChangeAcceleration" << std::endl;
-	//dynamic cast from message base class to derived message class
-	MessagePhysics_Accel* msg = dynamic_cast<MessagePhysics_Accel*>(m);
-
-	//locate the motion component that contains a matching entityID as in the message
-	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
-
-		//std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
-		if (motion->second->GetOwner()->GetType() == EntityTypes::Player) {
-
-			//update the acceleration data member of that component with the message's
-			motion->second->velocity_ = msg->new_acceleration_;
-
-			//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
-		}
-	}
-}*/
-
 void Physics::ChangeVelocity(Message* m) {
 	// If there are multiple players the results will be duplicated
 	// because there is no specific entity id at the moment
@@ -92,10 +67,17 @@ void Physics::ChangeVelocity(Message* m) {
 		//std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
 		if (motion->second->GetOwner()->GetType() == EntityTypes::Player) {
 
-			//update the acceleration data member of that component with the message's
-			motion->second->velocity_ = msg->new_vec_;
+			Status* status = dynamic_cast<Status*>(motion->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
+			//assert(status && "Player does not own Status Component");
 
-			//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
+			// Temporary inclusion for "Hiding and burrow" check until input sys conversion to component
+			if (status && status->status_ != StatusType::INVISIBLE) {
+
+				//update the acceleration data member of that component with the message's
+				motion->second->velocity_ = msg->new_vec_;
+
+				//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
+			}
 		}
 	}
 }
@@ -135,40 +117,6 @@ void Physics::RemoveMotionComponent(EntityID id) {
 }
 
 void Physics::SendMessageD(Message* msg) {
-	
-	//std::cout << "Message received by Physics" << std::endl;
-
-	/*if (msg->message_id_ == MessageIDTypes::Rotate) {
-		std::cout << "prepare to rotate" << std::endl;
-
-		MessageRotation* m = dynamic_cast<MessageRotation*>(msg);
-		TransformIt it = PHYSICS->transform_arr_.find(m->entity_one_);
-
-		if (it != PHYSICS->transform_arr_.end()) {
-			Rotate((&it->second));
-		}
-		/*for (PosIt it = PHYSICS->Transforms.begin(); it != PHYSICS->Transforms.end(); ++it) {
-
-			// look into swapping from std::list to std::unordered_map<entityid, component*> to allow for std::find usage
-			if (it->GetOwner()->GetID() == m->entityone) {
-				Rotate(&*it);
-				break;
-			}
-		}
-	}*/
-
-	/*if (msg->message_id_ == MessageIDTypes::HP) {
-
-		std::cout << "prepare to decrement hp" << std::endl;
-
-		MessageHPDecre* m = dynamic_cast<MessageHPDecre*>(msg);
-		HPIt it = PHYSICS->hp_arr_.find(m->entity_one_);
-
-		if (it != PHYSICS->hp_arr_.end()) {
-			DecreaseHP(&it->second);
-		}
-	}*/
-
 	switch (msg->message_id_)
 	{
 		case MessageIDTypes::PHY_UpdateAccel:
@@ -196,18 +144,6 @@ void Physics::SendMessageD(Message* msg) {
 	}
 }
 
-
-//testing functions for test components
-void Physics::Rotate(Transform* pos) {
-
-	pos->rotation_ += 0.2f;
-
-	std::cout << "Message recieved, rotation success, currently at: " 
-			  << pos->rotation_
-			  << " ; Entity ID: " 
-			  << pos->GetOwner()->GetID()
-			  << std::endl;
-}
 //
 //void Physics::DecreaseHP(Health* hp) {
 //
