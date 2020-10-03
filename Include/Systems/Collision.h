@@ -77,8 +77,7 @@ public:
 /*!
   \fn Init()
 
-  \brief Adds the AABB component to the ComponentCreator map and initializes
-		 the lines required for debug drawing of bounding boxes
+  \brief Initializes the lines required for debug drawing of bounding boxes
 */
 /******************************************************************************/
 	virtual void Init() override;

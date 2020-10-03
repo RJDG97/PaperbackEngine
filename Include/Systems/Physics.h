@@ -75,8 +75,7 @@ public:
 /*!
   \fn Init()
 
-  \brief Initialises the system, adding component creators to components that
-		 it handles
+  \brief Initialises the system
 */
 /******************************************************************************/
 	void Init() override;

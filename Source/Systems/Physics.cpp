@@ -12,9 +12,6 @@ Physics::Physics() {
 
 void Physics::Init() {
 	// Temporary addition for debugging
-	FACTORY->AddComponentCreator("Transform", new ComponentCreatorType<Transform>( ComponentTypes::TRANSFORM));
-	//FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
-	FACTORY->AddComponentCreator("Motion", new ComponentCreatorType<Motion>(ComponentTypes::MOTION));
 
 	M_DEBUG->WriteDebugMessage("Physics System Init\n");
 }
