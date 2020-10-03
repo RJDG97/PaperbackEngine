@@ -88,6 +88,9 @@
     <Filter Include="ResourceManagers">
       <UniqueIdentifier>{d2a4b4ba-d708-4233-b19e-ad1ce1c39e11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Light">
+      <UniqueIdentifier>{261a65d9-ccc8-4ba7-acff-9ec39af64592}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -188,6 +191,9 @@
     </ClCompile>
     <ClCompile Include="Source\Systems\Debug.cpp">
       <Filter>Systems\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\PointLight.cpp">
+      <Filter>Entity\Components\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\Debug.h">
       <Filter>Systems\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\PointLight.h">
+      <Filter>Entity\Components\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

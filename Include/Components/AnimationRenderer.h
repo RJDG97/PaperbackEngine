@@ -32,7 +32,6 @@ public:
 	void SetAnimation(std::string animation_name);
 
 	void Update(float frametime, glm::mat3 world_to_ndc_xform) override;
-	//void Draw() override;
 	void Serialize(std::stringstream& data) override;
 };
 

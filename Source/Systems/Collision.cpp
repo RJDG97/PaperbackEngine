@@ -280,6 +280,7 @@ void Collision::Draw() {
 	if (debug_)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		for (AABBIt aabb = aabb_arr_.begin(); aabb != aabb_arr_.end(); ++aabb)
 		{

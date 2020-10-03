@@ -10,6 +10,7 @@
 #include "Components/Scale.h"
 #include "Components/Status.h"
 #include "Components/Health.h"
+#include "Components/PointLight.h"
 
 EntityFactory* FACTORY = NULL;
 
@@ -36,6 +37,7 @@ void EntityFactory::Init() {
 	FACTORY->AddComponentCreator("Scale", new ComponentCreatorType<Scale>(ComponentTypes::SCALE));
 	FACTORY->AddComponentCreator("Status", new ComponentCreatorType<Status>(ComponentTypes::STATUS));
 	FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
+	FACTORY->AddComponentCreator("PointLight", new ComponentCreatorType<PointLight>(ComponentTypes::POINTLIGHT));
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }

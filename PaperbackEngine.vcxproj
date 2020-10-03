@@ -150,6 +150,7 @@
     <ClCompile Include="Source\Components\Attack.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
+    <ClCompile Include="Source\Components\PointLight.cpp" />
     <ClCompile Include="Source\Components\Renderer.cpp" />
     <ClCompile Include="Source\Components\Scale.cpp" />
     <ClCompile Include="Source\Components\Status.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\Motion.h" />
+    <ClInclude Include="Include\Components\PointLight.h" />
     <ClInclude Include="Include\Components\Renderer.h" />
     <ClInclude Include="Include\Components\Scale.h" />
     <ClInclude Include="Include\Components\Status.h" />

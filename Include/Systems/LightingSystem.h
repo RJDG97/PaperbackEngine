@@ -7,44 +7,36 @@
 #include "glhelper.h"
 #include "Systems/ISystem.h"
 #include "Systems/WindowsSystem.h"
+#include "Components/PointLight.h"
+#include <unordered_map>
 
 class LightingSystem : public ISystem
 {
 	bool debug_;
 
-	//we'll use this temporarily later on replace with components and stuff
-	struct PointLight
-	{
-		GLint x_, y_;
-		GLfloat red_, green_, blue_;
-		GLfloat radius_;
-		GLfloat intensity_;
-
-		PointLight() = default;
-
-		PointLight(GLint x, GLint y,
-				   GLfloat red, GLfloat green, GLfloat blue,
-				   GLfloat radius,
-				   GLfloat intensity);
-	};
-
-	GLuint frame_buffer;
-	GLuint render_buffer;
-	GLuint final_texture;
 	GLuint lighting_buffer;
 	GLuint lighting_texture;
+
+	glm::vec2* cam_pos_;
+	glm::vec2* cam_size_;
 
 	WindowsSystem* windows_system;
 
 public:
 
+	LightingSystem();
+	~LightingSystem();
+
 	void Init();
 	void Update(float frametime);
-	void TestDraw();
+	void Draw();
 	void Cleanup();
-	GLuint& GetFrameBuffer();
-	GLuint& GetFinalTexture();
-	GLuint& GetLightingTexture();
+	GLuint* GetLightingTexture();
+
+	using PointLightIt = std::unordered_map<EntityID, PointLight*>::iterator;
+	std::unordered_map<EntityID, PointLight*> point_light_arr_;
+	void AddLightComponent(EntityID id, PointLight* point_light);
+	void RemoveLightComponent(EntityID id);
 
 	//returns the name of the system for debug use
 	std::string GetName();

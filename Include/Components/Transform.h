@@ -13,6 +13,7 @@ public:
 	friend class Renderer;
 	friend class AnimationRenderer;
 	friend class Collision;
+	friend class PointLight;
 
 	Transform();
 	~Transform();
