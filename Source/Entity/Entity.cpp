@@ -3,36 +3,28 @@
 #include <algorithm>
 #include "Systems/Factory.h"
 #include <iostream>
+#include <functional>
 
-//Used to sort components using their type Id.
-struct ComponentSorter
-{
-	bool operator()(Component* left, Component* right) const
-	{
-		return left->GetComponentTypeID() < right->GetComponentTypeID();
-	}
+auto ComponentSorter = [](Component* left, Component* right){
+	
+	return left->GetComponentTypeID() < right->GetComponentTypeID();
 };
 
-//Binary search a sorted array of components.
-Component* BinaryComponentSearch(ComponentArr& components, ComponentTypes name)
-{
-	size_t begin = 0;
-	size_t end = components.size();
+/******************************************************************************/
+/*!
+  \fn ComponentLocator()
 
-	while(begin < end)
-	{
-		size_t mid = (begin+end) / 2;
-		if(components[mid]->GetComponentTypeID() < name)
-			begin = mid + 1;
-		else
-			end = mid;
+  \brief Helper function used to seach for a component in GetComponent
+*/
+/******************************************************************************/
+bool ComponentLocator(Component* check, ComponentTypes id) {
+
+	if (check->GetComponentTypeID() == id) {
+
+		return true;
 	}
-
-	if((begin < components.size()) && (components[begin]->GetComponentTypeID() == name))
-		return components[begin];
-	else
-		return NULL;
-}
+	return false;
+};
 
 void Entity::Init() {
 
@@ -73,13 +65,20 @@ void Entity::AddComponent(ComponentTypes typeId, Component* component) {
 	component->type_id_ = typeId;
 	components_.push_back(component);
 
-	std::sort(components_.begin(), components_.end(), ComponentSorter());
+	std::sort(components_.begin(), components_.end(), ComponentSorter);
 }
 
 // Returns a pointer to a component attached to an entity
-Component* Entity::GetComponent(ComponentTypes typeId) {
+Component* Entity::GetComponent(ComponentTypes type_id) {
 	
-	return BinaryComponentSearch(components_, typeId);
+	std::vector<Component*>::iterator result = std::find_if(std::begin(components_), std::end(components_), std::bind(ComponentLocator, std::placeholders::_1, type_id));
+	
+	if (result != std::end(components_)) {
+
+		return *result;
+	}
+
+	return nullptr;
 }
 
 //A more advanced type safe way of accessing components.

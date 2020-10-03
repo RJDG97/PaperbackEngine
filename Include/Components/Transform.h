@@ -14,10 +14,44 @@ public:
 	friend class AnimationRenderer;
 	friend class Collision;
 
+/******************************************************************************/
+/*!
+  \fn Transform()
+
+  \brief Constructor for Transform that defaults the data members of the 
+		 component
+*/
+/******************************************************************************/
 	Transform();
+
+
+/******************************************************************************/
+/*!
+  \fn ~Transform()
+
+  \brief Destructor for Transform that removes the component from the 
+		 Physics system transform map
+*/
+/******************************************************************************/
 	~Transform();
 
+
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Adds the component itself to the Physics system transform map
+*/
+/******************************************************************************/
 	void Init();
+
+/******************************************************************************/
+/*!
+  \fn Serialize()
+
+  \brief Reads data from a stringstream and stores them into the data members
+*/
+/******************************************************************************/
 	void Serialize(std::stringstream& data) override;
 };
 

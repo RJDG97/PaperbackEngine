@@ -8,13 +8,32 @@ class ComponentCreator {
 	ComponentTypes type_id_;
 public:
 
-	// Instantiate component with it's Type ID
+/******************************************************************************/
+/*!
+  \fn ComponentCreator()
+
+  \brief Instantiate component with it's Type ID
+*/
+/******************************************************************************/
 	ComponentCreator(ComponentTypes type_id) : type_id_(type_id)
 	{}
 
+/******************************************************************************/
+/*!
+  \fn GetComponentTypeID()
+
+  \brief Returns the type id of the components that the creator will create
+*/
+/******************************************************************************/
 	ComponentTypes GetComponentTypeID() const { return type_id_; }
 
-	// Create a component
+/******************************************************************************/
+/*!
+  \fn Create()
+
+  \brief Creates and returns a new instance of the component
+*/
+/******************************************************************************/
 	virtual Component* Create() = 0;
 
 	virtual ~ComponentCreator() = default;
@@ -24,11 +43,25 @@ public:
 template <typename type>
 class ComponentCreatorType : public ComponentCreator {
 public:
-	// Instantiate component with it's Type ID
+
+/******************************************************************************/
+/*!
+  \fn ComponentCreator()
+
+  \brief Instantiate component with it's Type ID
+*/
+/******************************************************************************/
 	ComponentCreatorType(ComponentTypes id) : ComponentCreator(id) 
 	{}
 
-	// Returns a new instance of a component that it is templated for
+/******************************************************************************/
+/*!
+  \fn Create()
+
+  \brief Creates and returns a new instance of the component that the creator
+		 is templated for
+*/
+/******************************************************************************/
 	virtual Component* Create() {
 		return new type();
 	}
