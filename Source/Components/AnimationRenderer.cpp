@@ -34,6 +34,7 @@ void AnimationRenderer::SetAnimation(std::string animation_name)
     current_frame_ = obj_animations_[animation_name]->GetFirstFrame();
     current_animation_ = obj_animations_[animation_name];
     time_elapsed_ = 0.0f;
+    texture_ = **current_frame_;
 }
 
 void AnimationRenderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
@@ -78,10 +79,12 @@ void AnimationRenderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
             }
 
             time_elapsed_ = 0.0f;
+            texture_ = **current_frame_;
         }
     }
 }
 
+/*
 void AnimationRenderer::Draw()
 {
     shdr_pgm_.Use();
@@ -108,7 +111,7 @@ void AnimationRenderer::Draw()
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shdr_pgm_.UnUse();
-}
+}*/
 
 void AnimationRenderer::Serialize(std::stringstream& data) {
 
@@ -133,7 +136,7 @@ void AnimationRenderer::Serialize(std::stringstream& data) {
     data >> current_animation_name;
     SetAnimation(current_animation_name);
 
-    data >> play_animation_ >> has_finished_animating_;
+    data >> play_animation_ >> has_finished_animating_ >> layer_;
 
     model_ = CORE->GetManager<ModelManager>()->GetModel(model);
     shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);

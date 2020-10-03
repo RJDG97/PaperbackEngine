@@ -64,6 +64,9 @@ public:
 
     std::unordered_map<EntityID, Renderer*> renderer_arr_;
     std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
+
+    using RenderOrderIt = std::multimap<int, Renderer*>::iterator;
+    std::multimap<int, Renderer*> renderers_in_order_; //cleanup not implemented for this when components are removed
 };
 
 #endif

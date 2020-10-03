@@ -115,7 +115,7 @@ void GraphicsSystem::Update(float frametime) {
     {
         if (debug_) {
             // Log id of entity and it's updated components that are being updated
-            M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Texture animation updated)\n");
+            M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Scale, Rotation, Translation matrix & Texture animation updated)\n");
         }
         (*it).second->Update(frametime, world_to_ndc_xform_);
     }
@@ -132,6 +132,7 @@ void GraphicsSystem::Update(float frametime) {
 Clears the buffer and then draws a rectangular model in the viewport.
 */
 void GraphicsSystem::Draw() {
+
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -139,20 +140,11 @@ void GraphicsSystem::Draw() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     //draws all the renderer components
-    for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it)
+    for (RenderOrderIt it = renderers_in_order_.begin(); it != renderers_in_order_.end(); ++it)
     {
         if (debug_) {
-			// Log id of entity and it's updated components that are being updated
+			// Log id of entity and its updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
-		}
-        (*it).second->Draw();
-    }
-
-    for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it)
-    {
-        if (debug_) {
-			// Log id of entity and it's updated components that are being updated
-			M_DEBUG->WriteDebugMessage("Rendering entity: " + std::to_string(it->first) + "\n");
 		}
         (*it).second->Draw();
     }
@@ -230,6 +222,7 @@ void GraphicsSystem::AddRendererComponent(EntityID id, Renderer* renderer)
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
     renderer_arr_[id] = renderer;
+    renderers_in_order_.insert({renderer->GetLayer(), renderer});
 }
 
 void GraphicsSystem::RemoveRendererComponent(EntityID id)
@@ -248,6 +241,7 @@ void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRendere
     M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: " + std::to_string(id) + "\n");
 
     anim_renderer_arr_[id] = animation_renderer;
+    renderers_in_order_.insert({animation_renderer->GetLayer(), animation_renderer });
 }
 
 void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)

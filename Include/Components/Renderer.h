@@ -11,10 +11,13 @@
 
 class Renderer : public Component {
 
+protected:
+
 	Model model_;
 	Shader shdr_pgm_;
 
 	Texture texture_;
+	int layer_;
 
 	glm::mat3 mdl_to_ndc_xform_;		//model-to-NDC transform
 	glm::mat3 mdl_xform_;				//model (model-to-world)
@@ -30,8 +33,9 @@ public:
 	void ChangeModel(std::string model_name);
 	void ChangeShdrpgm(std::string shdr_pgm_name);
 
-	void Update(float frametime, glm::mat3 world_to_ndc_xform);
+	virtual void Update(float frametime, glm::mat3 world_to_ndc_xform);
 	void Draw();
+	int GetLayer();
 
 	void Serialize(std::stringstream& data) override;
 };

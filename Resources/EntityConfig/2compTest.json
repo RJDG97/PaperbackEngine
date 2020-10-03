@@ -22,7 +22,8 @@
 	  "add animation": "Player_Walk",
 	  "set animation": "Player_Walk",
 	  "play_animation": "1",
-	  "has_finished_animating": "0"
+	  "has_finished_animating": "0",
+	  "layer": "1"
     },
     {
       "component": "AABB"
@@ -47,7 +48,8 @@
       "component": "Renderer",
 	  "texture": "Rock",
 	  "model": "BoxModel",
-	  "shader program": "TextureShader"
+	  "shader program": "TextureShader",
+	  "layer": "0"
     },
     {
       "component": "AABB"

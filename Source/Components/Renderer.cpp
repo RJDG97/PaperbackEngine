@@ -92,13 +92,18 @@ void Renderer::Draw()
     shdr_pgm_.UnUse();
 }
 
+int Renderer::GetLayer()
+{
+    return layer_;
+}
+
 void Renderer::Serialize(std::stringstream& data)
 {
     std::string texture;
     std::string model;
     std::string shdr_pgm;
 
-    data >> texture >> model >> shdr_pgm;
+    data >> texture >> model >> shdr_pgm >> layer_;
 
     texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture);
     model_ = CORE->GetManager<ModelManager>()->GetModel(model);
