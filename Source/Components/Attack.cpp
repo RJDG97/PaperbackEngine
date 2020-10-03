@@ -8,6 +8,7 @@ void Attack::Init() {
 	//GAMELOGIC->Attacks[Component::GetOwner()->GetID()] = *this;
 }
 
-//void Attack::Serialize(ISerializer& str) {
-//	
-//}
+void Attack::Serialize(std::stringstream& data) {
+	
+	(void)(data);
+}
