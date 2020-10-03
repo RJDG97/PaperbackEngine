@@ -46,9 +46,10 @@
     },
     {
       "component": "Renderer",
-      "texture": "Rock",
+      "texture": "Plank",
       "model": "BoxModel",
-      "shader program": "TextureShader"
+      "shader program": "TextureShader",
+	  "layer": "0"
     },
     {
       "component": "AABB"
