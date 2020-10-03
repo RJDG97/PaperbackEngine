@@ -39,12 +39,12 @@ void Renderer::ChangeShdrpgm(std::string shdr_pgm_name)
 
 void Renderer::FlipTextureX()
 {
-    x_flipped_ *= -1;
+    x_flipped_ = !x_flipped_;
 }
 
 void Renderer::FlipTextureY()
 {
-    y_flipped_ *= -1;
+    y_flipped_ = !y_flipped_;
 }
 
 void Renderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
@@ -52,9 +52,6 @@ void Renderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
     glm::mat3 scaling, rotation, translation;
 
     Vector2D scale = dynamic_cast<Scale*>(Component::GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
-
-    scale.x *= x_flipped_;
-    scale.y *= y_flipped_;
 
     scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
                          0.0f, scale.y, 0.0f,
@@ -94,6 +91,30 @@ void Renderer::Draw()
     if (uniform_var_loc1 >= 0) {
         glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE,
             glm::value_ptr(mdl_to_ndc_xform_));
+    }
+
+    GLint uniform_var_xflip =
+        glGetUniformLocation(shdr_pgm_.GetHandle(), "xflip");
+
+    if (uniform_var_xflip >= 0) {
+        glUniform1i(uniform_var_xflip, x_flipped_);
+    }
+
+    else {
+        std::cout << "Uniform variable doesn't exist!!!\n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    GLint uniform_var_yflip =
+        glGetUniformLocation(shdr_pgm_.GetHandle(), "yflip");
+
+    if (uniform_var_yflip >= 0) {
+        glUniform1i(uniform_var_yflip, y_flipped_);
+    }
+
+    else {
+        std::cout << "Uniform variable doesn't exist!!!\n";
+        std::exit(EXIT_FAILURE);
     }
 
     glDrawElements(GL_TRIANGLE_STRIP, model_.draw_cnt_, GL_UNSIGNED_SHORT, NULL);

@@ -13,8 +13,8 @@ class Renderer : public Component {
 
 protected:
 
-	int x_flipped_ = 1;
-	int y_flipped_ = 1;
+	bool x_flipped_ = true;
+	bool y_flipped_ = false;
 
 	Model model_;
 	Shader shdr_pgm_;
