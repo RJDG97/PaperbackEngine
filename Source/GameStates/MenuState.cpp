@@ -15,12 +15,14 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Factory.h"
 
+#include "Components/Status.h"
+
 //SAMPLE MENU STATE
 
 //MenuState MenuState::m_MenuState;
 MenuState m_MenuState;
 
-void MenuState::init()
+void MenuState::Init()
 {
 	std::cout << "-----------------------------" << std::endl << std::endl;
 	std::cout << "MenuState init Successful" << std::endl;
@@ -39,56 +41,35 @@ void MenuState::init()
 	//FACTORY->Create("Entity2");
 }
 
-void MenuState::free()
+void MenuState::Free()
 {
 	std::cout << "MenuState clean Successful" << std::endl;
 
 	FACTORY->DestroyAllEntities();
 }
 
-void MenuState::pause()
+void MenuState::Update(Game* game, float frametime)
 {
-	std::cout << "CONFIRM???" << std::endl << "Y/N" << std::endl;
-}
-
-void MenuState::resume()
-{
-	std::cout << "MenuState Resumed" << std::endl;
-}
-
-void MenuState::update(Game* game)
-{
-	// input test
-	UNREFERENCED_PARAMETER(game);
-
-	/*if (sys_input_.CheckTriggeredInput(PE_M))
-	{
-		std::cout << "you are in the MAIN MENU" << std::endl;
-	}	
 	
-	if (sys_input_.CheckTriggeredInput(PE_SPACE))
-	{
-		std::cout << "GAME STARTING....." << std::endl;
-		//game->ChangeState(PlayState::Instance());
-	}
-	if (sys_input_.CheckTriggeredInput(PE_ESCAPE))
-	{
-		pause();
-	}
+	//to use in play state, in menu state for testing
+	//meant to handle game logic components like status
+	for (Game::StatusIt status = game->status_arr_.begin(); status != game->status_arr_.end(); ++status) {
 
-	if (sys_input_.CheckTriggeredInput(PE_Y))
-	{
-		game->Quit();
-	}	
-	
-	if (sys_input_.CheckTriggeredInput(PE_N))
-	{
-		resume();
-	}*/
+		if (status->second->status_ != StatusType::NONE) {
 
+			if (status->second->status_timer_ > 0.0f) {
+				status->second->status_timer_ -= frametime;
+				std::cout << "Reducing status timer" << std::endl;
+			}
+			else {
+				std::cout << "Resetting status type to none" << std::endl;
+				status->second->status_ = StatusType::NONE;
+			}
+		}
+	}
 }
 
-void MenuState::draw(Game* game)
+void MenuState::Draw(Game* game)
 {
 	//GraphicsSystem::Instance().Draw();
 	UNREFERENCED_PARAMETER(game);

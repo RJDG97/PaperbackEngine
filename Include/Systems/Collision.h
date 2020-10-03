@@ -20,41 +20,114 @@ class Collision : public ISystem {
 	using AABBIt = std::unordered_map<EntityID, AABB*>::iterator;
 	std::unordered_map<EntityID, AABB*> aabb_arr_;
 
-	//recalculates the component's bounding box coordinates
-	//utilises scale component
+/******************************************************************************/
+/*!
+  \fn UpdateBoundingBox()
+
+  \brief Helper function to recompute a component's current bounding box
+		 coordinates, using the Scale component for size of the box
+*/
+/******************************************************************************/
 	void UpdateBoundingBox();
 
 	//handles the response from colliding with a wall
+/******************************************************************************/
+/*!
+  \fn UpdateBoundingBox()
+
+  \brief Helper function to handle response of a non-wall entity colliding
+		 with a wall
+*/
+/******************************************************************************/
 	void CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first);
 public:
+
+/******************************************************************************/
+/*!
+  \fn Collision()
+
+  \brief Constructor for Collision, initialises data members
+*/
+/******************************************************************************/
 	Collision();
 
 	bool CheckCollision(const AABB &aabb1, const Vec2 &vel1, 
 						const AABB &aabb2, const Vec2 &vel2,
 						const float dt, float& tFirst);
 
+/******************************************************************************/
+/*!
+  \fn AddAABBComponent()
+
+  \brief Adds a AABB component to the aabb map
+*/
+/******************************************************************************/
 	void AddAABBComponent(EntityID id, AABB* aabb);
+
+/******************************************************************************/
+/*!
+  \fn RemoveAABBComponent()
+
+  \brief Removes a AABB component from the aabb map
+*/
+/******************************************************************************/
 	void RemoveAABBComponent(EntityID id);
 
-	//init function called to initialise a system
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Adds the AABB component to the ComponentCreator map and initializes
+		 the lines required for debug drawing of bounding boxes
+*/
+/******************************************************************************/
 	virtual void Init() override;
 
-	//contains logic executed during the update loop of a game
+/******************************************************************************/
+/*!
+  \fn Update()
+
+  \brief Performs update of AABB as well as handle checks for collision as well
+		 as the follow up actions for colliding events
+*/
+/******************************************************************************/
 	virtual void Update(float frametime) override;
 
+/******************************************************************************/
+/*!
+  \fn Draw()
+
+  \brief Used to draw the bounding boxes of entities if debug mode is enabled
+*/
+/******************************************************************************/
 	virtual void Draw() override;
 
-	//returns the name of the system for debug use
+/******************************************************************************/
+/*!
+  \fn GetName()
+
+  \brief Returns the name of the system
+*/
+/******************************************************************************/
 	virtual std::string GetName() override { return "Collision"; }
 
-	//function more akin to "What to do when message is received" for internal logic
+/******************************************************************************/
+/*!
+  \fn SendMessageD()
+
+  \brief Receives messages broadcasted from Core Engine and processes it
+*/
+/******************************************************************************/
 	virtual void SendMessageD(Message* m) override;
 
-	//void Draw() override;
+/******************************************************************************/
+/*!
+  \fn ~Collision()
 
+  \brief Default implementation destructor
+*/
+/******************************************************************************/
 	virtual ~Collision() = default;
 };
-
-extern Collision* COLLISION;
 
 #endif

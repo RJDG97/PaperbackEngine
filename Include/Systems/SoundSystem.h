@@ -33,19 +33,128 @@ class SoundSystem : public ISystem
 	bool debug_;
 
 public:
+
+/******************************************************************************/
+/*!
+  \fn SoundSystem()
+
+  \brief Constructor for SoundSystem, ensures that fmod is initialised for use
+*/
+/******************************************************************************/
 	SoundSystem();
+
+/******************************************************************************/
+/*!
+  \fn ~SoundSystem()
+
+  \brief Desstructor for SoundSystem, ensures that fmod assigned resources
+		 have been released
+*/
+/******************************************************************************/
 	~SoundSystem();
+
+/******************************************************************************/
+/*!
+  \fn CheckError()
+
+  \brief Checks if the FMOD sound file has been successfully loaded, 
+		 returning a true if it is so
+*/
+/******************************************************************************/
 	bool CheckError(FMOD_RESULT f_result);
+
+/******************************************************************************/
+/*!
+  \fn LoadSound()
+
+  \brief Given a file location and id, passes on the variables to an FMOD 
+		 API to load the sound file
+*/
+/******************************************************************************/
 	void LoadSound(std::string file_location, std::string file_id, bool loop_status = 0);
+
+/******************************************************************************/
+/*!
+  \fn PlaySound()
+
+  \brief Attaches the loaded sound file to an inactive channel to play the
+		 the sound file
+*/
+/******************************************************************************/
 	void PlaySounds(std::string file_id);
+
+/******************************************************************************/
+/*!
+  \fn StopSound()
+
+  \brief Stops a particular channel from playing or stop all active channels
+*/
+/******************************************************************************/
 	void StopSound(std::string file_id, bool stop_all_channels = 0);
+
+/******************************************************************************/
+/*!
+  \fn MuteSound()
+
+  \brief Mutes all sound channels that are currently active
+*/
+/******************************************************************************/
 	void MuteSound();
+
+/******************************************************************************/
+/*!
+  \fn PauseSound()
+
+  \brief Pauses all sound channels that are currently active
+*/
+/******************************************************************************/
 	void PauseSound();
+
+/******************************************************************************/
+/*!
+  \fn RemoveCompletedChannel()
+
+  \brief Helper function that checks for channels that are completed and removes
+         them from the map of currently active sound channels
+*/
+/******************************************************************************/
 	void RemoveCompletedChannel();
 
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Initializes all sound files that are to be loaded into the game
+*/
+/******************************************************************************/
 	virtual void Init() override;
+
+/******************************************************************************/
+/*!
+  \fn Update()
+
+  \brief Updates all sound channels and removes channels that are done playing
+         their sound files
+*/
+/******************************************************************************/
 	virtual void Update(float frametime) override;
+
+/******************************************************************************/
+/*!
+  \fn GetName()
+
+  \brief Returns the system's name
+*/
+/******************************************************************************/
 	virtual std::string GetName() override;
+
+/******************************************************************************/
+/*!
+  \fn SendMessageD()
+
+  \brief Receives messages broadcasted from Core Engine and processes it
+*/
+/******************************************************************************/
 	virtual void SendMessageD(Message* m) override;
 };
 

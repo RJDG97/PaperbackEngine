@@ -9,6 +9,7 @@
 #include "Entity/ComponentTypes.h"
 #include "Components/AABB.h"
 #include "Components/Motion.h"
+#include "Components/Status.h"
 #include <iostream>
 #include <assert.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -20,7 +21,6 @@ Collision* COLLISION;
 Collision::Collision() {
 	
 	debug_ = true;
-	COLLISION = this;
 }
 
 // Comparison function
@@ -214,13 +214,7 @@ void Collision::Update(float frametime) {
 
 			float t_first{};
 
-			//aabb1->second->collided = false;
-			//aabb2->second->collided = false;
-
 			if (CheckCollision(*aabb1->second, *vel1, *aabb2->second, *vel2, frametime, t_first)) {
-				
-				aabb1->second->collided = true;
-				aabb2->second->collided = true;
 
 				EntityTypes aabb1_type = aabb1->second->GetOwner()->GetType();
 				EntityTypes aabb2_type = aabb2->second->GetOwner()->GetType();
@@ -229,7 +223,45 @@ void Collision::Update(float frametime) {
 				if ((aabb1_type == EntityTypes::Wall && (aabb2_type == EntityTypes::Player || aabb2_type == EntityTypes::Enemy)) ||
 					(aabb2_type == EntityTypes::Wall && (aabb1_type == EntityTypes::Player || aabb1_type == EntityTypes::Enemy))) {
 
+					aabb1->second->collided = true;
+					aabb2->second->collided = true;
+					// Handles collision response for when moving entity collides with static entity
 					CollisionWall(aabb1, vel1, aabb2, vel2, frametime, t_first);
+				}
+				else {
+
+					//otherwise colliding are player & enemy or player & player
+					if ((aabb1_type == EntityTypes::Player && aabb2_type == EntityTypes::Enemy) ||
+						(aabb1_type == EntityTypes::Enemy && aabb2_type == EntityTypes::Player)) {
+
+						Status* player_status = nullptr;
+
+						if (aabb1_type == EntityTypes::Player) {
+
+							player_status = dynamic_cast<Status*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
+						}
+						else {
+
+							player_status = dynamic_cast<Status*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
+						}
+						
+						if (player_status) {
+
+							if (player_status->status_ == StatusType::NONE) {
+
+								aabb1->second->collided = true;
+								aabb2->second->collided = true;
+
+								player_status->status_ = StatusType::HIT;
+								player_status->status_timer_ = 5.1f;
+							}
+							/*
+							else if (player_status->status_ == StatusType::INVISIBLE) {
+
+							}
+							*/
+						}
+					}
 				}
 			}
 		}

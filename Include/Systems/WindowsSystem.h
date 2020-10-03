@@ -27,36 +27,130 @@ public:
 
 	GLFWwindow* ptr_window;
 
-	// Constructor for WindowsSystem
+/******************************************************************************/
+/*!
+  \fn WindowsSystem()
+
+  \brief Constructor for WindowsSystem.
+*/
+/******************************************************************************/
 	WindowsSystem();
-	// Initializes the window, cursor, background
+
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Initializes the window, cursor, background
+*/
+/******************************************************************************/
 	void Init();
 
+/******************************************************************************/
+/*!
+  \fn Update()
+
+  \brief Empty implementation due to function being pure virtual
+*/
+/******************************************************************************/
 	void Update(float frametime);
 
+/******************************************************************************/
+/*!
+  \fn GetName()
+
+  \brief Returns the name of the system
+*/
+/******************************************************************************/
 	std::string GetName();
 
+/******************************************************************************/
+/*!
+  \fn SendMessageD()
+
+  \brief Empty implementation due to function being pure virtual
+*/
+/******************************************************************************/
 	void SendMessageD(Message* m);
 
-	// Processes messages
+/******************************************************************************/
+/*!
+  \fn ProcessMessage()
+
+  \brief Handles customizing of window's messages / events
+*/
+/******************************************************************************/
 	void ProcessMessage();
 
-	// Static function declaration for single WindowsSystem
+/******************************************************************************/
+/*!
+  \fn Instance()
+
+  \brief Static function to return a pointer to the windows instance
+*/
+/******************************************************************************/
 	static WindowsSystem* Instance();
 
-	// Unload WindowsSystem
-	void UnloadInstance();
+/******************************************************************************/
+/*!
+  \fn UnloadInstance()
 
+  \brief Unloads with window instance
+*/
+/******************************************************************************/
+	void UnloadInstance();
+	
+/******************************************************************************/
+/*!
+  \fn getHandle()
+
+  \brief Returns a handle to the window
+*/
+/******************************************************************************/
 	HWND getHandle();
 
+/******************************************************************************/
+/*!
+  \fn getWindowClass()
+
+  \brief Returns a pointer to the window class
+*/
+/******************************************************************************/
 	LPTSTR getWindowClass();
 
+/******************************************************************************/
+/*!
+  \fn getWinWidth()
+
+  \brief Gets the window's width
+*/
+/******************************************************************************/
 	int getWinWidth() const;
 
+/******************************************************************************/
+/*!
+  \fn getWinHeight()
+
+  \brief Get the window's height
+*/
+/******************************************************************************/
 	int getWinHeight() const;
 
+/******************************************************************************/
+/*!
+  \fn setWinWidth()
+
+  \brief Sets the window's new width
+*/
+/******************************************************************************/
 	void setWinWidth(int _width);
 
+/******************************************************************************/
+/*!
+  \fn setWinHeight()
+
+  \brief Sets the window's new height
+*/
+/******************************************************************************/
 	void setWinHeight(int _height);
 };
 

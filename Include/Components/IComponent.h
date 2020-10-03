@@ -1,7 +1,5 @@
 #include "Entity/ComponentTypes.h"
 //#include "ComponentTypes.h"
-#include "Systems/ISerializer.h"
-//#include "ISerializer.h"
 #include "../rapidjson/filereadstream.h"
 //#include "lib/rapidjson/filereadstream.h"
 #include "../rapidjson/document.h"
@@ -22,25 +20,62 @@ class Component {
 	ComponentTypes type_id_;
 
 public:
-
 	friend class Entity;
 
-	// Inits the component ingame 
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Initialize the component attached to the entity during compile time
+*/
+/******************************************************************************/
 	virtual void Init() {};
 
-	// Reads and initializes the component's data members from a stream
+/******************************************************************************/
+/*!
+  \fn Serialize
+
+  \brief Retrieves the data from the stringstream to initialize data members
+*/
+/******************************************************************************/
 	virtual void Serialize(std::stringstream& data) { (void)data; };
 
-	// Returns the pointer to the entity that owns the component
+/******************************************************************************/
+/*!
+  \fn GetOwner()
+
+  \brief Returns a pointer to the entity that owns the component
+*/
+/******************************************************************************/
 	Entity* GetOwner() { return owner_; }
 
-	//returns type id
+/******************************************************************************/
+/*!
+  \fn GetComponentTypeID()
+
+  \brief Returns the ID type of the component
+*/
+/******************************************************************************/
 	ComponentTypes GetComponentTypeID() { return type_id_; }
 
+/******************************************************************************/
+/*!
+  \fn Clone()
+
+  \brief Clones the existing component
+*/
+/******************************************************************************/
 	virtual Component* Clone() { return nullptr; };
 
 protected:
-	// Double check why protected
+/******************************************************************************/
+/*!
+  \fn ~Component()
+
+  \brief Virtual destructor so all derived components will have their destructors
+         called
+*/
+/******************************************************************************/
 	virtual ~Component() = default;
 };
 

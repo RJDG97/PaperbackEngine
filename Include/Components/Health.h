@@ -16,7 +16,7 @@ public:
 	Health();
 
 	void Init();
-	//Serialize
+	void Serialize(std::stringstream& data) override;
 };
 
 #endif

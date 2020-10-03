@@ -1,6 +1,7 @@
 #include "Components/Transform.h"
 #include "MathLib/Vector2D.h"
 #include "Systems/Physics.h"
+#include "Engine/Core.h"
 #include <iostream> 
 // originally sstream
 
@@ -11,13 +12,13 @@ Transform::Transform() :
 
 Transform::~Transform() {
 
-	PHYSICS->RemoveTransformComponent(Component::GetOwner()->GetID());
+	CORE->GetSystem<Physics>()->RemoveTransformComponent(Component::GetOwner()->GetID());
 }
 
 void Transform::Init() {
 	//PHYSICS->Transforms.push_back(*this);
 	//PHYSICS->Transforms_[Component::GetOwner()->GetID()] = *this;
-	PHYSICS->AddTransformComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetSystem<Physics>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
 }
 
 void Transform::Serialize(std::stringstream& data) {

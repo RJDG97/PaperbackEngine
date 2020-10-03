@@ -11,19 +11,66 @@ class EngineDebug
 	static EngineDebug* d_instance_;
 	std::fstream my_file_;
 
+/******************************************************************************/
+/*!
+  \fn EngineDebug()
+
+  \brief Opens the file Resources/Debug.txt
+*/
+/******************************************************************************/
 	EngineDebug();
 public:
+/******************************************************************************/
+/*!
+  \fn GetInstance()
+
+  \brief Creates a new instance of EngineDebug if it does not yet exist
+		 Returns a pointer to the instance if it already exists
+*/
+/******************************************************************************/
 	static EngineDebug* GetInstance() {
 		if (!d_instance_) { d_instance_ = new EngineDebug; }
 		return d_instance_;
 	}
+
+/******************************************************************************/
+/*!
+  \fn DeleteInstance()
+
+  \brief Used to free the memory allocated to the EngineDebug instance;
+*/
+/******************************************************************************/
 	static void DeleteInstance() {
 		if (d_instance_)
 			delete d_instance_;
 	}
 
+/******************************************************************************/
+/*!
+  \fn WriteDebugMessage()
+
+  \brief Message passed into the function will be logged into Resources/Debug.txt
+*/
+/******************************************************************************/
 	void WriteDebugMessage(const std::string& str);
 
+/******************************************************************************/
+/*!
+  \fn SaveDebug()
+
+  \brief The file is closed to save all logs made and reopened to allow for more
+		 to be logged
+*/
+/******************************************************************************/
+	void SaveDebug();
+
+/******************************************************************************/
+/*!
+  \fn ~EngineDebug()
+
+  \brief Used to call the closure of the file that was opened in constructor
+*/
+/******************************************************************************/
 	~EngineDebug();
 };
 

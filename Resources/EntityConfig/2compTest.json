@@ -16,18 +16,26 @@
     },
     {
       "component": "AnimationRenderer",
-	  "model": "BoxModel",
-	  "shader program": "TextureShader",
-	  "number of animations": "1",
-	  "add animation": "Player_Walk",
-	  "set animation": "Player_Walk",
-	  "play_animation": "1",
-	  "has_finished_animating": "0",
-	  "layer": "1"
+      "model": "BoxModel",
+      "shader program": "TextureShader",
+      "number of animations": "1",
+      "add animation": "Player_Walk",
+      "set animation": "Player_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "1"
     },
     {
       "component": "AABB"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "Health",
+      "maximum health": "5"
     }
+    
   ],
   "Enemy": [
     {
@@ -49,10 +57,17 @@
       "texture": "Plank",
       "model": "BoxModel",
       "shader program": "TextureShader",
-	  "layer": "0"
+      "layer": "0"
     },
     {
       "component": "AABB"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "Health",
+      "maximum health": "5"
     }
   ],
   "Wall": [
@@ -70,7 +85,7 @@
       "texture": "Rock",
       "model": "BoxModel",
       "shader program": "TextureShader",
-	  "layer": "0"
+      "layer": "0"
     },
     {
       "component": "AABB"
