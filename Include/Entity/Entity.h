@@ -56,6 +56,7 @@ enum class EntityTypes {
 	None = 0,
 	Player,
 	Enemy,
+	Wall,
 	StaticObj
 };
 
