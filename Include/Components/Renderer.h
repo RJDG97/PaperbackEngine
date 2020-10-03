@@ -13,6 +13,9 @@ class Renderer : public Component {
 
 protected:
 
+	int x_flipped_ = 1;
+	int y_flipped_ = 1;
+
 	Model model_;
 	Shader shdr_pgm_;
 
@@ -32,6 +35,10 @@ public:
 	void ChangeTexture(std::string texture_name);
 	void ChangeModel(std::string model_name);
 	void ChangeShdrpgm(std::string shdr_pgm_name);
+
+	void FlipTextureX();
+	void FlipTextureY();
+
 
 	virtual void Update(float frametime, glm::mat3 world_to_ndc_xform);
 	void Draw();

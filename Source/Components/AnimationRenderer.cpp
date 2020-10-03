@@ -43,6 +43,9 @@ void AnimationRenderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
 
     Vector2D scale = dynamic_cast<Scale*>(Component::GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
 
+    scale.x *= x_flipped_;
+    scale.y *= y_flipped_;
+
     scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
                          0.0f, scale.y, 0.0f,
                          0.0f, 0.0f, 1.0f };
