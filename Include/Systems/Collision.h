@@ -23,6 +23,9 @@ class Collision : public ISystem {
 	//recalculates the component's bounding box coordinates
 	//utilises scale component
 	void UpdateBoundingBox();
+
+	//handles the response from colliding with a wall
+	void CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first);
 public:
 	Collision();
 

@@ -46,9 +46,29 @@
     },
     {
       "component": "Renderer",
-	  "texture": "Rock",
-	  "model": "BoxModel",
-	  "shader program": "TextureShader",
+      "texture": "Rock",
+      "model": "BoxModel",
+      "shader program": "TextureShader"
+    },
+    {
+      "component": "AABB"
+    }
+  ],
+  "Wall": [
+    {
+      "component": "Transform",
+      "position": "-150.0 -100.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "Renderer",
+      "texture": "Rock",
+      "model": "BoxModel",
+      "shader program": "TextureShader",
 	  "layer": "0"
     },
     {

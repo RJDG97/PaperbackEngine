@@ -137,6 +137,44 @@ void Collision::Init() {
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }
 
+void Collision::CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first) {
+
+	/*
+				std::cout << "Collision detected between " << aabb1->second->GetOwner()->GetID()
+					<< " and " << aabb2->second->GetOwner()->GetID() << std::endl;
+					*/
+					/*std::cout << "AABB1 bottom left: " << aabb1->second->bottom_left_.x << ", " << aabb1->second->bottom_left_.y
+						<< " | AABB1 top right: " << aabb1->second->top_right_.x << ", " << aabb1->second->top_right_.y << std::endl;
+
+					std::cout
+					<< "AABB2 bottom left: " << aabb2->second->bottom_left_.x
+					<< ", " << aabb2->second->bottom_left_.y
+					<< " | AABB2 top right: " << aabb2->second->top_right_.x
+					<< ", " << aabb2->second->top_right_.y
+					<< std::endl;*/
+
+					//std::cout << "time to collision: " << t_first << std::endl;
+	Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
+	Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
+
+	Transform* transform1 = dynamic_cast<Transform*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+	Transform* transform2 = dynamic_cast<Transform*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+
+	//std::cout << "Inverse vector 1: " << inverse_vector_1.x << ", " << inverse_vector_1.y << std::endl;
+	//std::cout << "Inverse vector 2: " << inverse_vector_2.x << ", " << inverse_vector_2.y << std::endl;
+
+	transform1->position_ += inverse_vector_1;
+	transform2->position_ += inverse_vector_2;
+
+	if (debug_) {
+		std::string debug_str{};
+		debug_str += "time to collision: " + std::to_string(t_first) + "\n"
+			+ "Inverse vector 1: " + std::to_string(inverse_vector_1.x) + ", "
+			+ std::to_string(inverse_vector_1.y) + "\n";
+		M_DEBUG->WriteDebugMessage(debug_str);
+	}
+}
+
 //contains logic executed during the update loop of a game
 void Collision::Update(float frametime) {
 	if (debug_) { M_DEBUG->WriteDebugMessage("\nCollision System Update Debug Log:\n"); }
@@ -176,46 +214,22 @@ void Collision::Update(float frametime) {
 
 			float t_first{};
 
-			aabb1->second->collided = false;
-			aabb2->second->collided = false;
+			//aabb1->second->collided = false;
+			//aabb2->second->collided = false;
 
 			if (CheckCollision(*aabb1->second, *vel1, *aabb2->second, *vel2, frametime, t_first)) {
-				/*
-				std::cout << "Collision detected between " << aabb1->second->GetOwner()->GetID() 
-					<< " and " << aabb2->second->GetOwner()->GetID() << std::endl;
-					*/
-				/*std::cout << "AABB1 bottom left: " << aabb1->second->bottom_left_.x << ", " << aabb1->second->bottom_left_.y
-					<< " | AABB1 top right: " << aabb1->second->top_right_.x << ", " << aabb1->second->top_right_.y << std::endl;
-			
-				std::cout
-				<< "AABB2 bottom left: " << aabb2->second->bottom_left_.x
-				<< ", " << aabb2->second->bottom_left_.y
-				<< " | AABB2 top right: " << aabb2->second->top_right_.x
-				<< ", " << aabb2->second->top_right_.y
-				<< std::endl;*/
-
-				//std::cout << "time to collision: " << t_first << std::endl;
-				Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
-				Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
-
-				Transform* transform1 = dynamic_cast<Transform*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-				Transform* transform2 = dynamic_cast<Transform*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-
-				//std::cout << "Inverse vector 1: " << inverse_vector_1.x << ", " << inverse_vector_1.y << std::endl;
-				//std::cout << "Inverse vector 2: " << inverse_vector_2.x << ", " << inverse_vector_2.y << std::endl;
-
-				transform1->position_ += inverse_vector_1;
-				transform2->position_ += inverse_vector_2;
-
+				
 				aabb1->second->collided = true;
 				aabb2->second->collided = true;
 
-				if (debug_) {
-					std::string debug_str{};
-					debug_str += "time to collision: " + std::to_string(t_first) + "\n"
-								+ "Inverse vector 1: " + std::to_string(inverse_vector_1.x) + ", " 
-								+ std::to_string(inverse_vector_1.y) + "\n";
-					M_DEBUG->WriteDebugMessage(debug_str);
+				EntityTypes aabb1_type = aabb1->second->GetOwner()->GetType();
+				EntityTypes aabb2_type = aabb2->second->GetOwner()->GetType();
+
+				//check what types are both objects that are colliding
+				if ((aabb1_type == EntityTypes::Wall && (aabb2_type == EntityTypes::Player || aabb2_type == EntityTypes::Enemy)) ||
+					(aabb2_type == EntityTypes::Wall && (aabb1_type == EntityTypes::Player || aabb1_type == EntityTypes::Enemy))) {
+
+					CollisionWall(aabb1, vel1, aabb2, vel2, frametime, t_first);
 				}
 			}
 		}
@@ -290,6 +304,8 @@ void Collision::Draw() {
 			shdr_pgm_.UnUse();
 		}
 	}
+
+	//if (debug_) { debug_ = !debug_; }
 }
 
 //function more akin to "What to do when message is received" for internal logic
@@ -334,6 +350,9 @@ void Collision::UpdateBoundingBox() {
 
 	for (AABBIt aabb = aabb_arr_.begin(); aabb != aabb_arr_.end(); ++aabb) {
 		
+		//reset collided flag to false to prepare for collision check after
+		aabb->second->collided = false;
+
 		Entity* entity = aabb->second->GetOwner();
 		assert(entity && "Entity does not exist");
 
