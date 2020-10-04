@@ -40,8 +40,8 @@
 	  "model": "BoxModel",
 	  "shader program": "LightShader",
 	  "color": "1.0 1.0 0.7",
-	  "radius": "250.0",
-	  "intensity": "1.0"
+	  "radius": "200.0",
+	  "intensity": "0.8"
     }
     
   ],
@@ -76,6 +76,14 @@
     {
       "component": "Health",
       "maximum health": "5"
+    },
+    {
+      "component": "PointLight",
+	  "model": "BoxModel",
+	  "shader program": "LightShader",
+	  "color": "0.5 1.0 1.0",
+	  "radius": "300.0",
+	  "intensity": "1.0"
     }
   ],
   "Wall": [

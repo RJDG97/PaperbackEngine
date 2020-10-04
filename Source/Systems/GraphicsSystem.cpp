@@ -62,7 +62,7 @@ Context information.
 void GraphicsSystem::Init() {
 
     // Clear colorbuffer with cyan color ...
-    glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
     //lighting_system = CORE->GetSystem<LightingSystem>("LightingSystem");
     windows_system_ = CORE->GetSystem<WindowsSystem>();
