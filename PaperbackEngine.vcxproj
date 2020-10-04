@@ -159,7 +159,6 @@
     <ClCompile Include="Source\Entity\Entity.cpp" />
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
-    <ClCompile Include="Source\glhelper.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
     <ClCompile Include="Source\Manager\ModelManager.cpp" />
     <ClCompile Include="Source\Manager\ShaderManager.cpp" />
@@ -199,7 +198,6 @@
     <ClInclude Include="Include\GameStates\GameState.h" />
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
-    <ClInclude Include="Include\glhelper.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\IManager.h" />
     <ClInclude Include="Include\Manager\ModelManager.h" />

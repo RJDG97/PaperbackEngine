@@ -298,33 +298,10 @@ void Collision::Draw() {
 			glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_) * translation * scaling;
 
 			shdr_pgm_.Use();
-
 			glBindVertexArray(model_.vaoid_);
 
-			GLint uniform_var_transform =
-				glGetUniformLocation(shdr_pgm_.GetHandle(), "uModel_to_NDC");
-
-			if (uniform_var_transform >= 0) {
-				glUniformMatrix3fv(uniform_var_transform, 1, GL_FALSE,
-								   glm::value_ptr(mdl_to_ndc_xform));
-			}
-
-			else {
-				std::cout << "Uniform variable doesn't exist!!!\n";
-				std::exit(EXIT_FAILURE);
-			}
-
-			GLint uniform_var_collided =
-				glGetUniformLocation(shdr_pgm_.GetHandle(), "collided");
-
-			if (uniform_var_collided >= 0) {
-				glUniform1i(uniform_var_collided, (*aabb).second->collided);
-			}
-
-			else {
-				std::cout << "Uniform variable doesn't exist!!!\n";
-				std::exit(EXIT_FAILURE);
-			}
+			shdr_pgm_.SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
+			shdr_pgm_.SetUniform("collided", (*aabb).second->collided);
 
 			glDrawArrays(GL_LINES, 0, model_.draw_cnt_);
 

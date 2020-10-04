@@ -45,7 +45,7 @@ void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char r
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1,
-        0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+                 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
     textures_[texture_name] = texobj_hdl;
     delete[] pixels;
@@ -122,15 +122,15 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
         //if this texture ID is in use, unload the current texture
         UnloadTexture(texture_names[currentTile]);
 
-        const int startY = (rows - 1 - currentTile / columns) * tile_height;
-        const int startX = (currentTile % columns) * tile_width;
+        size_t startY = (rows - 1 - currentTile / columns) * tile_height;
+        size_t startX = (currentTile % columns) * tile_width;
         int i = 0;
 
-        for (int y = startY; y < startY + tile_height; ++y)
+        for (size_t y = startY; y < startY + tile_height; ++y)
         {
-            for (int x = startX; x < startX + tile_width; ++x, ++i)
+            for (size_t x = startX; x < startX + tile_width; ++x, ++i)
             {
-                int j = y * tile_width * columns + x;
+                size_t j = y * tile_width * columns + x;
                 pixels[i * 4 + 0] = bits[j * 4 + 2];
                 pixels[i * 4 + 1] = bits[j * 4 + 1];
                 pixels[i * 4 + 2] = bits[j * 4 + 0];
@@ -145,8 +145,9 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tile_width, tile_height,
-            0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+                     static_cast<GLsizei>(tile_width), static_cast<GLsizei>(tile_height),
+                     0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
         textures_[texture_names[currentTile]] = texobj_hdl;
     }

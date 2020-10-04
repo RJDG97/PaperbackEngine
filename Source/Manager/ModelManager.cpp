@@ -43,11 +43,11 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
         {
             if (index != 0 && col == 0)
             {
-                idx_vtx[index++] = (row + 1) * (slices + 1) + col;
+                idx_vtx[index++] = static_cast<GLushort>((row + 1) * (slices + 1) + col);
             }
 
-            idx_vtx[index++] = (row + 1) * (slices + 1) + col;
-            idx_vtx[index++] = row * (slices + 1) + col;
+            idx_vtx[index++] = static_cast<GLushort>((row + 1) * (slices + 1) + col);
+            idx_vtx[index++] = static_cast<GLushort>(row * (slices + 1) + col);
         }
 
         if (row != stacks - 1)
@@ -105,8 +105,8 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
     Model mdl;
     mdl.vaoid_ = vao_hdl;
     mdl.primitive_type_ = GL_TRIANGLE_STRIP;
-    mdl.draw_cnt_ = idx_vtx.size();           // number of vertices
-    mdl.primitive_cnt_ = count;               // number of triangles
+    mdl.draw_cnt_ = static_cast<GLint>(idx_vtx.size());     // number of vertices
+    mdl.primitive_cnt_ = count;                             // number of triangles
     models_[model_name] = mdl;
 }
 
@@ -154,8 +154,8 @@ void ModelManager::AddLinesModel(int slices, int stacks, std::string model_name)
     Model mdl;
     mdl.vaoid_ = vao_hdl;
     mdl.primitive_type_ = GL_LINES;
-    mdl.draw_cnt_ = count;                      // number of vertices
-    mdl.primitive_cnt_ = pos_vtx.size() / 2;    // number of GL_LINES
+    mdl.draw_cnt_ = count;                                          // number of vertices
+    mdl.primitive_cnt_ = static_cast<GLint>(pos_vtx.size() / 2);    // number of GL_LINES
     models_[model_name] = mdl;
 }
 

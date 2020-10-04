@@ -42,7 +42,7 @@ void LightingSystem::Init()
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	{
-		std::cout << "Lighting buffer is not complete!" << std::endl;
+		assert(Lighting framebuffer is not complete!);
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -81,24 +81,6 @@ void LightingSystem::Draw()
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	/*
-	//render the lights here
-	glBlendFunc(GL_ONE, GL_ONE);
-	glViewport(400/2 - 150, 300/2 - 150, 150 * 2, 150 * 2); //Use this equation BUT need multiply stuff by intensity!!
-	CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->models[1].DrawLight(glm::vec3{ 1.0f, 1.0f, 0.5f },
-												   glm::vec2{ 400/2, 300/2},
-							  					   1.0f, 150.0f);
-	
-	glViewport(200 / 2 - 150, 100 / 2 - 150, 150 * 2, 150 * 2);
-	CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->models[1].DrawLight(glm::vec3{ 0.3f, 0.9f, 1.0f },
-		glm::vec2{ 200/2, 100/2 },
-		1.0f, 150.0f);
-
-	glViewport(600 / 2 - 150, 100 / 2 - 150, 150 * 2, 150 * 2);
-	CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->models[1].DrawLight(glm::vec3{ 1.0f, 0.3f, 1.0f },
-		glm::vec2{ 600/2, 100/2 },
-		1.0f, 150.0f);*/
 }
 
 void LightingSystem::Cleanup()
@@ -137,4 +119,5 @@ std::string LightingSystem::GetName()
 
 void LightingSystem::SendMessageD(Message* m)
 {
+	UNREFERENCED_PARAMETER(m);
 }

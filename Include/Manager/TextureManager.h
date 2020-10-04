@@ -7,50 +7,7 @@
 #include <string>
 #include "Manager/IManager.h"
 
-typedef GLuint Texture; //idk if this should be here
-
-/*
-enum TextureName
-{
-	Empty,
-	
-	//misc_tiles
-	BlackQuad,
-	WhiteQuad,
-
-	//environment_tiles
-	Carpet_TopLeft,
-	Carpet_TopMid,
-	Carpet_TopRight,
-	Carpet_Left,
-	Carpet_Mid,
-	Carpet_Right,
-	Carpet_BtmLeft,
-	Carpet_BtmMid,
-	Carpet_BtmRight,
-	Carpet_Brick_BtmLeft,
-	Carpet_Brick_BtmMid,
-	Carpet_Brick_BtmRight,
-	Brick_Left,
-	Brick_Mid,
-	Brick_Right,
-	Plank,
-	Stone,
-	Rock,
-
-	//Player_Walk
-	Player_Walk1,
-	Player_Walk2,
-	Player_Walk3,
-	Player_Walk4,
-	Player_Walk5,
-	Player_Walk6,
-	Player_Walk7,
-	Player_Walk8,
-
-	//Background
-	Background
-};*/
+typedef GLuint Texture;
 
 class TextureManager : public IManager
 {

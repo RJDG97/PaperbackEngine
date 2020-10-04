@@ -5,14 +5,6 @@
 #include "Manager/IManager.h"
 #include <list>
 
-/*
-enum AnimationName
-{
-	Player_Idle,
-	Player_Walk,
-	Player_Attack
-};*/
-
 class Animation
 {
 	std::list <Texture*> animation_frames_;

@@ -10,8 +10,6 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/LightingSystem.h"
 
-#include "glhelper.h"
-
 #include "Manager/ModelManager.h"
 #include "Manager/TextureManager.h"
 #include "Manager/ShaderManager.h"

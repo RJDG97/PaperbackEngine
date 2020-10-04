@@ -35,16 +35,11 @@ public:
     void Use();
     void UnUse();
 
-    GLboolean Validate();
+    void Validate();
 
     GLuint GetHandle() const;
 
     GLboolean IsLinked() const;
-
-    std::string GetLog() const;
-
-    void BindAttribLocation(GLuint index, GLchar const* name);
-    void BindFragDataLocation(GLuint color_number, GLchar const* name);
 
     void DeleteShaderProgram();
 
@@ -71,30 +66,12 @@ private:
         FRAGMENT_SHADER = GL_FRAGMENT_SHADER,
         GEOMETRY_SHADER = GL_GEOMETRY_SHADER,
         TESS_CONTROL_SHADER = GL_TESS_CONTROL_SHADER,
-        TESS_EVALUATION_SHADER = GL_TESS_EVALUATION_SHADER,
-        // ignore compute shader for now because it is not connected to
-        // the graphics pipe
-        // COMPUTE_SHADER = GL_COMPUTE_SHADER
+        TESS_EVALUATION_SHADER = GL_TESS_EVALUATION_SHADER
     };
 
     GLuint pgm_handle = 0;  // handle to linked shader program object
     GLboolean is_linked = GL_FALSE; // has the program successfully linked?
-    std::string log_string; // log for OpenGL compiler and linker messages
-
-    // use OpenGL API to return the location of an uniform variable with
-    // name "name" using program handle encapsulated by object of this class type
-    GLint GetUniformLocation(GLchar const* name);
-
-    // return true if file (given in relative path) exists, false otherwise
-    GLboolean FileExists(std::string const& file_name);
 };
-
-/*
-enum ShaderType
-{
-    TextureShader,
-    LightShader
-};*/
 
 class ShaderManager : public IManager
 {

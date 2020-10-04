@@ -4,7 +4,6 @@
 #define LIGHTINGSYSTEM_H
 
 #include <GL/glew.h>
-#include "glhelper.h"
 #include "Systems/ISystem.h"
 #include "Systems/WindowsSystem.h"
 #include "Components/PointLight.h"

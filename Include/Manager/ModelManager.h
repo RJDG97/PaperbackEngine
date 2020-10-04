@@ -8,12 +8,6 @@
 #include "Manager/ShaderManager.h"
 #include "Manager/IManager.h"
 
-/*
-enum ModelType
-{
-    BoxModel
-};*/
-
 struct Model
 {
     GLenum     primitive_type_;

@@ -92,7 +92,7 @@ void GraphicsSystem::Init() {
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
-        std::cout << "Framebuffer is not complete!" << std::endl;
+        assert(Final framebuffer is not complete!);
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -117,8 +117,6 @@ void GraphicsSystem::Init() {
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
     CameraInit();
-
-    glEnable(GL_CULL_FACE);
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
@@ -204,8 +202,8 @@ void GraphicsSystem::DrawFinalTexture(Model& model, Shader& shader, Texture& tex
     glBindTexture(GL_TEXTURE_2D, texture);
     glBindTextureUnit(0, texture);
     glUseProgram(shader.GetHandle());
-    GLuint tex_loc = glGetUniformLocation(shader.GetHandle(), "uTex2d");
-    glUniform1i(tex_loc, 0);
+  
+    shader.SetUniform("uTex2d", 0);
 
     glDrawElements(GL_TRIANGLE_STRIP, model.draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
