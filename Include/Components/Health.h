@@ -13,11 +13,34 @@ class Health : public Component
 public:
 	friend class Physics; // Temporary friend class for testing purposes
 
+/******************************************************************************/
+/*!
+  \fn Health()
+
+  \brief Constructor for Health that defaults the current and maximum health 
+		 of the entity
+*/
+/******************************************************************************/
 	Health();
 
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Logic where the component will add itself to a system's map will
+		 be placed here
+*/
+/******************************************************************************/
 	void Init();
-	void PublishResults();
-	//Serialize
+
+/******************************************************************************/
+/*!
+  \fn Serialize()
+
+  \brief Reads data from a stringstream and stores them into the data members
+*/
+/******************************************************************************/
+	void Serialize(std::stringstream& data) override;
 };
 
 #endif

@@ -31,6 +31,7 @@ public:
     void Init() override;
 
     void AddTristripsModel(int slices, int stacks, std::string model_name);
+    void AddLinesModel(int slices, int stacks, std::string model_name);
 
     Model GetModel(std::string model_name);
 

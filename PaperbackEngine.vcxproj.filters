@@ -40,9 +40,6 @@
     <Filter Include="Systems\GraphicsSystem">
       <UniqueIdentifier>{707765b0-cef9-4294-91e4-211866991ae3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systems\GraphicsSystem\ResourceManagers">
-      <UniqueIdentifier>{d2a4b4ba-d708-4233-b19e-ad1ce1c39e11}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Systems\Physics">
       <UniqueIdentifier>{8bfe5313-3d35-4544-88d1-53b25f7cd9a6}</UniqueIdentifier>
     </Filter>
@@ -76,9 +73,6 @@
     <Filter Include="Entity\Components\Attack">
       <UniqueIdentifier>{ab8a7ae1-d46d-4249-9501-0f4c49277a23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entity\Components\Visibility">
-      <UniqueIdentifier>{14cd28a7-f952-410b-91a7-23cb2363977b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity\Components\Status">
       <UniqueIdentifier>{d0c27e9d-4b52-4c3c-b430-9f9ffdcd2482}</UniqueIdentifier>
     </Filter>
@@ -90,6 +84,12 @@
     </Filter>
     <Filter Include="Systems\Debug">
       <UniqueIdentifier>{87f1006f-464f-417c-8f6b-c27ec92c99df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResourceManagers">
+      <UniqueIdentifier>{d2a4b4ba-d708-4233-b19e-ad1ce1c39e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Light">
+      <UniqueIdentifier>{261a65d9-ccc8-4ba7-acff-9ec39af64592}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -119,9 +119,6 @@
     </ClCompile>
     <ClCompile Include="Source\Components\Transform.cpp">
       <Filter>Entity\Components\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Components\Visibility.cpp">
-      <Filter>Entity\Components\Visibility</Filter>
     </ClCompile>
     <ClCompile Include="Source\Entity\Entity.cpp">
       <Filter>Entity</Filter>
@@ -159,20 +156,17 @@
     <ClCompile Include="Source\GameStates\MenuState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameStates\PauseState.cpp">
-      <Filter>Systems\Scene/State Manager\Test States</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GameStates\PlayState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
     <ClCompile Include="Source\Manager\AnimationManager.cpp">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+      <Filter>ResourceManagers</Filter>
     </ClCompile>
     <ClCompile Include="Source\Manager\ModelManager.cpp">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+      <Filter>ResourceManagers</Filter>
     </ClCompile>
     <ClCompile Include="Source\Manager\TextureManager.cpp">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+      <Filter>ResourceManagers</Filter>
     </ClCompile>
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp">
       <Filter>Systems\MathLibrary</Filter>
@@ -182,9 +176,6 @@
     </ClCompile>
     <ClCompile Include="Source\Systems\FrameRateController.cpp">
       <Filter>Frame Rate Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Systems\ISerializer.cpp">
-      <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\Message.cpp">
       <Filter>Systems</Filter>
@@ -196,10 +187,13 @@
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="Source\Manager\ShaderManager.cpp">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+      <Filter>ResourceManagers</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\Debug.cpp">
       <Filter>Systems\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\PointLight.cpp">
+      <Filter>Entity\Components\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,9 +230,6 @@
     <ClInclude Include="Include\Components\Transform.h">
       <Filter>Entity\Components\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Components\Visibility.h">
-      <Filter>Entity\Components\Visibility</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Systems\Collision.h">
       <Filter>Systems\Collision</Filter>
     </ClInclude>
@@ -249,13 +240,13 @@
       <Filter>Systems\Factory</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\AnimationManager.h">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\ModelManager.h">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\TextureManager.h">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\LightingSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
@@ -290,9 +281,6 @@
     <ClInclude Include="Include\GameStates\MenuState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GameStates\PauseState.h">
-      <Filter>Systems\Scene/State Manager\Test States</Filter>
-    </ClInclude>
     <ClInclude Include="Include\GameStates\PlayState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
@@ -308,9 +296,6 @@
     <ClInclude Include="Include\Systems\FrameRateController.h">
       <Filter>Frame Rate Controller</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Systems\ISerializer.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Systems\Message.h">
       <Filter>Systems</Filter>
     </ClInclude>
@@ -321,13 +306,16 @@
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\IManager.h">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\ShaderManager.h">
-      <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\Debug.h">
       <Filter>Systems\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\PointLight.h">
+      <Filter>Entity\Components\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

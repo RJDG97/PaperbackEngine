@@ -12,11 +12,41 @@ public:
 	friend class Graphics;
 	friend class Collision;
 
+/******************************************************************************/
+/*!
+  \fn Scale()
+
+  \brief Constructor for Scale that defaults the data members of the
+		 component
+*/
+/******************************************************************************/
 	Scale();
 
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Scale will add itself to a relavant system's map 
+*/
+/******************************************************************************/
 	void Init();
-	void PublishResults();
+
+/******************************************************************************/
+/*!
+  \fn GetScale()
+
+  \brief Returns the scale factor of the component
+*/
+/******************************************************************************/
 	Vector2D GetScale() const;
+
+/******************************************************************************/
+/*!
+  \fn Serialize()
+
+  \brief Reads data from a stringstream and stores them into the data members
+*/
+/******************************************************************************/
 	void Serialize(std::stringstream& data) override;
 };
 

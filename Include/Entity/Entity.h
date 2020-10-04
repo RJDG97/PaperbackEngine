@@ -19,35 +19,103 @@ class Entity {
 	EntityID object_id_;
 	EntityTypes entity_type_;
 
-	// For use in FACTORY only
+/******************************************************************************/
+/*!
+  \fn Entity()
+
+  \brief Constructor for Entity, defaults the data members
+*/
+/******************************************************************************/
 	Entity();
+
+/******************************************************************************/
+/*!
+  \fn ~Entity()
+
+  \brief Destructor for Entity, ensures that all components that are assigned 
+		 are cleaned up
+*/
+/******************************************************************************/
 	~Entity();
 public:
 
 	friend class EntityFactory;
 
-	//returns component by id
-	//NULL if invalid
-	Component* GetComponent(ComponentTypes typeId);
+/******************************************************************************/
+/*!
+  \fn GetComponent()
 
-	//guaranteed method of getting component
+  \brief Returns a specific component by base pointer if the entity has it, 
+		 otherwise a nullptr will be returned
+*/
+/******************************************************************************/
+	Component* GetComponent(ComponentTypes type_id);
+
+/******************************************************************************/
+/*!
+  \fn GetComponentType()
+
+  \brief A version of GetComponent that returns a dynamic_cast component
+*/
+/******************************************************************************/
 	template <typename return_type>
 	return_type* GetComponentType(ComponentTypes id);
 
-	// For initializing all components attached to the entity
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Initialises all components attached to the entity and 
+		 sets the owner pointer of the components
+*/
+/******************************************************************************/
 	void Init();
 
-	// For properly destroying an entity by adding it to the 
-	// factory's destroy list (Destroyed in next game loop)
+/******************************************************************************/
+/*!
+  \fn Destroy()
+
+  \brief Used for properly destroying an entity by adding it to the factory's
+		 destroy list, which will destroy the entity in the next game loop
+*/
+/******************************************************************************/
 	void Destroy();
 
-	// Adds a component to the current entity
+/******************************************************************************/
+/*!
+  \fn AddComponent()
+
+  \brief Adds a component to the current entity
+*/
+/******************************************************************************/
 	void AddComponent(ComponentTypes typeId, Component* component);
 
+/******************************************************************************/
+/*!
+  \fn GetID()
+
+  \brief Returns the entity id of the entity
+*/
+/******************************************************************************/
 	EntityID GetID() { return object_id_; };
 
+/******************************************************************************/
+/*!
+  \fn GetType()
+
+  \brief Returns the entity type of the entity
+*/
+/******************************************************************************/
 	EntityTypes GetType() { return entity_type_; };
 
+/******************************************************************************/
+/*!
+  \fn Clone()
+
+  \brief Clones a entity in its entirety, down to the components that it 
+		 contains
+*/
+/******************************************************************************/
 	Entity* Clone();
 };
 
@@ -56,6 +124,7 @@ enum class EntityTypes {
 	None = 0,
 	Player,
 	Enemy,
+	Wall,
 	StaticObj
 };
 

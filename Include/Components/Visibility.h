@@ -12,7 +12,7 @@ public:
 	Visibility();
 
 	void Init();
-	void PublishResults();
+
 	//void Serialize(ISerializer& str);
 };
 

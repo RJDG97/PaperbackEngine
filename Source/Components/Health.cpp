@@ -7,16 +7,12 @@ Health::Health() {
 }
 
 void Health::Init() {
-	// Push back component into container
-	//PHYSICS->HPs.push_back(*this); // Containers that encapsulate all components should be in a general system (Possibly core)
-	//PHYSICS->HPs_[Component::GetOwner()->GetID()] = *this;
+
 }
 
-// Consult sample engine as to purpose 
-void Health::PublishResults() {
-	
-}
+void Health::Serialize(std::stringstream& data) {
 
-//void Health::Serialize(ISerializer& str) {
-	
-//}
+	data >> maximum_health_;
+
+	current_health_ = maximum_health_;
+}

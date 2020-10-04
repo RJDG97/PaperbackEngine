@@ -8,6 +8,13 @@
 #include "Systems/Debug.h"
 
 #include "Components/Scale.h"
+#include "Components/Status.h"
+#include "Components/Health.h"
+#include "Components/PointLight.h"
+#include "Components/AABB.h"
+#include "Components/Transform.h"
+#include "Components/Motion.h"
+#include "Components/Status.h"
 
 EntityFactory* FACTORY = NULL;
 
@@ -31,7 +38,14 @@ EntityFactory::~EntityFactory() {
 
 void EntityFactory::Init() {
 
+	FACTORY->AddComponentCreator("Transform", new ComponentCreatorType<Transform>(ComponentTypes::TRANSFORM));
+	//FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
+	FACTORY->AddComponentCreator("Motion", new ComponentCreatorType<Motion>(ComponentTypes::MOTION));
+	FACTORY->AddComponentCreator("AABB", new ComponentCreatorType<AABB>(ComponentTypes::AABB));
 	FACTORY->AddComponentCreator("Scale", new ComponentCreatorType<Scale>(ComponentTypes::SCALE));
+	FACTORY->AddComponentCreator("Status", new ComponentCreatorType<Status>(ComponentTypes::STATUS));
+	FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
+	FACTORY->AddComponentCreator("PointLight", new ComponentCreatorType<PointLight>(ComponentTypes::POINTLIGHT));
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }
@@ -160,50 +174,6 @@ Entity* EntityFactory::TestBuild() {
 	StoreEntityID(ret);
 
 	return ret;
-}
-
-Entity* EntityFactory::BuildAndSerialize(const std::string& filename) {
-
-	(void)filename;
-	
-	//Entity* built = new Entity{};
-
-	std::ifstream input_stream("TestJSON/test.json");
-	assert(input_stream);
-	
-	std::stringstream json_doc_buffer;
-	std::string input;
-
-	//reformats stream into format that can be parsed by rapidjson's Document class
-	while (std::getline(input_stream, input)) {
-		
-		json_doc_buffer << input << "\n";
-	}
-
-	input_stream.close();
-
-	rapidjson::Document doc;
-	doc.Parse(json_doc_buffer.str().c_str());
-
-	//treats entire filestream at index as array
-	const rapidjson::Value& value_arr = doc["player"];
-	assert(value_arr.IsArray());
-	
-	for (rapidjson::Value::ConstValueIterator it = value_arr.Begin(); it != value_arr.End(); ++it) {
-
-		//each value is essentially a container for multiple members
-		//IsObject enforces that the member is an object that will contain data:key pairs
-		const rapidjson::Value& member = *it;
-		assert(member.IsObject() && "Not object??");
-		
-		for (rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
-
-			//each member contains multiple data:key pairs that can be read and interpreted
-			std::cout << it2->name.GetString() << std::endl;
-		}
-	}
-
-	return nullptr;
 }
 
 //serialises single archetype 

@@ -1,4 +1,5 @@
 #include "Components/AABB.h"
+#include "Engine/Core.h"
 #include "Systems/Collision.h"
 #include "Systems/Debug.h"
 #include <iostream>
@@ -10,18 +11,14 @@ AABB::AABB() : top_right_{},
 AABB::~AABB() {
 
 	//if (Component::GetOwner())
-	COLLISION->RemoveAABBComponent(Component::GetOwner()->GetID());
+	CORE->GetSystem<Collision>()->RemoveAABBComponent(Component::GetOwner()->GetID());
 }
 
 void AABB::Init() {
 	// Create the map afterwards
 	//COLLISION->AABBs[Component::GetOwner()->GetID()] = *this;
 	//if (Component::GetOwner()
-	COLLISION->AddAABBComponent(Component::GetOwner()->GetID(), this);
-}
-
-void AABB::PublishResults() {
-	//transform->_position = position;
+	CORE->GetSystem<Collision>()->AddAABBComponent(Component::GetOwner()->GetID(), this);
 }
 
 void AABB::Serialize(std::stringstream& data) {

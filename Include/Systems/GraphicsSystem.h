@@ -28,21 +28,32 @@ class GraphicsSystem : public ISystem
     WindowsSystem* windows_system_;
     //LightingSystem* lighting_system;
 
-    //temp camera, will make it into a gameobject next time!
-    glm::vec2 cam_pos_;
-    glm::vec2 cam_size_;
+    //temp camera, will make it into a component next time!
     glm::mat3 view_xform_;
     glm::mat3 camwin_to_ndc_xform_;
-    glm::mat3 world_to_ndc_xform_;
+
+    //render all game objects to texture
+    GLuint frame_buffer_;
+    GLuint render_buffer_;
+    Texture final_texture_;
+    Model final_model_;
+    Shader final_shader_;
+    Texture* lighting_texture_;
 
     void CameraInit();
     void CameraUpdate();
 
 public:
 
+    glm::vec2 cam_pos_;
+    glm::vec2 cam_size_;
+
+    glm::mat3 world_to_ndc_xform_;
+
     void Init();
     void Update(float frametime);
     void Draw() override;
+    void DrawFinalTexture(Model& model, Shader& shader, Texture& texture);
     void CleanUp();
 
     //returns the name of the system for debug use
@@ -63,6 +74,9 @@ public:
 
     std::unordered_map<EntityID, Renderer*> renderer_arr_;
     std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
+
+    using RenderOrderIt = std::multimap<int, Renderer*>::iterator;
+    std::multimap<int, Renderer*> renderers_in_order_; //cleanup not implemented for this when components are removed
 };
 
 #endif

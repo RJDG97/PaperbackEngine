@@ -15,11 +15,35 @@
       "scale": "50.0 100.0"
     },
     {
-      "component": "AnimationRenderer"
+      "component": "AnimationRenderer",
+      "model": "BoxModel",
+      "shader program": "ObjectShader",
+      "number of animations": "1",
+      "add animation": "Player_Walk",
+      "set animation": "Player_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "1"
     },
     {
       "component": "AABB"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "Health",
+      "maximum health": "5"
+    },
+    {
+      "component": "PointLight",
+	  "model": "BoxModel",
+	  "shader program": "LightShader",
+	  "color": "1.0 1.0 0.7",
+	  "radius": "250.0",
+	  "intensity": "1.0"
     }
+    
   ],
   "Enemy": [
     {
@@ -34,10 +58,42 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 60.0"
+      "scale": "30.0 30.0"
     },
     {
-      "component": "AnimationRenderer"
+      "component": "Renderer",
+      "texture": "Plank",
+      "model": "BoxModel",
+      "shader program": "ObjectShader",
+      "layer": "0"
+    },
+    {
+      "component": "AABB"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "Health",
+      "maximum health": "5"
+    }
+  ],
+  "Wall": [
+    {
+      "component": "Transform",
+      "position": "-150.0 -100.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "Renderer",
+      "texture": "Rock",
+      "model": "BoxModel",
+      "shader program": "ObjectShader",
+      "layer": "0"
     },
     {
       "component": "AABB"

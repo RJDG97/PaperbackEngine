@@ -9,7 +9,9 @@ EngineDebug::EngineDebug() {
 
 EngineDebug::~EngineDebug() {
 	std::cout << "Debug dtor called" << std::endl;
-	my_file_.close();
+	if (my_file_.is_open()) {
+		my_file_.close();
+	}
 }
 
 void EngineDebug::WriteDebugMessage(const std::string& str) {
@@ -17,5 +19,11 @@ void EngineDebug::WriteDebugMessage(const std::string& str) {
 	if (my_file_.is_open()) {
 		my_file_ << str;
 	}
+}
 
+void EngineDebug::SaveDebug() {
+
+	my_file_.close();
+
+	my_file_.open("Resources/Debug.txt", std::ios_base::app);
 }

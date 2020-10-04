@@ -9,39 +9,71 @@ class GameState
 public:
 	// virtual functions will get overriden in the different states
 
-	//initialize the state
-	virtual void init() = 0;
+/******************************************************************************/
+/*!
+  \fn Init()
 
-	//clean up the state
-	virtual void free() = 0;
+  \brief Initialize the current state
+*/
+/******************************************************************************/
+	virtual void Init() = 0;
 
-	// update the state according the player input
-	// Game* is there just in case any of Game functions
-	virtual void update(Game* game) = 0;
+/******************************************************************************/
+/*!
+  \fn Free()
 
-	// draw onto the console
-	virtual void draw(Game* game) = 0;
+  \brief Clean up the current state
+*/
+/******************************************************************************/
+	virtual void Free() = 0;
 
-	//virtual void load() = 0;
-	//virtual void unload() = 0;
+/******************************************************************************/
+/*!
+  \fn Update()
 
-	// Pause current state
-	virtual void pause() = 0;
+  \brief Updating the current state based on player input
+*/
+/******************************************************************************/
+	virtual void Update(Game* game, float frametime) = 0;
 
-	// Resume current state
-	virtual void resume() = 0;
+/******************************************************************************/
+/*!
+  \fn Draw()
 
+  \brief Draw all active entities within the state
+*/
+/******************************************************************************/
+	virtual void Draw(Game* game) = 0;
+
+/******************************************************************************/
+/*!
+  \fn StateInputHandler()
+
+  \brief Handles gameplay events from input system
+*/
+/******************************************************************************/
 	virtual void StateInputHandler(unsigned char key_val) = 0;
 
-	// change to the next game state
+/******************************************************************************/
+/*!
+  \fn ChangeState()
+
+  \brief Change current state to new state
+*/
+/******************************************************************************/
 	void ChangeState(Game* game, GameState* state)
 	{
 		game->ChangeState(state);
 	}
 
 protected:
-	// to implement the class as a singleton
-	// ensuring there is only one instance of an object
+/******************************************************************************/
+/*!
+  \fn GameState()
+
+  \brief Initializes the current state
+*/
+/******************************************************************************/
 	GameState() {}
 };
 

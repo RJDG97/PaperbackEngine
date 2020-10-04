@@ -19,19 +19,81 @@
 class CoreEngine
 {
 public:
+/******************************************************************************/
+/*!
+  \fn CoreEngine()
+
+  \brief Constructor for CoreEngine
+*/
+/******************************************************************************/
 	CoreEngine();
+
+/******************************************************************************/
+/*!
+  \fn ~CoreEngine()
+
+  \brief Default destructor for CoreEngine
+*/
+/******************************************************************************/
 	~CoreEngine() = default;
-	///Update all the systems until the game is no longer active.
+
+/******************************************************************************/
+/*!
+  \fn GameLoop()
+
+  \brief The main game loop, it cycles through Update()'s of all systems
+*/
+/******************************************************************************/
 	void GameLoop();
-	///Destroy all systems in reverse order that they were added.
+
+/******************************************************************************/
+/*!
+  \fn DestroyManagers()
+
+  \brief Used to deallocate all systems that were attached to the Core Engine
+		 System
+*/
+/******************************************************************************/
 	void DestroySystems();
-	//Destroy all managers in reverse order that they were added
+
+/******************************************************************************/
+/*!
+  \fn DestroyManagers()
+
+  \brief Used to deallocate all managers that were attached to the Core Engine
+		 System
+*/
+/******************************************************************************/
 	void DestroyManagers();
-	///Broadcasts a message to all systems.
+
+/******************************************************************************/
+/*!
+  \fn BroadcastMessage()
+
+  \brief Used to broadcast messages to all systems derived from the ISystem
+		 interface class
+*/
+/******************************************************************************/
 	void BroadcastMessage(Message* m);
-	///Initializes all systems in the game.
+	
+/******************************************************************************/
+/*!
+  \fn Initialize()
+
+  \brief Used to initialize all systems and managers that were attached to the
+		 Core Engine System
+*/
+/******************************************************************************/
 	void Initialize();
 
+/******************************************************************************/
+/*!
+  \fn AddSystem<T>()
+
+  \brief Used to add a system to the Core Engine by passing in the template 
+		 parameter
+*/
+/******************************************************************************/
 	template <typename SystemType>
 	void AddSystem() {
 		for (SystemIt begin = systems_.begin(); begin != systems_.end(); ++begin) {
@@ -43,6 +105,14 @@ public:
 		M_DEBUG->WriteDebugMessage("Adding System: " + systems_.back().first + "\n");
 	}
 
+/******************************************************************************/
+/*!
+  \fn GetSystem<T>()
+
+  \brief Used to retrieve a system that was attached to the Core Engine by
+		 passing in the template parameter
+*/
+/******************************************************************************/
 	template <typename SystemType>
 	SystemType* GetSystem() {
 
@@ -59,6 +129,14 @@ public:
 		assert((begin != systems_.end()) && "System does not exist");
 	}
 
+/******************************************************************************/
+/*!
+  \fn AddManager<T>()
+
+  \brief Used to add a manager to the Core Engine by passing in the template 
+		 parameter
+*/
+/******************************************************************************/
 	template <typename ManagerType>
 	void AddManager() {
 		assert(managers_.find(typeid(ManagerType).name()) == managers_.end() && "Manager already exists");
@@ -71,6 +149,14 @@ public:
 		managers_[typeid(ManagerType).name()] = new ManagerType;
 	}
 
+/******************************************************************************/
+/*!
+  \fn GetManager<T>()
+
+  \brief Used to retrieve a manager that was attached to the Core Engine by
+		 passing in the template parameter
+*/
+/******************************************************************************/
 	template <typename ManagerType>
 	ManagerType* GetManager() {
 		assert(managers_.find(typeid(ManagerType).name()) != managers_.end() && "Manager does not exist");

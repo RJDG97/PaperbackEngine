@@ -9,41 +9,99 @@
 class AABB : public Component {
 	Vector2D top_right_;
     Vector2D bottom_left_;
+	bool collided;
 public:
 	friend class Collision;
 
+/******************************************************************************/
+/*!
+  \fn AABB()
+
+  \brief Constructor for AABB that defaults the data members of the
+		 component
+*/
+/******************************************************************************/
 	AABB();
+
+/******************************************************************************/
+/*!
+  \fn ~AABB()
+
+  \brief Destructor for AABB that removes the component from the
+		 Collision system aabb map
+*/
+/******************************************************************************/
 	~AABB();
 
+/******************************************************************************/
+/*!
+  \fn GetBottomLeft()
+
+  \brief Returns the bottom left coordinates of the component
+*/
+/******************************************************************************/
 	Vector2D GetBottomLeft() const { 
 		return bottom_left_;
 	}
 
+/******************************************************************************/
+/*!
+  \fn GetTopRight()
+
+  \brief Returns the top right coordinates of the component
+*/
+/******************************************************************************/
 	Vector2D GetTopRight() const {
 		return top_right_;
 	}
 
+/******************************************************************************/
+/*!
+  \fn SetBottomLeft()
+
+  \brief Sets the bottom left coordinates of the component
+*/
+/******************************************************************************/
 	void SetBottomLeft(const Vector2D bottom_left) { 
 		bottom_left_ = bottom_left;
 	}
 
+/******************************************************************************/
+/*!
+  \fn SetTopRight()
+
+  \brief Sets the top right coordinates of the component
+*/
+/******************************************************************************/
 	void SetTopRight(const Vector2D& top_right) {
 		top_right_ = top_right;
 	}
 
-	/*
-	template <typename ComponentType>
-	ComponentType* GetEntityComponent() {
-		ComponentType* return_val = GetOwner()->GetComponent<ComponentType>();
-		assert(return_val && "Component does not exist");
-		return return_val;
-	}
-	*/
+/******************************************************************************/
+/*!
+  \fn Init()
 
+  \brief Adds the component itself to the Collision system aabb map
+*/
+/******************************************************************************/
 	void Init();
-	void PublishResults();
+
+/******************************************************************************/
+/*!
+  \fn Serialize()
+
+  \brief Reads data from a stringstream and stores them into the data members
+*/
+/******************************************************************************/
 	void Serialize(std::stringstream& data) override;
 
+/******************************************************************************/
+/*!
+  \fn Clone()
+
+  \brief Clones the existing component
+*/
+/******************************************************************************/
 	AABB* Clone() override;
 };
 

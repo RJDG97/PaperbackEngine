@@ -7,33 +7,61 @@
 class MenuState : public GameState
 {
 public:
+	friend class Game;
 
-	void init();
-	void free();
+/******************************************************************************/
+/*!
+  \fn Init()
 
-	void update(Game* game);
-	void draw(Game* game);
+  \brief Creates entities that are to appear in the current state
+*/
+/******************************************************************************/
+	void Init();
 
-	void pause();
-	void resume();
+/******************************************************************************/
+/*!
+  \fn Free()
 
+  \brief Releases all entities created within the current state
+*/
+/******************************************************************************/
+	void Free();
+
+/******************************************************************************/
+/*!
+  \fn Update()
+
+  \brief Handles the updating of game logic relevant components like status
+*/
+/******************************************************************************/
+	void Update(Game* game, float frametime);
+
+/******************************************************************************/
+/*!
+  \fn Draw()
+
+  \brief Handles drawing of entities that are currently active
+*/
+/******************************************************************************/
+	void Draw(Game* game);
+
+/******************************************************************************/
+/*!
+  \fn StateInputHandler()
+
+  \brief Performs handling of inputs such as mouse clicks onto buttons
+*/
+/******************************************************************************/
 	void StateInputHandler(unsigned char key_val);
 
-	// Implement Singleton Pattern
-	// Returns a pointer to a static instance of the class
-	//static MenuState* Instance()
-	//{
-	//	return &m_MenuState;
-	//}
+/******************************************************************************/
+/*!
+  \fn MenuState()
 
-//protected:
-
+  \brief A constructor for MenuState
+*/
+/******************************************************************************/
 	MenuState() {}
-
-//private:
-
-	//static MenuState m_MenuState;
-	
 };
 
 extern MenuState m_MenuState;

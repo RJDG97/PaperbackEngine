@@ -15,27 +15,97 @@
 class Physics : public ISystem
 {
 public:
-	// Broadcast physics collision messages after physics has updated
-	// the entities position
-	void PublishResults();
 
+/******************************************************************************/
+/*!
+  \fn ChangeVelocity()
+
+  \brief Used to change the velocity of all components that have the Player
+		 entity type
+*/
+/******************************************************************************/
 	void ChangeVelocity(Message* m);
 
-	void Rotate(Transform* pos);
+/******************************************************************************/
+/*!
+  \fn AddTransformComponent()
 
-	//void DecreaseHP(Health* hp);
-
+  \brief Adds a Transform component to the transform map
+*/
+/******************************************************************************/
 	void AddTransformComponent(EntityID id, Transform* transform);
+
+/******************************************************************************/
+/*!
+  \fn RemoveTransformComponent()
+
+  \brief Removes a Transform component from the transform map
+*/
+/******************************************************************************/
 	void RemoveTransformComponent(EntityID id);
 
+/******************************************************************************/
+/*!
+  \fn AddMotionComponent()
+
+  \brief Adds a Motion component to the motion map
+*/
+/******************************************************************************/
 	void AddMotionComponent(EntityID id, Motion* motion);
+
+/******************************************************************************/
+/*!
+  \fn RemoveMotionComponent()
+
+  \brief Removes a Motion component from the motion map
+*/
+/******************************************************************************/
 	void RemoveMotionComponent(EntityID id);
 
+/******************************************************************************/
+/*!
+  \fn Physics()
+
+  \brief Constructor for the Physics System
+*/
+/******************************************************************************/
 	Physics();
 
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Initialises the system
+*/
+/******************************************************************************/
 	void Init() override;
+
+/******************************************************************************/
+/*!
+  \fn Update()
+
+  \brief Computes the new velocity for every Motion component and then
+		 updates the Transform components based on that new Motion component
+*/
+/******************************************************************************/
 	virtual void Update(float frametime) override;
+
+/******************************************************************************/
+/*!
+  \fn GetName()
+
+  \brief Returns the name of the system
+*/
+/******************************************************************************/
 	virtual std::string GetName() override { return "Physics"; }
+
+/******************************************************************************/
+/*!
+  \fn SendMessageD()
+
+  \brief Receives messages broadcasted from Core Engine and processes it
+*/
+/******************************************************************************/
 	void SendMessageD(Message* msg) override;
 
 private:
@@ -45,13 +115,8 @@ private:
 	using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
 	std::unordered_map<EntityID,Transform*> transform_arr_;
 
-	/*using HPIt = std::unordered_map<EntityID, Health>::iterator;
-	std::unordered_map<EntityID, Health> hp_arr_;*/
-
 	using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
 	std::unordered_map<EntityID, Motion*> motion_arr_;
 };
-
-extern Physics* PHYSICS;
 
 #endif

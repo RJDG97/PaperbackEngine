@@ -1,4 +1,6 @@
 #include "Components/Renderer.h"
+#include "Components/Transform.h"
+#include "Components/Scale.h"
 #include "Engine/Core.h"
 #include "Systems/GraphicsSystem.h"
 #include <glm/gtc/type_ptr.hpp>
@@ -7,12 +9,7 @@
 
 Renderer::Renderer()
 {
-    texture_ = *CORE->GetManager<TextureManager>()->GetTexture("Rock");
-    scaling_ = glm::vec2{ 50.0f, 50.0f };
-    orientation_ = glm::vec2{ 0.0f, 10.0f };
-    position_ = glm::vec2{ 100.0f, 100.0f };
-    model_ = CORE->GetManager<ModelManager>()->GetModel("BoxModel");
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm("TextureShader");
+    
 }
 
 Renderer::~Renderer()
@@ -23,10 +20,6 @@ Renderer::~Renderer()
 void Renderer::Init()
 {
     CORE->GetSystem<GraphicsSystem>()->AddRendererComponent(Component::GetOwner()->GetID(), this);
-}
-
-void Renderer::PublishResults()
-{
 }
 
 void Renderer::ChangeTexture(std::string texture_name)
@@ -44,26 +37,41 @@ void Renderer::ChangeShdrpgm(std::string shdr_pgm_name)
     shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm_name);
 }
 
+void Renderer::FlipTextureX()
+{
+    x_flipped_ = !x_flipped_;
+}
+
+void Renderer::FlipTextureY()
+{
+    y_flipped_ = !y_flipped_;
+}
+
 void Renderer::Update(float frametime, glm::mat3 world_to_ndc_xform)
 {
-    glm::mat3 scale, rot, trans;
+    glm::mat3 scaling, rotation, translation;
 
-    scale = glm::mat3{ scaling_.x, 0.0f, 0.0f,
-                       0.0f, scaling_.y, 0.0f,
-                       0.0f, 0.0f, 1.0f };
+    Vector2D scale = dynamic_cast<Scale*>(Component::GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
 
-    orientation_.x += orientation_.y * static_cast<float>(frametime);
+    scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
+                         0.0f, scale.y, 0.0f,
+                         0.0f, 0.0f, 1.0f };
 
-    rot = glm::mat3{  glm::cos(orientation_.x * M_PI / 180), glm::sin(orientation_.x * M_PI / 180), 0.0f,
-                     -glm::sin(orientation_.x * M_PI / 180), glm::cos(orientation_.x * M_PI / 180), 0.0f,
-                      0.0f, 0.0f, 1.0f };
+    Transform* transform = dynamic_cast<Transform*>(GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+    assert(transform);
 
+    float orientation = transform->rotation_;
+    Vector2D position = transform->position_;
 
-    trans = glm::mat3{ 1.0f, 0.0f, 0.0f,
+    rotation = glm::mat3{ glm::cos(orientation * M_PI / 180), glm::sin(orientation * M_PI / 180), 0.0f,
+                          -glm::sin(orientation * M_PI / 180), glm::cos(orientation * M_PI / 180), 0.0f,
+                           0.0f, 0.0f, 1.0f };
+
+    translation = glm::mat3{ 1.0f, 0.0f, 0.0f,
                        0.0f, 1.0f, 0.0f,
-                       position_.x, position_.y, 1.0f };
+                       position.x, position.y, 1.0f };
 
-    mdl_to_ndc_xform_ = world_to_ndc_xform * trans * rot * scale;
+    mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
 }
 
 void Renderer::Draw()
@@ -85,6 +93,30 @@ void Renderer::Draw()
             glm::value_ptr(mdl_to_ndc_xform_));
     }
 
+    GLint uniform_var_xflip =
+        glGetUniformLocation(shdr_pgm_.GetHandle(), "xflip");
+
+    if (uniform_var_xflip >= 0) {
+        glUniform1i(uniform_var_xflip, x_flipped_);
+    }
+
+    else {
+        std::cout << "Uniform variable doesn't exist!!!\n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    GLint uniform_var_yflip =
+        glGetUniformLocation(shdr_pgm_.GetHandle(), "yflip");
+
+    if (uniform_var_yflip >= 0) {
+        glUniform1i(uniform_var_yflip, y_flipped_);
+    }
+
+    else {
+        std::cout << "Uniform variable doesn't exist!!!\n";
+        std::exit(EXIT_FAILURE);
+    }
+
     glDrawElements(GL_TRIANGLE_STRIP, model_.draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
     // after completing the rendering, we tell the driver that the VAO vaoid
@@ -92,4 +124,22 @@ void Renderer::Draw()
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shdr_pgm_.UnUse();
+}
+
+int Renderer::GetLayer()
+{
+    return layer_;
+}
+
+void Renderer::Serialize(std::stringstream& data)
+{
+    std::string texture;
+    std::string model;
+    std::string shdr_pgm;
+
+    data >> texture >> model >> shdr_pgm >> layer_;
+
+    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture);
+    model_ = CORE->GetManager<ModelManager>()->GetModel(model);
+    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }

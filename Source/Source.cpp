@@ -47,8 +47,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	//to reorder based on what system has priority over the other
 	engine->AddSystem<WindowsSystem>();
-	//engine->AddSystem(new LightingSystem());
 	engine->AddSystem<GraphicsSystem>();
+	engine->AddSystem<LightingSystem>();
 	engine->AddSystem<InputSystem>();
 	engine->AddSystem<Physics>();
 	engine->AddSystem<Collision>();
@@ -61,7 +61,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	engine->AddManager<ShaderManager>();
 	engine->AddManager<AnimationManager>();
 
-	Physics* test_phy = engine->GetSystem<Physics>();
+	//Physics* test_phy = engine->GetSystem<Physics>();
 
 	engine->Initialize();
 

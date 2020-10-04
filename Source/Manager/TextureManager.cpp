@@ -174,9 +174,17 @@ bool TextureManager::UnloadTexture(std::string texture_name)
     return false;
 }
 
+void TextureManager::UnloadTexture(std::map<std::string, Texture>::iterator texture_iterator)
+{
+    glDeleteTextures(1, &(*texture_iterator).second);
+}
+
 void TextureManager::UnloadAllTextures()
 {
-    glDeleteTextures(textures_.size(), &(textures_[0]));
+    for (auto i = textures_.begin(); i != textures_.end(); ++i)
+    {
+        UnloadTexture(i);
+    }
 }
 
 Texture* TextureManager::GetTexture(std::string texture_name)
