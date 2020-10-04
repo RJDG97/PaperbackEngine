@@ -1,4 +1,5 @@
 #include "Systems/FrameRateController.h"
+#include <iostream>
 
 FrameRateController PE_FrameRate;
 
@@ -107,4 +108,15 @@ void FrameRateController::SetFPS(float x)
 	MinFrameTime = 1 / FPS;
 }
 
+int FrameRateController::GetFPS()
+{
+	static int prevFPS, newFPS, seconds;
 
+	if (seconds != static_cast<int>(TimeElapsed(s)))
+	{
+		newFPS = GetFrames() - prevFPS;
+		prevFPS = GetFrames();
+	}
+	seconds = TimeElapsed(s);
+	return newFPS;
+}

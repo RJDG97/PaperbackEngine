@@ -39,6 +39,8 @@ void CoreEngine::GameLoop() {
 		
 		PE_FrameRate.FrameRateLoop();
 
+		std::cout << PE_FrameRate.GetFPS() << std::endl;
+
 		if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_Q)) { // Q key
 			M_DEBUG->WriteDebugMessage("TERMINATE GAME LOOP\n");
 			b_game_active_ = false;
