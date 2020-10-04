@@ -213,7 +213,7 @@ void InputSystem::Init() {
 void InputSystem::Update(float frametime) {
 
 	(void)frametime;
-	glfwPollEvents();
+
 	unsigned char input_flag = 0; //used for checking what directional buttons are held
 
 	//input.GetMouseCoord();

@@ -33,7 +33,7 @@ void CoreEngine::GameLoop() {
 
 	GLFWwindow* window = CORE->GetSystem<WindowsSystem>()->ptr_window;
 
-	while (b_game_active_) {
+	while (b_game_active_ && !glfwWindowShouldClose(window)) {
 		if (debug_)
 			M_DEBUG->WriteDebugMessage("Core Engine System Update:\n");
 		
@@ -58,8 +58,10 @@ void CoreEngine::GameLoop() {
 		}
 
 		glfwSwapBuffers(window);
+		glfwPollEvents();
 		M_DEBUG->SaveDebug();
 	}
+	glfwTerminate();
 
 		//PE_FrameRate.SetFPS(30);
 	
