@@ -23,15 +23,13 @@ class AnimationRenderer : public Renderer {
 
 public:
 
+	friend class GraphicsSystem;
+
 	AnimationRenderer();
 	~AnimationRenderer();
 
 	void Init();
 
-	void AddAnimation(std::string animation_name);
-	void SetAnimation(std::string animation_name);
-
-	void Update(float frametime, glm::mat3 world_to_ndc_xform) override;
 	void Serialize(std::stringstream& data) override;
 };
 

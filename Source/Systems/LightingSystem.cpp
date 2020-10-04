@@ -40,10 +40,8 @@ void LightingSystem::Init()
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, lighting_texture, 0);
 
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-	{
-		assert(Lighting framebuffer is not complete!);
-	}
+	assert((glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE,
+		   "Lighting framebuffer is not complete!"));
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 

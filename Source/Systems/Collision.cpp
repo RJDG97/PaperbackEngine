@@ -127,8 +127,8 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 //init function called to initialise a system
 void Collision::Init() {
 
-	shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
-	model_ = CORE->GetManager<ModelManager>()->GetModel("LinesModel");
+	shdr_pgm_ = *CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
+	model_ = *CORE->GetManager<ModelManager>()->GetModel("LinesModel");
 	world_to_ndc_xform_ = &(CORE->GetSystem<GraphicsSystem>()->world_to_ndc_xform_);
 	glLineWidth(2.0f);
 

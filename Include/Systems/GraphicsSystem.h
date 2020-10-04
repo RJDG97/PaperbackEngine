@@ -26,7 +26,10 @@ class GraphicsSystem : public ISystem
     GLint window_height_;
     
     WindowsSystem* windows_system_;
-    //LightingSystem* lighting_system;
+    TextureManager* texture_manager_;
+    AnimationManager* animation_manager_;
+    ModelManager* model_manager_;
+    ShaderManager* shader_manager_;
 
     //temp camera, will make it into a component next time!
     glm::mat3 view_xform_;
@@ -36,8 +39,8 @@ class GraphicsSystem : public ISystem
     GLuint frame_buffer_;
     GLuint render_buffer_;
     Texture final_texture_;
-    Model final_model_;
-    Shader final_shader_;
+    Model* final_model_;
+    Shader* final_shader_;
     Texture* lighting_texture_;
 
     void CameraInit();
@@ -53,7 +56,7 @@ public:
     void Init();
     void Update(float frametime);
     void Draw() override;
-    void DrawFinalTexture(Model& model, Shader& shader, Texture& texture);
+    void DrawFinalTexture(Model* model, Shader* shader, Texture* texture);
     void CleanUp();
 
     //returns the name of the system for debug use
@@ -70,7 +73,19 @@ public:
     void AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer);
     void RemoveAnimationRendererComponent(EntityID id);
 
-    void TempMoveCamera();
+    void UpdateObjectMatrix(Renderer* renderer, glm::mat3 world_to_ndc_xform);
+    void UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime);
+    void DrawObject(Renderer* renderer);
+
+    void ChangeTexture(Renderer* renderer, std::string texture_name);
+    void ChangeModel(Renderer* renderer, std::string model_name);
+    void ChangeShdrpgm(Renderer* renderer, std::string shdr_pgm_name);
+    void FlipTextureX(Renderer* renderer);
+    void FlipTextureY(Renderer* renderer);
+    int GetLayer(Renderer* renderer);
+
+    void AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
+    void SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
 
     std::unordered_map<EntityID, Renderer*> renderer_arr_;
     std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;

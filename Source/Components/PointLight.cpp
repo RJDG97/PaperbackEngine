@@ -50,6 +50,6 @@ void PointLight::Serialize(std::stringstream& data)
 		 >> color_.x >> color_.y >> color_.z
 		 >> radius_ >> intensity_;
 
-	model_ = CORE->GetManager<ModelManager>()->GetModel(model);
-	shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
+	model_ = *CORE->GetManager<ModelManager>()->GetModel(model);
+	shdr_pgm_ = *CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }

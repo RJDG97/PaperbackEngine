@@ -9,7 +9,7 @@
 class Scale : public Component { // double check friend class afterwards
 	Vector2D scale_;
 public:
-	friend class Graphics;
+	friend class GraphicsSystem;
 	friend class Collision;
 
 /******************************************************************************/

@@ -83,7 +83,7 @@ public:
 
     void AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, std::string shader_type);
 
-    Shader GetShdrpgm(std::string shader_type);
+    Shader* GetShdrpgm(std::string shader_type);
 };
 
 #endif

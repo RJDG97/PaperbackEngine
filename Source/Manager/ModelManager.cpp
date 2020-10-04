@@ -159,7 +159,7 @@ void ModelManager::AddLinesModel(int slices, int stacks, std::string model_name)
     models_[model_name] = mdl;
 }
 
-Model ModelManager::GetModel(std::string model_name)
+Model* ModelManager::GetModel(std::string model_name)
 {
-    return models_[model_name];
+    return &models_[model_name];
 }
