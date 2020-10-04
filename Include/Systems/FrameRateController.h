@@ -55,6 +55,8 @@ public:
 
 	float Dt;
 
+	//Get Frames per Second
+	int GetFPS();
 	// Get Number of Frames
 	int GetFrames();
 	// Start of Framerate Controller loop
