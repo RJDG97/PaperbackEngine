@@ -9,13 +9,13 @@ void Shader::DeleteShaderProgram()
     }
 }
 
-GLboolean Shader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec)
+void Shader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec)
 {
     for (auto& elem : vec)
     {
         if (CompileShaderFromFile(elem.first, elem.second.c_str()) == GL_FALSE)
         {
-            return GL_FALSE;
+            return;
         }
     }
     
@@ -24,7 +24,6 @@ GLboolean Shader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>
     
     PrintActiveAttribs();
     PrintActiveUniforms();
-    return GL_TRUE;
 }
 
 GLboolean Shader::CompileShaderFromFile(GLenum shader_type, const std::string& file_name)
@@ -36,7 +35,6 @@ GLboolean Shader::CompileShaderFromFile(GLenum shader_type, const std::string& f
     if (pgm_handle <= 0)
     {
         pgm_handle = glCreateProgram();
-
         assert((0 == pgm_handle, "Cannot create program handle!"));
     }
 
@@ -106,11 +104,11 @@ GLboolean Shader::CompileShaderFromString(GLenum shader_type,
     return GL_TRUE;
 }
 
-GLboolean Shader::Link()
+void Shader::Link()
 {
     if (is_linked)
     {
-        return GL_TRUE;
+        return;
     }
     
     assert((0 == pgm_handle, "Cannot create program handle prior to link!"));

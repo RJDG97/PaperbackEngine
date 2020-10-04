@@ -27,10 +27,10 @@ public:
 
     Shader() : pgm_handle(0), is_linked(GL_FALSE) {}
 
-    GLboolean CompileLinkValidate(std::vector<std::pair<GLenum, std::string>>);
+    void CompileLinkValidate(std::vector<std::pair<GLenum, std::string>>);
     GLboolean CompileShaderFromFile(GLenum shader_type, std::string const& file_name);
     GLboolean CompileShaderFromString(GLenum shader_type, std::string const& shader_src);
-    GLboolean Link();
+    void Link();
 
     void Use();
     void UnUse();
