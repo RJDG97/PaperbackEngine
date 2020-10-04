@@ -183,7 +183,7 @@ void GraphicsSystem::Draw() {
 			// Log id of entity and its updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
 		}
-        (*it).second->Draw();
+        (*it).second.second->Draw();
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -192,35 +192,6 @@ void GraphicsSystem::Draw() {
     DrawFinalTexture(final_model_, final_shader_, final_texture_);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(final_model_, final_shader_, *lighting_texture_);
-
-    /* all these work btw*/
-    /*
-    glViewport(0, 0, window_width_, window_height_);
-    glBindFramebuffer(GL_FRAMEBUFFER, lighting_system_->GetFrameBuffer());
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    glDepthMask(GL_FALSE);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //Draw should be in some component shet so i go see wat it is tmr!!!!
-    //aim is make the renderer and light component
-    //then do camera transforms
-    //then do animation
-    //and in tat order
-    MODELMANAGER->GetModel(ModelType::RegularModel).Draw(*(TEXTUREMANAGER.GetTexture(TextureName::Rock)));
-    
-    //lighting system stuff
-    glDisable(GL_DEPTH_TEST);
-    lighting_system->TestDraw();
-    
-    //render the final texture
-    glViewport(0, 0, window_width, window_height);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    models[0].Draw(lighting_system->GetFinalTexture());
-    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    models[0].Draw(lighting_system->GetLightingTexture());*/
 
     if (debug_) { debug_ = !debug_; }
 }
@@ -286,17 +257,32 @@ void GraphicsSystem::AddRendererComponent(EntityID id, Renderer* renderer)
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
     renderer_arr_[id] = renderer;
-    renderers_in_order_.insert({renderer->GetLayer(), renderer});
+    renderers_in_order_.insert({ renderer->GetLayer(), {id, renderer} });
 }
 
 void GraphicsSystem::RemoveRendererComponent(EntityID id)
 {
     RendererIt it = renderer_arr_.find(id);
+    int layer;
 
-    if (it != renderer_arr_.end()) {
-
+    if (it != renderer_arr_.end())
+    {
         M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
+        layer = (*it).second->GetLayer();
         renderer_arr_.erase(it);
+    }
+
+    RenderOrderIt orderit = renderers_in_order_.find(layer);
+
+    if (orderit != renderers_in_order_.end())
+    {
+        for ( ; (*orderit).first == layer ; ++orderit)
+        {
+            if ((*orderit).second.first == id)
+            {
+                renderers_in_order_.erase(orderit);
+            }
+        }
     }
 }
 
@@ -305,17 +291,32 @@ void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRendere
     M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: " + std::to_string(id) + "\n");
 
     anim_renderer_arr_[id] = animation_renderer;
-    renderers_in_order_.insert({animation_renderer->GetLayer(), animation_renderer });
+    renderers_in_order_.insert({ animation_renderer->GetLayer(), {id, animation_renderer} });
 }
 
 void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
 {
     AnimRendererIt it = anim_renderer_arr_.find(id);
+    int layer;
 
     if (it != anim_renderer_arr_.end()) {
 
         M_DEBUG->WriteDebugMessage("Removing Animation Renderer Component from entity: " + std::to_string(id) + "\n");
+        layer = (*it).second->GetLayer();
         anim_renderer_arr_.erase(it);
+    }
+
+    RenderOrderIt orderit = renderers_in_order_.find(layer);
+
+    if (orderit != renderers_in_order_.end())
+    {
+        for (; (*orderit).first == layer; ++orderit)
+        {
+            if ((*orderit).second.first == id)
+            {
+                renderers_in_order_.erase(orderit);
+            }
+        }
     }
 }
 
