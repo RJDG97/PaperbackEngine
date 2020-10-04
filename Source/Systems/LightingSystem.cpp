@@ -4,6 +4,8 @@
 #include "Systems/Debug.h"
 #include "Entity/ComponentTypes.h"
 #include "Entity/ComponentCreator.h"
+#include "Entity/Entity.h"
+#include "Components/Transform.h"
 
 LightingSystem::LightingSystem()
 {
@@ -56,7 +58,8 @@ void LightingSystem::Update(float frametime)
 			// Log id of entity and it's updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Point light position updated)\n");
 		}
-		(*it).second->Update(frametime, *cam_pos_, *cam_size_);
+
+		UpdateLightPosition(it->second, *cam_pos_, *cam_size_);
 	}
 }
 
@@ -75,7 +78,8 @@ void LightingSystem::Draw()
 			// Log id of entity and its updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Drawing point light for entity: " + std::to_string(it->first) + "\n");
 		}
-		(*it).second->Draw();
+
+		DrawPointLight(it->second);
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -108,6 +112,28 @@ void LightingSystem::RemoveLightComponent(EntityID id)
 		M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
 		point_light_arr_.erase(it);
 	}
+}
+
+void LightingSystem::UpdateLightPosition(PointLight* point_light, glm::vec2 cam_pos, glm::vec2 cam_size)
+{
+	Vector2D obj_pos_ = dynamic_cast<Transform*>(
+		point_light->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
+	point_light->pos_ = 0.5f * (glm::vec2(obj_pos_.x, obj_pos_.y) + cam_pos + 0.5f * cam_size);
+}
+
+void LightingSystem::DrawPointLight(PointLight* point_light)
+{
+	point_light->shdr_pgm_.Use();
+	glBindVertexArray(point_light->model_.vaoid_);
+
+	point_light->shdr_pgm_.SetUniform("light_color", point_light->color_);
+	point_light->shdr_pgm_.SetUniform("light_center", point_light->pos_);
+	point_light->shdr_pgm_.SetUniform("intensity", point_light->intensity_);
+	point_light->shdr_pgm_.SetUniform("radius", point_light->radius_);
+
+	glDrawElements(GL_TRIANGLE_STRIP, point_light->model_.draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+	glBindVertexArray(0);
+	point_light->shdr_pgm_.UnUse();
 }
 
 std::string LightingSystem::GetName()

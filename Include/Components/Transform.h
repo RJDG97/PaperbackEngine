@@ -12,7 +12,7 @@ public:
 	friend class Physics;
 	friend class GraphicsSystem;
 	friend class Collision;
-	friend class PointLight;
+	friend class LightingSystem;
 
 /******************************************************************************/
 /*!

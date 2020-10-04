@@ -21,12 +21,12 @@ class PointLight : public Component {
 
 public:
 
+	friend class LightingSystem;
+
 	PointLight();
 	~PointLight();
 
 	void Init();
-	void Update(float frametime, glm::vec2 cam_pos, glm::vec2 cam_size_);
-	void Draw();
 	void Serialize(std::stringstream& data) override;
 };
 

@@ -37,6 +37,9 @@ public:
 	void AddLightComponent(EntityID id, PointLight* point_light);
 	void RemoveLightComponent(EntityID id);
 
+	void UpdateLightPosition(PointLight* point_light, glm::vec2 cam_pos, glm::vec2 cam_size);
+	void DrawPointLight(PointLight* point_light);
+
 	//returns the name of the system for debug use
 	std::string GetName();
 
