@@ -320,9 +320,6 @@
     <ClInclude Include="Include\glhelper.h">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Include\WinKeyCodes.h">
-      <Filter>Systems\InputSystem</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Manager\IManager.h">
       <Filter>Systems\GraphicsSystem\ResourceManagers</Filter>
     </ClInclude>

@@ -1,5 +1,6 @@
 #include "Systems/WindowsSystem.h"
 #include "Systems/GraphicsSystem.h"
+#include "Systems/InputSystem.h"
 #include "Systems/Debug.h"
 #include <memory>
 
@@ -57,27 +58,19 @@ void WindowsSystem::Init() {
 	glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); // window dimensions are static
 
-	ptr_window = glfwCreateWindow(wWidth, wHeight, "Placeholder", NULL, NULL);
+	ptr_window = glfwCreateWindow(wWidth, wHeight, "Veggie Escape", NULL, NULL);
 
 	if (!ptr_window) {
 		std::cerr << "GLFW unable to create OpenGL context - abort program\n";
 		glfwTerminate();
 		std::exit(EXIT_FAILURE);
 	}
-
+	
 	glfwMakeContextCurrent(ptr_window);
 
-	/* MOVE THIS OVER TO THE INPUT SYSTEM PLS
-	glfwSetFramebufferSizeCallback(ptr_window, GLHelper::fbsize_cb);
-	glfwSetKeyCallback(ptr_window, GLHelper::key_cb);
-	glfwSetMouseButtonCallback(ptr_window, GLHelper::mousebutton_cb);
-	glfwSetCursorPosCallback(ptr_window, GLHelper::mousepos_cb);
-	glfwSetScrollCallback(ptr_window, GLHelper::mousescroll_cb);
-	*/
-	// this is the default setting ...
+	// Input
 	glfwSetInputMode(ptr_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-	// Part 2: Initialize entry points to OpenGL functions and extensions
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		std::cerr << "Unable to initialize GLEW - error: "

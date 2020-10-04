@@ -151,7 +151,7 @@ This function is called when keyboard buttons are pressed.
 When the ESC key is pressed, the close flag of the window is set.
 */
 void GLHelper::key_cb(GLFWwindow *pwin, int key, int scancode, int action, int mod) {
-    /*
+    
   if (GLFW_PRESS == action) {
 #ifdef _DEBUG
     std::cout << "Key pressed" << std::endl;
@@ -165,7 +165,7 @@ void GLHelper::key_cb(GLFWwindow *pwin, int key, int scancode, int action, int m
     std::cout << "Key released" << std::endl;
 #endif
   }
-  */
+  
 }
 
 /*  _________________________________________________________________________*/

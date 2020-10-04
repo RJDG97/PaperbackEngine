@@ -1,215 +1,235 @@
 #include "Systems/InputSystem.h"
-#include "WinKeyCodes.h"
 #include "Systems/WindowsSystem.h"
-#include "Engine/Core.h"
+//#include "Engine/Core.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/MenuState.h"
 #include "Systems/Debug.h"
+#include "Systems/GraphicsSystem.h"
 
 InputSystem sys_input_;
 
-InputSystem::InputSystem() : 
-	currentkey_{ 0 }, 
-	previouskey_{ 0 }, 
-	keyreleased_{ 0 }, 
-	b_change_{ false },
-	b_toggle_{ false },
-	initial_{},
-	debug_{ false }
-{}
-
-bool InputSystem::CheckCurrentInput(int key) {
-	return (GetAsyncKeyState(key));
-}
-
-bool InputSystem::CheckTriggeredInput(int key) {
-	previouskey_[key] = currentkey_[key];
-	if (GetAsyncKeyState(key)) {
-		currentkey_[key] = true;
-		if (previouskey_[key])
-			return false;
-	}
-	else {
-		currentkey_[key] = false;
-		if (previouskey_[key])
-			keyreleased_[key] = true;
-		else
-			keyreleased_[key] = false;
-		return false;
-	}
-	return true;
-}
-
-bool InputSystem::CheckReleasedInput(int key) {
-	return (keyreleased_[key]);
-}
-
-// In general unused
-bool InputSystem::KeyPoll(int& key) {
-	for (int i = 0; i < 164; ++i) {
-		if (CheckTriggeredInput(i)) {
-			key = i;
-			return true;
-		}
-	}
-	return false;
-}
-
-void InputSystem::UpdateKeyInput(int trigger, int& key) {
-	if (sys_input_.CheckTriggeredInput(trigger)) {
-		std::cout << "Change Key to: ";
-		b_change_ = 1;
-	}
-
-	if (b_change_) {
-		if (sys_input_.KeyPoll(key))
-		{
-			b_change_ = 0;
-			std::cout << GetKeyValue(key) << std::endl;
-		}
-	}
-}
-
-// In general unused
-char InputSystem::GetKeyValue(int key)
+void cursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
 {
-	switch (key)
+	CORE->GetSystem<InputSystem>()->SetCursorPosition(xPos, yPos);
+}
+
+void cursorEnterCallback(GLFWwindow* window, int entered)
+{
+	if (entered)
 	{
-	case 0x41: return 'A';
-		break;
-	case 0x42: return 'B';
-		break;
-	case 0x43: return 'C';
-		break;
-	case 0x44: return 'D';
-		break;
-	case 0x45: return 'E';
-		break;
-	case 0x46: return 'F';
-		break;
-	case 0x47: return 'G';
-		break;
-	case 0x48: return 'H';
-		break;
-	case 0x49: return 'I';
-		break;
-	case 0x4A: return 'J';
-		break;
-	case 0x4B: return 'K';
-		break;
-	case 0x4C: return 'L';
-		break;
-	case 0x4D: return 'M';
-		break;
-	case 0x4E: return 'N';
-		break;
-	case 0x4F: return 'O';
-		break;
-	case 0x50: return 'P';
-		break;
-	case 0x51: return 'Q';
-		break;
-	case 0x52: return 'R';
-		break;
-	case 0x53: return 'S';
-		break;
-	case 0x54: return 'T';
-		break;
-	case 0x55: return 'U';
-		break;
-	case 0x56: return 'V';
-		break;
-	case 0x57: return 'W';
-		break;
-	case 0x58: return 'X';
-		break;
-	case 0x59: return 'Y';
-		break;
-	case 0x5A: return 'Z';
-		break;
-	default:
-		return '/';
+		
+	
+	}
+	else
+	{
+
 	}
 }
 
-// Returns current cursor position
-void InputSystem::GetCursorPosition(Vector2D& pos) {
-	POINT p;
-	if (GetCursorPos(&p)) {
-		if (ScreenToClient(WindowsSystem::Instance()->getHandle(), &p)) {
-			pos.x = static_cast<float>(p.x - WindowsSystem::Instance()->getWinWidth() / 2);
-			pos.y = static_cast<float>((-p.y) + WindowsSystem::Instance()->getWinHeight() / 2);
-			std::cout << "x: " << pos.x << std::endl;
-			std::cout << "y: " << pos.y << std::endl;
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+	CORE->GetSystem<InputSystem>()->SetMouseState(button, action);
+	switch (button)
+	{
+	case GLFW_MOUSE_BUTTON_LEFT:
+		break;
+	case GLFW_MOUSE_BUTTON_RIGHT:
+		break;
+	case GLFW_MOUSE_BUTTON_MIDDLE:
+		break;
+	}
+}
+
+void scrollCallback(GLFWwindow* window, double xOffset, double yOffset)
+{
+	// in case we need to scroll input
+}
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	UNREFERENCED_PARAMETER(scancode);
+	UNREFERENCED_PARAMETER(window);
+	UNREFERENCED_PARAMETER(mods);
+	// if Triggered
+	CORE->GetSystem<InputSystem>()->SetKeyState(key, action);
+	if (action == GLFW_PRESS)
+	{
+		switch (key)
+		{
+		case GLFW_KEY_0:  //'0'
+		{
+			std::cout << "Debug: Decrementing entity HP" << std::endl;
+			MessageHPDecre msg{ 2 }; // Entity id = 2
+			CORE->BroadcastMessage(&msg);
+			break;
 		}
-	}
-}
+		case GLFW_KEY_1:	//'1'
+		{
+			Message_CustomState msg{ &m_PlayState, MessageIDTypes::GSM_ChangeState }; // pass in another existing state?
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+		case GLFW_KEY_2:	//'2'
+		{
+			Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_ChangeState }; // push maybe game state
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+		case GLFW_KEY_3:	//'3'
+		{
+			Message msg{ MessageIDTypes::GSM_PopState };
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+		case GLFW_KEY_4:	//'4'
+		{
+			MessageBGM_Play msg{ std::string{"Kachow"} };
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+		case GLFW_KEY_5:	//'5'
+		{
+			Message msg(MessageIDTypes::BGM_Stop);
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+		case GLFW_KEY_6:	//'6'
+		{
+			MessageBGM_Play msg{ std::string{"BGM"} };
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+		case GLFW_KEY_7:	//'7'
+		{
+			Message msg(MessageIDTypes::BGM_Mute);
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+		case GLFW_KEY_8:	//'8'
+		{
+			Message msg(MessageIDTypes::BGM_Pause);
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+		case GLFW_KEY_9:	//'9'
+		{
+			std::cout << "Debug: Rotating entity" << std::endl;
+			MessageRotation msg{ 1 }; // Entity id = 1
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
 
-// Distance between initial click and end click (Currently not working)
-void InputSystem::GetCursorPositionDelta(Vector2D& pos, int key) {
-	if (!b_toggle_) {
-		b_toggle_ = true;
-		GetCursorPosition(initial_);
-	}
-	else if (CheckReleasedInput(key)) {
-		b_toggle_ = false;
-		GetCursorPosition(pos);
-		pos.x = max(pos.x, initial_.x) - min(pos.x, initial_.x);
-		pos.x = (pos.x) < 0 ? (-pos.x) : pos.x;
-		pos.y = max(pos.y, initial_.y) - min(pos.y, initial_.y);
-		pos.y = (pos.y) < 0 ? (-pos.y) : pos.y;
+		case GLFW_KEY_A: 	//'A'
+			// e.g. let A Pause game in play state and quit game in menu state
 
-		std::cout << "delta x: " << pos.x << std::endl;
-		std::cout << "delta y: " << pos.y << std::endl;
+			//Method 1
+			//check current state
+			// run Fn1 if (curr state is play) and Fn2 if state is menu
+
+			//Method 2
+			//wrap custom message w/ custom message id targetting Game ISystem
+			// send message
+			// let Game sort out what to do
+			break;
+		case GLFW_KEY_B: 	//'B'
+		{
+			//for debug bomb
+			Message msg(MessageIDTypes::DEBUG_ALL);
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+		break;
+		case GLFW_KEY_C: 	//'C'
+			break;
+		case GLFW_KEY_D: 	//'D'
+			break;
+		case GLFW_KEY_E: 	//'E'
+			break;
+		case GLFW_KEY_F: 	//'F'
+			break;
+		case GLFW_KEY_G: 	//'G'
+			break;
+		case GLFW_KEY_H: 	//'H'
+			break;
+		case GLFW_KEY_I: 	//'I'
+			break;
+		case GLFW_KEY_J: 	//'J'
+			break;
+		case GLFW_KEY_K: 	//'K'
+			break;
+		case GLFW_KEY_L: 	//'L'
+			break;
+		case GLFW_KEY_M: 	//'M'
+			break;
+		case GLFW_KEY_N: 	//'N'
+			break;
+		case GLFW_KEY_O: 	//'O'
+			break;
+		case GLFW_KEY_P: 	//'P'
+			break;
+		case GLFW_KEY_Q: 	//'Q'
+			break;
+		case GLFW_KEY_R: 	//'R'
+			break;
+		case GLFW_KEY_S: 	//'S'
+			break;
+		case GLFW_KEY_T: 	//'T'
+			break;
+		case GLFW_KEY_U: 	//'U'
+			break;
+		case GLFW_KEY_V: 	//'V'
+			break;
+		case GLFW_KEY_W: 	//'W'
+			break;
+		case GLFW_KEY_X: 	//'X'
+			break;
+		case GLFW_KEY_Y: 	//'Y'
+			break;
+		case GLFW_KEY_Z: 	//'Z'
+		{
+			Message msg{ MessageIDTypes::FTY_Purge };
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
+
+		default:
+			std::cout << "Input System: [Error] Key is not bound" << std::endl;
+		}
 	}
 }
 
 void InputSystem::Init() {
-
 	M_DEBUG->WriteDebugMessage("Input System Init\n");
+
+	ptr_window_ = CORE->GetSystem<WindowsSystem>()->ptr_window;
+
+	glfwSetKeyCallback(ptr_window_, keyCallback);
+	glfwSetCursorPosCallback(ptr_window_, cursorPositionCallback);
+	glfwSetCursorEnterCallback(ptr_window_, cursorEnterCallback);
+	glfwSetMouseButtonCallback(ptr_window_, mouseButtonCallback);
+	glfwSetScrollCallback(ptr_window_, scrollCallback);
 }
 
 void InputSystem::Update(float frametime) {
 
 	(void)frametime;
-
+	glfwPollEvents();
 	unsigned char input_flag = 0; //used for checking what directional buttons are held
 
-	//for keys requiring to check buttons held down
-	for (int i = 0x25; i <= 0x28; ++i) {
-		if (CheckCurrentInput(i)) {
-			switch (i)
-			{
-				case 0x25: //LEFT ARROW key
-				{
-					input_flag |= LEFT_FLAG;
-					break;
-				}
-				case 0x26: //UP ARROW key
-				{
-					input_flag |= UP_FLAG;
-					break;
-				}
-				case 0x27: //RIGHT ARROW key
-				{
-					input_flag |= RIGHT_FLAG;
-					break;
-				}
-				case 0x28: //DOWN ARROW key
-				{
-					//send message to game logc of button press
-					/*Message_Input msg{ MessageIDTypes::M_ButtonPress, i };
-					CORE->BroadcastMessage(&msg);*/
-					input_flag |= DOWN_FLAG;
-					break;
-				}
-			}
-		}
-	}
+	//input.GetMouseCoord();
+
+	if (IsKeyPressed(GLFW_KEY_LEFT))
+		input_flag |= LEFT_FLAG;
+	if (IsKeyPressed(GLFW_KEY_UP))
+		input_flag |= UP_FLAG;
+	if (IsKeyPressed(GLFW_KEY_RIGHT))
+		input_flag |= RIGHT_FLAG;
+	if (IsKeyPressed(GLFW_KEY_DOWN))
+		input_flag |= DOWN_FLAG;
 
 	// Temporary placeholder before Input System conversion
-	if (CheckCurrentInput(0x42)) {
-		
+	if (IsKeyPressed(GLFW_KEY_B)) {
+
 		//for debug bomb
 		Message msg(MessageIDTypes::DEBUG_ALL);
 		CORE->BroadcastMessage(&msg);
@@ -218,152 +238,60 @@ void InputSystem::Update(float frametime) {
 	//send the message with the updated flag to be processed
 	Message_PlayerInput input_msg{ MessageIDTypes::M_ButtonPress, input_flag };
 	CORE->BroadcastMessage(&input_msg);
-
-	for (int i = 0x30; i <= 0x5A; ++i) {
-		if (CheckTriggeredInput(i)) {
-			switch (i)
-			{
-			case 0x30:  //'0'
-			{
-				std::cout << "Debug: Decrementing entity HP" << std::endl;
-				MessageHPDecre msg{ 2 }; // Entity id = 2
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x31:	//'1'
-			{
-				Message_CustomState msg{ &m_PlayState, MessageIDTypes::GSM_ChangeState }; // pass in another existing state?
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x32:	//'2'
-			{
-				Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_ChangeState }; // push maybe game state
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x33:	//'3'
-			{
-				Message msg{ MessageIDTypes::GSM_PopState };
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x34:	//'4'
-			{
-				MessageBGM_Play msg{ std::string{"Kachow"} };
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x35:	//'5'
-			{
-				Message msg(MessageIDTypes::BGM_Stop);
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x36:	//'6'
-			{
-				MessageBGM_Play msg{ std::string{"BGM"} };
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x37:	//'7'
-			{
-				Message msg(MessageIDTypes::BGM_Mute);
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x38:	//'8'
-			{
-				Message msg(MessageIDTypes::BGM_Pause);
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x39:	//'9'
-			{
-				std::cout << "Debug: Rotating entity" << std::endl;
-				MessageRotation msg{ 1 }; // Entity id = 1
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			case 0x41: 	//'A'
-				// e.g. let A Pause game in play state and quit game in menu state
-
-				//Method 1
-				//check current state
-				// run Fn1 if (curr state is play) and Fn2 if state is menu
-
-				//Method 2
-				//wrap custom message w/ custom message id targetting Game ISystem
-				// send message
-				// let Game sort out what to do
-				break;
-			case 0x42: 	//'B'
-			/*{
-				//for debug bomb
-				Message msg(MessageIDTypes::DEBUG_ALL);
-				CORE->BroadcastMessage(&msg);
-				break;
-			}*/
-				break;
-			case 0x43: 	//'C'
-				break;
-			case 0x44: 	//'D'
-				break;
-			case 0x45: 	//'E'
-				break;
-			case 0x46: 	//'F'
-				break;
-			case 0x47: 	//'G'
-				break;
-			case 0x48: 	//'H'
-				break;
-			case 0x49: 	//'I'
-				break;
-			case 0x4A: 	//'J'
-				break;
-			case 0x4B: 	//'K'
-				break;
-			case 0x4C: 	//'L'
-				break;
-			case 0x4D: 	//'M'
-				break;
-			case 0x4E: 	//'N'
-				break;
-			case 0x4F: 	//'O'
-				break;
-			case 0x50: 	//'P'
-				break;
-			case 0x51: 	//'Q'
-				break;
-			case 0x52: 	//'R'
-				break;
-			case 0x53: 	//'S'
-				break;
-			case 0x54: 	//'T'
-				break;	
-			case 0x55: 	//'U'
-				break;	
-			case 0x56: 	//'V'
-				break;	
-			case 0x57: 	//'W'
-				break;	
-			case 0x58: 	//'X'
-				break;	
-			case 0x59: 	//'Y'
-				break;	
-			case 0x5A: 	//'Z'
-			{
-				Message msg{ MessageIDTypes::FTY_Purge };
-				CORE->BroadcastMessage(&msg);
-				break;
-			}
-			default:
-				std::cout << "Input System: [Error] Key is not bound" << std::endl;
-			}
-		}
-	}
 }
 
 void InputSystem::SendMessageD(Message* m) {
-	(void) m;
+	(void)m;
+}
+
+void InputSystem::SetKeyState(int keycode, int action)
+{
+	prekeystates[keycode] = curkeystates[keycode];
+	curkeystates[keycode] = action;
+}
+
+void InputSystem::SetMouseState(int button, int action)
+{
+	premousebuttonstates[button] = curmousebuttonstates[button];
+	curmousebuttonstates[button] = action;
+}
+
+bool InputSystem::IsMousePressed(int button)
+{
+	return curmousebuttonstates[button];
+}
+
+bool InputSystem::IsMouseTriggered(int button)
+{
+	if (premousebuttonstates[button] == GLFW_RELEASE && curmousebuttonstates[button] == GLFW_PRESS)
+	{
+		premousebuttonstates[button] = 1;
+		return true;
+	}
+	return false;
+}
+
+bool InputSystem::IsKeyPressed(int keycode)
+{
+	return curkeystates[keycode];
+}
+
+bool InputSystem::IsKeyTriggered(int keycode)
+{
+	if (prekeystates[keycode] == GLFW_RELEASE && curkeystates[keycode] == GLFW_PRESS)
+	{
+		prekeystates[keycode] = 1;
+		return true;
+	}
+	return false;
+}
+
+void InputSystem::SetCursorPosition(double xPos, double yPos)
+{
+	cursor_pos = { static_cast<float>(xPos), static_cast<float>(yPos) };
+}
+
+// Returns current cursor position
+Vector2D InputSystem::GetCursorPosition() {
+	return cursor_pos;
 }

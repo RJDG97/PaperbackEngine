@@ -224,7 +224,6 @@
     <ClInclude Include="Include\Systems\Physics.h" />
     <ClInclude Include="Include\Systems\SoundSystem.h" />
     <ClInclude Include="Include\Systems\WindowsSystem.h" />
-    <ClInclude Include="Include\WinKeyCodes.h" />
     <ClInclude Include="Source\Source.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

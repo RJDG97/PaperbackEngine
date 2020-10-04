@@ -32,8 +32,10 @@ int running = 1;
 
 int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR cmdLine, INT cmdCount) {
 
+	UNREFERENCED_PARAMETER(currentInstance);
 	UNREFERENCED_PARAMETER(previousInstance);
 	UNREFERENCED_PARAMETER(cmdLine);
+	UNREFERENCED_PARAMETER(cmdCount);
 
 	// Checking for memory leaks
 #if defined(DEBUG) | defined(_DEBUG)

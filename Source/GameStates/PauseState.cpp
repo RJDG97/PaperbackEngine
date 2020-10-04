@@ -4,7 +4,6 @@
 #include "Systems/Game.h"
 #include "GameStates/PauseState.h"
 #include "Systems/InputSystem.h"
-#include "WinKeyCodes.h"
 
 // SAMPLE PAUSE STATE
 
@@ -36,11 +35,11 @@ void PauseState::resume()
 void PauseState::update(Game* game)
 {
 	UNREFERENCED_PARAMETER(game);
-	if (sys_input_.CheckTriggeredInput(PE_B))
+	if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_B))
 	{
 		std::cout << "THE GAME IS PAUSED" << std::endl;
 	}
-	if (sys_input_.CheckTriggeredInput(PE_SPACE))
+	if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_SPACE))
 	{
 		std::cout << "RESUMING...." << std::endl;
 		game->PopState();

@@ -63,7 +63,7 @@ void Game::ChangeState(GameState* state)
 // temporarily pushes a new state onto the stack
 void Game::PushState(GameState* state) // need to check if current state already exists in stack
 {
-
+	(void)state;
 	// pause the current state
 	/*if (!states_.empty())
 	{

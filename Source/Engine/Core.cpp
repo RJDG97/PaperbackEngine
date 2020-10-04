@@ -35,9 +35,14 @@ void CoreEngine::GameLoop() {
 		
 		PE_FrameRate.FrameRateLoop();
 
-		if (sys_input_.CheckTriggeredInput(0x51)) { // Q key
+		if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_Q)) { // Q key
 			M_DEBUG->WriteDebugMessage("TERMINATE GAME LOOP\n");
 			b_game_active_ = false;
+		}
+
+		if (CORE->GetSystem<InputSystem>()->IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			std::cout << CORE->GetSystem<InputSystem>()->GetCursorPosition().x << ": " << CORE->GetSystem<InputSystem>()->GetCursorPosition().y << std::endl;
 		}
 
 		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
