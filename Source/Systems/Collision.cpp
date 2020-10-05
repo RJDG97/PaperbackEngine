@@ -236,6 +236,11 @@ void Collision::Update(float frametime) {
 				}
 				else {
 
+					//enable to check if collision detected
+					//currently disabled to show that burrowing works
+					//aabb1->second->collided = true;
+					//aabb2->second->collided = true;
+
 					//otherwise colliding are player & enemy or player & player
 					if ((aabb1_type == EntityTypes::PLAYER && aabb2_type == EntityTypes::ENEMY) ||
 						(aabb1_type == EntityTypes::ENEMY && aabb2_type == EntityTypes::PLAYER)) {
@@ -261,11 +266,11 @@ void Collision::Update(float frametime) {
 								player_status->status_ = StatusType::HIT;
 								player_status->status_timer_ = 5.1f;
 							}
-							/*
+							
 							else if (player_status->status_ == StatusType::INVISIBLE) {
 
 							}
-							*/
+							
 						}
 					}
 				}

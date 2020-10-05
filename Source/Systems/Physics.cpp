@@ -75,6 +75,11 @@ void Physics::ChangeVelocity(Message* m) {
 
 				//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
 			}
+			else
+			{
+
+				motion->second->velocity_ = {};
+			}
 		}
 	}
 }

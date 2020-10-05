@@ -52,7 +52,7 @@ public:
   \brief Performs handling of inputs such as mouse clicks onto buttons
 */
 /******************************************************************************/
-	void StateInputHandler(unsigned char key_val, Game* game);
+	void StateInputHandler(Message* msg, Game* game);
 
 /******************************************************************************/
 /*!

@@ -152,7 +152,11 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_KEY_D: 	//'D'
 			break;
 		case GLFW_KEY_E: 	//'E'
+		{
+			Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_E);
+			CORE->BroadcastMessage(&msg);
 			break;
+		}
 		case GLFW_KEY_F: 	//'F'
 			break;
 		case GLFW_KEY_G: 	//'G'
@@ -178,7 +182,11 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_KEY_Q: 	//'Q'
 			break;
 		case GLFW_KEY_R: 	//'R'
+		{
+			Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_R);
+			CORE->BroadcastMessage(&msg);
 			break;
+		}
 		case GLFW_KEY_S: 	//'S'
 			break;
 		case GLFW_KEY_T: 	//'T'
@@ -201,7 +209,8 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 
 		default:
-			std::cout << "Input System: [Error] Key is not bound" << std::endl;
+			//std::cout << "Input System: [Error] Key is not bound" << std::endl;
+			break;
 		}
 	}
 }
@@ -250,7 +259,7 @@ void InputSystem::Update(float frametime) {
 	}
 
 	//send the message with the updated flag to be processed
-	Message_PlayerInput input_msg{ MessageIDTypes::M_BUTTON_PRESS, input_flag };
+	Message_PlayerInput input_msg{ MessageIDTypes::M_MOVEMENT, input_flag };
 	CORE->BroadcastMessage(&input_msg);
 }
 
@@ -302,8 +311,8 @@ bool InputSystem::IsKeyTriggered(int keycode)
 
 void InputSystem::SetCursorPosition(double xPos, double yPos)
 {
-	xPos -= CORE->GetSystem<WindowsSystem>()->getWinWidth() / 2;
-	yPos = (-yPos) + CORE->GetSystem<WindowsSystem>()->getWinHeight() / 2;
+	xPos -= CORE->GetSystem<WindowsSystem>()->GetWinWidth() / 2;
+	yPos = (-yPos) + CORE->GetSystem<WindowsSystem>()->GetWinHeight() / 2;
 
 	cursor_pos = { static_cast<float>(xPos), static_cast<float>(yPos) };
 }

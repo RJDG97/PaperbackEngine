@@ -70,8 +70,8 @@ void GraphicsSystem::Init() {
     windows_system_ = CORE->GetSystem<WindowsSystem>();
 
     // Set up viewports
-    window_width_ = windows_system_->getWinWidth();
-    window_height_ = windows_system_->getWinHeight();
+    window_width_ = windows_system_->GetWinWidth();
+    window_height_ = windows_system_->GetWinHeight();
     glViewport(0, 0, window_width_, window_height_);
 
     // Set up frame buffer for rendering all objects to texture

@@ -168,16 +168,21 @@ void Game::SendMessageD(Message* m) {
 	case MessageIDTypes::M_BUTTON_PRESS: 
 	{
 		//std::cout << "GSM: Button press event, dispatching to Game State" << std::endl;
-		Message_PlayerInput* msg = dynamic_cast<Message_PlayerInput*>(m);
-		if (msg) {
-			states_.back()->StateInputHandler(msg->input_flag_);
-		}
+		//Message_PlayerInput* msg = dynamic_cast<Message_PlayerInput*>(m);
+		
+		states_.back()->StateInputHandler(m, this);
+		break;
+	}
+	case MessageIDTypes::M_MOVEMENT:
+	{
+		//value larger than what can be gotten from input flags
+		states_.back()->StateInputHandler(m);
 		break;
 	}
 	case MessageIDTypes::M_MOUSE_PRESS:
 	{
-		//value larger than what can be gotten from input flags
-		states_.back()->StateInputHandler(16, this);
+		states_.back()->StateInputHandler(m, this);
+		break;
 	}
 	case MessageIDTypes::DEBUG_ALL:
 	{

@@ -31,8 +31,8 @@ void MenuState::Init()
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	//CORE->GetManager<TextureManager>()->TempFunctionForTesting();
-	//CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
+	CORE->GetManager<TextureManager>()->TempFunctionForTesting();
+	CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
 	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);
@@ -59,8 +59,8 @@ void MenuState::Draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
-void MenuState::StateInputHandler(unsigned char key_val, Game* game) {
-	(void)key_val;
+void MenuState::StateInputHandler(Message* msg, Game* game) {
+
 	//0x25 //LEFT ARROW key
 	//0x26 //UP ARROW key
 	//0x27 //RIGHT ARROW key
@@ -109,49 +109,49 @@ void MenuState::StateInputHandler(unsigned char key_val, Game* game) {
 		break;
 	}*/
 
+	if (!game && msg->message_id_ == MessageIDTypes::M_MOVEMENT) {
 
-	// set up velocity based input flag value
-	Vec2 new_vel{};
+		Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
+		assert(m != nullptr && "Message is not a player input message");
+		unsigned char key_val = m->input_flag_;
 
-	if (key_val & UP_FLAG) {
+		// set up velocity based input flag value
+		Vec2 new_vel{};
 
-		new_vel.y += 100.0f;
+		if (key_val & UP_FLAG) {
+
+			new_vel.y += 100.0f;
+		}
+
+		if (key_val & DOWN_FLAG) {
+
+			new_vel.y -= 100.0f;
+		}
+
+		if (key_val & LEFT_FLAG) {
+
+			new_vel.x -= 100.0f;
+		}
+
+		if (key_val & RIGHT_FLAG) {
+
+			new_vel.x += 100.0f;
+		}
+
+		//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
+
+		MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
+		CORE->BroadcastMessage(&m2);
 	}
 
-	if (key_val & DOWN_FLAG) {
+	if (game && msg->message_id_ == MessageIDTypes::M_MOUSE_PRESS) {
 
-		new_vel.y -= 100.0f;
-	}
+		//check for collision between button & mouse
 
-	if (key_val & LEFT_FLAG) {
+		if (CORE->GetSystem<Collision>()->CheckCursorCollision(CORE->GetSystem<InputSystem>()->GetCursorPosition(), start_blok->GetID())) {
 
-		new_vel.x -= 100.0f;
-	}
-
-	if (key_val & RIGHT_FLAG) {
-
-		new_vel.x += 100.0f;
-	}
-
-	if (game) {
-		switch (key_val)
-		{
-			case 16:
-			{
-				//check for collision between button & mouse
-
-				if (CORE->GetSystem<Collision>()->CheckCursorCollision(CORE->GetSystem<InputSystem>()->GetCursorPosition(), start_blok->GetID())) {
-
-					//true returned, trigger scene change
-					game->ChangeState(&m_PlayState);
-				}
-				break;
-			}
+			//true returned, trigger scene change
+			game->ChangeState(&m_PlayState);
 		}
 	}
-
-	//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
-
-	MessagePhysics_Motion msg{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
-	CORE->BroadcastMessage(&msg);
 }

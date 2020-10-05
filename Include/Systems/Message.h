@@ -35,6 +35,7 @@ enum class MessageIDTypes
 	GSM_PAUSESTATE, // TBC
 
 	// Message to Game System
+	M_MOVEMENT,
 	M_BUTTON_PRESS,
 	M_MOUSE_PRESS,
 

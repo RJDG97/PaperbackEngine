@@ -7,13 +7,14 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <string>
 #include "Systems/ISystem.h"
 
 LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam);
 
 class WindowsSystem : public ISystem{
-	// Singleton declaration
-	static WindowsSystem* w_Instance;
+
+	static WindowsSystem* w_instance;
 	// Windows class declaration
 	WNDCLASSEX wcex;
 	LPTSTR windowClass;
@@ -22,7 +23,8 @@ class WindowsSystem : public ISystem{
 	// Windows handle
 	HWND hwnd;
 	// Store windows dimensions
-	int wWidth, wHeight;
+	int width_, height_;
+	std::string windows_name_;
 
 public:
 
@@ -36,6 +38,15 @@ public:
 */
 /******************************************************************************/
 	WindowsSystem();
+
+/******************************************************************************/
+/*!
+  \fn Serialize()
+
+  \brief Initializes data members of windows system
+*/
+/******************************************************************************/
+	void Serialize();
 
 /******************************************************************************/
 /*!
@@ -102,59 +113,68 @@ public:
 	
 /******************************************************************************/
 /*!
-  \fn getHandle()
+  \fn GetHandle()
 
   \brief Returns a handle to the window
 */
 /******************************************************************************/
-	HWND getHandle();
+	HWND GetHandle();
 
 /******************************************************************************/
 /*!
-  \fn getWindowClass()
+  \fn GetWindowClass()
 
   \brief Returns a pointer to the window class
 */
 /******************************************************************************/
-	LPTSTR getWindowClass();
+	LPTSTR GetWindowClass();
 
 /******************************************************************************/
 /*!
-  \fn getWinWidth()
+  \fn GetWindowName()
+
+  \brief Gets the window's name
+*/
+/******************************************************************************/
+	std::string GetWindowName() const;
+
+/******************************************************************************/
+/*!
+  \fn GetWinWidth()
 
   \brief Gets the window's width
 */
 /******************************************************************************/
-	int getWinWidth() const;
+	int GetWinWidth() const;
 
 /******************************************************************************/
 /*!
-  \fn getWinHeight()
+  \fn GetWinHeight()
 
   \brief Get the window's height
 */
 /******************************************************************************/
-	int getWinHeight() const;
+	int GetWinHeight() const;
 
 /******************************************************************************/
 /*!
-  \fn setWinWidth()
+  \fn SetWinWidth()
 
   \brief Sets the window's new width
 */
 /******************************************************************************/
-	void setWinWidth(int _width);
+	void SetWinWidth(int _width);
 
 /******************************************************************************/
 /*!
-  \fn setWinHeight()
+  \fn SetWinHeight()
 
   \brief Sets the window's new height
 */
 /******************************************************************************/
-	void setWinHeight(int _height);
+	void SetWinHeight(int _height);
 };
 
-void createDebugWindow();
+void CreateDebugWindow();
 
 #endif
