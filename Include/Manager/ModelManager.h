@@ -10,10 +10,16 @@
 
 struct Model {
 
-    GLenum     primitive_type_;
-    GLuint     primitive_cnt_;
-    GLuint     vaoid_;
-    GLuint     draw_cnt_;
+    GLenum primitive_type_;
+    GLuint primitive_cnt_;
+    GLuint vaoid_;
+    GLuint vboid_;
+    GLuint draw_cnt_;
+
+    size_t vbo_offset_;
+
+    GLuint GetVBOHandle();
+    size_t GetVBOOffset();
 };
 
 class ModelManager : public IManager {

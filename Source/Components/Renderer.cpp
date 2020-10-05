@@ -29,7 +29,7 @@ void Renderer::Serialize(std::stringstream& data) {
 
     data >> texture >> model >> shdr_pgm >> layer_;
 
-    texture_ = CORE->GetManager<TextureManager>()->GetTexture(texture);
+    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture);
     model_ = CORE->GetManager<ModelManager>()->GetModel(model);
     shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }

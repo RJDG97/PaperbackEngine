@@ -8,8 +8,7 @@ layout (location=0) out vec3 vClrCoord;
 layout (location=1) out vec2 vTexCoord;
 
 uniform mat3 uModel_to_NDC;
-uniform int xflip;
-uniform int yflip;
+uniform vec2 offset;
 
 void main() {
         
@@ -17,16 +16,6 @@ void main() {
     vClrCoord = vVertexClrCoord;
 
     vec2 newCoord = vVertexTexCoord;
-
-    if (xflip == 1)
-    {
-        newCoord.x = 1 - newCoord.x;
-    }
-
-    if (yflip == 1)
-    {
-        newCoord.y = 1 - newCoord.y;
-    }
 
     vTexCoord = newCoord;
 }

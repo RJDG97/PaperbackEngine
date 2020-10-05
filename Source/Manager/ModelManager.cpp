@@ -69,10 +69,10 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
     glNamedBufferSubData(vbo_hdl, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
 
     glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(),
-        sizeof(glm::vec3) * clr_vtx.size(), clr_vtx.data());
+                         sizeof(glm::vec3) * clr_vtx.size(), clr_vtx.data());
 
     glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(),
-        sizeof(glm::vec2) * tex_vtx.size(), tex_vtx.data());
+                         sizeof(glm::vec2) * tex_vtx.size(), tex_vtx.data());
 
     GLuint vao_hdl;
     glCreateVertexArrays(1, &vao_hdl);
@@ -104,6 +104,8 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
 
     Model mdl;
     mdl.vaoid_ = vao_hdl;
+    mdl.vboid_ = vbo_hdl;
+    mdl.vbo_offset_ = sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size();
     mdl.primitive_type_ = GL_TRIANGLE_STRIP;
     mdl.draw_cnt_ = static_cast<GLint>(idx_vtx.size());     // number of vertices
     mdl.primitive_cnt_ = count;                             // number of triangles
@@ -162,4 +164,14 @@ void ModelManager::AddLinesModel(int slices, int stacks, std::string model_name)
 Model* ModelManager::GetModel(std::string model_name) {
 
     return &models_[model_name];
+}
+
+GLuint Model::GetVBOHandle()
+{
+    return vboid_;
+}
+
+size_t Model::GetVBOOffset()
+{
+    return vbo_offset_;
 }

@@ -14,12 +14,12 @@ class Renderer : public Component {
 
 protected:
 
-	bool x_flipped_ = true;
-	bool y_flipped_ = false;
+	bool x_mirror_ = false;
+	bool y_mirror_ = false;
 
 	Model* model_;
 	Shader* shdr_pgm_;
-	Texture* texture_;
+	Texture texture_;
 	int layer_;
 
 	glm::mat3 mdl_to_ndc_xform_;		//model-to-NDC transform

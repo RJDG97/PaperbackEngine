@@ -40,10 +40,10 @@ class GraphicsSystem : public ISystem {
     //render all game objects to texture
     GLuint frame_buffer_;
     GLuint render_buffer_;
-    Texture final_texture_;
+    GLuint final_texture_;
     Model* final_model_;
     Shader* final_shader_;
-    Texture* lighting_texture_;
+    GLuint* lighting_texture_;
 
     void CameraInit();
     void CameraUpdate();
@@ -58,7 +58,7 @@ public:
     void Init();
     void Update(float frametime);
     void Draw() override;
-    void DrawFinalTexture(Model* model, Shader* shader, Texture* texture);
+    void DrawFinalTexture(Model* model, Shader* shader, GLuint* texture);
     void CleanUp();
 
     //returns the name of the system for debug use

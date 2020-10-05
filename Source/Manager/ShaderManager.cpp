@@ -201,21 +201,21 @@ void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z, GLf
     glUniform4f(loc, x, y, z, w);
 }
 
-void Shader::SetUniform(GLchar const *name, glm::vec2 &val) {
+void Shader::SetUniform(GLchar const *name, glm::vec2 val) {
     
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform2f(loc, val.x, val.y);
 }
 
-void Shader::SetUniform(GLchar const *name, glm::vec3 &val) {
+void Shader::SetUniform(GLchar const *name, glm::vec3 val) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform3f(loc, val.x, val.y, val.z);
 }
 
-void Shader::SetUniform(GLchar const *name, glm::vec4 &val) {
+void Shader::SetUniform(GLchar const *name, glm::vec4 val) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));

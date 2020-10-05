@@ -16,7 +16,7 @@
     },
     {
       "component": "AnimationRenderer",
-      "model": "BoxModel",
+      "model": "TileModel",
       "shader program": "ObjectShader",
       "number of animations": "1",
       "add animation": "Player_Walk",
@@ -63,7 +63,7 @@
     {
       "component": "Renderer",
       "texture": "Plank",
-      "model": "BoxModel",
+      "model": "TileModel",
       "shader program": "ObjectShader",
       "layer": "0"
     },
@@ -99,7 +99,7 @@
     {
       "component": "Renderer",
       "texture": "Rock",
-      "model": "BoxModel",
+      "model": "TileModel",
       "shader program": "ObjectShader",
       "layer": "0"
     },

@@ -31,8 +31,8 @@ void MenuState::Init()
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	//CORE->GetManager<TextureManager>()->TempFunctionForTesting();
-	//CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
+	CORE->GetManager<TextureManager>()->TempFunctionForTesting();
+	CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
 	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);

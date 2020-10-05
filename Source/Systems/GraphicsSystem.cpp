@@ -104,6 +104,7 @@ void GraphicsSystem::Init() {
     animation_manager_ = CORE->GetManager<AnimationManager>();
 
     model_manager_->AddTristripsModel(1, 1, "BoxModel");
+    model_manager_->AddTristripsModel(1, 1, "TileModel");
     model_manager_->AddLinesModel(1, 1, "LinesModel");
     shader_manager_->AddShdrpgm("Shaders/object.vert", "Shaders/object.frag", "ObjectShader");
     shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
@@ -201,7 +202,7 @@ void GraphicsSystem::Draw() {
     if (debug_) { debug_ = !debug_; }
 }
 
-void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, Texture* texture) {
+void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, GLuint* texture) {
     shader->Use();
     glBindVertexArray(model->vaoid_);
 
@@ -371,7 +372,7 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
             }
 
             anim_renderer->time_elapsed_ = 0.0f;
-            anim_renderer->texture_ = *anim_renderer->current_frame_;
+            anim_renderer->texture_ = **anim_renderer->current_frame_;
         }
     }
 }
@@ -381,15 +382,15 @@ void GraphicsSystem::DrawObject(Renderer* renderer) {
     renderer->shdr_pgm_->Use();
     glBindVertexArray(renderer->model_->vaoid_);
 
-    glBindTexture(GL_TEXTURE_2D, (*renderer->texture_));
-    glBindTextureUnit(0, (*renderer->texture_));
+    glBindTexture(GL_TEXTURE_2D, (*renderer->texture_.GetTilesetHandle()));
+    glBindTextureUnit(0, (*renderer->texture_.GetTilesetHandle()));
     glUseProgram(renderer->shdr_pgm_->GetHandle());
 
     renderer->shdr_pgm_->SetUniform("uTex2d", 0);
     renderer->shdr_pgm_->SetUniform("uModel_to_NDC", renderer->mdl_to_ndc_xform_);
-    renderer->shdr_pgm_->SetUniform("xflip", renderer->x_flipped_);
-    renderer->shdr_pgm_->SetUniform("yflip", renderer->y_flipped_);
 
+    glNamedBufferSubData(renderer->model_->GetVBOHandle(), renderer->model_->GetVBOOffset(),
+                         sizeof(glm::vec2) * 4, renderer->texture_.GetTexVtx().data());
     glDrawElements(GL_TRIANGLE_STRIP, renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
     // after completing the rendering, we tell the driver that the VAO vaoid
@@ -401,7 +402,7 @@ void GraphicsSystem::DrawObject(Renderer* renderer) {
 
 void GraphicsSystem::ChangeTexture(Renderer* renderer, std::string texture_name) {
 
-    renderer->texture_ = texture_manager_->GetTexture(texture_name);
+    renderer->texture_ = *(texture_manager_->GetTexture(texture_name));
 }
 
 void GraphicsSystem::ChangeModel(Renderer* renderer, std::string model_name) {
@@ -416,12 +417,32 @@ void GraphicsSystem::ChangeShdrpgm(Renderer* renderer, std::string shdr_pgm_name
 
 void GraphicsSystem::FlipTextureX(Renderer* renderer) {
 
-    renderer->x_flipped_ = !renderer->x_flipped_;
+    renderer->x_mirror_ = !renderer->x_mirror_;
+
+    std::vector<glm::vec2> new_vertex;
+    std::vector<glm::vec2> temp_vertex = renderer->texture_.GetTexVtx();
+
+    new_vertex.push_back(temp_vertex[2]);
+    new_vertex.push_back(temp_vertex[3]);
+    new_vertex.push_back(temp_vertex[0]);
+    new_vertex.push_back(temp_vertex[1]);
+
+    renderer->texture_.SetTexVtx(new_vertex);
 }
 
 void GraphicsSystem::FlipTextureY(Renderer* renderer) {
 
-    renderer->y_flipped_ = !renderer->y_flipped_;
+    renderer->y_mirror_ = !renderer->y_mirror_;
+
+    std::vector<glm::vec2> new_vertex;
+    std::vector<glm::vec2> temp_vertex = renderer->texture_.GetTexVtx();
+
+    new_vertex.push_back(temp_vertex[1]);
+    new_vertex.push_back(temp_vertex[0]);
+    new_vertex.push_back(temp_vertex[3]);
+    new_vertex.push_back(temp_vertex[2]);
+
+    renderer->texture_.SetTexVtx(new_vertex);
 }
 
 int GraphicsSystem::GetLayer(Renderer* renderer) {
@@ -439,5 +460,5 @@ void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string 
     anim_renderer->current_frame_ = anim_renderer->obj_animations_[animation_name]->GetFirstFrame();
     anim_renderer->current_animation_ = anim_renderer->obj_animations_[animation_name];
     anim_renderer->time_elapsed_ = 0.0f;
-    anim_renderer->texture_ = *(anim_renderer->current_frame_);
+    anim_renderer->texture_ = **(anim_renderer->current_frame_);
 }
