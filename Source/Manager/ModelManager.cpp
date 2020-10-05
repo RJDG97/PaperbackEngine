@@ -6,8 +6,8 @@ void ModelManager::Init() {
     M_DEBUG->WriteDebugMessage("Model Manager Init\n");
 }
 
-void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name)
-{
+void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name) {
+
     // Generates the vertices required to render triangle strips
 
     int const count{ (stacks + 1) * (slices + 1) };
@@ -18,10 +18,10 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
     float const u{ 2.f / static_cast<float>(slices) };
     float const v{ 2.f / static_cast<float>(stacks) };
 
-    for (int row{ 0 }, index{ 0 }; row <= stacks; ++row)
-    {
-        for (int col{ 0 }; col <= slices; ++col)
-        {
+    for (int row{ 0 }, index{ 0 }; row <= stacks; ++row) {
+
+        for (int col{ 0 }; col <= slices; ++col) {
+
             pos_vtx[index] = glm::vec2(u * static_cast<float>(col) - 1.f, v* static_cast<float>(row) - 1.f);
 
             // Randomly generate r, g, b values for vertex color attribute
@@ -37,12 +37,12 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
 
     std::vector<GLushort> idx_vtx(((slices + 1) * 2 + 2)* stacks - 2);
 
-    for (int row{ 0 }, index{ 0 }; row <= stacks - 1; ++row)
-    {
-        for (int col{ 0 }; col <= slices; ++col)
-        {
-            if (index != 0 && col == 0)
-            {
+    for (int row{ 0 }, index{ 0 }; row <= stacks - 1; ++row) {
+
+        for (int col{ 0 }; col <= slices; ++col) {
+
+            if (index != 0 && col == 0) {
+
                 idx_vtx[index++] = static_cast<GLushort>((row + 1) * (slices + 1) + col);
             }
 
@@ -50,8 +50,8 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
             idx_vtx[index++] = static_cast<GLushort>(row * (slices + 1) + col);
         }
 
-        if (row != stacks - 1)
-        {
+        if (row != stacks - 1) {
+
             idx_vtx[index] = idx_vtx[index - 1];
             ++index;
         }
@@ -110,8 +110,8 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
     models_[model_name] = mdl;
 }
 
-void ModelManager::AddLinesModel(int slices, int stacks, std::string model_name)
-{
+void ModelManager::AddLinesModel(int slices, int stacks, std::string model_name) {
+
     // Sets the position of the start and end of each line in a line model
 
     int const count{ (slices + 1) * 2 + (stacks + 1) * 2 };
@@ -121,15 +121,15 @@ void ModelManager::AddLinesModel(int slices, int stacks, std::string model_name)
 
     int index = 0;
 
-    for (int col{ 0 }; col <= slices; ++col)
-    {
+    for (int col{ 0 }; col <= slices; ++col) {
+
         float x{ u * static_cast<float>(col) - 1.0f };
         pos_vtx[index++] = glm::vec2(x, -1.0f);
         pos_vtx[index++] = glm::vec2(x, 1.0f);
     }
 
-    for (int row{ 0 }; row <= stacks; ++row)
-    {
+    for (int row{ 0 }; row <= stacks; ++row) {
+
         float y{ u * static_cast<float>(row) - 1.0f };
         pos_vtx[index++] = glm::vec2(-1.0f, y);
         pos_vtx[index++] = glm::vec2(1.0f, y);
@@ -159,7 +159,7 @@ void ModelManager::AddLinesModel(int slices, int stacks, std::string model_name)
     models_[model_name] = mdl;
 }
 
-Model* ModelManager::GetModel(std::string model_name)
-{
+Model* ModelManager::GetModel(std::string model_name) {
+
     return &models_[model_name];
 }

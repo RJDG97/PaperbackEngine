@@ -7,23 +7,22 @@
 
 #define M_PI       3.14159265358979323846
 
-Renderer::Renderer()
-{
+Renderer::Renderer() {
     
 }
 
-Renderer::~Renderer()
-{
+Renderer::~Renderer() {
+    
     CORE->GetSystem<GraphicsSystem>()->RemoveRendererComponent(Component::GetOwner()->GetID());
 }
 
-void Renderer::Init()
-{
+void Renderer::Init() {
+    
     CORE->GetSystem<GraphicsSystem>()->AddRendererComponent(Component::GetOwner()->GetID(), this);
 }
 
-void Renderer::Serialize(std::stringstream& data)
-{
+void Renderer::Serialize(std::stringstream& data) {
+    
     std::string texture;
     std::string model;
     std::string shdr_pgm;

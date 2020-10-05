@@ -5,8 +5,8 @@
 #include "Manager/IManager.h"
 #include <list>
 
-class Animation
-{
+class Animation {
+
 	std::list <Texture*> animation_frames_;
 	GLfloat frame_duration_;
 
@@ -21,8 +21,8 @@ public:
 	std::list<Texture*>::iterator GetFirstFrame();
 };
 
-class AnimationManager : public IManager
-{
+class AnimationManager : public IManager {
+
 	std::map<std::string, Animation> animations_;
 	
 	TextureManager* texture_manager_;

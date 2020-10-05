@@ -7,16 +7,16 @@
 #include "Entity/Entity.h"
 #include "Components/Transform.h"
 
-LightingSystem::LightingSystem()
-{
+LightingSystem::LightingSystem() {
+
 }
 
-LightingSystem::~LightingSystem()
-{
+LightingSystem::~LightingSystem() {
+
 }
 
-void LightingSystem::Init()
-{
+void LightingSystem::Init() {
+
 	windows_system = CORE->GetSystem<WindowsSystem>();
 
 	GLint width = windows_system->getWinWidth();
@@ -50,11 +50,11 @@ void LightingSystem::Init()
 	M_DEBUG->WriteDebugMessage("Lighting System Init\n");
 }
 
-void LightingSystem::Update(float frametime)
-{
+void LightingSystem::Update(float frametime) {
+
 	UNREFERENCED_PARAMETER(frametime);
-	for (PointLightIt it = point_light_arr_.begin(); it != point_light_arr_.end(); ++it)
-	{
+	for (PointLightIt it = point_light_arr_.begin(); it != point_light_arr_.end(); ++it) {
+
 		if (debug_) {
 			// Log id of entity and it's updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Point light position updated)\n");
@@ -64,8 +64,8 @@ void LightingSystem::Update(float frametime)
 	}
 }
 
-void LightingSystem::Draw()
-{
+void LightingSystem::Draw() {
+
 	//reset the lighting texture
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -73,8 +73,8 @@ void LightingSystem::Draw()
 	
 	glBlendFunc(GL_ONE, GL_ONE);
 
-	for (PointLightIt it = point_light_arr_.begin(); it != point_light_arr_.end(); ++it)
-	{
+	for (PointLightIt it = point_light_arr_.begin(); it != point_light_arr_.end(); ++it) {
+
 		if (debug_) {
 			// Log id of entity and its updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Drawing point light for entity: " + std::to_string(it->first) + "\n");
@@ -86,26 +86,26 @@ void LightingSystem::Draw()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void LightingSystem::Cleanup()
-{
+void LightingSystem::Cleanup() {
+
 	glDeleteFramebuffers(1, &lighting_buffer);
 	glDeleteTextures(1, &lighting_texture);
 }
 
-GLuint* LightingSystem::GetLightingTexture()
-{
+GLuint* LightingSystem::GetLightingTexture() {
+
 	return &lighting_texture;
 }
 
-void LightingSystem::AddLightComponent(EntityID id, PointLight* point_light)
-{
+void LightingSystem::AddLightComponent(EntityID id, PointLight* point_light) {
+
 	M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
 	point_light_arr_[id] = point_light;
 }
 
-void LightingSystem::RemoveLightComponent(EntityID id)
-{
+void LightingSystem::RemoveLightComponent(EntityID id) {
+
 	PointLightIt it = point_light_arr_.find(id);
 
 	if (it != point_light_arr_.end()) {
@@ -115,15 +115,15 @@ void LightingSystem::RemoveLightComponent(EntityID id)
 	}
 }
 
-void LightingSystem::UpdateLightPosition(PointLight* point_light, glm::vec2 cam_pos, glm::vec2 cam_size)
-{
+void LightingSystem::UpdateLightPosition(PointLight* point_light, glm::vec2 cam_pos, glm::vec2 cam_size) {
+
 	Vector2D obj_pos_ = dynamic_cast<Transform*>(
 		point_light->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
 	point_light->pos_ = 0.5f * (glm::vec2(obj_pos_.x, obj_pos_.y) + cam_pos + 0.5f * cam_size);
 }
 
-void LightingSystem::DrawPointLight(PointLight* point_light)
-{
+void LightingSystem::DrawPointLight(PointLight* point_light) {
+
 	point_light->shdr_pgm_.Use();
 	glBindVertexArray(point_light->model_.vaoid_);
 
@@ -137,12 +137,12 @@ void LightingSystem::DrawPointLight(PointLight* point_light)
 	point_light->shdr_pgm_.UnUse();
 }
 
-std::string LightingSystem::GetName()
-{
+std::string LightingSystem::GetName() {
+
 	return "LightingSystem";
 }
 
-void LightingSystem::SendMessageD(Message* m)
-{
+void LightingSystem::SendMessageD(Message* m) {
+
 	UNREFERENCED_PARAMETER(m);
 }

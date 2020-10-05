@@ -20,8 +20,8 @@
 #include <GL/glew.h> // for access to OpenGL API declarations
 #include <GLFW/glfw3.h>
 
-class GraphicsSystem : public ISystem
-{
+class GraphicsSystem : public ISystem {
+
     bool debug_;
 
     GLint window_width_;

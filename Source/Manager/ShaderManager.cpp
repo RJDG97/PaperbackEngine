@@ -1,20 +1,20 @@
 #include "Manager/ShaderManager.h"
 #include "Systems/Debug.h"
 
-void Shader::DeleteShaderProgram()
-{
-    if (pgm_handle > 0)
-    {
+void Shader::DeleteShaderProgram() {
+
+    if (pgm_handle > 0) {
+
         glDeleteProgram(pgm_handle);
     }
 }
 
-void Shader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec)
-{
-    for (auto& elem : vec)
-    {
-        if (CompileShaderFromFile(elem.first, elem.second.c_str()) == GL_FALSE)
-        {
+void Shader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec) {
+
+    for (auto& elem : vec) {
+
+        if (CompileShaderFromFile(elem.first, elem.second.c_str()) == GL_FALSE) {
+
             return;
         }
     }
@@ -26,14 +26,14 @@ void Shader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec
     PrintActiveUniforms();
 }
 
-GLboolean Shader::CompileShaderFromFile(GLenum shader_type, const std::string& file_name)
-{
+GLboolean Shader::CompileShaderFromFile(GLenum shader_type, const std::string& file_name) {
+
     std::ifstream infile(file_name);
 
     assert((infile.good() == GL_FALSE, "File not found!"));
 
-    if (pgm_handle <= 0)
-    {
+    if (pgm_handle <= 0) {
+
         pgm_handle = glCreateProgram();
         assert((0 == pgm_handle, "Cannot create program handle!"));
     }
@@ -50,10 +50,10 @@ GLboolean Shader::CompileShaderFromFile(GLenum shader_type, const std::string& f
 }
 
 GLboolean Shader::CompileShaderFromString(GLenum shader_type,
-                                          const std::string& shader_src)
-{
-    if (pgm_handle <= 0)
-    {
+                                          const std::string& shader_src) {
+
+    if (pgm_handle <= 0) {
+
         pgm_handle = glCreateProgram();
         
         assert((0 == pgm_handle, "Cannot create program handle!"));
@@ -104,10 +104,10 @@ GLboolean Shader::CompileShaderFromString(GLenum shader_type,
     return GL_TRUE;
 }
 
-void Shader::Link()
-{
-    if (is_linked)
-    {
+void Shader::Link() {
+
+    if (is_linked) {
+
         return;
     }
     
@@ -125,19 +125,19 @@ void Shader::Link()
     is_linked = GL_TRUE;
 }
 
-void Shader::Use()
-{
+void Shader::Use() {
+
     assert((!(pgm_handle > 0 && is_linked == GL_TRUE), "Shader program doesn't exist / isn't linked!"));
     glUseProgram(pgm_handle);
 }
 
-void Shader::UnUse()
-{
+void Shader::UnUse() {
+
     glUseProgram(0);
 }
 
-void Shader::Validate()
-{
+void Shader::Validate() {
+
     assert((pgm_handle <= 0 || is_linked == GL_FALSE,
         "Shader program handle was not created/linked prior to validation!"));
 
@@ -148,98 +148,96 @@ void Shader::Validate()
     assert((status == GL_FALSE, "Failed to validate shader program!"));
 }
 
-GLuint Shader::GetHandle() const
-{
+GLuint Shader::GetHandle() const {
+
     return pgm_handle;
 }
 
-GLboolean Shader::IsLinked() const
-{
+GLboolean Shader::IsLinked() const {
+
     return is_linked;
 }
 
-void Shader::SetUniform(GLchar const *name, GLboolean val)
-{
+void Shader::SetUniform(GLchar const *name, GLboolean val) {
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform1i(loc, val);
 }
 
-void Shader::SetUniform(GLchar const *name, GLint val)
-{
+void Shader::SetUniform(GLchar const *name, GLint val) {
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform1i(loc, val);
 
 }
 
-void Shader::SetUniform(GLchar const *name, GLfloat val)
-{
+void Shader::SetUniform(GLchar const *name, GLfloat val) {
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform1f(loc, val);
 }
 
-void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y)
-{
+void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y) {
   
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform2f(loc, x, y);
 }
 
-void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z)
-{
+void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z) {
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform3f(loc, x, y, z);
 }
 
-void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
-{
+void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w) {
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform4f(loc, x, y, z, w);
 }
 
-void Shader::SetUniform(GLchar const *name, glm::vec2 &val)
-{
+void Shader::SetUniform(GLchar const *name, glm::vec2 &val) {
     
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform2f(loc, val.x, val.y);
 }
 
-void Shader::SetUniform(GLchar const *name, glm::vec3 &val)
-{
+void Shader::SetUniform(GLchar const *name, glm::vec3 &val) {
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform3f(loc, val.x, val.y, val.z);
 }
 
-void Shader::SetUniform(GLchar const *name, glm::vec4 &val)
-{
+void Shader::SetUniform(GLchar const *name, glm::vec4 &val) {
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniform4f(loc, val.x, val.y, val.z, val.w);
 }
 
-void Shader::SetUniform(GLchar const *name, glm::mat3 &val)
-{
+void Shader::SetUniform(GLchar const *name, glm::mat3 &val) {
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniformMatrix3fv(loc, 1, GL_FALSE, &val[0][0]);
 }
 
-void Shader::SetUniform(GLchar const *name, glm::mat4 &val)
-{
+void Shader::SetUniform(GLchar const *name, glm::mat4 &val) {
+
     GLint loc = glGetUniformLocation(pgm_handle, name);
     assert((!(loc >= 0), "Uniform variable name does not exist!"));
     glUniformMatrix4fv(loc, 1, GL_FALSE, &val[0][0]);
 }
 
-void Shader::PrintActiveAttribs() const
-{
+void Shader::PrintActiveAttribs() const {
+
     GLint max_length, num_attribs;
     glGetProgramiv(pgm_handle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &max_length);
     glGetProgramiv(pgm_handle, GL_ACTIVE_ATTRIBUTES, &num_attribs);
@@ -249,8 +247,8 @@ void Shader::PrintActiveAttribs() const
     std::cout << "Index\t|\tName\n";
     std::cout << "----------------------------------------------------------------------\n";
     
-    for (GLint i = 0; i < num_attribs; ++i)
-    {
+    for (GLint i = 0; i < num_attribs; ++i) {
+
         GLsizei written;
         GLint size;
         GLenum type;
@@ -264,6 +262,7 @@ void Shader::PrintActiveAttribs() const
 }
 
 void Shader::PrintActiveUniforms() const {
+
     GLint max_length;
     glGetProgramiv(pgm_handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_length);
     GLchar *pname = new GLchar[max_length];
@@ -274,8 +273,8 @@ void Shader::PrintActiveUniforms() const {
     std::cout << "Location\t|\tName\n";
     std::cout << "----------------------------------------------------------------------\n";
 
-    for (GLint i = 0; i < num_uniforms; ++i)
-    {
+    for (GLint i = 0; i < num_uniforms; ++i) {
+
         GLsizei written;
         GLint size;
         GLenum type;
@@ -293,10 +292,10 @@ void ShaderManager::Init() {
     M_DEBUG->WriteDebugMessage("Shader Manager Init\n");
 }
 
-void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, std::string shader_type)
-{
-    std::vector<std::pair<GLenum, std::string>> shdr_files
-    {
+void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, std::string shader_type) {
+
+    std::vector<std::pair<GLenum, std::string>> shdr_files {
+
         std::make_pair(GL_VERTEX_SHADER, vtx_shdr),
         std::make_pair(GL_FRAGMENT_SHADER, frg_shdr)
     };
@@ -311,7 +310,7 @@ void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, std::
     shaders_[shader_type] = shdr_pgm;
 }
 
-Shader* ShaderManager::GetShdrpgm(std::string shader_name)
-{
+Shader* ShaderManager::GetShdrpgm(std::string shader_name) {
+
     return &shaders_[shader_name];
 }

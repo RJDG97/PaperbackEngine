@@ -8,16 +8,16 @@
 #include "Manager/ShaderManager.h"
 #include "Manager/IManager.h"
 
-struct Model
-{
+struct Model {
+
     GLenum     primitive_type_;
     GLuint     primitive_cnt_;
     GLuint     vaoid_;
     GLuint     draw_cnt_;
 };
 
-class ModelManager : public IManager
-{
+class ModelManager : public IManager {
+
     std::map<std::string, Model> models_;
 
 public:

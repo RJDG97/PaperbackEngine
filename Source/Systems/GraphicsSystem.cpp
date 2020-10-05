@@ -21,8 +21,8 @@
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */
 
-void GraphicsSystem::CameraInit()
-{
+void GraphicsSystem::CameraInit() {
+
     cam_pos_ = glm::vec2{ 0, 0 };
     cam_size_ = glm::vec2{ 800, 600 };
 
@@ -38,15 +38,16 @@ void GraphicsSystem::CameraInit()
     world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
 }
 
-void GraphicsSystem::CameraUpdate()
-{
+void GraphicsSystem::CameraUpdate() {
+
     view_xform_ = glm::mat3{ 1 , 0 , 0,
                             0 , 1 , 0,
                             cam_pos_.x , cam_pos_.y , 1 };
 
-    camwin_to_ndc_xform_ = glm::mat3{ 2.0f / cam_size_.x , 0.0f , 0.0f,
-                                     0.0f , 2.0f / cam_size_.y , 0.0f,
-                                     0.0f , 0.0f , 1.0f };
+    // compute other matrices ...
+    camwin_to_ndc_xform_ = glm::mat3{ 2 / cam_size_.x , 0 , 0,
+                                      0 , 2 / cam_size_.y , 0,
+                                      0 , 0 , 1 };
 
     world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
 }
@@ -132,13 +133,14 @@ void GraphicsSystem::Init() {
 This also updates the size of the squares to be rendered in one of the tasks.
 */
 void GraphicsSystem::Update(float frametime) {
+    
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Update Debug Log:\n"); }
 
     CameraUpdate();
     
     //updates all the renderer components
-    for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it)
-    {
+    for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it) {
+
         if (debug_) {
 			// Log id of entity and it's updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Scale, Rotation & Translation matrix updated)\n");
@@ -147,8 +149,8 @@ void GraphicsSystem::Update(float frametime) {
         UpdateObjectMatrix(it->second, world_to_ndc_xform_);
     }
 
-    for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it)
-    {
+    for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it) {
+
         if (debug_) {
             // Log id of entity and it's updated components that are being updated
             M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Scale, Rotation, Translation matrix & Texture animation updated)\n");
@@ -179,8 +181,8 @@ void GraphicsSystem::Draw() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     //draws all the renderer components
-    for (RenderOrderIt it = renderers_in_order_.begin(); it != renderers_in_order_.end(); ++it)
-    {
+    for (RenderOrderIt it = renderers_in_order_.begin(); it != renderers_in_order_.end(); ++it) {
+
         if (debug_) {
 			// Log id of entity and its updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
@@ -199,8 +201,7 @@ void GraphicsSystem::Draw() {
     if (debug_) { debug_ = !debug_; }
 }
 
-void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, Texture* texture)
-{
+void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, Texture* texture) {
     shader->Use();
     glBindVertexArray(model->vaoid_);
 
@@ -234,42 +235,42 @@ void GraphicsSystem::CleanUp() {
     glDeleteTextures(1, &final_texture_);
 }
 
-std::string GraphicsSystem::GetName()
-{
+std::string GraphicsSystem::GetName() {
+
     return "GraphicsSystem";
 }
 
-void GraphicsSystem::SendMessageD(Message* m)
-{
-    switch(m->message_id_)
-    {
-        case MessageIDTypes::DEBUG_ALL:
-        {
+void GraphicsSystem::SendMessageD(Message* m) {
+
+    switch(m->message_id_) {
+
+        case MessageIDTypes::DEBUG_ALL: {
             debug_ = true;
             break;
         }
-        default:
-        {
+
+        default: {
+
             break;
         }
     }
 }
 
-void GraphicsSystem::AddRendererComponent(EntityID id, Renderer* renderer)
-{
+void GraphicsSystem::AddRendererComponent(EntityID id, Renderer* renderer) {
+
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
     renderer_arr_[id] = renderer;
     renderers_in_order_.insert({GetLayer(renderer), renderer});
 }
 
-void GraphicsSystem::RemoveRendererComponent(EntityID id)
-{
+void GraphicsSystem::RemoveRendererComponent(EntityID id) {
+
     RendererIt it = renderer_arr_.find(id);
     int layer;
 
-    if (it != renderer_arr_.end())
-    {
+    if (it != renderer_arr_.end()) {
+
         M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
         layer = GetLayer(it->second);
         renderer_arr_.erase(it);
@@ -277,8 +278,8 @@ void GraphicsSystem::RemoveRendererComponent(EntityID id)
 
     RenderOrderIt orderit = renderers_in_order_.find(layer);
 
-    if (orderit != renderers_in_order_.end())
-    {
+    if (orderit != renderers_in_order_.end()) {
+
         for ( ; orderit != renderers_in_order_.end() && (*orderit).first == layer ; ++orderit)
         {
             if ((*orderit).second->GetOwner()->GetID() == id)
@@ -290,16 +291,16 @@ void GraphicsSystem::RemoveRendererComponent(EntityID id)
     }
 }
 
-void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer)
-{
+void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer) {
+
     M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: " + std::to_string(id) + "\n");
 
     anim_renderer_arr_[id] = animation_renderer;
     renderers_in_order_.insert({GetLayer(animation_renderer), animation_renderer});
 }
 
-void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
-{
+void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
+
     AnimRendererIt it = anim_renderer_arr_.find(id);
     int layer;
 
@@ -312,12 +313,12 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
 
     RenderOrderIt orderit = renderers_in_order_.find(layer);
 
-    if (orderit != renderers_in_order_.end())
-    {
-        for (; orderit != renderers_in_order_.end() && (*orderit).first == layer; ++orderit)
-        {
-            if ((*orderit).second->GetOwner()->GetID() == id)
-            {
+    if (orderit != renderers_in_order_.end()) {
+
+        for (; orderit != renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+            if ((*orderit).second->GetOwner()->GetID() == id) {
+
                 orderit = renderers_in_order_.erase(orderit);
                 break;
             }
@@ -325,8 +326,8 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
     }
 }
 
-void GraphicsSystem::UpdateObjectMatrix(Renderer* renderer, glm::mat3 world_to_ndc_xform)
-{
+void GraphicsSystem::UpdateObjectMatrix(Renderer* renderer, glm::mat3 world_to_ndc_xform) {
+
     glm::mat3 scaling, rotation, translation;
 
     Vector2D scale = dynamic_cast<Scale*>(renderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
@@ -352,19 +353,19 @@ void GraphicsSystem::UpdateObjectMatrix(Renderer* renderer, glm::mat3 world_to_n
     renderer->mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
 }
 
-void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime)
-{
-    if (anim_renderer->play_animation_ == true)
-    {
+void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime) {
+
+    if (anim_renderer->play_animation_ == true) {
+
         anim_renderer->time_elapsed_ += frametime;
         anim_renderer->has_finished_animating_ = false;
 
-        if (anim_renderer->time_elapsed_ >= anim_renderer->current_animation_->GetFrameDuration())
-        {
+        if (anim_renderer->time_elapsed_ >= anim_renderer->current_animation_->GetFrameDuration()) {
+
             ++anim_renderer->current_frame_;
 
-            if (anim_renderer->current_frame_ == anim_renderer->current_animation_->GetLastFrame())
-            {
+            if (anim_renderer->current_frame_ == anim_renderer->current_animation_->GetLastFrame()) {
+
                 anim_renderer->has_finished_animating_ = true;
                 anim_renderer->current_frame_ = anim_renderer->current_animation_->GetFirstFrame();
             }
@@ -375,8 +376,8 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
-void GraphicsSystem::DrawObject(Renderer* renderer)
-{
+void GraphicsSystem::DrawObject(Renderer* renderer) {
+
     renderer->shdr_pgm_->Use();
     glBindVertexArray(renderer->model_->vaoid_);
 
@@ -398,43 +399,43 @@ void GraphicsSystem::DrawObject(Renderer* renderer)
     renderer->shdr_pgm_->UnUse();
 }
 
-void GraphicsSystem::ChangeTexture(Renderer* renderer, std::string texture_name)
-{
+void GraphicsSystem::ChangeTexture(Renderer* renderer, std::string texture_name) {
+
     renderer->texture_ = texture_manager_->GetTexture(texture_name);
 }
 
-void GraphicsSystem::ChangeModel(Renderer* renderer, std::string model_name)
-{
+void GraphicsSystem::ChangeModel(Renderer* renderer, std::string model_name) {
+
     renderer->model_ = model_manager_->GetModel(model_name);
 }
 
-void GraphicsSystem::ChangeShdrpgm(Renderer* renderer, std::string shdr_pgm_name)
-{
+void GraphicsSystem::ChangeShdrpgm(Renderer* renderer, std::string shdr_pgm_name) {
+
     renderer->shdr_pgm_ = shader_manager_->GetShdrpgm(shdr_pgm_name);
 }
 
-void GraphicsSystem::FlipTextureX(Renderer* renderer)
-{
+void GraphicsSystem::FlipTextureX(Renderer* renderer) {
+
     renderer->x_flipped_ = !renderer->x_flipped_;
 }
 
-void GraphicsSystem::FlipTextureY(Renderer* renderer)
-{
+void GraphicsSystem::FlipTextureY(Renderer* renderer) {
+
     renderer->y_flipped_ = !renderer->y_flipped_;
 }
 
-int GraphicsSystem::GetLayer(Renderer* renderer)
-{
+int GraphicsSystem::GetLayer(Renderer* renderer) {
+
     return renderer->layer_;
 }
 
-void GraphicsSystem::AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name)
-{
+void GraphicsSystem::AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
+
     anim_renderer->obj_animations_[animation_name] = animation_manager_->GetAnimation(animation_name);
 }
 
-void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name)
-{
+void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
+
     anim_renderer->current_frame_ = anim_renderer->obj_animations_[animation_name]->GetFirstFrame();
     anim_renderer->current_animation_ = anim_renderer->obj_animations_[animation_name];
     anim_renderer->time_elapsed_ = 0.0f;

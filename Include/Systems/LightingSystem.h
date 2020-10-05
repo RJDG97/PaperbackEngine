@@ -10,8 +10,8 @@
 #include <windows.h>
 #include <GL/glew.h>
 
-class LightingSystem : public ISystem
-{
+class LightingSystem : public ISystem {
+
 	bool debug_;
 
 	GLuint lighting_buffer;

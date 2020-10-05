@@ -3,8 +3,8 @@
 #include <FreeImage.h>
 #include <iostream>
 
-void TextureManager::Init()
-{
+void TextureManager::Init() {
+
     //Initialize FreeImage
     FreeImage_Initialise();
     std::cout << "FreeImage Version " << FreeImage_GetVersion() << std::endl;
@@ -12,8 +12,8 @@ void TextureManager::Init()
     M_DEBUG->WriteDebugMessage("Texture Manager Init\n");
 }
 
-void TextureManager::TempFunctionForTesting()
-{
+void TextureManager::TempFunctionForTesting() {
+
     //create misc textures
     LoadMiscTextures();
 
@@ -26,8 +26,8 @@ void TextureManager::TempFunctionForTesting()
 }
 
 void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char red,
-                                       unsigned char green, unsigned char blue, unsigned char alpha)
-{
+                                       unsigned char green, unsigned char blue, unsigned char alpha) {
+
     GLuint texobj_hdl;
     BYTE* pixels = new BYTE[4];
 
@@ -51,14 +51,17 @@ void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char r
     delete[] pixels;
 }
 
-void TextureManager::LoadMiscTextures()
-{
+void TextureManager::LoadMiscTextures() {
+
     CreateQuadTexture("BlackQuad", 0, 0, 0, 255);
     CreateQuadTexture("WhiteQuad", 255, 255, 255, 255);
 }
 
-bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names, size_t tile_width, size_t tile_height)
-{
+bool TextureManager::LoadTexture(const char* filename,
+                                 size_t columns, size_t rows,
+                                 std::vector<std::string> texture_names,
+                                 size_t tile_width, size_t tile_height) {
+
     std::cout << "Tileset is being loaded." << std::endl;
 
     //image format
@@ -70,30 +73,34 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
 
     //check the file signature and deduce its format
     fif = FreeImage_GetFileType(filename, 0);
-    //if still unknown, try to guess the file format from the file extension
-    if (fif == FIF_UNKNOWN)
+    
+    //if format is cannot be deduced, try to guess the format from file extension
+    if (fif == FIF_UNKNOWN) {
         fif = FreeImage_GetFIFFromFilename(filename);
-    //if still unkown, return failure
-    if (fif == FIF_UNKNOWN)
-    {
+    }
+
+    //if format is still unkown, return failure
+    if (fif == FIF_UNKNOWN) {
+
         std::cout << "Failed to load image " << filename << std::endl;
         return false;
     }
 
     //check that the plugin has reading capabilities and load the file
-    if (FreeImage_FIFSupportsReading(fif))
-    {
+    if (FreeImage_FIFSupportsReading(fif)) {
+
         dib = FreeImage_Load(fif, filename, PNG_DEFAULT);
 
-        if (FreeImage_GetBPP(dib) != 32)
-        {
+        //convert all images to 32 bits for reading
+        if (FreeImage_GetBPP(dib) != 32) {
+
             dib = FreeImage_ConvertTo32Bits(FreeImage_Load(fif, filename, PNG_DEFAULT));
         }
     }
 
     //if the image failed to load, return failure
-    if (!dib)
-    {
+    if (!dib) {
+
         std::cout << "Failed to load image " << filename << std::endl;
         return false;
     }
@@ -104,18 +111,18 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
     int width = FreeImage_GetWidth(dib);
     int height = FreeImage_GetHeight(dib);
 
-    if ((bits == 0) || (width == 0) || (height == 0))
-    {
+    if ((bits == 0) || (width == 0) || (height == 0)) {
+
         std::cout << "Failed to load image " << filename << std::endl;
         return false;
     }
 
     BYTE* pixels = new BYTE[tile_width * tile_height * 4];
 
-    for (int currentTile = 0; currentTile < columns * rows; ++currentTile)
-    {
-        if (texture_names[currentTile] == "Empty")
-        {
+    for (int currentTile = 0; currentTile < columns * rows; ++currentTile) {
+
+        if (texture_names[currentTile] == "Empty") {
+
             continue;
         }
 
@@ -126,10 +133,10 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
         size_t startX = (currentTile % columns) * tile_width;
         int i = 0;
 
-        for (size_t y = startY; y < startY + tile_height; ++y)
-        {
-            for (size_t x = startX; x < startX + tile_width; ++x, ++i)
-            {
+        for (size_t y = startY; y < startY + tile_height; ++y) {
+
+            for (size_t x = startX; x < startX + tile_width; ++x, ++i) {
+
                 size_t j = y * tile_width * columns + x;
                 pixels[i * 4 + 0] = bits[j * 4 + 2];
                 pixels[i * 4 + 1] = bits[j * 4 + 1];
@@ -161,11 +168,11 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
     return true;
 }
 
-bool TextureManager::UnloadTexture(std::string texture_name)
-{
+bool TextureManager::UnloadTexture(std::string texture_name) {
+
     //if this texture ID is in use, unload the current texture
-    if (textures_.find(texture_name) != textures_.end())
-    {
+    if (textures_.find(texture_name) != textures_.end()) {
+
         glDeleteTextures(1, &(textures_[texture_name]));
         textures_.erase(texture_name);
         std::cout << "Texture " << texture_name << "is unloaded" << std::endl;
@@ -175,25 +182,25 @@ bool TextureManager::UnloadTexture(std::string texture_name)
     return false;
 }
 
-void TextureManager::UnloadTexture(std::map<std::string, Texture>::iterator texture_iterator)
-{
+void TextureManager::UnloadTexture(std::map<std::string, Texture>::iterator texture_iterator) {
+
     glDeleteTextures(1, &(*texture_iterator).second);
 }
 
-void TextureManager::UnloadAllTextures()
-{
+void TextureManager::UnloadAllTextures() {
+
     for (auto i = textures_.begin(); i != textures_.end(); ++i)
     {
         UnloadTexture(i);
     }
 }
 
-Texture* TextureManager::GetTexture(std::string texture_name)
-{
+Texture* TextureManager::GetTexture(std::string texture_name) {
+
     return &textures_[texture_name];
 }
 
-TextureManager::~TextureManager()
-{
+TextureManager::~TextureManager() {
+
     UnloadAllTextures();
 }

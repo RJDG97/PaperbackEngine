@@ -9,18 +9,18 @@
 
 typedef GLuint Texture;
 
-class TextureManager : public IManager
-{
+class TextureManager : public IManager {
+
 	std::map<std::string, Texture> textures_;
 
-	std::vector<std::string> misc_tiles_
-	{
+	std::vector<std::string> misc_tiles_ {
+
 		"BlackQuad",
 		"WhiteQuad"
 	};
 
-	std::vector<std::string> environment_tiles_
-	{
+	std::vector<std::string> environment_tiles_	{
+
 		"Carpet_TopLeft",
 		"Carpet_TopMid",
 		"Carpet_TopRight",
@@ -44,8 +44,8 @@ class TextureManager : public IManager
 		"Rock"
 	};
 
-	std::vector<std::string> player_walk_
-	{
+	std::vector<std::string> player_walk_ {
+
 		"Player_Walk0",
 		"Player_Walk1",
 		"Player_Walk2",
@@ -56,8 +56,8 @@ class TextureManager : public IManager
 		"Player_Walk7"
 	};				 
 
-	std::vector<std::string> background_
-	{
+	std::vector<std::string> background_ {
+
 		"Background"
 	};
 

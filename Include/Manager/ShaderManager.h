@@ -19,10 +19,8 @@
 
 /*  _________________________________________________________________________ */
 
-class Shader
-    /*! Shader class.
-    */
-{
+class Shader {
+
 public:
 
     Shader() : pgm_handle(0), is_linked(GL_FALSE) {}
@@ -73,8 +71,8 @@ private:
     GLboolean is_linked = GL_FALSE; // has the program successfully linked?
 };
 
-class ShaderManager : public IManager
-{
+class ShaderManager : public IManager {
+
     std::map<std::string, Shader> shaders_;
 
 public:

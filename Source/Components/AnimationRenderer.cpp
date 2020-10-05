@@ -7,18 +7,17 @@
 
 #define M_PI       3.14159265358979323846
 
-AnimationRenderer::AnimationRenderer()
-{
+AnimationRenderer::AnimationRenderer() {
 
 }
 
-AnimationRenderer::~AnimationRenderer()
-{  
+AnimationRenderer::~AnimationRenderer() {  
+    
     CORE->GetSystem<GraphicsSystem>()->RemoveAnimationRendererComponent(Component::GetOwner()->GetID());
 }
 
-void AnimationRenderer::Init()
-{
+void AnimationRenderer::Init() {
+    
     CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
 }
 
@@ -34,8 +33,8 @@ void AnimationRenderer::Serialize(std::stringstream& data) {
          >> shdr_pgm
          >> num_animations;
 
-    for (int i = 0; i < num_animations; ++i)
-    {
+    for (int i = 0; i < num_animations; ++i) {
+
         std::string animation_name;
         data >> animation_name;
         //won't need this after serialize is moved to GraphicsSystem
