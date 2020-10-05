@@ -23,11 +23,6 @@
 #include "Systems/Debug.h"
 #include <sstream>
 
-
-//#define EPSILON		0.0001f
-//#define PI			3.14159265358f
-int running = 1;
-
 int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR cmdLine, INT cmdCount) {
 
 	UNREFERENCED_PARAMETER(currentInstance);
@@ -36,14 +31,18 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	UNREFERENCED_PARAMETER(cmdCount);
 
 	// Checking for memory leaks
+	// Creating console window
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	CreateDebugWindow();
 #endif
 
-	CoreEngine* engine = new CoreEngine();
+	// Create a unique instance of Core Engine
+	std::unique_ptr<CoreEngine> engine = std::make_unique<CoreEngine>();
 
-	//to reorder based on what system has priority over the other
+	// Add Systems to the Core Engine
+	// *Note: Reorder based on what system 
+	// has priority over the other
 	engine->AddSystem<WindowsSystem>();
 	engine->AddSystem<GraphicsSystem>();
 	engine->AddSystem<LightingSystem>();
@@ -54,24 +53,24 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	engine->AddSystem<SoundSystem>();
 	engine->AddSystem<Game>();
 
+	// Add Managers to the Core Engine
 	engine->AddManager<ModelManager>();
 	engine->AddManager<TextureManager>();
 	engine->AddManager<ShaderManager>();
 	engine->AddManager<AnimationManager>();
 
-	//Physics* test_phy = engine->GetSystem<Physics>();
-
+	// Initialize all Systems & Managers that
+	// were added to the Core Engine
 	engine->Initialize();
 
+	// ** Core Engine's Game Loop **
 	engine->GameLoop();
 
+	// Release all resources allocated during
+	// runtime and compile time
 	FACTORY->DestroyAllEntities();
-
 	engine->DestroySystems();
-
 	engine->DestroyManagers();
-
-	delete engine;
 	EngineDebug::DeleteInstance();
 
 	return 0;

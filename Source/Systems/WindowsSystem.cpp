@@ -91,7 +91,8 @@ void WindowsSystem::Serialize() {
 
 	// Load the input file (.json) and ensure it is open
 	std::ifstream input_file("Resources/EntityConfig/window.json");
-	assert(input_file);
+	//assert(input_file);
+	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
 
 	M_DEBUG->WriteDebugMessage("Initializing Windows System\n");
 
@@ -113,7 +114,8 @@ void WindowsSystem::Serialize() {
 
 	// Treats entire filestream at index as array and ensure that it is an array
 	const rapidjson::Value& value_arr = doc["Window"];
-	assert(value_arr.IsArray());
+	//assert(value_arr.IsArray());
+	DEBUG_ASSERT(value_arr.IsArray(), "Entry does not exist in JSON");
 
 	//stores the data into a stream that is easier to read data from
 	std::stringstream stream;
@@ -125,7 +127,8 @@ void WindowsSystem::Serialize() {
 		// IsObject enforces that the member is an object that will contain data:key pairs
 		const rapidjson::Value& member = *it;
 
-		assert(member.IsObject());
+		//assert(member.IsObject());
+		DEBUG_ASSERT(member.IsObject(), "Entry does not exist in JSON");
 
 		//assume that only contains width & height
 

@@ -117,7 +117,7 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const EntityID& button_id) {
 
 	AABBIt button_aabb = aabb_arr_.find(button_id);
-	assert(button_aabb != aabb_arr_.end() && "AABB component does not exist");
+	DEBUG_ASSERT((button_aabb != aabb_arr_.end()), "AABB component does not exist");
 
 	//assume that is button
 	//compute if position is within aabb box
@@ -375,7 +375,7 @@ void Collision::UpdateBoundingBox() {
 		aabb->second->collided = false;
 
 		Entity* entity = aabb->second->GetOwner();
-		assert(entity && "Entity does not exist");
+		DEBUG_ASSERT((entity), "Entity does not exist");
 
 		Scale* entity_scale = dynamic_cast<Scale*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::SCALE));
 		Transform* entity_position = dynamic_cast<Transform*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));

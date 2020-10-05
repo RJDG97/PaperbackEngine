@@ -92,8 +92,9 @@ void GraphicsSystem::Init() {
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window_width_, window_height_);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
 
-    assert((glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE,
-        "Final framebuffer is not complete!"));
+    //assert((glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE,
+    //    "Final framebuffer is not complete!"));
+    DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE), "Final framebuffer is not complete!");
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -337,7 +338,8 @@ void GraphicsSystem::UpdateObjectMatrix(Renderer* renderer, glm::mat3 world_to_n
                          0.0f, 0.0f, 1.0f };
 
     Transform* transform = dynamic_cast<Transform*>(renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-    assert(transform);
+    //assert(transform);
+    DEBUG_ASSERT(transform, "Entity does not have a Transform component");
 
     float orientation = transform->rotation_;
     Vector2D position = transform->position_;

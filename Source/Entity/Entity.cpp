@@ -4,6 +4,7 @@
 #include "Systems/Factory.h"
 #include <iostream>
 #include <functional>
+#include "Systems/Debug.h"
 
 auto ComponentSorter = [](Component* left, Component* right){
 	
@@ -60,7 +61,7 @@ Entity::~Entity() {
 void Entity::AddComponent(ComponentTypes typeId, Component* component) {
 
 	//ensure pointer is not nullptr
-	assert(component);
+	DEBUG_ASSERT(component, "Component is nullptr");
 
 	component->type_id_ = typeId;
 	components_.push_back(component);

@@ -30,17 +30,20 @@ GLboolean Shader::CompileShaderFromFile(GLenum shader_type, const std::string& f
 
     std::ifstream infile(file_name);
 
-    assert((infile.good() == GL_FALSE, "File not found!"));
+    //assert((infile.good() == GL_FALSE, "File not found!"));
+    DEBUG_ASSERT(!(infile.good() == GL_FALSE), "File not found!");
 
     if (pgm_handle <= 0) {
 
         pgm_handle = glCreateProgram();
-        assert((0 == pgm_handle, "Cannot create program handle!"));
+        //assert((0 == pgm_handle, "Cannot create program handle!"));
+        DEBUG_ASSERT(!(0 == pgm_handle), "Cannot create program handle!");
     }
 
     std::ifstream shader_file(file_name, std::ifstream::in);
     
-    assert((!shader_file.is_open(), "Error opening file!"));
+    //assert((!shader_file.is_open(), "Error opening file!"));
+    DEBUG_ASSERT(shader_file.is_open(), "Error opening file!");
 
     std::stringstream buffer;
     buffer << shader_file.rdbuf();
@@ -56,7 +59,8 @@ GLboolean Shader::CompileShaderFromString(GLenum shader_type,
 
         pgm_handle = glCreateProgram();
         
-        assert((0 == pgm_handle, "Cannot create program handle!"));
+        //assert((0 == pgm_handle, "Cannot create program handle!"));
+        DEBUG_ASSERT(!(0 == pgm_handle), "Cannot create program handle!");
     }
 
     GLuint shader_handle = 0;
@@ -97,7 +101,8 @@ GLboolean Shader::CompileShaderFromString(GLenum shader_type,
     GLint comp_result;
     glGetShaderiv(shader_handle, GL_COMPILE_STATUS, &comp_result);
 
-    assert((comp_result == GL_FALSE, "Cannot create program handle!"));
+    //assert((comp_result == GL_FALSE, "Cannot create program handle!"));
+    DEBUG_ASSERT(!(comp_result == GL_FALSE), "Cannot create program handle!");
 
     // attach the shader to the program object
     glAttachShader(pgm_handle, shader_handle);
@@ -111,7 +116,8 @@ void Shader::Link() {
         return;
     }
     
-    assert((0 == pgm_handle, "Cannot create program handle prior to link!"));
+    //assert((0 == pgm_handle, "Cannot create program handle prior to link!"));
+    DEBUG_ASSERT(!(0 == pgm_handle), "Cannot create program handle prior to link!");
 
     // link the various compiled shaders
     glLinkProgram(pgm_handle);
@@ -120,14 +126,16 @@ void Shader::Link() {
     GLint lnk_status;
     glGetProgramiv(pgm_handle, GL_LINK_STATUS, &lnk_status);
 
-    assert((lnk_status == GL_FALSE, "Failed to link shader program!"));
+    //assert((lnk_status == GL_FALSE, "Failed to link shader program!"));
+    DEBUG_ASSERT(!(lnk_status == GL_FALSE), "Failed to link shader program!");
 
     is_linked = GL_TRUE;
 }
 
 void Shader::Use() {
 
-    assert((!(pgm_handle > 0 && is_linked == GL_TRUE), "Shader program doesn't exist / isn't linked!"));
+    //assert((!(pgm_handle > 0 && is_linked == GL_TRUE), "Shader program doesn't exist / isn't linked!"));
+    DEBUG_ASSERT((pgm_handle > 0 && is_linked == GL_TRUE), "Shader program doesn't exist / isn't linked!");
     glUseProgram(pgm_handle);
 }
 
@@ -138,14 +146,16 @@ void Shader::UnUse() {
 
 void Shader::Validate() {
 
-    assert((pgm_handle <= 0 || is_linked == GL_FALSE,
-        "Shader program handle was not created/linked prior to validation!"));
+    /*assert((pgm_handle <= 0 || is_linked == GL_FALSE,
+        "Shader program handle was not created/linked prior to validation!"));*/
+    DEBUG_ASSERT(!(pgm_handle <= 0 || is_linked == GL_FALSE), "Shader program handle was not created/linked prior to validation!");
 
     glValidateProgram(pgm_handle);
     GLint status;
     glGetProgramiv(pgm_handle, GL_VALIDATE_STATUS, &status);
 
-    assert((status == GL_FALSE, "Failed to validate shader program!"));
+    //assert((status == GL_FALSE, "Failed to validate shader program!"));
+    DEBUG_ASSERT(!(status == GL_FALSE), "Failed to validate shader program!");
 }
 
 GLuint Shader::GetHandle() const {
@@ -161,14 +171,18 @@ GLboolean Shader::IsLinked() const {
 void Shader::SetUniform(GLchar const *name, GLboolean val) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT((loc >= 0), "Uniform variable name does not exist!");
+
     glUniform1i(loc, val);
 }
 
 void Shader::SetUniform(GLchar const *name, GLint val) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT((loc >= 0), "Uniform variable name does not exist!");
+
     glUniform1i(loc, val);
 
 }
@@ -176,63 +190,72 @@ void Shader::SetUniform(GLchar const *name, GLint val) {
 void Shader::SetUniform(GLchar const *name, GLfloat val) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT(loc >= 0, "Uniform variable name does not exist!");
     glUniform1f(loc, val);
 }
 
 void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y) {
   
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT(loc >= 0, "Uniform variable name does not exist!");
     glUniform2f(loc, x, y);
 }
 
 void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT((loc >= 0), "Uniform variable name does not exist!");
     glUniform3f(loc, x, y, z);
 }
 
 void Shader::SetUniform(GLchar const *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT((loc >= 0), "Uniform variable name does not exist!");
     glUniform4f(loc, x, y, z, w);
 }
 
 void Shader::SetUniform(GLchar const *name, glm::vec2 &val) {
     
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT((loc >= 0), "Uniform variable name does not exist!"); 
     glUniform2f(loc, val.x, val.y);
 }
 
 void Shader::SetUniform(GLchar const *name, glm::vec3 &val) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT((loc >= 0), "Uniform variable name does not exist!");
     glUniform3f(loc, val.x, val.y, val.z);
 }
 
 void Shader::SetUniform(GLchar const *name, glm::vec4 &val) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT((loc >= 0), "Uniform variable name does not exist!");
     glUniform4f(loc, val.x, val.y, val.z, val.w);
 }
 
 void Shader::SetUniform(GLchar const *name, glm::mat3 &val) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT((loc >= 0), "Uniform variable name does not exist!");
     glUniformMatrix3fv(loc, 1, GL_FALSE, &val[0][0]);
 }
 
 void Shader::SetUniform(GLchar const *name, glm::mat4 &val) {
 
     GLint loc = glGetUniformLocation(pgm_handle, name);
-    assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    //assert((!(loc >= 0), "Uniform variable name does not exist!"));
+    DEBUG_ASSERT((loc >= 0), "Uniform variable name does not exist!");
     glUniformMatrix4fv(loc, 1, GL_FALSE, &val[0][0]);
 }
 
@@ -303,7 +326,8 @@ void ShaderManager::AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, std::
     Shader shdr_pgm;
     shdr_pgm.CompileLinkValidate(shdr_files);
 
-    assert((shdr_pgm.IsLinked() == GL_FALSE, "Unable to compile / link / validate shader programs!"));
+    //assert((shdr_pgm.IsLinked() == GL_FALSE, "Unable to compile / link / validate shader programs!"));
+    DEBUG_ASSERT((shdr_pgm.IsLinked() == GL_TRUE), "Unable to compile / link / validate shader programs!");
 
     // add compiled, linked, and validated shader program to
     // std::map container GLApp::shdrpgms

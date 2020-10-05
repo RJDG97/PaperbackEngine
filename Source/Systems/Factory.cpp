@@ -187,7 +187,8 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 
 	// Load the input file (.json) and ensure it is open
 	std::ifstream input_file(filename.c_str()/*"TestJSON/2compTest.json"*/);
-	assert(input_file);
+	//assert(input_file);
+	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
 
 	M_DEBUG->WriteDebugMessage("Creating a new entity of type: " + entity_name + "\n");
 
@@ -209,7 +210,7 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 
 	// Treats entire filestream at index as array and ensure that it is an array
 	const rapidjson::Value& value_arr = doc[entity_name.c_str()];
-	assert(value_arr.IsArray());
+	DEBUG_ASSERT(value_arr.IsArray(), "Entry does not exist in JSON");
 
 	// Iterate through the body of the "Header"
 	for (rapidjson::Value::ConstValueIterator it = value_arr.Begin(); it != value_arr.End(); ++it) {
@@ -218,7 +219,7 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 		// IsObject enforces that the member is an object that will contain data:key pairs
 		const rapidjson::Value& member = *it;
 		
-		assert(member.IsObject());
+		DEBUG_ASSERT(member.IsObject(), "Entry does not exist in JSON");
 
 		ComponentCreator* creator;
 		Component* component;
@@ -230,7 +231,8 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 			//component_map_.find(member.MemberBegin()->value.GetString())->second;
 			ComponentMapType::iterator component_it = component_map_.find(member.MemberBegin()->value.GetString());
 
-			assert((component_it != component_map_.end()) && "Component == nullptr");
+			DEBUG_ASSERT((component_it != component_map_.end()), "Component Creator does not exist");
+
 			creator = component_it->second;
 			
 			component = creator->Create();
