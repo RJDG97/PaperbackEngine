@@ -2,9 +2,10 @@
 #ifndef _WINDOWS_SYSTEM_H_
 #define _WINDOWS_SYSTEM_H_
 
+#include <windows.h>
 #include <GL/glew.h> // for access to OpenGL API declarations 
 #include <GLFW/glfw3.h>
-#include <windows.h>
+
 #include <iostream>
 #include "Systems/ISystem.h"
 

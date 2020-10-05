@@ -46,10 +46,11 @@ void CoreEngine::GameLoop() {
 			b_game_active_ = false;
 		}
 
-		if (CORE->GetSystem<InputSystem>()->IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-		{
-			std::cout << CORE->GetSystem<InputSystem>()->GetCursorPosition().x << ": " << CORE->GetSystem<InputSystem>()->GetCursorPosition().y << std::endl;
-		}
+		//uncomment for testing, other functions using this will not work with this active
+		//if (CORE->GetSystem<InputSystem>()->IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		//{
+		//	std::cout << CORE->GetSystem<InputSystem>()->GetCursorPosition().x << ": " << CORE->GetSystem<InputSystem>()->GetCursorPosition().y << std::endl;
+		//}
 
 		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
 			if (debug_)
@@ -91,7 +92,7 @@ void CoreEngine::DestroyManagers() {
 ///Broadcasts a message to all systems_.
 void CoreEngine::BroadcastMessage(Message* m) {
 	
-	if (m->message_id_ == MessageIDTypes::Exit) {
+	if (m->message_id_ == MessageIDTypes::EXIT) {
 
 		//set game bool to false
 		b_game_active_ = false;

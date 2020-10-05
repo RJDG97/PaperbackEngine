@@ -2,6 +2,7 @@
 /// @file glm/detail/type_quat.hpp
 
 #pragma once
+//#pragma warning(disable : 4201)
 
 // Dependency:
 #include "../detail/type_mat3x3.hpp"

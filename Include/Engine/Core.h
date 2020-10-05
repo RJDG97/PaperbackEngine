@@ -127,6 +127,8 @@ public:
 			}
 		}
 		assert((begin != systems_.end()) && "System does not exist");
+
+		return nullptr;
 	}
 
 /******************************************************************************/

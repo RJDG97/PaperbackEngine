@@ -117,6 +117,6 @@ int FrameRateController::GetFPS()
 		newFPS = GetFrames() - prevFPS;
 		prevFPS = GetFrames();
 	}
-	seconds = TimeElapsed(s);
+	seconds = static_cast<int>(TimeElapsed(s));
 	return newFPS;
 }

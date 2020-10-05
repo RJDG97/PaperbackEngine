@@ -1,12 +1,11 @@
 /*                                                                      guard
 ----------------------------------------------------------------------------- */
+#pragma once
 #ifndef GRAPHICSSYSTEM_H
 #define GRAPHICSSYSTEM_H
 
 /*                                                                   includes
 ----------------------------------------------------------------------------- */
-#include <GL/glew.h> // for access to OpenGL API declarations
-#include <GLFW/glfw3.h>
 #include "Manager/ShaderManager.h"
 #include "Systems/LightingSystem.h"
 #include "Manager/TextureManager.h"
@@ -17,6 +16,9 @@
 #include <unordered_map>
 #include "Systems/WindowsSystem.h"
 #include "Components/AnimationRenderer.h"
+#include <windows.h>
+#include <GL/glew.h> // for access to OpenGL API declarations
+#include <GLFW/glfw3.h>
 
 class GraphicsSystem : public ISystem
 {

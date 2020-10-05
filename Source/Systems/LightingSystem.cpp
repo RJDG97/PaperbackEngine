@@ -52,6 +52,7 @@ void LightingSystem::Init()
 
 void LightingSystem::Update(float frametime)
 {
+	UNREFERENCED_PARAMETER(frametime);
 	for (PointLightIt it = point_light_arr_.begin(); it != point_light_arr_.end(); ++it)
 	{
 		if (debug_) {

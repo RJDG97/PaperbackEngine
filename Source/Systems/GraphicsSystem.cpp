@@ -4,7 +4,6 @@
 
 #include "Systems/GraphicsSystem.h"
 #include "Engine/Core.h"
-#include <glm/gtc/type_ptr.hpp>
 #include <FreeImage.h>
 #include <cmath>
 #include <string>
@@ -17,6 +16,7 @@
 #include "Systems/LightingSystem.h"
 #include "Components/Scale.h"
 #include "Components/Transform.h"
+#include <glm/gtc/type_ptr.hpp>
 
 /*                                                   objects with file scope
 ----------------------------------------------------------------------------- */

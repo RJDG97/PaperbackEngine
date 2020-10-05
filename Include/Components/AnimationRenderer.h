@@ -3,6 +3,7 @@
 #ifndef _ANIMATIONRENDERER_H_
 #define _ANIMATIONRENDERER_H_
 
+#include <windows.h>
 #include "Entity/Entity.h"
 #include "Manager/ModelManager.h"
 #include "Manager/AnimationManager.h"

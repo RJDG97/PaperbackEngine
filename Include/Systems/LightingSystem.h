@@ -3,11 +3,12 @@
 #ifndef LIGHTINGSYSTEM_H
 #define LIGHTINGSYSTEM_H
 
-#include <GL/glew.h>
 #include "Systems/ISystem.h"
 #include "Systems/WindowsSystem.h"
 #include "Components/PointLight.h"
 #include <unordered_map>
+#include <windows.h>
+#include <GL/glew.h>
 
 class LightingSystem : public ISystem
 {

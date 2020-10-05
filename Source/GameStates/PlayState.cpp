@@ -24,10 +24,13 @@ void PlayState::Init()
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);
+	CORE->GetManager<TextureManager>()->TempFunctionForTesting();
+	CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
 
-	//FACTORY->Create("Entity2");
+	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
+	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
+	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::ENEMY);
+	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
 }
 
 void PlayState::Free()
@@ -39,8 +42,22 @@ void PlayState::Free()
 
 void PlayState::Update(Game* game, float frametime)
 {
-	UNREFERENCED_PARAMETER(game);
+	//to use in play state, in menu state for testing
+	//meant to handle game logic components like status
+	for (Game::StatusIt status = game->status_arr_.begin(); status != game->status_arr_.end(); ++status) {
 
+		if (status->second->status_ != StatusType::NONE) {
+
+			if (status->second->status_timer_ > 0.0f) {
+				status->second->status_timer_ -= frametime;
+				std::cout << "Reducing status timer" << std::endl;
+			}
+			else {
+				std::cout << "Resetting status type to none" << std::endl;
+				status->second->status_ = StatusType::NONE;
+			}
+		}
+	}
 }
 
 void PlayState::Draw(Game* game)
@@ -48,46 +65,9 @@ void PlayState::Draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
-void PlayState::StateInputHandler(unsigned char key_val) {
+void PlayState::StateInputHandler(unsigned char key_val, Game* game) {
+	UNREFERENCED_PARAMETER(game);
 
-	/*switch (key_val)
-	{
-	case 0x25: //LEFT ARROW key
-	{
-		std::cout << "Play State: Moving Left" << std::endl;
-		Vector2D vel{ -1, 0 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		//CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->TempMoveCamera();
-		break;
-	}
-	case 0x26: //UP ARROW key
-	{
-		std::cout << "Play State: Moving Up" << std::endl;
-		Vector2D vel{ 0, 1 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}
-	case 0x27: //RIGHT ARROW key
-	{
-		std::cout << "Play State: Moving Right" << std::endl;
-		Vector2D vel{ 1, 0 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}
-	case 0x28: //DOWN ARROW key
-	{
-		std::cout << "Play State: Moving Down" << std::endl;
-		Vector2D vel{ 0, -1 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}
-
-	}*/
-	
 	// set up velocity based input flag value
 	Vec2 new_vel{};
 
@@ -113,6 +93,6 @@ void PlayState::StateInputHandler(unsigned char key_val) {
 
 	//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
 
-	MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, new_vel };
+	MessagePhysics_Motion msg{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
 	CORE->BroadcastMessage(&msg);
 }

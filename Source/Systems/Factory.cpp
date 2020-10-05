@@ -51,6 +51,8 @@ void EntityFactory::Init() {
 }
 
 Entity* EntityFactory::Create(const std::string& filename) {
+	(void)(filename);
+
 	// Create the entity and initialize all components from file
 
 	//SerializeArchetype("Player", EntityTypes::Player);
@@ -310,13 +312,13 @@ void EntityFactory::SendMessageD(Message* msg) {
 	
 	switch (msg->message_id_)
 	{
-	case MessageIDTypes::FTY_Purge: // Delete all entities
+	case MessageIDTypes::FTY_PURGE: // Delete all entities
 	{
 
 		DestroyAllEntities();
 		break;
 	}
-	case MessageIDTypes::FTY_Delete: // Delete a specific entity stored within the message
+	case MessageIDTypes::FTY_DELETE: // Delete a specific entity stored within the message
 	{
 
 		Entity_Message* m = dynamic_cast<Entity_Message*>(msg);

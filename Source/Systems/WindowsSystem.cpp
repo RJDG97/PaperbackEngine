@@ -83,7 +83,7 @@ void WindowsSystem::Init() {
 
 void WindowsSystem::Update(float frametime)
 {
-
+	UNREFERENCED_PARAMETER(frametime);
 }
 
 std::string WindowsSystem::GetName()
@@ -93,6 +93,7 @@ std::string WindowsSystem::GetName()
 
 void WindowsSystem::SendMessageD(Message* m)
 {
+	UNREFERENCED_PARAMETER(m);
 }
 
 void WindowsSystem::ProcessMessage() {

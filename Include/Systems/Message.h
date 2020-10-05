@@ -14,36 +14,37 @@ class GameState;
 enum class MessageIDTypes
 {
 	// Testing
-	None = 0,
-	Exit,
-	Rotate,
+	NONE = 0,
+	EXIT,
+	ROTATE,
 	HP,
 	DEBUG_ALL,
 
 	// Sound System
-	BGM_Play,
-	BGM_Stop,
-	BGM_Pause,
-	BGM_Mute,
-	BGM_Completed,
-	BGM_Reload,
+	BGM_PLAY,
+	BGM_STOP,
+	BGM_PAUSE,
+	BGM_MUTE,
+	BGM_COMPLETED,
+	BGM_RELOAD,
 
 	// Game State System
-	GSM_ChangeState,
-	GSM_PushState,
-	GSM_PopState,
-	GSM_PauseState, // TBC
+	GSM_CHANGESTATE,
+	GSM_PUSHSTATE,
+	GSM_POPSTATE,
+	GSM_PAUSESTATE, // TBC
 
 	// Message to Game System
-	M_ButtonPress,
+	M_BUTTON_PRESS,
+	M_MOUSE_PRESS,
 
 	// Physics System
-	PHY_UpdateAccel,
-	PHY_UpdateVel,
+	PHY_UPDATE_ACCEL,
+	PHY_UPDATE_VEL,
 
 	// Factory
-	FTY_Purge,
-	FTY_Delete
+	FTY_PURGE,
+	FTY_DELETE
 };
 
 // Message Interface
@@ -192,6 +193,6 @@ public:
   \brief Initializes a message with the exit enum
 */
 /******************************************************************************/
-	MessageQuit() : Message(MessageIDTypes::Exit) {};
+	MessageQuit() : Message(MessageIDTypes::EXIT) {};
 };
 #endif

@@ -52,7 +52,7 @@ public:
   \brief Handles gameplay events from input system
 */
 /******************************************************************************/
-	virtual void StateInputHandler(unsigned char key_val) = 0;
+	virtual void StateInputHandler(unsigned char key_val, Game* game = nullptr) = 0;
 
 /******************************************************************************/
 /*!

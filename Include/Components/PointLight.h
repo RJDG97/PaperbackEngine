@@ -3,6 +3,7 @@
 #ifndef _POINTLIGHT_H_
 #define _POINTLIGHT_H_
 
+#include <windows.h>
 #include "Entity/Entity.h"
 #include "Manager/ModelManager.h"
 #include "Manager/ShaderManager.h"

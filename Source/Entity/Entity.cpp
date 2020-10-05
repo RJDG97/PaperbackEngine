@@ -43,7 +43,7 @@ void Entity::Init() {
 Entity::Entity() {
 	// Initialise id to 0 since it will be assigned by factory
 	object_id_ = 0;
-	entity_type_ = EntityTypes::None;
+	entity_type_ = EntityTypes::NONE;
 }
 
 // Destroys all components attached to an entity

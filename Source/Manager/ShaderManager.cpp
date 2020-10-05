@@ -40,7 +40,7 @@ GLboolean Shader::CompileShaderFromFile(GLenum shader_type, const std::string& f
 
     std::ifstream shader_file(file_name, std::ifstream::in);
     
-    assert((!shader_file, "Error opening file!"));
+    assert((!shader_file.is_open(), "Error opening file!"));
 
     std::stringstream buffer;
     buffer << shader_file.rdbuf();
