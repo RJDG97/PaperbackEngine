@@ -279,12 +279,15 @@ void GraphicsSystem::RemoveRendererComponent(EntityID id)
 
     if (orderit != renderers_in_order_.end())
     {
-        for ( ; (*orderit).first == layer ; ++orderit)
+        for ( ; orderit != renderers_in_order_.end() && (*orderit).first == layer ;)
         {
             if ((*orderit).second.first == id)
             {
-                renderers_in_order_.erase(orderit);
+                orderit = renderers_in_order_.erase(orderit);
+                continue;
             }
+
+            ++orderit;
         }
     }
 }
@@ -313,12 +316,15 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
 
     if (orderit != renderers_in_order_.end())
     {
-        for (; (*orderit).first == layer; ++orderit)
+        for (; orderit != renderers_in_order_.end() && (*orderit).first == layer;)
         {
             if ((*orderit).second.first == id)
             {
-                renderers_in_order_.erase(orderit);
-            }
+                orderit = renderers_in_order_.erase(orderit);
+                continue;
+            } 
+
+            ++orderit;
         }
     }
 }
