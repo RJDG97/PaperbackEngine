@@ -186,7 +186,7 @@ void GraphicsSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
 		}
 
-        DrawObject(it->second.second);
+        DrawObject(it->second);
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -260,7 +260,7 @@ void GraphicsSystem::AddRendererComponent(EntityID id, Renderer* renderer)
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
     renderer_arr_[id] = renderer;
-    renderers_in_order_.insert({ GetLayer(renderer), {id, renderer} });
+    renderers_in_order_.insert({GetLayer(renderer), renderer});
 }
 
 void GraphicsSystem::RemoveRendererComponent(EntityID id)
@@ -279,15 +279,13 @@ void GraphicsSystem::RemoveRendererComponent(EntityID id)
 
     if (orderit != renderers_in_order_.end())
     {
-        for ( ; orderit != renderers_in_order_.end() && (*orderit).first == layer ;)
+        for ( ; orderit != renderers_in_order_.end() && (*orderit).first == layer ; ++orderit)
         {
-            if ((*orderit).second.first == id)
+            if ((*orderit).second->GetOwner()->GetID() == id)
             {
                 orderit = renderers_in_order_.erase(orderit);
-                continue;
+                break;
             }
-
-            ++orderit;
         }
     }
 }
@@ -297,7 +295,7 @@ void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRendere
     M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: " + std::to_string(id) + "\n");
 
     anim_renderer_arr_[id] = animation_renderer;
-    renderers_in_order_.insert({ GetLayer(animation_renderer), {id, animation_renderer} });
+    renderers_in_order_.insert({GetLayer(animation_renderer), animation_renderer});
 }
 
 void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
@@ -316,15 +314,13 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id)
 
     if (orderit != renderers_in_order_.end())
     {
-        for (; orderit != renderers_in_order_.end() && (*orderit).first == layer;)
+        for (; orderit != renderers_in_order_.end() && (*orderit).first == layer; ++orderit)
         {
-            if ((*orderit).second.first == id)
+            if ((*orderit).second->GetOwner()->GetID() == id)
             {
                 orderit = renderers_in_order_.erase(orderit);
-                continue;
-            } 
-
-            ++orderit;
+                break;
+            }
         }
     }
 }
