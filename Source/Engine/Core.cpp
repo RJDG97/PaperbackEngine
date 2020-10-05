@@ -30,16 +30,17 @@ void CoreEngine::Initialize() {
 
 ///Update all the systems until the game is no longer active.
 void CoreEngine::GameLoop() {
+	// Get a pointer to Windows System
+	WindowsSystem* win = CORE->GetSystem<WindowsSystem>();
 
-	GLFWwindow* window = CORE->GetSystem<WindowsSystem>()->ptr_window;
-
-	while (b_game_active_ && !glfwWindowShouldClose(window)) {
+	while (b_game_active_ && !glfwWindowShouldClose(win->ptr_window)) {
 		if (debug_)
 			M_DEBUG->WriteDebugMessage("Core Engine System Update:\n");
 		
 		PE_FrameRate.FrameRateLoop();
 
-		std::cout << PE_FrameRate.GetFPS() << std::endl;
+		//std::cout << PE_FrameRate.GetFPS() << std::endl;
+		glfwSetWindowTitle(win->ptr_window, (win->GetWindowName() + " " + std::to_string(PE_FrameRate.GetFPS())).c_str());
 
 		if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_Q)) { // Q key
 			M_DEBUG->WriteDebugMessage("TERMINATE GAME LOOP\n");
@@ -60,7 +61,7 @@ void CoreEngine::GameLoop() {
 			system->second->Draw();
 		}
 
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(win->ptr_window);
 		glfwPollEvents();
 		M_DEBUG->SaveDebug();
 	}

@@ -117,7 +117,7 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const EntityID& button_id) {
 
 	AABBIt button_aabb = aabb_arr_.find(button_id);
-	assert(button_aabb != aabb_arr_.end() && "AABB component does not exist");
+	DEBUG_ASSERT((button_aabb != aabb_arr_.end()), "AABB component does not exist");
 
 	//assume that is button
 	//compute if position is within aabb box
@@ -236,6 +236,11 @@ void Collision::Update(float frametime) {
 				}
 				else {
 
+					//enable to check if collision detected
+					//currently disabled to show that burrowing works
+					//aabb1->second->collided = true;
+					//aabb2->second->collided = true;
+
 					//otherwise colliding are player & enemy or player & player
 					if ((aabb1_type == EntityTypes::PLAYER && aabb2_type == EntityTypes::ENEMY) ||
 						(aabb1_type == EntityTypes::ENEMY && aabb2_type == EntityTypes::PLAYER)) {
@@ -261,11 +266,11 @@ void Collision::Update(float frametime) {
 								player_status->status_ = StatusType::HIT;
 								player_status->status_timer_ = 5.1f;
 							}
-							/*
+							
 							else if (player_status->status_ == StatusType::INVISIBLE) {
 
 							}
-							*/
+							
 						}
 					}
 				}
@@ -370,7 +375,7 @@ void Collision::UpdateBoundingBox() {
 		aabb->second->collided = false;
 
 		Entity* entity = aabb->second->GetOwner();
-		assert(entity && "Entity does not exist");
+		DEBUG_ASSERT((entity), "Entity does not exist");
 
 		Scale* entity_scale = dynamic_cast<Scale*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::SCALE));
 		Transform* entity_position = dynamic_cast<Transform*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));

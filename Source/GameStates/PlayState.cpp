@@ -50,7 +50,7 @@ void PlayState::Update(Game* game, float frametime)
 
 			if (status->second->status_timer_ > 0.0f) {
 				status->second->status_timer_ -= frametime;
-				std::cout << "Reducing status timer" << std::endl;
+				//std::cout << "Reducing status timer" << std::endl;
 			}
 			else {
 				std::cout << "Resetting status type to none" << std::endl;
@@ -65,34 +65,81 @@ void PlayState::Draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
-void PlayState::StateInputHandler(unsigned char key_val, Game* game) {
-	UNREFERENCED_PARAMETER(game);
+void PlayState::SetStatus(EntityTypes entity_type, StatusType status_type, Game* game) {
+	
+	for (Game::StatusIt it = game->status_arr_.begin(); it != game->status_arr_.end(); ++it) {
 
-	// set up velocity based input flag value
-	Vec2 new_vel{};
+		if (it->second->GetOwner()->GetType() == entity_type && it->second->status_ == StatusType::NONE) {
+			
+			it->second->status_ = status_type;
+			it->second->status_timer_ = 3.0f; // change timer accordingly in the future
+		}
+	}
+}
 
-	if (key_val & UP_FLAG) {
+void PlayState::StateInputHandler(Message* msg, Game* game) {
+	//UNREFERENCED_PARAMETER(game);
 
-		new_vel.y += 100.0f;
+	if (!game) {
+
+		if (msg->message_id_ == MessageIDTypes::M_MOVEMENT) {
+			
+			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
+			assert(m != nullptr && "Message is not a player input message");
+			unsigned char key_val = m->input_flag_;
+
+			// set up velocity based input flag value
+			Vec2 new_vel{};
+
+			if (key_val & UP_FLAG) {
+
+				new_vel.y += 100.0f;
+			}
+
+			if (key_val & DOWN_FLAG) {
+
+				new_vel.y -= 100.0f;
+			}
+
+			if (key_val & LEFT_FLAG) {
+
+				new_vel.x -= 100.0f;
+			}
+
+			if (key_val & RIGHT_FLAG) {
+
+				new_vel.x += 100.0f;
+			}
+
+			//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
+
+			MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
+			CORE->BroadcastMessage(&m2);
+		}
 	}
 
-	if (key_val & DOWN_FLAG) {
+	if (game) {
 
-		new_vel.y -= 100.0f;
+		if (msg->message_id_ == MessageIDTypes::M_BUTTON_PRESS) {
+			
+			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
+			assert(m != nullptr && "Message is not a player input message");
+			unsigned char key_val = m->input_flag_;
+
+			switch (key_val)
+			{
+				case 69: //E
+				{
+					SetStatus(EntityTypes::PLAYER, StatusType::INVISIBLE, game);
+					break;
+				}
+				case 82: //R
+				{
+					SetStatus(EntityTypes::PLAYER, StatusType::BURROW, game);
+					break;
+				}
+			}
+		}
 	}
 
-	if (key_val & LEFT_FLAG) {
-
-		new_vel.x -= 100.0f;
-	}
-
-	if (key_val & RIGHT_FLAG) {
-
-		new_vel.x += 100.0f;
-	}
-
-	//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
-
-	MessagePhysics_Motion msg{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
-	CORE->BroadcastMessage(&msg);
 }

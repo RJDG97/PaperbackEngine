@@ -19,8 +19,8 @@ void LightingSystem::Init() {
 
 	windows_system = CORE->GetSystem<WindowsSystem>();
 
-	GLint width = windows_system->getWinWidth();
-	GLint height = windows_system->getWinHeight();
+	GLint width = windows_system->GetWinWidth();
+	GLint height = windows_system->GetWinHeight();
 
 	CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
 	//Temporary before camera is component
