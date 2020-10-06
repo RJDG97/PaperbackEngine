@@ -22,6 +22,7 @@
 //MenuState MenuState::m_MenuState;
 MenuState m_MenuState;
 Entity* start_blok{};
+Entity* crash_blok{};
 
 void MenuState::Init()
 {
@@ -38,6 +39,7 @@ void MenuState::Init()
 	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);
 	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::Enemy);
 	start_blok = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
+	crash_blok = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "ButtonCrash", EntityTypes::WALL);
 }
 
 void MenuState::Free()
@@ -152,6 +154,11 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			//true returned, trigger scene change
 			game->ChangeState(&m_PlayState);
+		}
+
+		if (CORE->GetSystem<Collision>()->CheckCursorCollision(CORE->GetSystem<InputSystem>()->GetCursorPosition(), crash_blok->GetID())) {
+
+			DEBUG_ASSERT(false, "Forced Crash Triggered");
 		}
 	}
 }

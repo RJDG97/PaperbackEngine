@@ -165,5 +165,40 @@
       "radius": "300.0",
       "intensity": "1.0"
     }
+  ],
+  "ButtonCrash": [
+    {
+      "component": "Transform",
+      "position": "150.0 100.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Renderer",
+      "texture": "Rock",
+      "model": "TileModel",
+      "shader program": "ObjectShader",
+      "layer": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "PointLight",
+      "model": "TileModel",
+      "shader program": "LightShader",
+      "color": "0.5 1.0 1.0",
+      "radius": "300.0",
+      "intensity": "1.0"
+    }
   ]
 }
