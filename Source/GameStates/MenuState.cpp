@@ -154,6 +154,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			//true returned, trigger scene change
 			game->ChangeState(&m_PlayState);
+			return;
 		}
 
 		if (CORE->GetSystem<Collision>()->CheckCursorCollision(CORE->GetSystem<InputSystem>()->GetCursorPosition(), crash_blok->GetID())) {
