@@ -1,5 +1,6 @@
 #include "Systems/Debug.h"
 #include <iostream>
+#include "Engine/Core.h"
 
 EngineDebug* EngineDebug::d_instance_ = 0;
 
@@ -41,6 +42,9 @@ bool EngineDebug::MyAssert(const char* expr_str, const char* file, size_t line, 
 	WriteDebugMessage(stream.str());
 
 	SaveDebug();
+
+	Message m{ MessageIDTypes::EXIT };
+	CORE->BroadcastMessage(&m);
 
 	return true;
 }

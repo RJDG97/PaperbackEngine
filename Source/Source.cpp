@@ -43,35 +43,46 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	// Add Systems to the Core Engine
 	// *Note: Reorder based on what system 
 	// has priority over the other
-	engine->AddSystem<WindowsSystem>();
-	engine->AddSystem<GraphicsSystem>();
-	engine->AddSystem<LightingSystem>();
-	engine->AddSystem<InputSystem>();
-	engine->AddSystem<Physics>();
-	engine->AddSystem<Collision>();
-	engine->AddSystem<EntityFactory>();
-	engine->AddSystem<SoundSystem>();
-	engine->AddSystem<Game>();
 
-	// Add Managers to the Core Engine
-	engine->AddManager<ModelManager>();
-	engine->AddManager<TextureManager>();
-	engine->AddManager<ShaderManager>();
-	engine->AddManager<AnimationManager>();
+	try {
+		engine->AddSystem<WindowsSystem>();
+		engine->AddSystem<GraphicsSystem>();
+		engine->AddSystem<LightingSystem>();
+		engine->AddSystem<InputSystem>();
+		engine->AddSystem<Physics>();
+		engine->AddSystem<Collision>();
+		engine->AddSystem<EntityFactory>();
+		engine->AddSystem<SoundSystem>();
+		engine->AddSystem<Game>();
 
-	// Initialize all Systems & Managers that
-	// were added to the Core Engine
-	engine->Initialize();
+		// Add Managers to the Core Engine
+		engine->AddManager<ModelManager>();
+		engine->AddManager<TextureManager>();
+		engine->AddManager<ShaderManager>();
+		engine->AddManager<AnimationManager>();
 
-	// ** Core Engine's Game Loop **
-	engine->GameLoop();
+		// Initialize all Systems & Managers that
+		// were added to the Core Engine
+		engine->Initialize();
 
-	// Release all resources allocated during
-	// runtime and compile time
-	FACTORY->DestroyAllEntities();
-	engine->DestroySystems();
-	engine->DestroyManagers();
-	EngineDebug::DeleteInstance();
+		// ** Core Engine's Game Loop **
+		engine->GameLoop();
+
+		// Release all resources allocated during
+		// runtime and compile time
+		FACTORY->DestroyAllEntities();
+		engine->DestroySystems();
+		engine->DestroyManagers();
+		EngineDebug::DeleteInstance();
+	}
+	catch (std::exception& e) {
+
+		DEBUG_ASSERT(false, e.what());
+	}
+	catch (...) {
+
+		DEBUG_ASSERT(false, "Game has crashed, unhandled exception");
+	}
 
 	return 0;
 }
