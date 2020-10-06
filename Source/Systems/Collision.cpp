@@ -3,7 +3,6 @@
 #include "Systems/Collision.h"
 #include "Systems/Factory.h"
 #include "Systems/Debug.h"
-#include "Components/Scale.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
 #include "Entity/ComponentTypes.h"
@@ -161,8 +160,10 @@ void Collision::CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2
 	Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
 	Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
 
-	Transform* transform1 = dynamic_cast<Transform*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-	Transform* transform2 = dynamic_cast<Transform*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+	std::shared_ptr<Transform> transform1 = 
+		std::dynamic_pointer_cast<Transform>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+	std::shared_ptr<Transform> transform2 = 
+		std::dynamic_pointer_cast<Transform>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
 	//std::cout << "Inverse vector 1: " << inverse_vector_1.x << ", " << inverse_vector_1.y << std::endl;
 	//std::cout << "Inverse vector 2: " << inverse_vector_2.x << ", " << inverse_vector_2.y << std::endl;
@@ -200,7 +201,8 @@ void Collision::Update(float frametime) {
 	for (AABBIt aabb1 = aabb_arr_.begin(); aabb1 != aabb_arr_.end(); ++aabb1) {
 
 		AABBIt aabb2 = aabb1;
-		Motion* motion1 = dynamic_cast<Motion*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+		std::shared_ptr<Motion> motion1 = 
+			std::dynamic_pointer_cast<Motion>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
 		//assert(motion1 != nullptr && "aabb1 does not have a motion component");
 
 		Vector2D* vel1{};
@@ -211,7 +213,8 @@ void Collision::Update(float frametime) {
 		
 		for (; aabb2 != aabb_arr_.end(); ++aabb2) {
 
-			Motion* motion2 = dynamic_cast<Motion*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+			std::shared_ptr<Motion> motion2 = 
+				std::dynamic_pointer_cast<Motion>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
 			//assert(motion2 != nullptr && "aabb2 does not have a motion component");
 
 			Vector2D* vel2{};
@@ -245,15 +248,17 @@ void Collision::Update(float frametime) {
 					if ((aabb1_type == EntityTypes::PLAYER && aabb2_type == EntityTypes::ENEMY) ||
 						(aabb1_type == EntityTypes::ENEMY && aabb2_type == EntityTypes::PLAYER)) {
 
-						Status* player_status = nullptr;
+						std::shared_ptr<Status> player_status = nullptr;
 
 						if (aabb1_type == EntityTypes::PLAYER) {
 
-							player_status = dynamic_cast<Status*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
+							player_status = 
+								std::dynamic_pointer_cast<Status>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
 						}
 						else {
 
-							player_status = dynamic_cast<Status*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
+							player_status = 
+								std::dynamic_pointer_cast<Status>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
 						}
 						
 						if (player_status) {
@@ -377,10 +382,9 @@ void Collision::UpdateBoundingBox() {
 		Entity* entity = aabb->second->GetOwner();
 		DEBUG_ASSERT((entity), "Entity does not exist");
 
-		Scale* entity_scale = dynamic_cast<Scale*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::SCALE));
-		Transform* entity_position = dynamic_cast<Transform*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+		std::shared_ptr<Transform> entity_position = std::dynamic_pointer_cast<Transform>(aabb->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
-		aabb->second->bottom_left_ = entity_position->position_ - entity_scale->scale_;
-		aabb->second->top_right_ = entity_position->position_ + entity_scale->scale_;
+		aabb->second->bottom_left_ = entity_position->position_ - aabb->second->scale_;
+		aabb->second->top_right_ = entity_position->position_ + aabb->second->scale_;
 	}
 }

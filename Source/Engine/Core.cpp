@@ -57,7 +57,7 @@ void CoreEngine::GameLoop() {
 			if (debug_)
 				// Log system message to "Source/Debug.txt"
 				M_DEBUG->WriteDebugMessage("Begining update for: " + system->second->GetName() + "\n");
-			system->second->Update(PE_FrameRate.Dt);
+			system->second->Update(PE_FrameRate.dt_);
 			system->second->Draw();
 		}
 

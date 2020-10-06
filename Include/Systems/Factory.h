@@ -5,7 +5,7 @@
 #include <map>
 #include <string>
 
-class ComponentCreator;
+class IComponentCreator;
 
 class EntityFactory : public ISystem {
 
@@ -15,7 +15,7 @@ class EntityFactory : public ISystem {
 	unsigned int last_entity_id_;
 
 	// 
-	using ComponentMapType = std::map<std::string, ComponentCreator*>;
+	using ComponentMapType = std::map<std::string, IComponentCreator*>;
 	ComponentMapType component_map_;
 
 	// 
@@ -152,7 +152,7 @@ public:
 		 components during serialization
 */
 /******************************************************************************/
-	void AddComponentCreator(const std::string& name, ComponentCreator* creator);
+	void AddComponentCreator(const std::string& name, IComponentCreator* creator);
 
 /******************************************************************************/
 /*!

@@ -87,5 +87,5 @@ public:
 #define M_DEBUG EngineDebug::GetInstance()
 
 #define DEBUG_ASSERT( exp, str ) \
-		do { if( (!(exp)) && M_DEBUG->MyAssert( #exp, __FILE__, __LINE__, #str)) __debugbreak(); } while (0)
+		do { if( (!(exp)) && M_DEBUG->MyAssert( #exp, __FILE__, __LINE__, str)) __debugbreak(); } while (0)
 #endif

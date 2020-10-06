@@ -32,3 +32,13 @@ void Transform::Serialize(std::stringstream& data) {
 
 	std::cout << "Position read: " << position_.x << ", " << position_.y << std::endl;
 }
+
+float Transform::GetRotation() const {
+
+	return rotation_;
+}
+
+void Transform::SetRotation(const float& rot) {
+
+	rotation_ = rot;
+}

@@ -11,6 +11,7 @@ class Motion : public Component {
 public:
 	friend class Physics;
 	friend class Collision;
+	friend class PlayState;
 
 /******************************************************************************/
 /*!

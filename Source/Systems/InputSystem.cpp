@@ -5,33 +5,50 @@
 #include "Systems/Debug.h"
 #include "Systems/GraphicsSystem.h"
 
-void cursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
+InputSystem sys_input_;
+
+/******************************************************************************/
+/*!
+  \fn CursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
+
+  \brief Function is constantly called by glfw for cursor position
+		 Updates cursor positions
+*/
+/******************************************************************************/
+void CursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
 {
 	UNREFERENCED_PARAMETER(window);
-
 	CORE->GetSystem<InputSystem>()->SetCursorPosition(xPos, yPos);
 }
 
-void cursorEnterCallback(GLFWwindow* window, int entered)
+/******************************************************************************/
+/*!
+  \fn CursorEnterCallback(GLFWwindow* window, int entered)
+
+  \brief Callback updates whenever cursor enters or exits the window
+*/
+/******************************************************************************/
+void CursorEnterCallback(GLFWwindow* window, int entered)
 {
 	UNREFERENCED_PARAMETER(window);
-
 	if (entered)
-	{
-		
-	
-	}
+	{}
 	else
-	{
-
-	}
+	{}
 }
 
-void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+
+/******************************************************************************/
+/*!
+  \fn MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+
+  \brief Callback updates whenever a mouse button is clicked
+*/
+/******************************************************************************/
+void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
 	UNREFERENCED_PARAMETER(window);
 	UNREFERENCED_PARAMETER(mods);
-
 	CORE->GetSystem<InputSystem>()->SetMouseState(button, action);
 	switch (button)
 	{
@@ -44,7 +61,14 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 	}
 }
 
-void scrollCallback(GLFWwindow* window, double xOffset, double yOffset)
+/******************************************************************************/
+/*!
+  \fn ScrollCallback(GLFWwindow* window, double xOffset, double yOffset)
+
+  \brief Callback updates whenever a mouse is scrolled
+*/
+/******************************************************************************/
+void ScrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 {
 	UNREFERENCED_PARAMETER(window);
 	UNREFERENCED_PARAMETER(xOffset);
@@ -52,7 +76,14 @@ void scrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 	// in case we need to scroll input
 }
 
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+/******************************************************************************/
+/*!
+  \fn KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+
+  \brief Callback updates whenever a key is pressed or released or repeated
+*/
+/******************************************************************************/
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	UNREFERENCED_PARAMETER(scancode);
 	UNREFERENCED_PARAMETER(window);
@@ -128,16 +159,6 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 
 		case GLFW_KEY_A: 	//'A'
-			// e.g. let A Pause game in play state and quit game in menu state
-
-			//Method 1
-			//check current state
-			// run Fn1 if (curr state is play) and Fn2 if state is menu
-
-			//Method 2
-			//wrap custom message w/ custom message id targetting Game ISystem
-			// send message
-			// let Game sort out what to do
 			break;
 		case GLFW_KEY_B: 	//'B'
 		{
@@ -147,9 +168,9 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			break;
 		}
 		break;
-		case GLFW_KEY_C: 	//'C'
+		case GLFW_KEY_C:
 			break;
-		case GLFW_KEY_D: 	//'D'
+		case GLFW_KEY_D:
 			break;
 		case GLFW_KEY_E: 	//'E'
 		{
@@ -159,27 +180,27 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_KEY_F: 	//'F'
 			break;
-		case GLFW_KEY_G: 	//'G'
+		case GLFW_KEY_G:
 			break;
-		case GLFW_KEY_H: 	//'H'
+		case GLFW_KEY_H:
 			break;
-		case GLFW_KEY_I: 	//'I'
+		case GLFW_KEY_I:
 			break;
-		case GLFW_KEY_J: 	//'J'
+		case GLFW_KEY_J:
 			break;
-		case GLFW_KEY_K: 	//'K'
+		case GLFW_KEY_K:
 			break;
-		case GLFW_KEY_L: 	//'L'
+		case GLFW_KEY_L:
 			break;
-		case GLFW_KEY_M: 	//'M'
+		case GLFW_KEY_M:
 			break;
-		case GLFW_KEY_N: 	//'N'
+		case GLFW_KEY_N:
 			break;
-		case GLFW_KEY_O: 	//'O'
+		case GLFW_KEY_O:
 			break;
-		case GLFW_KEY_P: 	//'P'
+		case GLFW_KEY_P:
 			break;
-		case GLFW_KEY_Q: 	//'Q'
+		case GLFW_KEY_Q:
 			break;
 		case GLFW_KEY_R: 	//'R'
 		{
@@ -189,25 +210,24 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_KEY_S: 	//'S'
 			break;
-		case GLFW_KEY_T: 	//'T'
+		case GLFW_KEY_T:
 			break;
-		case GLFW_KEY_U: 	//'U'
+		case GLFW_KEY_U:
 			break;
-		case GLFW_KEY_V: 	//'V'
+		case GLFW_KEY_V:
 			break;
-		case GLFW_KEY_W: 	//'W'
+		case GLFW_KEY_W:
 			break;
-		case GLFW_KEY_X: 	//'X'
+		case GLFW_KEY_X:
 			break;
-		case GLFW_KEY_Y: 	//'Y'
+		case GLFW_KEY_Y:
 			break;
-		case GLFW_KEY_Z: 	//'Z'
+		case GLFW_KEY_Z:
 		{
 			Message msg{ MessageIDTypes::FTY_PURGE };
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
-
 		default:
 			//std::cout << "Input System: [Error] Key is not bound" << std::endl;
 			break;
@@ -215,18 +235,20 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	}
 }
 
+// Initialise all the glfw callbacks relating to input
 void InputSystem::Init() {
 	M_DEBUG->WriteDebugMessage("Input System Init\n");
 
 	ptr_window_ = CORE->GetSystem<WindowsSystem>()->ptr_window;
 
-	glfwSetKeyCallback(ptr_window_, keyCallback);
-	glfwSetCursorPosCallback(ptr_window_, cursorPositionCallback);
-	glfwSetCursorEnterCallback(ptr_window_, cursorEnterCallback);
-	glfwSetMouseButtonCallback(ptr_window_, mouseButtonCallback);
-	glfwSetScrollCallback(ptr_window_, scrollCallback);
+	glfwSetKeyCallback(ptr_window_, KeyCallback);
+	glfwSetCursorPosCallback(ptr_window_, CursorPositionCallback);
+	glfwSetCursorEnterCallback(ptr_window_, CursorEnterCallback);
+	glfwSetMouseButtonCallback(ptr_window_, MouseButtonCallback);
+	glfwSetScrollCallback(ptr_window_, ScrollCallback);
 }
 
+// Update for any input related controls
 void InputSystem::Update(float frametime) {
 
 	(void)frametime;
@@ -243,6 +265,28 @@ void InputSystem::Update(float frametime) {
 		input_flag |= RIGHT_FLAG;
 	if (IsKeyPressed(GLFW_KEY_DOWN))
 		input_flag |= DOWN_FLAG;
+
+
+	if (IsKeyPressed(GLFW_KEY_COMMA)) {
+	
+		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_COMMA);
+		CORE->BroadcastMessage(&msg);
+	}
+	if (IsKeyPressed(GLFW_KEY_PERIOD)) {
+		
+		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_PERIOD);
+		CORE->BroadcastMessage(&msg);
+	}
+	if (IsKeyPressed(GLFW_KEY_SEMICOLON)) {
+
+		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_SEMICOLON);
+		CORE->BroadcastMessage(&msg);
+	}
+	if (IsKeyPressed(GLFW_KEY_APOSTROPHE)) {
+
+		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_APOSTROPHE);
+		CORE->BroadcastMessage(&msg);
+	}
 
 	// Temporary placeholder before Input System conversion
 	if (IsKeyPressed(GLFW_KEY_B)) {
@@ -263,61 +307,70 @@ void InputSystem::Update(float frametime) {
 	CORE->BroadcastMessage(&input_msg);
 }
 
+// Sends Messages
 void InputSystem::SendMessageD(Message* m) {
 	(void)m;
 }
 
+// Set the param key state as the action param
 void InputSystem::SetKeyState(int keycode, int action)
 {
-	prekeystates[keycode] = curkeystates[keycode];
-	curkeystates[keycode] = action;
+	// For comparing states later (e.g. triggered)
+	prekeystates_[keycode] = curkeystates_[keycode];
+	curkeystates_[keycode] = action;
 }
 
+// Set the param button state as the action param
 void InputSystem::SetMouseState(int button, int action)
 {
-	premousebuttonstates[button] = curmousebuttonstates[button];
-	curmousebuttonstates[button] = action;
+	premousebuttonstates_[button] = curmousebuttonstates_[button];
+	curmousebuttonstates_[button] = action;
 }
 
+// Return if mouse button was pressed
 bool InputSystem::IsMousePressed(int button)
 {
-	return curmousebuttonstates[button];
+	return curmousebuttonstates_[button];
 }
 
+// Return if mouse button was pressed once
 bool InputSystem::IsMouseTriggered(int button)
 {
-	if (premousebuttonstates[button] == GLFW_RELEASE && curmousebuttonstates[button] == GLFW_PRESS)
+	if (premousebuttonstates_[button] == GLFW_RELEASE && curmousebuttonstates_[button] == GLFW_PRESS)
 	{
-		premousebuttonstates[button] = 1;
+		premousebuttonstates_[button] = 1;
 		return true;
 	}
 	return false;
 }
 
+// Return if key has been pressed
 bool InputSystem::IsKeyPressed(int keycode)
 {
-	return curkeystates[keycode];
+	return curkeystates_[keycode];
 }
 
+// Return if key has been pressed once
 bool InputSystem::IsKeyTriggered(int keycode)
 {
-	if (prekeystates[keycode] == GLFW_RELEASE && curkeystates[keycode] == GLFW_PRESS)
+	if (prekeystates_[keycode] == GLFW_RELEASE && curkeystates_[keycode] == GLFW_PRESS)
 	{
-		prekeystates[keycode] = 1;
+		prekeystates_[keycode] = 1;
 		return true;
 	}
 	return false;
 }
 
+// Retrieve current cursor position from callback
 void InputSystem::SetCursorPosition(double xPos, double yPos)
 {
 	xPos -= CORE->GetSystem<WindowsSystem>()->GetWinWidth() / 2;
 	yPos = (-yPos) + CORE->GetSystem<WindowsSystem>()->GetWinHeight() / 2;
 
-	cursor_pos = { static_cast<float>(xPos), static_cast<float>(yPos) };
+	cursor_pos_ = { static_cast<float>(xPos), static_cast<float>(yPos) };
 }
 
 // Returns current cursor position
 Vector2D InputSystem::GetCursorPosition() {
-	return cursor_pos;
+	return cursor_pos_;
 }

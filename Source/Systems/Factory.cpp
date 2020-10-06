@@ -15,6 +15,7 @@
 #include "Components/Transform.h"
 #include "Components/Motion.h"
 #include "Components/Status.h"
+#include "COmponents/BasicAI.h"
 
 EntityFactory* FACTORY = NULL;
 
@@ -38,14 +39,15 @@ EntityFactory::~EntityFactory() {
 
 void EntityFactory::Init() {
 
-	FACTORY->AddComponentCreator("Transform", new ComponentCreatorType<Transform>(ComponentTypes::TRANSFORM));
-	//FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
-	FACTORY->AddComponentCreator("Motion", new ComponentCreatorType<Motion>(ComponentTypes::MOTION));
-	FACTORY->AddComponentCreator("AABB", new ComponentCreatorType<AABB>(ComponentTypes::AABB));
-	FACTORY->AddComponentCreator("Scale", new ComponentCreatorType<Scale>(ComponentTypes::SCALE));
-	FACTORY->AddComponentCreator("Status", new ComponentCreatorType<Status>(ComponentTypes::STATUS));
-	FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
-	FACTORY->AddComponentCreator("PointLight", new ComponentCreatorType<PointLight>(ComponentTypes::POINTLIGHT));
+	FACTORY->AddComponentCreator("Transform", new ComponentCreator<Transform>(ComponentTypes::TRANSFORM));
+	FACTORY->AddComponentCreator("Health", new ComponentCreator<Health>(ComponentTypes::HEALTH));
+	FACTORY->AddComponentCreator("Motion", new ComponentCreator<Motion>(ComponentTypes::MOTION));
+	FACTORY->AddComponentCreator("AABB", new ComponentCreator<AABB>(ComponentTypes::AABB));
+	FACTORY->AddComponentCreator("Scale", new ComponentCreator<Scale>(ComponentTypes::SCALE));
+	FACTORY->AddComponentCreator("Status", new ComponentCreator<Status>(ComponentTypes::STATUS));
+	FACTORY->AddComponentCreator("Health", new ComponentCreator<Health>(ComponentTypes::HEALTH));
+	FACTORY->AddComponentCreator("PointLight", new ComponentCreator<PointLight>(ComponentTypes::POINTLIGHT));
+	FACTORY->AddComponentCreator("BasicAI", new ComponentCreator<BasicAI>(ComponentTypes::BASICAI));
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }
@@ -146,20 +148,20 @@ Entity* EntityFactory::CreateEmptyEntity() {
 
 
 Entity* EntityFactory::TestBuild() {
-
+	/*
 	Entity* ret = new Entity();
 
-	ComponentCreator* creator = component_map_.find("Motion")->second;
+	IComponentCreator* creator = component_map_.find("Motion")->second;
 
 	Component* component = creator->Create();
 
 	ret->AddComponent(creator->GetComponentTypeID(), component);
 
-	/*creator = _componentMap.find("Health")->second;
+	creator = _componentMap.find("Health")->second;
 
 	component = creator->create();
 
-	ret->AddComponent(creator->_typeId, component);*/
+	ret->AddComponent(creator->_typeId, component);
 
 	creator = component_map_.find("Transform")->second;
 
@@ -176,6 +178,8 @@ Entity* EntityFactory::TestBuild() {
 	StoreEntityID(ret);
 
 	return ret;
+	*/
+	return nullptr;
 }
 
 //serialises single archetype 
@@ -221,8 +225,8 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 		
 		DEBUG_ASSERT(member.IsObject(), "Entry does not exist in JSON");
 
-		ComponentCreator* creator;
-		Component* component;
+		IComponentCreator* creator;
+		std::shared_ptr<Component> component;
 
 		// For every new component in the "Entity"s body
 		if (member.MemberBegin()->name == "component") {
@@ -292,7 +296,7 @@ void EntityFactory::StoreEntityID(Entity* entity) {
 	M_DEBUG->WriteDebugMessage("Storing entity with ID: " + std::to_string(last_entity_id_) + "\n");
 }
 
-void EntityFactory::AddComponentCreator(const std::string& name, ComponentCreator* creator) {
+void EntityFactory::AddComponentCreator(const std::string& name, IComponentCreator* creator) {
 	
 	//binds component creator to entry with component name
 	component_map_.emplace(name, creator);

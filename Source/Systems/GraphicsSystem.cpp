@@ -115,8 +115,8 @@ void GraphicsSystem::Init() {
     final_model_ = model_manager_->GetModel("BoxModel");
     final_shader_ = shader_manager_->GetShdrpgm("FinalShader");
 
-    FACTORY->AddComponentCreator("Renderer", new ComponentCreatorType<Renderer>(ComponentTypes::RENDERER));
-    FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreatorType<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
+    FACTORY->AddComponentCreator("Renderer", new ComponentCreator<Renderer>(ComponentTypes::RENDERER));
+    FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
@@ -333,13 +333,14 @@ void GraphicsSystem::UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to
 
     glm::mat3 scaling, rotation, translation;
 
-    Vector2D scale = dynamic_cast<Scale*>(irenderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
+    Vector2D scale = std::dynamic_pointer_cast<Scale>(irenderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
 
     scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
                          0.0f, scale.y, 0.0f,
                          0.0f, 0.0f, 1.0f };
 
-    Transform* transform = dynamic_cast<Transform*>(irenderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+    std::shared_ptr<Transform> transform = 
+        std::dynamic_pointer_cast<Transform>(irenderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
     //assert(transform);
     DEBUG_ASSERT(transform, "Entity does not have a Transform component");
 

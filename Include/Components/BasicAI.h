@@ -1,53 +1,50 @@
-#ifndef _SCALE_H_
-#define _SCALE_H_
+#ifndef _BASICAI_H_
+#define _BASICAI_H_
 
-#include "Entity/Entity.h"
+#include "Entity/Entity.h" 
 #include "MathLib/Vector2D.h"
 #include <sstream>
-//#include "Graphics.h"
+#include <vector>
 
-class Scale : public Component { // double check friend class afterwards
-	Vector2D scale_;
+class BasicAI : public Component {
+	
+	float speed;
+	size_t num_destinations_;
+	using DestinationIt = std::vector<Vector2D>::iterator;
+	std::vector<Vector2D> destinations_;
+	DestinationIt current_destination_;
+
 public:
-	friend class GraphicsSystem;
-	friend class Collision;
+	friend class PlayState;
 
 /******************************************************************************/
 /*!
-  \fn Scale()
+  \fn BasicAI()
 
-  \brief Constructor for Scale that defaults the data members of the
+  \brief Constructor for BasicAI that defaults the data members of the
 		 component
 */
 /******************************************************************************/
-	Scale();
+	BasicAI();
+
+/******************************************************************************/
+/*!
+  \fn ~BasicAI()
+
+  \brief Destructor for BasicAI that removes the component from the
+		 Game system AI component map
+*/
+/******************************************************************************/
+	~BasicAI();
 
 /******************************************************************************/
 /*!
   \fn Init()
 
-  \brief Scale will add itself to a relavant system's map 
+  \brief Adds the component itself to the Game system AI map
 */
 /******************************************************************************/
 	void Init();
-
-/******************************************************************************/
-/*!
-  \fn GetScale()
-
-  \brief Returns the scale factor of the component
-*/
-/******************************************************************************/
-	Vector2D GetScale() const;
-
-/******************************************************************************/
-/*!
-  \fn SetScale()
-
-  \brief Sets the scale factor of the component
-*/
-/******************************************************************************/
-	void SetScale(const Vector2D& new_scale);
 
 /******************************************************************************/
 /*!

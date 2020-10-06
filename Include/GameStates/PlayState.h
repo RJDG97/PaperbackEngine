@@ -2,6 +2,7 @@
 #define PLAYSTATE_H
 
 #include "GameStates/GameState.h"
+#include "Components/Scale.h"
 
 // inherits the abstract class GameState
 class PlayState : public GameState
@@ -73,7 +74,6 @@ public:
 /******************************************************************************/
 	PlayState() {}
 };
-
 extern PlayState m_PlayState;
 
 #endif /*PLAYSTATE_H*/

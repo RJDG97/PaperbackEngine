@@ -117,7 +117,7 @@ void LightingSystem::RemoveLightComponent(EntityID id) {
 
 void LightingSystem::UpdateLightPosition(PointLight* point_light, glm::vec2 cam_pos, glm::vec2 cam_size) {
 
-	Vector2D obj_pos_ = dynamic_cast<Transform*>(
+	Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
 		point_light->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
 
 	point_light->pos_ = 0.5f * (glm::vec2(obj_pos_.x, obj_pos_.y) + cam_pos + 0.5f * cam_size);

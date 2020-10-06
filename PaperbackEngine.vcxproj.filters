@@ -91,6 +91,9 @@
     <Filter Include="Entity\Components\Light">
       <UniqueIdentifier>{261a65d9-ccc8-4ba7-acff-9ec39af64592}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\BasicAI">
+      <UniqueIdentifier>{d056378e-3b1f-41ed-9970-839f1ea52ad4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -191,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\PointLight.cpp">
       <Filter>Entity\Components\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\BasicAI.cpp">
+      <Filter>Entity\Components\BasicAI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\IRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\BasicAI.h">
+      <Filter>Entity\Components\BasicAI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

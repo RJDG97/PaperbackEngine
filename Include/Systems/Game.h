@@ -6,6 +6,7 @@
 #include "Systems/ISystem.h"
 #include "Systems/Message.h"
 #include "Components/Status.h"
+#include "Components/BasicAI.h"
 
 class GameState;
 
@@ -150,6 +151,26 @@ public:
 /******************************************************************************/
 	void RemoveStatusComponent(EntityID id);
 
+/******************************************************************************/
+/*!
+  \fn AddBasicAIComponent()
+
+  \brief Adds a newly created BasicAI Component to the BasicAI component array
+		 within the Game System
+*/
+/******************************************************************************/
+	void AddBasicAIComponent(EntityID id, BasicAI* basic_ai);
+
+/******************************************************************************/
+/*!
+  \fn RemoveBasicAIComponent()
+
+  \brief Removes a BasicAI Component from the BasicAI component array within the
+		 Game System
+*/
+/******************************************************************************/
+	void RemoveBasicAIComponent(EntityID id);
+
 private:
 	bool debug_;
 
@@ -161,6 +182,9 @@ private:
 
 	using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
 	std::unordered_map<EntityID, Status*> status_arr_;
+
+	using BasicAIIt = std::unordered_map<EntityID, BasicAI*>::iterator;
+	std::unordered_map<EntityID, BasicAI*> basicai_arr_;
 
 /******************************************************************************/
 /*!
