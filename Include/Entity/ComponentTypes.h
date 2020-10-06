@@ -19,6 +19,7 @@ enum class ComponentTypes {
 	STATUS,
 	POINTLIGHT,
 	CONELIGHT,
+	BASICAI,
 	MAX
 };
 

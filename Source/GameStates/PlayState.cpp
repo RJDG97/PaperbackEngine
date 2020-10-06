@@ -12,6 +12,10 @@
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
 
+
+#include "Components/Transform.h"
+#include "Components/Motion.h"
+
 // SAMPLE PLAY STATE
 
 PlayState m_PlayState;
@@ -28,9 +32,11 @@ void PlayState::Init()
 	CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
+	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "MovingWall", EntityTypes::WALL);
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::ENEMY);
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
+
 }
 
 void PlayState::Free()
@@ -42,8 +48,8 @@ void PlayState::Free()
 
 void PlayState::Update(Game* game, float frametime)
 {
-	//to use in play state, in menu state for testing
-	//meant to handle game logic components like status
+	// To use in play state, in menu state for testing
+	// meant to handle game logic components like Status
 	for (Game::StatusIt status = game->status_arr_.begin(); status != game->status_arr_.end(); ++status) {
 
 		if (status->second->status_ != StatusType::NONE) {
@@ -56,6 +62,49 @@ void PlayState::Update(Game* game, float frametime)
 				std::cout << "Resetting status type to none" << std::endl;
 				status->second->status_ = StatusType::NONE;
 			}
+		}
+	}
+
+	// To use in play state meant to handle game logic components like BasicAI
+	for (Game::BasicAIIt basic_ai = game->basicai_arr_.begin(); basic_ai != game->basicai_arr_.end(); ++basic_ai) {
+
+		Transform* xform = dynamic_cast<Transform*>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+		DEBUG_ASSERT((xform), "AI does not have Transform component");
+
+		// Check if entity close to destination aka point box collision
+
+		// Calculate distance between ai and destination
+		float distance = Vector2DLength(*(basic_ai->second->current_destination_) - xform->position_);
+		if (distance <= 1.0f) {
+
+			// if ai is near then calculate new vector and set
+			// check if next destination is out of range, and loop to beginning if so
+			BasicAI::DestinationIt next_it = basic_ai->second->current_destination_;
+
+			if (++next_it == basic_ai->second->destinations_.end()) {
+
+				//if next destination does not exist, then wrap back to beginning
+				next_it = basic_ai->second->destinations_.begin();
+			}
+
+			//get directional unit vector
+			Vector2D directional = *next_it - *basic_ai->second->current_destination_;
+			directional /= Vector2DLength(directional);
+
+			//multiply by speed
+			directional *= basic_ai->second->speed;
+
+			//set vector
+			Motion* motion = dynamic_cast<Motion*>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+			DEBUG_ASSERT((motion), "AI does not have a Motion component");
+
+			motion->velocity_ = directional;
+
+			basic_ai->second->current_destination_ = next_it;
+		}
+		else {
+
+			//set directional vector
 		}
 	}
 }

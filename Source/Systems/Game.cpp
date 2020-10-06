@@ -123,6 +123,23 @@ void Game::RemoveStatusComponent(EntityID id) {
 	}
 }
 
+void Game::AddBasicAIComponent(EntityID id, BasicAI* basic_ai) {
+
+	M_DEBUG->WriteDebugMessage("Adding Status Component to entity: " + std::to_string(id) + "\n");
+	basicai_arr_[id] = basic_ai;
+}
+
+void Game::RemoveBasicAIComponent(EntityID id) {
+
+	BasicAIIt it = basicai_arr_.find(id);
+
+	if (it != basicai_arr_.end()) {
+
+		M_DEBUG->WriteDebugMessage("Removing Status Component from entity: " + std::to_string(id) + "\n");
+		basicai_arr_.erase(it);
+	}
+}
+
 void Game::Draw()
 {
 	// let the current state take control

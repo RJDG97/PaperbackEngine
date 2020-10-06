@@ -13,6 +13,7 @@ public:
 	friend class GraphicsSystem;
 	friend class Collision;
 	friend class LightingSystem;
+	friend class PlayState;
 
 /******************************************************************************/
 /*!

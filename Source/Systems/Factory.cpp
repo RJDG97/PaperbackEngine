@@ -15,6 +15,7 @@
 #include "Components/Transform.h"
 #include "Components/Motion.h"
 #include "Components/Status.h"
+#include "COmponents/BasicAI.h"
 
 EntityFactory* FACTORY = NULL;
 
@@ -39,13 +40,14 @@ EntityFactory::~EntityFactory() {
 void EntityFactory::Init() {
 
 	FACTORY->AddComponentCreator("Transform", new ComponentCreatorType<Transform>(ComponentTypes::TRANSFORM));
-	//FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
+	FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
 	FACTORY->AddComponentCreator("Motion", new ComponentCreatorType<Motion>(ComponentTypes::MOTION));
 	FACTORY->AddComponentCreator("AABB", new ComponentCreatorType<AABB>(ComponentTypes::AABB));
 	FACTORY->AddComponentCreator("Scale", new ComponentCreatorType<Scale>(ComponentTypes::SCALE));
 	FACTORY->AddComponentCreator("Status", new ComponentCreatorType<Status>(ComponentTypes::STATUS));
 	FACTORY->AddComponentCreator("Health", new ComponentCreatorType<Health>(ComponentTypes::HEALTH));
 	FACTORY->AddComponentCreator("PointLight", new ComponentCreatorType<PointLight>(ComponentTypes::POINTLIGHT));
+	FACTORY->AddComponentCreator("BasicAI", new ComponentCreatorType<BasicAI>(ComponentTypes::BASICAI));
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }

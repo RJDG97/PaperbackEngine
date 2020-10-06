@@ -37,7 +37,7 @@
     },
     {
       "component": "PointLight",
-      "model": "BoxModel",
+      "model": "TileModel",
       "shader program": "LightShader",
       "color": "1.0 1.0 0.7",
       "radius": "200.0",
@@ -79,7 +79,7 @@
     },
     {
       "component": "PointLight",
-      "model": "BoxModel",
+      "model": "TileModel",
       "shader program": "LightShader",
       "color": "0.5 1.0 1.0",
       "radius": "300.0",
@@ -97,6 +97,11 @@
       "scale": "30.0 30.0"
     },
     {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
       "component": "Renderer",
       "texture": "Rock",
       "model": "TileModel",
@@ -108,7 +113,49 @@
     },
     {
       "component": "PointLight",
-      "model": "BoxModel",
+      "model": "TileModel",
+      "shader program": "LightShader",
+      "color": "0.5 1.0 1.0",
+      "radius": "300.0",
+      "intensity": "1.0"
+    }
+  ],
+  "MovingWall": [
+    {
+      "component": "BasicAI",
+      "speed": "70.0",
+      "size": "3",
+      "destination1": "80.0 200.0", 
+      "destination2": "200.0 000.0",
+      "destination3": "130.0 -200.0"
+    },
+    {
+      "component": "Transform",
+      "position": "80.0 200.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Renderer",
+      "texture": "Rock",
+      "model": "TileModel",
+      "shader program": "ObjectShader",
+      "layer": "0"
+    },
+    {
+      "component": "AABB"
+    },
+    {
+      "component": "PointLight",
+      "model": "TileModel",
       "shader program": "LightShader",
       "color": "0.5 1.0 1.0",
       "radius": "300.0",

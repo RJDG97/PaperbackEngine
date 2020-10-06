@@ -1,43 +1,47 @@
-#ifndef _MOTION_H_
-#define _MOTION_H_
+#ifndef _BASICAI_H_
+#define _BASICAI_H_
 
 #include "Entity/Entity.h" 
 #include "MathLib/Vector2D.h"
 #include <sstream>
+#include <vector>
 
-class Motion : public Component {
-	Vector2D velocity_;
-    Vector2D acceleration_;
+class BasicAI : public Component {
+	
+	float speed;
+	size_t num_destinations_;
+	using DestinationIt = std::vector<Vector2D>::iterator;
+	std::vector<Vector2D> destinations_;
+	DestinationIt current_destination_;
+
 public:
-	friend class Physics;
-	friend class Collision;
 	friend class PlayState;
 
 /******************************************************************************/
 /*!
-  \fn Motion()
+  \fn BasicAI()
 
-  \brief Constructor for Motion that defaults the data members of the
+  \brief Constructor for BasicAI that defaults the data members of the
 		 component
 */
 /******************************************************************************/
-	Motion();
+	BasicAI();
 
 /******************************************************************************/
 /*!
-  \fn ~Motion()
+  \fn ~BasicAI()
 
-  \brief Destructor for Motion that removes the component from the
-		 Physics system motion map
+  \brief Destructor for BasicAI that removes the component from the
+		 Game system AI component map
 */
 /******************************************************************************/
-	~Motion();
+	~BasicAI();
 
 /******************************************************************************/
 /*!
   \fn Init()
 
-  \brief Adds the component itself to the Physics system motion map
+  \brief Adds the component itself to the Game system AI map
 */
 /******************************************************************************/
 	void Init();
