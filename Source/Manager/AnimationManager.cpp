@@ -3,9 +3,12 @@
 #include "Systems/Debug.h"
 #include "Engine/Core.h"
 
-Animation::Animation(std::list <Texture*> animation_frames, GLfloat frame_duration)	:
-	animation_frames_{ animation_frames },
-	frame_duration_{ frame_duration } {
+Animation::Animation(int num_frames, GLuint animation_frames, GLfloat frame_duration, float offset_x, std::vector<glm::vec2> tex_vtx) :
+	num_frames_ { num_frames },
+	animation_frames_ { animation_frames },
+	frame_duration_ { frame_duration },
+	offset_x_ { offset_x },
+	tex_vtx_ { tex_vtx } {
 
 }
 
@@ -19,15 +22,49 @@ float Animation::GetFrameDuration() {
 	return frame_duration_;
 }
 
-std::list<Texture*>::iterator Animation::GetLastFrame() {
-	
-	return animation_frames_.end();
+GLuint* Animation::GetAnimationFramesHandle()
+{
+	return &animation_frames_;
 }
 
-std::list<Texture*>::iterator Animation::GetFirstFrame() {
-	
-	return animation_frames_.begin();
+std::vector<glm::vec2>* Animation::GetTexVtx()
+{
+	return &tex_vtx_;
 }
+
+void Animation::SetToNextFrame()
+{
+	for (int i = 0; i < tex_vtx_.size(); ++i)
+	{
+		tex_vtx_[i].x += offset_x_;
+	}
+}
+
+void Animation::SetToFirstFrame()
+{
+	tex_vtx_[0].x = 0.0f;
+	tex_vtx_[1].x = offset_x_;
+	tex_vtx_[2].x = 0.0f;
+	tex_vtx_[3].x = offset_x_;
+}
+
+bool Animation::IsLastFrame()
+{
+	return tex_vtx_[0].x == offset_x_ * (num_frames_ - 1);
+}
+
+AnimationSet::AnimationSet(GLuint animation_frames, std::vector<std::pair<std::string, int>>* animation_names) :
+	animation_frames_{ animation_frames },
+	animation_names_{ animation_names }
+{
+
+}
+
+void AnimationSet::UnloadAnimationSet()
+{
+	glDeleteTextures(1, &animation_frames_);
+}
+
 
 void AnimationManager::Init() {
 	
@@ -37,38 +74,63 @@ void AnimationManager::Init() {
 
 void AnimationManager::TempFunctionForTesting() {
 	
-	CreateAnimation("Player_Walk", 8, "Player_Walk", 0.07f);
+	CreateAnimation("Resources\\Sprites\\MC_States.png", &player_animations_, 0.07f);
 }
 
-void AnimationManager::CreateAnimation(std::string animation_name,
-									   size_t num_frames,
-									   std::string texture_name,
+void AnimationManager::CreateAnimation(const char* filename,
+									   std::vector<std::pair<std::string, int>>* animation_name,
 									   GLfloat frame_duration) {
 	
-	std::list<Texture*> temp;
+	GLuint image_handle = texture_manager_->LoadImageFile(filename);
+	float offset_x = 1.0f / (*animation_name)[0].second;
 
-	for (int i = 0; i < num_frames; ++i) {
+	for (int i = 1; i < animation_name->size(); ++i) {
 
-		temp.push_back(texture_manager_->GetTexture(texture_name + std::to_string(i)));
+		std::vector<glm::vec2> temp{ { 0.0f, 1 - (i * 1.0f / (animation_name->size() - 1)) },
+									 { offset_x, 1 - (i * 1.0f / (animation_name->size() - 1)) },
+									 { 0.0f, 1 - ((i - 1) * 1.0f / (animation_name->size() - 1)) },
+									 { offset_x, 1 - ((i - 1) * 1.0f / (animation_name->size() - 1)) } };
+
+		int num_frames = (*animation_name)[i].second;
+		animations_[(*animation_name)[i].first] = Animation{ num_frames, image_handle, frame_duration, offset_x,  temp };
 	}
 
-	animations_[animation_name] = Animation{ temp, frame_duration };
+	animation_sets_[(*animation_name)[0].first] = AnimationSet{ image_handle, animation_name };
 }
 
-bool AnimationManager::DeleteAnimation(std::string animation_name) {
+bool AnimationManager::UnloadAnimationSet(std::vector<std::pair<std::string, int>>* animation_name) {
 	
-	if (animations_.find(animation_name) != animations_.end()) {
+	auto it = animation_sets_.find((*animation_name)[0].first);
 
-		animations_.erase(animation_name);
+	if (it != animation_sets_.end()) {
+
+		for (int i = 1; i < animation_name->size(); ++i)
+		{
+			animations_.erase((*animation_name)[i].first);
+		}
+
+		it->second.UnloadAnimationSet();
+		animation_sets_.erase(it);
 		return true;
 	}
 
 	return false;
 }
 
-Animation* AnimationManager::GetAnimation(std::string animation_name) {
+void AnimationManager::UnloadAllAnimationSets()
+{
+	for (auto it = animation_sets_.begin(); it != animation_sets_.end(); ++it)
+	{
+		it->second.UnloadAnimationSet();
+	}
+
+	animations_.clear();
+	animation_sets_.clear();
+}
+
+Animation AnimationManager::GetAnimation(std::string animation_name) {
 	
-	return &animations_[animation_name];
+	return animations_[animation_name];
 }
 
 void AnimationManager::ChangeAnimationFrameDuration(std::string animation_name, GLfloat new_frame_duration) {

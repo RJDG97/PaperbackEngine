@@ -19,6 +19,8 @@ Renderer::~Renderer() {
 void Renderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddRendererComponent(Component::GetOwner()->GetID(), this);
+    texture_handle_ = texture_.GetTilesetHandle();
+    tex_vtx_ = texture_.GetTexVtx();
 }
 
 void Renderer::Serialize(std::stringstream& data) {

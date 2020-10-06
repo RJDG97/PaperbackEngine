@@ -328,17 +328,17 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
     }
 }
 
-void GraphicsSystem::UpdateObjectMatrix(Renderer* renderer, glm::mat3 world_to_ndc_xform) {
+void GraphicsSystem::UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to_ndc_xform) {
 
     glm::mat3 scaling, rotation, translation;
 
-    Vector2D scale = dynamic_cast<Scale*>(renderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
+    Vector2D scale = dynamic_cast<Scale*>(irenderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
 
     scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
                          0.0f, scale.y, 0.0f,
                          0.0f, 0.0f, 1.0f };
 
-    Transform* transform = dynamic_cast<Transform*>(renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+    Transform* transform = dynamic_cast<Transform*>(irenderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
     //assert(transform);
     DEBUG_ASSERT(transform, "Entity does not have a Transform component");
 
@@ -353,7 +353,7 @@ void GraphicsSystem::UpdateObjectMatrix(Renderer* renderer, glm::mat3 world_to_n
                        0.0f, 1.0f, 0.0f,
                        position.x, position.y, 1.0f };
 
-    renderer->mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
+    irenderer->mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
 }
 
 void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime) {
@@ -365,41 +365,40 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
         if (anim_renderer->time_elapsed_ >= anim_renderer->current_animation_->GetFrameDuration()) {
 
-            ++anim_renderer->current_frame_;
+            anim_renderer->current_animation_->SetToNextFrame();
 
-            if (anim_renderer->current_frame_ == anim_renderer->current_animation_->GetLastFrame()) {
+            if (anim_renderer->current_animation_->IsLastFrame()) {
 
                 anim_renderer->has_finished_animating_ = true;
-                anim_renderer->current_frame_ = anim_renderer->current_animation_->GetFirstFrame();
+                anim_renderer->current_animation_->SetToFirstFrame();
             }
 
             anim_renderer->time_elapsed_ = 0.0f;
-            anim_renderer->texture_ = **anim_renderer->current_frame_;
         }
     }
 }
 
-void GraphicsSystem::DrawObject(Renderer* renderer) {
+void GraphicsSystem::DrawObject(IRenderer* irenderer) {
+    
+    irenderer->shdr_pgm_->Use();
+    glBindVertexArray(irenderer->model_->vaoid_);
 
-    renderer->shdr_pgm_->Use();
-    glBindVertexArray(renderer->model_->vaoid_);
+    glBindTexture(GL_TEXTURE_2D, *(irenderer->texture_handle_));
+    glBindTextureUnit(0, *(irenderer->texture_handle_));
+    glUseProgram(irenderer->shdr_pgm_->GetHandle());
 
-    glBindTexture(GL_TEXTURE_2D, (*renderer->texture_.GetTilesetHandle()));
-    glBindTextureUnit(0, (*renderer->texture_.GetTilesetHandle()));
-    glUseProgram(renderer->shdr_pgm_->GetHandle());
+    irenderer->shdr_pgm_->SetUniform("uTex2d", 0);
+    irenderer->shdr_pgm_->SetUniform("uModel_to_NDC", irenderer->mdl_to_ndc_xform_);
 
-    renderer->shdr_pgm_->SetUniform("uTex2d", 0);
-    renderer->shdr_pgm_->SetUniform("uModel_to_NDC", renderer->mdl_to_ndc_xform_);
-
-    glNamedBufferSubData(renderer->model_->GetVBOHandle(), renderer->model_->GetVBOOffset(),
-                         sizeof(glm::vec2) * 4, renderer->texture_.GetTexVtx().data());
-    glDrawElements(GL_TRIANGLE_STRIP, renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glNamedBufferSubData(irenderer->model_->GetVBOHandle(), irenderer->model_->GetVBOOffset(),
+                         sizeof(glm::vec2) * 4, irenderer->tex_vtx_->data());
+    glDrawElements(GL_TRIANGLE_STRIP, irenderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
     // after completing the rendering, we tell the driver that the VAO vaoid
     // and the current shader program are no longer current
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-    renderer->shdr_pgm_->UnUse();
+    irenderer->shdr_pgm_->UnUse();
 }
 
 void GraphicsSystem::ChangeTexture(Renderer* renderer, std::string texture_name) {
@@ -422,7 +421,7 @@ void GraphicsSystem::FlipTextureX(Renderer* renderer) {
     renderer->x_mirror_ = !renderer->x_mirror_;
 
     std::vector<glm::vec2> new_vertex;
-    std::vector<glm::vec2> temp_vertex = renderer->texture_.GetTexVtx();
+    std::vector<glm::vec2> temp_vertex = *renderer->texture_.GetTexVtx();
 
     new_vertex.push_back(temp_vertex[2]);
     new_vertex.push_back(temp_vertex[3]);
@@ -437,7 +436,7 @@ void GraphicsSystem::FlipTextureY(Renderer* renderer) {
     renderer->y_mirror_ = !renderer->y_mirror_;
 
     std::vector<glm::vec2> new_vertex;
-    std::vector<glm::vec2> temp_vertex = renderer->texture_.GetTexVtx();
+    std::vector<glm::vec2> temp_vertex = *renderer->texture_.GetTexVtx();
 
     new_vertex.push_back(temp_vertex[1]);
     new_vertex.push_back(temp_vertex[0]);
@@ -447,9 +446,9 @@ void GraphicsSystem::FlipTextureY(Renderer* renderer) {
     renderer->texture_.SetTexVtx(new_vertex);
 }
 
-int GraphicsSystem::GetLayer(Renderer* renderer) {
+int GraphicsSystem::GetLayer(IRenderer* irenderer) {
 
-    return renderer->layer_;
+    return irenderer->layer_;
 }
 
 void GraphicsSystem::AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
@@ -459,8 +458,6 @@ void GraphicsSystem::AddAnimation(AnimationRenderer* anim_renderer, std::string 
 
 void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
 
-    anim_renderer->current_frame_ = anim_renderer->obj_animations_[animation_name]->GetFirstFrame();
-    anim_renderer->current_animation_ = anim_renderer->obj_animations_[animation_name];
+    anim_renderer->current_animation_ = &anim_renderer->obj_animations_[animation_name];
     anim_renderer->time_elapsed_ = 0.0f;
-    anim_renderer->texture_ = **(anim_renderer->current_frame_);
 }

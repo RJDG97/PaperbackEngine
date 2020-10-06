@@ -75,16 +75,17 @@ public:
     void AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer);
     void RemoveAnimationRendererComponent(EntityID id);
 
-    void UpdateObjectMatrix(Renderer* renderer, glm::mat3 world_to_ndc_xform);
+    void UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to_ndc_xform);
     void UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime);
-    void DrawObject(Renderer* renderer);
+    
+    void DrawObject(IRenderer* irenderer);
 
     void ChangeTexture(Renderer* renderer, std::string texture_name);
     void ChangeModel(Renderer* renderer, std::string model_name);
     void ChangeShdrpgm(Renderer* renderer, std::string shdr_pgm_name);
     void FlipTextureX(Renderer* renderer);
     void FlipTextureY(Renderer* renderer);
-    int GetLayer(Renderer* renderer);
+    int GetLayer(IRenderer* irenderer);
 
     void AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
     void SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
@@ -92,8 +93,8 @@ public:
     std::unordered_map<EntityID, Renderer*> renderer_arr_;
     std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
 
-    using RenderOrderIt = std::multimap<int, Renderer*>::iterator;
-    std::multimap<int, Renderer*> renderers_in_order_;
+    using RenderOrderIt = std::multimap<int, IRenderer*>::iterator;
+    std::multimap<int, IRenderer*> renderers_in_order_;
 };
 
 #endif

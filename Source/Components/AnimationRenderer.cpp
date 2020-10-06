@@ -19,6 +19,8 @@ AnimationRenderer::~AnimationRenderer() {
 void AnimationRenderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
+    texture_handle_ = current_animation_->GetAnimationFramesHandle();
+    tex_vtx_ = current_animation_->GetTexVtx();
 }
 
 void AnimationRenderer::Serialize(std::stringstream& data) {

@@ -185,6 +185,7 @@
     <ClInclude Include="Include\Components\Attack.h" />
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
+    <ClInclude Include="Include\Components\IRenderer.h" />
     <ClInclude Include="Include\Components\Motion.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
     <ClInclude Include="Include\Components\Renderer.h" />

@@ -311,5 +311,8 @@
     <ClInclude Include="Include\Components\PointLight.h">
       <Filter>Entity\Components\Light</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Components\IRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

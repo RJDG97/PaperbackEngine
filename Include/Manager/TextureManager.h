@@ -10,16 +10,16 @@
 
 class Texture {
 
-	GLuint* tileset_handle_;
+	GLuint tileset_handle_;
 	std::vector<glm::vec2> tex_vtx_;
 
 public:
 
 	Texture() = default;
-	Texture(GLuint* tileset_handle, std::vector<glm::vec2> tex_vtx);
+	Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx);
 
 	GLuint* GetTilesetHandle();
-	std::vector<glm::vec2> GetTexVtx();
+	std::vector<glm::vec2>* GetTexVtx();
 	void SetTexVtx(std::vector<glm::vec2> new_vertex);
 };
 
@@ -33,7 +33,7 @@ public:
 	Tileset() = default;
 	Tileset(GLuint tileset_handle, std::vector<std::string>* tileset_name);
 
-	GLuint* GetTilesetHandle();
+	GLuint GetTilesetHandle();
 	std::vector<std::string>* GetTileNames();
 	void UnloadTileset();
 };
@@ -75,20 +75,7 @@ class TextureManager : public IManager {
 		"Empty",
 		"Empty",
 		"Rock"
-	};
-
-	std::vector<std::string> player_walk_ {
-
-		"PlayerTiles",
-		"Player_Walk0",
-		"Player_Walk1",
-		"Player_Walk2",
-		"Player_Walk3",
-		"Player_Walk4",
-		"Player_Walk5",
-		"Player_Walk6",
-		"Player_Walk7"
-	};				 
+	};			 
 
 public:
 
@@ -100,7 +87,8 @@ public:
 	void LoadMiscTextures();
 
 	//Used for all other tilesets
-	bool LoadTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names, size_t tile_width, size_t tile_height);
+	GLuint LoadImageFile(const char* filename);
+	void CreateTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names);
 
 	//Cleanup
 	bool UnloadTileset(std::string texture_name);

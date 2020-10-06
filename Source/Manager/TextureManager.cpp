@@ -3,7 +3,7 @@
 #include <FreeImage.h>
 #include <iostream>
 
-Texture::Texture(GLuint* tileset_handle, std::vector<glm::vec2> tex_vtx) :
+Texture::Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx) :
     tileset_handle_{ tileset_handle },
     tex_vtx_ { tex_vtx }
 {
@@ -12,12 +12,12 @@ Texture::Texture(GLuint* tileset_handle, std::vector<glm::vec2> tex_vtx) :
 
 GLuint* Texture::GetTilesetHandle()
 {
-    return tileset_handle_;
+    return &tileset_handle_;
 }
 
-std::vector<glm::vec2> Texture::GetTexVtx()
+std::vector<glm::vec2>* Texture::GetTexVtx()
 {
-    return tex_vtx_;
+    return &tex_vtx_;
 }
 
 void Texture::SetTexVtx(std::vector<glm::vec2> new_vertex)
@@ -32,9 +32,9 @@ Tileset::Tileset(GLuint tileset_handle, std::vector<std::string>* tileset_name) 
     
 }
 
-GLuint* Tileset::GetTilesetHandle()
+GLuint Tileset::GetTilesetHandle()
 {
-    return &tileset_handle_;
+    return tileset_handle_;
 }
 
 std::vector<std::string>* Tileset::GetTileNames()
@@ -62,9 +62,9 @@ void TextureManager::TempFunctionForTesting() {
     LoadMiscTextures();
 
     //load textures
-    LoadTileset("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_, 32, 32);
+    CreateTileset("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_);
 
-    LoadTileset("Resources\\Sprites\\MC_Walk.png", 8, 1, player_walk_, 60, 128);
+    //CreateTileset("Resources\\Sprites\\MC_Walk.png", 8, 1, player_walk_);
 }
 
 void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char red,
@@ -100,10 +100,7 @@ void TextureManager::LoadMiscTextures() {
     CreateQuadTexture("WhiteQuad", 255, 255, 255, 255);
 }
 
-bool TextureManager::LoadTileset(const char* filename,
-                                 size_t columns, size_t rows,
-                                 std::vector<std::string> texture_names,
-                                 size_t tile_width, size_t tile_height) {
+GLuint TextureManager::LoadImageFile(const char* filename) {
 
     std::cout << "Tileset is being loaded." << std::endl;
 
@@ -170,10 +167,20 @@ bool TextureManager::LoadTileset(const char* filename,
                  width, height,
                  0, GL_BGRA, GL_UNSIGNED_BYTE, bits);
 
-    tilesets_[texture_names[0]] = { texobj_hdl, &texture_names };
+    //Free FreeImage's copy of the data
+    FreeImage_Unload(dib);
+
+    //return success
+    std::cout << "Tileset successfully loaded!" << std::endl;
+    return texobj_hdl;
+}
+
+void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names)
+{
+    tilesets_[texture_names[0]] = { LoadImageFile(filename), &texture_names };
     Tileset* tileset = &(tilesets_[texture_names[0]]);
 
-    glm::vec2 offset {1.0f / columns, 1.0f / rows };
+    glm::vec2 offset{ 1.0f / columns, 1.0f / rows };
 
     for (int y = 0; y < rows; ++y) {
 
@@ -184,7 +191,7 @@ bool TextureManager::LoadTileset(const char* filename,
                 continue;
             }
 
-            glm::vec2 origin { x / static_cast<float>(columns) ,
+            glm::vec2 origin{ x / static_cast<float>(columns) ,
                                1 - y / static_cast<float>(rows) - offset.y };
 
             // + 1 skips over the name of the tilset
@@ -196,13 +203,6 @@ bool TextureManager::LoadTileset(const char* filename,
                            {origin.x + offset.x, origin.y + offset.y} } };
         }
     }
-
-    //Free FreeImage's copy of the data
-    FreeImage_Unload(dib);
-
-    //return success
-    std::cout << "Tileset successfully loaded!" << std::endl;
-    return true;
 }
 
 bool TextureManager::UnloadTileset(std::string tileset_name) {
@@ -237,6 +237,7 @@ void TextureManager::UnloadAllTilesets() {
         it->second.UnloadTileset();
     }
 
+    textures_.clear();
     tilesets_.clear();
 }
 
