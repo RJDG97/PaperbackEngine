@@ -111,7 +111,7 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     }
 
     //if format is still unkown, return failure
-    DEBUG_ASSERT(!(fif == FIF_UNKNOWN), "Format of image file is unknown : " + filename);
+    DEBUG_ASSERT(!(fif == FIF_UNKNOWN), (std::string{"Format of image file is unknown : "} += filename).c_str());
 
     //check that the plugin has reading capabilities and load the file
     if (FreeImage_FIFSupportsReading(fif)) {
@@ -126,7 +126,7 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     }
 
     //if the image failed to load, return failure
-    DEBUG_ASSERT(dib, "Failed to load image : " + filename);
+    DEBUG_ASSERT(dib, (std::string{ "Failed to load image : " } += filename).c_str());
 
     //retrieve the image data
     BYTE* bits = FreeImage_GetBits(dib);
@@ -135,7 +135,7 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     int height = FreeImage_GetHeight(dib);
 
     DEBUG_ASSERT(!(bits == 0) || (width == 0) || (height == 0),
-            "Bits and/or Width and/or Height of image file is zero : " + filename);
+        (std::string{ "Bits and/or Width and/or Height of image file is zero : " } += filename).c_str());
 
     glGenTextures(1, &texobj_hdl);
     glBindTexture(GL_TEXTURE_2D, texobj_hdl);
@@ -159,7 +159,6 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
 {
     GLuint tileset_handle_ = LoadImageFile(filename);
     tilesets_[texture_names[0]] = { tileset_handle_, &texture_names };
-    Tileset* tileset = &(tilesets_[texture_names[0]]);
 
     glm::vec2 offset{ 1.0f / columns, 1.0f / rows };
 
