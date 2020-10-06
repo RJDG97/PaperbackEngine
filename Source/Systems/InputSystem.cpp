@@ -356,7 +356,7 @@ void InputSystem::SetCursorPosition(double xPos, double yPos)
 	xPos -= CORE->GetSystem<WindowsSystem>()->GetWinWidth() / 2;
 	yPos = (-yPos) + CORE->GetSystem<WindowsSystem>()->GetWinHeight() / 2;
 
-	cursor_pos = { static_cast<float>(xPos), static_cast<float>(yPos) };
+	cursor_pos_ = { static_cast<float>(xPos), static_cast<float>(yPos) };
 }
 
 // Returns current cursor position
