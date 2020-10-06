@@ -34,7 +34,7 @@ public:
   \brief Creates and returns a new instance of the component
 */
 /******************************************************************************/
-	virtual Component* Create() = 0;
+	virtual std::shared_ptr<Component> Create() = 0;
 
 	virtual ~IComponentCreator() = default;
 };
@@ -62,7 +62,7 @@ public:
 		 is templated for
 */
 /******************************************************************************/
-	virtual Component* Create() {
-		return new type();
+	virtual std::shared_ptr<Component> Create() override {
+		return std::make_shared<type>();
 	}
 };

@@ -3,15 +3,16 @@
 
 #include "Components/IComponent.h"
 #include <vector>
+#include <memory>
 
 enum class EntityTypes;
 using EntityID = size_t;
-using ComponentArr = std::vector<Component*>;
+using ComponentArr = std::vector<std::shared_ptr<Component>>;
 
 // defines a single entity that owns components
 // aka gameobject in Unity terms
 class Entity {
-	using EntityIt = std::vector<Component*>::iterator;
+	using EntityIt = std::vector<std::shared_ptr<Component>>::iterator;
 
 	// Vector of components attached to the entity
 	ComponentArr components_;
@@ -49,7 +50,7 @@ public:
 		 otherwise a nullptr will be returned
 */
 /******************************************************************************/
-	Component* GetComponent(ComponentTypes type_id);
+	std::shared_ptr<Component> GetComponent(ComponentTypes type_id);
 
 /******************************************************************************/
 /*!
@@ -59,7 +60,7 @@ public:
 */
 /******************************************************************************/
 	template <typename return_type>
-	return_type* GetComponentType(ComponentTypes id);
+	std::shared_ptr<return_type> GetComponentType(ComponentTypes id);
 
 /******************************************************************************/
 /*!
@@ -88,7 +89,7 @@ public:
   \brief Adds a component to the current entity
 */
 /******************************************************************************/
-	void AddComponent(ComponentTypes typeId, Component* component);
+	void AddComponent(ComponentTypes typeId, std::shared_ptr<Component> component);
 
 /******************************************************************************/
 /*!

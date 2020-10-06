@@ -148,7 +148,7 @@ Entity* EntityFactory::CreateEmptyEntity() {
 
 
 Entity* EntityFactory::TestBuild() {
-
+	/*
 	Entity* ret = new Entity();
 
 	IComponentCreator* creator = component_map_.find("Motion")->second;
@@ -157,11 +157,11 @@ Entity* EntityFactory::TestBuild() {
 
 	ret->AddComponent(creator->GetComponentTypeID(), component);
 
-	/*creator = _componentMap.find("Health")->second;
+	creator = _componentMap.find("Health")->second;
 
 	component = creator->create();
 
-	ret->AddComponent(creator->_typeId, component);*/
+	ret->AddComponent(creator->_typeId, component);
 
 	creator = component_map_.find("Transform")->second;
 
@@ -178,6 +178,8 @@ Entity* EntityFactory::TestBuild() {
 	StoreEntityID(ret);
 
 	return ret;
+	*/
+	return nullptr;
 }
 
 //serialises single archetype 
@@ -224,7 +226,7 @@ Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, 
 		DEBUG_ASSERT(member.IsObject(), "Entry does not exist in JSON");
 
 		IComponentCreator* creator;
-		Component* component;
+		std::shared_ptr<Component> component;
 
 		// For every new component in the "Entity"s body
 		if (member.MemberBegin()->name == "component") {

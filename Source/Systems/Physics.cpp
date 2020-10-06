@@ -64,7 +64,8 @@ void Physics::ChangeVelocity(Message* m) {
 		//std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
 		if (motion->second->GetOwner()->GetType() == EntityTypes::PLAYER) {
 
-			Status* status = dynamic_cast<Status*>(motion->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
+			std::shared_ptr<Status> status = 
+				std::dynamic_pointer_cast<Status>(motion->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
 			//assert(status && "Player does not own Status Component");
 
 			// Temporary inclusion for "Hiding and burrow" check until input sys conversion to component

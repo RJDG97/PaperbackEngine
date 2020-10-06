@@ -18,18 +18,19 @@
 
 #include "Entity/ComponentTypes.h"
 
+#include <memory>
+
 // SAMPLE PLAY STATE
 PlayState m_PlayState;
 
 
 // Temporary pre-declaration for Engine Proof
 // Yeah its pretty illegal I know
-void ScaleEntityBig(Scale* scale, bool yes);
-void RotateLeft(Transform* xform, bool yes);
+void ScaleEntityBig(std::shared_ptr<Scale> scale, bool yes);
+void RotateLeft(std::shared_ptr<Transform> xform, bool yes);
 
-//demo scale pointer to player
-Scale* player_scale;
-Transform* player_xform;
+//demo pointer to player
+Entity* player;
 
 void PlayState::Init()
 {
@@ -44,13 +45,9 @@ void PlayState::Init()
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "MovingWall", EntityTypes::WALL);
-	Entity* player = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
+	player = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::ENEMY);
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
-
-	// PLACEHOLDER REMOVE THIS AFTER ENGINE PROOF
-	player_scale = dynamic_cast<Scale*>(player->GetComponent(ComponentTypes::SCALE));
-	player_xform = dynamic_cast<Transform*>(player->GetComponent(ComponentTypes::TRANSFORM));
 }
 
 void PlayState::Free()
@@ -82,7 +79,8 @@ void PlayState::Update(Game* game, float frametime)
 	// To use in play state meant to handle game logic components like BasicAI
 	for (Game::BasicAIIt basic_ai = game->basicai_arr_.begin(); basic_ai != game->basicai_arr_.end(); ++basic_ai) {
 
-		Transform* xform = dynamic_cast<Transform*>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+		std::shared_ptr<Transform> xform = 
+			std::dynamic_pointer_cast<Transform>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 		DEBUG_ASSERT((xform), "AI does not have Transform component");
 
 		// Check if entity close to destination aka point box collision
@@ -109,7 +107,8 @@ void PlayState::Update(Game* game, float frametime)
 			directional *= basic_ai->second->speed;
 
 			//set vector
-			Motion* motion = dynamic_cast<Motion*>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+			std::shared_ptr<Motion> motion = 
+				std::dynamic_pointer_cast<Motion>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
 			DEBUG_ASSERT((motion), "AI does not have a Motion component");
 
 			motion->velocity_ = directional;
@@ -206,22 +205,27 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				case GLFW_KEY_COMMA: // "<"
 				{
 
+					// PLACEHOLDER REMOVE THIS AFTER ENGINE PROOF
+
+					std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
 					ScaleEntityBig(player_scale, false);
 					break;
 				}
 				case GLFW_KEY_PERIOD: // ">"
 				{
+					std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
 					ScaleEntityBig(player_scale, true);
 					break;
 				}
 				case GLFW_KEY_SEMICOLON: // ";"
 				{
-
+					std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
 					RotateLeft(player_xform, true);
 					break;
 				}
 				case GLFW_KEY_APOSTROPHE: // "'"
 				{
+					std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
 					RotateLeft(player_xform, false);
 					break;
 				}
@@ -235,7 +239,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 }
 
-void ScaleEntityBig(Scale* scale, bool yes) {
+void ScaleEntityBig(std::shared_ptr<Scale> scale, bool yes) {
 	Vector2D new_scale;
 
 	if (yes) {
@@ -250,7 +254,7 @@ void ScaleEntityBig(Scale* scale, bool yes) {
 	scale->SetScale(new_scale);
 }
 
-void RotateLeft(Transform* xform, bool yes) {
+void RotateLeft(std::shared_ptr<Transform> xform, bool yes) {
 	float new_rotation;
 
 	if (yes) {
