@@ -19,7 +19,8 @@ class AnimationRenderer : public IRenderer {
 	bool play_animation_;								// true - play animation, false - stop playing animation
 	bool has_finished_animating_;						// true - animation has not finished, false - still in middle of animation
 
-	float time_elapsed_;
+	float time_elapsed_ = 0.0f;							// time elapsed this frame
+	float total_time_elapsed_ = 0.0f;					// time elapsed this cycle
 
 public:
 

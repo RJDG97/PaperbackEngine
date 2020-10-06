@@ -20,7 +20,12 @@ void AnimationRenderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
     texture_handle_ = current_animation_->GetAnimationFramesHandle();
-    tex_vtx_ = current_animation_->GetTexVtx();
+    tex_vtx_initial_ = current_animation_->GetTexVtx();
+    tex_vtx_mirrored_ = std::vector<glm::vec2*>{ &(*tex_vtx_initial_)[0],
+                                                 &(*tex_vtx_initial_)[1],
+                                                 &(*tex_vtx_initial_)[2],
+                                                 &(*tex_vtx_initial_)[3], };
+    tex_vtx_sent_ = *current_animation_->GetTexVtx();
 }
 
 void AnimationRenderer::Serialize(std::stringstream& data) {

@@ -11,11 +11,6 @@
 
 class Renderer : public IRenderer {
 
-protected:
-
-	bool x_mirror_ = false;
-	bool y_mirror_ = false;
-
 	Texture texture_;
 
 public:

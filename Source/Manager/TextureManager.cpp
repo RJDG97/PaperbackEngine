@@ -5,45 +5,38 @@
 
 Texture::Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx) :
     tileset_handle_{ tileset_handle },
-    tex_vtx_ { tex_vtx }
-{
+    tex_vtx_ { tex_vtx } {
 
 }
 
-GLuint* Texture::GetTilesetHandle()
-{
+GLuint* Texture::GetTilesetHandle() {
+
     return &tileset_handle_;
 }
 
-std::vector<glm::vec2>* Texture::GetTexVtx()
-{
+std::vector<glm::vec2>* Texture::GetTexVtx() {
+
     return &tex_vtx_;
 }
 
-void Texture::SetTexVtx(std::vector<glm::vec2> new_vertex)
-{
+void Texture::SetTexVtx(std::vector<glm::vec2> new_vertex) {
+
 	tex_vtx_ = new_vertex;
 }
 
 Tileset::Tileset(GLuint tileset_handle, std::vector<std::string>* tileset_name) :
     tileset_handle_ { tileset_handle },
-    tile_names_ { tileset_name }
-{
+    tile_names_ { tileset_name } {
     
 }
 
-GLuint Tileset::GetTilesetHandle()
-{
-    return tileset_handle_;
-}
+std::vector<std::string>* Tileset::GetTileNames() {
 
-std::vector<std::string>* Tileset::GetTileNames()
-{
     return tile_names_;
 }
 
-void Tileset::UnloadTileset()
-{
+void Tileset::UnloadTileset() {
+
     glDeleteTextures(1, &tileset_handle_);
 }
 
@@ -63,8 +56,6 @@ void TextureManager::TempFunctionForTesting() {
 
     //load textures
     CreateTileset("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_);
-
-    //CreateTileset("Resources\\Sprites\\MC_Walk.png", 8, 1, player_walk_);
 }
 
 void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char red,
@@ -102,7 +93,7 @@ void TextureManager::LoadMiscTextures() {
 
 GLuint TextureManager::LoadImageFile(const char* filename) {
 
-    std::cout << "Tileset is being loaded." << std::endl;
+    std::cout << "Tileset is being loaded : " << filename << std::endl;
 
     //image format
     FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -120,11 +111,7 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     }
 
     //if format is still unkown, return failure
-    if (fif == FIF_UNKNOWN) {
-
-        std::cout << "Failed to load image " << filename << std::endl;
-        return false;
-    }
+    DEBUG_ASSERT(!(fif == FIF_UNKNOWN), "Format of image file is unknown : " + filename);
 
     //check that the plugin has reading capabilities and load the file
     if (FreeImage_FIFSupportsReading(fif)) {
@@ -139,11 +126,7 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     }
 
     //if the image failed to load, return failure
-    if (!dib) {
-
-        std::cout << "Failed to load image " << filename << std::endl;
-        return false;
-    }
+    DEBUG_ASSERT(dib, "Failed to load image : " + filename);
 
     //retrieve the image data
     BYTE* bits = FreeImage_GetBits(dib);
@@ -151,11 +134,8 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     int width = FreeImage_GetWidth(dib);
     int height = FreeImage_GetHeight(dib);
 
-    if ((bits == 0) || (width == 0) || (height == 0)) {
-
-        std::cout << "Failed to load image " << filename << std::endl;
-        return false;
-    }
+    DEBUG_ASSERT(!(bits == 0) || (width == 0) || (height == 0),
+            "Bits and/or Width and/or Height of image file is zero : " + filename);
 
     glGenTextures(1, &texobj_hdl);
     glBindTexture(GL_TEXTURE_2D, texobj_hdl);
@@ -171,13 +151,14 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     FreeImage_Unload(dib);
 
     //return success
-    std::cout << "Tileset successfully loaded!" << std::endl;
+    std::cout << "Tileset successfully loaded : " << filename << std::endl;
     return texobj_hdl;
 }
 
 void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names)
 {
-    tilesets_[texture_names[0]] = { LoadImageFile(filename), &texture_names };
+    GLuint tileset_handle_ = LoadImageFile(filename);
+    tilesets_[texture_names[0]] = { tileset_handle_, &texture_names };
     Tileset* tileset = &(tilesets_[texture_names[0]]);
 
     glm::vec2 offset{ 1.0f / columns, 1.0f / rows };
@@ -196,7 +177,7 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
 
             // + 1 skips over the name of the tilset
             textures_[texture_names[y * columns + x + 1]] =
-                Texture{ tileset->GetTilesetHandle(),
+                Texture{ tileset_handle_,
                          { {origin.x, origin.y},
                            {origin.x + offset.x, origin.y},
                            {origin.x, origin.y + offset.y},
@@ -210,14 +191,13 @@ bool TextureManager::UnloadTileset(std::string tileset_name) {
     auto it = tilesets_.find(tileset_name);
 
     //if this texture ID is in use, unload the current texture
-    if (it != tilesets_.end())
-    {
+    if (it != tilesets_.end()) {
 
         it->second.UnloadTileset();
         std::vector<std::string>* tile_name = it->second.GetTileNames();
 
-        for (int i = 0; i < tile_name->size(); ++i)
-        {
+        for (int i = 0; i < tile_name->size(); ++i) {
+
             textures_.erase((*tile_name)[i]);
         }
 
@@ -232,8 +212,8 @@ bool TextureManager::UnloadTileset(std::string tileset_name) {
 
 void TextureManager::UnloadAllTilesets() {
 
-    for (auto it = tilesets_.begin(); it != tilesets_.end(); ++it)
-    {
+    for (auto it = tilesets_.begin(); it != tilesets_.end(); ++it) {
+
         it->second.UnloadTileset();
     }
 

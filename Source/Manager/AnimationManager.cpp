@@ -22,46 +22,34 @@ float Animation::GetFrameDuration() {
 	return frame_duration_;
 }
 
-GLuint* Animation::GetAnimationFramesHandle()
-{
+int Animation::GetNumFrames() {
+
+	return num_frames_;
+}
+
+GLuint* Animation::GetAnimationFramesHandle() {
+
 	return &animation_frames_;
 }
 
-std::vector<glm::vec2>* Animation::GetTexVtx()
-{
+float Animation::GetOffsetX() {
+
+	return offset_x_;
+}
+
+std::vector<glm::vec2>* Animation::GetTexVtx() {
+
 	return &tex_vtx_;
-}
-
-void Animation::SetToNextFrame()
-{
-	for (int i = 0; i < tex_vtx_.size(); ++i)
-	{
-		tex_vtx_[i].x += offset_x_;
-	}
-}
-
-void Animation::SetToFirstFrame()
-{
-	tex_vtx_[0].x = 0.0f;
-	tex_vtx_[1].x = offset_x_;
-	tex_vtx_[2].x = 0.0f;
-	tex_vtx_[3].x = offset_x_;
-}
-
-bool Animation::IsLastFrame()
-{
-	return tex_vtx_[0].x == offset_x_ * (num_frames_ - 1);
 }
 
 AnimationSet::AnimationSet(GLuint animation_frames, std::vector<std::pair<std::string, int>>* animation_names) :
 	animation_frames_{ animation_frames },
-	animation_names_{ animation_names }
-{
+	animation_names_{ animation_names } {
 
 }
 
-void AnimationSet::UnloadAnimationSet()
-{
+void AnimationSet::UnloadAnimationSet() {
+
 	glDeleteTextures(1, &animation_frames_);
 }
 
@@ -104,8 +92,8 @@ bool AnimationManager::UnloadAnimationSet(std::vector<std::pair<std::string, int
 
 	if (it != animation_sets_.end()) {
 
-		for (int i = 1; i < animation_name->size(); ++i)
-		{
+		for (int i = 1; i < animation_name->size(); ++i) {
+
 			animations_.erase((*animation_name)[i].first);
 		}
 
@@ -119,8 +107,8 @@ bool AnimationManager::UnloadAnimationSet(std::vector<std::pair<std::string, int
 
 void AnimationManager::UnloadAllAnimationSets()
 {
-	for (auto it = animation_sets_.begin(); it != animation_sets_.end(); ++it)
-	{
+	for (auto it = animation_sets_.begin(); it != animation_sets_.end(); ++it) {
+
 		it->second.UnloadAnimationSet();
 	}
 

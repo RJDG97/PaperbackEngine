@@ -15,6 +15,7 @@ class PointLight : public Component {
 	Shader shdr_pgm_;
 
 	glm::vec3 color_;
+	float scale_;
 	float radius_;
 	float intensity_;
 

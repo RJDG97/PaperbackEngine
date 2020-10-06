@@ -67,30 +67,39 @@ public:
     //function more akin to "What to do when message is received" for internal logic
     virtual void SendMessageD(Message* m);
 
-    using RendererIt = std::unordered_map<EntityID, Renderer*>::iterator;
+    //for adding and removing renderer and animation components
     void AddRendererComponent(EntityID id, Renderer* renderer);
     void RemoveRendererComponent(EntityID id);
-
-    using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer*>::iterator;
     void AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer);
     void RemoveAnimationRendererComponent(EntityID id);
 
+    //updating of components
     void UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to_ndc_xform);
     void UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime);
     
+    //drawing of components
     void DrawObject(IRenderer* irenderer);
 
-    void ChangeTexture(Renderer* renderer, std::string texture_name);
-    void ChangeModel(Renderer* renderer, std::string model_name);
-    void ChangeShdrpgm(Renderer* renderer, std::string shdr_pgm_name);
-    void FlipTextureX(Renderer* renderer);
-    void FlipTextureY(Renderer* renderer);
+    //functions for irenderer
+    void ChangeModel(IRenderer* irenderer, std::string model_name);
+    void ChangeShdrpgm(IRenderer* irenderer, std::string shdr_pgm_name);
+    void FlipTextureX(IRenderer* irenderer);
+    void FlipTextureY(IRenderer* irenderer);
     int GetLayer(IRenderer* irenderer);
 
+    //functions for renderer
+    void ChangeTexture(Renderer* renderer, std::string texture_name);
+
+    //functions for animation renderer
     void AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
     void SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
+    void SetToNextFrame(AnimationRenderer* anim_renderer);
+    bool IsLastFrame(AnimationRenderer* anim_renderer);
 
+    using RendererIt = std::unordered_map<EntityID, Renderer*>::iterator;
     std::unordered_map<EntityID, Renderer*> renderer_arr_;
+
+    using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer*>::iterator;
     std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
 
     using RenderOrderIt = std::multimap<int, IRenderer*>::iterator;

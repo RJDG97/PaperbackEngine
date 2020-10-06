@@ -232,6 +232,7 @@ void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, GLuint* text
 Returns allocated resources
 */
 void GraphicsSystem::CleanUp() {
+
     glDeleteFramebuffers(1, &frame_buffer_);
     glDeleteRenderbuffers(1, &render_buffer_);
     glDeleteTextures(1, &final_texture_);
@@ -282,10 +283,10 @@ void GraphicsSystem::RemoveRendererComponent(EntityID id) {
 
     if (orderit != renderers_in_order_.end()) {
 
-        for ( ; orderit != renderers_in_order_.end() && (*orderit).first == layer ; ++orderit)
-        {
-            if ((*orderit).second->GetOwner()->GetID() == id)
-            {
+        for ( ; orderit != renderers_in_order_.end() && (*orderit).first == layer ; ++orderit) {
+
+            if ((*orderit).second->GetOwner()->GetID() == id) {
+
                 orderit = renderers_in_order_.erase(orderit);
                 break;
             }
@@ -365,12 +366,18 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
         if (anim_renderer->time_elapsed_ >= anim_renderer->current_animation_->GetFrameDuration()) {
 
-            anim_renderer->current_animation_->SetToNextFrame();
+            SetToNextFrame(anim_renderer);
+            anim_renderer->total_time_elapsed_ += anim_renderer->time_elapsed_;
 
-            if (anim_renderer->current_animation_->IsLastFrame()) {
+            if (IsLastFrame(anim_renderer)) {
 
                 anim_renderer->has_finished_animating_ = true;
-                anim_renderer->current_animation_->SetToFirstFrame();
+                anim_renderer->total_time_elapsed_ = 0.0f;
+
+                for (int i = 0; i < anim_renderer->tex_vtx_sent_.size(); ++i) {
+
+                    anim_renderer->tex_vtx_sent_[i] = *anim_renderer->tex_vtx_mirrored_[i];
+                }
             }
 
             anim_renderer->time_elapsed_ = 0.0f;
@@ -391,7 +398,7 @@ void GraphicsSystem::DrawObject(IRenderer* irenderer) {
     irenderer->shdr_pgm_->SetUniform("uModel_to_NDC", irenderer->mdl_to_ndc_xform_);
 
     glNamedBufferSubData(irenderer->model_->GetVBOHandle(), irenderer->model_->GetVBOOffset(),
-                         sizeof(glm::vec2) * 4, irenderer->tex_vtx_->data());
+                         sizeof(glm::vec2) * 4, irenderer->tex_vtx_sent_.data());
     glDrawElements(GL_TRIANGLE_STRIP, irenderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
     // after completing the rendering, we tell the driver that the VAO vaoid
@@ -401,54 +408,54 @@ void GraphicsSystem::DrawObject(IRenderer* irenderer) {
     irenderer->shdr_pgm_->UnUse();
 }
 
-void GraphicsSystem::ChangeTexture(Renderer* renderer, std::string texture_name) {
+void GraphicsSystem::ChangeModel(IRenderer* irenderer, std::string model_name) {
 
-    renderer->texture_ = *(texture_manager_->GetTexture(texture_name));
+    irenderer->model_ = model_manager_->GetModel(model_name);
 }
 
-void GraphicsSystem::ChangeModel(Renderer* renderer, std::string model_name) {
+void GraphicsSystem::ChangeShdrpgm(IRenderer* irenderer, std::string shdr_pgm_name) {
 
-    renderer->model_ = model_manager_->GetModel(model_name);
+    irenderer->shdr_pgm_ = shader_manager_->GetShdrpgm(shdr_pgm_name);
 }
 
-void GraphicsSystem::ChangeShdrpgm(Renderer* renderer, std::string shdr_pgm_name) {
+void GraphicsSystem::FlipTextureX(IRenderer* irenderer) {
 
-    renderer->shdr_pgm_ = shader_manager_->GetShdrpgm(shdr_pgm_name);
+    irenderer->x_mirror_ = !irenderer->x_mirror_;
+
+    std::swap(irenderer->tex_vtx_mirrored_[0], irenderer->tex_vtx_mirrored_[2]);
+    std::swap(irenderer->tex_vtx_mirrored_[1], irenderer->tex_vtx_mirrored_[3]);
+
+    irenderer->tex_vtx_sent_.clear();
+
+    for (int i = 0; i < irenderer->tex_vtx_mirrored_.size(); ++i) {
+
+        irenderer->tex_vtx_sent_.push_back(*irenderer->tex_vtx_mirrored_[i]);
+    }
 }
 
-void GraphicsSystem::FlipTextureX(Renderer* renderer) {
+void GraphicsSystem::FlipTextureY(IRenderer* irenderer) {
 
-    renderer->x_mirror_ = !renderer->x_mirror_;
+    irenderer->y_mirror_ = !irenderer->y_mirror_;
 
-    std::vector<glm::vec2> new_vertex;
-    std::vector<glm::vec2> temp_vertex = *renderer->texture_.GetTexVtx();
+    std::swap(irenderer->tex_vtx_mirrored_[0], irenderer->tex_vtx_mirrored_[1]);
+    std::swap(irenderer->tex_vtx_mirrored_[2], irenderer->tex_vtx_mirrored_[3]);
 
-    new_vertex.push_back(temp_vertex[2]);
-    new_vertex.push_back(temp_vertex[3]);
-    new_vertex.push_back(temp_vertex[0]);
-    new_vertex.push_back(temp_vertex[1]);
+    irenderer->tex_vtx_sent_.clear();
 
-    renderer->texture_.SetTexVtx(new_vertex);
-}
+    for (int i = 0; i < irenderer->tex_vtx_mirrored_.size(); ++i) {
 
-void GraphicsSystem::FlipTextureY(Renderer* renderer) {
-
-    renderer->y_mirror_ = !renderer->y_mirror_;
-
-    std::vector<glm::vec2> new_vertex;
-    std::vector<glm::vec2> temp_vertex = *renderer->texture_.GetTexVtx();
-
-    new_vertex.push_back(temp_vertex[1]);
-    new_vertex.push_back(temp_vertex[0]);
-    new_vertex.push_back(temp_vertex[3]);
-    new_vertex.push_back(temp_vertex[2]);
-
-    renderer->texture_.SetTexVtx(new_vertex);
+        irenderer->tex_vtx_sent_.push_back(*irenderer->tex_vtx_mirrored_[i]);
+    }
 }
 
 int GraphicsSystem::GetLayer(IRenderer* irenderer) {
 
     return irenderer->layer_;
+}
+
+void GraphicsSystem::ChangeTexture(Renderer* renderer, std::string texture_name) {
+
+    renderer->texture_ = *(texture_manager_->GetTexture(texture_name));
 }
 
 void GraphicsSystem::AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
@@ -460,4 +467,28 @@ void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string 
 
     anim_renderer->current_animation_ = &anim_renderer->obj_animations_[animation_name];
     anim_renderer->time_elapsed_ = 0.0f;
+
+    anim_renderer->texture_handle_ = anim_renderer->current_animation_->GetAnimationFramesHandle();
+    anim_renderer->tex_vtx_initial_ = anim_renderer->current_animation_->GetTexVtx();
+
+    for (int i = 0; i < anim_renderer->tex_vtx_mirrored_.size(); ++i) {
+
+        anim_renderer->tex_vtx_sent_.push_back(*anim_renderer->tex_vtx_mirrored_[i]);
+    }
+}
+
+void GraphicsSystem::SetToNextFrame(AnimationRenderer* anim_renderer) {
+
+    for (int i = 0; i < anim_renderer->tex_vtx_sent_.size(); ++i) {
+
+        anim_renderer->tex_vtx_sent_[i].x +=
+            anim_renderer->current_animation_->GetOffsetX() * ( 1 - 2 * anim_renderer->y_mirror_);
+    }
+}
+
+bool GraphicsSystem::IsLastFrame(AnimationRenderer* anim_renderer) {
+
+    return anim_renderer->total_time_elapsed_ >=
+                anim_renderer->current_animation_->GetFrameDuration() *
+                anim_renderer->current_animation_->GetNumFrames();
 }

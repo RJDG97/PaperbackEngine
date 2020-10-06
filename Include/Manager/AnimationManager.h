@@ -19,13 +19,12 @@ public:
 	Animation(int num_frames_, GLuint animation_frames, GLfloat frame_duration, float offset_x, std::vector<glm::vec2> tex_vtx);
 	
 	void ChangeFrameDuration(GLfloat frame_duration);
-	float GetFrameDuration();
+
+	int GetNumFrames();
 	GLuint* GetAnimationFramesHandle();
+	float GetFrameDuration();
+	float GetOffsetX();
 	std::vector<glm::vec2>* GetTexVtx();
-	
-	void SetToNextFrame();
-	void SetToFirstFrame();
-	bool IsLastFrame();
 };
 
 class AnimationSet {

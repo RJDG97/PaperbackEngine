@@ -33,7 +33,6 @@ public:
 	Tileset() = default;
 	Tileset(GLuint tileset_handle, std::vector<std::string>* tileset_name);
 
-	GLuint GetTilesetHandle();
 	std::vector<std::string>* GetTileNames();
 	void UnloadTileset();
 };
