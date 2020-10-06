@@ -3,7 +3,7 @@
 
 class Component;
 
-class ComponentCreator {
+class IComponentCreator {
 
 	ComponentTypes type_id_;
 public:
@@ -15,7 +15,7 @@ public:
   \brief Instantiate component with it's Type ID
 */
 /******************************************************************************/
-	ComponentCreator(ComponentTypes type_id) : type_id_(type_id)
+	IComponentCreator(ComponentTypes type_id) : type_id_(type_id)
 	{}
 
 /******************************************************************************/
@@ -36,12 +36,12 @@ public:
 /******************************************************************************/
 	virtual Component* Create() = 0;
 
-	virtual ~ComponentCreator() = default;
+	virtual ~IComponentCreator() = default;
 };
 
 
 template <typename type>
-class ComponentCreatorType : public ComponentCreator {
+class ComponentCreator : public IComponentCreator {
 public:
 
 /******************************************************************************/
@@ -51,7 +51,7 @@ public:
   \brief Instantiate component with it's Type ID
 */
 /******************************************************************************/
-	ComponentCreatorType(ComponentTypes id) : ComponentCreator(id) 
+	ComponentCreator(ComponentTypes id) : IComponentCreator(id) 
 	{}
 
 /******************************************************************************/

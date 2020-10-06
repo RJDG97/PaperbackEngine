@@ -16,9 +16,20 @@
 #include "Components/Transform.h"
 #include "Components/Motion.h"
 
-// SAMPLE PLAY STATE
+#include "Entity/ComponentTypes.h"
 
+// SAMPLE PLAY STATE
 PlayState m_PlayState;
+
+
+// Temporary pre-declaration for Engine Proof
+// Yeah its pretty illegal I know
+void ScaleEntityBig(Scale* scale, bool yes);
+void RotateLeft(Transform* xform, bool yes);
+
+//demo scale pointer to player
+Scale* player_scale;
+Transform* player_xform;
 
 void PlayState::Init()
 {
@@ -33,10 +44,13 @@ void PlayState::Init()
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "MovingWall", EntityTypes::WALL);
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
+	Entity* player = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::ENEMY);
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
 
+	// PLACEHOLDER REMOVE THIS AFTER ENGINE PROOF
+	player_scale = dynamic_cast<Scale*>(player->GetComponent(ComponentTypes::SCALE));
+	player_xform = dynamic_cast<Transform*>(player->GetComponent(ComponentTypes::TRANSFORM));
 }
 
 void PlayState::Free()
@@ -165,6 +179,8 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
 			CORE->BroadcastMessage(&m2);
 		}
+
+
 	}
 
 	if (game) {
@@ -177,18 +193,73 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 			switch (key_val)
 			{
-				case 69: //E
+				case GLFW_KEY_E: // "E"
 				{
 					SetStatus(EntityTypes::PLAYER, StatusType::INVISIBLE, game);
 					break;
 				}
-				case 82: //R
+				case GLFW_KEY_R: // "R"
 				{
 					SetStatus(EntityTypes::PLAYER, StatusType::BURROW, game);
+					break;
+				}
+				case GLFW_KEY_COMMA: // "<"
+				{
+
+					ScaleEntityBig(player_scale, false);
+					break;
+				}
+				case GLFW_KEY_PERIOD: // ">"
+				{
+					ScaleEntityBig(player_scale, true);
+					break;
+				}
+				case GLFW_KEY_SEMICOLON: // ";"
+				{
+
+					RotateLeft(player_xform, true);
+					break;
+				}
+				case GLFW_KEY_APOSTROPHE: // "'"
+				{
+					RotateLeft(player_xform, false);
+					break;
+				}
+				default:
+				{
 					break;
 				}
 			}
 		}
 	}
 
+}
+
+void ScaleEntityBig(Scale* scale, bool yes) {
+	Vector2D new_scale;
+
+	if (yes) {
+
+		new_scale = { 5.0f, 5.0f };
+	}
+	else {
+		new_scale = { -5.0f, -5.0f };
+	}
+
+	new_scale += scale->GetScale();
+	scale->SetScale(new_scale);
+}
+
+void RotateLeft(Transform* xform, bool yes) {
+	float new_rotation;
+
+	if (yes) {
+		new_rotation = 1.0f;
+	}
+	else {
+		new_rotation = -1.0f;
+	}
+
+	new_rotation += xform->GetRotation();
+	xform->SetRotation(new_rotation);
 }

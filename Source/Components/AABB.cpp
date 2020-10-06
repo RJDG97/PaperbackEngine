@@ -24,8 +24,8 @@ void AABB::Init() {
 void AABB::Serialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing AABB Component" << std::endl;
-	(void)data;
 	
+	data >> scale_.x >> scale_.y;
 }
 
 AABB* AABB::Clone() {

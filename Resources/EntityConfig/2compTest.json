@@ -26,7 +26,8 @@
       "layer": "1"
     },
     {
-      "component": "AABB"
+      "component": "AABB",
+      "scale": "40.0 40.0"
     },
     {
       "component": "Status"
@@ -68,7 +69,8 @@
       "layer": "0"
     },
     {
-      "component": "AABB"
+      "component": "AABB",
+      "scale": "30.0 30.0"
     },
     {
       "component": "Status"
@@ -109,7 +111,8 @@
       "layer": "0"
     },
     {
-      "component": "AABB"
+      "component": "AABB",
+      "scale": "30.0 30.0"
     },
     {
       "component": "PointLight",
@@ -151,7 +154,8 @@
       "layer": "0"
     },
     {
-      "component": "AABB"
+      "component": "AABB",
+      "scale": "30.0 30.0"
     },
     {
       "component": "PointLight",

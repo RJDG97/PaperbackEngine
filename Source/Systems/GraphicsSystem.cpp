@@ -115,8 +115,8 @@ void GraphicsSystem::Init() {
     final_model_ = model_manager_->GetModel("BoxModel");
     final_shader_ = shader_manager_->GetShdrpgm("FinalShader");
 
-    FACTORY->AddComponentCreator("Renderer", new ComponentCreatorType<Renderer>(ComponentTypes::RENDERER));
-    FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreatorType<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
+    FACTORY->AddComponentCreator("Renderer", new ComponentCreator<Renderer>(ComponentTypes::RENDERER));
+    FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 

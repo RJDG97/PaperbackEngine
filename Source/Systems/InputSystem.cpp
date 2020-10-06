@@ -159,16 +159,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 
 		case GLFW_KEY_A: 	//'A'
-			// e.g. let A Pause game in play state and quit game in menu state
-
-			//Method 1
-			//check current state
-			// run Fn1 if (curr state is play) and Fn2 if state is menu
-
-			//Method 2
-			//wrap custom message w/ custom message id targetting Game ISystem
-			// send message
-			// let Game sort out what to do
 			break;
 		case GLFW_KEY_B: 	//'B'
 		{
@@ -238,7 +228,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
-
 		default:
 			//std::cout << "Input System: [Error] Key is not bound" << std::endl;
 			break;
@@ -276,6 +265,28 @@ void InputSystem::Update(float frametime) {
 		input_flag |= RIGHT_FLAG;
 	if (IsKeyPressed(GLFW_KEY_DOWN))
 		input_flag |= DOWN_FLAG;
+
+
+	if (IsKeyPressed(GLFW_KEY_COMMA)) {
+	
+		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_COMMA);
+		CORE->BroadcastMessage(&msg);
+	}
+	if (IsKeyPressed(GLFW_KEY_PERIOD)) {
+		
+		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_PERIOD);
+		CORE->BroadcastMessage(&msg);
+	}
+	if (IsKeyPressed(GLFW_KEY_SEMICOLON)) {
+
+		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_SEMICOLON);
+		CORE->BroadcastMessage(&msg);
+	}
+	if (IsKeyPressed(GLFW_KEY_APOSTROPHE)) {
+
+		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_APOSTROPHE);
+		CORE->BroadcastMessage(&msg);
+	}
 
 	// Temporary placeholder before Input System conversion
 	if (IsKeyPressed(GLFW_KEY_B)) {

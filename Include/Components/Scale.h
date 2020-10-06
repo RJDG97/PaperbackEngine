@@ -42,6 +42,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SetScale()
+
+  \brief Sets the scale factor of the component
+*/
+/******************************************************************************/
+	void SetScale(const Vector2D& new_scale);
+
+/******************************************************************************/
+/*!
   \fn Serialize()
 
   \brief Reads data from a stringstream and stores them into the data members

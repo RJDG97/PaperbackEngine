@@ -3,7 +3,6 @@
 #include "Systems/Collision.h"
 #include "Systems/Factory.h"
 #include "Systems/Debug.h"
-#include "Components/Scale.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
 #include "Entity/ComponentTypes.h"
@@ -377,10 +376,9 @@ void Collision::UpdateBoundingBox() {
 		Entity* entity = aabb->second->GetOwner();
 		DEBUG_ASSERT((entity), "Entity does not exist");
 
-		Scale* entity_scale = dynamic_cast<Scale*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::SCALE));
 		Transform* entity_position = dynamic_cast<Transform*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
-		aabb->second->bottom_left_ = entity_position->position_ - entity_scale->scale_;
-		aabb->second->top_right_ = entity_position->position_ + entity_scale->scale_;
+		aabb->second->bottom_left_ = entity_position->position_ - aabb->second->scale_;
+		aabb->second->top_right_ = entity_position->position_ + aabb->second->scale_;
 	}
 }
