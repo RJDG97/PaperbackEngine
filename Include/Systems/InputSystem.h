@@ -12,33 +12,126 @@
 class InputSystem : public ISystem {
 	bool debug_;
 
-	int curkeystates[350];
-	int prekeystates[350];
-	int curmousebuttonstates[3];
-	int premousebuttonstates[3];
+	int curkeystates_[350];
+	int prekeystates_[350];
+	int curmousebuttonstates_[3];
+	int premousebuttonstates_[3];
 
 	GLFWwindow* ptr_window_;
-	Vector2D cursor_pos;
-	int state = 0, scroll_ = 0;
+	Vector2D cursor_pos_;
+	int state_ = 0, scroll_ = 0;
 
 public:
 
+/******************************************************************************/
+/*!
+  \fn SetKeyState(int keycode, int action)
+
+  \brief Set the param key state as the action param
+		 For IsKeyTriggered function
+*/
+/******************************************************************************/
 	void SetKeyState(int keycode, int action);
+
+/******************************************************************************/
+/*!
+  \fn SetMouseState(int button, int action)
+
+  \brief Set the param button state as the action param
+		 For IsMouseTriggered function
+*/
+/******************************************************************************/
 	void SetMouseState(int button, int action);
 
+/******************************************************************************/
+/*!
+  \fn IsKeyPressed(int keycode)
+
+  \brief Return if key has been pressed
+*/
+/******************************************************************************/
 	bool IsKeyPressed(int keycode);
+
+/******************************************************************************/
+/*!
+  \fn IsKeyTriggered(int keycode)
+
+  \brief Return if key has been pressed once
+*/
+/******************************************************************************/
 	bool IsKeyTriggered(int keycode);
 	
+/******************************************************************************/
+/*!
+  \fn SetCursorPosition(double xPos, double yPos)
+
+  \brief Retrieve current cursor position from callback
+*/
+/******************************************************************************/
 	void SetCursorPosition(double xPos, double yPos);
+
+/******************************************************************************/
+/*!
+  \fn GetCursorPosition()
+
+  \brief Return cursor position
+*/
+/******************************************************************************/
 	Vector2D GetCursorPosition();
 
-	bool IsMousePressed(int button);
-	bool IsMouseTriggered(int keycode);
+/******************************************************************************/
+/*!
+  \fn IsMousePressed(int button)
 
-	// ISystem
+  \brief Return if mouse button was pressed
+*/
+/******************************************************************************/
+	bool IsMousePressed(int button);
+
+/******************************************************************************/
+/*!
+  \fn IsMouseTriggered(int keycode)
+
+  \brief Return if mouse button was pressed once
+*/
+/******************************************************************************/
+	bool IsMouseTriggered(int button);
+
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Initialises the system
+*/
+/******************************************************************************/
 	void Init() override;
+
+/******************************************************************************/
+/*!
+  \fn Update()
+
+  \brief Computes the new velocity for every Motion component and then
+		 updates the Transform components based on that new Motion component
+*/
+/******************************************************************************/
 	void Update(float frametime) override;
+
+/******************************************************************************/
+/*!
+  \fn GetName()
+
+  \brief Returns the name of the system
+*/
+/******************************************************************************/
 	std::string GetName() override { return "Input System"; }
+
+/******************************************************************************/
+/*!
+  \fn SendMessageD()
+
+  \brief Receives messages broadcasted from Core Engine and processes it
+*/
+/******************************************************************************/
 	void SendMessageD(Message* m) override;
 };
 

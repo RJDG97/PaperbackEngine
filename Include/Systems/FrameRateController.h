@@ -14,59 +14,135 @@ class Time_Channel
 protected:
 
 	// Time variables
-	std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::high_resolution_clock::now();
-	std::chrono::time_point<std::chrono::steady_clock> end;
+	std::chrono::time_point<std::chrono::steady_clock> start_ = std::chrono::high_resolution_clock::now();
+	std::chrono::time_point<std::chrono::steady_clock> end_;
 	// Time Passed
-	std::chrono::duration<float> timeelapsed = start - start;
+	std::chrono::duration<float> timeelapsed_ = start_ - start_;
 	// Duration of frame (DeltaTime)
-	std::chrono::duration<float> frametime;
+	std::chrono::duration<float> frametime_;
 	// Whether Timer is running
-	bool running = false;
+	bool running_ = false;
 
 public:
 
-	// Timer update loop
+/******************************************************************************/
+/*!
+  \fn TimerUpdate()
+
+  \brief Updates the Timer (timeelapsed, frametime etc.)
+*/
+/******************************************************************************/
 	void TimerUpdate();
 
-	// Start Timer
+/******************************************************************************/
+/*!
+  \fn TimerStart()
+
+  \brief Starts the Timer
+*/
+/******************************************************************************/
 	void TimerStart();
 
-	// Pause Timer
+/******************************************************************************/
+/*!
+  \fn TimerStops()
+
+  \brief Stops the Timer
+*/
+/******************************************************************************/
 	void TimerStop();
 
-	// Reset Timer
+/******************************************************************************/
+/*!
+  \fn TimerReset()
+
+  \brief Set Timer to 0
+*/
+/******************************************************************************/
 	void TimerReset();
 
-	// Get Time elapsed
+/******************************************************************************/
+/*!
+  \fn TimerElapsed()
+
+  \brief Returns current timer value
+*/
+/******************************************************************************/
 	float TimeElapsed(TimeUnit string);
 
-	// Get FrameTime
+/******************************************************************************/
+/*!
+  \fn TimerFrameTime()
+
+  \brief Returns duration of one frame
+*/
+/******************************************************************************/
 	float GetFrameTime(TimeUnit string);
 };
 
 class FrameRateController : public Time_Channel
 {
-	int Frames = 0;
-	float FPS = 60.0f;
-	float MinFrameTime = 1 / FPS;
-	std::chrono::duration<float> Delta;
+	int frames_ = 0;
+	float fps_ = 60.0f;
+	float minframetime_ = 1 / fps_;
+	std::chrono::duration<float> delta_;
 
 public:
 
-	float Dt;
+	float dt_;
 
-	//Get Frames per Second
+/******************************************************************************/
+/*!
+  \fn GetFPS()
+
+  \brief Returns current framerate
+*/
+/******************************************************************************/
 	int GetFPS();
-	// Get Number of Frames
+
+/******************************************************************************/
+/*!
+  \fn GetFrames()
+
+  \brief Returns total number of frames 
+*/
+/******************************************************************************/
 	int GetFrames();
-	// Start of Framerate Controller loop
+
+/******************************************************************************/
+/*!
+  \fn FrameControllerStart()
+
+  \brief Sets the time of the start of the game loop
+*/
+/******************************************************************************/
 	void FrameControllerStart();
-	// End of Framerate Controller loop
+
+/******************************************************************************/
+/*!
+  \fn FrameControllerEnd()
+
+  \brief Sets the time of the end of the game loop
+*/
+/******************************************************************************/
 	void FrameControllerEnd();
-	// Merged FrameRateController
+
+/******************************************************************************/
+/*!
+  \fn FrameRareLoop()
+
+  \brief Updates the Framerate
+*/
+/******************************************************************************/
 	void FrameRateLoop();
 
-	// Change FPS
+/******************************************************************************/
+/*!
+  \fn SetFPS(float)
+
+  \brief change the current framerate
+*/
+/******************************************************************************/
 	void SetFPS(float);
 };
 
