@@ -1,6 +1,5 @@
 #include "Systems/InputSystem.h"
 #include "Systems/WindowsSystem.h"
-//#include "Engine/Core.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/MenuState.h"
 #include "Systems/Debug.h"
@@ -89,6 +88,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	UNREFERENCED_PARAMETER(scancode);
 	UNREFERENCED_PARAMETER(window);
 	UNREFERENCED_PARAMETER(mods);
+
 	// if Triggered
 	CORE->GetSystem<InputSystem>()->SetKeyState(key, action);
 	if (action == GLFW_PRESS)
@@ -104,19 +104,19 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_KEY_1:	//'1'
 		{
-			Message_CustomState msg{ &m_PlayState, MessageIDTypes::GSM_ChangeState }; // pass in another existing state?
+			Message_CustomState msg{ &m_PlayState, MessageIDTypes::GSM_CHANGESTATE}; // pass in another existing state?
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_2:	//'2'
 		{
-			Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_ChangeState }; // push maybe game state
+			Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_CHANGESTATE }; // push maybe game state
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_3:	//'3'
 		{
-			Message msg{ MessageIDTypes::GSM_PopState };
+			Message msg{ MessageIDTypes::GSM_POPSTATE };
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
@@ -128,7 +128,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_KEY_5:	//'5'
 		{
-			Message msg(MessageIDTypes::BGM_Stop);
+			Message msg(MessageIDTypes::BGM_STOP);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
@@ -140,13 +140,13 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_KEY_7:	//'7'
 		{
-			Message msg(MessageIDTypes::BGM_Mute);
+			Message msg(MessageIDTypes::BGM_MUTE);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_8:	//'8'
 		{
-			Message msg(MessageIDTypes::BGM_Pause);
+			Message msg(MessageIDTypes::BGM_PAUSE);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
@@ -182,9 +182,13 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			break;
 		case GLFW_KEY_D:
 			break;
-		case GLFW_KEY_E:
+		case GLFW_KEY_E: 	//'E'
+		{
+			Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_E);
+			CORE->BroadcastMessage(&msg);
 			break;
-		case GLFW_KEY_F:
+		}
+		case GLFW_KEY_F: 	//'F'
 			break;
 		case GLFW_KEY_G:
 			break;
@@ -208,9 +212,13 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			break;
 		case GLFW_KEY_Q:
 			break;
-		case GLFW_KEY_R:
+		case GLFW_KEY_R: 	//'R'
+		{
+			Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_R);
+			CORE->BroadcastMessage(&msg);
 			break;
-		case GLFW_KEY_S:
+		}
+		case GLFW_KEY_S: 	//'S'
 			break;
 		case GLFW_KEY_T:
 			break;
@@ -226,13 +234,14 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			break;
 		case GLFW_KEY_Z:
 		{
-			Message msg{ MessageIDTypes::FTY_Purge };
+			Message msg{ MessageIDTypes::FTY_PURGE };
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 
 		default:
-			std::cout << "Input System: [Error] Key is not bound" << std::endl;
+			//std::cout << "Input System: [Error] Key is not bound" << std::endl;
+			break;
 		}
 	}
 }
@@ -276,8 +285,14 @@ void InputSystem::Update(float frametime) {
 		CORE->BroadcastMessage(&msg);
 	}
 
+	if (IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT)) {
+
+		Message msg(MessageIDTypes::M_MOUSE_PRESS);
+		CORE->BroadcastMessage(&msg);
+	}
+
 	//send the message with the updated flag to be processed
-	Message_PlayerInput input_msg{ MessageIDTypes::M_ButtonPress, input_flag };
+	Message_PlayerInput input_msg{ MessageIDTypes::M_MOVEMENT, input_flag };
 	CORE->BroadcastMessage(&input_msg);
 }
 
@@ -338,7 +353,10 @@ bool InputSystem::IsKeyTriggered(int keycode)
 // Retrieve current cursor position from callback
 void InputSystem::SetCursorPosition(double xPos, double yPos)
 {
-	cursor_pos_ = { static_cast<float>(xPos), static_cast<float>(yPos) };
+	xPos -= CORE->GetSystem<WindowsSystem>()->GetWinWidth() / 2;
+	yPos = (-yPos) + CORE->GetSystem<WindowsSystem>()->GetWinHeight() / 2;
+
+	cursor_pos = { static_cast<float>(xPos), static_cast<float>(yPos) };
 }
 
 // Returns current cursor position

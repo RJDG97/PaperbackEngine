@@ -179,7 +179,7 @@ void SoundSystem::Update(float frametime) {
 		if (completed_channel_.size() > 0) {
 			// If channel has completed playing sound file, notify
 			// system to remove it
-			Message msg(MessageIDTypes::BGM_Completed);
+			Message msg(MessageIDTypes::BGM_COMPLETED);
 			CORE->BroadcastMessage(&msg);
 		}
 	}
@@ -194,7 +194,7 @@ std::string SoundSystem::GetName() {
 void SoundSystem::SendMessageD(Message* m) {
 
 	switch (m->message_id_) {
-	case MessageIDTypes::BGM_Play:
+	case MessageIDTypes::BGM_PLAY:
 	{
 		//plays a fileID as included in the message
 		MessageBGM_Play* msg = dynamic_cast<MessageBGM_Play*>(m);
@@ -202,32 +202,32 @@ void SoundSystem::SendMessageD(Message* m) {
 		PlaySounds(msg->file_id_);
 		break;
 	}
-	case MessageIDTypes::BGM_Pause:
+	case MessageIDTypes::BGM_PAUSE:
 	{
 		// Pause all current active channels
 		PauseSound();
 		break;
 	}
-	case MessageIDTypes::BGM_Mute:
+	case MessageIDTypes::BGM_MUTE:
 	{
 		// Mute all current active channels
 		MuteSound();
 		break;
 	}
-	case MessageIDTypes::BGM_Stop:
+	case MessageIDTypes::BGM_STOP:
 	{
 		// stops the current BGM
 		//need to check id of song to stop
 		StopSound("BGM");
 		break;
 	}
-	case MessageIDTypes::BGM_Reload:
+	case MessageIDTypes::BGM_RELOAD:
 	{
 		// Reload bgm and play
 		LoadSound("Resources/SoundCache/KK_BBG.mp3", "BGM");
 		PlaySounds("BGM");
 	}
-	case MessageIDTypes::BGM_Completed:
+	case MessageIDTypes::BGM_COMPLETED:
 	{
 		RemoveCompletedChannel();
 		break;

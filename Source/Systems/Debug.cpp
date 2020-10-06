@@ -27,3 +27,20 @@ void EngineDebug::SaveDebug() {
 
 	my_file_.open("Resources/Debug.txt", std::ios_base::app);
 }
+
+bool EngineDebug::MyAssert(const char* expr_str, const char* file, size_t line, const char* return_message) {
+	//prepare string format to print into file
+	std::stringstream stream;
+
+	stream << "\nERROR HAS OCCURRED BEGIN LOG\nError Expression: " << expr_str 
+			<< "\nFile: " << file << "\nLine: " << line << "\nError Message: " << return_message
+			<< "\nERROR HAS OCCURRED END LOG\n";
+
+	std::cerr << stream.str();
+
+	WriteDebugMessage(stream.str());
+
+	SaveDebug();
+
+	return true;
+}

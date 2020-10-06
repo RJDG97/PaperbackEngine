@@ -66,6 +66,16 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn MyAssert()
+
+  \brief Custom assertion function, stores the expression, file, line and
+		 error message of when an assert fails
+*/
+/******************************************************************************/
+	bool MyAssert(const char* expr_str, const char* file, size_t line, const char* return_message);
+
+/******************************************************************************/
+/*!
   \fn ~EngineDebug()
 
   \brief Used to call the closure of the file that was opened in constructor
@@ -76,26 +86,6 @@ public:
 
 #define M_DEBUG EngineDebug::GetInstance()
 
+#define DEBUG_ASSERT( exp, str ) \
+		do { if( (!(exp)) && M_DEBUG->MyAssert( #exp, __FILE__, __LINE__, #str)) __debugbreak(); } while (0)
 #endif
-
-
-
-/*
-#ifndef NDEBUG
-#   define M_Assert(Expr, Msg) \
-    __M_Assert(#Expr, Expr, __FILE__, __LINE__, Msg)
-#else
-#   define M_Assert(Expr, Msg) ;
-#endif
-
-void __M_Assert(const char* expr_str, bool expr, const char* file, int line, const char* msg)
-{
-	if (!expr)
-	{
-		std::cerr << "Assert failed:\t" << msg << "\n"
-			<< "Expected:\t" << expr_str << "\n"
-			<< "Source:\t\t" << file << ", line " << line << "\n";
-		abort();
-	}
-}
-*/

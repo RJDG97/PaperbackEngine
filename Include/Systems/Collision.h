@@ -54,6 +54,15 @@ public:
 	bool CheckCollision(const AABB &aabb1, const Vec2 &vel1, 
 						const AABB &aabb2, const Vec2 &vel2,
 						const float dt, float& tFirst);
+	
+/******************************************************************************/
+/*!
+  \fn CheckCursorCollision()
+
+  \brief Checks for collision between mouse cursor and a menu entity
+*/
+/******************************************************************************/
+	bool CheckCursorCollision(const Vec2& cursor_pos, const EntityID& button_id);
 
 /******************************************************************************/
 /*!

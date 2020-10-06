@@ -121,11 +121,12 @@ public:
 
 enum class EntityTypes {
 
-	None = 0,
-	Player,
-	Enemy,
-	Wall,
-	StaticObj
+	NONE = 0,
+	PLAYER,
+	ENEMY,
+	WALL,
+	BUTTON,
+	STATIC_OBJ
 };
 
 #endif

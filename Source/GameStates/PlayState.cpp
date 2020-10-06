@@ -24,10 +24,13 @@ void PlayState::Init()
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);
+	CORE->GetManager<TextureManager>()->TempFunctionForTesting();
+	CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
 
-	//FACTORY->Create("Entity2");
+	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
+	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
+	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::ENEMY);
+	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
 }
 
 void PlayState::Free()
@@ -39,8 +42,22 @@ void PlayState::Free()
 
 void PlayState::Update(Game* game, float frametime)
 {
-	UNREFERENCED_PARAMETER(game);
+	//to use in play state, in menu state for testing
+	//meant to handle game logic components like status
+	for (Game::StatusIt status = game->status_arr_.begin(); status != game->status_arr_.end(); ++status) {
 
+		if (status->second->status_ != StatusType::NONE) {
+
+			if (status->second->status_timer_ > 0.0f) {
+				status->second->status_timer_ -= frametime;
+				//std::cout << "Reducing status timer" << std::endl;
+			}
+			else {
+				std::cout << "Resetting status type to none" << std::endl;
+				status->second->status_ = StatusType::NONE;
+			}
+		}
+	}
 }
 
 void PlayState::Draw(Game* game)
@@ -48,71 +65,81 @@ void PlayState::Draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
-void PlayState::StateInputHandler(unsigned char key_val) {
-
-	/*switch (key_val)
-	{
-	case 0x25: //LEFT ARROW key
-	{
-		std::cout << "Play State: Moving Left" << std::endl;
-		Vector2D vel{ -1, 0 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		//CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->TempMoveCamera();
-		break;
-	}
-	case 0x26: //UP ARROW key
-	{
-		std::cout << "Play State: Moving Up" << std::endl;
-		Vector2D vel{ 0, 1 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}
-	case 0x27: //RIGHT ARROW key
-	{
-		std::cout << "Play State: Moving Right" << std::endl;
-		Vector2D vel{ 1, 0 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}
-	case 0x28: //DOWN ARROW key
-	{
-		std::cout << "Play State: Moving Down" << std::endl;
-		Vector2D vel{ 0, -1 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}
-
-	}*/
+void PlayState::SetStatus(EntityTypes entity_type, StatusType status_type, Game* game) {
 	
-	// set up velocity based input flag value
-	Vec2 new_vel{};
+	for (Game::StatusIt it = game->status_arr_.begin(); it != game->status_arr_.end(); ++it) {
 
-	if (key_val & UP_FLAG) {
+		if (it->second->GetOwner()->GetType() == entity_type && it->second->status_ == StatusType::NONE) {
+			
+			it->second->status_ = status_type;
+			it->second->status_timer_ = 3.0f; // change timer accordingly in the future
+		}
+	}
+}
 
-		new_vel.y += 100.0f;
+void PlayState::StateInputHandler(Message* msg, Game* game) {
+	//UNREFERENCED_PARAMETER(game);
+
+	if (!game) {
+
+		if (msg->message_id_ == MessageIDTypes::M_MOVEMENT) {
+			
+			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
+			assert(m != nullptr && "Message is not a player input message");
+			unsigned char key_val = m->input_flag_;
+
+			// set up velocity based input flag value
+			Vec2 new_vel{};
+
+			if (key_val & UP_FLAG) {
+
+				new_vel.y += 100.0f;
+			}
+
+			if (key_val & DOWN_FLAG) {
+
+				new_vel.y -= 100.0f;
+			}
+
+			if (key_val & LEFT_FLAG) {
+
+				new_vel.x -= 100.0f;
+			}
+
+			if (key_val & RIGHT_FLAG) {
+
+				new_vel.x += 100.0f;
+			}
+
+			//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
+
+			MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
+			CORE->BroadcastMessage(&m2);
+		}
 	}
 
-	if (key_val & DOWN_FLAG) {
+	if (game) {
 
-		new_vel.y -= 100.0f;
+		if (msg->message_id_ == MessageIDTypes::M_BUTTON_PRESS) {
+			
+			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
+			assert(m != nullptr && "Message is not a player input message");
+			unsigned char key_val = m->input_flag_;
+
+			switch (key_val)
+			{
+				case 69: //E
+				{
+					SetStatus(EntityTypes::PLAYER, StatusType::INVISIBLE, game);
+					break;
+				}
+				case 82: //R
+				{
+					SetStatus(EntityTypes::PLAYER, StatusType::BURROW, game);
+					break;
+				}
+			}
+		}
 	}
 
-	if (key_val & LEFT_FLAG) {
-
-		new_vel.x -= 100.0f;
-	}
-
-	if (key_val & RIGHT_FLAG) {
-
-		new_vel.x += 100.0f;
-	}
-
-	//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
-
-	MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, new_vel };
-	CORE->BroadcastMessage(&msg);
 }

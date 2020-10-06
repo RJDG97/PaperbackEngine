@@ -3,8 +3,52 @@
 #include <FreeImage.h>
 #include <iostream>
 
-void TextureManager::Init()
+Texture::Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx) :
+    tileset_handle_{ tileset_handle },
+    tex_vtx_ { tex_vtx }
 {
+
+}
+
+GLuint* Texture::GetTilesetHandle()
+{
+    return &tileset_handle_;
+}
+
+std::vector<glm::vec2>* Texture::GetTexVtx()
+{
+    return &tex_vtx_;
+}
+
+void Texture::SetTexVtx(std::vector<glm::vec2> new_vertex)
+{
+	tex_vtx_ = new_vertex;
+}
+
+Tileset::Tileset(GLuint tileset_handle, std::vector<std::string>* tileset_name) :
+    tileset_handle_ { tileset_handle },
+    tile_names_ { tileset_name }
+{
+    
+}
+
+GLuint Tileset::GetTilesetHandle()
+{
+    return tileset_handle_;
+}
+
+std::vector<std::string>* Tileset::GetTileNames()
+{
+    return tile_names_;
+}
+
+void Tileset::UnloadTileset()
+{
+    glDeleteTextures(1, &tileset_handle_);
+}
+
+void TextureManager::Init() {
+
     //Initialize FreeImage
     FreeImage_Initialise();
     std::cout << "FreeImage Version " << FreeImage_GetVersion() << std::endl;
@@ -12,22 +56,20 @@ void TextureManager::Init()
     M_DEBUG->WriteDebugMessage("Texture Manager Init\n");
 }
 
-void TextureManager::TempFunctionForTesting()
-{
+void TextureManager::TempFunctionForTesting() {
+
     //create misc textures
     LoadMiscTextures();
 
     //load textures
-    LoadTexture("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_, 32, 32);
+    CreateTileset("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_);
 
-    LoadTexture("Resources\\Sprites\\MC_Walk.png", 8, 1, player_walk_, 60, 128);
-
-    LoadTexture("Resources\\Sprites\\Background.png", 1, 1, background_, 1524, 854);
+    //CreateTileset("Resources\\Sprites\\MC_Walk.png", 8, 1, player_walk_);
 }
 
 void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char red,
-                                       unsigned char green, unsigned char blue, unsigned char alpha)
-{
+                                       unsigned char green, unsigned char blue, unsigned char alpha) {
+
     GLuint texobj_hdl;
     BYTE* pixels = new BYTE[4];
 
@@ -45,20 +87,21 @@ void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char r
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1,
-        0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+                 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
-    textures_[texture_name] = texobj_hdl;
+    //haven't decided on how to store these!
+    //textures_[texture_name] = texobj_hdl;
     delete[] pixels;
 }
 
-void TextureManager::LoadMiscTextures()
-{
+void TextureManager::LoadMiscTextures() {
+
     CreateQuadTexture("BlackQuad", 0, 0, 0, 255);
     CreateQuadTexture("WhiteQuad", 255, 255, 255, 255);
 }
 
-bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names, size_t tile_width, size_t tile_height)
-{
+GLuint TextureManager::LoadImageFile(const char* filename) {
+
     std::cout << "Tileset is being loaded." << std::endl;
 
     //image format
@@ -70,30 +113,34 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
 
     //check the file signature and deduce its format
     fif = FreeImage_GetFileType(filename, 0);
-    //if still unknown, try to guess the file format from the file extension
-    if (fif == FIF_UNKNOWN)
+    
+    //if format is cannot be deduced, try to guess the format from file extension
+    if (fif == FIF_UNKNOWN) {
         fif = FreeImage_GetFIFFromFilename(filename);
-    //if still unkown, return failure
-    if (fif == FIF_UNKNOWN)
-    {
+    }
+
+    //if format is still unkown, return failure
+    if (fif == FIF_UNKNOWN) {
+
         std::cout << "Failed to load image " << filename << std::endl;
         return false;
     }
 
     //check that the plugin has reading capabilities and load the file
-    if (FreeImage_FIFSupportsReading(fif))
-    {
+    if (FreeImage_FIFSupportsReading(fif)) {
+
         dib = FreeImage_Load(fif, filename, PNG_DEFAULT);
 
-        if (FreeImage_GetBPP(dib) != 32)
-        {
+        //convert all images to 32 bits for reading
+        if (FreeImage_GetBPP(dib) != 32) {
+
             dib = FreeImage_ConvertTo32Bits(FreeImage_Load(fif, filename, PNG_DEFAULT));
         }
     }
 
     //if the image failed to load, return failure
-    if (!dib)
-    {
+    if (!dib) {
+
         std::cout << "Failed to load image " << filename << std::endl;
         return false;
     }
@@ -104,95 +151,102 @@ bool TextureManager::LoadTexture(const char* filename, size_t columns, size_t ro
     int width = FreeImage_GetWidth(dib);
     int height = FreeImage_GetHeight(dib);
 
-    if ((bits == 0) || (width == 0) || (height == 0))
-    {
+    if ((bits == 0) || (width == 0) || (height == 0)) {
+
         std::cout << "Failed to load image " << filename << std::endl;
         return false;
     }
 
-    BYTE* pixels = new BYTE[tile_width * tile_height * 4];
-
-    for (int currentTile = 0; currentTile < columns * rows; ++currentTile)
-    {
-        if (texture_names[currentTile] == "Empty")
-        {
-            continue;
-        }
-
-        //if this texture ID is in use, unload the current texture
-        UnloadTexture(texture_names[currentTile]);
-
-        const int startY = (rows - 1 - currentTile / columns) * tile_height;
-        const int startX = (currentTile % columns) * tile_width;
-        int i = 0;
-
-        for (int y = startY; y < startY + tile_height; ++y)
-        {
-            for (int x = startX; x < startX + tile_width; ++x, ++i)
-            {
-                int j = y * tile_width * columns + x;
-                pixels[i * 4 + 0] = bits[j * 4 + 2];
-                pixels[i * 4 + 1] = bits[j * 4 + 1];
-                pixels[i * 4 + 2] = bits[j * 4 + 0];
-                pixels[i * 4 + 3] = bits[j * 4 + 3];
-            }
-        }
-
-        glGenTextures(1, &texobj_hdl);
-        glBindTexture(GL_TEXTURE_2D, texobj_hdl);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tile_width, tile_height,
-            0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-
-        textures_[texture_names[currentTile]] = texobj_hdl;
-    }
+    glGenTextures(1, &texobj_hdl);
+    glBindTexture(GL_TEXTURE_2D, texobj_hdl);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+                 width, height,
+                 0, GL_BGRA, GL_UNSIGNED_BYTE, bits);
 
     //Free FreeImage's copy of the data
     FreeImage_Unload(dib);
-    delete[]pixels;
 
     //return success
     std::cout << "Tileset successfully loaded!" << std::endl;
-    return true;
+    return texobj_hdl;
 }
 
-bool TextureManager::UnloadTexture(std::string texture_name)
+void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names)
 {
+    tilesets_[texture_names[0]] = { LoadImageFile(filename), &texture_names };
+    Tileset* tileset = &(tilesets_[texture_names[0]]);
+
+    glm::vec2 offset{ 1.0f / columns, 1.0f / rows };
+
+    for (int y = 0; y < rows; ++y) {
+
+        for (int x = 0; x < columns; ++x) {
+
+            if (texture_names[y * columns + x + 1] == "Empty") {
+
+                continue;
+            }
+
+            glm::vec2 origin{ x / static_cast<float>(columns) ,
+                               1 - y / static_cast<float>(rows) - offset.y };
+
+            // + 1 skips over the name of the tilset
+            textures_[texture_names[y * columns + x + 1]] =
+                Texture{ tileset->GetTilesetHandle(),
+                         { {origin.x, origin.y},
+                           {origin.x + offset.x, origin.y},
+                           {origin.x, origin.y + offset.y},
+                           {origin.x + offset.x, origin.y + offset.y} } };
+        }
+    }
+}
+
+bool TextureManager::UnloadTileset(std::string tileset_name) {
+
+    auto it = tilesets_.find(tileset_name);
+
     //if this texture ID is in use, unload the current texture
-    if (textures_.find(texture_name) != textures_.end())
+    if (it != tilesets_.end())
     {
-        glDeleteTextures(1, &(textures_[texture_name]));
-        textures_.erase(texture_name);
-        std::cout << "Texture " << texture_name << "is unloaded" << std::endl;
+
+        it->second.UnloadTileset();
+        std::vector<std::string>* tile_name = it->second.GetTileNames();
+
+        for (int i = 0; i < tile_name->size(); ++i)
+        {
+            textures_.erase((*tile_name)[i]);
+        }
+
+        tilesets_.erase(tileset_name);
+
+        std::cout << "Tileset " << tileset_name << "is unloaded" << std::endl;
         return true;
     }
 
     return false;
 }
 
-void TextureManager::UnloadTexture(std::map<std::string, Texture>::iterator texture_iterator)
-{
-    glDeleteTextures(1, &(*texture_iterator).second);
-}
+void TextureManager::UnloadAllTilesets() {
 
-void TextureManager::UnloadAllTextures()
-{
-    for (auto i = textures_.begin(); i != textures_.end(); ++i)
+    for (auto it = tilesets_.begin(); it != tilesets_.end(); ++it)
     {
-        UnloadTexture(i);
+        it->second.UnloadTileset();
     }
+
+    textures_.clear();
+    tilesets_.clear();
 }
 
-Texture* TextureManager::GetTexture(std::string texture_name)
-{
+Texture* TextureManager::GetTexture(std::string texture_name) {
+
     return &textures_[texture_name];
 }
 
-TextureManager::~TextureManager()
-{
-    UnloadAllTextures();
+TextureManager::~TextureManager() {
+
+    UnloadAllTilesets();
 }

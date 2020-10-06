@@ -3,15 +3,15 @@
 #ifndef LIGHTINGSYSTEM_H
 #define LIGHTINGSYSTEM_H
 
-#include <GL/glew.h>
-#include "glhelper.h"
 #include "Systems/ISystem.h"
 #include "Systems/WindowsSystem.h"
 #include "Components/PointLight.h"
 #include <unordered_map>
+#include <windows.h>
+#include <GL/glew.h>
 
-class LightingSystem : public ISystem
-{
+class LightingSystem : public ISystem {
+
 	bool debug_;
 
 	GLuint lighting_buffer;
@@ -37,6 +37,9 @@ public:
 	std::unordered_map<EntityID, PointLight*> point_light_arr_;
 	void AddLightComponent(EntityID id, PointLight* point_light);
 	void RemoveLightComponent(EntityID id);
+
+	void UpdateLightPosition(PointLight* point_light, glm::vec2 cam_pos, glm::vec2 cam_size);
+	void DrawPointLight(PointLight* point_light);
 
 	//returns the name of the system for debug use
 	std::string GetName();

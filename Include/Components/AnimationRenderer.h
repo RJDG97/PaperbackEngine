@@ -3,18 +3,18 @@
 #ifndef _ANIMATIONRENDERER_H_
 #define _ANIMATIONRENDERER_H_
 
+#include <windows.h>
 #include "Entity/Entity.h"
 #include "Manager/ModelManager.h"
 #include "Manager/AnimationManager.h"
 #include "Manager/ShaderManager.h"
-#include "Components/Renderer.h"
+#include "Components/IRenderer.h"
 #include <glm/glm.hpp>
 
-class AnimationRenderer : public Renderer {
+class AnimationRenderer : public IRenderer {
 
-	std::map<std::string, Animation*> obj_animations_;	// all possible animations that an object can switch between
-	Animation* current_animation_;						// current animation playing
-	std::list<Texture*>::iterator current_frame_;		// current frame of current animation
+	std::map<std::string, Animation> obj_animations_;	// all possible animations that an object can switch between
+	Animation* current_animation_;						// current animation playing (points to an animation inside obj_animations_)
 
 	bool play_animation_;								// true - play animation, false - stop playing animation
 	bool has_finished_animating_;						// true - animation has not finished, false - still in middle of animation
@@ -23,15 +23,13 @@ class AnimationRenderer : public Renderer {
 
 public:
 
+	friend class GraphicsSystem;
+
 	AnimationRenderer();
 	~AnimationRenderer();
 
 	void Init();
 
-	void AddAnimation(std::string animation_name);
-	void SetAnimation(std::string animation_name);
-
-	void Update(float frametime, glm::mat3 world_to_ndc_xform) override;
 	void Serialize(std::stringstream& data) override;
 };
 

@@ -47,12 +47,22 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SetStatus()
+
+  \brief Helper function for StateInputHandler that sets the Status components
+		 of a specific entity type to that of a new status
+*/
+/******************************************************************************/
+	void SetStatus(EntityTypes entity_type, StatusType status_type, Game* game);
+
+/******************************************************************************/
+/*!
   \fn StateInputHandler()
 
   \brief Performs handling of inputs such as mouse clicks onto buttons
 */
 /******************************************************************************/
-	void StateInputHandler(unsigned char key_val);
+	void StateInputHandler(Message* msg, Game* game);
 
 /******************************************************************************/
 /*!

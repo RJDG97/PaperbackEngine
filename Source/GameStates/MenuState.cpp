@@ -13,6 +13,7 @@
 
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Factory.h"
+#include "Systems/Collision.h"
 
 #include "Components/Status.h"
 
@@ -20,6 +21,7 @@
 
 //MenuState MenuState::m_MenuState;
 MenuState m_MenuState;
+Entity* start_blok{};
 
 void MenuState::Init()
 {
@@ -33,11 +35,9 @@ void MenuState::Init()
 	CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::Enemy);
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::Wall);
-
-	//FACTORY->Create("Entity2");
+	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);
+	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::Enemy);
+	start_blok = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
 }
 
 void MenuState::Free()
@@ -49,23 +49,8 @@ void MenuState::Free()
 
 void MenuState::Update(Game* game, float frametime)
 {
-	
-	//to use in play state, in menu state for testing
-	//meant to handle game logic components like status
-	for (Game::StatusIt status = game->status_arr_.begin(); status != game->status_arr_.end(); ++status) {
-
-		if (status->second->status_ != StatusType::NONE) {
-
-			if (status->second->status_timer_ > 0.0f) {
-				status->second->status_timer_ -= frametime;
-				std::cout << "Reducing status timer" << std::endl;
-			}
-			else {
-				std::cout << "Resetting status type to none" << std::endl;
-				status->second->status_ = StatusType::NONE;
-			}
-		}
-	}
+	UNREFERENCED_PARAMETER(game);
+	UNREFERENCED_PARAMETER(frametime);
 }
 
 void MenuState::Draw(Game* game)
@@ -74,8 +59,8 @@ void MenuState::Draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
-void MenuState::StateInputHandler(unsigned char key_val) {
-	(void)key_val;
+void MenuState::StateInputHandler(Message* msg, Game* game) {
+
 	//0x25 //LEFT ARROW key
 	//0x26 //UP ARROW key
 	//0x27 //RIGHT ARROW key
@@ -124,32 +109,49 @@ void MenuState::StateInputHandler(unsigned char key_val) {
 		break;
 	}*/
 
+	if (!game && msg->message_id_ == MessageIDTypes::M_MOVEMENT) {
 
-	// set up velocity based input flag value
-	Vec2 new_vel{};
+		Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
+		assert(m != nullptr && "Message is not a player input message");
+		unsigned char key_val = m->input_flag_;
 
-	if (key_val & UP_FLAG) {
+		// set up velocity based input flag value
+		Vec2 new_vel{};
 
-		new_vel.y += 100.0f;
+		if (key_val & UP_FLAG) {
+
+			new_vel.y += 100.0f;
+		}
+
+		if (key_val & DOWN_FLAG) {
+
+			new_vel.y -= 100.0f;
+		}
+
+		if (key_val & LEFT_FLAG) {
+
+			new_vel.x -= 100.0f;
+		}
+
+		if (key_val & RIGHT_FLAG) {
+
+			new_vel.x += 100.0f;
+		}
+
+		//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
+
+		MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
+		CORE->BroadcastMessage(&m2);
 	}
 
-	if (key_val & DOWN_FLAG) {
+	if (game && msg->message_id_ == MessageIDTypes::M_MOUSE_PRESS) {
 
-		new_vel.y -= 100.0f;
+		//check for collision between button & mouse
+
+		if (CORE->GetSystem<Collision>()->CheckCursorCollision(CORE->GetSystem<InputSystem>()->GetCursorPosition(), start_blok->GetID())) {
+
+			//true returned, trigger scene change
+			game->ChangeState(&m_PlayState);
+		}
 	}
-
-	if (key_val & LEFT_FLAG) {
-
-		new_vel.x -= 100.0f;
-	}
-
-	if (key_val & RIGHT_FLAG) {
-
-		new_vel.x += 100.0f;
-	}
-
-	//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
-
-	MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, new_vel };
-	CORE->BroadcastMessage(&msg);
 }

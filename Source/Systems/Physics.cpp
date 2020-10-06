@@ -2,7 +2,7 @@
 #include "Engine/Core.h"
 #include <iostream>
 #include "Systems/Debug.h"
-#include "Components/Status.h""
+#include "Components/Status.h"
 #include <assert.h>
 
 Physics::Physics() {
@@ -62,7 +62,7 @@ void Physics::ChangeVelocity(Message* m) {
 	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
 
 		//std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
-		if (motion->second->GetOwner()->GetType() == EntityTypes::Player) {
+		if (motion->second->GetOwner()->GetType() == EntityTypes::PLAYER) {
 
 			Status* status = dynamic_cast<Status*>(motion->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
 			//assert(status && "Player does not own Status Component");
@@ -74,6 +74,11 @@ void Physics::ChangeVelocity(Message* m) {
 				motion->second->velocity_ = msg->new_vec_;
 
 				//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
+			}
+			else
+			{
+
+				motion->second->velocity_ = {};
 			}
 		}
 	}
@@ -116,14 +121,14 @@ void Physics::RemoveMotionComponent(EntityID id) {
 void Physics::SendMessageD(Message* msg) {
 	switch (msg->message_id_)
 	{
-		case MessageIDTypes::PHY_UpdateAccel:
+		case MessageIDTypes::PHY_UPDATE_ACCEL:
 		{
 			std::cout << "Physics System: Updating acceleration of player" << std::endl;
 			//ChangeVelocity(msg);
 			//ChangeAcceleration(msg)
 			break;
 		}
-		case MessageIDTypes::PHY_UpdateVel:
+		case MessageIDTypes::PHY_UPDATE_VEL:
 		{
 			//std::cout << "Physics System: Updating velocity of player" << std::endl;
 			ChangeVelocity(msg);

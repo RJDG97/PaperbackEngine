@@ -25,12 +25,12 @@ Message_PlayerInput::Message_PlayerInput(MessageIDTypes id, unsigned char input_
 {}
 
 MessageBGM_Play::MessageBGM_Play(const std::string file_id) :
-	Message(MessageIDTypes::BGM_Play),
+	Message(MessageIDTypes::BGM_PLAY),
 	file_id_ { file_id }
 {}
 
 MessageRotation::MessageRotation(size_t entity_id) : 
-	Entity_Message{ MessageIDTypes::Rotate, entity_id } 
+	Entity_Message{ MessageIDTypes::ROTATE, entity_id } 
 {}
 
 MessageHPDecre::MessageHPDecre(size_t entity_id) : 

@@ -112,23 +112,29 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 			return 0;
 	}
 	return 1;
-	
-	/*
-	if (((aab1_bot_left.x <= aab2_top_right.x && aab1_bot_left.x >= aab2_bot_left.x) ||
-		(aab1_top_right.x >= aab2_bot_left.x && aab1_top_right.x <= aab2_top_right.x)) &&
-		((aab1_bot_left.y >= aab2_bot_left.y && aab1_bot_left.y <= aab2_top_right.y) ||
-		 (aab1_top_right.y >= aab2_bot_left.y && aab1_top_right.y <= aab2_top_right.y))) {
-		return 1;
+}
+
+bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const EntityID& button_id) {
+
+	AABBIt button_aabb = aabb_arr_.find(button_id);
+	DEBUG_ASSERT((button_aabb != aabb_arr_.end()), "AABB component does not exist");
+
+	//assume that is button
+	//compute if position is within aabb box
+	if (button_aabb->second->bottom_left_.x <= cursor_pos.x &&
+		button_aabb->second->bottom_left_.y <= cursor_pos.y &&
+		button_aabb->second->top_right_.x >= cursor_pos.x &&
+		button_aabb->second->top_right_.y >= cursor_pos.y) {
+		return true;
 	}
-	return 0;
-	*/
+	return false;
 }
 
 //init function called to initialise a system
 void Collision::Init() {
 
-	shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
-	model_ = CORE->GetManager<ModelManager>()->GetModel("LinesModel");
+	shdr_pgm_ = *CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
+	model_ = *CORE->GetManager<ModelManager>()->GetModel("LinesModel");
 	world_to_ndc_xform_ = &(CORE->GetSystem<GraphicsSystem>()->world_to_ndc_xform_);
 	glLineWidth(2.0f);
 
@@ -189,15 +195,17 @@ void Collision::Update(float frametime) {
 				  << std::endl;
 	}*/
 
+	Vector2D empty{};
+
 	for (AABBIt aabb1 = aabb_arr_.begin(); aabb1 != aabb_arr_.end(); ++aabb1) {
 
 		AABBIt aabb2 = aabb1;
 		Motion* motion1 = dynamic_cast<Motion*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
 		//assert(motion1 != nullptr && "aabb1 does not have a motion component");
 
-		Vec2* vel1{};
+		Vector2D* vel1{};
 
-		vel1 = (motion1 != nullptr) ? &motion1->velocity_ : &Vec2{};
+		vel1 = (motion1 != nullptr) ? &motion1->velocity_ : &empty;
 
 		++aabb2;
 		
@@ -206,9 +214,9 @@ void Collision::Update(float frametime) {
 			Motion* motion2 = dynamic_cast<Motion*>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
 			//assert(motion2 != nullptr && "aabb2 does not have a motion component");
 
-			Vec2* vel2{};
+			Vector2D* vel2{};
 
-			vel2 = (motion2 != nullptr) ? &motion2->velocity_ : &Vec2{};
+			vel2 = (motion2 != nullptr) ? &motion2->velocity_ : &empty;
 
 			float t_first{};
 
@@ -218,8 +226,8 @@ void Collision::Update(float frametime) {
 				EntityTypes aabb2_type = aabb2->second->GetOwner()->GetType();
 
 				//check what types are both objects that are colliding
-				if ((aabb1_type == EntityTypes::Wall && (aabb2_type == EntityTypes::Player || aabb2_type == EntityTypes::Enemy)) ||
-					(aabb2_type == EntityTypes::Wall && (aabb1_type == EntityTypes::Player || aabb1_type == EntityTypes::Enemy))) {
+				if ((aabb1_type == EntityTypes::WALL && (aabb2_type == EntityTypes::PLAYER || aabb2_type == EntityTypes::ENEMY)) ||
+					(aabb2_type == EntityTypes::WALL && (aabb1_type == EntityTypes::PLAYER || aabb1_type == EntityTypes::ENEMY))) {
 
 					aabb1->second->collided = true;
 					aabb2->second->collided = true;
@@ -228,13 +236,18 @@ void Collision::Update(float frametime) {
 				}
 				else {
 
+					//enable to check if collision detected
+					//currently disabled to show that burrowing works
+					//aabb1->second->collided = true;
+					//aabb2->second->collided = true;
+
 					//otherwise colliding are player & enemy or player & player
-					if ((aabb1_type == EntityTypes::Player && aabb2_type == EntityTypes::Enemy) ||
-						(aabb1_type == EntityTypes::Enemy && aabb2_type == EntityTypes::Player)) {
+					if ((aabb1_type == EntityTypes::PLAYER && aabb2_type == EntityTypes::ENEMY) ||
+						(aabb1_type == EntityTypes::ENEMY && aabb2_type == EntityTypes::PLAYER)) {
 
 						Status* player_status = nullptr;
 
-						if (aabb1_type == EntityTypes::Player) {
+						if (aabb1_type == EntityTypes::PLAYER) {
 
 							player_status = dynamic_cast<Status*>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
 						}
@@ -253,11 +266,11 @@ void Collision::Update(float frametime) {
 								player_status->status_ = StatusType::HIT;
 								player_status->status_timer_ = 5.1f;
 							}
-							/*
+							
 							else if (player_status->status_ == StatusType::INVISIBLE) {
 
 							}
-							*/
+							
 						}
 					}
 				}
@@ -298,33 +311,10 @@ void Collision::Draw() {
 			glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_) * translation * scaling;
 
 			shdr_pgm_.Use();
-
 			glBindVertexArray(model_.vaoid_);
 
-			GLint uniform_var_transform =
-				glGetUniformLocation(shdr_pgm_.GetHandle(), "uModel_to_NDC");
-
-			if (uniform_var_transform >= 0) {
-				glUniformMatrix3fv(uniform_var_transform, 1, GL_FALSE,
-								   glm::value_ptr(mdl_to_ndc_xform));
-			}
-
-			else {
-				std::cout << "Uniform variable doesn't exist!!!\n";
-				std::exit(EXIT_FAILURE);
-			}
-
-			GLint uniform_var_collided =
-				glGetUniformLocation(shdr_pgm_.GetHandle(), "collided");
-
-			if (uniform_var_collided >= 0) {
-				glUniform1i(uniform_var_collided, (*aabb).second->collided);
-			}
-
-			else {
-				std::cout << "Uniform variable doesn't exist!!!\n";
-				std::exit(EXIT_FAILURE);
-			}
+			shdr_pgm_.SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
+			shdr_pgm_.SetUniform("collided", (*aabb).second->collided);
 
 			glDrawArrays(GL_LINES, 0, model_.draw_cnt_);
 
@@ -385,7 +375,7 @@ void Collision::UpdateBoundingBox() {
 		aabb->second->collided = false;
 
 		Entity* entity = aabb->second->GetOwner();
-		assert(entity && "Entity does not exist");
+		DEBUG_ASSERT((entity), "Entity does not exist");
 
 		Scale* entity_scale = dynamic_cast<Scale*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::SCALE));
 		Transform* entity_position = dynamic_cast<Transform*>(aabb->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));

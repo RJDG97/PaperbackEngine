@@ -3,6 +3,7 @@
 #ifndef _POINTLIGHT_H_
 #define _POINTLIGHT_H_
 
+#include <windows.h>
 #include "Entity/Entity.h"
 #include "Manager/ModelManager.h"
 #include "Manager/ShaderManager.h"
@@ -21,12 +22,12 @@ class PointLight : public Component {
 
 public:
 
+	friend class LightingSystem;
+
 	PointLight();
 	~PointLight();
 
 	void Init();
-	void Update(float frametime, glm::vec2 cam_pos, glm::vec2 cam_size_);
-	void Draw();
 	void Serialize(std::stringstream& data) override;
 };
 

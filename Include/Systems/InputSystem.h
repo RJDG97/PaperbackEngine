@@ -135,6 +135,4 @@ public:
 	void SendMessageD(Message* m) override;
 };
 
-extern InputSystem sys_input_;
-
 #endif

@@ -97,7 +97,8 @@ public:
 	template <typename SystemType>
 	void AddSystem() {
 		for (SystemIt begin = systems_.begin(); begin != systems_.end(); ++begin) {
-			assert(begin->first != typeid(SystemType).name() && "System already exists");
+
+			DEBUG_ASSERT((begin->first != typeid(SystemType).name()), "System already exists");
 		}
 		systems_.push_back({ typeid(SystemType).name(), new SystemType() });
 
@@ -126,7 +127,9 @@ public:
 				return dynamic_cast<SystemType*>(begin->second);
 			}
 		}
-		assert((begin != systems_.end()) && "System does not exist");
+
+		DEBUG_ASSERT((begin != systems_.end()), "System does not exist");
+		return nullptr;
 	}
 
 /******************************************************************************/
@@ -139,8 +142,8 @@ public:
 /******************************************************************************/
 	template <typename ManagerType>
 	void AddManager() {
-		assert(managers_.find(typeid(ManagerType).name()) == managers_.end() && "Manager already exists");
 
+		DEBUG_ASSERT((managers_.find(typeid(ManagerType).name()) == managers_.end()), "Manager already exists");
 		// Log system message to "Source/Debug.txt"
 		std::stringstream str;
 		str << "Adding Manager: " << typeid(ManagerType).name() << "\n";
@@ -159,7 +162,9 @@ public:
 /******************************************************************************/
 	template <typename ManagerType>
 	ManagerType* GetManager() {
-		assert(managers_.find(typeid(ManagerType).name()) != managers_.end() && "Manager does not exist");
+
+		DEBUG_ASSERT((managers_.find(typeid(ManagerType).name()) != managers_.end()), "Manager does not exist");
+
 		IManager* return_val = managers_.find(typeid(ManagerType).name())->second;
 
 		if (debug_) {

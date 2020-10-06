@@ -144,34 +144,44 @@ void Game::SendMessageD(Message* m) {
 
 	switch (m->message_id_) {
 
-	case MessageIDTypes::GSM_PushState:
+	case MessageIDTypes::GSM_PUSHSTATE:
 	{
 		Message_CustomState* msg = dynamic_cast<Message_CustomState*>(m);
 		PushState(msg->state_);
 		break;
 	}
-	case MessageIDTypes::GSM_ChangeState:
+	case MessageIDTypes::GSM_CHANGESTATE:
 	{	
 		Message_CustomState* msg = dynamic_cast<Message_CustomState*>(m);
 		ChangeState(msg->state_);
 		break;
 	}
-	case MessageIDTypes::GSM_PauseState:
+	case MessageIDTypes::GSM_PAUSESTATE:
 	{
 		break;
 	}
-	case MessageIDTypes::GSM_PopState:
+	case MessageIDTypes::GSM_POPSTATE:
 	{
 		PopState();
 		break;
 	}
-	case MessageIDTypes::M_ButtonPress: 
+	case MessageIDTypes::M_BUTTON_PRESS: 
 	{
 		//std::cout << "GSM: Button press event, dispatching to Game State" << std::endl;
-		Message_PlayerInput* msg = dynamic_cast<Message_PlayerInput*>(m);
-		if (msg) {
-			states_.back()->StateInputHandler(msg->input_flag_);
-		}
+		//Message_PlayerInput* msg = dynamic_cast<Message_PlayerInput*>(m);
+		
+		states_.back()->StateInputHandler(m, this);
+		break;
+	}
+	case MessageIDTypes::M_MOVEMENT:
+	{
+		//value larger than what can be gotten from input flags
+		states_.back()->StateInputHandler(m);
+		break;
+	}
+	case MessageIDTypes::M_MOUSE_PRESS:
+	{
+		states_.back()->StateInputHandler(m, this);
 		break;
 	}
 	case MessageIDTypes::DEBUG_ALL:

@@ -30,24 +30,28 @@ void CoreEngine::Initialize() {
 
 ///Update all the systems until the game is no longer active.
 void CoreEngine::GameLoop() {
+	// Get a pointer to Windows System
+	WindowsSystem* win = CORE->GetSystem<WindowsSystem>();
 
-	GLFWwindow* window = CORE->GetSystem<WindowsSystem>()->ptr_window;
-
-	while (b_game_active_ && !glfwWindowShouldClose(window)) {
+	while (b_game_active_ && !glfwWindowShouldClose(win->ptr_window)) {
 		if (debug_)
 			M_DEBUG->WriteDebugMessage("Core Engine System Update:\n");
 		
 		PE_FrameRate.FrameRateLoop();
+
+		//std::cout << PE_FrameRate.GetFPS() << std::endl;
+		glfwSetWindowTitle(win->ptr_window, (win->GetWindowName() + " " + std::to_string(PE_FrameRate.GetFPS())).c_str());
 
 		if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_Q)) { // Q key
 			M_DEBUG->WriteDebugMessage("TERMINATE GAME LOOP\n");
 			b_game_active_ = false;
 		}
 
-		if (CORE->GetSystem<InputSystem>()->IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-		{
-			std::cout << CORE->GetSystem<InputSystem>()->GetCursorPosition().x << ": " << CORE->GetSystem<InputSystem>()->GetCursorPosition().y << std::endl;
-		}
+		//uncomment for testing, other functions using this will not work with this active
+		//if (CORE->GetSystem<InputSystem>()->IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		//{
+		//	std::cout << CORE->GetSystem<InputSystem>()->GetCursorPosition().x << ": " << CORE->GetSystem<InputSystem>()->GetCursorPosition().y << std::endl;
+		//}
 
 		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
 			if (debug_)
@@ -57,7 +61,7 @@ void CoreEngine::GameLoop() {
 			system->second->Draw();
 		}
 
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(win->ptr_window);
 		glfwPollEvents();
 		M_DEBUG->SaveDebug();
 	}
@@ -89,7 +93,7 @@ void CoreEngine::DestroyManagers() {
 ///Broadcasts a message to all systems_.
 void CoreEngine::BroadcastMessage(Message* m) {
 	
-	if (m->message_id_ == MessageIDTypes::Exit) {
+	if (m->message_id_ == MessageIDTypes::EXIT) {
 
 		//set game bool to false
 		b_game_active_ = false;

@@ -183,9 +183,6 @@
     <ClCompile Include="Source\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\glhelper.cpp">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Manager\ShaderManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
@@ -302,9 +299,6 @@
     <ClInclude Include="Source\Source.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\glhelper.h">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Manager\IManager.h">
       <Filter>ResourceManagers</Filter>
     </ClInclude>
@@ -316,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\PointLight.h">
       <Filter>Entity\Components\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\IRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

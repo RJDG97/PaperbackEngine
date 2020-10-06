@@ -5,7 +5,7 @@
 #include <memory>
 
 FILE* file;
-WindowsSystem* WindowsSystem::w_Instance = nullptr;
+WindowsSystem* WindowsSystem::w_instance = nullptr;
 
 LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam) {
 	switch (msg) {
@@ -22,17 +22,21 @@ LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM
 	case WM_SIZE:
 		RECT rect;
 		GetClientRect(hwnd, &rect);
-		WindowsSystem::Instance()->setWinWidth(rect.right - rect.left);
-		WindowsSystem::Instance()->setWinHeight(rect.bottom - rect.top);
+		WindowsSystem::Instance()->SetWinWidth(rect.right - rect.left);
+		WindowsSystem::Instance()->SetWinHeight(rect.bottom - rect.top);
 	default:
 		return DefWindowProc(hwnd, msg, param, lparam);
 	}
 }
 
 // Default constructor for WindowsSystem Class
-WindowsSystem::WindowsSystem() : wcex{}, msg{}, hwnd(), wWidth{ 0 }, wHeight{ 0 }
+WindowsSystem::WindowsSystem() : 
+	wcex{}, 
+	msg{}, 
+	hwnd{},
+	width_{}, 
+	height_{}
 {
-	
 }
 
 void WindowsSystem::Init() {
@@ -45,8 +49,9 @@ void WindowsSystem::Init() {
 	// In case a GLFW function fails, an error is reported to callback function
 	//glfwSetErrorCallback(GLHelper::error_cb);
 
-	wWidth = 800;
-	wHeight = 600;
+	//width_ = 800;
+	//height_ = 600;
+	Serialize();
 
 	// Before asking GLFW to create an OpenGL context, we specify the minimum constraints
 	// in that context:
@@ -58,7 +63,7 @@ void WindowsSystem::Init() {
 	glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); // window dimensions are static
 
-	ptr_window = glfwCreateWindow(wWidth, wHeight, "Veggie Escape", NULL, NULL);
+	ptr_window = glfwCreateWindow(width_, height_, windows_name_.c_str()/*"Veggie Escape"*/, NULL, NULL);
 
 	if (!ptr_window) {
 		std::cerr << "GLFW unable to create OpenGL context - abort program\n";
@@ -78,12 +83,69 @@ void WindowsSystem::Init() {
 		std::exit(EXIT_FAILURE);
 	}
 
-	M_DEBUG->WriteDebugMessage("Collision System Init\n");
+	M_DEBUG->WriteDebugMessage("Window System Init\n");
+}
+
+// Placeholder function
+void WindowsSystem::Serialize() {
+
+	// Load the input file (.json) and ensure it is open
+	std::ifstream input_file("Resources/EntityConfig/window.json");
+	//assert(input_file);
+	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
+
+	M_DEBUG->WriteDebugMessage("Initializing Windows System\n");
+
+	// Read each line separated by a '\n' into a stringstream
+	std::stringstream json_doc_buffer;
+	std::string input;
+
+	while (std::getline(input_file, input)) {
+
+		json_doc_buffer << input << "\n";
+	}
+
+	// Close the file (.json) after
+	input_file.close();
+
+	// Parse the stringstream into document (DOM) format
+	rapidjson::Document doc;
+	doc.Parse(json_doc_buffer.str().c_str());
+
+	// Treats entire filestream at index as array and ensure that it is an array
+	const rapidjson::Value& value_arr = doc["Window"];
+	//assert(value_arr.IsArray());
+	DEBUG_ASSERT(value_arr.IsArray(), "Entry does not exist in JSON");
+
+	//stores the data into a stream that is easier to read data from
+	std::stringstream stream;
+
+	// Iterate through the body of the "Header"
+	for (rapidjson::Value::ConstValueIterator it = value_arr.Begin(); it != value_arr.End(); ++it) {
+
+		// Each value is essentially a container for multiple members
+		// IsObject enforces that the member is an object that will contain data:key pairs
+		const rapidjson::Value& member = *it;
+
+		//assert(member.IsObject());
+		DEBUG_ASSERT(member.IsObject(), "Entry does not exist in JSON");
+
+		//assume that only contains width & height
+
+		for (rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
+
+			stream << it2->value.GetString() << " ";
+		}
+	}
+
+	stream >> windows_name_ >> width_ >> height_;
+
+	std::cout << windows_name_ << " " << width_ << " " << height_ << std::endl;
 }
 
 void WindowsSystem::Update(float frametime)
 {
-
+	UNREFERENCED_PARAMETER(frametime);
 }
 
 std::string WindowsSystem::GetName()
@@ -93,6 +155,7 @@ std::string WindowsSystem::GetName()
 
 void WindowsSystem::SendMessageD(Message* m)
 {
+	UNREFERENCED_PARAMETER(m);
 }
 
 void WindowsSystem::ProcessMessage() {
@@ -106,43 +169,48 @@ void WindowsSystem::ProcessMessage() {
 
 WindowsSystem* WindowsSystem::Instance() {
 	// Create a new WindowsSystem class
-	if (!w_Instance)
-		w_Instance = new WindowsSystem;
-	return w_Instance;
+	if (!w_instance)
+		w_instance = new WindowsSystem;
+	return w_instance;
 }
 
 void WindowsSystem::UnloadInstance() {
 	// Delete WindowsSystem class
-	delete w_Instance;
-	w_Instance = nullptr;
+	delete w_instance;
+	w_instance = nullptr;
 }
 
-HWND WindowsSystem::getHandle() {
+HWND WindowsSystem::GetHandle() {
 	return hwnd;
 }
 
-LPTSTR WindowsSystem::getWindowClass()
+LPTSTR WindowsSystem::GetWindowClass()
 {
 	return windowClass;
 }
 
-int WindowsSystem::getWinWidth() const {
-	return wWidth;
+std::string WindowsSystem::GetWindowName() const {
+
+	return windows_name_;
 }
 
-int WindowsSystem::getWinHeight() const {
-	return wHeight;
+int WindowsSystem::GetWinWidth() const {
+	return width_;
 }
 
-void WindowsSystem::setWinWidth(int _width) {
-	wWidth = _width;
+int WindowsSystem::GetWinHeight() const {
+	return height_;
 }
 
-void WindowsSystem::setWinHeight(int _height) {
-	wHeight = _height;
+void WindowsSystem::SetWinWidth(int _width) {
+	width_ = _width;
 }
 
-void createDebugWindow() {
+void WindowsSystem::SetWinHeight(int _height) {
+	height_ = _height;
+}
+
+void CreateDebugWindow() {
 	// Create Debug Window
 	if (AllocConsole())
 	{

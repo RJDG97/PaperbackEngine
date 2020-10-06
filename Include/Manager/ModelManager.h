@@ -8,22 +8,22 @@
 #include "Manager/ShaderManager.h"
 #include "Manager/IManager.h"
 
-/*
-enum ModelType
-{
-    BoxModel
-};*/
+struct Model {
 
-struct Model
-{
-    GLenum     primitive_type_;
-    GLuint     primitive_cnt_;
-    GLuint     vaoid_;
-    GLuint     draw_cnt_;
+    GLenum primitive_type_;
+    GLuint primitive_cnt_;
+    GLuint vaoid_;
+    GLuint vboid_;
+    GLuint draw_cnt_;
+
+    size_t vbo_offset_;
+
+    GLuint GetVBOHandle();
+    size_t GetVBOOffset();
 };
 
-class ModelManager : public IManager
-{
+class ModelManager : public IManager {
+
     std::map<std::string, Model> models_;
 
 public:
@@ -33,7 +33,7 @@ public:
     void AddTristripsModel(int slices, int stacks, std::string model_name);
     void AddLinesModel(int slices, int stacks, std::string model_name);
 
-    Model GetModel(std::string model_name);
+    Model* GetModel(std::string model_name);
 
 };
 
