@@ -125,6 +125,7 @@ enum class EntityTypes {
 	NONE = 0,
 	PLAYER,
 	ENEMY,
+	FLOOR,
 	WALL,
 	BUTTON,
 	STATIC_OBJ

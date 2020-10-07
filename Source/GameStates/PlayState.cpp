@@ -44,6 +44,7 @@ void PlayState::Init()
 	CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
+	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Floor", EntityTypes::FLOOR);
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "MovingWall", EntityTypes::WALL);
 	player = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::ENEMY);

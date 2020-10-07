@@ -47,6 +47,8 @@ class GraphicsSystem : public ISystem {
 
     void CameraInit();
     void CameraUpdate();
+    void MoveCamera(Vector2D displacement);
+    void ZoomCamera(float zoom);
 
 public:
 

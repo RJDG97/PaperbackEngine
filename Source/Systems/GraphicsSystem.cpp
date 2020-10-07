@@ -52,6 +52,17 @@ void GraphicsSystem::CameraUpdate() {
     world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
 }
 
+void GraphicsSystem::MoveCamera(Vector2D displacement) {
+
+    cam_pos_.x += displacement.x;
+    cam_pos_.y += displacement.y;
+}
+
+void GraphicsSystem::ZoomCamera(float zoom)
+{
+    cam_size_ *= zoom;
+}
+
 /*  _________________________________________________________________________ */
 /*! GraphicsSystem::Init
 
