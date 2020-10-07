@@ -49,7 +49,7 @@ void TextureManager::Init() {
     M_DEBUG->WriteDebugMessage("Texture Manager Init\n");
 }
 
-void TextureManager::TempFunctionForTesting() {
+void TextureManager::TempTextureBatchLoad() {
 
     //create misc textures
     LoadMiscTextures();

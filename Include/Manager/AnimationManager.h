@@ -15,15 +15,86 @@ class Animation {
 
 public:
 
+/******************************************************************************/
+/*!
+	\fn Animation()
+
+	\brief Default constructor for Animation
+*/
+/******************************************************************************/
 	Animation() = default;
-	Animation(int num_frames_, GLuint animation_frames, GLfloat frame_duration, float offset_x, std::vector<glm::vec2> tex_vtx);
+
+/******************************************************************************/
+/*!
+	\fn Animation(int num_frames_,
+				  GLuint animation_frames,
+				  GLfloat frame_duration,
+				  float offset_x,
+				  std::vector<glm::vec2> tex_vtx)
+
+	\brief Constructor for Animation that initializes all its data members
+		   according to the respective values
+*/
+/******************************************************************************/
+	Animation(int num_frames_,
+			  GLuint animation_frames,
+			  GLfloat frame_duration,
+			  float offset_x,
+			  std::vector<glm::vec2> tex_vtx);
 	
+/******************************************************************************/
+/*!
+	\fn ChangeFrameDuration(GLfloat frame_duration)
+
+	\brief Changes the duration each frame is displayed on the screen
+*/
+/******************************************************************************/
 	void ChangeFrameDuration(GLfloat frame_duration);
 
+/******************************************************************************/
+/*!
+	\fn GetNumFrames()
+
+	\brief Gets the number of frames that the animation contains
+*/
+/******************************************************************************/
 	int GetNumFrames();
+
+/******************************************************************************/
+/*!
+	\fn GetAnimationFramesHandle()
+
+	\brief Gets the handle of the texture used to render the animation
+*/
+/******************************************************************************/
 	GLuint* GetAnimationFramesHandle();
+
+/******************************************************************************/
+/*!
+	\fn GetFrameDuration()
+
+	\brief Gets the duration that each frame is displayed on the screen
+*/
+/******************************************************************************/
 	float GetFrameDuration();
+
+/******************************************************************************/
+/*!
+	\fn GetOffsetX()
+
+	\brief Gets the offset applied to all vertex to move to the next frame of
+		   the animation
+*/
+/******************************************************************************/
 	float GetOffsetX();
+
+/******************************************************************************/
+/*!
+	\fn GetTexVtx()
+
+	\brief Gets the vertex of the first animation frame
+*/
+/******************************************************************************/
 	std::vector<glm::vec2>* GetTexVtx();
 };
 
@@ -34,8 +105,35 @@ class AnimationSet {
 
 public:
 
+/******************************************************************************/
+/*!
+	\fn AnimationSet()
+
+	\brief Default constructor of an Animation Set
+*/
+/******************************************************************************/
 	AnimationSet() = default;
-	AnimationSet(GLuint animation_frames, std::vector<std::pair<std::string, int>>* animation_names);
+
+/******************************************************************************/
+/*!
+	\fn AnimationSet(GLuint animation_frames,
+					 std::vector<std::pair<std::string, int>>* animation_names)
+
+	\brief Constructor for AnimationSet that initializes all its data members
+		   according to the respective values
+*/
+/******************************************************************************/
+	AnimationSet(GLuint animation_frames,
+				 std::vector<std::pair<std::string, int>>* animation_names);
+
+/******************************************************************************/
+/*!
+	\fn UnloadAnimationSet()
+
+	\brief Unloads the texture used for the animation set and erases it from
+		   the AnimationManger's animation set container and animation container
+*/
+/******************************************************************************/
 	void UnloadAnimationSet();
 
 };
@@ -56,8 +154,25 @@ class AnimationManager : public IManager {
 
 public:
 
+/******************************************************************************/
+/*!
+	\fn Init()
+
+	\brief Initializes the Animation Manager
+*/
+/******************************************************************************/
 	void Init() override;
-	void TempFunctionForTesting();
+
+/******************************************************************************/
+/*!
+	\fn TempAnimationBatchLoad()
+
+	\brief Loads animations that will be used for the level, will make use of
+		   serialization at a later time
+*/
+/******************************************************************************/
+	void TempAnimationBatchLoad();
+
 	void CreateAnimation(const char* filename, std::vector<std::pair<std::string, int>>* texture_name, GLfloat frame_duration);
 	bool UnloadAnimationSet(std::vector<std::pair<std::string, int>>* animation_name);
 	void UnloadAllAnimationSets();

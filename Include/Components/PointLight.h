@@ -25,10 +25,43 @@ public:
 
 	friend class LightingSystem;
 
+
+/******************************************************************************/
+/*!
+  \fn PointLight()
+
+  \brief Constructor for PointLight that defaults the data members of the
+		 component
+*/
+/******************************************************************************/
 	PointLight();
+
+/******************************************************************************/
+/*!
+	\fn ~PointLight()
+
+	\brief Destructor for PointLight that removes the component from the
+		 Lighting system point light map
+*/
+/******************************************************************************/
 	~PointLight();
 
+/******************************************************************************/
+/*!
+	\fn Init()
+
+	\brief Adds the component itself to the Lighting System's point light map
+*/
+/******************************************************************************/
 	void Init();
+
+/******************************************************************************/
+/*!
+	\fn Serialize(std::stringstream& data)
+
+	\brief Reads data from a stringstream and stores them into the data members
+*/
+/******************************************************************************/
 	void Serialize(std::stringstream& data) override;
 };
 

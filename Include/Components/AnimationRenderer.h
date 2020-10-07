@@ -26,11 +26,44 @@ public:
 
 	friend class GraphicsSystem;
 
+/******************************************************************************/
+/*!
+	\fn AnimationRenderer()
+
+	\brief Constructor for AnimationRenderer that defaults the data members of
+		   the component
+*/
+/******************************************************************************/
+
 	AnimationRenderer();
+
+/******************************************************************************/
+/*!
+	\fn ~AnimationRenderer()
+
+	\brief Destructor for AnimationRenderer that removes the component from the
+		 Graphics System's animation renderer map
+*/
+/******************************************************************************/
 	~AnimationRenderer();
 
+/******************************************************************************/
+/*!
+	\fn Init()
+
+	\brief Adds the component itself to the Graphics System's animation
+		   renderer map
+*/
+/******************************************************************************/
 	void Init();
 
+/******************************************************************************/
+/*!
+	\fn Serialize(std::stringstream& data)
+
+	\brief Reads data from a stringstream and stores them into the data members
+*/
+/******************************************************************************/
 	void Serialize(std::stringstream& data) override;
 };
 

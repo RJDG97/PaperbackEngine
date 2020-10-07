@@ -40,8 +40,8 @@ void PlayState::Init()
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	CORE->GetManager<TextureManager>()->TempFunctionForTesting();
-	CORE->GetManager<AnimationManager>()->TempFunctionForTesting();
+	CORE->GetManager<TextureManager>()->TempTextureBatchLoad();
+	CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
 	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Floor", EntityTypes::FLOOR);

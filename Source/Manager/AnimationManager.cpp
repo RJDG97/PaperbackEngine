@@ -3,7 +3,11 @@
 #include "Systems/Debug.h"
 #include "Engine/Core.h"
 
-Animation::Animation(int num_frames, GLuint animation_frames, GLfloat frame_duration, float offset_x, std::vector<glm::vec2> tex_vtx) :
+Animation::Animation(int num_frames,
+					 GLuint animation_frames,
+					 GLfloat frame_duration,
+					 float offset_x,
+					 std::vector<glm::vec2> tex_vtx) :
 	num_frames_ { num_frames },
 	animation_frames_ { animation_frames },
 	frame_duration_ { frame_duration },
@@ -42,7 +46,8 @@ std::vector<glm::vec2>* Animation::GetTexVtx() {
 	return &tex_vtx_;
 }
 
-AnimationSet::AnimationSet(GLuint animation_frames, std::vector<std::pair<std::string, int>>* animation_names) :
+AnimationSet::AnimationSet(GLuint animation_frames,
+						   std::vector<std::pair<std::string, int>>* animation_names) :
 	animation_frames_{ animation_frames },
 	animation_names_{ animation_names } {
 
@@ -60,7 +65,7 @@ void AnimationManager::Init() {
 	texture_manager_ = CORE->GetManager<TextureManager>();
 }
 
-void AnimationManager::TempFunctionForTesting() {
+void AnimationManager::TempAnimationBatchLoad() {
 	
 	CreateAnimation("Resources\\Sprites\\MC_States.png", &player_animations_, 0.07f);
 }

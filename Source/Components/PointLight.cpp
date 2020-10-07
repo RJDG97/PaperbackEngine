@@ -4,22 +4,22 @@
 #include "Components/Transform.h"
 #include <glm/gtc/type_ptr.hpp>
 
-PointLight::PointLight()
-{
+PointLight::PointLight() {
+
 }
 
-PointLight::~PointLight()
-{
+PointLight::~PointLight() {
+
 	CORE->GetSystem<LightingSystem>()->RemoveLightComponent(Component::GetOwner()->GetID());
 }
 
-void PointLight::Init()
-{
+void PointLight::Init() {
+
 	CORE->GetSystem<LightingSystem>()->AddLightComponent(Component::GetOwner()->GetID(), this);
 }
 
-void PointLight::Serialize(std::stringstream& data)
-{
+void PointLight::Serialize(std::stringstream& data) {
+
 	std::string model;
 	std::string shdr_pgm;
 

@@ -84,7 +84,7 @@ class TextureManager : public IManager {
 public:
 
 	void Init() override;
-	void TempFunctionForTesting();
+	void TempTextureBatchLoad();
 
 	//Used for misc tilesets
 	void CreateQuadTexture(std::string texture_name, unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);

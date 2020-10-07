@@ -28,11 +28,44 @@ class ModelManager : public IManager {
 
 public:
 
+/******************************************************************************/
+/*!
+    \fn Init()
+
+    \brief Initializes the Model Manager
+*/
+/******************************************************************************/
     void Init() override;
 
+/******************************************************************************/
+/*!
+    \fn AddTristripsModel(int slices, int stacks, std::string model_name)
+
+    \brief Adds a triangle strips model (with slices being the number of rows
+           and stacks being the number of columns) and adds the model to the
+           Model Manager's map
+*/
+/******************************************************************************/
     void AddTristripsModel(int slices, int stacks, std::string model_name);
+
+/******************************************************************************/
+/*!
+    \fn AddLinesModel(int slices, int stacks, std::string model_name)
+
+    \brief Adds a lines model (with slices being the number of rows and stacks
+           being the number of columns) and adds the model to the Model
+           Manager's map
+*/
+/******************************************************************************/
     void AddLinesModel(int slices, int stacks, std::string model_name);
 
+/******************************************************************************/
+/*!
+    \fn GetModel(std::string model_name)
+
+    \brief Retrieves the model with the name specified in model_name
+*/
+/******************************************************************************/
     Model* GetModel(std::string model_name);
 
 };
