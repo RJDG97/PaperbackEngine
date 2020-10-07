@@ -298,12 +298,12 @@ void InputSystem::Update(float frametime) {
 	}
 
 	// Temporary placeholder before Input System conversion
-	if (IsKeyPressed(GLFW_KEY_B)) {
+	/*if (IsKeyPressed(GLFW_KEY_B)) {
 
 		//for debug bomb
 		Message msg(MessageIDTypes::DEBUG_ALL);
 		CORE->BroadcastMessage(&msg);
-	}
+	}*/
 
 	if (IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT)) {
 

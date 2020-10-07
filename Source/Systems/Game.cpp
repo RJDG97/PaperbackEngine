@@ -205,7 +205,7 @@ void Game::SendMessageD(Message* m) {
 	case MessageIDTypes::DEBUG_ALL:
 	{
 
-		debug_ = true;
+		debug_ = !debug_;
 	}
 	default:
 		break;

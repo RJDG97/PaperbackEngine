@@ -6,12 +6,11 @@
 //#include "../WinKeyCodes.h"
 
 // Global pointer to core engine
-CoreEngine* CORE;
+std::unique_ptr<CoreEngine> CORE;
 
 CoreEngine::CoreEngine() {
 	b_game_active_ = true;
 	debug_ = false;
-	CORE = this;
 }
 
 ///Initializes all Systems & Managers in the game.

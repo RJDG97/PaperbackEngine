@@ -38,41 +38,41 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 #endif
 
 	// Create a unique instance of Core Engine
-	std::unique_ptr<CoreEngine> engine = std::make_unique<CoreEngine>();
+	CORE = std::make_unique<CoreEngine>();
 
 	// Add Systems to the Core Engine
 	// *Note: Reorder based on what system 
 	// has priority over the other
 
 	try {
-		engine->AddSystem<WindowsSystem>();
-		engine->AddSystem<GraphicsSystem>();
-		engine->AddSystem<LightingSystem>();
-		engine->AddSystem<InputSystem>();
-		engine->AddSystem<Physics>();
-		engine->AddSystem<Collision>();
-		engine->AddSystem<EntityFactory>();
-		engine->AddSystem<SoundSystem>();
-		engine->AddSystem<Game>();
+		CORE->AddSystem<WindowsSystem>();
+		CORE->AddSystem<GraphicsSystem>();
+		CORE->AddSystem<LightingSystem>();
+		CORE->AddSystem<InputSystem>();
+		CORE->AddSystem<Physics>();
+		CORE->AddSystem<Collision>();
+		CORE->AddSystem<EntityFactory>();
+		CORE->AddSystem<SoundSystem>();
+		CORE->AddSystem<Game>();
 
 		// Add Managers to the Core Engine
-		engine->AddManager<ModelManager>();
-		engine->AddManager<TextureManager>();
-		engine->AddManager<ShaderManager>();
-		engine->AddManager<AnimationManager>();
+		CORE->AddManager<ModelManager>();
+		CORE->AddManager<TextureManager>();
+		CORE->AddManager<ShaderManager>();
+		CORE->AddManager<AnimationManager>();
 
 		// Initialize all Systems & Managers that
 		// were added to the Core Engine
-		engine->Initialize();
+		CORE->Initialize();
 
 		// ** Core Engine's Game Loop **
-		engine->GameLoop();
+		CORE->GameLoop();
 
 		// Release all resources allocated during
 		// runtime and compile time
 		FACTORY->DestroyAllEntities();
-		engine->DestroySystems();
-		engine->DestroyManagers();
+		CORE->DestroySystems();
+		CORE->DestroyManagers();
 		EngineDebug::DeleteInstance();
 	}
 	catch (std::exception& e) {
