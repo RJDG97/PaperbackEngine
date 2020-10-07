@@ -47,7 +47,7 @@ void Physics::Update(float frametime) {
 			}
 		}
 	}
-	if (debug_) { debug_ = !debug_; }
+	//if (debug_) { debug_ = !debug_; }
 }
 
 void Physics::ChangeVelocity(Message* m) {
@@ -137,7 +137,7 @@ void Physics::SendMessageD(Message* msg) {
 		}
 		case MessageIDTypes::DEBUG_ALL:
         {
-            debug_ = true;
+            debug_ = !debug_;
 			break;
         }
 		default:

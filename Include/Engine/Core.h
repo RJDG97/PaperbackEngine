@@ -195,6 +195,6 @@ private:
 	bool b_game_active_;
 };
 
-extern CoreEngine* CORE;
+extern std::unique_ptr<CoreEngine> CORE;
 
 #endif
