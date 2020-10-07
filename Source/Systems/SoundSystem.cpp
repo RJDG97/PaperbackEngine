@@ -150,8 +150,8 @@ void SoundSystem::RemoveCompletedChannel() {
 
 void SoundSystem::Init() {
 	// Load all sound files
-	LoadSound("Resources/SoundCache/KK_BBG.mp3", "BGM", 1);
-	LoadSound("Resources/SoundCache/Kachow.mp3", "Kachow");
+	LoadSound("Resources/SoundCache/GameBGM.wav", "BGM", 1);
+	LoadSound("Resources/SoundCache/MenuBGM.wav", "Menu", 1);
 
 	M_DEBUG->WriteDebugMessage("Sound System Init\n");
 }

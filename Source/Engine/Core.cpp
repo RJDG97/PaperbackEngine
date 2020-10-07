@@ -39,9 +39,9 @@ void CoreEngine::GameLoop() {
 		PE_FrameRate.FrameRateLoop();
 
 		//std::cout << PE_FrameRate.GetFPS() << std::endl;
-		glfwSetWindowTitle(win->ptr_window, (win->GetWindowName() + " " + std::to_string(PE_FrameRate.GetFPS())).c_str());
+		glfwSetWindowTitle(win->ptr_window, (win->GetWindowName() + " | " + std::to_string(PE_FrameRate.GetFPS()) + " FPS").c_str());
 
-		if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_Q)) { // Q key
+		if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_ESCAPE)) { // Q key
 			M_DEBUG->WriteDebugMessage("TERMINATE GAME LOOP\n");
 			b_game_active_ = false;
 		}

@@ -104,60 +104,46 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_KEY_1:	//'1'
 		{
-			Message_CustomState msg{ &m_PlayState, MessageIDTypes::GSM_CHANGESTATE}; // pass in another existing state?
+			MessageBGM_Play msg{ std::string{"BGM"} };
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_2:	//'2'
 		{
-			Message_CustomState msg{ &m_MenuState, MessageIDTypes::GSM_CHANGESTATE }; // push maybe game state
+			Message msg(MessageIDTypes::BGM_STOP);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_3:	//'3'
 		{
-			Message msg{ MessageIDTypes::GSM_POPSTATE };
+			Message msg(MessageIDTypes::BGM_MUTE);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_4:	//'4'
 		{
-			MessageBGM_Play msg{ std::string{"Kachow"} };
+			Message msg(MessageIDTypes::BGM_PAUSE);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_5:	//'5'
 		{
-			Message msg(MessageIDTypes::BGM_STOP);
-			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_6:	//'6'
 		{
-			MessageBGM_Play msg{ std::string{"BGM"} };
-			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_7:	//'7'
 		{
-			Message msg(MessageIDTypes::BGM_MUTE);
-			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_8:	//'8'
 		{
-			Message msg(MessageIDTypes::BGM_PAUSE);
-			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_9:	//'9'
-		{
-			std::cout << "Debug: Rotating entity" << std::endl;
-			MessageRotation msg{ 1 }; // Entity id = 1
-			CORE->BroadcastMessage(&msg);
 			break;
-		}
-
 		case GLFW_KEY_A: 	//'A'
 			break;
 		case GLFW_KEY_B: 	//'B'

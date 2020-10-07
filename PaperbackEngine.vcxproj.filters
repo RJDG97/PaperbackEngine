@@ -321,7 +321,7 @@
       <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\InputSystem.h">
-      <Filter>Systems\MathLibrary</Filter>
+      <Filter>Systems\InputSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
