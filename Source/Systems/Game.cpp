@@ -190,6 +190,7 @@ void Game::SendMessageD(Message* m) {
 		states_.back()->StateInputHandler(m, this);
 		break;
 	}
+	case MessageIDTypes::C_MOVEMENT:
 	case MessageIDTypes::M_MOVEMENT:
 	{
 		//value larger than what can be gotten from input flags
@@ -204,7 +205,7 @@ void Game::SendMessageD(Message* m) {
 	case MessageIDTypes::DEBUG_ALL:
 	{
 
-		debug_ = true;
+		debug_ = !debug_;
 	}
 	default:
 		break;

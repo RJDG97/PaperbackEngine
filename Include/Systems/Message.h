@@ -8,6 +8,10 @@ const unsigned char UP_FLAG = 1;		// 0000 0000 0000 0001
 const unsigned char DOWN_FLAG = 2;		// 0000 0000 0000 0010
 const unsigned char LEFT_FLAG = 4;		// 0000 0000 0000 0100
 const unsigned char RIGHT_FLAG = 8;		// 0000 0000 0000 1000
+const unsigned char W_FLAG = 16;		// 0000 0000 0000 0001
+const unsigned char S_FLAG = 32;		// 0000 0000 0000 0010
+const unsigned char A_FLAG = 64;		// 0000 0000 0000 0100
+const unsigned char D_FLAG = 128;		// 0000 0000 0000 1000
 
 class GameState;
 
@@ -42,6 +46,10 @@ enum class MessageIDTypes
 	// Physics System
 	PHY_UPDATE_ACCEL,
 	PHY_UPDATE_VEL,
+
+	// Camera movement
+	CAM_UPDATE_POS,
+	C_MOVEMENT,
 
 	// Factory
 	FTY_PURGE,

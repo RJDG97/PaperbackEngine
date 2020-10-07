@@ -111,9 +111,6 @@
     <ClCompile Include="Source\Components\AnimationRenderer.cpp">
       <Filter>Entity\Components\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\Renderer.cpp">
-      <Filter>Entity\Components\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Components\Scale.cpp">
       <Filter>Entity\Components\Scale</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="Source\Components\BasicAI.cpp">
       <Filter>Entity\Components\BasicAI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Components\TextureRenderer.cpp">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -210,9 +210,6 @@
       <Filter>Entity\Components\AABB</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\AnimationRenderer.h">
-      <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Components\Renderer.h">
       <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\Attack.h">
@@ -259,9 +256,6 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\Game.h">
       <Filter>Systems\Scene/State Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Systems\InputSystem.h">
-      <Filter>Systems\InputSystem</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\ISystem.h">
       <Filter>Systems</Filter>
@@ -322,6 +316,12 @@
     </ClInclude>
     <ClInclude Include="Include\Components\BasicAI.h">
       <Filter>Entity\Components\BasicAI</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\TextureRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\InputSystem.h">
+      <Filter>Systems\MathLibrary</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

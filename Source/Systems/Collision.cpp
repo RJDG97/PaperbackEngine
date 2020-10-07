@@ -19,7 +19,7 @@ Collision* COLLISION;
 
 Collision::Collision() {
 	
-	debug_ = true;
+	debug_ = false;
 }
 
 // Comparison function
@@ -341,7 +341,7 @@ void Collision::SendMessageD(Message* m) {
 
 		case MessageIDTypes::DEBUG_ALL:
 		{
-			debug_ = true;
+			debug_ = !debug_;
 			break;
 		}
 		default:

@@ -152,7 +152,7 @@
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
     <ClCompile Include="Source\Components\PointLight.cpp" />
-    <ClCompile Include="Source\Components\Renderer.cpp" />
+    <ClCompile Include="Source\Components\TextureRenderer.cpp" />
     <ClCompile Include="Source\Components\Scale.cpp" />
     <ClCompile Include="Source\Components\Status.cpp" />
     <ClCompile Include="Source\Components\Transform.cpp" />
@@ -190,7 +190,7 @@
     <ClInclude Include="Include\Components\IRenderer.h" />
     <ClInclude Include="Include\Components\Motion.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
-    <ClInclude Include="Include\Components\Renderer.h" />
+    <ClInclude Include="Include\Components\TextureRenderer.h" />
     <ClInclude Include="Include\Components\Scale.h" />
     <ClInclude Include="Include\Components\Status.h" />
     <ClInclude Include="Include\Components\Transform.h" />

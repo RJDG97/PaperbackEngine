@@ -11,7 +11,7 @@
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
 #include "Systems/ISystem.h"
-#include "Components/Renderer.h"
+#include "Components/TextureRenderer.h"
 #include "Systems/Factory.h"
 #include <unordered_map>
 #include "Systems/WindowsSystem.h"
@@ -47,6 +47,8 @@ class GraphicsSystem : public ISystem {
 
     void CameraInit();
     void CameraUpdate();
+    void MoveCamera(Vector2D displacement);
+    void ZoomCamera(float zoom);
 
 public:
 
@@ -68,8 +70,8 @@ public:
     virtual void SendMessageD(Message* m);
 
     //for adding and removing renderer and animation components
-    void AddRendererComponent(EntityID id, Renderer* renderer);
-    void RemoveRendererComponent(EntityID id);
+    void AddTextureRendererComponent(EntityID id, TextureRenderer* renderer);
+    void RemoveTextureRendererComponent(EntityID id);
     void AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer);
     void RemoveAnimationRendererComponent(EntityID id);
 
@@ -88,7 +90,7 @@ public:
     int GetLayer(IRenderer* irenderer);
 
     //functions for renderer
-    void ChangeTexture(Renderer* renderer, std::string texture_name);
+    void ChangeTexture(TextureRenderer* renderer, std::string texture_name);
 
     //functions for animation renderer
     void AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
@@ -96,8 +98,8 @@ public:
     void SetToNextFrame(AnimationRenderer* anim_renderer);
     bool IsLastFrame(AnimationRenderer* anim_renderer);
 
-    using RendererIt = std::unordered_map<EntityID, Renderer*>::iterator;
-    std::unordered_map<EntityID, Renderer*> renderer_arr_;
+    using TextureRendererIt = std::unordered_map<EntityID, TextureRenderer*>::iterator;
+    std::unordered_map<EntityID, TextureRenderer*> texture_renderer_arr_;
 
     using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer*>::iterator;
     std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;

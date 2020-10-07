@@ -24,7 +24,8 @@
 void GraphicsSystem::CameraInit() {
 
     cam_pos_ = glm::vec2{ 0, 0 };
-    cam_size_ = glm::vec2{ 800, 600 };
+    cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
+                           windows_system_->GetWinHeight() };
 
     view_xform_ = glm::mat3{ 1 , 0 , 0,
                             0 , 1 , 0,
@@ -50,6 +51,17 @@ void GraphicsSystem::CameraUpdate() {
                                       0 , 0 , 1 };
 
     world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
+}
+
+void GraphicsSystem::MoveCamera(Vector2D displacement) {
+
+    cam_pos_.x -= displacement.x;
+    cam_pos_.y -= displacement.y;
+}
+
+void GraphicsSystem::ZoomCamera(float zoom)
+{
+    cam_size_ *= zoom;
 }
 
 /*  _________________________________________________________________________ */
@@ -115,9 +127,6 @@ void GraphicsSystem::Init() {
     final_model_ = model_manager_->GetModel("BoxModel");
     final_shader_ = shader_manager_->GetShdrpgm("FinalShader");
 
-    FACTORY->AddComponentCreator("Renderer", new ComponentCreator<Renderer>(ComponentTypes::RENDERER));
-    FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
-
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
     CameraInit();
@@ -141,7 +150,7 @@ void GraphicsSystem::Update(float frametime) {
     CameraUpdate();
     
     //updates all the renderer components
-    for (RendererIt it = renderer_arr_.begin(); it != renderer_arr_.end(); ++it) {
+    for (TextureRendererIt it = texture_renderer_arr_.begin(); it != texture_renderer_arr_.end(); ++it) {
 
         if (debug_) {
 			// Log id of entity and it's updated components that are being updated
@@ -251,6 +260,13 @@ void GraphicsSystem::SendMessageD(Message* m) {
             debug_ = true;
             break;
         }
+        
+        case MessageIDTypes::CAM_UPDATE_POS: {
+            //placeholder name for message, will be changed after engineproof
+            MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
+            MoveCamera(msg->new_vec_);
+            break;
+        }
 
         default: {
 
@@ -259,24 +275,24 @@ void GraphicsSystem::SendMessageD(Message* m) {
     }
 }
 
-void GraphicsSystem::AddRendererComponent(EntityID id, Renderer* renderer) {
+void GraphicsSystem::AddTextureRendererComponent(EntityID id, TextureRenderer* renderer) {
 
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
-    renderer_arr_[id] = renderer;
+    texture_renderer_arr_[id] = renderer;
     renderers_in_order_.insert({GetLayer(renderer), renderer});
 }
 
-void GraphicsSystem::RemoveRendererComponent(EntityID id) {
+void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
 
-    RendererIt it = renderer_arr_.find(id);
+    TextureRendererIt it = texture_renderer_arr_.find(id);
     int layer;
 
-    if (it != renderer_arr_.end()) {
+    if (it != texture_renderer_arr_.end()) {
 
         M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
         layer = GetLayer(it->second);
-        renderer_arr_.erase(it);
+        texture_renderer_arr_.erase(it);
     }
 
     RenderOrderIt orderit = renderers_in_order_.find(layer);
@@ -454,7 +470,7 @@ int GraphicsSystem::GetLayer(IRenderer* irenderer) {
     return irenderer->layer_;
 }
 
-void GraphicsSystem::ChangeTexture(Renderer* renderer, std::string texture_name) {
+void GraphicsSystem::ChangeTexture(TextureRenderer* renderer, std::string texture_name) {
 
     renderer->texture_ = *(texture_manager_->GetTexture(texture_name));
 }
