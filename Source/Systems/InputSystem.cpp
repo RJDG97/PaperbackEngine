@@ -185,7 +185,11 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_KEY_H:
 			break;
 		case GLFW_KEY_I:
+		{
+			Message msg(MessageIDTypes::CHANGE_ANIMATION_2);
+			CORE->BroadcastMessage(&msg);
 			break;
+		}
 		case GLFW_KEY_J:
 			break;
 		case GLFW_KEY_K:
@@ -197,9 +201,17 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_KEY_N:
 			break;
 		case GLFW_KEY_O:
+		{
+			Message msg(MessageIDTypes::FLIP_SPRITE_X);
+			CORE->BroadcastMessage(&msg);
 			break;
+		}
 		case GLFW_KEY_P:
+		{
+			Message msg(MessageIDTypes::FLIP_SPRITE_Y);
+			CORE->BroadcastMessage(&msg);
 			break;
+		}
 		case GLFW_KEY_Q:
 			break;
 		case GLFW_KEY_R: 	//'R'
@@ -213,7 +225,11 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_KEY_T:
 			break;
 		case GLFW_KEY_U:
+		{
+			Message msg(MessageIDTypes::CHANGE_ANIMATION_1);
+			CORE->BroadcastMessage(&msg);
 			break;
+		}
 		case GLFW_KEY_V:
 			break;
 		case GLFW_KEY_W:
@@ -275,6 +291,17 @@ void InputSystem::Update(float frametime) {
 		input_flag |= A_FLAG;
 	if (IsKeyPressed(GLFW_KEY_D))
 		input_flag |= D_FLAG;
+
+	/*
+	if (IsKeyPressed(GLFW_KEY_Z))
+		input_flag |= Z_FLAG;
+	if (IsKeyPressed(GLFW_KEY_X))
+		input_flag |= X_FLAG;
+	if (IsKeyPressed(GLFW_KEY_C))
+		input_flag |= C_FLAG;
+	if (IsKeyPressed(GLFW_KEY_V))
+		input_flag |= V_FLAG;
+	*/
 
 	if (IsKeyPressed(GLFW_KEY_COMMA)) {
 	

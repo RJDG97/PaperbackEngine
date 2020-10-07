@@ -254,6 +254,21 @@ std::string GraphicsSystem::GetName() {
 
 void GraphicsSystem::SendMessageD(Message* m) {
 
+    AnimRendererIt player_renderer;
+
+    for (player_renderer = anim_renderer_arr_.begin(); player_renderer != anim_renderer_arr_.end(); ++player_renderer)
+    {
+        if (player_renderer->second->GetOwner()->GetType() == EntityTypes::PLAYER)
+        {
+            break;
+        }
+    }
+
+    if (player_renderer == anim_renderer_arr_.end())
+    {
+        return;
+    }
+
     switch(m->message_id_) {
 
         case MessageIDTypes::DEBUG_ALL: {
@@ -265,6 +280,34 @@ void GraphicsSystem::SendMessageD(Message* m) {
             //placeholder name for message, will be changed after engineproof
             MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
             MoveCamera(msg->new_vec_);
+            break;
+        }
+        
+        case MessageIDTypes::CHANGE_ANIMATION_1: {
+
+            SetAnimation(player_renderer->second, "Player_Walk");
+
+            break;
+        }
+        
+        case MessageIDTypes::CHANGE_ANIMATION_2: {
+
+            SetAnimation(player_renderer->second, "Player_Idle");
+
+            break;
+        }
+
+        case MessageIDTypes::FLIP_SPRITE_X: {
+
+            FlipTextureX(dynamic_cast<IRenderer*>(player_renderer->second));
+
+            break;
+        }
+
+        case MessageIDTypes::FLIP_SPRITE_Y: {
+
+            FlipTextureY(dynamic_cast<IRenderer*>(player_renderer->second));
+
             break;
         }
 
@@ -486,7 +529,9 @@ void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string 
     anim_renderer->time_elapsed_ = 0.0f;
 
     anim_renderer->texture_handle_ = anim_renderer->current_animation_->GetAnimationFramesHandle();
-    anim_renderer->tex_vtx_initial_ = anim_renderer->current_animation_->GetTexVtx();
+    anim_renderer->tex_vtx_initial_ = *anim_renderer->current_animation_->GetTexVtx();
+
+    anim_renderer->tex_vtx_sent_.clear();
 
     for (int i = 0; i < anim_renderer->tex_vtx_mirrored_.size(); ++i) {
 
