@@ -180,7 +180,40 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			CORE->BroadcastMessage(&m2);
 		}
 
+		if (msg->message_id_ == MessageIDTypes::C_MOVEMENT) {
 
+			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
+			assert(m != nullptr && "Message is not a player input message");
+			unsigned char key_val = m->input_flag_;
+
+			// set up velocity based input flag value
+			Vec2 new_vel{};
+
+			if (key_val & W_FLAG) {
+
+				new_vel.y += 10.0f;
+			}
+
+			if (key_val & S_FLAG) {
+
+				new_vel.y -= 10.0f;
+			}
+
+			if (key_val & A_FLAG) {
+
+				new_vel.x -= 10.0f;
+			}
+
+			if (key_val & D_FLAG) {
+
+				new_vel.x += 10.0f;
+			}
+
+			//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
+
+			MessagePhysics_Motion m2{ MessageIDTypes::CAM_UPDATE_POS, new_vel };
+			CORE->BroadcastMessage(&m2);
+		}
 	}
 
 	if (game) {

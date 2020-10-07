@@ -56,6 +56,7 @@ void TextureManager::TempFunctionForTesting() {
 
     //load textures
     CreateTileset("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_);
+    CreateTileset("Resources\\Sprites\\Background.png", 1, 1, background_test_);
 }
 
 void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char red,

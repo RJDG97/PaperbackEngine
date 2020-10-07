@@ -1,4 +1,4 @@
-#include "Components/Renderer.h"
+#include "Components/TextureRenderer.h"
 #include "Components/Transform.h"
 #include "Components/Scale.h"
 #include "Engine/Core.h"
@@ -7,18 +7,18 @@
 
 #define M_PI       3.14159265358979323846
 
-Renderer::Renderer() {
+TextureRenderer::TextureRenderer() {
     
 }
 
-Renderer::~Renderer() {
+TextureRenderer::~TextureRenderer() {
     
-    CORE->GetSystem<GraphicsSystem>()->RemoveRendererComponent(Component::GetOwner()->GetID());
+    CORE->GetSystem<GraphicsSystem>()->RemoveTextureRendererComponent(Component::GetOwner()->GetID());
 }
 
-void Renderer::Init() {
+void TextureRenderer::Init() {
     
-    CORE->GetSystem<GraphicsSystem>()->AddRendererComponent(Component::GetOwner()->GetID(), this);
+    CORE->GetSystem<GraphicsSystem>()->AddTextureRendererComponent(Component::GetOwner()->GetID(), this);
     texture_handle_ = texture_.GetTilesetHandle();
     tex_vtx_initial_ = texture_.GetTexVtx();
     tex_vtx_mirrored_ = std::vector<glm::vec2*>{ &(*tex_vtx_initial_)[0],
@@ -28,7 +28,7 @@ void Renderer::Init() {
     tex_vtx_sent_ = *texture_.GetTexVtx();
 }
 
-void Renderer::Serialize(std::stringstream& data) {
+void TextureRenderer::Serialize(std::stringstream& data) {
     
     std::string texture;
     std::string model;

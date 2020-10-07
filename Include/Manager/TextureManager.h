@@ -76,6 +76,11 @@ class TextureManager : public IManager {
 		"Rock"
 	};			 
 
+	std::vector<std::string> background_test_{
+		"BackgroundTest",
+		"Background",
+	};
+
 public:
 
 	void Init() override;

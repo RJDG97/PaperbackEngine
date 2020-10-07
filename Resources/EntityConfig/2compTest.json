@@ -7,11 +7,11 @@
     },
     {
       "component": "Scale",
-      "scale": "150.0 150.0"
+      "scale": "820.0 400.0"
     },
     {
-      "component": "Renderer",
-      "texture": "Plank",
+      "component": "TextureRenderer",
+      "texture": "Background",
       "model": "TileModel",
       "shader program": "ObjectShader",
       "layer": "0"
@@ -80,7 +80,7 @@
       "scale": "30.0 30.0"
     },
     {
-      "component": "Renderer",
+      "component": "TextureRenderer",
       "texture": "Stone",
       "model": "TileModel",
       "shader program": "ObjectShader",
@@ -122,7 +122,7 @@
       "acceleration": "0.0 0.0"
     },
     {
-      "component": "Renderer",
+      "component": "TextureRenderer",
       "texture": "Rock",
       "model": "TileModel",
       "shader program": "ObjectShader",
@@ -165,7 +165,7 @@
       "acceleration": "0.0 0.0"
     },
     {
-      "component": "Renderer",
+      "component": "TextureRenderer",
       "texture": "Rock",
       "model": "TileModel",
       "shader program": "ObjectShader",
@@ -200,7 +200,7 @@
       "acceleration": "0.0 0.0"
     },
     {
-      "component": "Renderer",
+      "component": "TextureRenderer",
       "texture": "Rock",
       "model": "TileModel",
       "shader program": "ObjectShader",

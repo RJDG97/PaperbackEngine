@@ -217,6 +217,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_KEY_V:
 			break;
 		case GLFW_KEY_W:
+
 			break;
 		case GLFW_KEY_X:
 			break;
@@ -266,6 +267,14 @@ void InputSystem::Update(float frametime) {
 	if (IsKeyPressed(GLFW_KEY_DOWN))
 		input_flag |= DOWN_FLAG;
 
+	if (IsKeyPressed(GLFW_KEY_W))
+		input_flag |= W_FLAG;
+	if (IsKeyPressed(GLFW_KEY_S))
+		input_flag |= S_FLAG;
+	if (IsKeyPressed(GLFW_KEY_A))
+		input_flag |= A_FLAG;
+	if (IsKeyPressed(GLFW_KEY_D))
+		input_flag |= D_FLAG;
 
 	if (IsKeyPressed(GLFW_KEY_COMMA)) {
 	
@@ -305,6 +314,9 @@ void InputSystem::Update(float frametime) {
 	//send the message with the updated flag to be processed
 	Message_PlayerInput input_msg{ MessageIDTypes::M_MOVEMENT, input_flag };
 	CORE->BroadcastMessage(&input_msg);
+
+	Message_PlayerInput cam_msg{ MessageIDTypes::C_MOVEMENT, input_flag };
+	CORE->BroadcastMessage(&cam_msg);
 }
 
 // Sends Messages

@@ -9,7 +9,7 @@
 #include "Manager/TextureManager.h"
 #include <glm/glm.hpp>
 
-class Renderer : public IRenderer {
+class TextureRenderer : public IRenderer {
 
 	Texture texture_;
 
@@ -17,8 +17,8 @@ public:
 
 	friend class GraphicsSystem;
 
-	Renderer();
-	~Renderer();
+	TextureRenderer();
+	~TextureRenderer();
 
 	void Init();
 

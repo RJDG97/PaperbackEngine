@@ -16,6 +16,8 @@
 #include "Components/Motion.h"
 #include "Components/Status.h"
 #include "COmponents/BasicAI.h"
+#include "Components/TextureRenderer.h"
+#include "Components/AnimationRenderer.h"
 
 EntityFactory* FACTORY = NULL;
 
@@ -45,9 +47,10 @@ void EntityFactory::Init() {
 	FACTORY->AddComponentCreator("AABB", new ComponentCreator<AABB>(ComponentTypes::AABB));
 	FACTORY->AddComponentCreator("Scale", new ComponentCreator<Scale>(ComponentTypes::SCALE));
 	FACTORY->AddComponentCreator("Status", new ComponentCreator<Status>(ComponentTypes::STATUS));
-	FACTORY->AddComponentCreator("Health", new ComponentCreator<Health>(ComponentTypes::HEALTH));
 	FACTORY->AddComponentCreator("PointLight", new ComponentCreator<PointLight>(ComponentTypes::POINTLIGHT));
 	FACTORY->AddComponentCreator("BasicAI", new ComponentCreator<BasicAI>(ComponentTypes::BASICAI));
+	FACTORY->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
+	FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }
