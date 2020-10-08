@@ -1,12 +1,8 @@
-/*                                                                      guard
------------------------------------------------------------------------------ */
 #ifndef GLSLSHADER_H
 #define GLSLSHADER_H
 
-/*                                                                   includes
------------------------------------------------------------------------------ */
 #include "Manager/IManager.h"
-#include <GL/glew.h> // for access to OpenGL API declarations 
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <iostream>
 #include <fstream>
@@ -16,8 +12,6 @@
 #include <string>
 #include <vector>
 #include <map>
-
-/*  _________________________________________________________________________ */
 
 class Shader {
 

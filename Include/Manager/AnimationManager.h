@@ -173,12 +173,55 @@ public:
 /******************************************************************************/
 	void TempAnimationBatchLoad();
 
+/******************************************************************************/
+/*!
+	\fn CreateAnimation(const char* filename,
+						std::vector<std::pair<std::string, int>>* texture_name,
+						GLfloat frame_duration)
+
+	\brief Loads an image file, creates and stores all the animations that the
+		   file contains into the Animation Manager's map.
+*/
+/******************************************************************************/
 	void CreateAnimation(const char* filename, std::vector<std::pair<std::string, int>>* texture_name, GLfloat frame_duration);
+
+/******************************************************************************/
+/*!
+	\fn UnloadAnimationSet(std::vector<std::pair<std::string, int>>* animation_name)
+
+	\brief Unloads an image file, deletes and removes all the animations that the
+		   file contains from the Animation Manager's map.
+*/
+/******************************************************************************/
 	bool UnloadAnimationSet(std::vector<std::pair<std::string, int>>* animation_name);
+
+/******************************************************************************/
+/*!
+	\fn UnloadAllAnimationSets()
+
+	\brief Unloads all animation sets that are stored within the Animation
+		   Manager's map
+*/
+/******************************************************************************/
 	void UnloadAllAnimationSets();
 
+/******************************************************************************/
+/*!
+	\fn GetAnimation()
+
+	\brief Gets an animation from the Animation Manager's map
+*/
+/******************************************************************************/
 	Animation GetAnimation(std::string animation_name);
 
+/******************************************************************************/
+/*!
+	\fn ChangeAnimationFrameDuration(std::string animation_name,
+									 GLfloat new_frame_duration)
+
+	\brief Changes the duration each frame is displayed for
+*/
+/******************************************************************************/
 	void ChangeAnimationFrameDuration(std::string animation_name, GLfloat new_frame_duration);
 };
 

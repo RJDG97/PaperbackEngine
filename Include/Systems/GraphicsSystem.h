@@ -1,11 +1,7 @@
-/*                                                                      guard
------------------------------------------------------------------------------ */
 #pragma once
 #ifndef GRAPHICSSYSTEM_H
 #define GRAPHICSSYSTEM_H
 
-/*                                                                   includes
------------------------------------------------------------------------------ */
 #include "Manager/ShaderManager.h"
 #include "Systems/LightingSystem.h"
 #include "Manager/TextureManager.h"
@@ -17,7 +13,7 @@
 #include "Systems/WindowsSystem.h"
 #include "Components/AnimationRenderer.h"
 #include <windows.h>
-#include <GL/glew.h> // for access to OpenGL API declarations
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 class GraphicsSystem : public ISystem {
@@ -45,9 +41,40 @@ class GraphicsSystem : public ISystem {
     Shader* final_shader_;
     GLuint* lighting_texture_;
 
+/******************************************************************************/
+/*!
+    \fn CameraInit()
+
+    \brief Initializes the Camera
+*/
+/******************************************************************************/
     void CameraInit();
+
+/******************************************************************************/
+/*!
+    \fn CameraUpdate()
+
+    \brief Updates the Camera's World to NDC transform
+*/
+/******************************************************************************/
     void CameraUpdate();
+
+/******************************************************************************/
+/*!
+    \fn MoveCamera(Vector2D displacement)
+
+    \brief Moves the camera and updates its position
+*/
+/******************************************************************************/
     void MoveCamera(Vector2D displacement);
+
+/******************************************************************************/
+/*!
+    \fn ZoomCamera(float zoom)
+
+    \brief Zooms the camera and updates its height and width
+*/
+/******************************************************************************/
     void ZoomCamera(float zoom);
 
 public:
@@ -57,45 +84,225 @@ public:
 
     glm::mat3 world_to_ndc_xform_;
 
+/******************************************************************************/
+/*!
+    \fn Init()
+
+    \brief Initializes the Graphics System
+*/
+/******************************************************************************/
     void Init();
+
+/******************************************************************************/
+/*!
+    \fn Update()
+
+    \brief Updates all renderer's Model to NDC transform and updates time
+           elapsed for animation renderers
+*/
+/******************************************************************************/
     void Update(float frametime);
+
+/******************************************************************************/
+/*!
+    \fn Draw()
+
+    \brief Draws all objects with component that inherits from IRenderer
+*/
+/******************************************************************************/
     void Draw() override;
+
+/******************************************************************************/
+/*!
+    \fn DrawFinalTexture(Model* model, Shader* shader, GLuint* texture)
+
+    \brief Draws texture that covers the entire viewport (for post-processing)
+*/
+/******************************************************************************/
     void DrawFinalTexture(Model* model, Shader* shader, GLuint* texture);
+
+/******************************************************************************/
+/*!
+    \fn CleanUp()
+
+    \brief Cleans up the Graphics System
+*/
+/******************************************************************************/
     void CleanUp();
 
-    //returns the name of the system for debug use
+/******************************************************************************/
+/*!
+    \fn GetName()
+
+    \brief Returns the name of the system for debug use
+*/
+/******************************************************************************/
     virtual std::string GetName();
 
-    //function more akin to "What to do when message is received" for internal logic
+/******************************************************************************/
+/*!
+    \fn SendMessageD(Message* m)
+
+    \brief Function more akin to "What to do when message is received"
+           for internal logic
+*/
+/******************************************************************************/
     virtual void SendMessageD(Message* m);
 
-    //for adding and removing renderer and animation components
+/******************************************************************************/
+/*!
+    \fn AddTextureRendererComponent(EntityID id, TextureRenderer* renderer)
+
+    \brief Adds a TextureRenderer component to the texture renderer map
+*/
+/******************************************************************************/
     void AddTextureRendererComponent(EntityID id, TextureRenderer* renderer);
+
+/******************************************************************************/
+/*!
+    \fn RemoveTextureRendererComponent(EntityID id)
+
+    \brief Removes a TextureRenderer component from the texture renderer map
+*/
+/******************************************************************************/
     void RemoveTextureRendererComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+    \fn AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer)
+
+    \brief Adds an Animation Renderer component to the animation renderer map
+*/
+/******************************************************************************/
     void AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer);
+
+/******************************************************************************/
+/*!
+    \fn RemoveAnimationRendererComponent(EntityID id)
+
+    \brief Removes an Animation Renderer component from the animation renderer map
+*/
+/******************************************************************************/
     void RemoveAnimationRendererComponent(EntityID id);
 
-    //updating of components
+/******************************************************************************/
+/*!
+    \fn UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to_ndc_xform)
+
+    \brief Updates Model to NDC transform of the renderer
+*/
+/******************************************************************************/
     void UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to_ndc_xform);
+
+/******************************************************************************/
+/*!
+    \fn UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime)
+
+    \brief Updates time elapsed for animation renderers and changes the
+           current frame
+*/
+/******************************************************************************/
     void UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime);
     
-    //drawing of components
+/******************************************************************************/
+/*!
+    \fn DrawObject(IRenderer* irenderer)
+
+    \brief Draw objects that have a component that inherits from IRenderer
+*/
+/******************************************************************************/
     void DrawObject(IRenderer* irenderer);
 
-    //functions for irenderer
+/******************************************************************************/
+/*!
+    \fn ChangeModel(IRenderer* irenderer, std::string model_name)
+
+    \brief Changes the model used for rendering
+*/
+/******************************************************************************/
     void ChangeModel(IRenderer* irenderer, std::string model_name);
+
+/******************************************************************************/
+/*!
+    \fn ChangeShdrpgm(IRenderer* irenderer, std::string shdr_pgm_name)
+
+    \brief Changes the shdaer program used for rendering
+*/
+/******************************************************************************/
     void ChangeShdrpgm(IRenderer* irenderer, std::string shdr_pgm_name);
+
+/******************************************************************************/
+/*!
+    \fn FlipTextureX(IRenderer* irenderer)
+
+    \brief Flips the texture renderered in the x axis
+*/
+/******************************************************************************/
     void FlipTextureX(IRenderer* irenderer);
+
+/******************************************************************************/
+/*!
+\fn FlipTextureY(IRenderer* irenderer)
+
+\brief Flips the texture renderered in the y axis
+*/
+/******************************************************************************/
     void FlipTextureY(IRenderer* irenderer);
+
+/******************************************************************************/
+/*!
+\fn GetLayer(IRenderer* irenderer)
+
+\brief Gets the layer that the texture will be renderered on
+*/
+/******************************************************************************/
     int GetLayer(IRenderer* irenderer);
 
-    //functions for renderer
+/******************************************************************************/
+/*!
+\fn ChangeTexture(TextureRenderer* renderer, std::string texture_name)
+
+\brief Changes the texture rendered
+*/
+/******************************************************************************/
     void ChangeTexture(TextureRenderer* renderer, std::string texture_name);
 
-    //functions for animation renderer
+/******************************************************************************/
+/*!
+\fn AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name)
+
+\brief Adds the animation specified into the animation renderer's
+       animation map
+*/
+/******************************************************************************/
     void AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
+
+/******************************************************************************/
+/*!
+\fn SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name)
+
+\brief Sets the current animation to the specified animation in the animation
+       renderer's animation map
+*/
+/******************************************************************************/
     void SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
+
+/******************************************************************************/
+/*!
+\fn SetToNextFrame(AnimationRenderer* anim_renderer)
+
+\brief Set current frame to the next frame of the current animation
+*/
+/******************************************************************************/
     void SetToNextFrame(AnimationRenderer* anim_renderer);
+
+/******************************************************************************/
+/*!
+\fn IsLastFrame(AnimationRenderer* anim_renderer)
+
+\brief Checks if the current frame is the last frame of the animation
+*/
+/******************************************************************************/
     bool IsLastFrame(AnimationRenderer* anim_renderer);
 
     using TextureRendererIt = std::unordered_map<EntityID, TextureRenderer*>::iterator;

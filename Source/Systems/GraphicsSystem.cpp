@@ -1,5 +1,3 @@
-/*                                                                   includes
------------------------------------------------------------------------------ */
 #define _USE_MATH_DEFINES
 
 #include "Systems/GraphicsSystem.h"
@@ -17,9 +15,6 @@
 #include "Components/Scale.h"
 #include "Components/Transform.h"
 #include <glm/gtc/type_ptr.hpp>
-
-/*                                                   objects with file scope
------------------------------------------------------------------------------ */
 
 void GraphicsSystem::CameraInit() {
 
