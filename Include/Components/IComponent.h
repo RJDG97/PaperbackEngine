@@ -6,13 +6,12 @@
 //#include "lib/rapidjson/document.h"
 #include <memory>
 
-
 #ifndef _COMPONENT_H_
 #define _COMPONENT_H_
 
-//forward declaration of entity class
-//will be inherited by file containing Entity definition
+// Forward declaration of Entity class
 class Entity;
+
 
 class Component {
 

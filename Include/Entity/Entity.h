@@ -5,6 +5,7 @@
 #include "Components/Name.h"
 #include <vector>
 #include <memory>
+#include <string>
 
 //enum class EntityTypes;
 
@@ -143,6 +144,15 @@ enum class EntityTypes {
 	STATIC_OBJ
 };
 */
+
+/******************************************************************************/
+/*!
+  \fn StringToComponentType()
+
+  \brief Function that converts input string from JSON into an equivalent enum
+*/
+/******************************************************************************/
+ComponentTypes StringToComponentType(const std::string str);
 
 //Assumes that name component is a guaranteed component for every entity
 #define ENTITYNAME(ref) std::dynamic_pointer_cast<Name>(ref->GetComponent(ComponentTypes::NAME))->GetEntityName()

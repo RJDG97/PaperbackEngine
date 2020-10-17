@@ -123,3 +123,39 @@ Entity* Entity::Clone() {
 void Entity::Destroy() {
 	FACTORY->Destroy(this);
 }
+
+// Function that converts input string from JSON into an equivalent enum
+ComponentTypes StringToComponentType(const std::string str) {
+	if (str == "Name")
+		return ComponentTypes::NAME;
+	else if (str == "Motion")
+		return ComponentTypes::MOTION;
+	else if (str == "Transform")
+		return ComponentTypes::TRANSFORM;
+	else if (str == "Health")
+		return ComponentTypes::HEALTH;
+	else if (str == "Camera")
+		return ComponentTypes::CAMERA;
+	else if (str == "Sprite")
+		return ComponentTypes::SPRITE;
+	else if (str == "Controller")
+		return ComponentTypes::CONTROLLER;
+	else if (str == "TextureRenderer")
+		return ComponentTypes::TEXTURERENDERER;
+	else if (str == "AnimationRenderer")
+		return ComponentTypes::ANIMATIONRENDERER;
+	else if (str == "AABB")
+		return ComponentTypes::AABB;
+	else if (str == "Scale")
+		return ComponentTypes::SCALE;
+	else if (str == "Status")
+		return ComponentTypes::STATUS;
+	else if (str == "PointLight")
+		return ComponentTypes::POINTLIGHT;
+	else if (str == "ConeLight")
+		return ComponentTypes::CONELIGHT;
+	else if (str == "BasicAI")
+		return ComponentTypes::BASICAI;
+	else
+		return ComponentTypes::NONE;
+}
