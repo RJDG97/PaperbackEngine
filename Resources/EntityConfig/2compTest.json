@@ -1,5 +1,9 @@
 {
-   "Floor": [
+  "Floor": [
+    {
+      "component": "Name",
+      "name": "Floor"
+    },
     {
       "component": "Transform",
       "position": "0.0 0.0",
@@ -18,6 +22,10 @@
     }
    ],
   "Player": [
+    {
+      "component": "Name",
+      "name": "Player"
+    },
     {
       "component": "Transform",
       "position": "0.0 0.0 ",
@@ -67,6 +75,10 @@
   ],
   "Enemy": [
     {
+      "component": "Name",
+      "name": "Enemy"
+    },
+    {
       "component": "Transform",
       "position": "-150.0 100.0",
       "rotation": "0.0" 
@@ -109,6 +121,10 @@
   ],
   "Wall": [
     {
+      "component": "Name",
+      "name": "Wall"
+    },
+    {
       "component": "Transform",
       "position": "-150.0 -100.0",
       "rotation": "0.0"
@@ -143,6 +159,10 @@
     }
   ],
   "MovingWall": [
+    {
+      "component": "Name",
+      "name": "Wall"
+    },
     {
       "component": "BasicAI",
       "speed": "70.0",
@@ -186,6 +206,10 @@
     }
   ],
   "ButtonCrash": [
+    {
+      "component": "Name",
+      "name": "Button"
+    },
     {
       "component": "Transform",
       "position": "150.0 100.0",

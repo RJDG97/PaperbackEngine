@@ -30,3 +30,17 @@ void PointLight::Serialize(std::stringstream& data) {
 	model_ = *CORE->GetManager<ModelManager>()->GetModel(model);
 	shdr_pgm_ = *CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }
+
+std::shared_ptr<Component> PointLight::Clone() {
+	M_DEBUG->WriteDebugMessage("Cloning PointLight Component\n");
+
+	std::shared_ptr<PointLight> cloned = std::make_shared<PointLight>();
+
+	cloned->color_ = color_;
+	cloned->intensity_ = intensity_;
+	cloned->model_ = model_;
+	cloned->shdr_pgm_ = shdr_pgm_;
+	cloned->radius_ = radius_;
+
+	return cloned;
+}

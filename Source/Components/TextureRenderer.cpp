@@ -40,3 +40,19 @@ void TextureRenderer::Serialize(std::stringstream& data) {
     model_ = CORE->GetManager<ModelManager>()->GetModel(model);
     shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }
+
+std::shared_ptr<Component> TextureRenderer::Clone() {
+    M_DEBUG->WriteDebugMessage("Cloning TextureRenderer Component\n");
+
+    std::shared_ptr<TextureRenderer> cloned = std::make_shared<TextureRenderer>();
+
+    // IRenderer
+    cloned->model_ = model_; // check this
+    cloned->shdr_pgm_ = shdr_pgm_; // check this
+    cloned->layer_ = layer_;
+
+    // TextureRenderer
+    cloned->texture_ = texture_;
+
+    return cloned;
+}

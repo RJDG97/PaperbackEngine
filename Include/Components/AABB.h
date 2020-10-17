@@ -5,6 +5,7 @@
 #include "MathLib/Vector2D.h"
 #include "IComponent.h"
 #include <sstream>
+#include <memory>
 
 class AABB : public Component {
 	Vector2D scale_;
@@ -103,7 +104,7 @@ public:
   \brief Clones the existing component
 */
 /******************************************************************************/
-	AABB* Clone() override;
+	std::shared_ptr<Component> Clone() override;
 };
 
 #endif

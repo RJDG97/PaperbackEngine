@@ -17,6 +17,20 @@ Vector2D::Vector2D() : x{ 0.0f }, y{ 0.0f }
 Vector2D::Vector2D(float _x, float _y) : x{ _x }, y{ _y }
 {}
 
+Vector2D::Vector2D(const Vector2D& rhs) :
+	Vector2D{rhs.x, rhs.y}
+{
+}
+
+Vector2D& Vector2D::operator=(const Vector2D& rhs) {
+	if (this != &rhs) {
+		x = rhs.x;
+		y = rhs.y;
+	}
+
+	return *this;
+}
+
 /******************************************************************************/
 /*!
 	Compund addition operator for Vector2D

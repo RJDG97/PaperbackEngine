@@ -94,6 +94,9 @@
     <Filter Include="Entity\Components\BasicAI">
       <UniqueIdentifier>{d056378e-3b1f-41ed-9970-839f1ea52ad4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Name">
+      <UniqueIdentifier>{cab58183-94ef-4e7e-8315-068c5d5c3188}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -197,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\TextureRenderer.cpp">
       <Filter>Entity\Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Name.cpp">
+      <Filter>Entity\Components\Name</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\InputSystem.h">
       <Filter>Systems\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Name.h">
+      <Filter>Entity\Components\Name</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

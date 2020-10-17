@@ -41,6 +41,18 @@ void Status::Serialize(std::stringstream& data) {
     */
 }
 
+std::shared_ptr<Component> Status::Clone() {
+	M_DEBUG->WriteDebugMessage("Cloning Status Component\n");
+
+	std::shared_ptr<Status> cloned = std::make_shared<Status>();
+
+	cloned->status_ = status_;
+	cloned->status_timer_ = status_timer_;
+	cloned->cooldown_timer_ = cooldown_timer_;
+
+	return cloned;
+}
+
 Status::~Status() {
 
 	CORE->GetSystem<Game>()->RemoveStatusComponent(Component::GetOwner()->GetID());

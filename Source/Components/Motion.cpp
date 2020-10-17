@@ -27,3 +27,14 @@ void Motion::Serialize(std::stringstream& data) {
 	std::cout << "Velocity read: " << velocity_.x << ", " << velocity_.y << std::endl;
 	std::cout << "Accleration read: " << acceleration_.x << ", " << acceleration_.y << std::endl;
 }
+
+std::shared_ptr<Component> Motion::Clone() {
+	M_DEBUG->WriteDebugMessage("Cloning Motion Component\n");
+
+	std::shared_ptr<Motion> cloned = std::make_shared<Motion>();
+
+	cloned->acceleration_ = acceleration_;
+	cloned->velocity_ = velocity_;
+
+	return cloned;
+}

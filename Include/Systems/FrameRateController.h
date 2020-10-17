@@ -82,7 +82,7 @@ public:
 
 class FrameRateController : public Time_Channel
 {
-	int frames_ = 0;
+	int frames_ = 0, currentsteps_ = 0;
 	float fps_ = 60.0f;
 	float minframetime_ = 1 / fps_;
 	std::chrono::duration<float> delta_;

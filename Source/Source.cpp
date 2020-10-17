@@ -71,6 +71,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		// Release all resources allocated during
 		// runtime and compile time
 		FACTORY->DestroyAllEntities();
+		FACTORY->DestroyAllArchetypes();
 		CORE->DestroySystems();
 		CORE->DestroyManagers();
 		EngineDebug::DeleteInstance();

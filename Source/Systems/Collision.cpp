@@ -225,12 +225,12 @@ void Collision::Update(float frametime) {
 
 			if (CheckCollision(*aabb1->second, *vel1, *aabb2->second, *vel2, frametime, t_first)) {
 
-				EntityTypes aabb1_type = aabb1->second->GetOwner()->GetType();
-				EntityTypes aabb2_type = aabb2->second->GetOwner()->GetType();
+				std::string aabb1_type = ENTITYNAME(aabb1->second->GetOwner());
+				std::string aabb2_type = ENTITYNAME(aabb2->second->GetOwner());
 
 				//check what types are both objects that are colliding
-				if ((aabb1_type == EntityTypes::WALL && (aabb2_type == EntityTypes::PLAYER || aabb2_type == EntityTypes::ENEMY)) ||
-					(aabb2_type == EntityTypes::WALL && (aabb1_type == EntityTypes::PLAYER || aabb1_type == EntityTypes::ENEMY))) {
+				if ((aabb1_type == "Wall" && (aabb2_type == "Player" || aabb2_type == "Enemy")) ||
+					(aabb2_type == "Wall" && (aabb1_type == "Player" || aabb1_type == "Enemy"))) {
 
 					aabb1->second->collided = true;
 					aabb2->second->collided = true;
@@ -245,12 +245,12 @@ void Collision::Update(float frametime) {
 					//aabb2->second->collided = true;
 
 					//otherwise colliding are player & enemy or player & player
-					if ((aabb1_type == EntityTypes::PLAYER && aabb2_type == EntityTypes::ENEMY) ||
-						(aabb1_type == EntityTypes::ENEMY && aabb2_type == EntityTypes::PLAYER)) {
+					if ((aabb1_type == "Player" && aabb2_type == "Enemy") ||
+						(aabb1_type == "Enemy" && aabb2_type == "Player")) {
 
 						std::shared_ptr<Status> player_status = nullptr;
 
-						if (aabb1_type == EntityTypes::PLAYER) {
+						if (aabb1_type == "Player") {
 
 							player_status = 
 								std::dynamic_pointer_cast<Status>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::STATUS));

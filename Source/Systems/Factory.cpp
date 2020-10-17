@@ -18,6 +18,7 @@
 #include "COmponents/BasicAI.h"
 #include "Components/TextureRenderer.h"
 #include "Components/AnimationRenderer.h"
+#include "Components/Name.h"
 
 EntityFactory* FACTORY = NULL;
 
@@ -45,38 +46,17 @@ void EntityFactory::Init() {
 	FACTORY->AddComponentCreator("Health", new ComponentCreator<Health>(ComponentTypes::HEALTH));
 	FACTORY->AddComponentCreator("Motion", new ComponentCreator<Motion>(ComponentTypes::MOTION));
 	FACTORY->AddComponentCreator("AABB", new ComponentCreator<AABB>(ComponentTypes::AABB));
+	FACTORY->AddComponentCreator("Name",  new ComponentCreator<Name>(ComponentTypes::NAME));
 	FACTORY->AddComponentCreator("Scale", new ComponentCreator<Scale>(ComponentTypes::SCALE));
 	FACTORY->AddComponentCreator("Status", new ComponentCreator<Status>(ComponentTypes::STATUS));
-	FACTORY->AddComponentCreator("PointLight", new ComponentCreator<PointLight>(ComponentTypes::POINTLIGHT));
 	FACTORY->AddComponentCreator("BasicAI", new ComponentCreator<BasicAI>(ComponentTypes::BASICAI));
+	FACTORY->AddComponentCreator("PointLight", new ComponentCreator<PointLight>(ComponentTypes::POINTLIGHT));
 	FACTORY->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
 	FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
+	
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }
-
-Entity* EntityFactory::Create(const std::string& filename) {
-	(void)(filename);
-
-	// Create the entity and initialize all components from file
-
-	//SerializeArchetype("Player", EntityTypes::Player);
-
-	// Removing temporarily, gonna replace with some clone of archetype
-	//Entity* entity = SerializeArchetype(filename, "Player", EntityTypes::Player);
-	
-	//TestBuild(); //BuildAndSerialize(filename);
-
-	// If entity was successfully created, initialize
-	/*if (entity) {
-		entity->Init();
-	}*/
-
-	// Removing temporarily
-	//return entity;
-	return nullptr;
-}
-
 
 void EntityFactory::Destroy(Entity* entity) {
 	// Insert the entity into the set for deletion next update loop
@@ -126,8 +106,12 @@ void EntityFactory::DestroyAllEntities() {
 	// Clear and resize map
 	entity_id_map_.clear();
 
-	//clean up archetypes
-	
+	std::cout << "Purged all entities" << std::endl;
+}
+
+void EntityFactory::DestroyAllArchetypes() {
+	// Clean up archetypes
+
 	for (EntityArchetypeMapTypeIt it2 = entity_archetype_map_.begin(); it2 != entity_archetype_map_.end(); ++it2) {
 		// Log EntityType of entity that is being deleted (Archetype)
 		std::stringstream str;
@@ -137,7 +121,7 @@ void EntityFactory::DestroyAllEntities() {
 		delete it2->second;
 	}
 
-	std::cout << "Purged all entities" << std::endl;
+	entity_archetype_map_.clear();
 }
 
 Entity* EntityFactory::CreateEmptyEntity() {
@@ -149,48 +133,122 @@ Entity* EntityFactory::CreateEmptyEntity() {
 	return entity;
 }
 
+Entity* EntityFactory::CloneArchetype(const std::string& archetype_name) {
+	
+	EntityArchetypeMapTypeIt it = entity_archetype_map_.find(archetype_name);
+	DEBUG_ASSERT((it != entity_archetype_map_.end()), "Archetype was not found!");
 
-Entity* EntityFactory::TestBuild() {
-	/*
-	Entity* ret = new Entity();
+	Entity* cloned = it->second->Clone();
 
-	IComponentCreator* creator = component_map_.find("Motion")->second;
+	M_DEBUG->WriteDebugMessage("Preparing to init cloned entity\n");
 
-	Component* component = creator->Create();
+	cloned->Init();
 
-	ret->AddComponent(creator->GetComponentTypeID(), component);
+	return cloned;
+}
 
-	creator = _componentMap.find("Health")->second;
+void EntityFactory::CreateAllArchetypes(const std::string& filename) {
 
-	component = creator->create();
+	// Load the input file (.json) and ensure it is open
+	std::ifstream input_file(filename.c_str());
+	//assert(input_file);
+	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
 
-	ret->AddComponent(creator->_typeId, component);
+	M_DEBUG->WriteDebugMessage("Beginning loading of all archetypes\n");
 
-	creator = component_map_.find("Transform")->second;
+	// Read each line separated by a '\n' into a stringstream
+	std::stringstream json_doc_buffer;
+	std::string input;
 
-	component = creator->Create();
+	while (std::getline(input_file, input)) {
 
-	ret->AddComponent(creator->GetComponentTypeID(), component);
+		json_doc_buffer << input << "\n";
+	}
 
-	creator = component_map_.find("AnimationRenderer")->second;
+	// Close the file (.json) after
+	input_file.close();
 
-	component = creator->Create();
+	// Parse the stringstream into document (DOM) format
+	rapidjson::Document doc;
+	doc.Parse(json_doc_buffer.str().c_str());
 
-	ret->AddComponent(creator->GetComponentTypeID(), component);
+	// Treats entire filestream at index as array and ensure that it is an array
+	const rapidjson::Value& entity_arr = doc;
+	DEBUG_ASSERT(entity_arr.IsObject(), "Entry does not exist in JSON");
 
-	StoreEntityID(ret);
+	// Iterate through each prefab
+	for (rapidjson::Value::ConstMemberIterator var_it = entity_arr.MemberBegin(); var_it != entity_arr.MemberEnd(); ++var_it) {
+		
+		const rapidjson::Value& value_arr = var_it->value;
 
-	return ret;
-	*/
-	return nullptr;
+		std::string prefab_name{ var_it->name.GetString() };
+
+		M_DEBUG->WriteDebugMessage("Loading prefab from JSON of type: " + prefab_name + "\n");
+
+		// Create an empty entity
+		Entity* archetype = new Entity();
+
+		//archetype->entity_type_ = EntityTypes::NONE; // player as placeholder to test
+
+		// Iterate through the body of the prefab that contains components
+		for (rapidjson::Value::ConstValueIterator it = value_arr.Begin(); it != value_arr.End(); ++it) {
+
+			// Each value is essentially a container for multiple members
+			// IsObject enforces that the member is an object that will contain data:key pairs
+			const rapidjson::Value& member = *it;
+
+			DEBUG_ASSERT(member.IsObject(), "Entry does not exist in JSON");
+
+			IComponentCreator* creator;
+			std::shared_ptr<Component> component;
+
+			// For every new component in the "Entity"s body
+			if (member.MemberBegin()->name == "component") {
+
+				// Check whether the component's name has been registered
+				//component_map_.find(member.MemberBegin()->value.GetString())->second;
+				ComponentMapType::iterator component_it = component_map_.find(member.MemberBegin()->value.GetString());
+
+				DEBUG_ASSERT((component_it != component_map_.end()), "Component Creator does not exist");
+
+				creator = component_it->second;
+
+				component = creator->Create();
+
+				//stores the data into a stream that is easier to read data from
+				std::stringstream stream;
+
+				for (rapidjson::Value::ConstMemberIterator it2 = ++member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
+
+					stream << it2->value.GetString() << " ";
+				}
+
+				//passes the converted data to the component to read
+				component->Serialize(stream);
+
+				// Attaches the component to the entity
+				archetype->AddComponent(creator->GetComponentTypeID(), component);
+			}
+		}
+
+		entity_archetype_map_[var_it->name.GetString()] = archetype;
+
+		//adds entity to entity_id_map_
+		//ideally to use archetype design so remove in favor of that once implementation is done
+		//StoreEntityID(archetype);
+
+		// Sets the owner of the component to be "archetype" (*this) and adds the relevant
+		// component pointers to their main systems
+		archetype->InitArchetype();
+	}
 }
 
 //serialises single archetype 
-Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, const std::string& entity_name, EntityTypes id) {
+Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, const std::string& entity_name/*, EntityTypes id*/) {
 	// Create an empty entity
 	Entity* archetype = new Entity();
 
-	archetype->entity_type_ = id;
+	//archetype->entity_type_ = id;
 
 	// Load the input file (.json) and ensure it is open
 	std::ifstream input_file(filename.c_str()/*"TestJSON/2compTest.json"*/);

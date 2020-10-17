@@ -2,10 +2,13 @@
 #define _ENTITY_H_
 
 #include "Components/IComponent.h"
+#include "Components/Name.h"
 #include <vector>
 #include <memory>
 
-enum class EntityTypes;
+//enum class EntityTypes;
+
+
 using EntityID = size_t;
 using ComponentArr = std::vector<std::shared_ptr<Component>>;
 
@@ -18,7 +21,7 @@ class Entity {
 	ComponentArr components_;
 	// Unique ID of an entity (Begins at 1)
 	EntityID object_id_;
-	EntityTypes entity_type_;
+	//EntityTypes entity_type_;
 
 /******************************************************************************/
 /*!
@@ -74,6 +77,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn InitArchetype()
+
+  \brief Sets the owner of all components attached to a archetype entity 
+*/
+/******************************************************************************/
+	void InitArchetype();
+
+/******************************************************************************/
+/*!
   \fn Destroy()
 
   \brief Used for properly destroying an entity by adding it to the factory's
@@ -107,7 +119,7 @@ public:
   \brief Returns the entity type of the entity
 */
 /******************************************************************************/
-	EntityTypes GetType() { return entity_type_; };
+	//EntityTypes GetType() { return entity_type_; };
 
 /******************************************************************************/
 /*!
@@ -119,7 +131,7 @@ public:
 /******************************************************************************/
 	Entity* Clone();
 };
-
+/*
 enum class EntityTypes {
 
 	NONE = 0,
@@ -130,5 +142,9 @@ enum class EntityTypes {
 	BUTTON,
 	STATIC_OBJ
 };
+*/
+
+//Assumes that name component is a guaranteed component for every entity
+#define ENTITYNAME(ref) std::dynamic_pointer_cast<Name>(ref->GetComponent(ComponentTypes::NAME))->GetEntityName()
 
 #endif

@@ -57,3 +57,22 @@ void AnimationRenderer::Serialize(std::stringstream& data) {
     model_ = CORE->GetManager<ModelManager>()->GetModel(model);
     shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }
+
+std::shared_ptr<Component> AnimationRenderer::Clone() {
+    M_DEBUG->WriteDebugMessage("Cloning AnimationRenderer Component\n");
+
+	std::shared_ptr<AnimationRenderer> cloned = std::make_shared<AnimationRenderer>();
+
+    // IRenderer
+    cloned->model_ = model_; // check this
+    cloned->shdr_pgm_ = shdr_pgm_; // check this
+    cloned->layer_ = layer_;
+
+    // AnimationRenderer
+	cloned->obj_animations_ = obj_animations_; // Might need copy ctor
+	cloned->current_animation_ = current_animation_;
+	cloned->play_animation_ = play_animation_;
+    cloned->has_finished_animating_ = has_finished_animating_;
+
+	return cloned;
+}

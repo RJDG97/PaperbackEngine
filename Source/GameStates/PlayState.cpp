@@ -15,6 +15,7 @@
 
 #include "Components/Transform.h"
 #include "Components/Motion.h"
+#include "Components/Name.h"
 
 #include "Entity/ComponentTypes.h"
 
@@ -40,15 +41,29 @@ void PlayState::Init()
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	CORE->GetManager<TextureManager>()->TempTextureBatchLoad();
-	CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
+	//CORE->GetManager<TextureManager>()->TempTextureBatchLoad();
+	//CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
 
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Floor", EntityTypes::FLOOR);
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "MovingWall", EntityTypes::WALL);
-	player = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::ENEMY);
-	FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
+	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Floor", EntityTypes::FLOOR);
+	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "MovingWall", EntityTypes::WALL);
+	//player = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
+	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::ENEMY);
+	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
+
+	player = FACTORY->CloneArchetype("Player");
+	FACTORY->CloneArchetype("Floor");
+	FACTORY->CloneArchetype("Wall");
+	FACTORY->CloneArchetype("MovingWall");
+	FACTORY->CloneArchetype("Enemy");
+
+	Entity* wall = FACTORY->CloneArchetype("Wall");
+	std::shared_ptr<Transform> lol = std::dynamic_pointer_cast<Transform>(wall->GetComponent(ComponentTypes::TRANSFORM));
+	lol->position_ = { -400, -300 };
+
+	wall = FACTORY->CloneArchetype("Wall");
+	std::shared_ptr<Transform> lol2 = std::dynamic_pointer_cast<Transform>(wall->GetComponent(ComponentTypes::TRANSFORM));
+	lol2->position_ = { -300, -200 };
 }
 
 void PlayState::Free()
@@ -94,7 +109,7 @@ void PlayState::Update(Game* game, float frametime)
 			// check if next destination is out of range, and loop to beginning if so
 			BasicAI::DestinationIt next_it = basic_ai->second->current_destination_;
 
-			if (++next_it == basic_ai->second->destinations_.end()) {
+			if (++next_it == std::end(basic_ai->second->destinations_)) {
 
 				//if next destination does not exist, then wrap back to beginning
 				next_it = basic_ai->second->destinations_.begin();
@@ -128,11 +143,13 @@ void PlayState::Draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
-void PlayState::SetStatus(EntityTypes entity_type, StatusType status_type, Game* game) {
+void PlayState::SetStatus(std::string entity_name, StatusType status_type, Game* game) {
 	
 	for (Game::StatusIt it = game->status_arr_.begin(); it != game->status_arr_.end(); ++it) {
+		
+		std::string name = ENTITYNAME(it->second->GetOwner()); // Check for assert here potentially (JSON formatting)
 
-		if (it->second->GetOwner()->GetType() == entity_type && it->second->status_ == StatusType::NONE) {
+		if (name == entity_name && it->second->status_ == StatusType::NONE) {
 			
 			it->second->status_ = status_type;
 			it->second->status_timer_ = 3.0f; // change timer accordingly in the future
@@ -228,12 +245,12 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			{
 				case GLFW_KEY_E: // "E"
 				{
-					SetStatus(EntityTypes::PLAYER, StatusType::INVISIBLE, game);
+					SetStatus("Player", StatusType::INVISIBLE, game);
 					break;
 				}
 				case GLFW_KEY_R: // "R"
 				{
-					SetStatus(EntityTypes::PLAYER, StatusType::BURROW, game);
+					SetStatus("Player", StatusType::BURROW, game);
 					break;
 				}
 				case GLFW_KEY_COMMA: // "<"

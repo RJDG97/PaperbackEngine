@@ -15,7 +15,6 @@ class PointLight : public Component {
 	Shader shdr_pgm_;
 
 	glm::vec3 color_;
-	float scale_;
 	float radius_;
 	float intensity_;
 
@@ -63,6 +62,15 @@ public:
 */
 /******************************************************************************/
 	void Serialize(std::stringstream& data) override;
+
+/******************************************************************************/
+/*!
+  \fn Clone()
+
+  \brief Clones the existing component
+*/
+/******************************************************************************/
+	std::shared_ptr<Component> Clone() override;
 };
 
 #endif

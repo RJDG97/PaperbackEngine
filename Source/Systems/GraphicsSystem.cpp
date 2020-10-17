@@ -253,7 +253,7 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
     for (player_renderer = anim_renderer_arr_.begin(); player_renderer != anim_renderer_arr_.end(); ++player_renderer)
     {
-        if (player_renderer->second->GetOwner()->GetType() == EntityTypes::PLAYER)
+        if (ENTITYNAME(player_renderer->second->GetOwner()) == "Player")
         {
             break;
         }

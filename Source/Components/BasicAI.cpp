@@ -40,3 +40,17 @@ void BasicAI::Serialize(std::stringstream& data) {
 
 	DEBUG_ASSERT((current_destination_ != destinations_.end()), "Empty destinations in JSON");
 }
+
+std::shared_ptr<Component> BasicAI::Clone() {
+	M_DEBUG->WriteDebugMessage("Cloning BasicAI Component\n");
+
+	std::shared_ptr<BasicAI> cloned = std::make_shared<BasicAI>();
+
+	cloned->speed = speed;
+	cloned->num_destinations_ = num_destinations_;
+	cloned->destinations_.reserve(destinations_.size());
+	std::copy(std::begin(destinations_), std::end(destinations_), std::back_inserter(cloned->destinations_));
+	cloned->current_destination_ = cloned->destinations_.begin();
+
+	return cloned;
+}

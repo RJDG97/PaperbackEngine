@@ -32,19 +32,34 @@ void Entity::Init() {
 	//inits all components owned by entity and set the component's owner
 	//allows each component to be initialised separate from ctor
 
-	std::cout << "Initialising entity with type: " << static_cast<int>(entity_type_) << std::endl;
+	M_DEBUG->WriteDebugMessage("Initialising entity\n");
 
 	for (EntityIt it = components_.begin(); it != components_.end(); ++it) {
 
 		(*it)->owner_ = this;
 		(*it)->Init();
 	}
+
+	M_DEBUG->WriteDebugMessage("Ending init\n");
+};
+
+void Entity::InitArchetype() {
+
+	//inits all components owned by entity and set the component's owner
+	//allows each component to be initialised separate from ctor
+
+	M_DEBUG->WriteDebugMessage("Initialising archetype\n");
+
+	for (EntityIt it = components_.begin(); it != components_.end(); ++it) {
+
+		(*it)->owner_ = this;
+	}
 };
 
 Entity::Entity() {
 	// Initialise id to 0 since it will be assigned by factory
 	object_id_ = 0;
-	entity_type_ = EntityTypes::NONE;
+	//entity_type_ = EntityTypes::NONE;
 }
 
 // Destroys all components attached to an entity
@@ -90,14 +105,16 @@ std::shared_ptr<return_type> Entity::GetComponentType(ComponentTypes typeId) {
 //used for creating copies from a protoype/archetype
 Entity* Entity::Clone() {
 
+	M_DEBUG->WriteDebugMessage("Cloning Entity\n");
+
 	Entity* cloned = FACTORY->CreateEmptyEntity();
 
 	for (std::shared_ptr<Component> component : components_) {
 
-		//cloned->AddComponent(component->GetComponentTypeID(), component->Clone());
+		M_DEBUG->WriteDebugMessage("Begin to clone for single component\n");
+		cloned->AddComponent(component->GetComponentTypeID(), component->Clone());
+		M_DEBUG->WriteDebugMessage("Ended clone for single component\n");
 	}
-
-	cloned->Init();
 
 	return cloned;
 }

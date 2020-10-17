@@ -99,7 +99,7 @@ GLuint* LightingSystem::GetLightingTexture() {
 
 void LightingSystem::AddLightComponent(EntityID id, PointLight* point_light) {
 
-	M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
+	M_DEBUG->WriteDebugMessage("Adding PointLight Component to entity: " + std::to_string(id) + "\n");
 
 	point_light_arr_[id] = point_light;
 }
@@ -110,7 +110,7 @@ void LightingSystem::RemoveLightComponent(EntityID id) {
 
 	if (it != point_light_arr_.end()) {
 
-		M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
+		M_DEBUG->WriteDebugMessage("Removing PointLight Component from entity: " + std::to_string(id) + "\n");
 		point_light_arr_.erase(it);
 	}
 }

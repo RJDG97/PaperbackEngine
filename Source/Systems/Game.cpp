@@ -23,6 +23,10 @@ void Game::Init()
 {
 	b_running_ = true;
 
+	CORE->GetManager<TextureManager>()->TempTextureBatchLoad();
+	CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
+	FACTORY->CreateAllArchetypes("Resources/EntityConfig/2compTest.json");
+
 	ChangeState(&m_MenuState);
 
 	M_DEBUG->WriteDebugMessage("Game System Init\n");

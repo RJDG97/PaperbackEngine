@@ -62,7 +62,7 @@ void Physics::ChangeVelocity(Message* m) {
 	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
 
 		//std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
-		if (motion->second->GetOwner()->GetType() == EntityTypes::PLAYER) {
+		if (ENTITYNAME(motion->second->GetOwner()) == "Player") {
 
 			std::shared_ptr<Status> status = 
 				std::dynamic_pointer_cast<Status>(motion->second->GetOwner()->GetComponent(ComponentTypes::STATUS));

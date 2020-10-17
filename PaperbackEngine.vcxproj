@@ -151,6 +151,7 @@
     <ClCompile Include="Source\Components\BasicAI.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
+    <ClCompile Include="Source\Components\Name.cpp" />
     <ClCompile Include="Source\Components\PointLight.cpp" />
     <ClCompile Include="Source\Components\TextureRenderer.cpp" />
     <ClCompile Include="Source\Components\Scale.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\IRenderer.h" />
     <ClInclude Include="Include\Components\Motion.h" />
+    <ClInclude Include="Include\Components\Name.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
     <ClInclude Include="Include\Components\TextureRenderer.h" />
     <ClInclude Include="Include\Components\Scale.h" />

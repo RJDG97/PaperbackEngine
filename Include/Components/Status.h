@@ -1,7 +1,7 @@
 #ifndef _STATUS_H_
 #define _STATUS_H_
 
-#include "Entity/Entity.h" 
+#include "Entity/Entity.h"
 
 enum class StatusType {
 	NONE = 0,
@@ -57,7 +57,7 @@ public:
   \brief Clones the existing component
 */
 /******************************************************************************/
-	Component* Clone() { return nullptr; };
+	std::shared_ptr<Component> Clone() override;
 
 	~Status();
 };

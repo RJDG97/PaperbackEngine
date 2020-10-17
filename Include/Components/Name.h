@@ -1,47 +1,39 @@
-#ifndef _TRANSFORM_H_
-#define _TRANSFORM_H_
+#ifndef _NAME_H_
+#define _NAME_H_
 
 #include "Entity/Entity.h"
-#include "MathLib/Vector2D.h"
 #include "Components/IComponent.h"
 #include <sstream>
 #include <memory>
 
-class Transform : public Component {
-	Vector2D position_;
-	float rotation_;
+class Name : public Component {
+
+	std::string name_;
 public:
-	friend class Physics;
-	friend class GraphicsSystem;
-	friend class Collision;
-	friend class LightingSystem;
-	friend class PlayState;
 
 /******************************************************************************/
 /*!
-  \fn Transform()
+  \fn Name()
 
-  \brief Constructor for Transform that defaults the data members of the 
-		 component
+  \brief Constructor for Name
 */
 /******************************************************************************/
-	Transform();
+	Name();
 
 /******************************************************************************/
 /*!
-  \fn ~Transform()
+  \fn ~Name()
 
-  \brief Destructor for Transform that removes the component from the 
-		 Physics system transform map
+  \brief Destructor for Name
 */
 /******************************************************************************/
-	~Transform();
+	~Name();
 
 /******************************************************************************/
 /*!
   \fn Init()
 
-  \brief Adds the component itself to the Physics system transform map
+  \brief 
 */
 /******************************************************************************/
 	void Init();
@@ -57,21 +49,12 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn GetRotation()
+  \fn GetEntityName()
 
-  \brief Returns the rotation of the component
+  \brief Returns the type of the entity
 */
 /******************************************************************************/
-	float GetRotation() const;
-
-/******************************************************************************/
-/*!
-  \fn SetRotation()
-
-  \brief Sets the rotation of the component
-*/
-/******************************************************************************/
-	void SetRotation(const float& new_rot);
+	std::string GetEntityName() const;
 
 /******************************************************************************/
 /*!

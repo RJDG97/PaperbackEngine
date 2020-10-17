@@ -42,3 +42,13 @@ void Transform::SetRotation(const float& rot) {
 
 	rotation_ = rot;
 }
+
+std::shared_ptr<Component> Transform::Clone() {
+	M_DEBUG->WriteDebugMessage("Cloning Transform Component\n");
+	std::shared_ptr<Transform> cloned = std::make_shared<Transform>();
+
+	cloned->position_ = position_;
+	cloned->rotation_ = rotation_;
+
+	return cloned;
+}

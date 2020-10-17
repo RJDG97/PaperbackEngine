@@ -95,6 +95,12 @@ void FrameRateController::FrameControllerEnd()
 	timeelapsed_ += frametime;
 	dt_ = PE_FrameRate.delta_.count();
 
+	while (timeelapsed_.count() >= minframetime_) {
+
+		timeelapsed_ -= std::chrono::duration<float>(minframetime_);
+		currentsteps_++;
+	}
+
 	// increment frames
 	frames_++;
 }

@@ -4,6 +4,7 @@
 //#include "lib/rapidjson/filereadstream.h"
 #include "../rapidjson/document.h"
 //#include "lib/rapidjson/document.h"
+#include <memory>
 
 
 #ifndef _COMPONENT_H_
@@ -65,7 +66,7 @@ public:
   \brief Clones the existing component
 */
 /******************************************************************************/
-	virtual Component* Clone() { return nullptr; };
+	virtual std::shared_ptr<Component> Clone() { return nullptr; };
 
 protected:
 /******************************************************************************/

@@ -24,23 +24,13 @@ class EntityFactory : public ISystem {
 	EntityIdMapType entity_id_map_;
 
 	// 
-	using EntityArchetypeMapType = std::map<EntityTypes, Entity*>;
+	using EntityArchetypeMapType = std::map<std::string, Entity*>;
 	using EntityArchetypeMapTypeIt = EntityArchetypeMapType::iterator;
 	EntityArchetypeMapType entity_archetype_map_;
 
 	// For storing entities that are to be deleted in update loop
 	using EntityIt = std::set<Entity*>::iterator;
 	std::set<Entity*> objects_to_delete;
-
-/******************************************************************************/
-/*!
-  \fn TestBuild()
-
-  \brief Used for creating fixed entities w/ predetermined components that do
-		 not read from the JSON files
-*/
-/******************************************************************************/
-	Entity* TestBuild();
 
 public:
 /******************************************************************************/
@@ -70,7 +60,16 @@ public:
   \brief Creates a new entity and initialises it from a JSON file
 */
 /******************************************************************************/
-	Entity* Create(const std::string& filename);
+	Entity* CloneArchetype(const std::string& archetype_name);
+
+/******************************************************************************/
+/*!
+  \fn CreateAllArchetypes()
+
+  \brief Creates and serializes all archetypes from a JSON
+*/
+/******************************************************************************/
+	void CreateAllArchetypes(const std::string& filename);
 
 /******************************************************************************/
 /*!
@@ -79,7 +78,7 @@ public:
   \brief Creates a new entity archetype and initialises it from a JSON file
 */
 /******************************************************************************/
-	Entity* CreateAndSerializeArchetype(const std::string& filename, const std::string& entity_name, EntityTypes id);
+	Entity* CreateAndSerializeArchetype(const std::string& filename, const std::string& entity_name/*, EntityTypes id*/);
 
 /******************************************************************************/
 /*!
@@ -125,6 +124,15 @@ public:
 */
 /******************************************************************************/
 	void DestroyAllEntities();
+
+/******************************************************************************/
+/*!
+  \fn DestroyAllEntities()
+
+  \brief Used to destroy all archetypes
+*/
+/******************************************************************************/
+	void DestroyAllArchetypes();
 
 /******************************************************************************/
 /*!

@@ -17,6 +17,8 @@
 
 #include "Components/Status.h"
 
+#include "Components/Transform.h"
+
 //SAMPLE MENU STATE
 
 //MenuState MenuState::m_MenuState;
@@ -32,14 +34,15 @@ void MenuState::Init()
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	CORE->GetManager<TextureManager>()->TempTextureBatchLoad();
-	CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
-
 	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
 	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);
 	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::Enemy);
-	start_blok = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
-	crash_blok = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "ButtonCrash", EntityTypes::WALL);
+	
+	//start_blok = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
+	//crash_blok = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "ButtonCrash", EntityTypes::WALL);
+
+	start_blok = FACTORY->CloneArchetype("Wall");
+	crash_blok = FACTORY->CloneArchetype("ButtonCrash");
 }
 
 void MenuState::Free()
@@ -149,6 +152,8 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 	if (game && msg->message_id_ == MessageIDTypes::M_MOUSE_PRESS) {
 
 		//check for collision between button & mouse
+		Vector2D cursor = CORE->GetSystem<InputSystem>()->GetCursorPosition();
+		M_DEBUG->WriteDebugMessage("Cursor Location: " + std::to_string(cursor.x) + ", " + std::to_string(cursor.y) + "\n");
 
 		if (CORE->GetSystem<Collision>()->CheckCursorCollision(CORE->GetSystem<InputSystem>()->GetCursorPosition(), start_blok->GetID())) {
 

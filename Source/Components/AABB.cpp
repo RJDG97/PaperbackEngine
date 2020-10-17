@@ -28,12 +28,14 @@ void AABB::Serialize(std::stringstream& data) {
 	data >> scale_.x >> scale_.y;
 }
 
-AABB* AABB::Clone() {
-
-	AABB* cloned = new AABB;
+std::shared_ptr<Component> AABB::Clone() {
+	M_DEBUG->WriteDebugMessage("Cloning AABB Component\n");
+	
+	std::shared_ptr<AABB> cloned = std::make_shared<AABB>();
 
 	cloned->bottom_left_ = bottom_left_;
 	cloned->top_right_ = top_right_;
+	cloned->scale_ = scale_;
 
 	return cloned;
 }

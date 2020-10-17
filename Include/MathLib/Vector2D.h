@@ -19,6 +19,10 @@
 		Vector2D();
 		Vector2D(float _x, float _y);
 
+		// Copy Constructor / Assignment
+		Vector2D(const Vector2D& rhs);
+		Vector2D& operator=(const Vector2D& rhs);
+
 		// Assignment operators
 		Vector2D& operator += (const Vector2D& rhs);
 		Vector2D& operator -= (const Vector2D& rhs);
