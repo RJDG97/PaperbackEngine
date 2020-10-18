@@ -60,7 +60,10 @@ enum class MessageIDTypes
 
 	// Factory
 	FTY_PURGE,
-	FTY_DELETE
+	FTY_DELETE,
+
+	// Button input
+	BUTTON
 };
 
 // Message Interface
@@ -110,6 +113,20 @@ struct MessagePhysics_Motion : public Message {
 */
 /******************************************************************************/
 	MessagePhysics_Motion(MessageIDTypes id, Vector2D new_vector);
+};
+
+struct Message_Button : public Message 
+{
+	size_t button_index_;
+	
+/******************************************************************************/
+/*!
+  \fn Message_Button()
+
+  \brief Initializes a message with a button index for receiving systems to handle
+*/
+/******************************************************************************/
+	Message_Button(size_t button_index);
 };
 
 struct Message_Input : public Message

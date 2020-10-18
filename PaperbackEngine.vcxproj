@@ -149,6 +149,7 @@
     <ClCompile Include="Source\Components\AnimationRenderer.cpp" />
     <ClCompile Include="Source\Components\Attack.cpp" />
     <ClCompile Include="Source\Components\BasicAI.cpp" />
+    <ClCompile Include="Source\Components\Clickable.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
     <ClCompile Include="Source\Components\Name.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Include\Components\AnimationRenderer.h" />
     <ClInclude Include="Include\Components\Attack.h" />
     <ClInclude Include="Include\Components\BasicAI.h" />
+    <ClInclude Include="Include\Components\Clickable.h" />
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\IRenderer.h" />

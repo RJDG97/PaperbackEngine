@@ -97,6 +97,9 @@
     <Filter Include="Entity\Components\Name">
       <UniqueIdentifier>{cab58183-94ef-4e7e-8315-068c5d5c3188}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Clickable">
+      <UniqueIdentifier>{f7a423a9-55e2-4154-a544-d78ac838822f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -203,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\Name.cpp">
       <Filter>Entity\Components\Name</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Clickable.cpp">
+      <Filter>Entity\Components\Clickable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\Name.h">
       <Filter>Entity\Components\Name</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Clickable.h">
+      <Filter>Entity\Components\Clickable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

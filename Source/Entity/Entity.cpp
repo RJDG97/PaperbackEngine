@@ -156,6 +156,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::CONELIGHT;
 	else if (str == "BasicAI")
 		return ComponentTypes::BASICAI;
+	else if (str == "Clickable")
+		return ComponentTypes::CLICKABLE;
 	else
 		return ComponentTypes::NONE;
 }

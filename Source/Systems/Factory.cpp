@@ -19,6 +19,7 @@
 #include "Components/TextureRenderer.h"
 #include "Components/AnimationRenderer.h"
 #include "Components/Name.h"
+#include "Components/Clickable.h"
 
 EntityFactory* FACTORY = NULL;
 
@@ -53,7 +54,7 @@ void EntityFactory::Init() {
 	FACTORY->AddComponentCreator("PointLight", new ComponentCreator<PointLight>(ComponentTypes::POINTLIGHT));
 	FACTORY->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
 	FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
-	
+	FACTORY->AddComponentCreator("Clickable", new ComponentCreator<Clickable>(ComponentTypes::CLICKABLE));
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }

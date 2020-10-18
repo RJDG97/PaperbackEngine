@@ -201,7 +201,7 @@
       "intensity": "1.0"
     }
   ],
-  "ButtonCrash": [
+  "Button": [
     {
       "component": "Name",
       "name": "Button"
@@ -228,16 +228,16 @@
       "layer": "0"
     },
     {
-      "component": "AABB",
-      "scale": "30.0 30.0"
-    },
-    {
       "component": "PointLight",
       "model": "TileModel",
       "shader program": "LightShader",
       "color": "0.5 1.0 1.0",
       "radius": "50.0",
       "intensity": "1.0"
+    },
+    {
+      "component": "Clickable",
+      "scale": "30.0 30.0"
     }
   ]
 }

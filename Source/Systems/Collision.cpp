@@ -3,6 +3,7 @@
 #include "Systems/Collision.h"
 #include "Systems/Factory.h"
 #include "Systems/Debug.h"
+#include "Systems/InputSystem.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
 #include "Entity/ComponentTypes.h"
@@ -113,20 +114,32 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 	return 1;
 }
 
-bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const EntityID& button_id) {
-
-	AABBIt button_aabb = aabb_arr_.find(button_id);
-	DEBUG_ASSERT((button_aabb != aabb_arr_.end()), "AABB component does not exist");
+bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button) {
 
 	//assume that is button
-	//compute if position is within aabb box
-	if (button_aabb->second->bottom_left_.x <= cursor_pos.x &&
-		button_aabb->second->bottom_left_.y <= cursor_pos.y &&
-		button_aabb->second->top_right_.x >= cursor_pos.x &&
-		button_aabb->second->top_right_.y >= cursor_pos.y) {
+	//compute if position is within bounding box
+	if (button->bottom_left_.x <= cursor_pos.x &&
+		button->bottom_left_.y <= cursor_pos.y &&
+		button->top_right_.x >= cursor_pos.x &&
+		button->top_right_.y >= cursor_pos.y) {
 		return true;
 	}
 	return false;
+}
+
+void Collision::CheckClickableCollision() {
+
+	Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();
+
+	for (ClickableIt clickable = clickable_arr_.begin(); clickable != clickable_arr_.end(); ++clickable) {
+
+		if (CheckCursorCollision(cursor_pos, clickable->second)) {
+
+			Message_Button msg{clickable->second->index_};
+			CORE->BroadcastMessage(&msg);
+			return;
+		}
+	}
 }
 
 //init function called to initialise a system
@@ -141,22 +154,7 @@ void Collision::Init() {
 }
 
 void Collision::CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first) {
-
-	/*
-				std::cout << "Collision detected between " << aabb1->second->GetOwner()->GetID()
-					<< " and " << aabb2->second->GetOwner()->GetID() << std::endl;
-					*/
-					/*std::cout << "AABB1 bottom left: " << aabb1->second->bottom_left_.x << ", " << aabb1->second->bottom_left_.y
-						<< " | AABB1 top right: " << aabb1->second->top_right_.x << ", " << aabb1->second->top_right_.y << std::endl;
-
-					std::cout
-					<< "AABB2 bottom left: " << aabb2->second->bottom_left_.x
-					<< ", " << aabb2->second->bottom_left_.y
-					<< " | AABB2 top right: " << aabb2->second->top_right_.x
-					<< ", " << aabb2->second->top_right_.y
-					<< std::endl;*/
-
-					//std::cout << "time to collision: " << t_first << std::endl;
+	
 	Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
 	Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
 
@@ -164,9 +162,6 @@ void Collision::CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2
 		std::dynamic_pointer_cast<Transform>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 	std::shared_ptr<Transform> transform2 = 
 		std::dynamic_pointer_cast<Transform>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-
-	//std::cout << "Inverse vector 1: " << inverse_vector_1.x << ", " << inverse_vector_1.y << std::endl;
-	//std::cout << "Inverse vector 2: " << inverse_vector_2.x << ", " << inverse_vector_2.y << std::endl;
 
 	transform1->position_ += inverse_vector_1;
 	transform2->position_ += inverse_vector_2;
@@ -186,15 +181,7 @@ void Collision::Update(float frametime) {
 
 	UpdateBoundingBox();
 
-	/*for (AABBIt box = aabb_arr_.begin(); box != aabb_arr_.end(); ++ box) {
-		
-		std::cout << "AABB " << counter << ": "
-				  << "Top left: " << box->second->bottom_left_.x
-				  << ", " << box->second->bottom_left_.y
-				  << "\nBottom right: " << box->second->top_right_.x
-				  << ", " << box->second->top_right_.y
-				  << std::endl;
-	}*/
+	UpdateClickableBB();
 
 	Vector2D empty{};
 
@@ -344,6 +331,11 @@ void Collision::SendMessageD(Message* m) {
 			debug_ = !debug_;
 			break;
 		}
+		case MessageIDTypes::M_MOUSE_PRESS:
+		{
+			CheckClickableCollision();
+			break;
+		}
 		default:
 		{
 			break;
@@ -370,6 +362,25 @@ void Collision::RemoveAABBComponent(EntityID id) {
 	}
 }
 
+void Collision::AddClickableComponent(EntityID id, Clickable* clickable) {
+
+	M_DEBUG->WriteDebugMessage("Adding AABB Component to entity: " + std::to_string(id) + "\n");
+
+	clickable_arr_[id] = clickable;
+}
+
+void Collision::RemoveClickableComponent(EntityID id) {
+
+
+	ClickableIt it = clickable_arr_.find(id);
+
+	if (it != clickable_arr_.end()) {
+
+		M_DEBUG->WriteDebugMessage("Removing AABB Component from entity: " + std::to_string(id) + "\n");
+		clickable_arr_.erase(it);
+	}
+}
+
 void Collision::UpdateBoundingBox() {
 	if (debug_)
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Bounding Boxes\n");
@@ -386,5 +397,24 @@ void Collision::UpdateBoundingBox() {
 
 		aabb->second->bottom_left_ = entity_position->position_ - aabb->second->scale_;
 		aabb->second->top_right_ = entity_position->position_ + aabb->second->scale_;
+	}
+}
+
+void Collision::UpdateClickableBB() {
+	if (debug_)
+		M_DEBUG->WriteDebugMessage("Collision System: Updating Clickable Bounding Boxes\n");
+
+	for (ClickableIt clickable = clickable_arr_.begin(); clickable != clickable_arr_.end(); ++clickable) {
+
+		//reset collided flag to false to prepare for collision check after
+		clickable->second->collided_ = false;
+
+		Entity* entity = clickable->second->GetOwner();
+		DEBUG_ASSERT((entity), "Entity does not exist");
+
+		std::shared_ptr<Transform> entity_position = std::dynamic_pointer_cast<Transform>(clickable->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+
+		clickable->second->bottom_left_ = entity_position->position_ - clickable->second->scale_;
+		clickable->second->top_right_ = entity_position->position_ + clickable->second->scale_;
 	}
 }

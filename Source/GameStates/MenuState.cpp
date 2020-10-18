@@ -21,10 +21,7 @@
 
 //SAMPLE MENU STATE
 
-//MenuState MenuState::m_MenuState;
 MenuState m_MenuState;
-Entity* start_blok{};
-Entity* crash_blok{};
 
 void MenuState::Init()
 {
@@ -33,9 +30,6 @@ void MenuState::Init()
 	std::cout << "Press SPACE to START" << std::endl;
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
-
-	start_blok = FACTORY->CloneArchetype("Wall");
-	crash_blok = FACTORY->CloneArchetype("ButtonCrash");
 
 	// Entities created within cannot be checked against directly (No * to entity)
 	FACTORY->SerializeLevelEntities("Resources/EntityConfig/menu.json");
@@ -145,20 +139,19 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 		CORE->BroadcastMessage(&m2);
 	}
 
-	if (game && msg->message_id_ == MessageIDTypes::M_MOUSE_PRESS) {
+	if (game && msg->message_id_ == MessageIDTypes::BUTTON) {
 
 		//check for collision between button & mouse
-		Vector2D cursor = CORE->GetSystem<InputSystem>()->GetCursorPosition();
-		M_DEBUG->WriteDebugMessage("Cursor Location: " + std::to_string(cursor.x) + ", " + std::to_string(cursor.y) + "\n");
+		Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
-		if (CORE->GetSystem<Collision>()->CheckCursorCollision(CORE->GetSystem<InputSystem>()->GetCursorPosition(), start_blok->GetID())) {
-
+		if (m->button_index_ == 3) {
+			
 			//true returned, trigger scene change
 			game->ChangeState(&m_PlayState);
 			return;
 		}
 
-		if (CORE->GetSystem<Collision>()->CheckCursorCollision(CORE->GetSystem<InputSystem>()->GetCursorPosition(), crash_blok->GetID())) {
+		if (m->button_index_ == 5) {
 
 			DEBUG_ASSERT(false, "Forced Crash Triggered");
 		}

@@ -201,7 +201,7 @@ void Game::SendMessageD(Message* m) {
 		states_.back()->StateInputHandler(m);
 		break;
 	}
-	case MessageIDTypes::M_MOUSE_PRESS:
+	case MessageIDTypes::BUTTON:
 	{
 		states_.back()->StateInputHandler(m, this);
 		break;

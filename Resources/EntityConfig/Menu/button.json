@@ -4,6 +4,21 @@
       "component": "Transform",
       "position": "330.0 300.0",
       "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "5"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "-330.0 -300.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "3"
     }
   ]
 }

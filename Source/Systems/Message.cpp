@@ -41,3 +41,8 @@ Message_CustomState::Message_CustomState(GameState* state, MessageIDTypes messag
 	Message{ message_type },
 	state_{ state }
 {}
+
+Message_Button::Message_Button(size_t button_index) :
+	Message{ MessageIDTypes::BUTTON },
+	button_index_{ button_index }
+{}

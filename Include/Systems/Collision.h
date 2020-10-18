@@ -5,6 +5,7 @@
 #include "Systems/Message.h"
 #include "ISystem.h"
 #include "Components/AABB.h"
+#include "Components/Clickable.h"
 #include "Manager/ShaderManager.h"
 #include "Manager/ModelManager.h"
 #include <unordered_map>
@@ -20,6 +21,9 @@ class Collision : public ISystem {
 	using AABBIt = std::unordered_map<EntityID, AABB*>::iterator;
 	std::unordered_map<EntityID, AABB*> aabb_arr_;
 
+	using ClickableIt = std::unordered_map<EntityID, Clickable*>::iterator;
+	std::unordered_map<EntityID, Clickable*> clickable_arr_;
+
 /******************************************************************************/
 /*!
   \fn UpdateBoundingBox()
@@ -30,10 +34,28 @@ class Collision : public ISystem {
 /******************************************************************************/
 	void UpdateBoundingBox();
 
-	//handles the response from colliding with a wall
 /******************************************************************************/
 /*!
-  \fn UpdateBoundingBox()
+  \fn UpdateClickableBB()
+
+  \brief Helper function to recompute a component's current bounding box
+		 coordinates, using the Scale component for size of the box
+*/
+/******************************************************************************/
+	void UpdateClickableBB();
+
+/******************************************************************************/
+/*!
+  \fn CheckCursorCollision()
+
+  \brief Checks for collision between mouse cursor and a menu entity
+*/
+/******************************************************************************/
+	bool CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button);
+
+/******************************************************************************/
+/*!
+  \fn CollisionWall()
 
   \brief Helper function to handle response of a non-wall entity colliding
 		 with a wall
@@ -62,7 +84,7 @@ public:
   \brief Checks for collision between mouse cursor and a menu entity
 */
 /******************************************************************************/
-	bool CheckCursorCollision(const Vec2& cursor_pos, const EntityID& button_id);
+	void CheckClickableCollision();
 
 /******************************************************************************/
 /*!
@@ -81,6 +103,24 @@ public:
 */
 /******************************************************************************/
 	void RemoveAABBComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn AddAABBComponent()
+
+  \brief Adds a AABB component to the aabb map
+*/
+/******************************************************************************/
+	void AddClickableComponent(EntityID id, Clickable* clickable);
+
+/******************************************************************************/
+/*!
+  \fn RemoveAABBComponent()
+
+  \brief Removes a AABB component from the aabb map
+*/
+/******************************************************************************/
+	void RemoveClickableComponent(EntityID id);
 
 /******************************************************************************/
 /*!

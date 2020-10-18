@@ -20,6 +20,7 @@ enum class ComponentTypes {
 	POINTLIGHT,
 	CONELIGHT,
 	BASICAI,
+	CLICKABLE,
 	MAX
 };
 
