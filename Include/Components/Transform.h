@@ -57,6 +57,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeClone()
+
+  \brief Serializes data members within the Component
+*/
+/******************************************************************************/
+	void SerializeClone(std::stringstream& data);
+
+/******************************************************************************/
+/*!
   \fn GetRotation()
 
   \brief Returns the rotation of the component

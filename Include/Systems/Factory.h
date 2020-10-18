@@ -32,6 +32,16 @@ class EntityFactory : public ISystem {
 	using EntityIt = std::set<Entity*>::iterator;
 	std::set<Entity*> objects_to_delete;
 
+/******************************************************************************/
+/*!
+  \fn CloneLevelEntities()
+
+  \brief Creates and serializes entities of an archetype in a level given 
+		 an archetype name and json to load from
+*/
+/******************************************************************************/
+	void CloneLevelEntities(const std::string& filename, const std::string& archetype_name);
+
 public:
 /******************************************************************************/
 /*!
@@ -70,6 +80,18 @@ public:
 */
 /******************************************************************************/
 	void CreateAllArchetypes(const std::string& filename);
+	
+/******************************************************************************/
+/*!
+  \fn SerializeLevelEntities()
+
+  \brief Creates and serializes all entities in a level by cloning archetypes 
+		 and setting their values from a JSON
+		 The initial JSON loaded will contain the archetypes used alongside
+		 the json file to load entities from
+*/
+/******************************************************************************/
+	void SerializeLevelEntities(const std::string& filename);
 
 /******************************************************************************/
 /*!
@@ -78,7 +100,7 @@ public:
   \brief Creates a new entity archetype and initialises it from a JSON file
 */
 /******************************************************************************/
-	Entity* CreateAndSerializeArchetype(const std::string& filename, const std::string& entity_name/*, EntityTypes id*/);
+	//Entity* CreateAndSerializeArchetype(const std::string& filename, const std::string& entity_name/*, EntityTypes id*/);
 
 /******************************************************************************/
 /*!
@@ -184,3 +206,11 @@ public:
 
 extern EntityFactory* FACTORY;
 
+/******************************************************************************/
+/*!
+  \fn SerializeJSON()
+
+  \brief Loads the content of a JSON file into a doc
+*/
+/******************************************************************************/
+void SerializeJSON(const std::string& filename, rapidjson::Document& doc);

@@ -34,15 +34,11 @@ void MenuState::Init()
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
-	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::Player);
-	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::Enemy);
-	
-	//start_blok = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
-	//crash_blok = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "ButtonCrash", EntityTypes::WALL);
-
 	start_blok = FACTORY->CloneArchetype("Wall");
 	crash_blok = FACTORY->CloneArchetype("ButtonCrash");
+
+	// Entities created within cannot be checked against directly (No * to entity)
+	FACTORY->SerializeLevelEntities("Resources/EntityConfig/menu.json");
 }
 
 void MenuState::Free()

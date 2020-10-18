@@ -64,7 +64,6 @@ void EntityFactory::Destroy(Entity* entity) {
 	std::cout << "Entity destroyed" << std::endl;
 }
 
-
 void EntityFactory::Update(float frametime) {
 	// Begin and end iterators
 
@@ -149,28 +148,10 @@ Entity* EntityFactory::CloneArchetype(const std::string& archetype_name) {
 
 void EntityFactory::CreateAllArchetypes(const std::string& filename) {
 
-	// Load the input file (.json) and ensure it is open
-	std::ifstream input_file(filename.c_str());
-	//assert(input_file);
-	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
-
 	M_DEBUG->WriteDebugMessage("Beginning loading of all archetypes\n");
 
-	// Read each line separated by a '\n' into a stringstream
-	std::stringstream json_doc_buffer;
-	std::string input;
-
-	while (std::getline(input_file, input)) {
-
-		json_doc_buffer << input << "\n";
-	}
-
-	// Close the file (.json) after
-	input_file.close();
-
-	// Parse the stringstream into document (DOM) format
 	rapidjson::Document doc;
-	doc.Parse(json_doc_buffer.str().c_str());
+	SerializeJSON(filename, doc);
 
 	// Treats entire filestream at index as array and ensure that it is an array
 	const rapidjson::Value& entity_arr = doc;
@@ -243,108 +224,77 @@ void EntityFactory::CreateAllArchetypes(const std::string& filename) {
 	}
 }
 
-//serialises single archetype 
-Entity* EntityFactory::CreateAndSerializeArchetype(const std::string& filename, const std::string& entity_name/*, EntityTypes id*/) {
-	// Create an empty entity
-	Entity* archetype = new Entity();
+void EntityFactory::CloneLevelEntities(const std::string& filename, const std::string& archetype_name) {
 
-	//archetype->entity_type_ = id;
+	// In this case, we'll be loading multiple entries of entities, each one expected to have 
+	// the same components but different values
+	M_DEBUG->WriteDebugMessage("Beginning cloning and serializing of " + archetype_name + "\n");
 
-	// Load the input file (.json) and ensure it is open
-	std::ifstream input_file(filename.c_str()/*"TestJSON/2compTest.json"*/);
-	//assert(input_file);
-	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
+	rapidjson::Document doc;
+	SerializeJSON(filename, doc);
 
-	M_DEBUG->WriteDebugMessage("Creating a new entity of type: " + entity_name + "\n");
+	const rapidjson::Value& ent_arr = doc;
+	DEBUG_ASSERT(ent_arr.IsObject(), "Entity JSON does not exist in proper format");
 
-	// Read each line separated by a '\n' into a stringstream
-	std::stringstream json_doc_buffer;
-	std::string input;
+	// Iterate through each prefab
+	for (rapidjson::Value::ConstMemberIterator var_it = ent_arr.MemberBegin(); var_it != ent_arr.MemberEnd(); ++var_it) {
 
-	while (std::getline(input_file, input)) {
+		const rapidjson::Value& value_arr = var_it->value;
 
-		json_doc_buffer << input << "\n";
+		// Create an empty entity
+		Entity* cloned = CloneArchetype(archetype_name);
+
+		// Iterate through the body of the prefab that contains components
+		for (rapidjson::Value::ConstValueIterator it = value_arr.Begin(); it != value_arr.End(); ++it) {
+
+			// Each value is essentially a container for multiple members
+			// IsObject enforces that the member is an object that will contain data:key pairs
+			const rapidjson::Value& member = *it;
+			DEBUG_ASSERT(member.IsObject(), "Entry does not exist in JSON");
+
+			// For every new component in the "Entity"s body
+			if (member.MemberBegin()->name == "component") {
+
+				ComponentTypes comp_type = StringToComponentType(member.MemberBegin()->value.GetString());
+
+				//stores the data into a stream that is easier to read data from
+				std::stringstream stream;
+
+				for (rapidjson::Value::ConstMemberIterator it2 = ++member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
+
+					stream << it2->value.GetString() << " ";
+				}
+
+				cloned->GetComponent(comp_type)->SerializeClone(stream); // check if is derived serializeclone
+			}
+		}
 	}
+}
 
-	// Close the file (.json) after
-	input_file.close();
+//serialises level
+void EntityFactory::SerializeLevelEntities(const std::string& filename) {
+	
+	M_DEBUG->WriteDebugMessage("Beginning loading of level entities\n");
 
 	// Parse the stringstream into document (DOM) format
 	rapidjson::Document doc;
-	doc.Parse(json_doc_buffer.str().c_str());
+	SerializeJSON(filename, doc);
 
 	// Treats entire filestream at index as array and ensure that it is an array
-	const rapidjson::Value& value_arr = doc[entity_name.c_str()];
-	DEBUG_ASSERT(value_arr.IsArray(), "Entry does not exist in JSON");
+	const rapidjson::Value& files_arr = doc;
+	DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
 
-	// Iterate through the body of the "Header"
-	for (rapidjson::Value::ConstValueIterator it = value_arr.Begin(); it != value_arr.End(); ++it) {
+	// Iterate through each prefab
+	for (rapidjson::Value::ConstMemberIterator file_it = files_arr.MemberBegin(); file_it != files_arr.MemberEnd(); ++file_it) {
 
-		// Each value is essentially a container for multiple members
-		// IsObject enforces that the member is an object that will contain data:key pairs
-		const rapidjson::Value& member = *it;
-		
-		DEBUG_ASSERT(member.IsObject(), "Entry does not exist in JSON");
+		std::string file_name{ file_it->value.GetString() };
+		std::string archetype_name{ file_it->name.GetString() };
 
-		IComponentCreator* creator;
-		std::shared_ptr<Component> component;
+		M_DEBUG->WriteDebugMessage("Cloning archetype: " + archetype_name + "\n");
 
-		// For every new component in the "Entity"s body
-		if (member.MemberBegin()->name == "component") {
-
-			// Check whether the component's name has been registered
-			//component_map_.find(member.MemberBegin()->value.GetString())->second;
-			ComponentMapType::iterator component_it = component_map_.find(member.MemberBegin()->value.GetString());
-
-			DEBUG_ASSERT((component_it != component_map_.end()), "Component Creator does not exist");
-
-			creator = component_it->second;
-			
-			component = creator->Create();
-
-			//stores the data into a stream that is easier to read data from
-			std::stringstream stream;
-
-			for (rapidjson::Value::ConstMemberIterator it2 = ++member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
-
-				stream << it2->value.GetString() << " ";
-			}
-
-			//passes the converted data to the component to read
-			component->Serialize(stream);
-
-			// Attaches the component to the entity
-			archetype->AddComponent(creator->GetComponentTypeID(), component);
-		}
-		
-		/*
-		for (rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
-
-			//each member contains multiple data:key pairs that can be read and interpreted
-			std::cout << it2->name.GetString() << ": " << it2->value.GetString() << std::endl;
-
-			//component->Serialize();
-
-				//ComponentCreator* creator = component_map_.find("Motion")->second;
-				//Component* component = creator->Create();
-				//ret->AddComponent(creator->GetComponentTypeID(), component);
-		}
-		*/
+		CloneLevelEntities(file_name, archetype_name);
 	}
-
-	//entity_archetype_map_[id] = archetype;
-
-	//adds entity to entity_id_map_
-	//ideally to use archetype design so remove in favor of that once implementation is done
-	StoreEntityID(archetype);
-	
-	// Sets the owner of the component to be "archetype" (*this) and adds the relevant
-	// component pointers to their main systems
-	archetype->Init();
-
-	return archetype;
 }
-
 
 void EntityFactory::StoreEntityID(Entity* entity) {
 	
@@ -401,4 +351,25 @@ void EntityFactory::SendMessageD(Message* msg) {
 	default:
 		break;
 	}
+}
+
+void SerializeJSON(const std::string& filename, rapidjson::Document& doc) {
+
+	std::ifstream input_file(filename.c_str());
+	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
+
+	// Read each line separated by a '\n' into a stringstream
+	std::stringstream json_doc_buffer;
+	std::string input;
+
+	while (std::getline(input_file, input)) {
+
+		json_doc_buffer << input << "\n";
+	}
+
+	// Close the file (.json) after
+	input_file.close();
+
+	// Parse the stringstream into document (DOM) format
+	doc.Parse(json_doc_buffer.str().c_str());
 }

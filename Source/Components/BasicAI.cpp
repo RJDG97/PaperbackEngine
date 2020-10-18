@@ -22,12 +22,17 @@ void BasicAI::Init() {
 }
 
 void BasicAI::Serialize(std::stringstream& data) {
-	std::cout << "Entered Serialize BasicAI w/ stream" << std::endl;
-
-	// 1st data will be magnitude of velocity
-	// 2nd data will be for number of destinations
-	data >> speed >> num_destinations_;
 	
+	// assume archetype only sets speed
+	// 1st data will be magnitude of velocity
+	data >> speed;
+}
+
+void BasicAI::SerializeClone(std::stringstream& data) {
+
+	// clone data will be for number of destinations and destinations
+	data >> num_destinations_;
+
 	DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
 	destinations_.resize(num_destinations_);

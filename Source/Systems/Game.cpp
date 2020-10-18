@@ -25,7 +25,7 @@ void Game::Init()
 
 	CORE->GetManager<TextureManager>()->TempTextureBatchLoad();
 	CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
-	FACTORY->CreateAllArchetypes("Resources/EntityConfig/2compTest.json");
+	FACTORY->CreateAllArchetypes("Resources/EntityConfig/archetypes.json");
 
 	ChangeState(&m_MenuState);
 

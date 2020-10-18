@@ -1,0 +1,9 @@
+{
+  "Floor": "Resources/EntityConfig/Play/floor.json",
+
+  "Enemy": "Resources/EntityConfig/Play/normalenemy.json",
+
+  "Wall": "Resources/EntityConfig/Play/wall.json",
+
+  "MovingWall": "Resources/EntityConfig/Play/movingwall.json"
+}

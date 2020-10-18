@@ -1,0 +1,16 @@
+{
+  "wall": [
+    {
+      "component": "Transform",
+      "position": "-150.0 -100.0",
+      "rotation": "0.0"
+    }
+  ],
+  "wall": [
+    {
+      "component": "Transform",
+      "position": "-300.0 -300.0",
+      "rotation": "0.0"
+    }
+  ]
+}

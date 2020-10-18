@@ -41,29 +41,9 @@ void PlayState::Init()
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	//CORE->GetManager<TextureManager>()->TempTextureBatchLoad();
-	//CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
-
-	// Creating base archetype (Temporary stored within main entity array for testing and update purposes)
-	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Floor", EntityTypes::FLOOR);
-	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "MovingWall", EntityTypes::WALL);
-	//player = FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Player", EntityTypes::PLAYER);
-	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Enemy", EntityTypes::ENEMY);
-	//FACTORY->CreateAndSerializeArchetype("Resources/EntityConfig/2compTest.json", "Wall", EntityTypes::WALL);
-
 	player = FACTORY->CloneArchetype("Player");
-	FACTORY->CloneArchetype("Floor");
-	FACTORY->CloneArchetype("Wall");
-	FACTORY->CloneArchetype("MovingWall");
-	FACTORY->CloneArchetype("Enemy");
-
-	Entity* wall = FACTORY->CloneArchetype("Wall");
-	std::shared_ptr<Transform> lol = std::dynamic_pointer_cast<Transform>(wall->GetComponent(ComponentTypes::TRANSFORM));
-	lol->position_ = { -400, -300 };
-
-	wall = FACTORY->CloneArchetype("Wall");
-	std::shared_ptr<Transform> lol2 = std::dynamic_pointer_cast<Transform>(wall->GetComponent(ComponentTypes::TRANSFORM));
-	lol2->position_ = { -300, -200 };
+	
+	FACTORY->SerializeLevelEntities("Resources/EntityConfig/play.json");
 }
 
 void PlayState::Free()
@@ -94,6 +74,9 @@ void PlayState::Update(Game* game, float frametime)
 
 	// To use in play state meant to handle game logic components like BasicAI
 	for (Game::BasicAIIt basic_ai = game->basicai_arr_.begin(); basic_ai != game->basicai_arr_.end(); ++basic_ai) {
+
+		if (basic_ai->second->num_destinations_ < 1) 
+			continue;
 
 		std::shared_ptr<Transform> xform = 
 			std::dynamic_pointer_cast<Transform>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));

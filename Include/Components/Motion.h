@@ -53,6 +53,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeClone()
+
+  \brief Serializes data members within the Component
+*/
+/******************************************************************************/
+	void SerializeClone(std::stringstream& data) override;
+
+/******************************************************************************/
+/*!
   \fn Clone()
 
   \brief Clones the existing component

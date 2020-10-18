@@ -1,0 +1,5 @@
+{
+  "Wall": "Resources/EntityConfig/Menu/wall.json",
+
+  "ButtonCrash": "Resources/EntityConfig/Menu/button.json"
+}

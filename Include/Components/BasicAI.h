@@ -57,6 +57,16 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeClone()
+
+  \brief Retrieves data that will initialise data that can be unique from other
+		 components
+*/
+/******************************************************************************/
+	void SerializeClone(std::stringstream& data) override;
+
+/******************************************************************************/
+/*!
   \fn Clone()
 
   \brief Clones the existing component

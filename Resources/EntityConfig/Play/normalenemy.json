@@ -1,0 +1,16 @@
+{
+  "enemy": [
+    {
+      "component": "Transform",
+      "position": "-150.0 100.0",
+      "rotation": "0.0" 
+    }
+  ],
+  "enemy": [
+    {
+      "component": "Transform",
+      "position": "-350.0 100.0",
+      "rotation": "0.0" 
+    }
+  ]
+}

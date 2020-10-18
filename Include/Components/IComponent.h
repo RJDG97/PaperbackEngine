@@ -42,6 +42,16 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeClone()
+
+  \brief Retrieves data that will initialise data that can be unique from other
+		 components
+*/
+/******************************************************************************/
+	virtual void SerializeClone(std::stringstream& data) { (void)data; };
+
+/******************************************************************************/
+/*!
   \fn GetOwner()
 
   \brief Returns a pointer to the entity that owns the component

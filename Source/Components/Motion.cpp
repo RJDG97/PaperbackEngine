@@ -23,9 +23,10 @@ void Motion::Serialize(std::stringstream& data) {
 	std::cout << "Entered Serialize Motion w/ stream" << std::endl;
 	
 	data >> velocity_.x >> velocity_.y >> acceleration_.x >> acceleration_.y;
+}
 
-	std::cout << "Velocity read: " << velocity_.x << ", " << velocity_.y << std::endl;
-	std::cout << "Accleration read: " << acceleration_.x << ", " << acceleration_.y << std::endl;
+void Motion::SerializeClone(std::stringstream& data) {
+	Serialize(data);
 }
 
 std::shared_ptr<Component> Motion::Clone() {
