@@ -4,6 +4,7 @@
 #include "GameStates/MenuState.h"
 #include "Systems/Debug.h"
 #include "Systems/GraphicsSystem.h"
+#include "Systems/ImguiSystem.h"
 
 InputSystem sys_input_;
 
@@ -155,6 +156,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		break;
 		case GLFW_KEY_C:
+			CORE->GetSystem<ImguiSystem>()->b_imguimode = !CORE->GetSystem<ImguiSystem>()->b_imguimode;
 			break;
 		case GLFW_KEY_D:
 			break;

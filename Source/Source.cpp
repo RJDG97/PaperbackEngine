@@ -9,6 +9,7 @@
 #include "GameStates/MenuState.h"
 #include "Systems/GraphicsSystem.h"
 #include "Systems/LightingSystem.h"
+#include "Systems/ImguiSystem.h"
 
 #include "Manager/ModelManager.h"
 #include "Manager/TextureManager.h"
@@ -48,6 +49,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<WindowsSystem>();
 		CORE->AddSystem<GraphicsSystem>();
 		CORE->AddSystem<LightingSystem>();
+		CORE->AddSystem<ImguiSystem>();
 		CORE->AddSystem<InputSystem>();
 		CORE->AddSystem<Physics>();
 		CORE->AddSystem<Collision>();

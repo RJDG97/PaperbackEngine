@@ -145,6 +145,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Include\Imgui\imgui.cpp" />
+    <ClCompile Include="Include\Imgui\imgui_demo.cpp" />
+    <ClCompile Include="Include\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="Include\Imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Include\Imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Include\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="Source\Components\AABB.cpp" />
     <ClCompile Include="Source\Components\AnimationRenderer.cpp" />
     <ClCompile Include="Source\Components\Attack.cpp" />
@@ -175,6 +181,7 @@
     <ClCompile Include="Source\Systems\FrameRateController.cpp" />
     <ClCompile Include="Source\Systems\Game.cpp" />
     <ClCompile Include="Source\Systems\GraphicsSystem.cpp" />
+    <ClCompile Include="Source\Systems\ImguiSystem.cpp" />
     <ClCompile Include="Source\Systems\InputSystem.cpp" />
     <ClCompile Include="Source\Systems\LightingSystem.cpp" />
     <ClCompile Include="Source\Systems\Message.cpp" />
@@ -205,6 +212,14 @@
     <ClInclude Include="Include\GameStates\GameState.h" />
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
+    <ClInclude Include="Include\Imgui\imconfig.h" />
+    <ClInclude Include="Include\Imgui\imgui.h" />
+    <ClInclude Include="Include\Imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="Include\Imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="Include\Imgui\imgui_internal.h" />
+    <ClInclude Include="Include\Imgui\imstb_rectpack.h" />
+    <ClInclude Include="Include\Imgui\imstb_textedit.h" />
+    <ClInclude Include="Include\Imgui\imstb_truetype.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\IManager.h" />
     <ClInclude Include="Include\Manager\ModelManager.h" />
@@ -218,6 +233,7 @@
     <ClInclude Include="Include\Systems\FrameRateController.h" />
     <ClInclude Include="Include\Systems\Game.h" />
     <ClInclude Include="Include\Systems\GraphicsSystem.h" />
+    <ClInclude Include="Include\Systems\ImguiSystem.h" />
     <ClInclude Include="Include\Systems\InputSystem.h" />
     <ClInclude Include="Include\Systems\ISystem.h" />
     <ClInclude Include="Include\Systems\LightingSystem.h" />
