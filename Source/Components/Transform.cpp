@@ -23,7 +23,7 @@ void Transform::Init() {
 	CORE->GetSystem<Collision>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
 }
 
-void Transform::Serialize(std::stringstream& data) {
+void Transform::DeSerialize(std::stringstream& data) {
 	/*
 	rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin()
 	it2->name.GetString() << ": " << it2->value.GetString()
@@ -35,8 +35,8 @@ void Transform::Serialize(std::stringstream& data) {
 	std::cout << "Position read: " << position_.x << ", " << position_.y << std::endl;
 }
 
-void Transform::SerializeClone(std::stringstream& data) {
-	Serialize(data);
+void Transform::DeSerializeClone(std::stringstream& data) {
+	DeSerialize(data);
 }
 
 float Transform::GetRotation() const {

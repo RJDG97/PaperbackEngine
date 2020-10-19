@@ -22,14 +22,14 @@ void Motion::Init() {
 	CORE->GetSystem<Collision>()->AddMotionComponent(Component::GetOwner()->GetID(), this);
 }
 
-void Motion::Serialize(std::stringstream& data) {
+void Motion::DeSerialize(std::stringstream& data) {
 	std::cout << "Entered Serialize Motion w/ stream" << std::endl;
 	
 	data >> velocity_.x >> velocity_.y >> acceleration_.x >> acceleration_.y;
 }
 
-void Motion::SerializeClone(std::stringstream& data) {
-	Serialize(data);
+void Motion::DeSerializeClone(std::stringstream& data) {
+	DeSerialize(data);
 }
 
 std::shared_ptr<Component> Motion::Clone() {

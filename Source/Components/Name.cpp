@@ -15,7 +15,7 @@ void Name::Init() {
 	// Blank for now
 }
 
-void Name::Serialize(std::stringstream& data) {
+void Name::DeSerialize(std::stringstream& data) {
 	/*
 	rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin()
 	it2->name.GetString() << ": " << it2->value.GetString()

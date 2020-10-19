@@ -48,7 +48,7 @@ public:
   \brief Retrieves the data from the stringstream to initialize data members
 */
 /******************************************************************************/
-	void Serialize(std::stringstream& data) override;
+	void DeSerialize(std::stringstream& data) override;
 
 /******************************************************************************/
 /*!

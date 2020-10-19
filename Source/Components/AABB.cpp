@@ -21,7 +21,7 @@ void AABB::Init() {
 	CORE->GetSystem<Collision>()->AddAABBComponent(Component::GetOwner()->GetID(), this);
 }
 
-void AABB::Serialize(std::stringstream& data) {
+void AABB::DeSerialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing AABB Component" << std::endl;
 	

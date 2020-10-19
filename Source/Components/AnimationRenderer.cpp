@@ -28,7 +28,7 @@ void AnimationRenderer::Init() {
     tex_vtx_sent_ = *current_animation_->GetTexVtx();
 }
 
-void AnimationRenderer::Serialize(std::stringstream& data) {
+void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     std::cout << "Serializing AnimationRenderer" << std::endl;
 

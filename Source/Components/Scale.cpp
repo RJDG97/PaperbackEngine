@@ -17,7 +17,7 @@ void Scale::SetScale(const Vector2D& new_scale) {
 	scale_ = new_scale;
 }
 
-void Scale::Serialize(std::stringstream& data) {
+void Scale::DeSerialize(std::stringstream& data) {
 
 	data >> scale_.x >> scale_.y;
 }

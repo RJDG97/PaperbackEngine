@@ -21,13 +21,13 @@ void Clickable::Init() {
 	CORE->GetSystem<Collision>()->AddClickableComponent(Component::GetOwner()->GetID(), this);
 }
 
-void Clickable::Serialize(std::stringstream& data) {
+void Clickable::DeSerialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing Clickable Component" << std::endl;
 	data >> scale_.x >> scale_.y;
 }
 
-void Clickable::SerializeClone(std::stringstream& data) {
+void Clickable::DeSerializeClone(std::stringstream& data) {
 	
 	data >> index_; // might need to include scale here
 }

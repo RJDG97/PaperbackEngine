@@ -28,7 +28,7 @@ void TextureRenderer::Init() {
     tex_vtx_sent_ = *texture_.GetTexVtx();
 }
 
-void TextureRenderer::Serialize(std::stringstream& data) {
+void TextureRenderer::DeSerialize(std::stringstream& data) {
     
     std::string texture;
     std::string model;

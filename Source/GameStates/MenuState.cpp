@@ -32,7 +32,7 @@ void MenuState::Init()
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
 	// Entities created within cannot be checked against directly (No * to entity)
-	FACTORY->SerializeLevelEntities("Resources/EntityConfig/menu.json");
+	FACTORY->DeSerializeLevelEntities("Resources/EntityConfig/menu.json");
 }
 
 void MenuState::Free()

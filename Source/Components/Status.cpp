@@ -38,7 +38,7 @@ void Status::Init() {
   \brief Retrieves the data from the stringstream to initialize data members
 */
 /******************************************************************************/
-void Status::Serialize(std::stringstream& data) {
+void Status::DeSerialize(std::stringstream& data) {
 	(void)data;
     /*
     data >> status_;

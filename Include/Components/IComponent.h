@@ -38,7 +38,7 @@ public:
   \brief Retrieves the data from the stringstream to initialize data members
 */
 /******************************************************************************/
-	virtual void Serialize(std::stringstream& data) { (void)data; };
+	virtual void DeSerialize(std::stringstream& data) { (void)data; };
 
 /******************************************************************************/
 /*!
@@ -48,7 +48,7 @@ public:
 		 components
 */
 /******************************************************************************/
-	virtual void SerializeClone(std::stringstream& data) { (void)data; };
+	virtual void DeSerializeClone(std::stringstream& data) { (void)data; };
 
 /******************************************************************************/
 /*!

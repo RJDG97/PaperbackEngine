@@ -11,14 +11,14 @@ void Health::Init() {
 
 }
 
-void Health::Serialize(std::stringstream& data) {
+void Health::DeSerialize(std::stringstream& data) {
 	// Serialize health
 	data >> maximum_health_;
 	current_health_ = maximum_health_;
 }
 
-void Health::SerializeClone(std::stringstream& data) {
-	Serialize(data);
+void Health::DeSerializeClone(std::stringstream& data) {
+	DeSerialize(data);
 }
 
 std::shared_ptr<Component> Health::Clone() {

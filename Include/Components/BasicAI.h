@@ -53,7 +53,7 @@ public:
   \brief Reads data from a stringstream and stores them into the data members
 */
 /******************************************************************************/
-	void Serialize(std::stringstream& data) override;
+	void DeSerialize(std::stringstream& data) override;
 
 /******************************************************************************/
 /*!
@@ -63,7 +63,7 @@ public:
 		 components
 */
 /******************************************************************************/
-	void SerializeClone(std::stringstream& data) override;
+	void DeSerializeClone(std::stringstream& data) override;
 
 /******************************************************************************/
 /*!

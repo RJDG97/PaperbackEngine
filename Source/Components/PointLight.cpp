@@ -18,7 +18,7 @@ void PointLight::Init() {
 	CORE->GetSystem<LightingSystem>()->AddLightComponent(Component::GetOwner()->GetID(), this);
 }
 
-void PointLight::Serialize(std::stringstream& data) {
+void PointLight::DeSerialize(std::stringstream& data) {
 
 	std::string model;
 	std::string shdr_pgm;

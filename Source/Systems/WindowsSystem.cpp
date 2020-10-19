@@ -51,7 +51,7 @@ void WindowsSystem::Init() {
 
 	//width_ = 800;
 	//height_ = 600;
-	Serialize();
+	DeSerialize();
 
 	// Before asking GLFW to create an OpenGL context, we specify the minimum constraints
 	// in that context:
@@ -87,7 +87,7 @@ void WindowsSystem::Init() {
 }
 
 // Placeholder function
-void WindowsSystem::Serialize() {
+void WindowsSystem::DeSerialize() {
 
 	// Load the input file (.json) and ensure it is open
 	std::ifstream input_file("Resources/EntityConfig/window.json");
