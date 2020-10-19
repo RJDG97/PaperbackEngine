@@ -85,20 +85,21 @@ public:
 /*!
   \fn DeSerializeLevelEntities()
 
-  \brief Deserializes all entities in a level by by saving their component
-		 values within a JSON file
+  \brief Deserializes all entities in a level by by loading their component
+		 values from a JSON file
 */
 /******************************************************************************/
 	void DeSerializeLevelEntities(const std::string& filename);
 
 /******************************************************************************/
 /*!
-  \fn CreateAndSerializeArchetype()
+  \fn SerializeLevelEntities()
 
-  \brief Creates a new entity archetype and initialises it from a JSON file
+  \brief Serializes all entities in a level by by saving their component
+		 values within multiple JSON files
 */
 /******************************************************************************/
-	//Entity* CreateAndSerializeArchetype(const std::string& filename, const std::string& entity_name/*, EntityTypes id*/);
+	void SerializeLevelEntities(const std::string& filename);
 
 /******************************************************************************/
 /*!

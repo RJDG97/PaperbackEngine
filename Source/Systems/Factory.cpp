@@ -21,6 +21,8 @@
 #include "Components/Name.h"
 #include "Components/Clickable.h"
 
+#include "prettywriter.h"
+
 EntityFactory* FACTORY = NULL;
 
 EntityFactory::EntityFactory() {
@@ -274,7 +276,7 @@ void EntityFactory::CloneLevelEntities(const std::string& filename, const std::s
 
 //serialises level
 void EntityFactory::DeSerializeLevelEntities(const std::string& filename) {
-	
+
 	M_DEBUG->WriteDebugMessage("Beginning loading of level entities\n");
 
 	// Parse the stringstream into document (DOM) format
@@ -294,7 +296,37 @@ void EntityFactory::DeSerializeLevelEntities(const std::string& filename) {
 		M_DEBUG->WriteDebugMessage("Cloning archetype: " + archetype_name + "\n");
 
 		CloneLevelEntities(file_name, archetype_name);
+	}	
+}
+
+void EntityFactory::SerializeLevelEntities(const std::string& filename) {
+
+	(void)filename;
+	rapidjson::StringBuffer sb;
+	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+
+	std::ofstream filestream("AyyLmao.json");
+
+	if (filestream.is_open()) {
+
+		// Start the formatting for JSON
+		writer.StartObject();
+
+		for (EntityArchetypeMapTypeIt begin = entity_archetype_map_.begin(); begin != entity_archetype_map_.end(); ++begin) {
+			
+			// Begin entity
+			writer.Key(begin->first.c_str());
+			
+			begin->second->Serialize(&writer);
+		}
+
+		//closing json
+		writer.EndObject();
+
+		filestream << sb.GetString();
 	}
+
+	filestream.close();
 }
 
 void EntityFactory::StoreEntityID(Entity* entity) {

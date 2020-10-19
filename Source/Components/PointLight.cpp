@@ -18,6 +18,21 @@ void PointLight::Init() {
 	CORE->GetSystem<LightingSystem>()->AddLightComponent(Component::GetOwner()->GetID(), this);
 }
 
+void PointLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	(void)writer;
+	/*
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("AABB");
+
+	writer->Key("scale");
+	writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+
+	writer->EndObject();*/
+}
+
 void PointLight::DeSerialize(std::stringstream& data) {
 
 	std::string model;

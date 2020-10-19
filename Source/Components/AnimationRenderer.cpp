@@ -28,6 +28,21 @@ void AnimationRenderer::Init() {
     tex_vtx_sent_ = *current_animation_->GetTexVtx();
 }
 
+void AnimationRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+    (void)writer;
+    /*
+    writer->StartObject();
+
+    writer->Key("component");
+    writer->String("AABB");
+
+    writer->Key("scale");
+    writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+
+    writer->EndObject();*/
+}
+
 void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     std::cout << "Serializing AnimationRenderer" << std::endl;

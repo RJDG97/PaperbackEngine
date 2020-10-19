@@ -56,6 +56,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn Serialize()
+
+  \brief Serialises a component into JSON format
+*/
+/******************************************************************************/
+	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+
+/******************************************************************************/
+/*!
 	\fn Serialize(std::stringstream& data)
 
 	\brief Reads data from a stringstream and stores them into the data members

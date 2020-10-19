@@ -31,9 +31,19 @@ void Status::Init() {
 	CORE->GetSystem<Physics>()->AddStatusComponent(GetOwner()->GetID(), this);
 }
 
+void Status::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Status");
+
+	writer->EndObject();
+}
+
 /******************************************************************************/
 /*!
-  \fn Serialize
+  \fn DeSerialize
 
   \brief Retrieves the data from the stringstream to initialize data members
 */

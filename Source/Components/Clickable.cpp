@@ -21,6 +21,19 @@ void Clickable::Init() {
 	CORE->GetSystem<Collision>()->AddClickableComponent(Component::GetOwner()->GetID(), this);
 }
 
+void Clickable::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Clickable");
+
+	writer->Key("scale");
+	writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+
+	writer->EndObject();
+}
+
 void Clickable::DeSerialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing Clickable Component" << std::endl;

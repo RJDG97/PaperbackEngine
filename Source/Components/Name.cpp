@@ -15,6 +15,19 @@ void Name::Init() {
 	// Blank for now
 }
 
+void Name::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Name");
+
+	writer->Key("name");
+	writer->String(name_.c_str());
+
+	writer->EndObject();
+}
+
 void Name::DeSerialize(std::stringstream& data) {
 	/*
 	rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin()

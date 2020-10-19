@@ -21,6 +21,19 @@ void AABB::Init() {
 	CORE->GetSystem<Collision>()->AddAABBComponent(Component::GetOwner()->GetID(), this);
 }
 
+void AABB::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+	
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("AABB");
+
+	writer->Key("scale");
+	writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+
+	writer->EndObject();
+}
+
 void AABB::DeSerialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing AABB Component" << std::endl;

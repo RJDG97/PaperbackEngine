@@ -11,6 +11,19 @@ void Health::Init() {
 
 }
 
+void Health::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+	
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Health");
+
+	writer->Key("maximum health");
+	writer->String(std::to_string(maximum_health_).c_str());
+
+	writer->EndObject();
+}
+
 void Health::DeSerialize(std::stringstream& data) {
 	// Serialize health
 	data >> maximum_health_;

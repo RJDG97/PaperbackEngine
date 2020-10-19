@@ -28,6 +28,21 @@ void TextureRenderer::Init() {
     tex_vtx_sent_ = *texture_.GetTexVtx();
 }
 
+void TextureRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+    (void)writer;
+    /*
+    writer->StartObject();
+
+    writer->Key("component");
+    writer->String("AABB");
+
+    writer->Key("scale");
+    writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+
+    writer->EndObject();*/
+}
+
 void TextureRenderer::DeSerialize(std::stringstream& data) {
     
     std::string texture;

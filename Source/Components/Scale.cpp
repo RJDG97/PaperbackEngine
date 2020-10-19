@@ -17,6 +17,19 @@ void Scale::SetScale(const Vector2D& new_scale) {
 	scale_ = new_scale;
 }
 
+void Scale::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Scale");
+
+	writer->Key("scale");
+	writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+
+	writer->EndObject();
+}
+
 void Scale::DeSerialize(std::stringstream& data) {
 
 	data >> scale_.x >> scale_.y;

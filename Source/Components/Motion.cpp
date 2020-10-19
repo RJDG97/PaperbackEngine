@@ -22,15 +22,30 @@ void Motion::Init() {
 	CORE->GetSystem<Collision>()->AddMotionComponent(Component::GetOwner()->GetID(), this);
 }
 
+void Motion::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+	
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Motion");
+
+	//used for serializing for cloning
+	/*writer->Key("velocity");
+	writer->String((std::to_string(velocity_.x) + " " + std::to_string(velocity_.y)).c_str());
+
+	writer->Key("acceleration");
+	writer->String((std::to_string(acceleration_.x) + " " + std::to_string(acceleration_.y)).c_str());
+	*/
+
+	writer->EndObject();
+}
+
 void Motion::DeSerialize(std::stringstream& data) {
 	std::cout << "Entered Serialize Motion w/ stream" << std::endl;
 	
 	data >> velocity_.x >> velocity_.y >> acceleration_.x >> acceleration_.y;
 }
 
-void Motion::DeSerializeClone(std::stringstream& data) {
-	DeSerialize(data);
-}
 
 std::shared_ptr<Component> Motion::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning Motion Component\n");
