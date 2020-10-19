@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _COLLISION_H_
 #define _COLLISION_H_
 
@@ -6,6 +7,9 @@
 #include "ISystem.h"
 #include "Components/AABB.h"
 #include "Components/Clickable.h"
+#include "Components/Motion.h"
+#include "Components/Status.h"
+#include "Components/Transform.h"
 #include "Manager/ShaderManager.h"
 #include "Manager/ModelManager.h"
 #include <unordered_map>
@@ -23,6 +27,15 @@ class Collision : public ISystem {
 
 	using ClickableIt = std::unordered_map<EntityID, Clickable*>::iterator;
 	std::unordered_map<EntityID, Clickable*> clickable_arr_;
+
+	using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
+	std::unordered_map<EntityID, Motion*> motion_arr_;
+
+	using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
+	std::unordered_map<EntityID, Status*> status_arr_;
+	
+	using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
+	std::unordered_map<EntityID, Transform*> transform_arr_;
 
 /******************************************************************************/
 /*!
@@ -106,21 +119,77 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn AddAABBComponent()
+  \fn AddClickableComponent()
 
-  \brief Adds a AABB component to the aabb map
+  \brief Adds a Clickable component to the clickable map
 */
 /******************************************************************************/
 	void AddClickableComponent(EntityID id, Clickable* clickable);
 
 /******************************************************************************/
 /*!
-  \fn RemoveAABBComponent()
+  \fn RemoveClickableComponent()
 
-  \brief Removes a AABB component from the aabb map
+  \brief Removes a Clickable component from the clickable map
 */
 /******************************************************************************/
 	void RemoveClickableComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn AddMotionComponent()
+
+  \brief Adds a Motion component to the motion map
+*/
+/******************************************************************************/
+	void AddMotionComponent(EntityID id, Motion* motion);
+
+/******************************************************************************/
+/*!
+  \fn RemoveMotionComponent()
+
+  \brief Removes a Motion component from the motion map
+*/
+/******************************************************************************/
+	void RemoveMotionComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn AddStatusComponent()
+
+  \brief Adds a Status component to the status map
+*/
+/******************************************************************************/
+	void AddStatusComponent(EntityID id, Status* status);
+
+/******************************************************************************/
+/*!
+  \fn RemoveStatusComponent()
+
+  \brief Removes a Status component from the status map
+*/
+/******************************************************************************/
+	void RemoveStatusComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn AddTransformComponent()
+
+  \brief Adds a newly created Transform Component to the status component array
+		 within the Collision System
+*/
+/******************************************************************************/
+	void AddTransformComponent(EntityID id, Transform* status);
+
+/******************************************************************************/
+/*!
+  \fn RemoveTransformComponent()
+
+  \brief Removes a Transform Component from the status component array within the
+		 Collision System
+*/
+/******************************************************************************/
+	void RemoveTransformComponent(EntityID id);
 
 /******************************************************************************/
 /*!

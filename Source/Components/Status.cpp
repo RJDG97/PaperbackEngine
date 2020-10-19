@@ -1,6 +1,8 @@
 #include "Components/Status.h"
 #include "Engine/Core.h"
 #include "Systems/Game.h"
+#include "Systems/Collision.h"
+#include "Systems/Physics.h"
 
 /******************************************************************************/
 /*!
@@ -24,7 +26,9 @@ Status::Status() :
 /******************************************************************************/
 void Status::Init() {
 
-	CORE->GetSystem<Game>()->AddStatusComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetSystem<Game>()->AddStatusComponent(GetOwner()->GetID(), this);
+	CORE->GetSystem<Collision>()->AddStatusComponent(GetOwner()->GetID(), this);
+	CORE->GetSystem<Physics>()->AddStatusComponent(GetOwner()->GetID(), this);
 }
 
 /******************************************************************************/
@@ -56,4 +60,6 @@ std::shared_ptr<Component> Status::Clone() {
 Status::~Status() {
 
 	CORE->GetSystem<Game>()->RemoveStatusComponent(Component::GetOwner()->GetID());
+	CORE->GetSystem<Collision>()->RemoveStatusComponent(Component::GetOwner()->GetID());
+	CORE->GetSystem<Physics>()->RemoveStatusComponent(Component::GetOwner()->GetID());
 }

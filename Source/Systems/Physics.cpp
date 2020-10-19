@@ -61,24 +61,20 @@ void Physics::ChangeVelocity(Message* m) {
 	//locate the motion component that contains a matching entityID as in the message
 	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
 
-		//std::cout << "Looking for: " << (int)EntityTypes::Player << " vs " << (int)motion->second.GetOwner()->GetType() << std::endl;
+		// Check if entity type of owner is Player
 		if (ENTITYNAME(motion->second->GetOwner()) == "Player") {
 
-			std::shared_ptr<Status> status = 
-				std::dynamic_pointer_cast<Status>(motion->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
-			//assert(status && "Player does not own Status Component");
+			StatusIt status = status_arr_.find(motion->second->GetOwner()->GetID());
 
 			// Temporary inclusion for "Hiding and burrow" check until input sys conversion to component
-			if (status && status->status_ != StatusType::INVISIBLE) {
+			if (status->second && (status->second->status_ != StatusType::INVISIBLE)) {
 
 				//update the acceleration data member of that component with the message's
 				motion->second->velocity_ = msg->new_vec_;
 
 				//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
 			}
-			else
-			{
-
+			else {
 				motion->second->velocity_ = {};
 			}
 		}
@@ -119,6 +115,23 @@ void Physics::RemoveMotionComponent(EntityID id) {
 	}
 }
 
+void Physics::AddStatusComponent(EntityID id, Status* status) {
+
+	M_DEBUG->WriteDebugMessage("Adding Status Component to entity: " + std::to_string(id) + "\n");
+	status_arr_[id] = status;
+}
+
+void Physics::RemoveStatusComponent(EntityID id) {
+
+	StatusIt it = status_arr_.find(id);
+
+	if (it != status_arr_.end()) {
+
+		M_DEBUG->WriteDebugMessage("Removing Status Component from entity: " + std::to_string(id) + "\n");
+		status_arr_.erase(it);
+	}
+}
+
 void Physics::SendMessageD(Message* msg) {
 	switch (msg->message_id_)
 	{
@@ -146,15 +159,3 @@ void Physics::SendMessageD(Message* msg) {
         }
 	}
 }
-
-//
-//void Physics::DecreaseHP(Health* hp) {
-//
-//	hp->current_health_ -= 1;
-//
-//	std::cout << "Message recieved, health decremented successfully, currently at: "
-//			  << hp->current_health_
-//			  << " ; Entity ID: "
-//			  << hp->GetOwner()->GetID()
-//			  << std::endl;
-//}

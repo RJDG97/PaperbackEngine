@@ -10,6 +10,7 @@
 #include "Components/Health.h"
 #include "Systems/Factory.h"
 #include "Components/Motion.h"
+#include "Components/Status.h"
 #include <unordered_map>
 
 class Physics : public ISystem
@@ -61,6 +62,24 @@ public:
 */
 /******************************************************************************/
 	void RemoveMotionComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn AddStatusComponent()
+
+  \brief Adds a Status component to the status map
+*/
+/******************************************************************************/
+	void AddStatusComponent(EntityID id, Status* status);
+
+/******************************************************************************/
+/*!
+  \fn RemoveStatusComponent()
+
+  \brief Removes a Status component from the status map
+*/
+/******************************************************************************/
+	void RemoveStatusComponent(EntityID id);
 
 /******************************************************************************/
 /*!
@@ -117,6 +136,9 @@ private:
 
 	using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
 	std::unordered_map<EntityID, Motion*> motion_arr_;
+
+	using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
+	std::unordered_map<EntityID, Status*> status_arr_;
 };
 
 #endif

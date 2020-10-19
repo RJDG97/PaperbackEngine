@@ -158,13 +158,11 @@ void Collision::CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2
 	Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
 	Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
 
-	std::shared_ptr<Transform> transform1 = 
-		std::dynamic_pointer_cast<Transform>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-	std::shared_ptr<Transform> transform2 = 
-		std::dynamic_pointer_cast<Transform>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+	TransformIt transform1 = transform_arr_.find(aabb1->second->GetOwner()->GetID());
+	TransformIt transform2 = transform_arr_.find(aabb2->second->GetOwner()->GetID());
 
-	transform1->position_ += inverse_vector_1;
-	transform2->position_ += inverse_vector_2;
+	transform1->second->position_ += inverse_vector_1;
+	transform2->second->position_ += inverse_vector_2;
 
 	if (debug_) {
 		std::string debug_str{};
@@ -188,25 +186,23 @@ void Collision::Update(float frametime) {
 	for (AABBIt aabb1 = aabb_arr_.begin(); aabb1 != aabb_arr_.end(); ++aabb1) {
 
 		AABBIt aabb2 = aabb1;
-		std::shared_ptr<Motion> motion1 = 
-			std::dynamic_pointer_cast<Motion>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+		MotionIt motion1 = motion_arr_.find(aabb1->second->GetOwner()->GetID());
 		//assert(motion1 != nullptr && "aabb1 does not have a motion component");
 
 		Vector2D* vel1{};
 
-		vel1 = (motion1 != nullptr) ? &motion1->velocity_ : &empty;
+		vel1 = (motion1->second != nullptr) ? &motion1->second->velocity_ : &empty;
 
 		++aabb2;
 		
 		for (; aabb2 != aabb_arr_.end(); ++aabb2) {
 
-			std::shared_ptr<Motion> motion2 = 
-				std::dynamic_pointer_cast<Motion>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+			MotionIt motion2 = motion_arr_.find(aabb2->second->GetOwner()->GetID());
 			//assert(motion2 != nullptr && "aabb2 does not have a motion component");
 
 			Vector2D* vel2{};
 
-			vel2 = (motion2 != nullptr) ? &motion2->velocity_ : &empty;
+			vel2 = (motion2 != motion_arr_.end()) ? &motion2->second->velocity_ : &empty;
 
 			float t_first{};
 
@@ -235,31 +231,29 @@ void Collision::Update(float frametime) {
 					if ((aabb1_type == "Player" && aabb2_type == "Enemy") ||
 						(aabb1_type == "Enemy" && aabb2_type == "Player")) {
 
-						std::shared_ptr<Status> player_status = nullptr;
+						StatusIt player_status;
 
 						if (aabb1_type == "Player") {
 
-							player_status = 
-								std::dynamic_pointer_cast<Status>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
+							player_status = status_arr_.find(aabb1->second->GetOwner()->GetID());
 						}
 						else {
 
-							player_status = 
-								std::dynamic_pointer_cast<Status>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::STATUS));
+							player_status = status_arr_.find(aabb2->second->GetOwner()->GetID());
 						}
 						
-						if (player_status) {
+						if (player_status->second) {
 
-							if (player_status->status_ == StatusType::NONE) {
+							if (player_status->second->status_ == StatusType::NONE) {
 
 								aabb1->second->collided = true;
 								aabb2->second->collided = true;
 
-								player_status->status_ = StatusType::HIT;
-								player_status->status_timer_ = 5.1f;
+								player_status->second->status_ = StatusType::HIT;
+								player_status->second->status_timer_ = 5.1f;
 							}
 							
-							else if (player_status->status_ == StatusType::INVISIBLE) {
+							else if (player_status->second->status_ == StatusType::INVISIBLE) {
 
 							}
 							
@@ -352,7 +346,6 @@ void Collision::AddAABBComponent(EntityID id, AABB* aabb) {
 
 void Collision::RemoveAABBComponent(EntityID id) {
 
-
 	AABBIt it = aabb_arr_.find(id);
 
 	if (it != aabb_arr_.end()) {
@@ -371,7 +364,6 @@ void Collision::AddClickableComponent(EntityID id, Clickable* clickable) {
 
 void Collision::RemoveClickableComponent(EntityID id) {
 
-
 	ClickableIt it = clickable_arr_.find(id);
 
 	if (it != clickable_arr_.end()) {
@@ -381,6 +373,57 @@ void Collision::RemoveClickableComponent(EntityID id) {
 	}
 }
 
+void Collision::AddMotionComponent(EntityID id, Motion* motion) {
+
+	M_DEBUG->WriteDebugMessage("Adding Motion Component to entity: " + std::to_string(id) + "\n");
+
+	motion_arr_[id] = motion;
+}
+
+void Collision::RemoveMotionComponent(EntityID id) {
+
+	MotionIt it = motion_arr_.find(id);
+
+	if (it != motion_arr_.end()) {
+
+		M_DEBUG->WriteDebugMessage("Removing Motion Component from entity: " + std::to_string(id) + "\n");
+		motion_arr_.erase(it);
+	}
+}
+
+void Collision::AddStatusComponent(EntityID id, Status* status) {
+
+	M_DEBUG->WriteDebugMessage("Adding Status Component to entity: " + std::to_string(id) + "\n");
+	status_arr_[id] = status;
+}
+
+void Collision::RemoveStatusComponent(EntityID id) {
+
+	StatusIt it = status_arr_.find(id);
+
+	if (it != status_arr_.end()) {
+
+		M_DEBUG->WriteDebugMessage("Removing Status Component from entity: " + std::to_string(id) + "\n");
+		status_arr_.erase(it);
+	}
+}
+
+void Collision::AddTransformComponent(EntityID id, Transform* status) {
+
+	M_DEBUG->WriteDebugMessage("Adding Transform Component to entity: " + std::to_string(id) + "\n");
+	transform_arr_[id] = status;
+}
+
+void Collision::RemoveTransformComponent(EntityID id) {
+
+	TransformIt it = transform_arr_.find(id);
+
+	if (it != transform_arr_.end()) {
+
+		M_DEBUG->WriteDebugMessage("Removing Transform Component from entity: " + std::to_string(id) + "\n");
+		transform_arr_.erase(it);
+	}
+}
 void Collision::UpdateBoundingBox() {
 	if (debug_)
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Bounding Boxes\n");
@@ -393,10 +436,10 @@ void Collision::UpdateBoundingBox() {
 		Entity* entity = aabb->second->GetOwner();
 		DEBUG_ASSERT((entity), "Entity does not exist");
 
-		std::shared_ptr<Transform> entity_position = std::dynamic_pointer_cast<Transform>(aabb->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+		TransformIt entity_position = transform_arr_.find(entity->GetID());
 
-		aabb->second->bottom_left_ = entity_position->position_ - aabb->second->scale_;
-		aabb->second->top_right_ = entity_position->position_ + aabb->second->scale_;
+		aabb->second->bottom_left_ = entity_position->second->position_ - aabb->second->scale_;
+		aabb->second->top_right_ = entity_position->second->position_ + aabb->second->scale_;
 	}
 }
 
@@ -412,9 +455,9 @@ void Collision::UpdateClickableBB() {
 		Entity* entity = clickable->second->GetOwner();
 		DEBUG_ASSERT((entity), "Entity does not exist");
 
-		std::shared_ptr<Transform> entity_position = std::dynamic_pointer_cast<Transform>(clickable->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+		TransformIt entity_position = transform_arr_.find(clickable->second->GetOwner()->GetID());
 
-		clickable->second->bottom_left_ = entity_position->position_ - clickable->second->scale_;
-		clickable->second->top_right_ = entity_position->position_ + clickable->second->scale_;
+		clickable->second->bottom_left_ = entity_position->second->position_ - clickable->second->scale_;
+		clickable->second->top_right_ = entity_position->second->position_ + clickable->second->scale_;
 	}
 }

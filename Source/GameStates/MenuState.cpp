@@ -56,54 +56,6 @@ void MenuState::Draw(Game* game)
 
 void MenuState::StateInputHandler(Message* msg, Game* game) {
 
-	//0x25 //LEFT ARROW key
-	//0x26 //UP ARROW key
-	//0x27 //RIGHT ARROW key
-	//0x28 //DOWN ARROW key
-	/*
-	switch (key_val)
-	{
-	case 0x25: //LEFT ARROW key
-	{
-		std::cout << "Play State: Moving Left" << std::endl;
-		Vector2D vel{ -10, 0 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		//CORE->GetSystem<GraphicsSystem>("GraphicsSystem")->TempMoveCamera();
-		break;
-	}
-	case 0x26: //UP ARROW key
-	{
-		std::cout << "Play State: Moving Up" << std::endl;
-		Vector2D vel{ 0, 10 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}
-	case 0x27: //RIGHT ARROW key
-	{
-		std::cout << "Play State: Moving Right" << std::endl;
-		Vector2D vel{ 10, 0 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}
-	case 0x28: //DOWN ARROW key
-	{
-		std::cout << "Play State: Moving Down" << std::endl;
-		Vector2D vel{ 0, -10 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}
-	default:
-
-		Vector2D vel{ 0, 0 };
-		MessagePhysics_Motion msg{ MessageIDTypes::PHY_UpdateVel, vel };
-		CORE->BroadcastMessage(&msg);
-		break;
-	}*/
-
 	if (!game && msg->message_id_ == MessageIDTypes::M_MOVEMENT) {
 
 		Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
@@ -132,8 +84,6 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			new_vel.x += 100.0f;
 		}
-
-		//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
 
 		MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
 		CORE->BroadcastMessage(&m2);

@@ -17,14 +17,14 @@ LightingSystem::~LightingSystem() {
 
 void LightingSystem::Init() {
 
-	windows_system = CORE->GetSystem<WindowsSystem>();
+	windows_system = &*CORE->GetSystem<WindowsSystem>();
 
 	GLint width = windows_system->GetWinWidth();
 	GLint height = windows_system->GetWinHeight();
 
 	CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
 	//Temporary before camera is component
-	GraphicsSystem* graphics_system = CORE->GetSystem<GraphicsSystem>();
+	std::shared_ptr<GraphicsSystem> graphics_system = CORE->GetSystem<GraphicsSystem>();
 
 	cam_pos_ = &graphics_system->cam_pos_;
 	cam_size_ = &graphics_system->cam_size_;
