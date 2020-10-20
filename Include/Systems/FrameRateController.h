@@ -2,6 +2,10 @@
 #define FrameRateController_H
 
 #include <chrono>
+#include <map>
+#include <string>
+#include "ISystem.h"
+#include <iostream>
 
 enum TimeUnit
 {
@@ -87,6 +91,17 @@ class FrameRateController : public Time_Channel
 	float minframetime_ = 1 / fps_;
 	std::chrono::duration<float> delta_;
 
+	// Placeholder start
+	using PerformanceIt = std::map<std::string, float>::iterator;
+	std::map<std::string, float> system_performance_;
+
+	std::chrono::time_point<std::chrono::steady_clock> system_start_;
+	std::chrono::time_point<std::chrono::steady_clock> system_end_;
+
+	float total_time; // For 1 full core engine loop
+	float system_update_time;
+	// Placeholder end
+
 public:
 
 	float dt_;
@@ -144,6 +159,11 @@ public:
 */
 /******************************************************************************/
 	void SetFPS(float);
+
+	void SetSystemPerformance(ISystem* system);
+	void PrintSystemPerformance();
+	void StartSystemTimer();
+	void EndSystemTimer();
 };
 
 extern FrameRateController PE_FrameRate;

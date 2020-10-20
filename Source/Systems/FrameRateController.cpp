@@ -139,3 +139,34 @@ int FrameRateController::GetFPS()
 	seconds = static_cast<int>(TimeElapsed(s));
 	return newFPS;
 }
+
+
+
+
+// Placeholders
+void FrameRateController::StartSystemTimer() {
+	system_start_ = std::chrono::high_resolution_clock::now();
+}
+void FrameRateController::EndSystemTimer() {
+	system_end_ = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float> frametime = system_end_ - system_start_;
+	system_update_time = frametime.count();
+}
+
+void FrameRateController::SetSystemPerformance(ISystem* system) {
+	system_performance_[system->GetName()] = system_update_time;
+}
+
+void FrameRateController::PrintSystemPerformance() {
+	total_time = 0.0f;
+	std::cout << "=========================================\nDisplaying System Performance Data:" << std::endl;
+	// To compute total time taken for 1 update loop
+	for (PerformanceIt begin = system_performance_.begin(); begin != system_performance_.end(); ++begin) {
+		total_time += begin->second;
+	}
+	// To compute and print performance data for each system
+	for (PerformanceIt begin = system_performance_.begin(); begin != system_performance_.end(); ++begin) {
+		std::cout << begin->first << ": " << begin->second / total_time * 100 << "%" << std::endl;
+	}
+	std::cout << "=========================================\n" << std::endl;
+}

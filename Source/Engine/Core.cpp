@@ -30,8 +30,14 @@ void CoreEngine::Initialize() {
 void CoreEngine::GameLoop() {
 	// Get a pointer to Windows System
 	WindowsSystem* win = &*CORE->GetSystem<WindowsSystem>();
+	InputSystem* input = &*CORE->GetSystem<InputSystem>();
 
 	while (b_game_active_ && !glfwWindowShouldClose(win->ptr_window)) {
+		// Placeholder (Game's logic component)
+		if (input->IsKeyTriggered(GLFW_KEY_B)) {
+			debug_ = !debug_;
+		}
+
 		if (debug_)
 			M_DEBUG->WriteDebugMessage("Core Engine System Update:\n");
 		
@@ -45,11 +51,26 @@ void CoreEngine::GameLoop() {
 		}
 
 		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
-			if (debug_)
-				// Log system message to "Source/Debug.txt"
-				M_DEBUG->WriteDebugMessage("Begining update for: " + system->second->GetName() + "\n");
+			// Placeholder
+			PE_FrameRate.StartSystemTimer();
+
 			system->second->Update(PE_FrameRate.dt_);
 			system->second->Draw();
+
+			PE_FrameRate.EndSystemTimer();
+
+			if (debug_) {
+				// Log system message to "Source/Debug.txt"
+				M_DEBUG->WriteDebugMessage("Begining update for: " + system->second->GetName() + "\n");
+				// Placeholder
+				PE_FrameRate.SetSystemPerformance(&*(system->second));
+			}
+		}
+
+		// Placeholder
+		if (debug_) {
+			PE_FrameRate.PrintSystemPerformance();
+			debug_ = !debug_;
 		}
 
 		glfwSwapBuffers(win->ptr_window);
@@ -58,7 +79,7 @@ void CoreEngine::GameLoop() {
 	}
 	glfwTerminate();
 
-		//PE_FrameRate.SetFPS(30);
+	//PE_FrameRate.SetFPS(30);
 	
 }
 
