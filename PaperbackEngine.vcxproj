@@ -168,6 +168,8 @@
     <ClCompile Include="Source\Entity\Entity.cpp" />
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
+    <ClCompile Include="Source\Imgui\AnotherWindow.cpp" />
+    <ClCompile Include="Source\Imgui\ImguiWindow.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
     <ClCompile Include="Source\Manager\ModelManager.cpp" />
     <ClCompile Include="Source\Manager\ShaderManager.cpp" />
@@ -212,14 +214,17 @@
     <ClInclude Include="Include\GameStates\GameState.h" />
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
+    <ClInclude Include="Include\Imgui\AnotherWindow.h" />
     <ClInclude Include="Include\Imgui\imconfig.h" />
     <ClInclude Include="Include\Imgui\imgui.h" />
+    <ClInclude Include="Include\Imgui\ImguiWindow.h" />
     <ClInclude Include="Include\Imgui\imgui_impl_glfw.h" />
     <ClInclude Include="Include\Imgui\imgui_impl_opengl3.h" />
     <ClInclude Include="Include\Imgui\imgui_internal.h" />
     <ClInclude Include="Include\Imgui\imstb_rectpack.h" />
     <ClInclude Include="Include\Imgui\imstb_textedit.h" />
     <ClInclude Include="Include\Imgui\imstb_truetype.h" />
+    <ClInclude Include="Include\Imgui\IWindow.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\IManager.h" />
     <ClInclude Include="Include\Manager\ModelManager.h" />

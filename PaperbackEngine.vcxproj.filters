@@ -237,6 +237,12 @@
     <ClCompile Include="Source\Systems\ImguiSystem.cpp">
       <Filter>Systems\ImguiSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Imgui\ImguiWindow.cpp">
+      <Filter>Systems\ImguiSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Imgui\AnotherWindow.cpp">
+      <Filter>Systems\ImguiSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -393,6 +399,15 @@
       <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\ImguiSystem.h">
+      <Filter>Systems\ImguiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Imgui\IWindow.h">
+      <Filter>Systems\ImguiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Imgui\ImguiWindow.h">
+      <Filter>Systems\ImguiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Imgui\AnotherWindow.h">
       <Filter>Systems\ImguiSystem</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,12 +1,17 @@
 #include "Systems/ImguiSystem.h"
-#include "Systems/WindowsSystem.h"
+#include "Imgui/ImguiWindow.h"
+#include "Imgui/AnotherWindow.h"
 #include "Engine/Core.h"
 
-void ImguiSystem::Init()
-{
+void ImguiSystem::Init(){
+    // Adding window to Imgui's Window map
+    AddWindow<ImguiWindow>();
+    AddWindow<AnotherWindow>();
+
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
@@ -18,7 +23,10 @@ void ImguiSystem::Init()
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsClassic();
+    //ImGui::StyleColorsLight();
 
+
+    // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();
 
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -27,21 +35,32 @@ void ImguiSystem::Init()
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
-    WindowsSystem* win = CORE->GetSystem<WindowsSystem>();
+    // Initialize Imgui Window that is attached to the Imgui System
+    for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
+        begin->second->Init();
+    }
+    
+    win = &*CORE->GetSystem<WindowsSystem>();
 
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(win->ptr_window, true);
     ImGui_ImplOpenGL3_Init(NULL);
 
+    // Load Fonts
+    // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
+    // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
+    // - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
+    // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
+
 }
 
-void ImguiSystem::Update(float frametime)
-{
-    WindowsSystem* win = CORE->GetSystem<WindowsSystem>();
+void ImguiSystem::Update(float frametime){
+
+    UNREFERENCED_PARAMETER(frametime);
+
     ImGuiIO& io = ImGui::GetIO();
 
     if (b_imguimode)
-    //while (!glfwWindowShouldClose(win->ptr_window))
     {
        // glfwPollEvents();
 
@@ -49,37 +68,9 @@ void ImguiSystem::Update(float frametime)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        if (b_showdemo)
-            ImGui::ShowDemoWindow(&b_showdemo);
-        {
-            static float f = 0.0f;
-            static int counter = 0;
-
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &b_showdemo);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &b_showanother);
-
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clearcolor_); // Edit 3 floats representing a color
-
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
-
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
-        }
-
-        if (b_showanother)
-        {
-            ImGui::Begin("Another Window", &b_showanother);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                b_showanother = false;
-            ImGui::End();
+        // For all windows attached, 
+        for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
+            begin->second->Update();
         }
 
         // Rendering
@@ -88,8 +79,12 @@ void ImguiSystem::Update(float frametime)
         glfwGetFramebufferSize(win->ptr_window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
         //glClearColor(clearcolor_.x, clearcolor_.y, clearcolor_.z, clearcolor_.w);
-       // glClear(GL_COLOR_BUFFER_BIT);
+        // glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        // Update and Render additional Platform Windows
+        // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
+        //  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
 
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
         {
@@ -98,27 +93,24 @@ void ImguiSystem::Update(float frametime)
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
+
         //glfwSwapBuffers(win->ptr_window);
-
     }
-
 }
 
-void ImguiSystem::Draw()
-{
+void ImguiSystem::Draw(){
 }
 
-std::string ImguiSystem::GetName()
-{
+std::string ImguiSystem::GetName(){
 	return std::string();
 }
 
-void ImguiSystem::SendMessageD(Message* m)
-{
+void ImguiSystem::SendMessageD(Message* m){
+    UNREFERENCED_PARAMETER(m);
 }
 
-ImguiSystem::~ImguiSystem()
-{
+ImguiSystem::~ImguiSystem(){
+    //CleanUp
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
