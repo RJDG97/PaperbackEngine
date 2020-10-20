@@ -1,6 +1,7 @@
 #include "Components/Transform.h"
 #include "MathLib/Vector2D.h"
 #include "Systems/Physics.h"
+#include "Systems/Collision.h"
 #include "Engine/Core.h"
 #include <iostream> 
 // originally sstream
@@ -13,19 +14,33 @@ Transform::Transform() :
 Transform::~Transform() {
 
 	CORE->GetSystem<Physics>()->RemoveTransformComponent(Component::GetOwner()->GetID());
+	CORE->GetSystem<Collision>()->RemoveTransformComponent(Component::GetOwner()->GetID());
 }
 
 void Transform::Init() {
-	//PHYSICS->Transforms.push_back(*this);
-	//PHYSICS->Transforms_[Component::GetOwner()->GetID()] = *this;
+
 	CORE->GetSystem<Physics>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetSystem<Collision>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
 }
 
-void Transform::Serialize(std::stringstream& data) {
-	/*
-	rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin()
-	it2->name.GetString() << ": " << it2->value.GetString()
-	*/
+void Transform::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Transform");
+
+	writer->Key("position");
+	writer->String((std::to_string(position_.x)+ " " + std::to_string(position_.y)).c_str());
+
+	writer->Key("rotation");
+	writer->String(std::to_string(rotation_).c_str());
+
+	writer->EndObject();
+}
+
+void Transform::DeSerialize(std::stringstream& data) {
+
 	std::cout << "Entered Serialize Transform w/ stream" << std::endl;
 	
 	data >> position_.x >> position_.y >> rotation_;
@@ -33,8 +48,8 @@ void Transform::Serialize(std::stringstream& data) {
 	std::cout << "Position read: " << position_.x << ", " << position_.y << std::endl;
 }
 
-void Transform::SerializeClone(std::stringstream& data) {
-	Serialize(data);
+void Transform::DeSerializeClone(std::stringstream& data) {
+	DeSerialize(data);
 }
 
 float Transform::GetRotation() const {

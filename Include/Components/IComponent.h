@@ -1,9 +1,7 @@
 #include "Entity/ComponentTypes.h"
-//#include "ComponentTypes.h"
 #include "../rapidjson/filereadstream.h"
-//#include "lib/rapidjson/filereadstream.h"
 #include "../rapidjson/document.h"
-//#include "lib/rapidjson/document.h"
+#include "prettywriter.h"
 #include <memory>
 
 #ifndef _COMPONENT_H_
@@ -33,12 +31,21 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn Serialize
+  \fn Serialize()
 
-  \brief Retrieves the data from the stringstream to initialize data members
+  \brief Serialises a component into JSON format
 */
 /******************************************************************************/
-	virtual void Serialize(std::stringstream& data) { (void)data; };
+	virtual void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) { (void)writer; };
+
+/******************************************************************************/
+/*!
+  \fn DeSerialize()
+
+  \brief Loads a component from JSON format
+*/
+/******************************************************************************/
+	virtual void DeSerialize(std::stringstream& data) { (void)data; };
 
 /******************************************************************************/
 /*!
@@ -48,7 +55,7 @@ public:
 		 components
 */
 /******************************************************************************/
-	virtual void SerializeClone(std::stringstream& data) { (void)data; };
+	virtual void DeSerializeClone(std::stringstream& data) { (void)data; };
 
 /******************************************************************************/
 /*!

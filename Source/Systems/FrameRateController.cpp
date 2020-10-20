@@ -18,7 +18,7 @@ void Time_Channel::TimerStop()
 // Resets Timer
 void Time_Channel::TimerReset()
 {
-	timeelapsed_ = frametime_ - frametime_;
+	timeelapsed_ = 0.0f;
 }
 
 // Updates Timer
@@ -27,12 +27,12 @@ void Time_Channel::TimerUpdate()
 	// Get time at end of frame
 	end_ = std::chrono::high_resolution_clock::now();
 	// Get duration of frame
-	frametime_ = end_ - start_;
+	delta_ = end_ - start_;
 	// Start new frame time
 	start_ = std::chrono::high_resolution_clock::now();
 	// Update Timer is running
 	if (running_)
-		timeelapsed_ += frametime_;
+		timeelapsed_ += delta_.count();
 }
 
 // Returns amount of time passed
@@ -42,9 +42,9 @@ float Time_Channel::TimeElapsed(TimeUnit string)
 	switch (string)
 	{
 	case ms:
-		return timeelapsed_.count() * 1000.0f;
+		return timeelapsed_ * 1000.0f;
 	case s:
-		return timeelapsed_.count();
+		return timeelapsed_;
 	}
 	return 0.0f;
 }
@@ -56,9 +56,9 @@ float Time_Channel::GetFrameTime(TimeUnit string)
 	switch (string)
 	{
 	case ms:
-		return frametime_.count() * 1000.0f;
+		return delta_.count() * 1000.0f;
 	case s:
-		return frametime_.count();
+		return delta_.count();
 	}
 	return 0.0f;
 }
@@ -80,24 +80,20 @@ void FrameRateController::FrameControllerStart()
 void FrameRateController::FrameControllerEnd()
 {
 	// Get Current time
-	std::chrono::time_point<std::chrono::steady_clock> currenttime = std::chrono::high_resolution_clock::now();
+	end_ = std::chrono::high_resolution_clock::now();
 	// Check whether time elapsed is past min frame time
-	std::chrono::duration<float> frametime = currenttime - start_;
-	while (frametime.count() < minframetime_)
+	delta_ = end_ - start_;
+	while (delta_.count() < fixedframetime_)
 	{
 		// Check whether current time is more than min frame time
 		end_ = std::chrono::high_resolution_clock::now();
-		frametime = end_ - start_;
+		delta_ = end_ - start_;
 	}
-	// Set Delta as frametime
-	delta_ = end_ - start_;
-	frametime = delta_;
-	timeelapsed_ += frametime;
-	dt_ = PE_FrameRate.delta_.count();
+	timeelapsed_ += delta_.count();
 
-	while (timeelapsed_.count() >= minframetime_) {
+	while (timeelapsed_ >= fixedframetime_) {
 
-		timeelapsed_ -= std::chrono::duration<float>(minframetime_);
+		timeelapsed_ -= fixedframetime_;
 		currentsteps_++;
 	}
 
@@ -108,6 +104,7 @@ void FrameRateController::FrameControllerEnd()
 // Updates the framerate
 void FrameRateController::FrameRateLoop()
 {
+	currentsteps_ = 0;
 	// Get time at start of frame
 	if (frames_ == 0)
 		start_ = std::chrono::high_resolution_clock::now();
@@ -122,20 +119,57 @@ void FrameRateController::SetFPS(float x)
 {
 	// Change Frames per Second
 	fps_ = x;
-	minframetime_ = 1 / fps_;
+	fixedframetime_ = 1 / fps_;
 }
 
 // Get the current amount of frames per second
 int FrameRateController::GetFPS()
 {
-	static int prevFPS, newFPS, seconds;
+	return (int)round(1.0f / delta_.count());
+}
 
-	// Update number of frames in the past second
-	if (seconds != static_cast<int>(TimeElapsed(s)))
-	{
-		newFPS = GetFrames() - prevFPS;
-		prevFPS = GetFrames();
+// Get the Delta
+float FrameRateController::GetDelta()
+{
+	return delta_.count();
+}
+
+// Get the Fixed Delta
+float FrameRateController::GetFixedDelta()
+{
+	return fixedframetime_;
+}
+
+int FrameRateController::GetSteps()
+{
+	return currentsteps_;
+}
+
+
+// Placeholders
+void FrameRateController::StartSystemTimer() {
+	system_start_ = std::chrono::high_resolution_clock::now();
+}
+void FrameRateController::EndSystemTimer() {
+	system_end_ = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float> frametime = system_end_ - system_start_;
+	system_update_time = frametime.count();
+}
+
+void FrameRateController::SetSystemPerformance(ISystem* system) {
+	system_performance_[system->GetName()] = system_update_time;
+}
+
+void FrameRateController::PrintSystemPerformance() {
+	total_time = 0.0f;
+	std::cout << "=========================================\nDisplaying System Performance Data:" << std::endl;
+	// To compute total time taken for 1 update loop
+	for (PerformanceIt begin = system_performance_.begin(); begin != system_performance_.end(); ++begin) {
+		total_time += begin->second;
 	}
-	seconds = static_cast<int>(TimeElapsed(s));
-	return newFPS;
+	// To compute and print performance data for each system
+	for (PerformanceIt begin = system_performance_.begin(); begin != system_performance_.end(); ++begin) {
+		std::cout << begin->first << ": " << begin->second / total_time * 100 << "%" << std::endl;
+	}
+	std::cout << "=========================================\n" << std::endl;
 }

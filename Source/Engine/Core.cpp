@@ -3,7 +3,6 @@
 #include "Systems/Physics.h"
 #include "Systems/InputSystem.h"
 #include "Systems/WindowsSystem.h"
-//#include "../WinKeyCodes.h"
 
 // Global pointer to core engine
 std::unique_ptr<CoreEngine> CORE;
@@ -30,15 +29,20 @@ void CoreEngine::Initialize() {
 ///Update all the systems until the game is no longer active.
 void CoreEngine::GameLoop() {
 	// Get a pointer to Windows System
-	WindowsSystem* win = CORE->GetSystem<WindowsSystem>();
+	WindowsSystem* win = &*CORE->GetSystem<WindowsSystem>();
+	InputSystem* input = &*CORE->GetSystem<InputSystem>();
 
 	while (b_game_active_ && !glfwWindowShouldClose(win->ptr_window)) {
+		// Placeholder (Game's logic component)
+		if (input->IsKeyTriggered(GLFW_KEY_B)) {
+			debug_ = !debug_;
+		}
+
 		if (debug_)
 			M_DEBUG->WriteDebugMessage("Core Engine System Update:\n");
 		
 		PE_FrameRate.FrameRateLoop();
 
-		//std::cout << PE_FrameRate.GetFPS() << std::endl;
 		glfwSetWindowTitle(win->ptr_window, (win->GetWindowName() + " | " + std::to_string(PE_FrameRate.GetFPS()) + " FPS").c_str());
 
 		if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_ESCAPE)) { // Q key
@@ -46,18 +50,27 @@ void CoreEngine::GameLoop() {
 			b_game_active_ = false;
 		}
 
-		//uncomment for testing, other functions using this will not work with this active
-		//if (CORE->GetSystem<InputSystem>()->IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-		//{
-		//	std::cout << CORE->GetSystem<InputSystem>()->GetCursorPosition().x << ": " << CORE->GetSystem<InputSystem>()->GetCursorPosition().y << std::endl;
-		//}
-
 		for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
-			if (debug_)
+			// Placeholder
+			PE_FrameRate.StartSystemTimer();
+
+			system->second->Update(PE_FrameRate.GetFixedDelta());
+			system->second->Draw();
+
+			PE_FrameRate.EndSystemTimer();
+
+			if (debug_) {
 				// Log system message to "Source/Debug.txt"
 				M_DEBUG->WriteDebugMessage("Begining update for: " + system->second->GetName() + "\n");
-			system->second->Update(PE_FrameRate.dt_);
-			system->second->Draw();
+				// Placeholder
+				PE_FrameRate.SetSystemPerformance(&*(system->second));
+			}
+		}
+
+		// Placeholder
+		if (debug_) {
+			PE_FrameRate.PrintSystemPerformance();
+			debug_ = !debug_;
 		}
 
 		glfwSwapBuffers(win->ptr_window);
@@ -66,7 +79,7 @@ void CoreEngine::GameLoop() {
 	}
 	glfwTerminate();
 
-		//PE_FrameRate.SetFPS(30);
+	//PE_FrameRate.SetFPS(30);
 	
 }
 
@@ -75,7 +88,7 @@ void CoreEngine::DestroySystems() {
 	
 	for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
 		M_DEBUG->WriteDebugMessage("Destroying System: " + system->second->GetName() + "\n");
-		delete system->second;
+		//delete &*(system->second);
 	}
 }
 
@@ -85,7 +98,7 @@ void CoreEngine::DestroyManagers() {
 	for (ManagerIt manager = managers_.begin(); manager != managers_.end(); ++manager) {
 		// Log system message to "Source/Debug.txt"
 		M_DEBUG->WriteDebugMessage("Destroying Manager: " + manager->first + "\n");
-		delete manager->second;
+		//delete &*(manager->second);
 	}
 }
 
@@ -101,5 +114,5 @@ void CoreEngine::BroadcastMessage(Message* m) {
 	for (SystemIt system = systems_.begin(); system != systems_.end(); ++ system) {
 
 		system->second->SendMessageD(m);
-	}
+	};
 }

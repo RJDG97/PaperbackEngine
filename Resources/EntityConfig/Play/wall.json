@@ -9,7 +9,14 @@
   "wall": [
     {
       "component": "Transform",
-      "position": "-300.0 -300.0",
+      "position": "-150.0 -160.0",
+      "rotation": "0.0"
+    }
+  ],
+  "wall": [
+    {
+      "component": "Transform",
+      "position": "-90.0 -160.0",
       "rotation": "0.0"
     }
   ]

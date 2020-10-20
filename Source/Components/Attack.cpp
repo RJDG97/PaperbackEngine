@@ -8,7 +8,20 @@ void Attack::Init() {
 	//GAMELOGIC->Attacks[Component::GetOwner()->GetID()] = *this;
 }
 
-void Attack::Serialize(std::stringstream& data) {
+void Attack::DeSerialize(std::stringstream& data) {
 	
 	(void)(data);
+}
+
+void Attack::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Attack");
+
+	writer->Key("power");
+	writer->String(std::to_string(attack_power_).c_str());
+
+	writer->EndObject();
 }

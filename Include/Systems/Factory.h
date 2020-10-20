@@ -83,24 +83,23 @@ public:
 	
 /******************************************************************************/
 /*!
-  \fn SerializeLevelEntities()
+  \fn DeSerializeLevelEntities()
 
-  \brief Creates and serializes all entities in a level by cloning archetypes 
-		 and setting their values from a JSON
-		 The initial JSON loaded will contain the archetypes used alongside
-		 the json file to load entities from
+  \brief Deserializes all entities in a level by by loading their component
+		 values from a JSON file
 */
 /******************************************************************************/
-	void SerializeLevelEntities(const std::string& filename);
+	void DeSerializeLevelEntities(const std::string& filename);
 
 /******************************************************************************/
 /*!
-  \fn CreateAndSerializeArchetype()
+  \fn SerializeLevelEntities()
 
-  \brief Creates a new entity archetype and initialises it from a JSON file
+  \brief Serializes all entities in a level by by saving their component
+		 values within multiple JSON files
 */
 /******************************************************************************/
-	//Entity* CreateAndSerializeArchetype(const std::string& filename, const std::string& entity_name/*, EntityTypes id*/);
+	void SerializeLevelEntities(const std::string& filename);
 
 /******************************************************************************/
 /*!
@@ -208,9 +207,9 @@ extern EntityFactory* FACTORY;
 
 /******************************************************************************/
 /*!
-  \fn SerializeJSON()
+  \fn DeSerializeJSON()
 
   \brief Loads the content of a JSON file into a doc
 */
 /******************************************************************************/
-void SerializeJSON(const std::string& filename, rapidjson::Document& doc);
+void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);

@@ -100,7 +100,7 @@ public:
 
 			DEBUG_ASSERT((begin->first != typeid(SystemType).name()), "System already exists");
 		}
-		systems_.push_back({ typeid(SystemType).name(), new SystemType() });
+		systems_.push_back({ typeid(SystemType).name(), std::make_shared<SystemType>() });
 
 		// Log system message to "Source/Debug.txt"
 		M_DEBUG->WriteDebugMessage("Adding System: " + systems_.back().first + "\n");
@@ -115,7 +115,7 @@ public:
 */
 /******************************************************************************/
 	template <typename SystemType>
-	SystemType* GetSystem() {
+	std::shared_ptr<SystemType> GetSystem() {
 
 		SystemIt begin = systems_.begin();
 		for (; begin != systems_.end(); ++begin) {
@@ -124,7 +124,7 @@ public:
 					// Log system message to "Source/Debug.txt"
 					M_DEBUG->WriteDebugMessage("Getting System: " + begin->first + "\n");
 				}
-				return dynamic_cast<SystemType*>(begin->second);
+				return std::dynamic_pointer_cast<SystemType>(begin->second);
 			}
 		}
 
@@ -149,7 +149,7 @@ public:
 		str << "Adding Manager: " << typeid(ManagerType).name() << "\n";
 		M_DEBUG->WriteDebugMessage(str.str());
 
-		managers_[typeid(ManagerType).name()] = new ManagerType;
+		managers_[typeid(ManagerType).name()] = std::make_shared<ManagerType>();
 	}
 
 /******************************************************************************/
@@ -161,11 +161,11 @@ public:
 */
 /******************************************************************************/
 	template <typename ManagerType>
-	ManagerType* GetManager() {
+	std::shared_ptr<ManagerType> GetManager() {
 
 		DEBUG_ASSERT((managers_.find(typeid(ManagerType).name()) != managers_.end()), "Manager does not exist");
 
-		IManager* return_val = managers_.find(typeid(ManagerType).name())->second;
+		ManagerIt return_val = managers_.find(typeid(ManagerType).name());
 
 		if (debug_) {
 			// Log system message to "Source/Debug.txt"
@@ -174,7 +174,7 @@ public:
 			M_DEBUG->WriteDebugMessage(str.str());
 		}
 		
-		return dynamic_cast<ManagerType*>(return_val);
+		return std::dynamic_pointer_cast<ManagerType>(return_val->second);
 	}
 
 private:
@@ -182,12 +182,12 @@ private:
 	bool debug_;
 
 	// Tracks all the systems the game uses
-	using SystemIt = std::vector< std::pair<std::string, ISystem*> >::iterator;
-	std::vector< std::pair<std::string, ISystem*> > systems_;
+	using SystemIt = std::vector< std::pair<std::string, std::shared_ptr<ISystem>> >::iterator;
+	std::vector< std::pair<std::string, std::shared_ptr<ISystem>> > systems_;
 
 	// Tracks all the managers the system uses
-	using ManagerIt = std::unordered_map<std::string, IManager*>::iterator;
-	std::unordered_map<std::string, IManager*> managers_;
+	using ManagerIt = std::unordered_map<std::string, std::shared_ptr<IManager>>::iterator;
+	std::unordered_map<std::string, std::shared_ptr<IManager>> managers_;
 
 	////The last time the game was updated
 	//unsigned LastTime;

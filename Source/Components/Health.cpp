@@ -11,14 +11,27 @@ void Health::Init() {
 
 }
 
-void Health::Serialize(std::stringstream& data) {
+void Health::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+	
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Health");
+
+	writer->Key("maximum health");
+	writer->String(std::to_string(maximum_health_).c_str());
+
+	writer->EndObject();
+}
+
+void Health::DeSerialize(std::stringstream& data) {
 	// Serialize health
 	data >> maximum_health_;
 	current_health_ = maximum_health_;
 }
 
-void Health::SerializeClone(std::stringstream& data) {
-	Serialize(data);
+void Health::DeSerializeClone(std::stringstream& data) {
+	DeSerialize(data);
 }
 
 std::shared_ptr<Component> Health::Clone() {

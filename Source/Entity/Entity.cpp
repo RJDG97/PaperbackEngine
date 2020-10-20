@@ -102,6 +102,19 @@ std::shared_ptr<return_type> Entity::GetComponentType(ComponentTypes typeId) {
 	return std::dynamic_pointer_cast<return_type*>(GetComponent(typeId));
 }
 
+void Entity::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartArray();
+	
+	for (std::shared_ptr<Component> component : components_) {
+		
+		component->Serialize(writer);
+	}
+
+	//end entity
+	writer->EndArray();
+}
+
 //used for creating copies from a protoype/archetype
 Entity* Entity::Clone() {
 

@@ -43,7 +43,7 @@ void PlayState::Init()
 
 	player = FACTORY->CloneArchetype("Player");
 	
-	FACTORY->SerializeLevelEntities("Resources/EntityConfig/play.json");
+	FACTORY->DeSerializeLevelEntities("Resources/EntityConfig/play.json");
 }
 
 void PlayState::Free()

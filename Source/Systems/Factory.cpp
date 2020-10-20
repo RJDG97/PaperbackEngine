@@ -21,6 +21,8 @@
 #include "Components/Name.h"
 #include "Components/Clickable.h"
 
+#include "prettywriter.h"
+
 EntityFactory* FACTORY = NULL;
 
 EntityFactory::EntityFactory() {
@@ -152,7 +154,7 @@ void EntityFactory::CreateAllArchetypes(const std::string& filename) {
 	M_DEBUG->WriteDebugMessage("Beginning loading of all archetypes\n");
 
 	rapidjson::Document doc;
-	SerializeJSON(filename, doc);
+	DeSerializeJSON(filename, doc);
 
 	// Treats entire filestream at index as array and ensure that it is an array
 	const rapidjson::Value& entity_arr = doc;
@@ -206,7 +208,7 @@ void EntityFactory::CreateAllArchetypes(const std::string& filename) {
 				}
 
 				//passes the converted data to the component to read
-				component->Serialize(stream);
+				component->DeSerialize(stream);
 
 				// Attaches the component to the entity
 				archetype->AddComponent(creator->GetComponentTypeID(), component);
@@ -232,7 +234,7 @@ void EntityFactory::CloneLevelEntities(const std::string& filename, const std::s
 	M_DEBUG->WriteDebugMessage("Beginning cloning and serializing of " + archetype_name + "\n");
 
 	rapidjson::Document doc;
-	SerializeJSON(filename, doc);
+	DeSerializeJSON(filename, doc);
 
 	const rapidjson::Value& ent_arr = doc;
 	DEBUG_ASSERT(ent_arr.IsObject(), "Entity JSON does not exist in proper format");
@@ -266,20 +268,20 @@ void EntityFactory::CloneLevelEntities(const std::string& filename, const std::s
 					stream << it2->value.GetString() << " ";
 				}
 
-				cloned->GetComponent(comp_type)->SerializeClone(stream); // check if is derived serializeclone
+				cloned->GetComponent(comp_type)->DeSerializeClone(stream);
 			}
 		}
 	}
 }
 
 //serialises level
-void EntityFactory::SerializeLevelEntities(const std::string& filename) {
-	
+void EntityFactory::DeSerializeLevelEntities(const std::string& filename) {
+
 	M_DEBUG->WriteDebugMessage("Beginning loading of level entities\n");
 
 	// Parse the stringstream into document (DOM) format
 	rapidjson::Document doc;
-	SerializeJSON(filename, doc);
+	DeSerializeJSON(filename, doc);
 
 	// Treats entire filestream at index as array and ensure that it is an array
 	const rapidjson::Value& files_arr = doc;
@@ -294,7 +296,37 @@ void EntityFactory::SerializeLevelEntities(const std::string& filename) {
 		M_DEBUG->WriteDebugMessage("Cloning archetype: " + archetype_name + "\n");
 
 		CloneLevelEntities(file_name, archetype_name);
+	}	
+}
+
+void EntityFactory::SerializeLevelEntities(const std::string& filename) {
+
+	(void)filename;
+	rapidjson::StringBuffer sb;
+	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+
+	std::ofstream filestream("AyyLmao.json");
+
+	if (filestream.is_open()) {
+
+		// Start the formatting for JSON
+		writer.StartObject();
+
+		for (EntityArchetypeMapTypeIt begin = entity_archetype_map_.begin(); begin != entity_archetype_map_.end(); ++begin) {
+			
+			// Begin entity
+			writer.Key(begin->first.c_str());
+			
+			begin->second->Serialize(&writer);
+		}
+
+		//closing json
+		writer.EndObject();
+
+		filestream << sb.GetString();
 	}
+
+	filestream.close();
 }
 
 void EntityFactory::StoreEntityID(Entity* entity) {
@@ -354,7 +386,7 @@ void EntityFactory::SendMessageD(Message* msg) {
 	}
 }
 
-void SerializeJSON(const std::string& filename, rapidjson::Document& doc) {
+void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc) {
 
 	std::ifstream input_file(filename.c_str());
 	DEBUG_ASSERT(input_file.is_open(), "File does not exist");

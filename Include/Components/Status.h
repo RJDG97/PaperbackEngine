@@ -43,12 +43,21 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn Serialize()
+
+  \brief Serialises a component into JSON format
+*/
+/******************************************************************************/
+	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+
+/******************************************************************************/
+/*!
   \fn Serialize
 
   \brief Retrieves the data from the stringstream to initialize data members
 */
 /******************************************************************************/
-	void Serialize(std::stringstream& data) override;
+	void DeSerialize(std::stringstream& data) override;
 
 /******************************************************************************/
 /*!

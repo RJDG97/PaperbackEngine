@@ -1,6 +1,8 @@
 #include "Components/Status.h"
 #include "Engine/Core.h"
 #include "Systems/Game.h"
+#include "Systems/Collision.h"
+#include "Systems/Physics.h"
 
 /******************************************************************************/
 /*!
@@ -24,17 +26,29 @@ Status::Status() :
 /******************************************************************************/
 void Status::Init() {
 
-	CORE->GetSystem<Game>()->AddStatusComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetSystem<Game>()->AddStatusComponent(GetOwner()->GetID(), this);
+	CORE->GetSystem<Collision>()->AddStatusComponent(GetOwner()->GetID(), this);
+	CORE->GetSystem<Physics>()->AddStatusComponent(GetOwner()->GetID(), this);
+}
+
+void Status::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Status");
+
+	writer->EndObject();
 }
 
 /******************************************************************************/
 /*!
-  \fn Serialize
+  \fn DeSerialize
 
   \brief Retrieves the data from the stringstream to initialize data members
 */
 /******************************************************************************/
-void Status::Serialize(std::stringstream& data) {
+void Status::DeSerialize(std::stringstream& data) {
 	(void)data;
     /*
     data >> status_;
@@ -56,4 +70,6 @@ std::shared_ptr<Component> Status::Clone() {
 Status::~Status() {
 
 	CORE->GetSystem<Game>()->RemoveStatusComponent(Component::GetOwner()->GetID());
+	CORE->GetSystem<Collision>()->RemoveStatusComponent(Component::GetOwner()->GetID());
+	CORE->GetSystem<Physics>()->RemoveStatusComponent(Component::GetOwner()->GetID());
 }

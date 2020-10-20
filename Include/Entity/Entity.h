@@ -3,6 +3,7 @@
 
 #include "Components/IComponent.h"
 #include "Components/Name.h"
+#include "prettywriter.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -106,6 +107,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn Serialize()
+
+  \brief Serialises a entity as an archetype
+*/
+/******************************************************************************/
+	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
+
+/******************************************************************************/
+/*!
   \fn GetID()
 
   \brief Returns the entity id of the entity
@@ -132,18 +142,6 @@ public:
 /******************************************************************************/
 	Entity* Clone();
 };
-/*
-enum class EntityTypes {
-
-	NONE = 0,
-	PLAYER,
-	ENEMY,
-	FLOOR,
-	WALL,
-	BUTTON,
-	STATIC_OBJ
-};
-*/
 
 /******************************************************************************/
 /*!

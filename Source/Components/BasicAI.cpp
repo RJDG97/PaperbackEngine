@@ -21,14 +21,27 @@ void BasicAI::Init() {
 	CORE->GetSystem<Game>()->AddBasicAIComponent(Component::GetOwner()->GetID(), this);
 }
 
-void BasicAI::Serialize(std::stringstream& data) {
+void BasicAI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+	
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("BasicAI");
+
+	writer->Key("speed");
+	writer->String(std::to_string(speed).c_str());
+
+	writer->EndObject();
+}
+
+void BasicAI::DeSerialize(std::stringstream& data) {
 	
 	// assume archetype only sets speed
 	// 1st data will be magnitude of velocity
 	data >> speed;
 }
 
-void BasicAI::SerializeClone(std::stringstream& data) {
+void BasicAI::DeSerializeClone(std::stringstream& data) {
 
 	// clone data will be for number of destinations and destinations
 	data >> num_destinations_;

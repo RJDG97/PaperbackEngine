@@ -62,7 +62,7 @@ void AnimationSet::UnloadAnimationSet() {
 void AnimationManager::Init() {
 	
 	M_DEBUG->WriteDebugMessage("Animation Manager Init\n");
-	texture_manager_ = CORE->GetManager<TextureManager>();
+	texture_manager_ = &*CORE->GetManager<TextureManager>();
 }
 
 void AnimationManager::TempAnimationBatchLoad() {

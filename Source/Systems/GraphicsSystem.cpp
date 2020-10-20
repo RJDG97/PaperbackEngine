@@ -74,7 +74,7 @@ void GraphicsSystem::Init() {
     // Clear colorbuffer with cyan color ...
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-    windows_system_ = CORE->GetSystem<WindowsSystem>();
+    windows_system_ = &*CORE->GetSystem<WindowsSystem>();
 
     // Set up viewports
     window_width_ = windows_system_->GetWinWidth();
@@ -106,10 +106,10 @@ void GraphicsSystem::Init() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     //Set up all models and shaders
-    model_manager_ = CORE->GetManager<ModelManager>();
-    shader_manager_ = CORE->GetManager<ShaderManager>();
-    texture_manager_ = CORE->GetManager<TextureManager>();
-    animation_manager_ = CORE->GetManager<AnimationManager>();
+    model_manager_ = &*CORE->GetManager<ModelManager>();
+    shader_manager_ = &*CORE->GetManager<ShaderManager>();
+    texture_manager_ = &*CORE->GetManager<TextureManager>();
+    animation_manager_ = &*CORE->GetManager<AnimationManager>();
 
     model_manager_->AddTristripsModel(1, 1, "BoxModel");
     model_manager_->AddTristripsModel(1, 1, "TileModel");
