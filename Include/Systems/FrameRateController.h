@@ -21,9 +21,9 @@ protected:
 	std::chrono::time_point<std::chrono::steady_clock> start_ = std::chrono::high_resolution_clock::now();
 	std::chrono::time_point<std::chrono::steady_clock> end_;
 	// Time Passed
-	std::chrono::duration<float> timeelapsed_ = start_ - start_;
+	float timeelapsed_ = 0.0f;
 	// Duration of frame (DeltaTime)
-	std::chrono::duration<float> frametime_;
+	std::chrono::duration<float> delta_;
 	// Whether Timer is running
 	bool running_ = false;
 
@@ -88,8 +88,7 @@ class FrameRateController : public Time_Channel
 {
 	int frames_ = 0, currentsteps_ = 0;
 	float fps_ = 60.0f;
-	float minframetime_ = 1 / fps_;
-	std::chrono::duration<float> delta_;
+	float fixedframetime_ = 1 / fps_;
 
 	// Placeholder start
 	using PerformanceIt = std::map<std::string, float>::iterator;
@@ -103,8 +102,6 @@ class FrameRateController : public Time_Channel
 	// Placeholder end
 
 public:
-
-	float dt_;
 
 /******************************************************************************/
 /*!
@@ -159,6 +156,12 @@ public:
 */
 /******************************************************************************/
 	void SetFPS(float);
+
+	float GetDelta();
+
+	float GetFixedDelta();
+
+	int GetSteps();
 
 	void SetSystemPerformance(ISystem* system);
 	void PrintSystemPerformance();

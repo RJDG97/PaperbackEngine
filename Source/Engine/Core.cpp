@@ -54,7 +54,7 @@ void CoreEngine::GameLoop() {
 			// Placeholder
 			PE_FrameRate.StartSystemTimer();
 
-			system->second->Update(PE_FrameRate.dt_);
+			system->second->Update(PE_FrameRate.GetFixedDelta());
 			system->second->Draw();
 
 			PE_FrameRate.EndSystemTimer();
