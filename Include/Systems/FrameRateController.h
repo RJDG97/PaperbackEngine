@@ -86,7 +86,7 @@ public:
 
 class FrameRateController : public Time_Channel
 {
-	int frames_ = 0, currentsteps_ = 0;
+	int frames_ = 0, currentsteps_ = 1;
 	float fps_ = 60.0f;
 	float fixedframetime_ = 1 / fps_;
 

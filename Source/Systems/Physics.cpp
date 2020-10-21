@@ -18,38 +18,36 @@ void Physics::Init() {
 
 void Physics::Update(float frametime) {
 	if (debug_) { M_DEBUG->WriteDebugMessage("\nPhysics System Update Debug Log:\n"); }
-	for (int steps = 0; steps < PE_FrameRate.GetSteps(); ++steps)
-	{
-		// Updating entity's velocity
-		for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
+		
+	// Updating entity's velocity
+	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
 
-			// Perform update of entity's motion component
-			motion->second->velocity_ += motion->second->acceleration_ * frametime;
+		// Perform update of entity's motion component
+		motion->second->velocity_ += motion->second->acceleration_ * frametime;
 
-			// Check whether the entity owns a transform component by checking entity ID
-			TransformIt xform = transform_arr_.find(motion->first);
-			if (xform != transform_arr_.end()) {
-				if (debug_) {
-					// Log id of entity and it's updated components that are being updated
-					std::stringstream ss;
-					ss << "Updating entity: " << std::to_string(xform->first) << "\n";
-					ss << "\tCurrent Position: " << xform->second->position_.x << ", " << xform->second->position_.y << "\n";
-					M_DEBUG->WriteDebugMessage(ss.str());
-				}
+		// Check whether the entity owns a transform component by checking entity ID
+		TransformIt xform = transform_arr_.find(motion->first);
+		if (xform != transform_arr_.end()) {
+			if (debug_) {
+				// Log id of entity and it's updated components that are being updated
+				std::stringstream ss;
+				ss << "Updating entity: " << std::to_string(xform->first) << "\n";
+				ss << "\tCurrent Position: " << xform->second->position_.x << ", " << xform->second->position_.y << "\n";
+				M_DEBUG->WriteDebugMessage(ss.str());
+			}
 
-				// Perform update of entity's transform component
-				xform->second->position_ += motion->second->velocity_ * frametime;
+			// Perform update of entity's transform component
+			xform->second->position_ += motion->second->velocity_ * frametime;
 
-				if (debug_) {
-					// Log id of entity and it's updated components that are being updated
-					std::stringstream ss;
-					ss << "\tUpdated Position: " << xform->second->position_.x << ", " << xform->second->position_.y << "\n";
-					M_DEBUG->WriteDebugMessage(ss.str());
-				}
+			if (debug_) {
+				// Log id of entity and it's updated components that are being updated
+				std::stringstream ss;
+				ss << "\tUpdated Position: " << xform->second->position_.x << ", " << xform->second->position_.y << "\n";
+				M_DEBUG->WriteDebugMessage(ss.str());
 			}
 		}
-		//if (debug_) { debug_ = !debug_; }
 	}
+	//if (debug_) { debug_ = !debug_; }
 }
 
 void Physics::ChangeVelocity(Message* m) {

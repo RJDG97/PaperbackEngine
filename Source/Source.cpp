@@ -74,8 +74,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		// runtime and compile time
 		FACTORY->DestroyAllEntities();
 		FACTORY->DestroyAllArchetypes();
-		CORE->DestroySystems();
-		CORE->DestroyManagers();
 		EngineDebug::DeleteInstance();
 	}
 	catch (std::exception& e) {

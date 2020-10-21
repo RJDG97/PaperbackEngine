@@ -339,3 +339,5 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 Resources/Debug.txt
+AyyLmao.json
+Resources/EntityConfig/AyyLmao.json

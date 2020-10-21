@@ -48,26 +48,6 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn DestroyManagers()
-
-  \brief Used to deallocate all systems that were attached to the Core Engine
-		 System
-*/
-/******************************************************************************/
-	void DestroySystems();
-
-/******************************************************************************/
-/*!
-  \fn DestroyManagers()
-
-  \brief Used to deallocate all managers that were attached to the Core Engine
-		 System
-*/
-/******************************************************************************/
-	void DestroyManagers();
-
-/******************************************************************************/
-/*!
   \fn BroadcastMessage()
 
   \brief Used to broadcast messages to all systems derived from the ISystem

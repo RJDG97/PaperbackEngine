@@ -98,26 +98,22 @@ void PlayState::Update(Game* game, float frametime)
 				next_it = basic_ai->second->destinations_.begin();
 			}
 
-			//get directional unit vector
-			Vector2D directional = *next_it - *basic_ai->second->current_destination_;
-			directional /= Vector2DLength(directional);
-
-			//multiply by speed
-			directional *= basic_ai->second->speed;
-
-			//set vector
-			std::shared_ptr<Motion> motion = 
-				std::dynamic_pointer_cast<Motion>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
-			DEBUG_ASSERT((motion), "AI does not have a Motion component");
-
-			motion->velocity_ = directional;
-
 			basic_ai->second->current_destination_ = next_it;
 		}
-		else {
+			
+		//get directional unit vector
+		Vector2D directional = *basic_ai->second->current_destination_ - xform->position_;
+		directional /= Vector2DLength(directional);
 
-			//set directional vector
-		}
+		//multiply by speed
+		directional *= basic_ai->second->speed;
+
+		//set vector
+		std::shared_ptr<Motion> motion =
+			std::dynamic_pointer_cast<Motion>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+		DEBUG_ASSERT((motion), "AI does not have a Motion component");
+
+		motion->velocity_ = directional;
 	}
 }
 
