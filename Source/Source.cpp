@@ -15,6 +15,7 @@
 #include "Manager/TextureManager.h"
 #include "Manager/ShaderManager.h"
 #include "Manager/AnimationManager.h"
+#include "Manager/ForcesManager.h"
 
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
@@ -62,6 +63,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddManager<TextureManager>();
 		CORE->AddManager<ShaderManager>();
 		CORE->AddManager<AnimationManager>();
+		CORE->AddManager<ForcesManager>();
 
 		// Initialize all Systems & Managers that
 		// were added to the Core Engine

@@ -12,12 +12,13 @@
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
 
-
 #include "Components/Transform.h"
 #include "Components/Motion.h"
 #include "Components/Name.h"
 
 #include "Entity/ComponentTypes.h"
+
+#include "Manager/ForcesManager.h"
 
 #include <memory>
 
@@ -108,12 +109,16 @@ void PlayState::Update(Game* game, float frametime)
 		//multiply by speed
 		directional *= basic_ai->second->speed;
 
+		/*
 		//set vector
 		std::shared_ptr<Motion> motion =
 			std::dynamic_pointer_cast<Motion>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
 		DEBUG_ASSERT((motion), "AI does not have a Motion component");
 
-		motion->velocity_ = directional;
+		motion->velocity_ = directional;*/
+
+		CORE->GetManager<ForcesManager>()->AddForce(basic_ai->second->GetOwner()->GetID(), "movement", frametime, directional);
+
 	}
 }
 
@@ -148,32 +153,31 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			unsigned char key_val = m->input_flag_;
 
 			// set up velocity based input flag value
-			Vec2 new_vel{};
+			Vec2 new_force{};
 
 			if (key_val & UP_FLAG) {
 
-				new_vel.y += 100.0f;
+				new_force.y += 1000.0f;
 			}
 
 			if (key_val & DOWN_FLAG) {
 
-				new_vel.y -= 100.0f;
+				new_force.y -= 1000.0f;
 			}
 
 			if (key_val & LEFT_FLAG) {
 
-				new_vel.x -= 100.0f;
+				new_force.x -= 1000.0f;
 			}
 
 			if (key_val & RIGHT_FLAG) {
 
-				new_vel.x += 100.0f;
+				new_force.x += 1000.0f;
 			}
 
-			//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
-
-			MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
-			CORE->BroadcastMessage(&m2);
+			CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "PlayerMovement", PE_FrameRate.GetFixedDelta(), new_force);
+			//MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_force };
+			//CORE->BroadcastMessage(&m2);
 		}
 
 		if (msg->message_id_ == MessageIDTypes::C_MOVEMENT) {
@@ -184,25 +188,26 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 			// set up velocity based input flag value
 			Vec2 new_vel{};
+			float power = 75.0f;
 
 			if (key_val & W_FLAG) {
 
-				new_vel.y += 10.0f;
+				new_vel.y += power;
 			}
 
 			if (key_val & S_FLAG) {
 
-				new_vel.y -= 10.0f;
+				new_vel.y -= power;
 			}
 
 			if (key_val & A_FLAG) {
 
-				new_vel.x -= 10.0f;
+				new_vel.x -= power;
 			}
 
 			if (key_val & D_FLAG) {
 
-				new_vel.x += 10.0f;
+				new_vel.x += power;
 			}
 
 			//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;

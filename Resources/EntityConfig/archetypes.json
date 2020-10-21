@@ -33,6 +33,7 @@
     },
     {
       "component": "Motion",
+      "mass": "10.0",
       "velocity": "0.0 0.0",
       "acceleration": "0.0 0.0"
     },
@@ -85,6 +86,7 @@
     },
     {
       "component": "Motion",
+      "mass": "10.0",
       "velocity": "0.0 0.0",
       "acceleration": "0.0 0.0"
     },
@@ -134,11 +136,6 @@
       "scale": "30.0 30.0"
     },
     {
-      "component": "Motion",
-      "velocity": "0.0 0.0",
-      "acceleration": "0.0 0.0"
-    },
-    {
       "component": "TextureRenderer",
       "texture": "Rock",
       "model": "TileModel",
@@ -165,7 +162,7 @@
     },
     {
       "component": "BasicAI",
-      "speed": "70.0"
+      "speed": "800.0"
     },
     {
       "component": "Transform",
@@ -178,6 +175,7 @@
     },
     {
       "component": "Motion",
+      "mass": "8.0",
       "velocity": "0.0 0.0",
       "acceleration": "0.0 0.0"
     },
@@ -214,11 +212,6 @@
     {
       "component": "Scale",
       "scale": "30.0 30.0"
-    },
-    {
-      "component": "Motion",
-      "velocity": "0.0 0.0",
-      "acceleration": "0.0 0.0"
     },
     {
       "component": "TextureRenderer",

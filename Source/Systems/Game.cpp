@@ -4,6 +4,7 @@
 #include "Systems/InputSystem.h"
 #include "Engine/Core.h"
 #include "GameStates/MenuState.h"
+#include "GameStates/PlayState.h"
 #include "Systems/Debug.h"
 #include <algorithm>
 

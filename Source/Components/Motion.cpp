@@ -4,8 +4,10 @@
 #include "Systems/Collision.h"
 #include "Engine/Core.h"
 
-Motion::Motion() : velocity_{},
-				   acceleration_{}
+Motion::Motion() : 
+	velocity_{},
+	acceleration_{},
+	mass_{}
 {}
 
 Motion::~Motion() {
@@ -30,10 +32,10 @@ void Motion::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 	writer->String("Motion");
 
 	//used for serializing for cloning
-	/*writer->Key("velocity");
-	writer->String((std::to_string(velocity_.x) + " " + std::to_string(velocity_.y)).c_str());
+	writer->Key("mass");
+	writer->String(std::to_string(mass_).c_str());
 
-	writer->Key("acceleration");
+	/*writer->Key("acceleration");
 	writer->String((std::to_string(acceleration_.x) + " " + std::to_string(acceleration_.y)).c_str());
 	*/
 
@@ -41,9 +43,9 @@ void Motion::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 }
 
 void Motion::DeSerialize(std::stringstream& data) {
-	std::cout << "Entered Serialize Motion w/ stream" << std::endl;
+	std::cout << "Entered DeSerialize Motion w/ stream" << std::endl;
 	
-	data >> velocity_.x >> velocity_.y >> acceleration_.x >> acceleration_.y;
+	data >> mass_ >> velocity_.x >> velocity_.y >> acceleration_.x >> acceleration_.y;
 }
 
 
@@ -54,6 +56,7 @@ std::shared_ptr<Component> Motion::Clone() {
 
 	cloned->acceleration_ = acceleration_;
 	cloned->velocity_ = velocity_;
+	cloned->mass_ = mass_;
 
 	return cloned;
 }

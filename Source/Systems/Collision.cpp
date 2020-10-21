@@ -191,7 +191,7 @@ void Collision::Update(float frametime) {
 
 		Vector2D* vel1{};
 
-		vel1 = (motion1->second != nullptr) ? &motion1->second->velocity_ : &empty;
+		vel1 = (motion1 != motion_arr_.end()) ? &motion1->second->velocity_ : &empty;
 
 		++aabb2;
 		

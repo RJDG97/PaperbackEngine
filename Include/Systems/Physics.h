@@ -9,6 +9,7 @@
 #include "Components/Transform.h"
 #include "Components/Health.h"
 #include "Systems/Factory.h"
+#include "Manager/ForcesManager.h"
 #include "Components/Motion.h"
 #include "Components/Status.h"
 #include <unordered_map>
@@ -130,6 +131,7 @@ public:
 private:
 
 	bool debug_;
+	ForcesManager* force_mgr;
 
 	using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
 	std::unordered_map<EntityID,Transform*> transform_arr_;

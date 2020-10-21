@@ -5,6 +5,19 @@
 #include "Components/Status.h"
 #include <assert.h>
 
+auto SnapZero = [](Vector2D& vec) {
+
+	if (vec.x >= -0.001f && vec.x <= 0.001f) {
+
+		vec.x = 0.0f;
+	}
+
+	if (vec.y >= -0.001f && vec.y <= 0.001f) {
+
+		vec.y = 0.0f;
+	}
+};
+
 Physics::Physics() {
 
 	debug_ = false;
@@ -14,16 +27,24 @@ void Physics::Init() {
 	// Temporary addition for debugging
 
 	M_DEBUG->WriteDebugMessage("Physics System Init\n");
+	force_mgr = &*CORE->GetManager<ForcesManager>();
 }
 
 void Physics::Update(float frametime) {
 	if (debug_) { M_DEBUG->WriteDebugMessage("\nPhysics System Update Debug Log:\n"); }
 		
+	force_mgr->Update(frametime);
+
 	// Updating entity's velocity
 	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
 
 		// Perform update of entity's motion component
+		//motion->second->velocity_ += motion->second->acceleration_ * frametime;
+		motion->second->acceleration_ = force_mgr->GetForce(motion->second->GetOwner()->GetID()) / motion->second->mass_;
 		motion->second->velocity_ += motion->second->acceleration_ * frametime;
+		motion->second->velocity_ *= 0.98f;
+
+		SnapZero(motion->second->velocity_);
 
 		// Check whether the entity owns a transform component by checking entity ID
 		TransformIt xform = transform_arr_.find(motion->first);

@@ -249,6 +249,9 @@
     <ClCompile Include="Source\Systems\Pathfinding.cpp">
       <Filter>Systems\Pathfinding</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\ForcesManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -418,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\Pathfinding.h">
       <Filter>Systems\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\ForcesManager.h">
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

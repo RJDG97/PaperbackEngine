@@ -8,6 +8,8 @@ public:
 
 	virtual void Init() = 0;
 
+	virtual void Update(float frametime) { (void)frametime; }
+
 	virtual ~IManager() = default;
 };
 #endif

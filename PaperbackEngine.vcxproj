@@ -171,6 +171,7 @@
     <ClCompile Include="Source\Imgui\AnotherWindow.cpp" />
     <ClCompile Include="Source\Imgui\ImguiWindow.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
+    <ClCompile Include="Source\Manager\ForcesManager.cpp" />
     <ClCompile Include="Source\Manager\ModelManager.cpp" />
     <ClCompile Include="Source\Manager\ShaderManager.cpp" />
     <ClCompile Include="Source\Manager\TextureManager.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="Include\Imgui\imstb_truetype.h" />
     <ClInclude Include="Include\Imgui\IWindow.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
+    <ClInclude Include="Include\Manager\ForcesManager.h" />
     <ClInclude Include="Include\Manager\IManager.h" />
     <ClInclude Include="Include\Manager\ModelManager.h" />
     <ClInclude Include="Include\Manager\ShaderManager.h" />
