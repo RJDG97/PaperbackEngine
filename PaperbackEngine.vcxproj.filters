@@ -106,6 +106,9 @@
     <Filter Include="Systems\ImguiSystem\ImguiFiles">
       <UniqueIdentifier>{dcd95455-fba2-4267-93a7-83e2ff3ac8b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Pathfinding">
+      <UniqueIdentifier>{50bb6902-33ce-41fd-b45a-9880aebab039}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -242,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="Source\Imgui\AnotherWindow.cpp">
       <Filter>Systems\ImguiSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Pathfinding.cpp">
+      <Filter>Systems\Pathfinding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -409,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="Include\Imgui\AnotherWindow.h">
       <Filter>Systems\ImguiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Pathfinding.h">
+      <Filter>Systems\Pathfinding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
