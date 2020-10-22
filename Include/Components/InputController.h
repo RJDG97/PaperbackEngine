@@ -1,50 +1,62 @@
-#ifndef _BASICAI_H_
-#define _BASICAI_H_
+#ifndef _INPUT_CONTROLLER_H_
+#define _INPUT_CONTROLLER_H_
 
 #include "Entity/Entity.h" 
 #include "MathLib/Vector2D.h"
+#include "IComponent.h"
 #include <sstream>
-#include <vector>
+#include <memory>
+#include <map>
 
-class BasicAI : public Component {
+class InputController : public Component {
 	
-	float speed;
-	size_t num_destinations_;
-	using DestinationIt = std::vector<Vector2D>::iterator;
-	std::vector<Vector2D> destinations_;
-	DestinationIt current_destination_;
+	using InputMapType = std::map<std::string, size_t>;
+	using InputMapTypeIt = InputMapType::iterator;
+	InputMapType input_map_;
+	size_t num_entries_;
 
 public:
+	friend class Game;
 	friend class PlayState;
+	friend class MenuState;
 
 /******************************************************************************/
 /*!
-  \fn BasicAI()
+  \fn InputController()
 
-  \brief Constructor for BasicAI that defaults the data members of the
+  \brief Constructor for InputController that defaults the data members of the
 		 component
 */
 /******************************************************************************/
-	BasicAI();
+	InputController();
 
 /******************************************************************************/
 /*!
-  \fn ~BasicAI()
+  \fn ~InputController()
 
-  \brief Destructor for BasicAI that removes the component from the
-		 Game system AI component map
+  \brief Destructor for InputController that delinks the components from
+		 any system that it is attached to
 */
 /******************************************************************************/
-	~BasicAI();
+	~InputController();
 
 /******************************************************************************/
 /*!
   \fn Init()
 
-  \brief Adds the component itself to the Game system AI map
+  \brief Adds the component itself to necessary systems
 */
 /******************************************************************************/
 	void Init();
+
+/******************************************************************************/
+/*!
+  \fn VerifyKey()
+
+  \brief Verifies if a key exists in the input map and if so if it matches
+*/
+/******************************************************************************/
+	bool VerifyKey(const std::string& name, const size_t value);
 
 /******************************************************************************/
 /*!
@@ -63,7 +75,7 @@ public:
 */
 /******************************************************************************/
 	void DeSerialize(std::stringstream& data) override;
-
+	
 /******************************************************************************/
 /*!
   \fn DeSerializeClone()

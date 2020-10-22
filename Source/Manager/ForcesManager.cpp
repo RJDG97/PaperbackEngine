@@ -66,6 +66,8 @@ void ForcesManager::Update(float frametime) {
 			// Recompute forces for entity
 			sum += begin->force_;
 
+			//M_DEBUG->WriteDebugMessage("Adding to sum of forces, current: " + std::to_string(sum.x) + ", " + std::to_string(sum.y) + "\n");
+
 			if (RemoveVecCheck(begin)) {
 				begin = begin_map->second.vec_.erase(begin);
 				continue;

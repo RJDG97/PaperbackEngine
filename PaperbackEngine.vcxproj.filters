@@ -109,6 +109,9 @@
     <Filter Include="Systems\Pathfinding">
       <UniqueIdentifier>{50bb6902-33ce-41fd-b45a-9880aebab039}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\InputController">
+      <UniqueIdentifier>{8bdad12a-98c2-4e3d-9596-0c974f1871ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -257,6 +260,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\TextRenderer.cpp">
       <Filter>Entity\Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\InputController.cpp">
+      <Filter>Entity\Components\InputController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -439,6 +445,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\IUIRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\InputController.h">
+      <Filter>Entity\Components\InputController</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

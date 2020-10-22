@@ -144,7 +144,7 @@ void PlayState::SetStatus(std::string entity_name, StatusType status_type, Game*
 void PlayState::StateInputHandler(Message* msg, Game* game) {
 	//UNREFERENCED_PARAMETER(game);
 
-	if (!game) {
+	/*if (!game) {
 
 		if (msg->message_id_ == MessageIDTypes::M_MOVEMENT) {
 			
@@ -270,8 +270,90 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				}
 			}
 		}
-	}
+	}*/
 
+	if (game) {
+		for (Game::InputControllerIt it = game->input_controller_arr_.begin(); it != game->input_controller_arr_.end(); ++it) {
+			Message_Input* m = dynamic_cast<Message_Input*>(msg);
+			
+			if (!m)
+				continue;
+
+			float power = 1075.0f;
+
+			//input group
+			if (it->second->VerifyKey("move_left", m->input_)) {
+
+				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
+			}
+			else if (it->second->VerifyKey("move_right", m->input_)) {
+
+				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
+			}
+			else if (it->second->VerifyKey("move_up", m->input_)) {
+
+				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
+			}
+			else if (it->second->VerifyKey("move_down", m->input_)) {
+
+				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
+			}
+			else if (it->second->VerifyKey("spin_left", m->input_)) {
+				std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
+				RotateLeft(player_xform, true);
+			}
+			else if (it->second->VerifyKey("spin_right", m->input_)) {
+				std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
+				RotateLeft(player_xform, false);
+			}
+			else if (it->second->VerifyKey("shrink", m->input_)) {
+				std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
+				ScaleEntityBig(player_scale, false);
+			}
+			else if (it->second->VerifyKey("expand", m->input_)) {
+				std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
+				ScaleEntityBig(player_scale, true);
+			}
+		}
+	}
+	else {
+
+		if (msg->message_id_ == MessageIDTypes::C_MOVEMENT) {
+
+			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
+			assert(m != nullptr && "Message is not a player input message");
+			unsigned char key_val = static_cast<unsigned char>(m->input_flag_);
+
+			// set up velocity based input flag value
+			Vec2 new_vel{};
+			float power = 5.0f;
+
+			if (key_val & W_FLAG) {
+
+				new_vel.y += power;
+			}
+
+			if (key_val & S_FLAG) {
+
+				new_vel.y -= power;
+			}
+
+			if (key_val & A_FLAG) {
+
+				new_vel.x -= power;
+			}
+
+			if (key_val & D_FLAG) {
+
+				new_vel.x += power;
+			}
+
+			//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
+
+			MessagePhysics_Motion m2{ MessageIDTypes::CAM_UPDATE_POS, new_vel };
+			CORE->BroadcastMessage(&m2);
+		}
+	}
 }
 
 void ScaleEntityBig(std::shared_ptr<Scale> scale, bool yes) {

@@ -156,13 +156,6 @@ void Physics::RemoveStatusComponent(EntityID id) {
 void Physics::SendMessageD(Message* msg) {
 	switch (msg->message_id_)
 	{
-		case MessageIDTypes::PHY_UPDATE_ACCEL:
-		{
-			std::cout << "Physics System: Updating acceleration of player" << std::endl;
-			//ChangeVelocity(msg);
-			//ChangeAcceleration(msg)
-			break;
-		}
 		case MessageIDTypes::PHY_UPDATE_VEL:
 		{
 			//std::cout << "Physics System: Updating velocity of player" << std::endl;

@@ -424,6 +424,24 @@ void Collision::RemoveTransformComponent(EntityID id) {
 		transform_arr_.erase(it);
 	}
 }
+
+void Collision::AddInputControllerComponent(EntityID id, InputController* input_controller) {
+
+	M_DEBUG->WriteDebugMessage("Adding Input Controller Component to entity: " + std::to_string(id) + "\n");
+	input_controller_arr_[id] = input_controller;
+}
+
+void Collision::RemoveInputControllerComponent(EntityID id) {
+
+	InputControllerIt it = input_controller_arr_.find(id);
+
+	if (it != input_controller_arr_.end()) {
+
+		M_DEBUG->WriteDebugMessage("Removing Input Controller Component from entity: " + std::to_string(id) + "\n");
+		input_controller_arr_.erase(it);
+	}
+}
+
 void Collision::UpdateBoundingBox() {
 	if (debug_)
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Bounding Boxes\n");

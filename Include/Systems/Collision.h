@@ -10,6 +10,7 @@
 #include "Components/Motion.h"
 #include "Components/Status.h"
 #include "Components/Transform.h"
+#include "Components/InputController.h"
 #include "Manager/ShaderManager.h"
 #include "Manager/ModelManager.h"
 #include <unordered_map>
@@ -36,6 +37,9 @@ class Collision : public ISystem {
 	
 	using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
 	std::unordered_map<EntityID, Transform*> transform_arr_;
+
+	using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
+	std::unordered_map < EntityID, InputController*> input_controller_arr_;
 
 /******************************************************************************/
 /*!
@@ -190,6 +194,26 @@ public:
 */
 /******************************************************************************/
 	void RemoveTransformComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn AddInputControllerComponent()
+
+  \brief Adds a newly created InputController Component to the InputController 
+		 component array within the Game System
+*/
+/******************************************************************************/
+	void AddInputControllerComponent(EntityID id, InputController* input_controller);
+
+/******************************************************************************/
+/*!
+  \fn RemoveInputControllerComponent()
+
+  \brief Removes a InputController Component from the InputController 
+		 component array within the Game System
+*/
+/******************************************************************************/
+	void RemoveInputControllerComponent(EntityID id);
 
 /******************************************************************************/
 /*!

@@ -20,6 +20,7 @@
 #include "Components/AnimationRenderer.h"
 #include "Components/Name.h"
 #include "Components/Clickable.h"
+#include "Components/InputController.h"
 
 #include "prettywriter.h"
 
@@ -57,6 +58,7 @@ void EntityFactory::Init() {
 	FACTORY->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
 	FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 	FACTORY->AddComponentCreator("Clickable", new ComponentCreator<Clickable>(ComponentTypes::CLICKABLE));
+	FACTORY->AddComponentCreator("InputController", new ComponentCreator<InputController>(ComponentTypes::INPUTCONTROLLER));
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }

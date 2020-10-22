@@ -33,11 +33,10 @@ void CoreEngine::GameLoop() {
 	WindowsSystem* win = &*CORE->GetSystem<WindowsSystem>();
 	InputSystem* input = &*CORE->GetSystem<InputSystem>();
 
-	for (int steps = 0; steps < PE_FrameRate.GetSteps(); ++steps)
-	{
-
-		while (b_game_active_ && !glfwWindowShouldClose(win->ptr_window)) {
-			// Placeholder (Game's logic component)
+	while (b_game_active_ && !glfwWindowShouldClose(win->ptr_window)) {
+		
+		for (int steps = 0; steps < PE_FrameRate.GetSteps(); ++steps)
+		{
 			if (input->IsKeyTriggered(GLFW_KEY_B)) {
 				debug_ = !debug_;
 			}
@@ -81,10 +80,10 @@ void CoreEngine::GameLoop() {
 			glfwPollEvents();
 			M_DEBUG->SaveDebug();
 		}
-		glfwTerminate();
-
-		//PE_FrameRate.SetFPS(30);
 	}
+	glfwTerminate();
+
+	//PE_FrameRate.SetFPS(30);	
 }
 
 ///Broadcasts a message to all systems_.

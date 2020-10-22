@@ -42,6 +42,7 @@ enum class MessageIDTypes
 	// Message to Game System
 	M_MOVEMENT,
 	M_BUTTON_PRESS,
+	M_BUTTON_TRIGGERED,
 	M_MOUSE_PRESS,
 
 	// Physics System
@@ -131,7 +132,7 @@ struct Message_Button : public Message
 
 struct Message_Input : public Message
 {
-	int input_;
+	size_t input_;
 
 /******************************************************************************/
 /*!
@@ -140,12 +141,12 @@ struct Message_Input : public Message
   \brief Initializes a message with a custon message ID and movement key
 */
 /******************************************************************************/
-	Message_Input(MessageIDTypes id, int input);
+	Message_Input(MessageIDTypes id, size_t input);
 };
 
 struct Message_PlayerInput : public Message
 {
-	unsigned char input_flag_;
+	size_t input_flag_;
 
 /******************************************************************************/
 /*!
@@ -154,7 +155,7 @@ struct Message_PlayerInput : public Message
   \brief Initializes a message with a custom message ID and movement flag
 */
 /******************************************************************************/
-	Message_PlayerInput(MessageIDTypes id, unsigned char input_flag);
+	Message_PlayerInput(MessageIDTypes id, size_t input_flag);
 };
 
 struct MessageBGM_Play : public Message 
