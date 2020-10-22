@@ -8,10 +8,10 @@
 #include "Manager/ModelManager.h"
 #include "Manager/FontManager.h"
 #include "Manager/ShaderManager.h"
-#include "Components/IRenderer.h"
+#include "Components/IUIRenderer.h"
 #include <glm/glm.hpp>
 
-class TextRenderer : public IRenderer {
+class TextRenderer : public IUIRenderer {
 
 	Font* font_;
 	std::string text_;
@@ -29,7 +29,6 @@ public:
 			   the component
 	*/
 	/******************************************************************************/
-
 	TextRenderer();
 
 	/******************************************************************************/

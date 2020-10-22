@@ -203,7 +203,8 @@
     <ClInclude Include="Include\Components\Clickable.h" />
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
-    <ClInclude Include="Include\Components\IRenderer.h" />
+    <ClInclude Include="Include\Components\IObjectRenderer.h" />
+    <ClInclude Include="Include\Components\IUIRenderer.h" />
     <ClInclude Include="Include\Components\Motion.h" />
     <ClInclude Include="Include\Components\Name.h" />
     <ClInclude Include="Include\Components\PointLight.h" />

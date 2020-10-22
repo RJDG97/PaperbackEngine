@@ -8,10 +8,10 @@
 #include "Manager/ModelManager.h"
 #include "Manager/AnimationManager.h"
 #include "Manager/ShaderManager.h"
-#include "Components/IRenderer.h"
+#include "Components/IObjectRenderer.h"
 #include <glm/glm.hpp>
 
-class AnimationRenderer : public IRenderer {
+class AnimationRenderer : public IObjectRenderer {
 
 	std::map<std::string, Animation> obj_animations_;	// all possible animations that an object can switch between
 	Animation* current_animation_;						// current animation playing (points to an animation inside obj_animations_)

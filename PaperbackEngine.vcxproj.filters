@@ -371,9 +371,6 @@
     <ClInclude Include="Include\Components\PointLight.h">
       <Filter>Entity\Components\Light</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Components\IRenderer.h">
-      <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Components\BasicAI.h">
       <Filter>Entity\Components\BasicAI</Filter>
     </ClInclude>
@@ -435,6 +432,12 @@
       <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\TextRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\IObjectRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\IUIRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
