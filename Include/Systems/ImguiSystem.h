@@ -6,7 +6,7 @@
 #include "Systems/Message.h"
 #include "Systems/Debug.h"
 
-#include "Imgui/IWindow.h"
+#include "ImguiWindows/IWindow.h"
 #include "Systems/WindowsSystem.h"
 #include <string>
 #include <memory>

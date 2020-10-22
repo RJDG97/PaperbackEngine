@@ -2,7 +2,7 @@
 #ifndef _IMGUI_WINDOW_H_
 #define _IMGUI_WINDOW_H_
 
-#include "ImGui/IWindow.h"
+#include "ImguiWindows/IWindow.h"
 
 class ImguiWindow : public IWindow
 {

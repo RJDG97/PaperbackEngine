@@ -2,7 +2,7 @@
 #ifndef _ANOTHER_WINDOW_H_
 #define _ANOTHER_WINDOW_H_
 
-#include "ImGui/IWindow.h"
+#include "ImguiWindows/IWindow.h"
 
 
 class AnotherWindow : public IWindow{

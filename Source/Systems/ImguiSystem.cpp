@@ -1,6 +1,6 @@
 #include "Systems/ImguiSystem.h"
-#include "Imgui/ImguiWindow.h"
-#include "Imgui/AnotherWindow.h"
+#include "ImguiWindows/ImguiWindow.h"
+#include "ImguiWindows/AnotherWindow.h"
 #include "Engine/Core.h"
 
 void ImguiSystem::Init(){

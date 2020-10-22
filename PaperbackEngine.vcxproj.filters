@@ -109,6 +109,9 @@
     <Filter Include="Systems\Pathfinding">
       <UniqueIdentifier>{50bb6902-33ce-41fd-b45a-9880aebab039}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\ImguiSystem\ImguiWindows">
+      <UniqueIdentifier>{f6f019ce-bee4-46e8-9d65-5a5ea603ddfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -240,12 +243,6 @@
     <ClCompile Include="Source\Systems\ImguiSystem.cpp">
       <Filter>Systems\ImguiSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Imgui\ImguiWindow.cpp">
-      <Filter>Systems\ImguiSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Imgui\AnotherWindow.cpp">
-      <Filter>Systems\ImguiSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Systems\Pathfinding.cpp">
       <Filter>Systems\Pathfinding</Filter>
     </ClCompile>
@@ -257,6 +254,12 @@
     </ClCompile>
     <ClCompile Include="Source\Components\TextRenderer.cpp">
       <Filter>Entity\Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Imgui\AnotherWindow.cpp">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Imgui\ImguiWindow.cpp">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -416,15 +419,6 @@
     <ClInclude Include="Include\Systems\ImguiSystem.h">
       <Filter>Systems\ImguiSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Imgui\IWindow.h">
-      <Filter>Systems\ImguiSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\ImguiWindow.h">
-      <Filter>Systems\ImguiSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\AnotherWindow.h">
-      <Filter>Systems\ImguiSystem</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Systems\Pathfinding.h">
       <Filter>Systems\Pathfinding</Filter>
     </ClInclude>
@@ -436,6 +430,15 @@
     </ClInclude>
     <ClInclude Include="Include\Components\TextRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\AnotherWindow.h">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\ImguiWindow.h">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\IWindow.h">
+      <Filter>Systems\ImguiSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
