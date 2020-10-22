@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include "Systems/WindowsSystem.h"
 #include "Components/AnimationRenderer.h"
+#include "Components/TextRenderer.h"
 #include <windows.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -151,12 +152,30 @@ public:
 
 /******************************************************************************/
 /*!
-    \fn AddTextureRendererComponent(EntityID id, TextureRenderer* renderer)
+    \fn AddTextRendererComponent(EntityID id, TextRenderer* text_renderer)
+
+    \brief Adds a TextRenderer component to the text renderer map
+*/
+/******************************************************************************/
+void AddTextRendererComponent(EntityID id, TextRenderer* text_renderer);
+
+/******************************************************************************/
+/*!
+    \fn RemoveTextRendererComponent(EntityID id)
+
+    \brief Removes a TextRenderer component from the text renderer map
+*/
+/******************************************************************************/
+void RemoveTextRendererComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+    \fn AddTextureRendererComponent(EntityID id, TextureRenderer* texture_renderer)
 
     \brief Adds a TextureRenderer component to the texture renderer map
 */
 /******************************************************************************/
-    void AddTextureRendererComponent(EntityID id, TextureRenderer* renderer);
+    void AddTextureRendererComponent(EntityID id, TextureRenderer* texture_renderer);
 
 /******************************************************************************/
 /*!
@@ -304,6 +323,9 @@ public:
 */
 /******************************************************************************/
     bool IsLastFrame(AnimationRenderer* anim_renderer);
+
+    using TextRendererIt = std::unordered_map<EntityID, TextRenderer*>::iterator;
+    std::unordered_map<EntityID, TextRenderer*> text_renderer_arr_;
 
     using TextureRendererIt = std::unordered_map<EntityID, TextureRenderer*>::iterator;
     std::unordered_map<EntityID, TextureRenderer*> texture_renderer_arr_;

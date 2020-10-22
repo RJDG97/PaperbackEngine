@@ -252,6 +252,12 @@
     <ClCompile Include="Source\Manager\ForcesManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\FontManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\TextRenderer.cpp">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -424,6 +430,12 @@
     </ClInclude>
     <ClInclude Include="Include\Manager\ForcesManager.h">
       <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\FontManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\TextRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

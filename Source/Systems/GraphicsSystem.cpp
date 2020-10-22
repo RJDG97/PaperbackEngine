@@ -313,12 +313,49 @@ void GraphicsSystem::SendMessageD(Message* m) {
     }
 }
 
-void GraphicsSystem::AddTextureRendererComponent(EntityID id, TextureRenderer* renderer) {
+void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_renderer)
+{
+    M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
+
+    text_renderer_arr_[id] = text_renderer;
+    //renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
+}
+
+void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
+{
+    TextRendererIt it = text_renderer_arr_.find(id);
+    int layer;
+
+    if (it != text_renderer_arr_.end()) {
+
+        M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
+        layer = GetLayer(it->second);
+        text_renderer_arr_.erase(it);
+    }
+
+    /*
+    RenderOrderIt orderit = renderers_in_order_.find(layer);
+
+    if (orderit != renderers_in_order_.end()) {
+
+        for (; orderit != renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+            if ((*orderit).second->GetOwner()->GetID() == id) {
+
+                orderit = renderers_in_order_.erase(orderit);
+                break;
+            }
+        }
+    }
+    */
+}
+
+void GraphicsSystem::AddTextureRendererComponent(EntityID id, TextureRenderer* texture_renderer) {
 
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
-    texture_renderer_arr_[id] = renderer;
-    renderers_in_order_.insert({GetLayer(renderer), renderer});
+    texture_renderer_arr_[id] = texture_renderer;
+    renderers_in_order_.insert({GetLayer(texture_renderer), texture_renderer });
 }
 
 void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {

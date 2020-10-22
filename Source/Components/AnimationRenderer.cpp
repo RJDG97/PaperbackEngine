@@ -3,7 +3,6 @@
 #include "Components/Scale.h"
 #include "Engine/Core.h"
 #include "Systems/GraphicsSystem.h"
-#include <glm/gtc/type_ptr.hpp>
 
 #define M_PI       3.14159265358979323846
 
