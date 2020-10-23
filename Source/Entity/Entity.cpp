@@ -171,6 +171,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::BASICAI;
 	else if (str == "Clickable")
 		return ComponentTypes::CLICKABLE;
+	else if (str == "InputController")
+		return ComponentTypes::INPUTCONTROLLER;
 	else
 		return ComponentTypes::NONE;
 }

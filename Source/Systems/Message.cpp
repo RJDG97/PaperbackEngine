@@ -14,12 +14,12 @@ MessagePhysics_Motion::MessagePhysics_Motion(MessageIDTypes id, Vector2D new_vec
 	new_vec_{ new_vector }
 {}
 
-Message_Input::Message_Input(MessageIDTypes id, int input) : 
+Message_Input::Message_Input(MessageIDTypes id, size_t input) : 
 	Message{ id },
 	input_{ input }
 {}
 
-Message_PlayerInput::Message_PlayerInput(MessageIDTypes id, unsigned char input_flag) :
+Message_PlayerInput::Message_PlayerInput(MessageIDTypes id, size_t input_flag) :
 	Message{ id },
 	input_flag_{ input_flag }
 {}

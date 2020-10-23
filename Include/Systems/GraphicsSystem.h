@@ -211,7 +211,7 @@ void RemoveTextRendererComponent(EntityID id);
     \brief Updates Model to NDC transform of the renderer
 */
 /******************************************************************************/
-    void UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to_ndc_xform);
+    void UpdateObjectMatrix(IObjectRenderer* iobjrenderer, glm::mat3 world_to_ndc_xform);
 
 /******************************************************************************/
 /*!
@@ -230,7 +230,7 @@ void RemoveTextRendererComponent(EntityID id);
     \brief Draw objects that have a component that inherits from IRenderer
 */
 /******************************************************************************/
-    void DrawObject(IRenderer* irenderer);
+    void DrawObject(IObjectRenderer* iobjrenderer);
 
 /******************************************************************************/
 /*!
@@ -239,7 +239,7 @@ void RemoveTextRendererComponent(EntityID id);
     \brief Changes the model used for rendering
 */
 /******************************************************************************/
-    void ChangeModel(IRenderer* irenderer, std::string model_name);
+    void ChangeModel(IObjectRenderer* iobjrenderer, std::string model_name);
 
 /******************************************************************************/
 /*!
@@ -248,7 +248,7 @@ void RemoveTextRendererComponent(EntityID id);
     \brief Changes the shdaer program used for rendering
 */
 /******************************************************************************/
-    void ChangeShdrpgm(IRenderer* irenderer, std::string shdr_pgm_name);
+    void ChangeShdrpgm(IObjectRenderer* iobjrenderer, std::string shdr_pgm_name);
 
 /******************************************************************************/
 /*!
@@ -257,7 +257,7 @@ void RemoveTextRendererComponent(EntityID id);
     \brief Flips the texture renderered in the x axis
 */
 /******************************************************************************/
-    void FlipTextureX(IRenderer* irenderer);
+    void FlipTextureX(IObjectRenderer* iobjrenderer);
 
 /******************************************************************************/
 /*!
@@ -266,7 +266,7 @@ void RemoveTextRendererComponent(EntityID id);
 \brief Flips the texture renderered in the y axis
 */
 /******************************************************************************/
-    void FlipTextureY(IRenderer* irenderer);
+    void FlipTextureY(IObjectRenderer* iobjrenderer);
 
 /******************************************************************************/
 /*!
@@ -275,7 +275,16 @@ void RemoveTextRendererComponent(EntityID id);
 \brief Gets the layer that the texture will be renderered on
 */
 /******************************************************************************/
-    int GetLayer(IRenderer* irenderer);
+    int GetLayer(IObjectRenderer* iobjrenderer);
+
+/******************************************************************************/
+/*!
+\fn GetLayer(IUIRenderer* iuirenderer)
+
+\brief Gets the layer that the texture will be renderered on
+*/
+/******************************************************************************/
+    int GetLayer(IUIRenderer* iuirenderer);
 
 /******************************************************************************/
 /*!
@@ -333,8 +342,8 @@ void RemoveTextRendererComponent(EntityID id);
     using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer*>::iterator;
     std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
 
-    using RenderOrderIt = std::multimap<int, IRenderer*>::iterator;
-    std::multimap<int, IRenderer*> renderers_in_order_;
+    using RenderOrderIt = std::multimap<int, IObjectRenderer*>::iterator;
+    std::multimap<int, IObjectRenderer*> renderers_in_order_;
 };
 
 #endif

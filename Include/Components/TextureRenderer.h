@@ -1,15 +1,15 @@
 #pragma once
 
-#ifndef _RENDERER_H_
-#define _RENDERER_H_
+#ifndef _TEXTURERENDERER_H_
+#define _TEXTURERENDERER_H_
 
 #include <windows.h>
-#include "IRenderer.h"
+#include "IObjectRenderer.h"
 #include "Entity/Entity.h"
 #include "Manager/TextureManager.h"
 #include <glm/glm.hpp>
 
-class TextureRenderer : public IRenderer {
+class TextureRenderer : public IObjectRenderer {
 
 	Texture texture_;
 

@@ -56,54 +56,31 @@ void MenuState::Draw(Game* game)
 
 void MenuState::StateInputHandler(Message* msg, Game* game) {
 
-	if (!game && msg->message_id_ == MessageIDTypes::M_MOVEMENT) {
+	if (game) {
 
-		Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
-		assert(m != nullptr && "Message is not a player input message");
-		unsigned char key_val = m->input_flag_;
+		switch (msg->message_id_) {
+			//check for collision between button & mouse
+		case MessageIDTypes::BUTTON: {
 
-		// set up velocity based input flag value
-		Vec2 new_vel{};
+			Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
-		if (key_val & UP_FLAG) {
+			if (m->button_index_ == 3) {
 
-			new_vel.y += 100.0f;
+				//true returned, trigger scene change
+				game->ChangeState(&m_PlayState);
+				return;
+			}
+
+			if (m->button_index_ == 5) {
+
+				DEBUG_ASSERT(false, "Forced Crash Triggered");
+			}
+			break;
 		}
-
-		if (key_val & DOWN_FLAG) {
-
-			new_vel.y -= 100.0f;
+		case MessageIDTypes::M_BUTTON_PRESS: {
+			//for menu navigation in menu
+			break;
 		}
-
-		if (key_val & LEFT_FLAG) {
-
-			new_vel.x -= 100.0f;
-		}
-
-		if (key_val & RIGHT_FLAG) {
-
-			new_vel.x += 100.0f;
-		}
-
-		MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_vel };
-		CORE->BroadcastMessage(&m2);
-	}
-
-	if (game && msg->message_id_ == MessageIDTypes::BUTTON) {
-
-		//check for collision between button & mouse
-		Message_Button* m = dynamic_cast<Message_Button*>(msg);
-
-		if (m->button_index_ == 3) {
-			
-			//true returned, trigger scene change
-			game->ChangeState(&m_PlayState);
-			return;
-		}
-
-		if (m->button_index_ == 5) {
-
-			DEBUG_ASSERT(false, "Forced Crash Triggered");
 		}
 	}
 }

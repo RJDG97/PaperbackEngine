@@ -99,8 +99,6 @@ void GraphicsSystem::Init() {
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window_width_, window_height_);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
 
-    //assert((glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE,
-    //    "Final framebuffer is not complete!"));
     DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE), "Final framebuffer is not complete!");
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -115,6 +113,7 @@ void GraphicsSystem::Init() {
     model_manager_->AddTristripsModel(1, 1, "TileModel");
     model_manager_->AddLinesModel(1, 1, "LinesModel");
     shader_manager_->AddShdrpgm("Shaders/object.vert", "Shaders/object.frag", "ObjectShader");
+//  shader_manager_->AddShdrpgm("Shaders/text.vert", "Shaders/text.frag", "TextShader");
     shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
     shader_manager_->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
     shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
@@ -294,14 +293,14 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
         case MessageIDTypes::FLIP_SPRITE_X: {
 
-            FlipTextureX(dynamic_cast<IRenderer*>(player_renderer->second));
+            FlipTextureX(dynamic_cast<IObjectRenderer*>(player_renderer->second));
 
             break;
         }
 
         case MessageIDTypes::FLIP_SPRITE_Y: {
 
-            FlipTextureY(dynamic_cast<IRenderer*>(player_renderer->second));
+            FlipTextureY(dynamic_cast<IObjectRenderer*>(player_renderer->second));
 
             break;
         }
@@ -420,18 +419,18 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
     }
 }
 
-void GraphicsSystem::UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to_ndc_xform) {
+void GraphicsSystem::UpdateObjectMatrix(IObjectRenderer* iobjrenderer, glm::mat3 world_to_ndc_xform) {
 
     glm::mat3 scaling, rotation, translation;
 
-    Vector2D scale = std::dynamic_pointer_cast<Scale>(irenderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
+    Vector2D scale = std::dynamic_pointer_cast<Scale>(iobjrenderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
 
     scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
                          0.0f, scale.y, 0.0f,
                          0.0f, 0.0f, 1.0f };
 
     std::shared_ptr<Transform> transform = 
-        std::dynamic_pointer_cast<Transform>(irenderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+        std::dynamic_pointer_cast<Transform>(iobjrenderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
     //assert(transform);
     DEBUG_ASSERT(transform, "Entity does not have a Transform component");
 
@@ -446,7 +445,7 @@ void GraphicsSystem::UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to
                        0.0f, 1.0f, 0.0f,
                        position.x, position.y, 1.0f };
 
-    irenderer->mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
+    iobjrenderer->mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
 }
 
 void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime) {
@@ -477,72 +476,77 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
-void GraphicsSystem::DrawObject(IRenderer* irenderer) {
+void GraphicsSystem::DrawObject(IObjectRenderer* iobjrenderer) {
     
-    irenderer->shdr_pgm_->Use();
-    glBindVertexArray(irenderer->model_->vaoid_);
+    iobjrenderer->shdr_pgm_->Use();
+    glBindVertexArray(iobjrenderer->model_->vaoid_);
 
-    glBindTexture(GL_TEXTURE_2D, *(irenderer->texture_handle_));
-    glBindTextureUnit(0, *(irenderer->texture_handle_));
-    glUseProgram(irenderer->shdr_pgm_->GetHandle());
+    glBindTexture(GL_TEXTURE_2D, *(iobjrenderer->texture_handle_));
+    glBindTextureUnit(0, *(iobjrenderer->texture_handle_));
+    glUseProgram(iobjrenderer->shdr_pgm_->GetHandle());
 
-    irenderer->shdr_pgm_->SetUniform("uTex2d", 0);
-    irenderer->shdr_pgm_->SetUniform("uModel_to_NDC", irenderer->mdl_to_ndc_xform_);
+    iobjrenderer->shdr_pgm_->SetUniform("uTex2d", 0);
+    iobjrenderer->shdr_pgm_->SetUniform("uModel_to_NDC", iobjrenderer->mdl_to_ndc_xform_);
 
-    glNamedBufferSubData(irenderer->model_->GetVBOHandle(), irenderer->model_->GetVBOOffset(),
-                         sizeof(glm::vec2) * 4, irenderer->tex_vtx_sent_.data());
-    glDrawElements(GL_TRIANGLE_STRIP, irenderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glNamedBufferSubData(iobjrenderer->model_->GetVBOHandle(), iobjrenderer->model_->GetVBOOffset(),
+                         sizeof(glm::vec2) * 4, iobjrenderer->tex_vtx_sent_.data());
+    glDrawElements(GL_TRIANGLE_STRIP, iobjrenderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
     // after completing the rendering, we tell the driver that the VAO vaoid
     // and the current shader program are no longer current
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-    irenderer->shdr_pgm_->UnUse();
+    iobjrenderer->shdr_pgm_->UnUse();
 }
 
-void GraphicsSystem::ChangeModel(IRenderer* irenderer, std::string model_name) {
+void GraphicsSystem::ChangeModel(IObjectRenderer* iobjrenderer, std::string model_name) {
 
-    irenderer->model_ = model_manager_->GetModel(model_name);
+    iobjrenderer->model_ = model_manager_->GetModel(model_name);
 }
 
-void GraphicsSystem::ChangeShdrpgm(IRenderer* irenderer, std::string shdr_pgm_name) {
+void GraphicsSystem::ChangeShdrpgm(IObjectRenderer* iobjrenderer, std::string shdr_pgm_name) {
 
-    irenderer->shdr_pgm_ = shader_manager_->GetShdrpgm(shdr_pgm_name);
+    iobjrenderer->shdr_pgm_ = shader_manager_->GetShdrpgm(shdr_pgm_name);
 }
 
-void GraphicsSystem::FlipTextureX(IRenderer* irenderer) {
+void GraphicsSystem::FlipTextureX(IObjectRenderer* iobjrenderer) {
 
-    irenderer->x_mirror_ = !irenderer->x_mirror_;
+    iobjrenderer->x_mirror_ = !iobjrenderer->x_mirror_;
 
-    std::swap(irenderer->tex_vtx_mirrored_[0], irenderer->tex_vtx_mirrored_[2]);
-    std::swap(irenderer->tex_vtx_mirrored_[1], irenderer->tex_vtx_mirrored_[3]);
+    std::swap(iobjrenderer->tex_vtx_mirrored_[0], iobjrenderer->tex_vtx_mirrored_[2]);
+    std::swap(iobjrenderer->tex_vtx_mirrored_[1], iobjrenderer->tex_vtx_mirrored_[3]);
 
-    irenderer->tex_vtx_sent_.clear();
+    iobjrenderer->tex_vtx_sent_.clear();
 
-    for (int i = 0; i < irenderer->tex_vtx_mirrored_.size(); ++i) {
+    for (int i = 0; i < iobjrenderer->tex_vtx_mirrored_.size(); ++i) {
 
-        irenderer->tex_vtx_sent_.push_back(*irenderer->tex_vtx_mirrored_[i]);
+        iobjrenderer->tex_vtx_sent_.push_back(*iobjrenderer->tex_vtx_mirrored_[i]);
     }
 }
 
-void GraphicsSystem::FlipTextureY(IRenderer* irenderer) {
+void GraphicsSystem::FlipTextureY(IObjectRenderer* iobjrenderer) {
 
-    irenderer->y_mirror_ = !irenderer->y_mirror_;
+    iobjrenderer->y_mirror_ = !iobjrenderer->y_mirror_;
 
-    std::swap(irenderer->tex_vtx_mirrored_[0], irenderer->tex_vtx_mirrored_[1]);
-    std::swap(irenderer->tex_vtx_mirrored_[2], irenderer->tex_vtx_mirrored_[3]);
+    std::swap(iobjrenderer->tex_vtx_mirrored_[0], iobjrenderer->tex_vtx_mirrored_[1]);
+    std::swap(iobjrenderer->tex_vtx_mirrored_[2], iobjrenderer->tex_vtx_mirrored_[3]);
 
-    irenderer->tex_vtx_sent_.clear();
+    iobjrenderer->tex_vtx_sent_.clear();
 
-    for (int i = 0; i < irenderer->tex_vtx_mirrored_.size(); ++i) {
+    for (int i = 0; i < iobjrenderer->tex_vtx_mirrored_.size(); ++i) {
 
-        irenderer->tex_vtx_sent_.push_back(*irenderer->tex_vtx_mirrored_[i]);
+        iobjrenderer->tex_vtx_sent_.push_back(*iobjrenderer->tex_vtx_mirrored_[i]);
     }
 }
 
-int GraphicsSystem::GetLayer(IRenderer* irenderer) {
+int GraphicsSystem::GetLayer(IObjectRenderer* iobjrenderer) {
 
-    return irenderer->layer_;
+    return iobjrenderer->layer_;
+}
+
+int GraphicsSystem::GetLayer(IUIRenderer* iuirenderer)
+{
+    return iuirenderer->layer_;
 }
 
 void GraphicsSystem::ChangeTexture(TextureRenderer* renderer, std::string texture_name) {

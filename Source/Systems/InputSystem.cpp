@@ -8,6 +8,18 @@
 
 InputSystem sys_input_;
 
+void SendTouchMessage(size_t key_val) {
+
+	Message_Input msg(MessageIDTypes::M_BUTTON_TRIGGERED, key_val);
+	CORE->BroadcastMessage(&msg);
+}
+
+void SendHoldMessage(size_t key_val) {
+
+	Message_Input msg(MessageIDTypes::M_BUTTON_PRESS, key_val);
+	CORE->BroadcastMessage(&msg);
+}
+
 /******************************************************************************/
 /*!
   \fn CursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
@@ -94,15 +106,15 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	CORE->GetSystem<InputSystem>()->SetKeyState(key, action);
 	if (action == GLFW_PRESS)
 	{
-		switch (key)
-		{
-		case GLFW_KEY_0:  //'0'
-		{
-			std::cout << "Debug: Decrementing entity HP" << std::endl;
-			MessageHPDecre msg{ 2 }; // Entity id = 2
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
+		// When a button is touched, dispatch a message with the key that's touched
+		SendTouchMessage(key);
+	}
+
+	// All these are categorized under pressed as well
+	// but since they are temporary, not converting
+	if (action == GLFW_PRESS) {
+		switch (key) {
+
 		case GLFW_KEY_1:	//'1'
 		{
 			MessageBGM_Play msg{ std::string{"BGM"} };
@@ -127,26 +139,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
-		case GLFW_KEY_5:	//'5'
-		{
-			break;
-		}
-		case GLFW_KEY_6:	//'6'
-		{
-			break;
-		}
-		case GLFW_KEY_7:	//'7'
-		{
-			break;
-		}
-		case GLFW_KEY_8:	//'8'
-		{
-			break;
-		}
-		case GLFW_KEY_9:	//'9'
-			break;
-		case GLFW_KEY_A: 	//'A'
-			break;
 		case GLFW_KEY_B: 	//'B'
 		{
 			//for debug bomb
@@ -154,40 +146,17 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
-		break;
 		case GLFW_KEY_C:
+		{
 			CORE->GetSystem<ImguiSystem>()->b_imguimode = !CORE->GetSystem<ImguiSystem>()->b_imguimode;
 			break;
-		case GLFW_KEY_D:
-			break;
-		case GLFW_KEY_E: 	//'E'
-		{
-			Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_E);
-			CORE->BroadcastMessage(&msg);
-			break;
 		}
-		case GLFW_KEY_F: 	//'F'
-			break;
-		case GLFW_KEY_G:
-			break;
-		case GLFW_KEY_H:
-			break;
 		case GLFW_KEY_I:
 		{
 			Message msg(MessageIDTypes::CHANGE_ANIMATION_2);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
-		case GLFW_KEY_J:
-			break;
-		case GLFW_KEY_K:
-			break;
-		case GLFW_KEY_L:
-			break;
-		case GLFW_KEY_M:
-			break;
-		case GLFW_KEY_N:
-			break;
 		case GLFW_KEY_O:
 		{
 			Message msg(MessageIDTypes::FLIP_SPRITE_X);
@@ -200,42 +169,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
-		case GLFW_KEY_Q:
-			break;
-		case GLFW_KEY_R: 	//'R'
-		{
-			Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_R);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		case GLFW_KEY_S: 	//'S'
-			break;
-		case GLFW_KEY_T:
-			break;
-		case GLFW_KEY_U:
-		{
-			Message msg(MessageIDTypes::CHANGE_ANIMATION_1);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		case GLFW_KEY_V:
-			break;
-		case GLFW_KEY_W:
-
-			break;
-		case GLFW_KEY_X:
-			break;
-		case GLFW_KEY_Y:
-			break;
-		case GLFW_KEY_Z:
-		{
-			Message msg{ MessageIDTypes::FTY_PURGE };
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		default:
-			//std::cout << "Input System: [Error] Key is not bound" << std::endl;
-			break;
 		}
 	}
 }
@@ -261,15 +194,23 @@ void InputSystem::Update(float frametime) {
 	unsigned char input_flag = 0; //used for checking what directional buttons are held
 
 	//input.GetMouseCoord();
-
-	if (IsKeyPressed(GLFW_KEY_LEFT))
-		input_flag |= LEFT_FLAG;
-	if (IsKeyPressed(GLFW_KEY_UP))
-		input_flag |= UP_FLAG;
-	if (IsKeyPressed(GLFW_KEY_RIGHT))
-		input_flag |= RIGHT_FLAG;
-	if (IsKeyPressed(GLFW_KEY_DOWN))
-		input_flag |= DOWN_FLAG;
+	
+	if (IsKeyPressed(GLFW_KEY_LEFT)) {
+		//input_flag |= LEFT_FLAG;
+		SendHoldMessage(GLFW_KEY_LEFT);
+	}
+	if (IsKeyPressed(GLFW_KEY_UP)) {
+		//input_flag |= UP_FLAG;
+		SendHoldMessage(GLFW_KEY_UP);
+	}
+	if (IsKeyPressed(GLFW_KEY_RIGHT)) {
+		//input_flag |= RIGHT_FLAG;
+		SendHoldMessage(GLFW_KEY_RIGHT);
+	}
+	if (IsKeyPressed(GLFW_KEY_DOWN)) {
+		//input_flag |= DOWN_FLAG;
+		SendHoldMessage(GLFW_KEY_DOWN);
+	}
 
 	if (IsKeyPressed(GLFW_KEY_W))
 		input_flag |= W_FLAG;
@@ -290,45 +231,29 @@ void InputSystem::Update(float frametime) {
 	if (IsKeyPressed(GLFW_KEY_V))
 		input_flag |= V_FLAG;
 	*/
-
+	
 	if (IsKeyPressed(GLFW_KEY_COMMA)) {
 	
-		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_COMMA);
-		CORE->BroadcastMessage(&msg);
+		SendHoldMessage(GLFW_KEY_COMMA);
 	}
 	if (IsKeyPressed(GLFW_KEY_PERIOD)) {
 		
-		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_PERIOD);
-		CORE->BroadcastMessage(&msg);
+		SendHoldMessage(GLFW_KEY_PERIOD);
 	}
 	if (IsKeyPressed(GLFW_KEY_SEMICOLON)) {
 
-		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_SEMICOLON);
-		CORE->BroadcastMessage(&msg);
+		SendHoldMessage(GLFW_KEY_SEMICOLON);
 	}
 	if (IsKeyPressed(GLFW_KEY_APOSTROPHE)) {
 
-		Message_PlayerInput msg(MessageIDTypes::M_BUTTON_PRESS, GLFW_KEY_APOSTROPHE);
-		CORE->BroadcastMessage(&msg);
+		SendHoldMessage(GLFW_KEY_APOSTROPHE);
 	}
-
-	// Temporary placeholder before Input System conversion
-	/*if (IsKeyPressed(GLFW_KEY_B)) {
-
-		//for debug bomb
-		Message msg(MessageIDTypes::DEBUG_ALL);
-		CORE->BroadcastMessage(&msg);
-	}*/
 
 	if (IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT)) {
 
 		Message msg(MessageIDTypes::M_MOUSE_PRESS);
 		CORE->BroadcastMessage(&msg);
 	}
-
-	//send the message with the updated flag to be processed
-	Message_PlayerInput input_msg{ MessageIDTypes::M_MOVEMENT, input_flag };
-	CORE->BroadcastMessage(&input_msg);
 
 	Message_PlayerInput cam_msg{ MessageIDTypes::C_MOVEMENT, input_flag };
 	CORE->BroadcastMessage(&cam_msg);

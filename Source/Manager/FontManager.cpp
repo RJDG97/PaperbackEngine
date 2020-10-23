@@ -86,13 +86,13 @@ void FontManager::LoadFont(std::string font_name)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         // now store character for later use
-/*        Character character = { texture,
+        Character character = { texture,
                                 glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
                                 glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-                                face->glyph->advance.x
+                                static_cast<unsigned int>(face->glyph->advance.x)
                               };
 
-        temp.insert(std::pair<char, Character>(c, character));*/
+        temp.insert(std::pair<char, Character>(c, character));
     }
 
     fonts_.insert({ font_name, Font(temp) });

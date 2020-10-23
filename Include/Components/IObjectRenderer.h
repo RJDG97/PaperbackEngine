@@ -1,13 +1,13 @@
 #pragma once
-#ifndef _IRENDERER_H_
-#define _IRENDERER_H_
+#ifndef _IOBJECTRENDERER_H_
+#define _IOBJECTRENDERER_H_
 
 #include <windows.h>
 #include "Entity/Entity.h"
 #include "Manager/ModelManager.h"
 #include "Manager/ShaderManager.h"
 
-class IRenderer : public Component {
+class IObjectRenderer : public Component {
 
 protected:
 

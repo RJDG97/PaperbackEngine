@@ -1,0 +1,26 @@
+#pragma once
+#ifndef _IUIRENDERER_H_
+#define _IUIRENDERER_H_
+
+#include <windows.h>
+#include "Entity/Entity.h"
+#include "Manager/ModelManager.h"
+#include "Manager/ShaderManager.h"
+
+class IUIRenderer : public Component {
+
+protected:
+
+	Model* model_;
+	Shader* shdr_pgm_;
+
+	GLuint* texture_handle_;
+	int layer_;
+
+public:
+
+	friend class GraphicsSystem;
+
+};
+
+#endif

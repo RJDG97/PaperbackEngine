@@ -145,6 +145,23 @@ void Game::RemoveBasicAIComponent(EntityID id) {
 	}
 }
 
+void Game::AddInputControllerComponent(EntityID id, InputController* input_controller) {
+
+	M_DEBUG->WriteDebugMessage("Adding Input Controller Component to entity: " + std::to_string(id) + "\n");
+	input_controller_arr_[id] = input_controller;
+}
+
+void Game::RemoveInputControllerComponent(EntityID id) {
+
+	InputControllerIt it = input_controller_arr_.find(id);
+
+	if (it != input_controller_arr_.end()) {
+
+		M_DEBUG->WriteDebugMessage("Removing Input Controller Component from entity: " + std::to_string(id) + "\n");
+		input_controller_arr_.erase(it);
+	}
+}
+
 void Game::Draw()
 {
 	// let the current state take control
@@ -163,7 +180,7 @@ void Game::Free()
 void Game::SendMessageD(Message* m) {
 
 	//std::cout << "Message received by Game" << std::endl;
-
+	/*
 	switch (m->message_id_) {
 
 	case MessageIDTypes::GSM_PUSHSTATE:
@@ -214,5 +231,36 @@ void Game::SendMessageD(Message* m) {
 	}
 	default:
 		break;
+	}*/
+
+	//assume all messages of concern to game are only input message
+	switch (m->message_id_) {
+
+	case MessageIDTypes::M_BUTTON_PRESS:
+	case MessageIDTypes::M_BUTTON_TRIGGERED:
+	{
+		Message_Input* msg = dynamic_cast<Message_Input*>(m);
+
+		if (msg && msg->input_ == GLFW_KEY_B) {
+
+			debug_ = !debug_;
+			break;
+		}
+
+		//forward onto state to handle
+		states_.back()->StateInputHandler(m, this);
+		break;
+	}
+	case MessageIDTypes::BUTTON:
+	{
+		states_.back()->StateInputHandler(m, this);
+		break;
+	}
+	case MessageIDTypes::C_MOVEMENT:
+	{
+		//value larger than what can be gotten from input flags
+		states_.back()->StateInputHandler(m);
+		break;
+	}
 	}
 }

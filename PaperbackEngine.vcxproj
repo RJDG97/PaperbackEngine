@@ -157,6 +157,7 @@
     <ClCompile Include="Source\Components\BasicAI.cpp" />
     <ClCompile Include="Source\Components\Clickable.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
+    <ClCompile Include="Source\Components\InputController.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
     <ClCompile Include="Source\Components\Name.cpp" />
     <ClCompile Include="Source\Components\PointLight.cpp" />
@@ -203,7 +204,9 @@
     <ClInclude Include="Include\Components\Clickable.h" />
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
-    <ClInclude Include="Include\Components\IRenderer.h" />
+    <ClInclude Include="Include\Components\InputController.h" />
+    <ClInclude Include="Include\Components\IObjectRenderer.h" />
+    <ClInclude Include="Include\Components\IUIRenderer.h" />
     <ClInclude Include="Include\Components\Motion.h" />
     <ClInclude Include="Include\Components\Name.h" />
     <ClInclude Include="Include\Components\PointLight.h" />

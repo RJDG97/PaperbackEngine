@@ -21,6 +21,7 @@ enum class ComponentTypes {
 	CONELIGHT,
 	BASICAI,
 	CLICKABLE,
+	INPUTCONTROLLER,
 	MAX
 };
 
