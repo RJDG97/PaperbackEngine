@@ -62,6 +62,16 @@ void Transform::SetRotation(const float& rot) {
 	rotation_ = rot;
 }
 
+Vector2D Transform::GetPosition() const {
+
+	return position_;
+}
+
+void Transform::SetPosition(const Vector2D& pos) {
+
+	position_ = pos;
+}
+
 std::shared_ptr<Component> Transform::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning Transform Component\n");
 	std::shared_ptr<Transform> cloned = std::make_shared<Transform>();

@@ -4,12 +4,14 @@
 #include "Systems/Factory.h"
 #include "Systems/Debug.h"
 #include "Systems/InputSystem.h"
+#include "Manager/ForcesManager.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
 #include "Entity/ComponentTypes.h"
 #include "Components/AABB.h"
 #include "Components/Motion.h"
 #include "Components/Status.h"
+#include "Components/Scale.h"
 #include <iostream>
 #include <assert.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -32,6 +34,51 @@ auto min = [](float a, float b) {
 	return (a < b) ? a : b;
 };
 
+auto absVec = [](Vector2D vec) {
+
+	vec.x = abs(vec.x);
+	vec.y = abs(vec.y);
+
+	return vec;
+};
+
+// Instead of scale* use aabb's custom scale
+Vector2D Normal(const Vector2D& s1, const Vector2D& s2,
+				 const Transform* t1, const Transform* t2) {
+
+	Vector2D scale_sum = s1 + s2;
+	Vector2D vec = absVec(t1->GetPosition() - t2->GetPosition());
+
+	Vector2D minkowski;
+	minkowski.x = vec.y * scale_sum.x;
+	minkowski.y = vec.x * scale_sum.y;
+
+
+	if (minkowski.y > minkowski.x) {
+		if (minkowski.y > -minkowski.x) {
+			// Collision on top for Object A
+			return Vector2D{ 1, 0 };
+		}
+		else {
+			// Collision on left for Object A
+			return Vector2D{ 0, 1 };
+		}
+	}
+	else {
+		if (minkowski.y > -minkowski.x) {
+			// Collision on the right for Object A
+			return Vector2D{ 0, 1 };
+		}
+		else {
+			// Collision on the bottom for Object A
+			return Vector2D{ 1, 0 };
+		}
+	}
+
+	return Vector2D{};
+}
+
+
 bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 							   const AABB& aabb2, const Vec2& vel2,
 							   const float dt, float& tFirst) {
@@ -43,14 +90,13 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 	// AABB_2
 	Vector2D aab2_bot_left = aabb2.GetBottomLeft();
 	Vector2D aab2_top_right = aabb2.GetTopRight();
+	float tLast = dt; // g_dt does not exist yet
 
-	if ((aab1_bot_left.x > aab2_top_right.x || aab1_top_right.x < aab2_bot_left.x) ||
-		(aab1_bot_left.y > aab2_top_right.y || aab1_top_right.y < aab2_bot_left.y))
+	if (SeparatingAxisTheorem(aabb1, aabb2))
 	{
-		
 		Vector2D Vb;
 		tFirst = 0;
-		float tLast = dt; // g_dt does not exist yet
+		
 		Vb.x = vel2.x - vel1.x;
 		Vb.y = vel2.y - vel1.y;
 
@@ -127,6 +173,24 @@ bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* bu
 	return false;
 }
 
+bool Collision::SeparatingAxisTheorem(const AABB& a, const AABB& b) {
+	// AABB_1
+	Vector2D aab1_bot_left = a.GetBottomLeft();
+	Vector2D aab1_top_right = a.GetTopRight();
+
+	// AABB_2
+	Vector2D aab2_bot_left = b.GetBottomLeft();
+	Vector2D aab2_top_right = b.GetTopRight();
+
+	// Check if there is at least an axis that is intersecting
+	if ((aab1_bot_left.x > aab2_top_right.x || aab1_top_right.x < aab2_bot_left.x) ||
+		(aab1_bot_left.y > aab2_top_right.y || aab1_top_right.y < aab2_bot_left.y)) {
+		return 1;
+	}
+
+	return 0;
+}
+
 void Collision::CheckClickableCollision() {
 
 	Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();
@@ -155,14 +219,59 @@ void Collision::Init() {
 
 void Collision::CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first) {
 	
+	//std::shared_ptr<ForcesManager> force_mgr = CORE->GetManager<ForcesManager>();
+
 	Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
 	Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
 
 	TransformIt transform1 = transform_arr_.find(aabb1->second->GetOwner()->GetID());
 	TransformIt transform2 = transform_arr_.find(aabb2->second->GetOwner()->GetID());
 
+	// Get "fake normal" to colliding side
+	Vector2D normal = Normal(aabb1->second->scale_, aabb2->second->scale_, transform1->second, transform2->second);
+
+	// Isolate relavent vector value based on normal value
+	inverse_vector_1.x *= normal.x;
+	inverse_vector_1.y *= normal.y;
+	inverse_vector_2.x *= normal.x;
+	inverse_vector_2.y *= normal.y;
+
 	transform1->second->position_ += inverse_vector_1;
 	transform2->second->position_ += inverse_vector_2;
+	
+
+	/*
+	MotionIt motion1 = motion_arr_.find(aabb1->second->GetOwner()->GetID());
+	MotionIt motion2 = motion_arr_.find(aabb2->second->GetOwner()->GetID());
+	if (motion1 != motion_arr_.end()) {
+		motion1->second->velocity_ += inverse_vector_1;
+	}
+	if (motion2 != motion_arr_.end()) {
+		motion2->second->velocity_ += inverse_vector_2;
+	}
+	*/
+
+	/*
+	Vector2D accel_1 = inverse_vector_1 / frametime;
+	Vector2D accel_2 = inverse_vector_2 / frametime;
+
+	std::shared_ptr<Motion> motion_1 =
+		std::dynamic_pointer_cast<Motion>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+	std::shared_ptr<Motion> motion_2 =
+		std::dynamic_pointer_cast<Motion>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
+
+	float mass_1 = motion_1 == nullptr ? 0 : motion_1->mass_;
+	float mass_2 = motion_2 == nullptr ? 0 : motion_2->mass_;
+
+	Vector2D force_1 = mass_1 * accel_1 * 150.0f;
+	Vector2D force_2 = mass_2 * accel_2 * 150.0f;
+	//std::cout << "Force 1: " << force_1.x << ", " << force_1.y << std::endl;
+	//std::cout << "Force 2: " << force_2.x << ", " << force_2.y << std::endl;
+	
+
+	force_mgr->AddForce(aabb1->second->GetOwner()->GetID(), "collision_response", frametime, force_1);
+	force_mgr->AddForce(aabb2->second->GetOwner()->GetID(), "collision_response", frametime, force_2);
+	*/
 
 	if (debug_) {
 		std::string debug_str{};
@@ -215,8 +324,10 @@ void Collision::Update(float frametime) {
 				if ((aabb1_type == "Wall" && (aabb2_type == "Player" || aabb2_type == "Enemy")) ||
 					(aabb2_type == "Wall" && (aabb1_type == "Player" || aabb1_type == "Enemy"))) {
 
+					// Toggle true to trigger bounding box color
 					aabb1->second->collided = true;
 					aabb2->second->collided = true;
+
 					// Handles collision response for when moving entity collides with static entity
 					CollisionWall(aabb1, vel1, aabb2, vel2, frametime, t_first);
 				}

@@ -279,38 +279,39 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			if (!m)
 				continue;
 
+			InputController* InputController = it->second;
 			float power = 1075.0f;
 
 			//input group
-			if (it->second->VerifyKey("move_left", m->input_)) {
+			if (InputController->VerifyKey("move_left", m->input_)) {
 
 				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
 			}
-			else if (it->second->VerifyKey("move_right", m->input_)) {
+			else if (InputController->VerifyKey("move_right", m->input_)) {
 
 				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
 			}
-			else if (it->second->VerifyKey("move_up", m->input_)) {
+			else if (InputController->VerifyKey("move_up", m->input_)) {
 
 				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
 			}
-			else if (it->second->VerifyKey("move_down", m->input_)) {
+			else if (InputController->VerifyKey("move_down", m->input_)) {
 
 				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
 			}
-			else if (it->second->VerifyKey("spin_left", m->input_)) {
+			else if (InputController->VerifyKey("spin_left", m->input_)) {
 				std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
 				RotateLeft(player_xform, true);
 			}
-			else if (it->second->VerifyKey("spin_right", m->input_)) {
+			else if (InputController->VerifyKey("spin_right", m->input_)) {
 				std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
 				RotateLeft(player_xform, false);
 			}
-			else if (it->second->VerifyKey("shrink", m->input_)) {
+			else if (InputController->VerifyKey("shrink", m->input_)) {
 				std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
 				ScaleEntityBig(player_scale, false);
 			}
-			else if (it->second->VerifyKey("expand", m->input_)) {
+			else if (InputController->VerifyKey("expand", m->input_)) {
 				std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
 				ScaleEntityBig(player_scale, true);
 			}

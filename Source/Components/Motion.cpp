@@ -46,6 +46,7 @@ void Motion::DeSerialize(std::stringstream& data) {
 	std::cout << "Entered DeSerialize Motion w/ stream" << std::endl;
 	
 	data >> mass_ >> velocity_.x >> velocity_.y >> acceleration_.x >> acceleration_.y;
+	inv_mass_ = mass_ == 0.0f ? 0.0f : 1 / mass_;
 }
 
 
