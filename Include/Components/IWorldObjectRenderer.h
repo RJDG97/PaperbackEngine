@@ -7,7 +7,7 @@
 #include "Manager/ModelManager.h"
 #include "Manager/ShaderManager.h"
 
-class IObjectRenderer : public Component {
+class IWorldObjectRenderer : public Component {
 
 protected:
 

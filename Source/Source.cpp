@@ -62,6 +62,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddManager<ModelManager>();
 		CORE->AddManager<TextureManager>();
 		CORE->AddManager<ShaderManager>();
+		CORE->AddManager<FontManager>();
 		CORE->AddManager<AnimationManager>();
 		CORE->AddManager<ForcesManager>();
 

@@ -56,7 +56,6 @@ GLboolean Shader::CompileShaderFromString(GLenum shader_type,
 
         pgm_handle = glCreateProgram();
         
-        //assert((0 == pgm_handle, "Cannot create program handle!"));
         DEBUG_ASSERT(!(0 == pgm_handle), "Cannot create program handle!");
     }
 

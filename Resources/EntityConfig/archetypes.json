@@ -21,6 +21,27 @@
       "layer": "0"
     }
    ],
+   "TextTest": [
+    {
+      "component": "Name",
+      "name": "TextTest"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "TextRenderer",
+      "model": "TextModel",
+      "shader program": "TextShader",
+	  "font": "comic_sans",
+	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
+	  "color": "1.0 0.5 1.0",
+	  "scale": "1.0",
+      "layer": "10"
+    }
+   ],
   "Player": [
     {
       "component": "Name",

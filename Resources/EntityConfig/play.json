@@ -7,5 +7,7 @@
 
   "MovingWall": "Resources/EntityConfig/Play/movingwall.json",
   
-  "InputController": "Resources/EntityConfig/Play/input.json"
+  "InputController": "Resources/EntityConfig/Play/input.json",
+  
+  "TextTest": "Resources/EntityConfig/Play/texttest.json"
 }

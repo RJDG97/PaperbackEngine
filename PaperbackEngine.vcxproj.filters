@@ -445,12 +445,15 @@
       </ClInclude>
     <ClInclude Include="Include\Components\IObjectRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Components\IUIRenderer.h">
-      <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
+      </ClInclude>
     <ClInclude Include="Include\Components\InputController.h">
       <Filter>Entity\Components\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\IWorldObjectRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\IUIObjectRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
