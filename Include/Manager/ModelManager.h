@@ -39,6 +39,15 @@ public:
 
 /******************************************************************************/
 /*!
+    \fn AddTriangleModel(std::string model_name)
+
+    \brief Adds a triangle model and adds the model to the Model Manager's map
+*/
+/******************************************************************************/
+    void AddTriangleModel(std::string model_name);
+
+/******************************************************************************/
+/*!
     \fn AddTristripsModel(int slices, int stacks, std::string model_name)
 
     \brief Adds a triangle strips model (with slices being the number of rows
