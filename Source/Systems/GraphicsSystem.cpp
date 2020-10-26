@@ -112,7 +112,7 @@ void GraphicsSystem::Init() {
 
     model_manager_->AddTristripsModel(1, 1, "BoxModel");
     model_manager_->AddTristripsModel(1, 1, "TileModel");
-    model_manager_->AddTriangleModel("TextModel");
+    model_manager_->AddTristripsModel(1, 1, "TextModel");
     model_manager_->AddLinesModel(1, 1, "LinesModel");
     shader_manager_->AddShdrpgm("Shaders/world_object.vert", "Shaders/world_object.frag", "ObjectShader");
     shader_manager_->AddShdrpgm("Shaders/text.vert", "Shaders/text.frag", "TextShader");
@@ -546,22 +546,21 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer) {
         float h = size.y * scale;
         
         // update VBO for each character
-        float vertices[6][4] = {
-            { xpos,     ypos + h,   0.0f, 0.0f },
-            { xpos,     ypos,       0.0f, 1.0f },
-            { xpos + w, ypos,       1.0f, 1.0f },
-
-            { xpos,     ypos + h,   0.0f, 0.0f },
-            { xpos + w, ypos,       1.0f, 1.0f },
-            { xpos + w, ypos + h,   1.0f, 0.0f }
+        float vertices[4][2] = {
+            { xpos,     ypos + h},
+            { xpos + w, ypos + h},
+            { xpos,     ypos},
+            { xpos + w, ypos}
         };
 
         // render glyph texture over quad
         glBindTexture(GL_TEXTURE_2D, ch.GetTexID());
-        glNamedBufferSubData(text_renderer->model_->GetVBOHandle(), 0, sizeof(vertices), vertices);
+
+        glNamedBufferSubData(text_renderer->model_->GetVBOHandle(), 0,
+            sizeof(vertices), vertices);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         // render quad
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawElements(GL_TRIANGLE_STRIP, text_renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }

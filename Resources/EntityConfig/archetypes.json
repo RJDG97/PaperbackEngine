@@ -33,7 +33,7 @@
     },
     {
       "component": "TextRenderer",
-      "model": "Model",
+      "model": "TextModel",
       "shader program": "TextShader",
 	  "font": "comic_sans",
 	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",

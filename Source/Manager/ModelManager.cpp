@@ -6,29 +6,6 @@ void ModelManager::Init() {
     M_DEBUG->WriteDebugMessage("Model Manager Init\n");
 }
 
-void ModelManager::AddTriangleModel(std::string model_name)
-{
-    unsigned int vao_hdl, vbo_hdl;
-    glGenVertexArrays(1, &vao_hdl);
-    glGenBuffers(1, &vbo_hdl);
-    glBindVertexArray(vao_hdl);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_hdl);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-    Model mdl;
-    mdl.vaoid_ = vao_hdl;
-    mdl.vboid_ = vbo_hdl;
-    //no offset for now...
-    mdl.primitive_type_ = GL_TRIANGLES;
-    //no draw_cnt_ for now...
-    //no primitive_cnt_ for now...
-    models_[model_name] = mdl;
-}
-
 void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name) {
 
     // Generates the vertices required to render triangle strips
