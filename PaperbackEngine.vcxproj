@@ -171,7 +171,7 @@
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
     <ClCompile Include="Source\Imgui\AnotherWindow.cpp" />
-    <ClCompile Include="Source\Imgui\ImguiWindow.cpp" />
+    <ClCompile Include="Source\Imgui\ImguiViewport.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
     <ClCompile Include="Source\Manager\ForcesManager.cpp" />
@@ -223,7 +223,7 @@
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\ImguiWindows\AnotherWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\ImguiWindow.h" />
+    <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
     <ClInclude Include="Include\Imgui\imconfig.h" />
     <ClInclude Include="Include\Imgui\imgui.h" />

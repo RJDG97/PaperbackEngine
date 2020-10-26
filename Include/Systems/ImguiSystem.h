@@ -11,15 +11,8 @@
 #include <string>
 #include <memory>
 
-
 class ImguiSystem : public ISystem
 {
-	using WindowIt = std::map<std::string, std::shared_ptr<IWindow>>::iterator;
-	std::map<std::string, std::shared_ptr<IWindow>> imgui_window_arr_;
-
-	WindowsSystem* win;
-
-
 public:
 
 	bool b_imguimode = false;
@@ -62,6 +55,13 @@ public:
 	void SendMessageD(Message* m) override;
 
 	~ImguiSystem();
+
+private:
+	using WindowIt = std::map<std::string, std::shared_ptr<IWindow>>::iterator;
+	std::map<std::string, std::shared_ptr<IWindow>> imgui_window_arr_;
+
+	WindowsSystem* win;
+
 };
 
 

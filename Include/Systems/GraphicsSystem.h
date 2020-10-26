@@ -86,6 +86,8 @@ public:
 
     glm::mat3 world_to_ndc_xform_;
 
+ 
+
 /******************************************************************************/
 /*!
     \fn Init()
@@ -340,6 +342,8 @@ void RemoveTextRendererComponent(EntityID id);
     std::multimap<int, TextRenderer*> worldtext_renderers_in_order_;
     std::multimap<int, IWorldObjectRenderer*> uirenderers_in_order_;
     std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
+
+    GLuint getFramebuffer();
 };
 
 #endif

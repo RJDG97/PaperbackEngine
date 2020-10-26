@@ -261,11 +261,11 @@
     <ClCompile Include="Source\Imgui\AnotherWindow.cpp">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Imgui\ImguiWindow.cpp">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Components\InputController.cpp">
       <Filter>Entity\Components\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Imgui\ImguiViewport.cpp">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -437,12 +437,9 @@
     <ClInclude Include="Include\ImguiWindows\AnotherWindow.h">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\ImguiWindow.h">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
-    </ClInclude>
     <ClInclude Include="Include\ImguiWindows\IWindow.h">
       <Filter>Systems\ImguiSystem</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="Include\Components\IObjectRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
       </ClInclude>
@@ -454,6 +451,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\IUIObjectRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

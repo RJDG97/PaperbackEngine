@@ -239,6 +239,11 @@ void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, GLuint* text
     shader->UnUse();
 }
 
+GLuint GraphicsSystem::getFramebuffer()
+{
+    return final_texture_;
+}
+
 /*  _________________________________________________________________________ */
 /*! GraphicsSystem::Cleanup
 
@@ -649,3 +654,4 @@ bool GraphicsSystem::IsLastFrame(AnimationRenderer* anim_renderer) {
                 anim_renderer->current_animation_->GetFrameDuration() *
                 anim_renderer->current_animation_->GetNumFrames();
 }
+
