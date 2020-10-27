@@ -56,7 +56,7 @@ void MenuState::Draw(Game* game)
 
 void MenuState::StateInputHandler(Message* msg, Game* game) {
 
-	if (game) {
+	if (game && !game->debug_) {
 
 		switch (msg->message_id_) {
 			//check for collision between button & mouse

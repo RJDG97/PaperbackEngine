@@ -42,7 +42,7 @@ void Physics::Update(float frametime) {
 		//motion->second->velocity_ += motion->second->acceleration_ * frametime;
 		motion->second->acceleration_ = force_mgr->GetForce(motion->second->GetOwner()->GetID()) / motion->second->mass_;
 		motion->second->velocity_ += motion->second->acceleration_ * frametime;
-		motion->second->velocity_ *= 0.95f;
+		motion->second->velocity_ *= 0.90f;
 
 		SnapZero(motion->second->velocity_);
 

@@ -27,10 +27,11 @@ void AI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 }
 
 void AI::DeSerialize(std::stringstream& data) {
+	(void)data;
 }
 
 void AI::DeSerializeClone(std::stringstream& data) {
-
+	(void)data;
 	//DEBUG_ASSERT((current_destination_ != destinations_.end()), "Empty destinations in JSON");
 }
 

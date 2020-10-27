@@ -68,6 +68,10 @@ Entity::~Entity() {
 	components_.clear();
 }
 
+ComponentArr Entity::GetComponentArr() {
+	return components_;
+}
+
 // Attach a new component to the entity and sort the components according to the order in 
 // ComponentTypes.h
 void Entity::AddComponent(ComponentTypes type_id, std::shared_ptr<Component> component) {

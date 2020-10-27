@@ -13,6 +13,7 @@
 
 using EntityID = size_t;
 using ComponentArr = std::vector<std::shared_ptr<Component>>;
+using ComponentArrIt = std::vector<std::shared_ptr<Component>>::iterator;
 
 // defines a single entity that owns components
 // aka gameobject in Unity terms
@@ -21,9 +22,9 @@ class Entity {
 
 	// Vector of components attached to the entity
 	ComponentArr components_;
+	// Bitset to determine which components an entity owns
 	// Unique ID of an entity (Begins at 1)
 	EntityID object_id_;
-	//EntityTypes entity_type_;
 
 /******************************************************************************/
 /*!
@@ -43,9 +44,20 @@ class Entity {
 */
 /******************************************************************************/
 	~Entity();
+
 public:
 
 	friend class EntityFactory;
+
+
+/******************************************************************************/
+/*!
+  \fn GetComponentArr()
+
+  \brief Get entity's component array
+*/
+/******************************************************************************/
+	ComponentArr GetComponentArr();
 
 /******************************************************************************/
 /*!
@@ -104,6 +116,15 @@ public:
 */
 /******************************************************************************/
 	void AddComponent(ComponentTypes typeId, std::shared_ptr<Component> component);
+
+/******************************************************************************/
+/*!
+  \fn HasComponent()
+
+  \brief Checks whether the entity owns the component
+*/
+/******************************************************************************/
+	bool HasComponent(ComponentTypes type_id);
 
 /******************************************************************************/
 /*!

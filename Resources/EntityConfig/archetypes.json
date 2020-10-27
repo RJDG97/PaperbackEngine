@@ -14,6 +14,11 @@
       "scale": "820.0 400.0"
     },
     {
+      "component": "AABB",
+      "scale": "820.0 400.0",
+      "layer": "0"
+    },
+    {
       "component": "TextureRenderer",
       "texture": "Background",
       "model": "TileModel",
@@ -21,7 +26,7 @@
       "layer": "0"
     }
    ],
-   "TextTest": [
+      "TextTest": [
     {
       "component": "Name",
       "name": "TextTest"
@@ -68,7 +73,7 @@
       "shader program": "ObjectShader",
       "number of animations": "2",
       "add animation": "Player_Walk",
-	  "add animation": "Player_Idle",
+      "add animation": "Player_Idle",
       "set animation": "Player_Walk",
       "play_animation": "1",
       "has_finished_animating": "0",
@@ -76,7 +81,8 @@
     },
     {
       "component": "AABB",
-      "scale": "40.0 40.0"
+      "scale": "50.0 100.0",
+      "layer": "3"
     },
     {
       "component": "Status"
@@ -124,7 +130,8 @@
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0"
+      "scale": "30.0 30.0",
+      "layer": "2"
     },
     {
       "component": "Status"
@@ -165,7 +172,8 @@
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0"
+      "scale": "30.0 30.0",
+      "layer": "1"
     },
     {
       "component": "PointLight",
@@ -183,7 +191,7 @@
     },
     {
       "component": "BasicAI",
-      "speed": "800.0"
+      "speed": "3000.0"
     },
     {
       "component": "Transform",
@@ -209,7 +217,8 @@
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0"
+      "scale": "30.0 30.0",
+      "layer": "2"
     },
     {
       "component": "PointLight",
@@ -248,6 +257,11 @@
       "color": "0.5 1.0 1.0",
       "radius": "50.0",
       "intensity": "1.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "30.0 30.0",
+      "layer": "4"
     },
     {
       "component": "Clickable",

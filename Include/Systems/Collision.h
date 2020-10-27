@@ -14,6 +14,17 @@
 #include "Manager/ShaderManager.h"
 #include "Manager/ModelManager.h"
 #include <unordered_map>
+#include <bitset>
+#include <string>
+
+enum class CollisionLayer
+{
+	BACKGROUND = 0,
+	TILES,
+	ENEMY,
+	PLAYER,
+	UI_ELEMENTS
+};
 
 class Collision : public ISystem {
 
@@ -23,8 +34,9 @@ class Collision : public ISystem {
 	Shader shdr_pgm_;
 	glm::mat3* world_to_ndc_xform_;
 
-	using AABBIt = std::unordered_map<EntityID, AABB*>::iterator;
-	std::unordered_map<EntityID, AABB*> aabb_arr_;
+	using AABBType = std::unordered_map<EntityID, AABB*>;
+	using AABBIt = AABBType::iterator;
+	AABBType aabb_arr_;
 
 	using ClickableIt = std::unordered_map<EntityID, Clickable*>::iterator;
 	std::unordered_map<EntityID, Clickable*> clickable_arr_;
@@ -40,6 +52,36 @@ class Collision : public ISystem {
 
 	using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
 	std::unordered_map < EntityID, InputController*> input_controller_arr_;
+
+	// Placeholder stuff, testing Collision Layering
+	typedef std::pair<std::bitset<10>, bool> CollidableLayers;
+
+	using CollidableLayer = std::bitset<10>;
+
+	using CollisionLayerIt = std::unordered_map<CollisionLayer, CollidableLayers>::iterator;
+	std::unordered_map<CollisionLayer, CollidableLayers> collision_layer_arr_;
+
+	using CollisionMapIt = std::map<CollisionLayer, AABBType>::iterator;
+	using CollisionMapReverseIt = std::map<CollisionLayer, AABBType>::reverse_iterator;
+	std::map<CollisionLayer, AABBType> collision_map_;
+
+/******************************************************************************/
+/*!
+  \fn AddCollisionLayers()
+
+  \brief Helper function to set up collision layers for collision layer map
+*/
+/******************************************************************************/
+	void AddCollisionLayers(CollisionLayer layer, const std::string& collidables, bool collide_self = true);
+
+/******************************************************************************/
+/*!
+  \fn ProcessCollision()
+
+  \brief Helper function to handle collision checking between 2 layers
+*/
+/******************************************************************************/
+	void ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime);
 
 /******************************************************************************/
 /*!
@@ -69,6 +111,25 @@ class Collision : public ISystem {
 */
 /******************************************************************************/
 	bool CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button);
+
+/******************************************************************************/
+/*!
+  \fn CheckCursorCollision()
+
+  \brief Checks for collision between mouse cursor and a menu entity
+*/
+/******************************************************************************/
+	bool CheckCursorCollision(const Vec2& cursor_pos, const AABB* box);
+
+/******************************************************************************/
+/*!
+  \fn GetAttachedComponentIDs()
+
+  \brief Retrieves a pair of Entity* and vector of ComponentTypes when cursor 
+		 selects an entity 
+*/
+/******************************************************************************/
+	std::pair<Entity*, std::vector<ComponentTypes>> GetAttachedComponentIDs();
 
 /******************************************************************************/
 /*!
@@ -111,6 +172,15 @@ public:
 */
 /******************************************************************************/
 	void CheckClickableCollision();
+
+/******************************************************************************/
+/*!
+  \fn SelectEntity()
+
+  \brief Returns the EntityID of an object that has been selected by the cursor
+*/
+/******************************************************************************/
+	EntityID SelectEntity();
 
 /******************************************************************************/
 /*!
