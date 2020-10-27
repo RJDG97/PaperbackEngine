@@ -106,17 +106,20 @@ void GraphicsSystem::Init() {
     //Set up all models and shaders
     model_manager_ = &*CORE->GetManager<ModelManager>();
     shader_manager_ = &*CORE->GetManager<ShaderManager>();
+    font_manager_ = &*CORE->GetManager<FontManager>();
     texture_manager_ = &*CORE->GetManager<TextureManager>();
     animation_manager_ = &*CORE->GetManager<AnimationManager>();
 
     model_manager_->AddTristripsModel(1, 1, "BoxModel");
     model_manager_->AddTristripsModel(1, 1, "TileModel");
+    model_manager_->AddTristripsModel(1, 1, "TextModel");
     model_manager_->AddLinesModel(1, 1, "LinesModel");
-    shader_manager_->AddShdrpgm("Shaders/object.vert", "Shaders/object.frag", "ObjectShader");
-//  shader_manager_->AddShdrpgm("Shaders/text.vert", "Shaders/text.frag", "TextShader");
+    shader_manager_->AddShdrpgm("Shaders/world_object.vert", "Shaders/world_object.frag", "ObjectShader");
+    shader_manager_->AddShdrpgm("Shaders/text.vert", "Shaders/text.frag", "TextShader");
     shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
     shader_manager_->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
     shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
+    font_manager_->LoadFont("comic_sans");
 
     final_model_ = model_manager_->GetModel("BoxModel");
     final_shader_ = shader_manager_->GetShdrpgm("FinalShader");
@@ -185,15 +188,26 @@ void GraphicsSystem::Draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //draws all the renderer components
-    for (RenderOrderIt it = renderers_in_order_.begin(); it != renderers_in_order_.end(); ++it) {
+    //draws all the world textures/animations
+    for (WorldRenderOrderIt it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ++it) {
 
         if (debug_) {
 			// Log id of entity and its updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
 		}
 
-        DrawObject(it->second);
+        DrawWorldObject(it->second);
+    }
+
+    //draws all the world text
+    for (TextRenderOrderIt it = worldtext_renderers_in_order_.begin(); it != worldtext_renderers_in_order_.end(); ++it) {
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        DrawTextObject(it->second);
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -223,6 +237,11 @@ void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, GLuint* text
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shader->UnUse();
+}
+
+GLuint GraphicsSystem::getFramebuffer()
+{
+    return final_texture_;
 }
 
 /*  _________________________________________________________________________ */
@@ -293,14 +312,14 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
         case MessageIDTypes::FLIP_SPRITE_X: {
 
-            FlipTextureX(dynamic_cast<IObjectRenderer*>(player_renderer->second));
+            FlipTextureX(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
 
             break;
         }
 
         case MessageIDTypes::FLIP_SPRITE_Y: {
 
-            FlipTextureY(dynamic_cast<IObjectRenderer*>(player_renderer->second));
+            FlipTextureY(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
 
             break;
         }
@@ -317,7 +336,7 @@ void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_re
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
     text_renderer_arr_[id] = text_renderer;
-    //renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
+    worldtext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
 }
 
 void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
@@ -332,21 +351,19 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
         text_renderer_arr_.erase(it);
     }
 
-    /*
-    RenderOrderIt orderit = renderers_in_order_.find(layer);
+    TextRenderOrderIt orderit = worldtext_renderers_in_order_.find(layer);
 
-    if (orderit != renderers_in_order_.end()) {
+    if (orderit != worldtext_renderers_in_order_.end()) {
 
-        for (; orderit != renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+        for (; orderit != worldtext_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
 
             if ((*orderit).second->GetOwner()->GetID() == id) {
 
-                orderit = renderers_in_order_.erase(orderit);
+                orderit = worldtext_renderers_in_order_.erase(orderit);
                 break;
             }
         }
     }
-    */
 }
 
 void GraphicsSystem::AddTextureRendererComponent(EntityID id, TextureRenderer* texture_renderer) {
@@ -354,7 +371,7 @@ void GraphicsSystem::AddTextureRendererComponent(EntityID id, TextureRenderer* t
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
     texture_renderer_arr_[id] = texture_renderer;
-    renderers_in_order_.insert({GetLayer(texture_renderer), texture_renderer });
+    worldobj_renderers_in_order_.insert({GetLayer(texture_renderer), texture_renderer });
 }
 
 void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
@@ -369,15 +386,15 @@ void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
         texture_renderer_arr_.erase(it);
     }
 
-    RenderOrderIt orderit = renderers_in_order_.find(layer);
+    WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
 
-    if (orderit != renderers_in_order_.end()) {
+    if (orderit != worldobj_renderers_in_order_.end()) {
 
-        for ( ; orderit != renderers_in_order_.end() && (*orderit).first == layer ; ++orderit) {
+        for ( ; orderit != worldobj_renderers_in_order_.end() && (*orderit).first == layer ; ++orderit) {
 
             if ((*orderit).second->GetOwner()->GetID() == id) {
 
-                orderit = renderers_in_order_.erase(orderit);
+                orderit = worldobj_renderers_in_order_.erase(orderit);
                 break;
             }
         }
@@ -389,7 +406,7 @@ void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRendere
     M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: " + std::to_string(id) + "\n");
 
     anim_renderer_arr_[id] = animation_renderer;
-    renderers_in_order_.insert({GetLayer(animation_renderer), animation_renderer});
+    worldobj_renderers_in_order_.insert({GetLayer(animation_renderer), animation_renderer});
 }
 
 void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
@@ -404,33 +421,33 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
         anim_renderer_arr_.erase(it);
     }
 
-    RenderOrderIt orderit = renderers_in_order_.find(layer);
+    WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
 
-    if (orderit != renderers_in_order_.end()) {
+    if (orderit != worldobj_renderers_in_order_.end()) {
 
-        for (; orderit != renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+        for (; orderit != worldobj_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
 
             if ((*orderit).second->GetOwner()->GetID() == id) {
 
-                orderit = renderers_in_order_.erase(orderit);
+                orderit = worldobj_renderers_in_order_.erase(orderit);
                 break;
             }
         }
     }
 }
 
-void GraphicsSystem::UpdateObjectMatrix(IObjectRenderer* iobjrenderer, glm::mat3 world_to_ndc_xform) {
+void GraphicsSystem::UpdateObjectMatrix(IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform) {
 
     glm::mat3 scaling, rotation, translation;
 
-    Vector2D scale = std::dynamic_pointer_cast<Scale>(iobjrenderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
+    Vector2D scale = std::dynamic_pointer_cast<Scale>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
 
     scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
                          0.0f, scale.y, 0.0f,
                          0.0f, 0.0f, 1.0f };
 
     std::shared_ptr<Transform> transform = 
-        std::dynamic_pointer_cast<Transform>(iobjrenderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+        std::dynamic_pointer_cast<Transform>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
     //assert(transform);
     DEBUG_ASSERT(transform, "Entity does not have a Transform component");
 
@@ -445,7 +462,7 @@ void GraphicsSystem::UpdateObjectMatrix(IObjectRenderer* iobjrenderer, glm::mat3
                        0.0f, 1.0f, 0.0f,
                        position.x, position.y, 1.0f };
 
-    iobjrenderer->mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
+    i_worldobj_renderer->mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
 }
 
 void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime) {
@@ -476,77 +493,124 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
-void GraphicsSystem::DrawObject(IObjectRenderer* iobjrenderer) {
+void GraphicsSystem::DrawWorldObject(IWorldObjectRenderer* i_worldobj_renderer) {
     
-    iobjrenderer->shdr_pgm_->Use();
-    glBindVertexArray(iobjrenderer->model_->vaoid_);
+    i_worldobj_renderer->shdr_pgm_->Use();
+    glBindVertexArray(i_worldobj_renderer->model_->vaoid_);
 
-    glBindTexture(GL_TEXTURE_2D, *(iobjrenderer->texture_handle_));
-    glBindTextureUnit(0, *(iobjrenderer->texture_handle_));
-    glUseProgram(iobjrenderer->shdr_pgm_->GetHandle());
+    glBindTexture(GL_TEXTURE_2D, *(i_worldobj_renderer->texture_handle_));
+    glBindTextureUnit(0, *(i_worldobj_renderer->texture_handle_));
+    glUseProgram(i_worldobj_renderer->shdr_pgm_->GetHandle());
 
-    iobjrenderer->shdr_pgm_->SetUniform("uTex2d", 0);
-    iobjrenderer->shdr_pgm_->SetUniform("uModel_to_NDC", iobjrenderer->mdl_to_ndc_xform_);
+    i_worldobj_renderer->shdr_pgm_->SetUniform("uTex2d", 0);
+    i_worldobj_renderer->shdr_pgm_->SetUniform("uModel_to_NDC", i_worldobj_renderer->mdl_to_ndc_xform_);
 
-    glNamedBufferSubData(iobjrenderer->model_->GetVBOHandle(), iobjrenderer->model_->GetVBOOffset(),
-                         sizeof(glm::vec2) * 4, iobjrenderer->tex_vtx_sent_.data());
-    glDrawElements(GL_TRIANGLE_STRIP, iobjrenderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glNamedBufferSubData(i_worldobj_renderer->model_->GetVBOHandle(), i_worldobj_renderer->model_->GetVBOOffset(),
+                         sizeof(glm::vec2) * 4, i_worldobj_renderer->tex_vtx_sent_.data());
+    glDrawElements(GL_TRIANGLE_STRIP, i_worldobj_renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
     // after completing the rendering, we tell the driver that the VAO vaoid
     // and the current shader program are no longer current
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-    iobjrenderer->shdr_pgm_->UnUse();
+    i_worldobj_renderer->shdr_pgm_->UnUse();
 }
 
-void GraphicsSystem::ChangeModel(IObjectRenderer* iobjrenderer, std::string model_name) {
+void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer) {
 
-    iobjrenderer->model_ = model_manager_->GetModel(model_name);
+    text_renderer->shdr_pgm_->Use();
+    glBindVertexArray(text_renderer->model_->vaoid_);
+
+    glUseProgram(text_renderer->shdr_pgm_->GetHandle());
+
+    glm::mat4 projection = glm::ortho(0.0f, 1600.0f, 0.0f, 900.0f);
+
+    text_renderer->shdr_pgm_->SetUniform("uTex2d", 0);
+    text_renderer->shdr_pgm_->SetUniform("projection", projection);
+    text_renderer->shdr_pgm_->SetUniform("text_color", text_renderer->color_);
+
+    std::shared_ptr<Transform> transform =
+        std::dynamic_pointer_cast<Transform>(text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+
+    float x = 300;//transform->position_.x + cam_pos_.x;
+    float y = 300;//transform->position_.y + cam_pos_.y;
+
+    std::string::const_iterator c;
+    for (c = text_renderer->text_.begin(); c != text_renderer->text_.end(); c++)
+    {
+        Character ch = (*text_renderer->font_->GetCharacters())[*c];
+
+        glm::ivec2 bearing = ch.GetBearing();
+        glm::ivec2 size = ch.GetSize();
+        float scale = text_renderer->scale_;
+
+        float xpos = x + bearing.x * scale;
+        float ypos = y - (size.y - bearing.y) * scale;
+
+        float w = size.x * scale;
+        float h = size.y * scale;
+        
+        // update VBO for each character
+        float vertices[4][2] = {
+            { xpos,     ypos + h},
+            { xpos + w, ypos + h},
+            { xpos,     ypos},
+            { xpos + w, ypos}
+        };
+
+        // render glyph texture over quad
+        glBindTexture(GL_TEXTURE_2D, ch.GetTexID());
+
+        glNamedBufferSubData(text_renderer->model_->GetVBOHandle(), 0,
+            sizeof(vertices), vertices);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        // render quad
+        glDrawElements(GL_TRIANGLE_STRIP, text_renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+        // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
+        x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
+    }
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void GraphicsSystem::ChangeShdrpgm(IObjectRenderer* iobjrenderer, std::string shdr_pgm_name) {
+void GraphicsSystem::FlipTextureX(IWorldObjectRenderer* i_worldobj_renderer) {
 
-    iobjrenderer->shdr_pgm_ = shader_manager_->GetShdrpgm(shdr_pgm_name);
-}
+    i_worldobj_renderer->x_mirror_ = !i_worldobj_renderer->x_mirror_;
 
-void GraphicsSystem::FlipTextureX(IObjectRenderer* iobjrenderer) {
+    std::swap(i_worldobj_renderer->tex_vtx_mirrored_[0], i_worldobj_renderer->tex_vtx_mirrored_[2]);
+    std::swap(i_worldobj_renderer->tex_vtx_mirrored_[1], i_worldobj_renderer->tex_vtx_mirrored_[3]);
 
-    iobjrenderer->x_mirror_ = !iobjrenderer->x_mirror_;
+    i_worldobj_renderer->tex_vtx_sent_.clear();
 
-    std::swap(iobjrenderer->tex_vtx_mirrored_[0], iobjrenderer->tex_vtx_mirrored_[2]);
-    std::swap(iobjrenderer->tex_vtx_mirrored_[1], iobjrenderer->tex_vtx_mirrored_[3]);
+    for (int i = 0; i < i_worldobj_renderer->tex_vtx_mirrored_.size(); ++i) {
 
-    iobjrenderer->tex_vtx_sent_.clear();
-
-    for (int i = 0; i < iobjrenderer->tex_vtx_mirrored_.size(); ++i) {
-
-        iobjrenderer->tex_vtx_sent_.push_back(*iobjrenderer->tex_vtx_mirrored_[i]);
+        i_worldobj_renderer->tex_vtx_sent_.push_back(*i_worldobj_renderer->tex_vtx_mirrored_[i]);
     }
 }
 
-void GraphicsSystem::FlipTextureY(IObjectRenderer* iobjrenderer) {
+void GraphicsSystem::FlipTextureY(IWorldObjectRenderer* i_worldobj_renderer) {
 
-    iobjrenderer->y_mirror_ = !iobjrenderer->y_mirror_;
+    i_worldobj_renderer->y_mirror_ = !i_worldobj_renderer->y_mirror_;
 
-    std::swap(iobjrenderer->tex_vtx_mirrored_[0], iobjrenderer->tex_vtx_mirrored_[1]);
-    std::swap(iobjrenderer->tex_vtx_mirrored_[2], iobjrenderer->tex_vtx_mirrored_[3]);
+    std::swap(i_worldobj_renderer->tex_vtx_mirrored_[0], i_worldobj_renderer->tex_vtx_mirrored_[1]);
+    std::swap(i_worldobj_renderer->tex_vtx_mirrored_[2], i_worldobj_renderer->tex_vtx_mirrored_[3]);
 
-    iobjrenderer->tex_vtx_sent_.clear();
+    i_worldobj_renderer->tex_vtx_sent_.clear();
 
-    for (int i = 0; i < iobjrenderer->tex_vtx_mirrored_.size(); ++i) {
+    for (int i = 0; i < i_worldobj_renderer->tex_vtx_mirrored_.size(); ++i) {
 
-        iobjrenderer->tex_vtx_sent_.push_back(*iobjrenderer->tex_vtx_mirrored_[i]);
+        i_worldobj_renderer->tex_vtx_sent_.push_back(*i_worldobj_renderer->tex_vtx_mirrored_[i]);
     }
 }
 
-int GraphicsSystem::GetLayer(IObjectRenderer* iobjrenderer) {
+int GraphicsSystem::GetLayer(IWorldObjectRenderer* i_worldobj_renderer) {
 
-    return iobjrenderer->layer_;
+    return i_worldobj_renderer->layer_;
 }
 
-int GraphicsSystem::GetLayer(IUIRenderer* iuirenderer)
+int GraphicsSystem::GetLayer(TextRenderer* text_renderer)
 {
-    return iuirenderer->layer_;
+    return text_renderer->layer_;
 }
 
 void GraphicsSystem::ChangeTexture(TextureRenderer* renderer, std::string texture_name) {
@@ -590,3 +654,4 @@ bool GraphicsSystem::IsLastFrame(AnimationRenderer* anim_renderer) {
                 anim_renderer->current_animation_->GetFrameDuration() *
                 anim_renderer->current_animation_->GetNumFrames();
 }
+

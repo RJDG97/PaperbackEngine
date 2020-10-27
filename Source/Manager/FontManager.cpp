@@ -13,12 +13,37 @@ Character::Character(unsigned int textureID,
 
 }
 
+unsigned int Character::GetTexID()
+{
+    return textureID_;
+}
+
+glm::ivec2 Character::GetSize()
+{
+    return size_;
+}
+
+glm::ivec2 Character::GetBearing()
+{
+    return bearing_;
+}
+
+unsigned int Character::GetAdvance()
+{
+    return advance_;
+}
+
 
 Font::Font(std::map<char, Character> characters) :
     characters_{characters}
 {
 
 
+}
+
+std::map<char, Character>* Font::GetCharacters()
+{
+    return &characters_;
 }
 
 void FontManager::Init() {
@@ -46,6 +71,8 @@ void FontManager::LoadFont(std::string font_name)
     }
 
     FT_Set_Pixel_Sizes(face, 0, 48);
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
     {

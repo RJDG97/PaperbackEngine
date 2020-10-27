@@ -157,6 +157,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::TEXTURERENDERER;
 	else if (str == "AnimationRenderer")
 		return ComponentTypes::ANIMATIONRENDERER;
+	else if (str == "TextRenderer")
+		return ComponentTypes::TEXTRENDERER;
 	else if (str == "AABB")
 		return ComponentTypes::AABB;
 	else if (str == "Scale")

@@ -2,12 +2,12 @@
 #ifndef _FONT_MANAGER_H_
 #define _FONT_MANAGER_H_
 
-#include <ft2build.h>
 #include <glm/glm.hpp>
 #include <map>
 #include <string>
 #include <GL/glew.h>
 #include "Manager/IManager.h"
+#include <ft2build.h>
 #include FT_FREETYPE_H
 
 class Character {
@@ -21,6 +21,11 @@ public:
 
     Character() = default;
     Character(unsigned int textureID, glm::ivec2 size, glm::ivec2 bearing, unsigned int advance);
+    unsigned int GetTexID();
+    glm::ivec2 GetSize();
+    glm::ivec2 GetBearing();
+    unsigned int GetAdvance();
+    
 };
 
 class Font {
@@ -31,6 +36,7 @@ public:
 
     Font() = default;
     Font(std::map<char, Character> characters);
+    std::map<char, Character>* GetCharacters();
 };
 
 

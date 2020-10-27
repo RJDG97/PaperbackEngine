@@ -8,14 +8,19 @@
 #include "Manager/ModelManager.h"
 #include "Manager/FontManager.h"
 #include "Manager/ShaderManager.h"
-#include "Components/IUIRenderer.h"
 #include <glm/glm.hpp>
 
-class TextRenderer : public IUIRenderer {
+class TextRenderer : public Component {
+
+	Model* model_;
+	Shader* shdr_pgm_;
 
 	Font* font_;
 	std::string text_;
 	glm::vec3 color_;
+	float scale_;
+
+	int layer_;
 
 public:
 

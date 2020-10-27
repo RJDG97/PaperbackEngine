@@ -18,6 +18,7 @@
 #include "COmponents/BasicAI.h"
 #include "Components/TextureRenderer.h"
 #include "Components/AnimationRenderer.h"
+#include "Components/TextRenderer.h"
 #include "Components/Name.h"
 #include "Components/Clickable.h"
 #include "Components/InputController.h"
@@ -59,6 +60,7 @@ void EntityFactory::Init() {
 	FACTORY->AddComponentCreator("PointLight", new ComponentCreator<PointLight>(ComponentTypes::POINTLIGHT));
 	FACTORY->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
 	FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
+	FACTORY->AddComponentCreator("TextRenderer", new ComponentCreator<TextRenderer>(ComponentTypes::TEXTRENDERER));
 	FACTORY->AddComponentCreator("Clickable", new ComponentCreator<Clickable>(ComponentTypes::CLICKABLE));
 	FACTORY->AddComponentCreator("InputController", new ComponentCreator<InputController>(ComponentTypes::INPUTCONTROLLER));
 

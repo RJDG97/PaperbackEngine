@@ -45,10 +45,12 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
          >> shdr_pgm
          >> font
          >> text_
-         >> color_.x >> color_.y >> color_.z;
+         >> color_.x >> color_.y >> color_.z
+         >> scale_
+         >> layer_;
 
     model_ = CORE->GetManager<ModelManager>()->GetModel(model);
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
+    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm); 
     font_ = CORE->GetManager<FontManager>()->GetFont(font);
 }
 
@@ -57,15 +59,13 @@ std::shared_ptr<Component> TextRenderer::Clone() {
 
     std::shared_ptr<TextRenderer> cloned = std::make_shared<TextRenderer>();
 
-    // IRenderer
     cloned->model_ = model_; // check this
     cloned->shdr_pgm_ = shdr_pgm_; // check this
-    cloned->layer_ = layer_;
-    cloned->color_ = color_;
-
-    // TextRenderer
     cloned->font_ = font_;
     cloned->text_ = text_;
+    cloned->color_ = color_;
+    cloned->scale_ = scale_;
+    cloned->layer_ = layer_;
 
     return cloned;
 }

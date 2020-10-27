@@ -72,6 +72,15 @@ class Collision : public ISystem {
 
 /******************************************************************************/
 /*!
+  \fn SeparatingAxisTheorem()
+
+  \brief Returns true if there is at least 1 intersection axis
+*/
+/******************************************************************************/
+	bool SeparatingAxisTheorem(const AABB& a, const AABB& b);
+
+/******************************************************************************/
+/*!
   \fn CollisionWall()
 
   \brief Helper function to handle response of a non-wall entity colliding

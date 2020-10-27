@@ -29,6 +29,7 @@ class GraphicsSystem : public ISystem {
     AnimationManager* animation_manager_;
     ModelManager* model_manager_;
     ShaderManager* shader_manager_;
+    FontManager* font_manager_;
 
     //temp camera, will make it into a component next time!
     glm::mat3 view_xform_;
@@ -84,6 +85,8 @@ public:
     glm::vec2 cam_size_;
 
     glm::mat3 world_to_ndc_xform_;
+
+ 
 
 /******************************************************************************/
 /*!
@@ -206,12 +209,12 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
-    \fn UpdateObjectMatrix(IRenderer* irenderer, glm::mat3 world_to_ndc_xform)
+    \fn UpdateObjectMatrix(IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform)
 
     \brief Updates Model to NDC transform of the renderer
 */
 /******************************************************************************/
-    void UpdateObjectMatrix(IObjectRenderer* iobjrenderer, glm::mat3 world_to_ndc_xform);
+    void UpdateObjectMatrix(IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform);
 
 /******************************************************************************/
 /*!
@@ -225,66 +228,57 @@ void RemoveTextRendererComponent(EntityID id);
     
 /******************************************************************************/
 /*!
-    \fn DrawObject(IRenderer* irenderer)
+    \fn DrawWorldObject(IWorldObjectRenderer* i_worldobj_renderer)
 
-    \brief Draw objects that have a component that inherits from IRenderer
+    \brief Draw objects that have a component that inherits from IObjectRenderer
 */
 /******************************************************************************/
-    void DrawObject(IObjectRenderer* iobjrenderer);
+    void DrawWorldObject(IWorldObjectRenderer* i_worldobj_renderer);
 
 /******************************************************************************/
 /*!
-    \fn ChangeModel(IRenderer* irenderer, std::string model_name)
+    \fn DrawText(TextRenderer* text_renderer)
 
-    \brief Changes the model used for rendering
+    \brief Draw text that have a TextRenderer component
 */
 /******************************************************************************/
-    void ChangeModel(IObjectRenderer* iobjrenderer, std::string model_name);
+    void DrawTextObject(TextRenderer* text_renderer);
 
 /******************************************************************************/
 /*!
-    \fn ChangeShdrpgm(IRenderer* irenderer, std::string shdr_pgm_name)
-
-    \brief Changes the shdaer program used for rendering
-*/
-/******************************************************************************/
-    void ChangeShdrpgm(IObjectRenderer* iobjrenderer, std::string shdr_pgm_name);
-
-/******************************************************************************/
-/*!
-    \fn FlipTextureX(IRenderer* irenderer)
+    \fn FlipTextureX(IWorldObjectRenderer* i_worldobj_renderer)
 
     \brief Flips the texture renderered in the x axis
 */
 /******************************************************************************/
-    void FlipTextureX(IObjectRenderer* iobjrenderer);
+    void FlipTextureX(IWorldObjectRenderer* i_worldobj_renderer);
 
 /******************************************************************************/
 /*!
-\fn FlipTextureY(IRenderer* irenderer)
+\fn FlipTextureY(IWorldObjectRenderer* i_worldobj_renderer)
 
 \brief Flips the texture renderered in the y axis
 */
 /******************************************************************************/
-    void FlipTextureY(IObjectRenderer* iobjrenderer);
+    void FlipTextureY(IWorldObjectRenderer* i_worldobj_renderer);
 
 /******************************************************************************/
 /*!
-\fn GetLayer(IRenderer* irenderer)
+\fn GetLayer(IWorldObjectRenderer* i_worldobj_renderer)
 
 \brief Gets the layer that the texture will be renderered on
 */
 /******************************************************************************/
-    int GetLayer(IObjectRenderer* iobjrenderer);
+    int GetLayer(IWorldObjectRenderer* i_worldobj_renderer);
 
 /******************************************************************************/
 /*!
-\fn GetLayer(IUIRenderer* iuirenderer)
+\fn GetLayer(TextRenderer* text_renderer)
 
-\brief Gets the layer that the texture will be renderered on
+\brief Gets the layer that the text will be renderered on
 */
 /******************************************************************************/
-    int GetLayer(IUIRenderer* iuirenderer);
+    int GetLayer(TextRenderer* text_renderer);
 
 /******************************************************************************/
 /*!
@@ -342,8 +336,14 @@ void RemoveTextRendererComponent(EntityID id);
     using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer*>::iterator;
     std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
 
-    using RenderOrderIt = std::multimap<int, IObjectRenderer*>::iterator;
-    std::multimap<int, IObjectRenderer*> renderers_in_order_;
+    using WorldRenderOrderIt = std::multimap<int, IWorldObjectRenderer*>::iterator;
+    using TextRenderOrderIt = std::multimap<int, TextRenderer*>::iterator;
+    std::multimap<int, IWorldObjectRenderer*> worldobj_renderers_in_order_;
+    std::multimap<int, TextRenderer*> worldtext_renderers_in_order_;
+    std::multimap<int, IWorldObjectRenderer*> uirenderers_in_order_;
+    std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
+
+    GLuint getFramebuffer();
 };
 
 #endif

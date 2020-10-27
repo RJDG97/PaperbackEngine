@@ -7,7 +7,7 @@
 #include "Manager/ModelManager.h"
 #include "Manager/ShaderManager.h"
 
-class IUIRenderer : public Component {
+class IUIObjectRenderer : public Component {
 
 protected:
 
