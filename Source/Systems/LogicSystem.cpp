@@ -23,7 +23,6 @@ void LogicSystem::RemoveAIComponent(EntityID id) {
 void LogicSystem::Init()
 {
 	//std::cout << "LogicSystem::Init" << std::endl;
-	astar.Init();
 }
 
 void LogicSystem::Update(float frametime)
@@ -34,7 +33,7 @@ void LogicSystem::Update(float frametime)
 	for (AIIt ai1 = ai_arr_.begin(); ai1 != ai_arr_.end(); ++ai1) {
 		
 		// AI type handler
-		switch (ai1->second->aitype)
+		/*switch (ai1->second->aitype)
 		{
 		case Enemy_Types::Stag_Beetle:
 			switch (ai1->second->state)
@@ -53,7 +52,7 @@ void LogicSystem::Update(float frametime)
 				break;
 			}
 			break;
-		}
+		}*/
 	}
 }
 

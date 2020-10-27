@@ -5,14 +5,11 @@
 #include <unordered_map>
 #include "Systems/Message.h"
 #include "Components/AI.h"
-#include "Systems/Pathfinding.h"
 #include "ISystem.h"
 
 class LogicSystem: public ISystem{
 
 protected:
-
-	Pathfinding astar;
 
 	using AIIt = std::unordered_map<EntityID, AI*>::iterator;
 	std::unordered_map<EntityID, AI*> ai_arr_;

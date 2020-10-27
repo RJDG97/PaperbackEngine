@@ -23,8 +23,8 @@ enum class Logic_States
 
 class AI : public Component {
 
-	Enemy_Types aitype;
-	Logic_States state;
+	//Enemy_Types aitype;
+	//Logic_States state;
 
 public:
 	friend class LogicSystem;

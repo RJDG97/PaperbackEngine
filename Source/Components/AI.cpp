@@ -3,7 +3,7 @@
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
 
-AI::AI() : aitype{}, state{}
+AI::AI()// : aitype{}, state{}
 {}
 
 AI::~AI() {
