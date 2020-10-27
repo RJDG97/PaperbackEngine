@@ -22,6 +22,8 @@
 #include "Components/Clickable.h"
 #include "Components/InputController.h"
 
+#include "Components/AI.h"
+
 #include "prettywriter.h"
 
 EntityFactory* FACTORY = NULL;
@@ -59,6 +61,8 @@ void EntityFactory::Init() {
 	FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 	FACTORY->AddComponentCreator("Clickable", new ComponentCreator<Clickable>(ComponentTypes::CLICKABLE));
 	FACTORY->AddComponentCreator("InputController", new ComponentCreator<InputController>(ComponentTypes::INPUTCONTROLLER));
+
+	FACTORY->AddComponentCreator("AI", new ComponentCreator<AI>(ComponentTypes::AI));
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }

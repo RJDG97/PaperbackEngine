@@ -1,6 +1,7 @@
 #ifndef _PATHFINDING_H_
 #define _PATHFINDING_H_
 
+#include <iostream>
 #include <vector>
 #include <list> 
 #include "ISystem.h"

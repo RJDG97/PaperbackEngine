@@ -106,11 +106,17 @@
     <Filter Include="Systems\ImguiSystem\ImguiFiles">
       <UniqueIdentifier>{dcd95455-fba2-4267-93a7-83e2ff3ac8b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systems\Pathfinding">
-      <UniqueIdentifier>{50bb6902-33ce-41fd-b45a-9880aebab039}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity\Components\InputController">
       <UniqueIdentifier>{8bdad12a-98c2-4e3d-9596-0c974f1871ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\LogicSystem">
+      <UniqueIdentifier>{55669e4a-7e1d-4982-8237-830f7fb425b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\LogicSystem\Pathfinding">
+      <UniqueIdentifier>{50bb6902-33ce-41fd-b45a-9880aebab039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\AI">
+      <UniqueIdentifier>{5801624a-a5a2-4382-857e-a7ee7ae2910c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -250,7 +256,7 @@
       <Filter>Systems\ImguiSystem</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\Pathfinding.cpp">
-      <Filter>Systems\Pathfinding</Filter>
+      <Filter>Systems\LogicSystem\Pathfinding</Filter>
     </ClCompile>
     <ClCompile Include="Source\Manager\ForcesManager.cpp">
       <Filter>ResourceManagers</Filter>
@@ -263,6 +269,12 @@
     </ClCompile>
     <ClCompile Include="Source\Components\InputController.cpp">
       <Filter>Entity\Components\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\LogicSystem.cpp">
+      <Filter>Systems\LogicSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\AI.cpp">
+      <Filter>Entity\Components\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -429,7 +441,7 @@
       <Filter>Systems\ImguiSystem</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\Pathfinding.h">
-      <Filter>Systems\Pathfinding</Filter>
+      <Filter>Systems\LogicSystem\Pathfinding</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\ForcesManager.h">
       <Filter>ResourceManagers</Filter>
@@ -448,6 +460,12 @@
     </ClInclude>
     <ClInclude Include="Include\Components\InputController.h">
       <Filter>Entity\Components\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\LogicSystem.h">
+      <Filter>Systems\LogicSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\AI.h">
+      <Filter>Entity\Components\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

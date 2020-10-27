@@ -105,7 +105,7 @@ void Pathfinding::AStar()
 // Update Pathfinding
 void Pathfinding::Update(float frametime)
 {
-
+	std::cout << "Pathfinding::Update" << std::endl;
 }
 
 // Draw Nodes and paths

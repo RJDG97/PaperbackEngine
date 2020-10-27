@@ -152,6 +152,7 @@
     <ClCompile Include="Include\Imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Include\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="Source\Components\AABB.cpp" />
+    <ClCompile Include="Source\Components\AI.cpp" />
     <ClCompile Include="Source\Components\AnimationRenderer.cpp" />
     <ClCompile Include="Source\Components\Attack.cpp" />
     <ClCompile Include="Source\Components\BasicAI.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Source\Systems\ImguiSystem.cpp" />
     <ClCompile Include="Source\Systems\InputSystem.cpp" />
     <ClCompile Include="Source\Systems\LightingSystem.cpp" />
+    <ClCompile Include="Source\Systems\LogicSystem.cpp" />
     <ClCompile Include="Source\Systems\Message.cpp" />
     <ClCompile Include="Source\Systems\Pathfinding.cpp" />
     <ClCompile Include="Source\Systems\Physics.cpp" />
@@ -198,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Components\AABB.h" />
+    <ClInclude Include="Include\Components\AI.h" />
     <ClInclude Include="Include\Components\AnimationRenderer.h" />
     <ClInclude Include="Include\Components\Attack.h" />
     <ClInclude Include="Include\Components\BasicAI.h" />
@@ -252,6 +255,7 @@
     <ClInclude Include="Include\Systems\InputSystem.h" />
     <ClInclude Include="Include\Systems\ISystem.h" />
     <ClInclude Include="Include\Systems\LightingSystem.h" />
+    <ClInclude Include="Include\Systems\LogicSystem.h" />
     <ClInclude Include="Include\Systems\Message.h" />
     <ClInclude Include="Include\Systems\Pathfinding.h" />
     <ClInclude Include="Include\Systems\Physics.h" />

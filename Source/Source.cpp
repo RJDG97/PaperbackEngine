@@ -10,6 +10,7 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/LightingSystem.h"
 #include "Systems/ImguiSystem.h"
+#include "Systems/LogicSystem.h"
 
 #include "Manager/ModelManager.h"
 #include "Manager/TextureManager.h"
@@ -57,6 +58,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<EntityFactory>();
 		CORE->AddSystem<SoundSystem>();
 		CORE->AddSystem<Game>();
+
+		CORE->AddSystem<LogicSystem>();
 
 		// Add Managers to the Core Engine
 		CORE->AddManager<ModelManager>();

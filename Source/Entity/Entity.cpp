@@ -173,6 +173,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::CLICKABLE;
 	else if (str == "InputController")
 		return ComponentTypes::INPUTCONTROLLER;
+	else if (str == "AI")
+		return ComponentTypes::AI;
 	else
 		return ComponentTypes::NONE;
 }
