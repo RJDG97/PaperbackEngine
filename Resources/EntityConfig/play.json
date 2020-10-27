@@ -9,5 +9,7 @@
   
   "InputController": "Resources/EntityConfig/Play/input.json",
   
-  "TextTest": "Resources/EntityConfig/Play/texttest.json"
+  "TextTest": "Resources/EntityConfig/Play/texttest.json",
+
+  "AITest": "Resources/EntityConfig/Play/aitest.json"
 }
