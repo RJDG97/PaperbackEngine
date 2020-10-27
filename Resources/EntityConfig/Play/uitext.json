@@ -1,9 +1,5 @@
 {
-  "TextTest": [
-    {
-      "component": "Name",
-      "name": "TextTest"
-    },
+   "UIText": [
     {
       "component": "Transform",
       "position": "0.0 0.0",
@@ -17,7 +13,8 @@
 	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
 	  "color": "1.0 0.5 1.0",
 	  "scale": "1.0",
-      "layer": "10"
+      "layer": "10",
+	  "ui text": "1"
     }
    ]
 }
