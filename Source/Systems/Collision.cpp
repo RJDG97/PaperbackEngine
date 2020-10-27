@@ -74,8 +74,6 @@ Vector2D Normal(const Vector2D& s1, const Vector2D& s2,
 			return Vector2D{ 1, 0 };
 		}
 	}
-
-	return Vector2D{};
 }
 
 
