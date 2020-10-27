@@ -128,6 +128,8 @@ void GraphicsSystem::Init() {
 
     CameraInit();
 
+    projection = glm::ortho(0.0f, static_cast<float>(window_width_), 0.0f, static_cast<float>(window_height_));
+
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
 
@@ -216,6 +218,18 @@ void GraphicsSystem::Draw() {
     DrawFinalTexture(final_model_, final_shader_, &final_texture_);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(final_model_, final_shader_, lighting_texture_);
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    for (TextRenderOrderIt it = uitext_renderers_in_order_.begin(); it != uitext_renderers_in_order_.end(); ++it) {
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        DrawTextObject(it->second);
+    }
 
     if (debug_) { debug_ = !debug_; }
 }
@@ -331,7 +345,16 @@ void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_re
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
     text_renderer_arr_[id] = text_renderer;
-    worldtext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
+
+    if (text_renderer->ui_text_)
+    {
+        uitext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
+    }
+
+    else
+    {
+        worldtext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
+    }
 }
 
 void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
@@ -341,23 +364,43 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
 
     if (it != text_renderer_arr_.end()) {
 
+        if (it->second->ui_text_)
+        {
+            TextRenderOrderIt orderit = uitext_renderers_in_order_.find(layer);
+
+            if (orderit != uitext_renderers_in_order_.end()) {
+
+                for (; orderit != uitext_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+                    if ((*orderit).second->GetOwner()->GetID() == id) {
+
+                        orderit = uitext_renderers_in_order_.erase(orderit);
+                        break;
+                    }
+                }
+            }
+        }
+
+        else
+        {
+            TextRenderOrderIt orderit = worldtext_renderers_in_order_.find(layer);
+
+            if (orderit != worldtext_renderers_in_order_.end()) {
+
+                for (; orderit != worldtext_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+                    if ((*orderit).second->GetOwner()->GetID() == id) {
+
+                        orderit = worldtext_renderers_in_order_.erase(orderit);
+                        break;
+                    }
+                }
+            }
+        }
+
         M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
         layer = GetLayer(it->second);
         text_renderer_arr_.erase(it);
-    }
-
-    TextRenderOrderIt orderit = worldtext_renderers_in_order_.find(layer);
-
-    if (orderit != worldtext_renderers_in_order_.end()) {
-
-        for (; orderit != worldtext_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
-
-            if ((*orderit).second->GetOwner()->GetID() == id) {
-
-                orderit = worldtext_renderers_in_order_.erase(orderit);
-                break;
-            }
-        }
     }
 }
 
@@ -518,8 +561,6 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer) {
 
     glUseProgram(text_renderer->shdr_pgm_->GetHandle());
 
-    glm::mat4 projection = glm::ortho(0.0f, 1600.0f, 0.0f, 900.0f);
-
     text_renderer->shdr_pgm_->SetUniform("uTex2d", 0);
     text_renderer->shdr_pgm_->SetUniform("projection", projection);
     text_renderer->shdr_pgm_->SetUniform("text_color", text_renderer->color_);
@@ -527,8 +568,8 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer) {
     std::shared_ptr<Transform> transform =
         std::dynamic_pointer_cast<Transform>(text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
-    float x = 300;//transform->position_.x + cam_pos_.x;
-    float y = 300;//transform->position_.y + cam_pos_.y;
+    float x = transform->position_.x + cam_pos_.x * !text_renderer->ui_text_;
+    float y = transform->position_.y + cam_pos_.y * !text_renderer->ui_text_;
 
     std::string::const_iterator c;
     for (c = text_renderer->text_.begin(); c != text_renderer->text_.end(); c++)

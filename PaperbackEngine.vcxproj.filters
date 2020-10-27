@@ -117,6 +117,9 @@
     <Filter Include="Systems\Logic">
       <UniqueIdentifier>{59021681-0e82-45bf-a3be-55b191505591}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\LightingSystem">
+      <UniqueIdentifier>{49e006f8-c914-4a2b-8cf1-32fe29d17c71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -153,9 +156,6 @@
       <Filter>Systems\Factory</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\GraphicsSystem.cpp">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Systems\LightingSystem.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\InputSystem.cpp">
@@ -257,9 +257,6 @@
     <ClCompile Include="Source\Manager\FontManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\TextRenderer.cpp">
-      <Filter>Entity\Components\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Imgui\AnotherWindow.cpp">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
@@ -274,6 +271,12 @@
     </ClCompile>
     <ClCompile Include="Source\Systems\LogicSystem.cpp">
       <Filter>Systems\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\LightingSystem.cpp">
+      <Filter>Systems\LightingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\TextRenderer.cpp">
+      <Filter>Entity\Components\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -324,9 +327,6 @@
     </ClInclude>
     <ClInclude Include="Include\Manager\TextureManager.h">
       <Filter>ResourceManagers</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Systems\LightingSystem.h">
-      <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\GraphicsSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
@@ -465,6 +465,9 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\LogicSystem.h">
       <Filter>Systems\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\LightingSystem.h">
+      <Filter>Systems\LightingSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

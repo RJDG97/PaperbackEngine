@@ -43,6 +43,8 @@ class GraphicsSystem : public ISystem {
     Shader* final_shader_;
     GLuint* lighting_texture_;
 
+    glm::mat4 projection;
+
 /******************************************************************************/
 /*!
     \fn CameraInit()

@@ -69,7 +69,8 @@ void LightingSystem::Draw() {
 	//reset the lighting texture
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(0.1f, 0.05f, 0.2f, 1.0f);
+	//glClearColor(0.1f, 0.05f, 0.2f, 1.0f);
+	glClearColor(0.3f, 0.25f, 0.4f, 1.0f);
 	
 	glBlendFunc(GL_ONE, GL_ONE);
 
