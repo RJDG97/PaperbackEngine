@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "Systems/Message.h"
 #include "Components/AI.h"
-#include "ISystem.h"
+#include "Systems/ISystem.h"
 
 class LogicSystem: public ISystem{
 

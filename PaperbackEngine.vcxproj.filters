@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -114,6 +110,12 @@
     </Filter>
     <Filter Include="Entity\Components\InputController">
       <UniqueIdentifier>{8bdad12a-98c2-4e3d-9596-0c974f1871ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\AI">
+      <UniqueIdentifier>{dba3004f-40e2-4f88-b68e-45f02c9ed111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Logic">
+      <UniqueIdentifier>{59021681-0e82-45bf-a3be-55b191505591}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +268,12 @@
     </ClCompile>
     <ClCompile Include="Source\Imgui\ImguiViewport.cpp">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\AI.cpp">
+      <Filter>Entity\Components\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\LogicSystem.cpp">
+      <Filter>Systems\Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -440,9 +448,6 @@
     <ClInclude Include="Include\ImguiWindows\IWindow.h">
       <Filter>Systems\ImguiSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Components\IObjectRenderer.h">
-      <Filter>Entity\Components\Renderer</Filter>
-      </ClInclude>
     <ClInclude Include="Include\Components\InputController.h">
       <Filter>Entity\Components\InputController</Filter>
     </ClInclude>
@@ -454,6 +459,12 @@
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\AI.h">
+      <Filter>Entity\Components\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\LogicSystem.h">
+      <Filter>Systems\Logic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

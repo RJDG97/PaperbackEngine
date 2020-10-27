@@ -280,7 +280,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				continue;
 
 			InputController* InputController = it->second;
-			float power = 1075.0f;
+			float power = 3000.0f;
 
 			//input group
 			if (InputController->VerifyKey("move_left", m->input_)) {

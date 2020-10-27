@@ -363,7 +363,7 @@ Entity* EntityFactory::GetObjectWithID(EntityID id) {
 		return it->second;
 	}
 	// Else, return null
-	return NULL;
+	return nullptr;
 }
 
 void EntityFactory::SendMessageD(Message* msg) {

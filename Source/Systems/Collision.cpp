@@ -74,10 +74,13 @@ Vector2D Normal(const Vector2D& s1, const Vector2D& s2,
 			return Vector2D{ 1, 0 };
 		}
 	}
-
-	return Vector2D{};
 }
 
+void Collision::AddCollisionLayers(CollisionLayer layer, const std::string& collidables, bool collide_self) {
+	CollidableLayers collider{ collidables, collide_self };
+
+	collision_layer_arr_.insert(std::make_pair(layer, collider));
+}
 
 bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 							   const AABB& aabb2, const Vec2& vel2,
@@ -173,6 +176,47 @@ bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* bu
 	return false;
 }
 
+bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const AABB* box) {
+
+	//assume that is button
+	//compute if position is within bounding box
+	if (box->bottom_left_.x <= cursor_pos.x &&
+		box->bottom_left_.y <= cursor_pos.y &&
+		box->top_right_.x >= cursor_pos.x &&
+		box->top_right_.y >= cursor_pos.y) {
+		return true;
+	}
+	return false;
+}
+
+std::pair<Entity*, std::vector<ComponentTypes>> Collision::GetAttachedComponentIDs() {
+	std::vector<ComponentTypes> comp_arr;
+	Entity* entity;
+	EntityID selected_entity_id = SelectEntity();
+
+	if (selected_entity_id != 0) {
+		// Grab entity from factory and return the bitset
+		std::shared_ptr<EntityFactory> factory = CORE->GetSystem<EntityFactory>();
+		entity = factory->GetObjectWithID(selected_entity_id);
+
+		// If entity exists in factory
+		if (entity) {
+			// Grab component array from entity
+			ComponentArr arr = entity->GetComponentArr();
+			// Resize component array accordingly
+			comp_arr.reserve(arr.size());
+
+			// Iterate all components and save the enums
+			for (ComponentArrIt it = arr.begin(); it != arr.end(); ++it) {
+				comp_arr.push_back((*it)->GetComponentTypeID());
+			}
+		}
+	}
+
+	// Return compiled entity 
+	return std::make_pair(entity, comp_arr);
+}
+
 bool Collision::SeparatingAxisTheorem(const AABB& a, const AABB& b) {
 	// AABB_1
 	Vector2D aab1_bot_left = a.GetBottomLeft();
@@ -206,15 +250,21 @@ void Collision::CheckClickableCollision() {
 	}
 }
 
-//init function called to initialise a system
-void Collision::Init() {
+EntityID Collision::SelectEntity() {
 
-	shdr_pgm_ = *CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
-	model_ = *CORE->GetManager<ModelManager>()->GetModel("LinesModel");
-	world_to_ndc_xform_ = &(CORE->GetSystem<GraphicsSystem>()->world_to_ndc_xform_);
-	glLineWidth(2.0f);
+	Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();
 
-	M_DEBUG->WriteDebugMessage("Collision System Init\n");
+	// Iterate through the external layer map to access all AABB components on that "Layer"
+	for (CollisionMapReverseIt it1 = collision_map_.rbegin(); it1 != collision_map_.rend(); ++it1) {
+		// Iterate through the internal layer map to access each individual AABB component
+		for (AABBIt it2 = it1->second.begin(); it2 != it1->second.end(); ++it2) {
+		
+			if (CheckCursorCollision(cursor_pos, it2->second)) {
+				return it2->second->GetOwner()->GetID();
+			}
+		}
+	}
+	return 0;
 }
 
 void Collision::CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first) {
@@ -238,40 +288,6 @@ void Collision::CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2
 
 	transform1->second->position_ += inverse_vector_1;
 	transform2->second->position_ += inverse_vector_2;
-	
-
-	/*
-	MotionIt motion1 = motion_arr_.find(aabb1->second->GetOwner()->GetID());
-	MotionIt motion2 = motion_arr_.find(aabb2->second->GetOwner()->GetID());
-	if (motion1 != motion_arr_.end()) {
-		motion1->second->velocity_ += inverse_vector_1;
-	}
-	if (motion2 != motion_arr_.end()) {
-		motion2->second->velocity_ += inverse_vector_2;
-	}
-	*/
-
-	/*
-	Vector2D accel_1 = inverse_vector_1 / frametime;
-	Vector2D accel_2 = inverse_vector_2 / frametime;
-
-	std::shared_ptr<Motion> motion_1 =
-		std::dynamic_pointer_cast<Motion>(aabb1->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
-	std::shared_ptr<Motion> motion_2 =
-		std::dynamic_pointer_cast<Motion>(aabb2->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
-
-	float mass_1 = motion_1 == nullptr ? 0 : motion_1->mass_;
-	float mass_2 = motion_2 == nullptr ? 0 : motion_2->mass_;
-
-	Vector2D force_1 = mass_1 * accel_1 * 150.0f;
-	Vector2D force_2 = mass_2 * accel_2 * 150.0f;
-	//std::cout << "Force 1: " << force_1.x << ", " << force_1.y << std::endl;
-	//std::cout << "Force 2: " << force_2.x << ", " << force_2.y << std::endl;
-	
-
-	force_mgr->AddForce(aabb1->second->GetOwner()->GetID(), "collision_response", frametime, force_1);
-	force_mgr->AddForce(aabb2->second->GetOwner()->GetID(), "collision_response", frametime, force_2);
-	*/
 
 	if (debug_) {
 		std::string debug_str{};
@@ -282,168 +298,98 @@ void Collision::CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2
 	}
 }
 
-//contains logic executed during the update loop of a game
-void Collision::Update(float frametime) {
-	if (debug_) { M_DEBUG->WriteDebugMessage("\nCollision System Update Debug Log:\n"); }
+void Collision::ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime) {
 
-	UpdateBoundingBox();
+	CollidableLayer mask_a{};
+	mask_a.set(static_cast<size_t>(col_layer_a->first));
 
-	UpdateClickableBB();
-
-	Vector2D empty{};
-
-	for (AABBIt aabb1 = aabb_arr_.begin(); aabb1 != aabb_arr_.end(); ++aabb1) {
-
-		AABBIt aabb2 = aabb1;
-		MotionIt motion1 = motion_arr_.find(aabb1->second->GetOwner()->GetID());
-		//assert(motion1 != nullptr && "aabb1 does not have a motion component");
-
-		Vector2D* vel1{};
-
-		vel1 = (motion1 != motion_arr_.end()) ? &motion1->second->velocity_ : &empty;
-
-		++aabb2;
+	//get collision flag value
+	if (((col_layer_a->second.first & col_layer_b->second.first) & mask_a) == mask_a) {
 		
-		for (; aabb2 != aabb_arr_.end(); ++aabb2) {
+		CollisionLayer layer_a = static_cast<CollisionLayer>(col_layer_a->first);
+		CollisionLayer layer_b = static_cast<CollisionLayer>(col_layer_b->first);
 
-			MotionIt motion2 = motion_arr_.find(aabb2->second->GetOwner()->GetID());
-			//assert(motion2 != nullptr && "aabb2 does not have a motion component");
+		for (AABBIt layer_a_it = collision_map_[layer_a].begin(); layer_a_it != collision_map_[layer_a].end(); ++layer_a_it) {
+			for (AABBIt layer_b_it = collision_map_[layer_b].begin(); layer_b_it != collision_map_[layer_b].end(); ++layer_b_it) {
 
-			Vector2D* vel2{};
+				if (layer_a_it->first == layer_b_it->first)
+					continue;
 
-			vel2 = (motion2 != motion_arr_.end()) ? &motion2->second->velocity_ : &empty;
+				Vector2D vel1 = motion_arr_.find(layer_a_it->first) != motion_arr_.end() ? 
+					motion_arr_.find(layer_a_it->first)->second->velocity_ : Vector2D{};
+				Vector2D vel2 = motion_arr_.find(layer_b_it->first) != motion_arr_.end() ? 
+					motion_arr_.find(layer_b_it->first)->second->velocity_ : Vector2D{};
 
-			float t_first{};
+				float t_first{};
 
-			if (CheckCollision(*aabb1->second, *vel1, *aabb2->second, *vel2, frametime, t_first)) {
+				if (CheckCollision(*layer_a_it->second, vel1, *layer_b_it->second, vel2, frametime, t_first)) {
 
-				std::string aabb1_type = ENTITYNAME(aabb1->second->GetOwner());
-				std::string aabb2_type = ENTITYNAME(aabb2->second->GetOwner());
+					AABBIt aabb1 = layer_a_it;
+					AABBIt aabb2 = layer_b_it;
 
-				//check what types are both objects that are colliding
-				if ((aabb1_type == "Wall" && (aabb2_type == "Player" || aabb2_type == "Enemy")) ||
-					(aabb2_type == "Wall" && (aabb1_type == "Player" || aabb1_type == "Enemy"))) {
-
-					// Toggle true to trigger bounding box color
 					aabb1->second->collided = true;
 					aabb2->second->collided = true;
 
-					// Handles collision response for when moving entity collides with static entity
-					CollisionWall(aabb1, vel1, aabb2, vel2, frametime, t_first);
-				}
-				else {
+					CollisionWall(aabb1, &vel1, aabb2, &vel2, frametime, t_first);
 
-					//enable to check if collision detected
-					//currently disabled to show that burrowing works
-					//aabb1->second->collided = true;
-					//aabb2->second->collided = true;
+					/*
+					std::string aabb1_type = ENTITYNAME(aabb1->second->GetOwner());
+					std::string aabb2_type = ENTITYNAME(aabb2->second->GetOwner());
 
-					//otherwise colliding are player & enemy or player & player
-					if ((aabb1_type == "Player" && aabb2_type == "Enemy") ||
-						(aabb1_type == "Enemy" && aabb2_type == "Player")) {
+					//check what types are both objects that are colliding
+					if ((aabb1_type == "Wall" && (aabb2_type == "Player" || aabb2_type == "Enemy")) ||
+						(aabb2_type == "Wall" && (aabb1_type == "Player" || aabb1_type == "Enemy"))) {
 
-						StatusIt player_status;
+						// Toggle true to trigger bounding box color
+						aabb1->second->collided = true;
+						aabb2->second->collided = true;
 
-						if (aabb1_type == "Player") {
+						// Handles collision response for when moving entity collides with static entity
+						CollisionWall(aabb1, &vel1, aabb2, &vel2, frametime, t_first);
+					}
+					else {
 
-							player_status = status_arr_.find(aabb1->second->GetOwner()->GetID());
-						}
-						else {
+						//enable to check if collision detected
+						//currently disabled to show that burrowing works
+						//aabb1->second->collided = true;
+						//aabb2->second->collided = true;
 
-							player_status = status_arr_.find(aabb2->second->GetOwner()->GetID());
-						}
-						
-						if (player_status->second) {
+						//otherwise colliding are player & enemy or player & player
+						if ((aabb1_type == "Player" && aabb2_type == "Enemy") ||
+							(aabb1_type == "Enemy" && aabb2_type == "Player")) {
 
-							if (player_status->second->status_ == StatusType::NONE) {
+							StatusIt player_status;
 
-								aabb1->second->collided = true;
-								aabb2->second->collided = true;
+							if (aabb1_type == "Player") {
 
-								player_status->second->status_ = StatusType::HIT;
-								player_status->second->status_timer_ = 5.1f;
+								player_status = status_arr_.find(aabb1->second->GetOwner()->GetID());
 							}
-							
-							else if (player_status->second->status_ == StatusType::INVISIBLE) {
+							else {
+
+								player_status = status_arr_.find(aabb2->second->GetOwner()->GetID());
+							}
+
+							if (player_status->second) {
+
+								if (player_status->second->status_ == StatusType::NONE) {
+
+									aabb1->second->collided = true;
+									aabb2->second->collided = true;
+
+									player_status->second->status_ = StatusType::HIT;
+									player_status->second->status_timer_ = 5.1f;
+								}
+
+								else if (player_status->second->status_ == StatusType::INVISIBLE) {
+
+								}
 
 							}
-							
 						}
 					}
+					*/
 				}
 			}
-		}
-	}
-
-	// Test it here as well
-	//UpdateBoundingBox();
-	if (debug_)
-	{
-
-	}
-}
-
-void Collision::Draw() {
-
-	if (debug_)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		for (AABBIt aabb = aabb_arr_.begin(); aabb != aabb_arr_.end(); ++aabb)
-		{
-			Vector2D top_right = (*aabb).second->top_right_;
-			Vector2D bottom_left = (*aabb).second->bottom_left_;
-
-			Vector2D aabb_middle = bottom_left + (top_right - bottom_left)/2;
-
-			glm::mat3 scaling = glm::mat3{ (top_right.x - bottom_left.x)/2, 0.0f, 0.0f,
-										   0.0f, (top_right.y - bottom_left.y)/2, 0.0f,
-										   0.0f, 0.0f, 1.0f };
-
-			glm::mat3 translation{ 1.0f, 0.0f, 0.0f,
-								   0.0f, 1.0f, 0.0f,
-								   aabb_middle.x, aabb_middle.y, 1.0f };
-
-			glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_) * translation * scaling;
-
-			shdr_pgm_.Use();
-			glBindVertexArray(model_.vaoid_);
-
-			shdr_pgm_.SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
-			shdr_pgm_.SetUniform("collided", (*aabb).second->collided);
-
-			glDrawArrays(GL_LINES, 0, model_.draw_cnt_);
-
-			// after completing the rendering, we tell the driver that the VAO vaoid
-			// and the current shader program are no longer current
-			glBindVertexArray(0);
-
-			shdr_pgm_.UnUse();
-		}
-	}
-
-	//if (debug_) { debug_ = !debug_; }
-}
-
-//function more akin to "What to do when message is received" for internal logic
-void Collision::SendMessageD(Message* m) {
-
-	switch (m->message_id_) {
-
-		case MessageIDTypes::DEBUG_ALL:
-		{
-			debug_ = !debug_;
-			break;
-		}
-		case MessageIDTypes::M_MOUSE_PRESS:
-		{
-			CheckClickableCollision();
-			break;
-		}
-		default:
-		{
-			break;
 		}
 	}
 }
@@ -452,17 +398,22 @@ void Collision::AddAABBComponent(EntityID id, AABB* aabb) {
 
 	M_DEBUG->WriteDebugMessage("Adding AABB Component to entity: " + std::to_string(id) + "\n");
 
-	aabb_arr_[id] = aabb;
+	//aabb_arr_[id] = aabb;
+
+	collision_map_[static_cast<CollisionLayer>(aabb->layer_)].insert({ id, aabb });
 }
 
 void Collision::RemoveAABBComponent(EntityID id) {
 
-	AABBIt it = aabb_arr_.find(id);
+	for (CollisionMapIt begin = collision_map_.begin(); begin != collision_map_.end(); ++begin) {
+		AABBIt comp = begin->second.find(id);
+		if (comp != begin->second.end()) {
 
-	if (it != aabb_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing AABB Component from entity: " + std::to_string(id) + "\n");
-		aabb_arr_.erase(it);
+			
+			M_DEBUG->WriteDebugMessage("Removing AABB Component from map: " + std::to_string(id) + "\n");
+			begin->second.erase(comp);
+			break;
+		}
 	}
 }
 
@@ -556,19 +507,21 @@ void Collision::RemoveInputControllerComponent(EntityID id) {
 void Collision::UpdateBoundingBox() {
 	if (debug_)
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Bounding Boxes\n");
+	
+	for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
+		for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
 
-	for (AABBIt aabb = aabb_arr_.begin(); aabb != aabb_arr_.end(); ++aabb) {
-		
-		//reset collided flag to false to prepare for collision check after
-		aabb->second->collided = false;
+			//reset collided flag to false to prepare for collision check after
+			aabb->second->collided = false;
 
-		Entity* entity = aabb->second->GetOwner();
-		DEBUG_ASSERT((entity), "Entity does not exist");
+			Entity* entity = aabb->second->GetOwner();
+			DEBUG_ASSERT((entity), "Entity does not exist");
 
-		TransformIt entity_position = transform_arr_.find(entity->GetID());
+			TransformIt entity_position = transform_arr_.find(entity->GetID());
 
-		aabb->second->bottom_left_ = entity_position->second->position_ - aabb->second->scale_;
-		aabb->second->top_right_ = entity_position->second->position_ + aabb->second->scale_;
+			aabb->second->bottom_left_ = entity_position->second->position_ - aabb->second->scale_;
+			aabb->second->top_right_ = entity_position->second->position_ + aabb->second->scale_;
+		}
 	}
 }
 
@@ -588,5 +541,153 @@ void Collision::UpdateClickableBB() {
 
 		clickable->second->bottom_left_ = entity_position->second->position_ - clickable->second->scale_;
 		clickable->second->top_right_ = entity_position->second->position_ + clickable->second->scale_;
+	}
+}
+
+
+/***************************************************************************/
+/*                            Class Functions                              */
+/***************************************************************************/
+
+// Init function called to initialise a system
+void Collision::Init() {
+
+	shdr_pgm_ = *CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
+	model_ = *CORE->GetManager<ModelManager>()->GetModel("LinesModel");
+	world_to_ndc_xform_ = &(CORE->GetSystem<GraphicsSystem>()->world_to_ndc_xform_);
+	glLineWidth(2.0f);
+
+	// Defining collision map layering
+	/*
+		Parameter 1: Collision layer 0
+		Parameter 2: Collidable with nothing, does not collide with similar layer
+	*/
+	AddCollisionLayers(CollisionLayer::BACKGROUND, "00000000", false);
+	/*
+		Parameter 1: Collision layer 1
+		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER),
+					 does not collide with similar layer
+	*/
+	AddCollisionLayers(CollisionLayer::TILES, "00000010", false);
+	/*
+		Parameter 1: Collision layer 2
+		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER),
+					 does not collide with similar layer
+	*/
+	AddCollisionLayers(CollisionLayer::ENEMY, "00000110", false);
+	/*
+		Parameter 1: Collision layer 3
+		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER)
+*/
+	AddCollisionLayers(CollisionLayer::PLAYER, "00000110");
+	/*
+		Parameter 1: Collision layer 4
+		Parameter 2: Collidable with nothing, does not collide with similar layer
+	*/
+	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "00000000", false);
+
+	M_DEBUG->WriteDebugMessage("Collision System Init\n");
+}
+
+// Update function that contains collision checking logic to determine collision
+// between entities
+void Collision::Update(float frametime) {
+	if (debug_) { M_DEBUG->WriteDebugMessage("\nCollision System Update Debug Log:\n"); }
+
+	// Update bounding boxes
+	UpdateBoundingBox();
+	UpdateClickableBB();
+
+	Vector2D empty{};
+
+	for (CollisionLayerIt it1 = collision_layer_arr_.begin(); it1 != collision_layer_arr_.end(); ++it1) {
+		for (CollisionLayerIt it2 = collision_layer_arr_.begin(); it2 != collision_layer_arr_.end(); ++it2) {
+
+			if (!it1->second.second && (it1->second == it2->second))
+				continue;
+
+			ProcessCollision(it1, it2, frametime);
+		}
+	}
+
+	// Possibly to toggle off debug mode
+	if (debug_)
+	{
+
+	}
+}
+
+
+// Draw function that renders AABB boxes when debug mode is active
+// Color of AABB boxes change on collision to red
+void Collision::Draw() {
+
+	if (debug_)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
+			for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
+
+				Vector2D top_right = (*aabb).second->top_right_;
+				Vector2D bottom_left = (*aabb).second->bottom_left_;
+
+				Vector2D aabb_middle = bottom_left + (top_right - bottom_left) / 2;
+
+				glm::mat3 scaling = glm::mat3{ (top_right.x - bottom_left.x) / 2, 0.0f, 0.0f,
+											   0.0f, (top_right.y - bottom_left.y) / 2, 0.0f,
+											   0.0f, 0.0f, 1.0f };
+
+				glm::mat3 translation{ 1.0f, 0.0f, 0.0f,
+									   0.0f, 1.0f, 0.0f,
+									   aabb_middle.x, aabb_middle.y, 1.0f };
+
+				glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_)*translation * scaling;
+
+				shdr_pgm_.Use();
+				glBindVertexArray(model_.vaoid_);
+
+				shdr_pgm_.SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
+				shdr_pgm_.SetUniform("collided", (*aabb).second->collided);
+
+				glDrawArrays(GL_LINES, 0, model_.draw_cnt_);
+
+				// after completing the rendering, we tell the driver that the VAO vaoid
+				// and the current shader program are no longer current
+				glBindVertexArray(0);
+
+				shdr_pgm_.UnUse();
+			}
+		}
+	}
+
+	//if (debug_) { debug_ = !debug_; }
+}
+
+//function more akin to "What to do when message is received" for internal logic
+void Collision::SendMessageD(Message* m) {
+
+	switch (m->message_id_) {
+
+	case MessageIDTypes::DEBUG_ALL:
+	{
+		debug_ = !debug_;
+		break;
+	}
+	case MessageIDTypes::M_MOUSE_PRESS:
+	{
+		CheckClickableCollision();
+
+		// If in debug mode, allow for selecting of entities
+		if (debug_) {
+			std::pair<Entity*, std::vector<ComponentTypes>> fake_pair = GetAttachedComponentIDs();
+		}
+		break;
+	}
+	default:
+	{
+		break;
+	}
 	}
 }

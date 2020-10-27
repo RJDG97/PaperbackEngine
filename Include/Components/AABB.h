@@ -12,6 +12,7 @@ class AABB : public Component {
 	Vector2D top_right_;
     Vector2D bottom_left_;
 	bool collided;
+	size_t layer_;
 public:
 	friend class Collision;
 
