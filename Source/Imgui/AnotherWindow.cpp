@@ -1,13 +1,11 @@
 #include "ImguiWindows/AnotherWindow.h"
 #include "Systems/Debug.h"
-#include "Systems/Factory.h"
-//#include "Manager/ForcesManager.h"
+#include <tuple>
 
-Entity* playertest;
 
 void AnotherWindow::Init(){
 
-	scale_ = { 1.0f, 1.0f };
+	imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
 }
 
 void AnotherWindow::Update(){
@@ -19,22 +17,17 @@ void AnotherWindow::Update(){
 		Message msg(MessageIDTypes::DEBUG_ALL);
 		CORE->BroadcastMessage(&msg);
 	}
-	
-	if (playertest == nullptr) {
 
-		playertest = CORE->GetSystem<EntityFactory>()->GetObjectWithID(0);
+	std::pair<Entity*, std::vector<ComponentTypes>> entitycomp = imgui_system_->GetSelectedEntity();
+	if (entitycomp.first){
+
+		ImGui::Text("Entity ID: %d, has the following components: ", entitycomp.first->GetID());
+
+		for (auto i : entitycomp.second){
+
+			ImGui::Text("[%d]", i);
+		}
 	}
-
-	//std::shared_ptr<Component> tf_comp = playertest->GetComponent(ComponentTypes::TRANSFORM);
-	//if (tf_comp)
-	//	std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(tf_comp);
-	//ImGui::SliderFloat2("player scale", &scale_.x, -1.0f, 1.0f);
-	//ImGui::SliderFloat2("player position", &scale_.y, -1.0f, 1.0f);
-
-	//player_scale->SetScale((scale_ += player_scale->GetScale()));
-	//ImGui::Text("scale X = %f", scale_.x);
-	//ImGui::Text("scale Y = %f", scale_.y);
-
 	ImGui::End();
 }
 

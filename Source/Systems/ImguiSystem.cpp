@@ -1,11 +1,11 @@
 #include "Systems/ImguiSystem.h"
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/AnotherWindow.h"
-#include "Engine/Core.h"
+
 
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
-    AddWindow<ImguiViewport>();
+   //AddWindow<ImguiViewport>();
     AddWindow<AnotherWindow>();
 
     // Setup Dear ImGui context
@@ -62,6 +62,8 @@ void ImguiSystem::Init(){
     dock_space_flags_ = ImGuiDockNodeFlags_None;
     window_flags_ = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
+    collision_system_ = &*CORE->GetSystem<Collision>();
+
 }
 
 void ImguiSystem::Update(float frametime){
@@ -76,50 +78,60 @@ void ImguiSystem::Update(float frametime){
         ImGui::NewFrame();
 
         ImGuiIO& io = ImGui::GetIO();
-        DockSpaceFlagSet();
+        if (!b_dock_space_open)
+        {
+            DockSpaceFlagSet();
 
-        // Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-        // This is because we want to keep our DockSpace() active. If a DockSpace() is inactive, 
-        // all active windows docked into it will lose their parent and become undocked.
-        // We cannot preserve the docking relationship between an active window and an inactive docking, otherwise 
-        // any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
+            // Important: note that we proceed even if Begin() returns false (aka window is collapsed).
+            // This is because we want to keep our DockSpace() active. If a DockSpace() is inactive, 
+            // all active windows docked into it will lose their parent and become undocked.
+            // We cannot preserve the docking relationship between an active window and an inactive docking, otherwise 
+            // any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-        ImGui::Begin("DockSpace", &b_dock_space_open, window_flags_);
-        ImGui::PopStyleVar();
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+            ImGui::Begin("DockSpace", &b_dock_space_open, window_flags_);
+            ImGui::PopStyleVar();
 
-        if (b_fullscreen)
-            ImGui::PopStyleVar(2);
+            if (b_fullscreen)
+                ImGui::PopStyleVar(2);
 
-        // DockSpace
-        
-        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable){
+            // DockSpace
 
-            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dock_space_flags_);
+            if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
+
+                ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+                ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dock_space_flags_);
+            }
+
+            if (ImGui::BeginMenuBar()) {
+
+                if (ImGui::BeginMenu("File")) {
+
+                    if (ImGui::MenuItem("test"))
+                        ImGui::Text("text");
+                    ImGui::EndMenu();
+                }
+            }
+
+            ImGui::EndMenuBar();
+
+            // For all windows attached.
+            /* Has to be called between the ImGui::Begin("DockSpace"); and the corresponding ImGui::End()
+             for windows to be dockable in the docking space */
+
+            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
+                begin->second->Update();
+            }
+
+            ImGui::End(); // end of docking space
         }
+        else {
 
-        if (ImGui::BeginMenuBar()){
-
-            if (ImGui::BeginMenu("File")){
-
-                if (ImGui::MenuItem("test"))
-                    ImGui::Text("text");
-                ImGui::EndMenu();
+            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
+                begin->second->Update();
             }
         }
 
-        ImGui::EndMenuBar();
-        
-        // For all windows attached.
-        /* Has to be called between the ImGui::Begin("DockSpace"); and the corresponding ImGui::End()
-         for windows to be dockable in the docking space */
-
-        for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
-            begin->second->Update();
-        }
-
-        ImGui::End(); // end of docking space
 
         ImguiRender();
     }
@@ -182,13 +194,30 @@ std::string ImguiSystem::GetName(){
 }
 
 void ImguiSystem::SendMessageD(Message* m){
-    UNREFERENCED_PARAMETER(m);
+    switch (m->message_id_) {
+    case MessageIDTypes::M_MOUSE_PRESS:
+    {
+        selected_entity_ = collision_system_->GetAttachedComponentIDs();
+
+        break;
+    }
+    default:
+    {
+        break;
+    }
+    }
 }
 
+std::pair<Entity*, std::vector<ComponentTypes>> ImguiSystem::GetSelectedEntity(){
+
+    return selected_entity_;
+}
 
 ImguiSystem::~ImguiSystem(){
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
+
+
 

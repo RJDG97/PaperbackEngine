@@ -1,13 +1,18 @@
 #ifndef _IMGUI_SYSTEM_H_
 #define _IMGUI_SYSTEM_H_
 
+#include <Windows.h>
 #include <map>
 #include <string>
 #include <memory>
 
+#include "Entity/Entity.h"
+#include "Engine/Core.h"
+
 #include "Systems/ISystem.h"
 #include "Systems/Message.h"
 #include "Systems/Debug.h"
+#include "Systems/Collision.h"
 
 #include "ImguiWindows/IWindow.h"
 #include "Systems/WindowsSystem.h"
@@ -132,6 +137,8 @@ public:
 /******************************************************************************/	
 	~ImguiSystem();
 
+	std::pair<Entity*, std::vector<ComponentTypes>> GetSelectedEntity();
+
 private:
 
 	// map to store all imgui windows added to the system
@@ -149,6 +156,9 @@ private:
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
+
+	std::pair<Entity*, std::vector<ComponentTypes>> selected_entity_;
+	Collision* collision_system_;
 
 };
 
