@@ -13,7 +13,7 @@ void AnotherWindow::Init(){
 
 void AnotherWindow::Update(){
 
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 	ImGui::Begin("Debug Window");
 	if (ImGui::Button("Debug")){ // debug bomb (show collision boxes)
 
@@ -37,10 +37,10 @@ void AnotherWindow::Update(){
 
 void AnotherWindow::Component(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent)
 {
-	if (entitycomponent.first)
-	{
-		for (auto componenttype : entitycomponent.second)
-		{
+	if (entitycomponent.first){
+
+		for (auto componenttype : entitycomponent.second){
+
 			switch (componenttype)
 			{
 			case ComponentTypes::NAME:
@@ -58,14 +58,24 @@ void AnotherWindow::Component(std::pair<Entity*, std::vector<ComponentTypes>> en
 
 				std::shared_ptr<Transform> entitytransform = std::dynamic_pointer_cast<Transform>(entitycomponent.first->GetComponent(ComponentTypes::TRANSFORM));
 				float rot = 0.0f;
+				float inputRot = entitytransform->GetRotation();
 				float posX = 0.0f, posY = 0.0f;
 				float inputPos[2] = { entitytransform->GetPosition().x, entitytransform->GetPosition().y };
 
 				if (ImGui::TreeNode("Rotation")){
 
+
+					ImGui::Text("Rot Input: ");
+					ImGui::SameLine();
+					ImGui::PushItemWidth(100.0f);
+					ImGui::InputFloat("##rotationpos", &inputRot);
+
+					entitytransform->SetRotation(inputRot);
+
 					ImGui::Text("Rotation: ");
 					ImGui::SameLine();
-					ImGui::SliderAngle("", &rot);
+					ImGui::PushItemWidth(0.01f);
+					ImGui::InputFloat("##rotX", &rot, 1.0f, 10.0f, "%.2f");
 
 					rot += entitytransform->GetRotation();
 					entitytransform->SetRotation(rot);
@@ -102,7 +112,6 @@ void AnotherWindow::Component(std::pair<Entity*, std::vector<ComponentTypes>> en
 					entitytransform->SetPosition(adjustpos);
 					
 					ImGui::Text("Entity Position: %.2f, %.2f", entitytransform->GetPosition().x, entitytransform->GetPosition().y);
-
 
 					ImGui::TreePop();
 				}
