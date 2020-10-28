@@ -191,7 +191,7 @@ bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const AABB* box) {
 
 std::pair<Entity*, std::vector<ComponentTypes>> Collision::GetAttachedComponentIDs() {
 	std::vector<ComponentTypes> comp_arr;
-	Entity* entity = nullptr;
+	Entity* entity;
 	EntityID selected_entity_id = SelectEntity();
 
 	if (selected_entity_id != 0) {

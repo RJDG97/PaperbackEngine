@@ -210,7 +210,7 @@
   "MovingWall": [
     {
       "component": "Name",
-      "name": "MovingWall"
+      "name": "Wall"
     },
     {
       "component": "BasicAI",

@@ -22,7 +22,6 @@ class ImguiSystem : public ISystem
 {
 public:
 	bool b_imguimode = false; // to trigger the visibility of the ImGui Windows
-	bool b_debug;
 
 	ImguiSystem() {};
 
@@ -160,8 +159,6 @@ private:
 
 	std::pair<Entity*, std::vector<ComponentTypes>> selected_entity_;
 	Collision* collision_system_;
-
-
 
 };
 

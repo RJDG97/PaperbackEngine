@@ -88,7 +88,7 @@ void Entity::AddComponent(ComponentTypes type_id, std::shared_ptr<Component> com
 // Returns a pointer to a component attached to an entity
 std::shared_ptr<Component> Entity::GetComponent(ComponentTypes type_id) {
 	
-	EntityIt result = std::find_if(components_.begin(), components_.end(), std::bind(&ComponentLocator, std::placeholders::_1, type_id));
+	EntityIt result = std::find_if(std::begin(components_), std::end(components_), std::bind(ComponentLocator, std::placeholders::_1, type_id));
 	
 	if (result != std::end(components_)) {
 

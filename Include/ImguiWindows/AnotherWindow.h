@@ -15,12 +15,9 @@ class AnotherWindow : public IWindow{
 public:
 	void Init() override;
 	void Update() override;
-	void Component(std::pair<Entity*, std::vector<ComponentTypes>>);
-
 
 private:
 ImguiSystem* imgui_system_;
-bool b_debugmode;
 
 };
 #endif
