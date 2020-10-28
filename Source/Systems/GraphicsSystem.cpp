@@ -259,8 +259,8 @@ void GraphicsSystem::SendMessageD(Message* m) {
         case MessageIDTypes::CAM_UPDATE_POS: {
             //placeholder name for message, will be changed after engineproof
             MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
-            camera_system_->TempCameraZoom(1.001);
-            //camera_system_->TempCameraMove(msg->new_vec_);
+            //camera_system_->TempCameraZoom(1.001);
+            camera_system_->TempCameraMove(msg->new_vec_);
             break;
         }
         
