@@ -123,16 +123,6 @@ class Collision : public ISystem {
 
 /******************************************************************************/
 /*!
-  \fn GetAttachedComponentIDs()
-
-  \brief Retrieves a pair of Entity* and vector of ComponentTypes when cursor 
-		 selects an entity 
-*/
-/******************************************************************************/
-	std::pair<Entity*, std::vector<ComponentTypes>> GetAttachedComponentIDs();
-
-/******************************************************************************/
-/*!
   \fn SeparatingAxisTheorem()
 
   \brief Returns true if there is at least 1 intersection axis
@@ -283,6 +273,17 @@ public:
 */
 /******************************************************************************/
 	void AddInputControllerComponent(EntityID id, InputController* input_controller);
+
+
+/******************************************************************************/
+/*!
+  \fn GetAttachedComponentIDs()
+
+  \brief Retrieves a pair of Entity* and vector of ComponentTypes when cursor
+		 selects an entity
+*/
+/******************************************************************************/
+	std::pair<Entity*, std::vector<ComponentTypes>> GetAttachedComponentIDs();
 
 /******************************************************************************/
 /*!

@@ -14,6 +14,7 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Factory.h"
 #include "Systems/Collision.h"
+#include "Systems/ImguiSystem.h"
 
 #include "Components/Status.h"
 
@@ -40,6 +41,8 @@ void MenuState::Free()
 	std::cout << "MenuState clean Successful" << std::endl;
 
 	FACTORY->DestroyAllEntities();
+
+	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 }
 
 void MenuState::Update(Game* game, float frametime)

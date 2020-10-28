@@ -4,9 +4,11 @@
 
 #include "ImguiWindows/IWindow.h"
 #include "Components/Transform.h"
-#include "Components/Motion.h"
+#include "Components/Scale.h"
+#include <Windows.h>
+#include "Systems/ImguiSystem.h"
+#include "Systems/Collision.h"
 #include "Engine/Core.h"
-#include "Manager/ForcesManager.h"
 
 
 class AnotherWindow : public IWindow{
@@ -14,18 +16,14 @@ class AnotherWindow : public IWindow{
 public:
 	void Init() override;
 	void Update() override;
+	void Component(std::pair<Entity*, std::vector<ComponentTypes>>);
 
-	//void AddTransformComponent(EntityID id, Transform* scale);
-
-	//void RemoveTransformComponent(EntityID id);
 
 private:
-using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
-std::unordered_map<EntityID, Transform*> transform_arr_;
-//
-using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
-std::unordered_map<EntityID, Motion*> motion_arr_;
+ImguiSystem* imgui_system_;
+Collision* collision_;
+Message* m;
+bool b_debugmode;
 
-Vector2D scale_;
 };
 #endif
