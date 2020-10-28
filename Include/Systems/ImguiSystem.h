@@ -21,8 +21,9 @@
 class ImguiSystem : public ISystem
 {
 public:
-	bool b_imguimode = false; // to trigger the visibility of the ImGui Windows
-	bool b_debug;
+	
+	//bool b_lock_entity;
+
 
 	ImguiSystem() {};
 
@@ -138,7 +139,32 @@ public:
 /******************************************************************************/	
 	~ImguiSystem();
 
+/******************************************************************************/
+/*!
+	\fn GetSelectedEntity()
+
+	\brief Retrieves the data selected_entity_
+*/
+/******************************************************************************/	
 	std::pair<Entity*, std::vector<ComponentTypes>> GetSelectedEntity();
+
+/******************************************************************************/
+/*!
+	\fn ResetSelectedEntity()
+
+	\brief sets the Entity* of the selected entity to nullptr
+*/
+/******************************************************************************/
+	void ResetSelectedEntity();
+
+	bool GetDebugBool();
+
+	void SetDebugBool(bool debug);
+
+	bool GetLockEntity();
+
+	void SetLockEntity(bool debug);
+
 
 private:
 
@@ -154,15 +180,16 @@ private:
 	bool b_fullscreen_persistant;
 	bool b_fullscreen;
 
+	bool b_imguimode;
+	bool b_debug;
+	bool b_lock_entity;
+
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
 
 	std::pair<Entity*, std::vector<ComponentTypes>> selected_entity_;
 	Collision* collision_system_;
-
-
-
 };
 
 

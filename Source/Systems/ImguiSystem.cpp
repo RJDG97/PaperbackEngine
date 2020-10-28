@@ -8,6 +8,9 @@ void ImguiSystem::Init(){
    //AddWindow<ImguiViewport>();
     AddWindow<AnotherWindow>();
 
+    win = &*CORE->GetSystem<WindowsSystem>();
+    collision_system_ = &*CORE->GetSystem<Collision>();
+
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -40,8 +43,7 @@ void ImguiSystem::Init(){
     for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
         begin->second->Init();
     }
-    
-    win = &*CORE->GetSystem<WindowsSystem>();
+   
 
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(win->ptr_window, true);
@@ -62,8 +64,9 @@ void ImguiSystem::Init(){
     dock_space_flags_ = ImGuiDockNodeFlags_None;
     window_flags_ = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
-    collision_system_ = &*CORE->GetSystem<Collision>();
     b_debug = false;
+    b_lock_entity = false;
+    b_imguimode = false;
 }
 
 void ImguiSystem::Update(float frametime){
@@ -131,8 +134,6 @@ void ImguiSystem::Update(float frametime){
                 begin->second->Update();
             }
         }
-
-
         ImguiRender();
     }
 }
@@ -197,13 +198,17 @@ void ImguiSystem::SendMessageD(Message* m){
     switch (m->message_id_) {
     case MessageIDTypes::M_MOUSE_PRESS:
     {
-        selected_entity_ = collision_system_->GetAttachedComponentIDs();
-
+        if (!b_lock_entity){
+            selected_entity_ = collision_system_->GetAttachedComponentIDs();
+            b_lock_entity = true;
+        }
         break;
     }
     case MessageIDTypes::DEBUG_ALL:
     {
         b_debug = !b_debug;
+        b_imguimode = !b_imguimode;
+
         break;
     }
     default:
@@ -216,6 +221,28 @@ void ImguiSystem::SendMessageD(Message* m){
 std::pair<Entity*, std::vector<ComponentTypes>> ImguiSystem::GetSelectedEntity(){
 
     return selected_entity_;
+}
+
+void ImguiSystem::ResetSelectedEntity(){
+    selected_entity_.first = nullptr;
+    b_lock_entity = false;
+}
+
+bool ImguiSystem::GetDebugBool(){
+    return b_debug;
+}
+
+void ImguiSystem::SetDebugBool(bool debug){
+    b_debug = debug;
+}
+
+bool ImguiSystem::GetLockEntity(){
+    return b_lock_entity;
+}
+
+void ImguiSystem::SetLockEntity(bool debug){
+
+    b_lock_entity = debug;
 }
 
 ImguiSystem::~ImguiSystem(){

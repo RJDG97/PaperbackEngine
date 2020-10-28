@@ -4,9 +4,10 @@
 
 #include "ImguiWindows/IWindow.h"
 #include "Components/Transform.h"
+#include "Components/Scale.h"
 #include <Windows.h>
 #include "Systems/ImguiSystem.h"
-#include "Components/Motion.h"
+#include "Systems/Collision.h"
 #include "Engine/Core.h"
 
 
@@ -20,6 +21,8 @@ public:
 
 private:
 ImguiSystem* imgui_system_;
+Collision* collision_;
+Message* m;
 bool b_debugmode;
 
 };
