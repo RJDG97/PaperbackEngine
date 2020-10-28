@@ -63,7 +63,7 @@ void ImguiSystem::Init(){
     window_flags_ = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
     collision_system_ = &*CORE->GetSystem<Collision>();
-
+    b_debug = false;
 }
 
 void ImguiSystem::Update(float frametime){
@@ -199,6 +199,11 @@ void ImguiSystem::SendMessageD(Message* m){
     {
         selected_entity_ = collision_system_->GetAttachedComponentIDs();
 
+        break;
+    }
+    case MessageIDTypes::DEBUG_ALL:
+    {
+        b_debug = !b_debug;
         break;
     }
     default:
