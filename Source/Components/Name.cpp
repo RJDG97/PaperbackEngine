@@ -51,3 +51,8 @@ std::shared_ptr<Component> Name::Clone() {
 
 	return cloned;
 }
+
+std::string Name::GetName()
+{
+	return name_;
+}

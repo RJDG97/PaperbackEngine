@@ -284,6 +284,15 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
     bool IsLastFrame(AnimationRenderer* anim_renderer);
 
+/******************************************************************************/
+/*!
+\fn GetFrameBuffer()
+
+\brief retrieves the frame buffer texture (for used in ImGui Viewport)
+*/
+/******************************************************************************/
+    GLuint GetFramebuffer();
+
     using TextRendererIt = std::unordered_map<EntityID, TextRenderer*>::iterator;
     std::unordered_map<EntityID, TextRenderer*> text_renderer_arr_;
 
@@ -300,7 +309,6 @@ void RemoveTextRendererComponent(EntityID id);
     std::multimap<int, IWorldObjectRenderer*> uirenderers_in_order_;
     std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
 
-    GLuint getFramebuffer();
 };
 
 #endif
