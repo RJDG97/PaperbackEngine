@@ -35,9 +35,9 @@ void GraphicsSystem::Init() {
     camera_system_ = &*CORE->GetSystem<CameraSystem>();
 
     // Set up viewports
-    window_width_ = windows_system_->GetWinWidth();
-    window_height_ = windows_system_->GetWinHeight();
-    glViewport(0, 0, window_width_, window_height_);
+    win_size_.x = windows_system_->GetWinWidth();
+    win_size_.y = windows_system_->GetWinHeight();
+    glViewport(0, 0, win_size_.x, win_size_.y);
 
     // Set up frame buffer for rendering all objects to texture
     glGenFramebuffers(1, &frame_buffer_);
@@ -49,12 +49,12 @@ void GraphicsSystem::Init() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, window_width_, window_height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, win_size_.x, win_size_.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, final_texture_, 0);
 
     glGenRenderbuffers(1, &render_buffer_);
     glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window_width_, window_height_);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, win_size_.x, win_size_.y);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
 
     DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE), "Final framebuffer is not complete!");
@@ -84,7 +84,7 @@ void GraphicsSystem::Init() {
 
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
-    projection = glm::ortho(0.0f, static_cast<float>(window_width_), 0.0f, static_cast<float>(window_height_));
+    projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
@@ -259,8 +259,8 @@ void GraphicsSystem::SendMessageD(Message* m) {
         case MessageIDTypes::CAM_UPDATE_POS: {
             //placeholder name for message, will be changed after engineproof
             MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
-            //camera_system_->TempCameraZoom(1.001);
-            camera_system_->TempCameraMove(msg->new_vec_);
+            camera_system_->TempCameraZoom(1.001);
+            //camera_system_->TempCameraMove(msg->new_vec_);
             break;
         }
         
@@ -527,8 +527,21 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_p
     std::shared_ptr<Transform> transform =
         std::dynamic_pointer_cast<Transform>(text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
-    float x = transform->position_.x + cam_pos.x * !text_renderer->ui_text_;
-    float y = transform->position_.y + cam_pos.y * !text_renderer->ui_text_;
+    Vector2D pos;
+    float scale;
+
+    if (text_renderer->ui_text_)
+    {
+        pos = transform->position_;
+        scale = text_renderer->scale_;
+    }
+
+    else
+    {
+        glm::vec2 translation{ cam_pos + 0.5f * win_size_ };
+        pos = transform->position_ / camera_system_->cam_zoom_ + Vector2D{ translation.x, translation.y };
+        scale = text_renderer->scale_ / camera_system_->cam_zoom_;
+    }
 
     std::string::const_iterator c;
     for (c = text_renderer->text_.begin(); c != text_renderer->text_.end(); c++)
@@ -537,10 +550,9 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_p
 
         glm::ivec2 bearing = ch.GetBearing();
         glm::ivec2 size = ch.GetSize();
-        float scale = text_renderer->scale_;
 
-        float xpos = x + bearing.x * scale;
-        float ypos = y - (size.y - bearing.y) * scale;
+        float xpos = pos.x + bearing.x * scale;
+        float ypos = pos.y - (size.y - bearing.y) * scale;
 
         float w = size.x * scale;
         float h = size.y * scale;
@@ -562,7 +574,7 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_p
         // render quad
         glDrawElements(GL_TRIANGLE_STRIP, text_renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
+        pos.x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);

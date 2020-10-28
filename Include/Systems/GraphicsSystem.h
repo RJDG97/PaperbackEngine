@@ -22,8 +22,7 @@ class GraphicsSystem : public ISystem {
 
     bool debug_;
 
-    GLint window_width_;
-    GLint window_height_;
+    glm::vec2 win_size_;
     
     WindowsSystem* windows_system_;
     CameraSystem* camera_system_;
