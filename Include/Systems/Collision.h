@@ -19,11 +19,11 @@
 
 enum class CollisionLayer
 {
-	BACKGROUND = 0,
+	BACKGROUND = 0, // Non-interactable
 	TILES,
 	ENEMY,
 	PLAYER,
-	UI_ELEMENTS
+	UI_ELEMENTS     // Non-interactable
 };
 
 class Collision : public ISystem {
@@ -76,6 +76,45 @@ class Collision : public ISystem {
 
 /******************************************************************************/
 /*!
+  \fn SeparatingAxisTheorem()
+
+  \brief Returns true if there is at least 1 intersection axis
+*/
+/******************************************************************************/
+	bool SeparatingAxisTheorem(const AABB& a, const AABB& b);
+
+/******************************************************************************/
+/*!
+  \fn DefaultResponse()
+
+  \brief Helper function to handle response of a dynamic entity colliding
+		 with a wall
+*/
+/******************************************************************************/
+	void DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first);
+
+/******************************************************************************/
+/*!
+  \fn PlayervEnemyResponse()
+
+  \brief Helper function to handle response of a player colliding with an enemy
+*/
+/******************************************************************************/
+	bool PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2);
+
+/******************************************************************************/
+/*!
+  \fn CollisionResponse()
+
+  \brief Main function that handles collision response between 2 entities
+*/
+/******************************************************************************/
+	void CollisionResponse(const CollisionLayer& col_layer_a, const CollisionLayer& col_layer_b, 
+						   AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, 
+						   float frametime, float t_first);
+
+/******************************************************************************/
+/*!
   \fn ProcessCollision()
 
   \brief Helper function to handle collision checking between 2 layers
@@ -121,24 +160,6 @@ class Collision : public ISystem {
 /******************************************************************************/
 	bool CheckCursorCollision(const Vec2& cursor_pos, const AABB* box);
 
-/******************************************************************************/
-/*!
-  \fn SeparatingAxisTheorem()
-
-  \brief Returns true if there is at least 1 intersection axis
-*/
-/******************************************************************************/
-	bool SeparatingAxisTheorem(const AABB& a, const AABB& b);
-
-/******************************************************************************/
-/*!
-  \fn CollisionWall()
-
-  \brief Helper function to handle response of a non-wall entity colliding
-		 with a wall
-*/
-/******************************************************************************/
-	void CollisionWall(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first);
 public:
 
 /******************************************************************************/
@@ -150,13 +171,22 @@ public:
 /******************************************************************************/
 	Collision();
 
+/******************************************************************************/
+/*!
+  \fn CheckCollision()
+
+  \brief Checks for static and dynamic collision between two entities,
+         returns true if collision happens between the objects within
+		 the current frame
+*/
+/******************************************************************************/
 	bool CheckCollision(const AABB &aabb1, const Vec2 &vel1, 
 						const AABB &aabb2, const Vec2 &vel2,
 						const float dt, float& tFirst);
 	
 /******************************************************************************/
 /*!
-  \fn CheckCursorCollision()
+  \fn CheckClickableCollision()
 
   \brief Checks for collision between mouse cursor and a menu entity
 */
@@ -171,6 +201,16 @@ public:
 */
 /******************************************************************************/
 	EntityID SelectEntity();
+
+/******************************************************************************/
+/*!
+  \fn GetAttachedComponentIDs()
+
+  \brief Retrieves a pair of Entity* and vector of ComponentTypes when cursor 
+		 selects an entity 
+*/
+/******************************************************************************/
+	std::pair<Entity*, std::vector<ComponentTypes>> GetAttachedComponentIDs();
 
 /******************************************************************************/
 /*!
@@ -273,17 +313,6 @@ public:
 */
 /******************************************************************************/
 	void AddInputControllerComponent(EntityID id, InputController* input_controller);
-
-
-/******************************************************************************/
-/*!
-  \fn GetAttachedComponentIDs()
-
-  \brief Retrieves a pair of Entity* and vector of ComponentTypes when cursor
-		 selects an entity
-*/
-/******************************************************************************/
-	std::pair<Entity*, std::vector<ComponentTypes>> GetAttachedComponentIDs();
 
 /******************************************************************************/
 /*!

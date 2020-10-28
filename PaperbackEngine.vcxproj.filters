@@ -155,9 +155,6 @@
     <ClCompile Include="Source\Entity\Entity.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Systems\Collision.cpp">
-      <Filter>Systems\Collision</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Systems\Factory.cpp">
       <Filter>Systems\Factory</Filter>
     </ClCompile>
@@ -290,6 +287,9 @@
     <ClCompile Include="Source\Components\Camera.cpp">
       <Filter>Entity\Components\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Systems\Collision.cpp">
+      <Filter>Systems\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -321,9 +321,6 @@
     </ClInclude>
     <ClInclude Include="Include\Components\Transform.h">
       <Filter>Entity\Components\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Systems\Collision.h">
-      <Filter>Systems\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Include\Engine\Core.h">
       <Filter>Systems\Core</Filter>
@@ -486,6 +483,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\Camera.h">
       <Filter>Entity\Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Collision.h">
+      <Filter>Systems\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

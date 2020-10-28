@@ -8,7 +8,7 @@
       "move_up": "move_up 265",
       "move_down": "move_down 264",
       "invisible": "invisible 69",
-      "burrow": "burrow 82",
+      "burrow": "burrow 78",
       "debug": "debug 66",
       "spin_left": "spin_left 44",
       "spin_right": "spin_right 46",
