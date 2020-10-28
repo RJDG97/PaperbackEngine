@@ -54,7 +54,7 @@ public:
 		 of a specific entity type to that of a new status
 */
 /******************************************************************************/
-	void SetStatus(std::string entity_name, StatusType status_type, Game* game);
+	void SetStatus(std::string entity_name, StatusType status_type, float status_length, Game* game);
 
 /******************************************************************************/
 /*!

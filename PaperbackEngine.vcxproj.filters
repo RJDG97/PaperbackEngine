@@ -120,6 +120,12 @@
     <Filter Include="Systems\LightingSystem">
       <UniqueIdentifier>{49e006f8-c914-4a2b-8cf1-32fe29d17c71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\CameraSystem">
+      <UniqueIdentifier>{11c7abbd-1499-49b7-93b2-0987a0f928f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Camera">
+      <UniqueIdentifier>{b9c2163f-abb5-415a-b632-29bf7ab70408}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -148,9 +154,6 @@
     </ClCompile>
     <ClCompile Include="Source\Entity\Entity.cpp">
       <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Systems\Collision.cpp">
-      <Filter>Systems\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\Factory.cpp">
       <Filter>Systems\Factory</Filter>
@@ -278,6 +281,15 @@
     <ClCompile Include="Source\Components\TextRenderer.cpp">
       <Filter>Entity\Components\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Systems\CameraSystem.cpp">
+      <Filter>Systems\CameraSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Camera.cpp">
+      <Filter>Entity\Components\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Collision.cpp">
+      <Filter>Systems\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -309,9 +321,6 @@
     </ClInclude>
     <ClInclude Include="Include\Components\Transform.h">
       <Filter>Entity\Components\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Systems\Collision.h">
-      <Filter>Systems\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Include\Engine\Core.h">
       <Filter>Systems\Core</Filter>
@@ -468,6 +477,15 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\LightingSystem.h">
       <Filter>Systems\LightingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\CameraSystem.h">
+      <Filter>Systems\CameraSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Camera.h">
+      <Filter>Entity\Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Collision.h">
+      <Filter>Systems\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

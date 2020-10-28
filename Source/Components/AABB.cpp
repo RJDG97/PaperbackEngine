@@ -10,14 +10,11 @@ AABB::AABB() : top_right_{},
 
 AABB::~AABB() {
 
-	//if (Component::GetOwner())
 	CORE->GetSystem<Collision>()->RemoveAABBComponent(Component::GetOwner()->GetID());
 }
 
 void AABB::Init() {
-	// Create the map afterwards
-	//COLLISION->AABBs[Component::GetOwner()->GetID()] = *this;
-	//if (Component::GetOwner()
+
 	CORE->GetSystem<Collision>()->AddAABBComponent(Component::GetOwner()->GetID(), this);
 }
 

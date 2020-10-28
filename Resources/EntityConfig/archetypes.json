@@ -45,7 +45,7 @@
 	  "color": "1.0 0.5 1.0",
 	  "scale": "1.0",
       "layer": "10",
-	  "ui text": "1"
+	  "ui text": "10"
     }
    ],
   "WorldText": [
@@ -67,7 +67,7 @@
 	  "color": "1.0 0.5 1.0",
 	  "scale": "1.0",
       "layer": "10",
-	  "ui text": "0"
+	  "ui text": "5"
     }
    ],
   "Player": [
@@ -100,7 +100,7 @@
       "set animation": "Player_Walk",
       "play_animation": "1",
       "has_finished_animating": "0",
-      "layer": "1"
+      "layer": "2"
     },
     {
       "component": "AABB",
@@ -149,7 +149,7 @@
       "texture": "Stone",
       "model": "TileModel",
       "shader program": "ObjectShader",
-      "layer": "0"
+      "layer": "2"
     },
     {
       "component": "AABB",
@@ -191,7 +191,7 @@
       "texture": "Rock",
       "model": "TileModel",
       "shader program": "ObjectShader",
-      "layer": "0"
+      "layer": "2"
     },
     {
       "component": "AABB",
@@ -236,7 +236,7 @@
       "texture": "Rock",
       "model": "TileModel",
       "shader program": "ObjectShader",
-      "layer": "0"
+      "layer": "2"
     },
     {
       "component": "AABB",
@@ -271,7 +271,7 @@
       "texture": "Rock",
       "model": "TileModel",
       "shader program": "ObjectShader",
-      "layer": "0"
+      "layer": "2"
     },
     {
       "component": "PointLight",
