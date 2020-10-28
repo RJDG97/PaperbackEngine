@@ -115,6 +115,10 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	Vector2D GetAABBScale();
+
+	void SetAABBScale(Vector2D newscale);
 };
 
 #endif

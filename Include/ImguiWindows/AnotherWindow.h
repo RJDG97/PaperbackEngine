@@ -20,10 +20,7 @@ public:
 
 
 private:
-ImguiSystem* imgui_system_;
-Collision* collision_;
-Message* m;
-bool b_debugmode;
+	ImguiSystem* imgui_system_;
 
 };
 #endif
