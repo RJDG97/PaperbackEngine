@@ -16,49 +16,6 @@
 #include "Components/Transform.h"
 #include <glm/gtc/type_ptr.hpp>
 
-void GraphicsSystem::CameraInit() {
-
-    cam_pos_ = glm::vec2{ 0, 0 };
-    cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
-                           windows_system_->GetWinHeight() };
-
-    view_xform_ = glm::mat3{ 1 , 0 , 0,
-                            0 , 1 , 0,
-                            cam_pos_.x , cam_pos_.y , 1 };
-
-    // compute other matrices ...
-    camwin_to_ndc_xform_ = glm::mat3{ 2 / cam_size_.x , 0 , 0,
-                                    0 , 2 / cam_size_.y , 0,
-                                    0 , 0 , 1 };
-
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
-}
-
-void GraphicsSystem::CameraUpdate() {
-
-    view_xform_ = glm::mat3{ 1 , 0 , 0,
-                            0 , 1 , 0,
-                            cam_pos_.x , cam_pos_.y , 1 };
-
-    // compute other matrices ...
-    camwin_to_ndc_xform_ = glm::mat3{ 2 / cam_size_.x , 0 , 0,
-                                      0 , 2 / cam_size_.y , 0,
-                                      0 , 0 , 1 };
-
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
-}
-
-void GraphicsSystem::MoveCamera(Vector2D displacement) {
-
-    cam_pos_.x -= displacement.x;
-    cam_pos_.y -= displacement.y;
-}
-
-void GraphicsSystem::ZoomCamera(float zoom)
-{
-    cam_size_ *= zoom;
-}
-
 /*  _________________________________________________________________________ */
 /*! GraphicsSystem::Init
 
@@ -75,6 +32,7 @@ void GraphicsSystem::Init() {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
+    camera_system_ = &*CORE->GetSystem<CameraSystem>();
 
     // Set up viewports
     window_width_ = windows_system_->GetWinWidth();
@@ -126,8 +84,6 @@ void GraphicsSystem::Init() {
 
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
-    CameraInit();
-
     projection = glm::ortho(0.0f, static_cast<float>(window_width_), 0.0f, static_cast<float>(window_height_));
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
@@ -145,9 +101,9 @@ This also updates the size of the squares to be rendered in one of the tasks.
 void GraphicsSystem::Update(float frametime) {
     
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Update Debug Log:\n"); }
-
-    CameraUpdate();
     
+    glm::mat3 world_to_ndc_xform_ = camera_system_->world_to_ndc_xform_;
+
     //updates all the renderer components
     for (TextureRendererIt it = texture_renderer_arr_.begin(); it != texture_renderer_arr_.end(); ++it) {
 
@@ -185,6 +141,8 @@ void GraphicsSystem::Draw() {
 
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
 
+    glm::vec2 cam_pos_ = camera_system_->cam_pos_;
+
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -209,7 +167,7 @@ void GraphicsSystem::Draw() {
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
         }
 
-        DrawTextObject(it->second);
+        DrawTextObject(it->second, cam_pos_);
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -228,7 +186,7 @@ void GraphicsSystem::Draw() {
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
         }
 
-        DrawTextObject(it->second);
+        DrawTextObject(it->second, cam_pos_);
     }
 
     if (debug_) { debug_ = !debug_; }
@@ -306,7 +264,8 @@ void GraphicsSystem::SendMessageD(Message* m) {
         case MessageIDTypes::CAM_UPDATE_POS: {
             //placeholder name for message, will be changed after engineproof
             MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
-            MoveCamera(msg->new_vec_);
+            //camera_system_->TempCameraZoom(1.001);
+            camera_system_->TempCameraMove(msg->new_vec_);
             break;
         }
         
@@ -559,7 +518,7 @@ void GraphicsSystem::DrawWorldObject(IWorldObjectRenderer* i_worldobj_renderer) 
     i_worldobj_renderer->shdr_pgm_->UnUse();
 }
 
-void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer) {
+void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_pos) {
 
     text_renderer->shdr_pgm_->Use();
     glBindVertexArray(text_renderer->model_->vaoid_);
@@ -573,8 +532,8 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer) {
     std::shared_ptr<Transform> transform =
         std::dynamic_pointer_cast<Transform>(text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
 
-    float x = transform->position_.x + cam_pos_.x * !text_renderer->ui_text_;
-    float y = transform->position_.y + cam_pos_.y * !text_renderer->ui_text_;
+    float x = transform->position_.x + cam_pos.x * !text_renderer->ui_text_;
+    float y = transform->position_.y + cam_pos.y * !text_renderer->ui_text_;
 
     std::string::const_iterator c;
     for (c = text_renderer->text_.begin(); c != text_renderer->text_.end(); c++)
