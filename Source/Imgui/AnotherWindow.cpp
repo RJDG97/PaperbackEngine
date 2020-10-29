@@ -8,34 +8,33 @@
 void AnotherWindow::Init(){
 
 	imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
-	collision_ = &*CORE->GetSystem<Collision>();
 }
 
 void AnotherWindow::Update(){
 
-	//ImGui::ShowDemoWindow();
-	ImGui::Begin("Debug Window");
-	if (ImGui::Button("Debug")){ // debug bomb (show collision boxes)
+	ImGui::ShowDemoWindow();
+	ImGui::Begin("Entity Inspector");
+	ImGui::Text("Select something");
 
-		Message msg(MessageIDTypes::DEBUG_ALL);
-		CORE->BroadcastMessage(&msg);
-	}
-		
-	if (imgui_system_->GetDebugBool() && imgui_system_->GetLockEntity())
+	if (imgui_system_->GetDebugBool() && imgui_system_->GetLockBool())
 	{
-		bool lock = imgui_system_->GetLockEntity();
-		ImGui::Checkbox("Select Entity", &lock);
-		imgui_system_->SetLockEntity(lock);
+		bool lock = imgui_system_->GetLockBool();
+		ImGui::Checkbox("Lock Entity", &lock);
+		ImGui::SameLine(); 
+		imgui_system_->ImguiHelp("To select other entities,\nuncheck this box.");
+		imgui_system_->SetLockBool(lock);
 
 		std::pair<Entity*, std::vector<ComponentTypes>> entitycomp = imgui_system_->GetSelectedEntity();
 
-		Component(entitycomp);
+		ComponentType(entitycomp);
+
+		//Imgui_Demo.cpp -> reference: Line 1991 on ImGui::Combo();
 	}
 
 	ImGui::End();
 }
 
-void AnotherWindow::Component(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent)
+void AnotherWindow::ComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent)
 {
 	if (entitycomponent.first){
 
@@ -46,72 +45,70 @@ void AnotherWindow::Component(std::pair<Entity*, std::vector<ComponentTypes>> en
 			case ComponentTypes::NAME:
 			{
 				std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entitycomponent.first->GetComponent(ComponentTypes::NAME));
-				std::string label = { "Entity: " };
-				label += entityname->GetName();
-				ImGui::Text(label.c_str());
+
+				ImGui::Text("Entity:"); ImGui::SameLine(0, 2);
+				ImGui::TextColored(ImVec4{ 0.498f, 1.0f, 0.831f, 1.0f }, entityname->GetName().c_str());
 				break;
 			}
 			case ComponentTypes::TRANSFORM:
 			{
-				if (!ImGui::CollapsingHeader("Transform"))
+				if (!ImGui::CollapsingHeader("Components"))
 					return;
 
 				std::shared_ptr<Transform> entitytransform = std::dynamic_pointer_cast<Transform>(entitycomponent.first->GetComponent(ComponentTypes::TRANSFORM));
-				float rot = 0.0f;
+
 				float inputRot = entitytransform->GetRotation();
-				float posX = 0.0f, posY = 0.0f;
-				float inputPos[2] = { entitytransform->GetPosition().x, entitytransform->GetPosition().y };
+				Vector2D inputPos = {entitytransform->GetPosition()};
 
 				if (ImGui::TreeNode("Rotation")){
 
-
-					ImGui::Text("Rot Input: ");
-					ImGui::SameLine();
-					ImGui::PushItemWidth(100.0f);
-					ImGui::InputFloat("##rotationpos", &inputRot);
+					ComponentInput("X", "##rot", inputRot, 1.0f, 10.0f);
 
 					entitytransform->SetRotation(inputRot);
 
-					ImGui::Text("Rotation: ");
+					ImGui::Text("Angle: ");
 					ImGui::SameLine();
-					ImGui::PushItemWidth(0.01f);
-					ImGui::InputFloat("##rotX", &rot, 1.0f, 10.0f, "%.2f");
-
-					rot += entitytransform->GetRotation();
-					entitytransform->SetRotation(rot);
-					ImGui::Text("Angle: %.2f", entitytransform->GetRotation());
+					ImGui::TextColored(ImVec4{ 0.678f, 1.0f, 0.184f, 1.0f }, "%.2f", entitytransform->GetRotation());
+					ImGui::NewLine();
 
 					ImGui::TreePop();
-
 				}
 
-				if (ImGui::TreeNode("Postion")){
-
-					ImGui::Text("Pos Input: ");
-					ImGui::SameLine();
-					ImGui::PushItemWidth(100.0f);
-					ImGui::InputFloat2("##inputpos", inputPos);
-
-					Vector2D inputpos = { inputPos[0], inputPos[1] };
-					entitytransform->SetPosition(inputpos);
-
-					ImGui::Text(" X Position: ");
-					ImGui::SameLine();
-					ImGui::PushItemWidth(0.01f);
-					ImGui::InputFloat("##X", &posX, 1.0f, 5.0f, "%.2f");
-
-					ImGui::Text(" Y Position: ");
-					ImGui::SameLine();
-					ImGui::PushItemWidth(0.01f);
-					ImGui::InputFloat("##Y", &posY, 1.0f, 5.0f, "%.2f");
-
-					posX += entitytransform->GetPosition().x;
-					posY += entitytransform->GetPosition().y;
-
-					Vector2D adjustpos = { posX, posY };
-					entitytransform->SetPosition(adjustpos);
+				if (ImGui::TreeNode("Position")){
 					
-					ImGui::Text("Entity Position: %.2f, %.2f", entitytransform->GetPosition().x, entitytransform->GetPosition().y);
+					ComponentInput("X", "##posX", inputPos.x);
+					ImGui::SameLine();
+					ComponentInput("Y", "##posY", inputPos.y);
+
+					entitytransform->SetPosition(inputPos);
+
+					ImGui::Text("Entity Position:");
+					ImGui::SameLine();
+					ImGui::TextColored(ImVec4{ 1.0f, 0.843f, 0.0f, 1.0f}, "%.2f, %.2f", entitytransform->GetPosition().x, entitytransform->GetPosition().y);
+					ImGui::NewLine();
+
+					ImGui::TreePop();
+				}
+				break;
+			}
+			case ComponentTypes::AABB:
+			{
+				if (ImGui::TreeNode("Bounding Box Scale")) {
+
+					std::shared_ptr<AABB> entityAABB = std::dynamic_pointer_cast<AABB>(entitycomponent.first->GetComponent(ComponentTypes::AABB));
+
+					Vector2D inputAABB{ entityAABB->GetAABBScale()};
+
+					ComponentInput("X", "##aabbX", inputAABB.x);
+					ImGui::SameLine();
+					ComponentInput("Y", "##aabbY", inputAABB.y);
+
+					entityAABB->SetAABBScale(inputAABB);
+
+					ImGui::Text("Bounding Box Scale: ");
+					ImGui::SameLine();
+					ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f, 1.0f}, "%.2f, %.2f", entityAABB->GetAABBScale().x, entityAABB->GetAABBScale().y);
+					ImGui::NewLine();
 
 					ImGui::TreePop();
 				}
@@ -119,48 +116,42 @@ void AnotherWindow::Component(std::pair<Entity*, std::vector<ComponentTypes>> en
 			}
 			case ComponentTypes::SCALE:
 			{
-				if (ImGui::TreeNode("Entity Scale")) {
+				if (ImGui::TreeNode("Texture Scale")) {
 
 					std::shared_ptr<Scale> entityscale = std::dynamic_pointer_cast<Scale>(entitycomponent.first->GetComponent(ComponentTypes::SCALE));
-					float scaleX = 0.0f, scaleY = 0.0f;
-					float inputScale[2] = { entityscale->GetScale().x, entityscale->GetScale().y };
+					Vector2D inputScale = {entityscale->GetScale()};
 
-					ImGui::Text("Scale Input: ");
+					ComponentInput("X", "##scaleX", inputScale.x);
 					ImGui::SameLine();
-					ImGui::PushItemWidth(100.0f);
-					ImGui::InputFloat2("##inputscale", inputScale);
+					ComponentInput("Y", "##scaleY", inputScale.y);
 
-					Vector2D newinputScale = { inputScale[0], inputScale[1] };
-					entityscale->SetScale(newinputScale);
+					entityscale->SetScale(inputScale);
 
-
-					ImGui::Text(" X Scale: ");
+					ImGui::Text("Texture Scale: ");
 					ImGui::SameLine();
-					ImGui::PushItemWidth(0.01f);
-					ImGui::InputFloat("##scaleX", &scaleX, 0.1f, 1.0f, "%.2f");
-
-					ImGui::Text("Y Scale: ");
-					ImGui::SameLine();
-					ImGui::InputFloat("##scaleY", &scaleY, 0.1f, 1.0f, "%.2f");
-
-					scaleX += entityscale->GetScale().x;
-					scaleY += entityscale->GetScale().y;
-
-					Vector2D newScale = { scaleX, scaleY };
-					entityscale->SetScale(newScale);
-
-					ImGui::Text("Scale: %.2f, %.2f", entityscale->GetScale().x, entityscale->GetScale().y);
+					ImGui::TextColored(ImVec4{ 0.0f, 0.749f, 1.0f, 1.0f}, "%.2f, %.2f", entityscale->GetScale().x, entityscale->GetScale().y);
 
 					ImGui::TreePop();
 				}
 				break;
 			}
-			}
 
+			}
 		}
 	}
 	else
 		ImGui::Text("There is no Entity(s) selected");
+}
+
+void AnotherWindow::ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float startVal, float endVal, float inputWidth)
+{
+	ImGui::PushItemWidth(inputWidth);
+
+	ImGui::Text(componentLabel);
+	ImGui::SameLine();
+	ImGui::InputFloat(inputLabel, &componentVar, startVal, endVal, "%.2f");
+
+
 }
 
 

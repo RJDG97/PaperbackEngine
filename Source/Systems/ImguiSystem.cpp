@@ -236,13 +236,26 @@ void ImguiSystem::SetDebugBool(bool debug){
     b_debug = debug;
 }
 
-bool ImguiSystem::GetLockEntity(){
+bool ImguiSystem::GetLockBool(){
     return b_lock_entity;
 }
 
-void ImguiSystem::SetLockEntity(bool debug){
+void ImguiSystem::SetLockBool(bool debug){
 
     b_lock_entity = debug;
+}
+
+void ImguiSystem::ImguiHelp(const char* description){
+
+    ImGui::TextDisabled("?");
+    if (ImGui::IsItemHovered()){
+
+        ImGui::BeginTooltip();
+        ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+        ImGui::TextUnformatted(description);
+        ImGui::PopTextWrapPos();
+        ImGui::EndTooltip();
+    }
 }
 
 ImguiSystem::~ImguiSystem(){

@@ -26,7 +26,7 @@ public:
 /*!
   \fn Init()
 
-  \brief Scale will add itself to a relavant system's map 
+  \brief Scale will add itself to a relevant system's map 
 */
 /******************************************************************************/
 	void Init();

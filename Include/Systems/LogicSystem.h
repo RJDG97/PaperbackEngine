@@ -7,11 +7,10 @@
 #include "Components/AI.h"
 #include "Systems/ISystem.h"
 
+using AIIt = std::unordered_map<EntityID, AI*>::iterator;
+
 class LogicSystem: public ISystem{
 
-protected:
-
-	using AIIt = std::unordered_map<EntityID, AI*>::iterator;
 	std::unordered_map<EntityID, AI*> ai_arr_;
 
 public:

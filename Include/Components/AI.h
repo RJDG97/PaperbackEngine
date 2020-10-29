@@ -3,31 +3,37 @@
 
 #include "Entity/Entity.h" 
 #include "MathLib/Vector2D.h"
+#include <iostream>
 #include <sstream>
 #include <vector>
 
-enum class Enemy_Types
-{
-	Stag_Beetle
-};
-
-enum class Logic_States
-{
-	Patrol,
-	Detection,
-	Chase,
-	Attack,
-	Find,
-	Return
-};
-
 class AI : public Component {
 
-	//Enemy_Types aitype;
-	//Logic_States state;
+	enum class AIType
+	{
+		StagBeetle,
+		Mite,
+		Hornet
+	};
+
+	enum AIState
+	{
+		Patrol,
+		Chase,
+		Attack,
+		Return
+	};
+
+	AIType type_;
+
+	int range_;
+	int attackpower_;
+	
+	AIState state_ = Patrol;
 
 public:
 	friend class LogicSystem;
+	friend class AIManager;
 
 	/******************************************************************************/
 	/*!

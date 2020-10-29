@@ -1,6 +1,8 @@
 #include "Systems/LogicSystem.h"
 #include "Components/AI.h"
+#include "Manager/AIManager.h"
 #include "Systems/Debug.h"
+#include "Engine/Core.h"
 
 void LogicSystem::AddAIComponent(EntityID id, AI* ai){
 
@@ -33,26 +35,10 @@ void LogicSystem::Update(float frametime)
 	for (AIIt ai1 = ai_arr_.begin(); ai1 != ai_arr_.end(); ++ai1) {
 		
 		// AI type handler
-		/*switch (ai1->second->aitype)
-		{
-		case Enemy_Types::Stag_Beetle:
-			switch (ai1->second->state)
-			{
-			case Logic_States::Patrol:
-				break;
-			case Logic_States::Detection:
-				break;
-			case Logic_States::Chase:
-				break;
-			case Logic_States::Attack:
-				break;
-			case Logic_States::Find:
-				break;
-			case Logic_States::Return:
-				break;
-			}
-			break;
-		}*/
+		CORE->GetManager<AIManager>()->AIHandler(ai1);
+
+		// any code relevant for all AI
+
 	}
 }
 

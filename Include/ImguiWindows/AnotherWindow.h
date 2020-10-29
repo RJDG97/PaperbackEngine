@@ -16,14 +16,30 @@ class AnotherWindow : public IWindow{
 public:
 	void Init() override;
 	void Update() override;
-	void Component(std::pair<Entity*, std::vector<ComponentTypes>>);
+
+/******************************************************************************/
+/*!
+	\fn ComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponents)
+
+	\brief Prints out the different ImGui widgets required for each component type
+*/
+/******************************************************************************/
+	void ComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponents);
+
+/******************************************************************************/
+/*!
+	\fn ComponentInput(const char* componentLabel, const char* inputLabel,
+	float& componentVar, float startVal = 0.1f, float endVal = 1.0f,
+	float inputWidth = 110.0f)
+
+	\brief Prints out ImGui input space for transformation components
+*/
+/******************************************************************************/
+	void ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float startVal = 0.1f, float endVal = 1.0f, float inputWidth = 110.0f);
 
 
 private:
-ImguiSystem* imgui_system_;
-Collision* collision_;
-Message* m;
-bool b_debugmode;
+	ImguiSystem* imgui_system_;
 
 };
 #endif

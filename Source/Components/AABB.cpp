@@ -53,3 +53,13 @@ std::shared_ptr<Component> AABB::Clone() {
 
 	return cloned;
 }
+
+Vector2D AABB::GetAABBScale(){
+
+	return scale_;
+}
+
+void AABB::SetAABBScale(Vector2D newscale){
+
+	scale_ = newscale;
+}
