@@ -270,7 +270,7 @@ public:
     \brief Adds a shader program to the shader manager's map
 */
 /******************************************************************************/
-    void AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, std::string shader_type);
+    Shader* AddShdrpgm(std::string vtx_shdr, std::string frg_shdr, std::string shader_type);
 
 /******************************************************************************/
 /*!

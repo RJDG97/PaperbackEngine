@@ -46,7 +46,7 @@ public:
            Model Manager's map
 */
 /******************************************************************************/
-    void AddTristripsModel(int slices, int stacks, std::string model_name);
+    Model* AddTristripsModel(int slices, int stacks, std::string model_name);
 
 /******************************************************************************/
 /*!
@@ -57,7 +57,7 @@ public:
            Manager's map
 */
 /******************************************************************************/
-    void AddLinesModel(int slices, int stacks, std::string model_name);
+    Model* AddLinesModel(int slices, int stacks, std::string model_name);
 
 /******************************************************************************/
 /*!

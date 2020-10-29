@@ -23,11 +23,11 @@ void LightingSystem::Init() {
 	win_size_.x = static_cast<float>(windows_system_->GetWinWidth());
 	win_size_.y = static_cast<float>(windows_system_->GetWinHeight());
 
-	CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/point_light.vert", "Shaders/point_light.frag", "PointLightShader");
-	lighting_shaders_["PointLightShader"] = CORE->GetManager<ShaderManager>()->GetShdrpgm("PointLightShader");
+	lighting_shaders_["PointLightShader"] = CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/point_light.vert",
+																						  "Shaders/point_light.frag",
+																						  "PointLightShader");
 	
-	CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel");
-	light_model_ = CORE->GetManager<ModelManager>()->GetModel("LightModel");
+	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel");
 
 	//Temporary before camera is component
 	std::shared_ptr<GraphicsSystem> graphics_system = CORE->GetSystem<GraphicsSystem>();

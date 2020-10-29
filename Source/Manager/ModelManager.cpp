@@ -6,7 +6,7 @@ void ModelManager::Init() {
     M_DEBUG->WriteDebugMessage("Model Manager Init\n");
 }
 
-void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name) {
+Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name) {
 
     // Generates the vertices required to render triangle strips
 
@@ -95,9 +95,11 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
     mdl.draw_cnt_ = static_cast<GLint>(idx_vtx.size());     // number of vertices
     mdl.primitive_cnt_ = count;                             // number of triangles
     models_[model_name] = mdl;
+
+    return &models_[model_name];
 }
 
-void ModelManager::AddLinesModel(int slices, int stacks, std::string model_name) {
+Model* ModelManager::AddLinesModel(int slices, int stacks, std::string model_name) {
 
     // Sets the position of the start and end of each line in a line model
 
@@ -144,6 +146,8 @@ void ModelManager::AddLinesModel(int slices, int stacks, std::string model_name)
     mdl.draw_cnt_ = count;                                          // number of vertices
     mdl.primitive_cnt_ = static_cast<GLint>(pos_vtx.size() / 2);    // number of GL_LINES
     models_[model_name] = mdl;
+
+    return &models_[model_name];
 }
 
 Model* ModelManager::GetModel(std::string model_name) {

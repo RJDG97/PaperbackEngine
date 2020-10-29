@@ -24,6 +24,9 @@ class GraphicsSystem : public ISystem {
 
     glm::vec2 win_size_;
     
+    std::map<std::string, Shader*> graphic_shaders_;
+    std::map<std::string, Model*> graphic_models_;
+
     WindowsSystem* windows_system_;
     CameraSystem* camera_system_;
     TextureManager* texture_manager_;
@@ -36,8 +39,6 @@ class GraphicsSystem : public ISystem {
     GLuint frame_buffer_;
     GLuint render_buffer_;
     GLuint final_texture_;
-    Model* final_model_;
-    Shader* final_shader_;
     GLuint* lighting_texture_;
 
     glm::mat4 projection;
@@ -184,21 +185,21 @@ void RemoveTextRendererComponent(EntityID id);
     
 /******************************************************************************/
 /*!
-    \fn DrawWorldObject(IWorldObjectRenderer* i_worldobj_renderer)
+    \fn DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer)
 
     \brief Draw objects that have a component that inherits from IObjectRenderer
 */
 /******************************************************************************/
-    void DrawWorldObject(IWorldObjectRenderer* i_worldobj_renderer);
+    void DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer);
 
 /******************************************************************************/
 /*!
-    \fn DrawText(TextRenderer* text_renderer, glm::vec2 cam_pos)
+    \fn DrawText(Shader* shader, Model* model,  TextRenderer* text_renderer, glm::vec2 cam_pos)
 
     \brief Draw text that have a TextRenderer component
 */
 /******************************************************************************/
-    void DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_pos);
+    void DrawTextObject(Shader* shader, Model* model, TextRenderer* text_renderer, glm::vec2 cam_pos);
 
 /******************************************************************************/
 /*!

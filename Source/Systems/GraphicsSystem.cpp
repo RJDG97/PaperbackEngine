@@ -70,18 +70,27 @@ void GraphicsSystem::Init() {
     texture_manager_ = &*CORE->GetManager<TextureManager>();
     animation_manager_ = &*CORE->GetManager<AnimationManager>();
 
-    model_manager_->AddTristripsModel(1, 1, "BoxModel");
-    model_manager_->AddTristripsModel(1, 1, "TileModel");
-    model_manager_->AddTristripsModel(1, 1, "TextModel");
-    model_manager_->AddLinesModel(1, 1, "LinesModel");
-    shader_manager_->AddShdrpgm("Shaders/world_object.vert", "Shaders/world_object.frag", "ObjectShader");
-    shader_manager_->AddShdrpgm("Shaders/text.vert", "Shaders/text.frag", "TextShader");
-    shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
-    shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
-    font_manager_->LoadFont("comic_sans");
+    graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel");
+    graphic_models_["TileModel"] = model_manager_->AddTristripsModel(1, 1, "TileModel");
+    graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel");
 
-    final_model_ = model_manager_->GetModel("BoxModel");
-    final_shader_ = shader_manager_->GetShdrpgm("FinalShader");
+    //lines model is used for debug drawing
+    model_manager_->AddLinesModel(1, 1, "LinesModel");
+
+    graphic_shaders_["ObjectShader"] =
+        shader_manager_->AddShdrpgm("Shaders/world_object.vert","Shaders/world_object.frag", "ObjectShader");
+
+    graphic_shaders_["TextShader"] =
+        shader_manager_->AddShdrpgm("Shaders/text.vert", "Shaders/text.frag", "TextShader");
+
+    graphic_shaders_["FinalShader"] =
+        shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
+
+    graphic_shaders_["DebugShader"] =
+        shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
+
+
+    font_manager_->LoadFont("comic_sans");
 
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
@@ -149,6 +158,9 @@ void GraphicsSystem::Draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    graphic_shaders_["ObjectShader"]->Use();
+    glBindVertexArray(graphic_models_["TileModel"]->vaoid_);
+
     //draws all the world textures/animations
     for (WorldRenderOrderIt it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ++it) {
 
@@ -157,8 +169,14 @@ void GraphicsSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
 		}
 
-        DrawWorldObject(it->second);
+        DrawWorldObject(graphic_shaders_["ObjectShader"], graphic_models_["TileModel"], it->second);
     }
+
+    glBindVertexArray(0);
+    graphic_shaders_["ObjectShader"]->UnUse();
+
+    graphic_shaders_["TextShader"]->Use();
+    glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
 
     //draws all the world text
     for (TextRenderOrderIt it = worldtext_renderers_in_order_.begin(); it != worldtext_renderers_in_order_.end(); ++it) {
@@ -168,17 +186,23 @@ void GraphicsSystem::Draw() {
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
         }
 
-        DrawTextObject(it->second, cam_pos_);
+        DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second, cam_pos_);
     }
+
+    glBindVertexArray(0);
+    graphic_shaders_["TextShader"]->UnUse();
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(final_model_, final_shader_, &final_texture_);
+    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], &final_texture_);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(final_model_, final_shader_, lighting_texture_);
+    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    graphic_shaders_["TextShader"]->Use();
+    glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
 
     for (TextRenderOrderIt it = uitext_renderers_in_order_.begin(); it != uitext_renderers_in_order_.end(); ++it) {
 
@@ -187,8 +211,11 @@ void GraphicsSystem::Draw() {
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
         }
 
-        DrawTextObject(it->second, cam_pos_);
+        DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second, cam_pos_);
     }
+
+    glBindVertexArray(0);
+    graphic_shaders_["TextShader"]->UnUse();
 
     if (debug_) { debug_ = !debug_; }
 }
@@ -491,39 +518,30 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
-void GraphicsSystem::DrawWorldObject(IWorldObjectRenderer* i_worldobj_renderer) {
+void GraphicsSystem::DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer) {
     
-    i_worldobj_renderer->shdr_pgm_->Use();
-    glBindVertexArray(i_worldobj_renderer->model_->vaoid_);
-
     glBindTexture(GL_TEXTURE_2D, *(i_worldobj_renderer->texture_handle_));
     glBindTextureUnit(0, *(i_worldobj_renderer->texture_handle_));
-    glUseProgram(i_worldobj_renderer->shdr_pgm_->GetHandle());
+    glUseProgram(shader->GetHandle());
 
-    i_worldobj_renderer->shdr_pgm_->SetUniform("uTex2d", 0);
-    i_worldobj_renderer->shdr_pgm_->SetUniform("uModel_to_NDC", i_worldobj_renderer->mdl_to_ndc_xform_);
+    shader->SetUniform("uTex2d", 0);
+    shader->SetUniform("uModel_to_NDC", i_worldobj_renderer->mdl_to_ndc_xform_);
 
-    glNamedBufferSubData(i_worldobj_renderer->model_->GetVBOHandle(), i_worldobj_renderer->model_->GetVBOOffset(),
+    glNamedBufferSubData(model->GetVBOHandle(), model->GetVBOOffset(),
                          sizeof(glm::vec2) * 4, i_worldobj_renderer->tex_vtx_sent_.data());
-    glDrawElements(GL_TRIANGLE_STRIP, i_worldobj_renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
     // after completing the rendering, we tell the driver that the VAO vaoid
     // and the current shader program are no longer current
-    glBindVertexArray(0);
+
     glBindTexture(GL_TEXTURE_2D, 0);
-    i_worldobj_renderer->shdr_pgm_->UnUse();
 }
 
-void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_pos) {
+void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* text_renderer, glm::vec2 cam_pos) {
 
-    text_renderer->shdr_pgm_->Use();
-    glBindVertexArray(text_renderer->model_->vaoid_);
-
-    glUseProgram(text_renderer->shdr_pgm_->GetHandle());
-
-    text_renderer->shdr_pgm_->SetUniform("uTex2d", 0);
-    text_renderer->shdr_pgm_->SetUniform("projection", projection);
-    text_renderer->shdr_pgm_->SetUniform("text_color", text_renderer->color_);
+    shader->SetUniform("uTex2d", 0);
+    shader->SetUniform("projection", projection);
+    shader->SetUniform("text_color", text_renderer->color_);
 
     Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
         text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
@@ -568,15 +586,15 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_p
         // render glyph texture over quad
         glBindTexture(GL_TEXTURE_2D, ch.GetTexID());
 
-        glNamedBufferSubData(text_renderer->model_->GetVBOHandle(), 0,
+        glNamedBufferSubData(model->GetVBOHandle(), 0,
             sizeof(vertices), vertices.data());
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         // render quad
-        glDrawElements(GL_TRIANGLE_STRIP, text_renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+        glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         pos.x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }
-    glBindVertexArray(0);
+    
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
