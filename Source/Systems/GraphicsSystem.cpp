@@ -16,49 +16,6 @@
 #include "Components/Transform.h"
 #include <glm/gtc/type_ptr.hpp>
 
-void GraphicsSystem::CameraInit() {
-
-    cam_pos_ = glm::vec2{ 0, 0 };
-    cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
-                           windows_system_->GetWinHeight() };
-
-    view_xform_ = glm::mat3{ 1 , 0 , 0,
-                            0 , 1 , 0,
-                            cam_pos_.x , cam_pos_.y , 1 };
-
-    // compute other matrices ...
-    camwin_to_ndc_xform_ = glm::mat3{ 2 / cam_size_.x , 0 , 0,
-                                    0 , 2 / cam_size_.y , 0,
-                                    0 , 0 , 1 };
-
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
-}
-
-void GraphicsSystem::CameraUpdate() {
-
-    view_xform_ = glm::mat3{ 1 , 0 , 0,
-                            0 , 1 , 0,
-                            cam_pos_.x , cam_pos_.y , 1 };
-
-    // compute other matrices ...
-    camwin_to_ndc_xform_ = glm::mat3{ 2 / cam_size_.x , 0 , 0,
-                                      0 , 2 / cam_size_.y , 0,
-                                      0 , 0 , 1 };
-
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
-}
-
-void GraphicsSystem::MoveCamera(Vector2D displacement) {
-
-    cam_pos_.x -= displacement.x;
-    cam_pos_.y -= displacement.y;
-}
-
-void GraphicsSystem::ZoomCamera(float zoom)
-{
-    cam_size_ *= zoom;
-}
-
 /*  _________________________________________________________________________ */
 /*! GraphicsSystem::Init
 
@@ -75,11 +32,12 @@ void GraphicsSystem::Init() {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
+    camera_system_ = &*CORE->GetSystem<CameraSystem>();
 
     // Set up viewports
-    window_width_ = windows_system_->GetWinWidth();
-    window_height_ = windows_system_->GetWinHeight();
-    glViewport(0, 0, window_width_, window_height_);
+    win_size_.x = windows_system_->GetWinWidth();
+    win_size_.y = windows_system_->GetWinHeight();
+    glViewport(0, 0, win_size_.x, win_size_.y);
 
     // Set up frame buffer for rendering all objects to texture
     glGenFramebuffers(1, &frame_buffer_);
@@ -91,12 +49,12 @@ void GraphicsSystem::Init() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, window_width_, window_height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, win_size_.x, win_size_.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, final_texture_, 0);
 
     glGenRenderbuffers(1, &render_buffer_);
     glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window_width_, window_height_);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, win_size_.x, win_size_.y);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
 
     DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE), "Final framebuffer is not complete!");
@@ -126,7 +84,7 @@ void GraphicsSystem::Init() {
 
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
-    CameraInit();
+    projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
@@ -143,9 +101,9 @@ This also updates the size of the squares to be rendered in one of the tasks.
 void GraphicsSystem::Update(float frametime) {
     
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Update Debug Log:\n"); }
-
-    CameraUpdate();
     
+    glm::mat3 world_to_ndc_xform_ = camera_system_->world_to_ndc_xform_;
+
     //updates all the renderer components
     for (TextureRendererIt it = texture_renderer_arr_.begin(); it != texture_renderer_arr_.end(); ++it) {
 
@@ -183,6 +141,8 @@ void GraphicsSystem::Draw() {
 
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
 
+    glm::vec2 cam_pos_ = camera_system_->cam_pos_;
+
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -207,7 +167,7 @@ void GraphicsSystem::Draw() {
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
         }
 
-        DrawTextObject(it->second);
+        DrawTextObject(it->second, cam_pos_);
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -216,6 +176,18 @@ void GraphicsSystem::Draw() {
     DrawFinalTexture(final_model_, final_shader_, &final_texture_);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(final_model_, final_shader_, lighting_texture_);
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    for (TextRenderOrderIt it = uitext_renderers_in_order_.begin(); it != uitext_renderers_in_order_.end(); ++it) {
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        DrawTextObject(it->second, cam_pos_);
+    }
 
     if (debug_) { debug_ = !debug_; }
 }
@@ -237,11 +209,6 @@ void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, GLuint* text
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shader->UnUse();
-}
-
-GLuint GraphicsSystem::getFramebuffer()
-{
-    return final_texture_;
 }
 
 /*  _________________________________________________________________________ */
@@ -292,12 +259,13 @@ void GraphicsSystem::SendMessageD(Message* m) {
         case MessageIDTypes::CAM_UPDATE_POS: {
             //placeholder name for message, will be changed after engineproof
             MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
-            MoveCamera(msg->new_vec_);
+            camera_system_->TempCameraMove(msg->new_vec_);
             break;
         }
         
         case MessageIDTypes::CHANGE_ANIMATION_1: {
 
+            camera_system_->ToggleTargeted();
             SetAnimation(player_renderer->second, "Player_Walk");
 
             break;
@@ -313,14 +281,14 @@ void GraphicsSystem::SendMessageD(Message* m) {
         case MessageIDTypes::FLIP_SPRITE_X: {
 
             FlipTextureX(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
-
+            camera_system_->TempCameraZoom(0.9);
             break;
         }
 
         case MessageIDTypes::FLIP_SPRITE_Y: {
 
             FlipTextureY(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
-
+            camera_system_->TempCameraZoom(1.1);
             break;
         }
 
@@ -336,7 +304,16 @@ void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_re
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
     text_renderer_arr_[id] = text_renderer;
-    worldtext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
+
+    if (text_renderer->ui_text_)
+    {
+        uitext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
+    }
+
+    else
+    {
+        worldtext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
+    }
 }
 
 void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
@@ -346,23 +323,43 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
 
     if (it != text_renderer_arr_.end()) {
 
+        if (it->second->ui_text_)
+        {
+            TextRenderOrderIt orderit = uitext_renderers_in_order_.find(layer);
+
+            if (orderit != uitext_renderers_in_order_.end()) {
+
+                for (; orderit != uitext_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+                    if ((*orderit).second->GetOwner()->GetID() == id) {
+
+                        orderit = uitext_renderers_in_order_.erase(orderit);
+                        break;
+                    }
+                }
+            }
+        }
+
+        else
+        {
+            TextRenderOrderIt orderit = worldtext_renderers_in_order_.find(layer);
+
+            if (orderit != worldtext_renderers_in_order_.end()) {
+
+                for (; orderit != worldtext_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+                    if ((*orderit).second->GetOwner()->GetID() == id) {
+
+                        orderit = worldtext_renderers_in_order_.erase(orderit);
+                        break;
+                    }
+                }
+            }
+        }
+
         M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
         layer = GetLayer(it->second);
         text_renderer_arr_.erase(it);
-    }
-
-    TextRenderOrderIt orderit = worldtext_renderers_in_order_.find(layer);
-
-    if (orderit != worldtext_renderers_in_order_.end()) {
-
-        for (; orderit != worldtext_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
-
-            if ((*orderit).second->GetOwner()->GetID() == id) {
-
-                orderit = worldtext_renderers_in_order_.erase(orderit);
-                break;
-            }
-        }
     }
 }
 
@@ -516,24 +513,35 @@ void GraphicsSystem::DrawWorldObject(IWorldObjectRenderer* i_worldobj_renderer) 
     i_worldobj_renderer->shdr_pgm_->UnUse();
 }
 
-void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer) {
+void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_pos) {
 
     text_renderer->shdr_pgm_->Use();
     glBindVertexArray(text_renderer->model_->vaoid_);
 
     glUseProgram(text_renderer->shdr_pgm_->GetHandle());
 
-    glm::mat4 projection = glm::ortho(0.0f, 1600.0f, 0.0f, 900.0f);
-
     text_renderer->shdr_pgm_->SetUniform("uTex2d", 0);
     text_renderer->shdr_pgm_->SetUniform("projection", projection);
     text_renderer->shdr_pgm_->SetUniform("text_color", text_renderer->color_);
 
-    std::shared_ptr<Transform> transform =
-        std::dynamic_pointer_cast<Transform>(text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+    Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
+        text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
 
-    float x = 300;//transform->position_.x + cam_pos_.x;
-    float y = 300;//transform->position_.y + cam_pos_.y;
+    Vector2D pos;
+    float scale;
+
+    if (text_renderer->ui_text_)
+    {
+        pos = obj_pos_;
+        scale = text_renderer->scale_;
+    }
+
+    else
+    {
+        glm::vec2 translation{ cam_pos * camera_system_->cam_zoom_ + 0.5f * win_size_ };
+        pos = obj_pos_ + Vector2D{ translation.x, translation.y };
+        scale = text_renderer->scale_ * camera_system_->cam_zoom_;
+    }
 
     std::string::const_iterator c;
     for (c = text_renderer->text_.begin(); c != text_renderer->text_.end(); c++)
@@ -542,10 +550,9 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer) {
 
         glm::ivec2 bearing = ch.GetBearing();
         glm::ivec2 size = ch.GetSize();
-        float scale = text_renderer->scale_;
 
-        float xpos = x + bearing.x * scale;
-        float ypos = y - (size.y - bearing.y) * scale;
+        float xpos = pos.x + bearing.x * scale;
+        float ypos = pos.y - (size.y - bearing.y) * scale;
 
         float w = size.x * scale;
         float h = size.y * scale;
@@ -567,7 +574,7 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer) {
         // render quad
         glDrawElements(GL_TRIANGLE_STRIP, text_renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
+        pos.x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -655,3 +662,7 @@ bool GraphicsSystem::IsLastFrame(AnimationRenderer* anim_renderer) {
                 anim_renderer->current_animation_->GetNumFrames();
 }
 
+GLuint GraphicsSystem::GetFramebuffer()
+{
+    return final_texture_;
+}

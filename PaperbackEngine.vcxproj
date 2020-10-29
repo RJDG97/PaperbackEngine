@@ -156,6 +156,7 @@
     <ClCompile Include="Source\Components\AnimationRenderer.cpp" />
     <ClCompile Include="Source\Components\Attack.cpp" />
     <ClCompile Include="Source\Components\BasicAI.cpp" />
+    <ClCompile Include="Source\Components\Camera.cpp" />
     <ClCompile Include="Source\Components\Clickable.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\InputController.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp" />
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
     <ClCompile Include="Source\Source.cpp" />
+    <ClCompile Include="Source\Systems\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Collision.cpp" />
     <ClCompile Include="Source\Systems\Debug.cpp" />
     <ClCompile Include="Source\Systems\Factory.cpp" />
@@ -205,6 +207,7 @@
     <ClInclude Include="Include\Components\AnimationRenderer.h" />
     <ClInclude Include="Include\Components\Attack.h" />
     <ClInclude Include="Include\Components\BasicAI.h" />
+    <ClInclude Include="Include\Components\Camera.h" />
     <ClInclude Include="Include\Components\Clickable.h" />
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
@@ -247,6 +250,7 @@
     <ClInclude Include="Include\Manager\TextureManager.h" />
     <ClInclude Include="Include\MathLib\Matrix3x3.h" />
     <ClInclude Include="Include\MathLib\Vector2D.h" />
+    <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\Collision.h" />
     <ClInclude Include="Include\Systems\Debug.h" />
     <ClInclude Include="Include\Systems\Factory.h" />

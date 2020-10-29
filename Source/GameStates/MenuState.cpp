@@ -14,6 +14,7 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Factory.h"
 #include "Systems/Collision.h"
+#include "Systems/ImguiSystem.h"
 
 #include "Components/Status.h"
 
@@ -40,6 +41,8 @@ void MenuState::Free()
 	std::cout << "MenuState clean Successful" << std::endl;
 
 	FACTORY->DestroyAllEntities();
+
+	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 }
 
 void MenuState::Update(Game* game, float frametime)
@@ -56,7 +59,7 @@ void MenuState::Draw(Game* game)
 
 void MenuState::StateInputHandler(Message* msg, Game* game) {
 
-	if (game) {
+	if (game && !game->debug_) {
 
 		switch (msg->message_id_) {
 			//check for collision between button & mouse

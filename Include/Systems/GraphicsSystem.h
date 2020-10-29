@@ -11,6 +11,7 @@
 #include "Systems/Factory.h"
 #include <unordered_map>
 #include "Systems/WindowsSystem.h"
+#include "Systems/CameraSystem.h"
 #include "Components/AnimationRenderer.h"
 #include "Components/TextRenderer.h"
 #include <windows.h>
@@ -21,19 +22,15 @@ class GraphicsSystem : public ISystem {
 
     bool debug_;
 
-    GLint window_width_;
-    GLint window_height_;
+    glm::vec2 win_size_;
     
     WindowsSystem* windows_system_;
+    CameraSystem* camera_system_;
     TextureManager* texture_manager_;
     AnimationManager* animation_manager_;
     ModelManager* model_manager_;
     ShaderManager* shader_manager_;
     FontManager* font_manager_;
-
-    //temp camera, will make it into a component next time!
-    glm::mat3 view_xform_;
-    glm::mat3 camwin_to_ndc_xform_;
 
     //render all game objects to texture
     GLuint frame_buffer_;
@@ -43,50 +40,9 @@ class GraphicsSystem : public ISystem {
     Shader* final_shader_;
     GLuint* lighting_texture_;
 
-/******************************************************************************/
-/*!
-    \fn CameraInit()
-
-    \brief Initializes the Camera
-*/
-/******************************************************************************/
-    void CameraInit();
-
-/******************************************************************************/
-/*!
-    \fn CameraUpdate()
-
-    \brief Updates the Camera's World to NDC transform
-*/
-/******************************************************************************/
-    void CameraUpdate();
-
-/******************************************************************************/
-/*!
-    \fn MoveCamera(Vector2D displacement)
-
-    \brief Moves the camera and updates its position
-*/
-/******************************************************************************/
-    void MoveCamera(Vector2D displacement);
-
-/******************************************************************************/
-/*!
-    \fn ZoomCamera(float zoom)
-
-    \brief Zooms the camera and updates its height and width
-*/
-/******************************************************************************/
-    void ZoomCamera(float zoom);
+    glm::mat4 projection;
 
 public:
-
-    glm::vec2 cam_pos_;
-    glm::vec2 cam_size_;
-
-    glm::mat3 world_to_ndc_xform_;
-
- 
 
 /******************************************************************************/
 /*!
@@ -237,12 +193,12 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
-    \fn DrawText(TextRenderer* text_renderer)
+    \fn DrawText(TextRenderer* text_renderer, glm::vec2 cam_pos)
 
     \brief Draw text that have a TextRenderer component
 */
 /******************************************************************************/
-    void DrawTextObject(TextRenderer* text_renderer);
+    void DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_pos);
 
 /******************************************************************************/
 /*!
@@ -327,6 +283,15 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
     bool IsLastFrame(AnimationRenderer* anim_renderer);
 
+/******************************************************************************/
+/*!
+\fn GetFrameBuffer()
+
+\brief retrieves the frame buffer texture (for used in ImGui Viewport)
+*/
+/******************************************************************************/
+    GLuint GetFramebuffer();
+
     using TextRendererIt = std::unordered_map<EntityID, TextRenderer*>::iterator;
     std::unordered_map<EntityID, TextRenderer*> text_renderer_arr_;
 
@@ -343,7 +308,6 @@ void RemoveTextRendererComponent(EntityID id);
     std::multimap<int, IWorldObjectRenderer*> uirenderers_in_order_;
     std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
 
-    GLuint getFramebuffer();
 };
 
 #endif

@@ -363,7 +363,7 @@ Entity* EntityFactory::GetObjectWithID(EntityID id) {
 		return it->second;
 	}
 	// Else, return null
-	return NULL;
+	return nullptr;
 }
 
 void EntityFactory::SendMessageD(Message* msg) {
@@ -374,14 +374,6 @@ void EntityFactory::SendMessageD(Message* msg) {
 	{
 
 		DestroyAllEntities();
-		break;
-	}
-	case MessageIDTypes::FTY_DELETE: // Delete a specific entity stored within the message
-	{
-
-		Entity_Message* m = dynamic_cast<Entity_Message*>(msg);
-		EntityIdMapTypeIt ent = entity_id_map_.find(m->entity_one_);
-		Destroy(&*ent->second);
 		break;
 	}
 	case MessageIDTypes::DEBUG_ALL:

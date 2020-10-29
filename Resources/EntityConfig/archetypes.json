@@ -14,6 +14,11 @@
       "scale": "820.0 400.0"
     },
     {
+      "component": "AABB",
+      "scale": "820.0 400.0",
+      "layer": "0"
+    },
+    {
       "component": "TextureRenderer",
       "texture": "Background",
       "model": "TileModel",
@@ -21,7 +26,7 @@
       "layer": "0"
     }
    ],
-   "TextTest": [
+   "UIText": [
     {
       "component": "Name",
       "name": "TextTest"
@@ -39,7 +44,30 @@
 	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
 	  "color": "1.0 0.5 1.0",
 	  "scale": "1.0",
-      "layer": "10"
+      "layer": "10",
+	  "ui text": "10"
+    }
+   ],
+  "WorldText": [
+    {
+      "component": "Name",
+      "name": "TextTest"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "TextRenderer",
+      "model": "TextModel",
+      "shader program": "TextShader",
+	  "font": "comic_sans",
+	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
+	  "color": "1.0 0.5 1.0",
+	  "scale": "1.0",
+      "layer": "10",
+	  "ui text": "0"
     }
    ],
   "Player": [
@@ -68,15 +96,16 @@
       "shader program": "ObjectShader",
       "number of animations": "2",
       "add animation": "Player_Walk",
-	  "add animation": "Player_Idle",
+      "add animation": "Player_Idle",
       "set animation": "Player_Walk",
       "play_animation": "1",
       "has_finished_animating": "0",
-      "layer": "1"
+      "layer": "2"
     },
     {
       "component": "AABB",
-      "scale": "40.0 40.0"
+      "scale": "50.0 100.0",
+      "layer": "3"
     },
     {
       "component": "Status"
@@ -120,11 +149,12 @@
       "texture": "Stone",
       "model": "TileModel",
       "shader program": "ObjectShader",
-      "layer": "0"
+      "layer": "2"
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0"
+      "scale": "30.0 30.0",
+      "layer": "2"
     },
     {
       "component": "Status"
@@ -161,11 +191,12 @@
       "texture": "Rock",
       "model": "TileModel",
       "shader program": "ObjectShader",
-      "layer": "0"
+      "layer": "2"
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0"
+      "scale": "30.0 30.0",
+      "layer": "1"
     },
     {
       "component": "PointLight",
@@ -179,11 +210,11 @@
   "MovingWall": [
     {
       "component": "Name",
-      "name": "Wall"
+      "name": "MovingWall"
     },
     {
       "component": "BasicAI",
-      "speed": "800.0"
+      "speed": "3000.0"
     },
     {
       "component": "Transform",
@@ -205,11 +236,12 @@
       "texture": "Rock",
       "model": "TileModel",
       "shader program": "ObjectShader",
-      "layer": "0"
+      "layer": "2"
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0"
+      "scale": "30.0 30.0",
+      "layer": "2"
     },
     {
       "component": "PointLight",
@@ -239,7 +271,7 @@
       "texture": "Rock",
       "model": "TileModel",
       "shader program": "ObjectShader",
-      "layer": "0"
+      "layer": "2"
     },
     {
       "component": "PointLight",
@@ -248,6 +280,11 @@
       "color": "0.5 1.0 1.0",
       "radius": "50.0",
       "intensity": "1.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "30.0 30.0",
+      "layer": "4"
     },
     {
       "component": "Clickable",

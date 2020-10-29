@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -115,6 +111,21 @@
     <Filter Include="Entity\Components\InputController">
       <UniqueIdentifier>{8bdad12a-98c2-4e3d-9596-0c974f1871ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\AI">
+      <UniqueIdentifier>{dba3004f-40e2-4f88-b68e-45f02c9ed111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Logic">
+      <UniqueIdentifier>{59021681-0e82-45bf-a3be-55b191505591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\LightingSystem">
+      <UniqueIdentifier>{49e006f8-c914-4a2b-8cf1-32fe29d17c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\CameraSystem">
+      <UniqueIdentifier>{11c7abbd-1499-49b7-93b2-0987a0f928f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Camera">
+      <UniqueIdentifier>{b9c2163f-abb5-415a-b632-29bf7ab70408}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Systems\LogicSystem">
       <UniqueIdentifier>{234a2169-b8cc-4268-84b5-2426810d09d8}</UniqueIdentifier>
     </Filter>
@@ -150,16 +161,10 @@
     <ClCompile Include="Source\Entity\Entity.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Systems\Collision.cpp">
-      <Filter>Systems\Collision</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Systems\Factory.cpp">
       <Filter>Systems\Factory</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\GraphicsSystem.cpp">
-      <Filter>Systems\GraphicsSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Systems\LightingSystem.cpp">
       <Filter>Systems\GraphicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\InputSystem.cpp">
@@ -261,9 +266,6 @@
     <ClCompile Include="Source\Manager\FontManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\TextRenderer.cpp">
-      <Filter>Entity\Components\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Imgui\AnotherWindow.cpp">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
@@ -272,6 +274,27 @@
     </ClCompile>
     <ClCompile Include="Source\Imgui\ImguiViewport.cpp">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\AI.cpp">
+      <Filter>Entity\Components\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\LogicSystem.cpp">
+      <Filter>Systems\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\LightingSystem.cpp">
+      <Filter>Systems\LightingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\TextRenderer.cpp">
+      <Filter>Entity\Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\CameraSystem.cpp">
+      <Filter>Systems\CameraSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Camera.cpp">
+      <Filter>Entity\Components\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Collision.cpp">
+      <Filter>Systems\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Source\Manager\AIManager.cpp">
       <Filter>ResourceManagers</Filter>
@@ -314,9 +337,6 @@
     <ClInclude Include="Include\Components\Transform.h">
       <Filter>Entity\Components\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Systems\Collision.h">
-      <Filter>Systems\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Engine\Core.h">
       <Filter>Systems\Core</Filter>
     </ClInclude>
@@ -331,9 +351,6 @@
     </ClInclude>
     <ClInclude Include="Include\Manager\TextureManager.h">
       <Filter>ResourceManagers</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Systems\LightingSystem.h">
-      <Filter>Systems\GraphicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\GraphicsSystem.h">
       <Filter>Systems\GraphicsSystem</Filter>
@@ -466,6 +483,24 @@
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\AI.h">
+      <Filter>Entity\Components\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\LogicSystem.h">
+      <Filter>Systems\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\LightingSystem.h">
+      <Filter>Systems\LightingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\CameraSystem.h">
+      <Filter>Systems\CameraSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Camera.h">
+      <Filter>Entity\Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Collision.h">
+      <Filter>Systems\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\AIManager.h">
       <Filter>ResourceManagers</Filter>

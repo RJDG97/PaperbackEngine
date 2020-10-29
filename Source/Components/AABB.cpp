@@ -10,14 +10,11 @@ AABB::AABB() : top_right_{},
 
 AABB::~AABB() {
 
-	//if (Component::GetOwner())
 	CORE->GetSystem<Collision>()->RemoveAABBComponent(Component::GetOwner()->GetID());
 }
 
 void AABB::Init() {
-	// Create the map afterwards
-	//COLLISION->AABBs[Component::GetOwner()->GetID()] = *this;
-	//if (Component::GetOwner()
+
 	CORE->GetSystem<Collision>()->AddAABBComponent(Component::GetOwner()->GetID(), this);
 }
 
@@ -31,6 +28,9 @@ void AABB::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 	writer->Key("scale");
 	writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
 
+	writer->Key("layer");
+	writer->String((std::to_string(layer_)).c_str());
+
 	writer->EndObject();
 }
 
@@ -38,7 +38,7 @@ void AABB::DeSerialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing AABB Component" << std::endl;
 	
-	data >> scale_.x >> scale_.y;
+	data >> scale_.x >> scale_.y >> layer_;
 }
 
 std::shared_ptr<Component> AABB::Clone() {
@@ -49,6 +49,7 @@ std::shared_ptr<Component> AABB::Clone() {
 	cloned->bottom_left_ = bottom_left_;
 	cloned->top_right_ = top_right_;
 	cloned->scale_ = scale_;
+	cloned->layer_ = layer_;
 
 	return cloned;
 }

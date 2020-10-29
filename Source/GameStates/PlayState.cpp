@@ -43,6 +43,9 @@ void PlayState::Init()
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
 	player = FACTORY->CloneArchetype("Player");
+
+	//TEMPORARY
+	CORE->GetSystem<CameraSystem>()->SetTarget(player);
 	
 	FACTORY->DeSerializeLevelEntities("Resources/EntityConfig/play.json");
 }
@@ -127,7 +130,7 @@ void PlayState::Draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
-void PlayState::SetStatus(std::string entity_name, StatusType status_type, Game* game) {
+void PlayState::SetStatus(std::string entity_name, StatusType status_type, float status_length, Game* game) {
 	
 	for (Game::StatusIt it = game->status_arr_.begin(); it != game->status_arr_.end(); ++it) {
 		
@@ -136,7 +139,7 @@ void PlayState::SetStatus(std::string entity_name, StatusType status_type, Game*
 		if (name == entity_name && it->second->status_ == StatusType::NONE) {
 			
 			it->second->status_ = status_type;
-			it->second->status_timer_ = 3.0f; // change timer accordingly in the future
+			it->second->status_timer_ = status_length; // change timer accordingly in the future
 		}
 	}
 }
@@ -280,7 +283,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				continue;
 
 			InputController* InputController = it->second;
-			float power = 1075.0f;
+			float power = 3000.0f;
 
 			//input group
 			if (InputController->VerifyKey("move_left", m->input_)) {
@@ -314,6 +317,11 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			else if (InputController->VerifyKey("expand", m->input_)) {
 				std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
 				ScaleEntityBig(player_scale, true);
+			}
+
+			// Temp
+			else if (InputController->VerifyKey("burrow", m->input_)) {
+				SetStatus("Player", StatusType::BURROW, 5.0f, &*CORE->GetSystem<Game>());
 			}
 		}
 	}

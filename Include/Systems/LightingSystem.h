@@ -4,6 +4,7 @@
 
 #include "Systems/ISystem.h"
 #include "Systems/WindowsSystem.h"
+#include "Systems/CameraSystem.h"
 #include "Components/PointLight.h"
 #include <unordered_map>
 #include <windows.h>
@@ -17,9 +18,11 @@ class LightingSystem : public ISystem {
 	GLuint lighting_texture;
 
 	glm::vec2* cam_pos_;
-	glm::vec2* cam_size_;
 
-	WindowsSystem* windows_system;
+	WindowsSystem* windows_system_;
+	CameraSystem* camera_system_;
+
+	glm::vec2 win_size_;
 
 public:
 
@@ -111,12 +114,12 @@ public:
 
 /******************************************************************************/
 /*!
-\fn UpdateLightPosition(PointLight* point_light, glm::vec2 cam_pos, glm::vec2 cam_size)
+\fn UpdateLightPosition(PointLight* point_light)
 
 \brief Updates the light position of a Light component from the Lighting Component's map
 */
 /******************************************************************************/
-	void UpdateLightPosition(PointLight* point_light, glm::vec2 cam_pos, glm::vec2 cam_size);
+	void UpdateLightPosition(PointLight* point_light);
 
 /******************************************************************************/
 /*!

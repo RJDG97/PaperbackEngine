@@ -42,7 +42,7 @@ void Physics::Update(float frametime) {
 		//motion->second->velocity_ += motion->second->acceleration_ * frametime;
 		motion->second->acceleration_ = force_mgr->GetForce(motion->second->GetOwner()->GetID()) / motion->second->mass_;
 		motion->second->velocity_ += motion->second->acceleration_ * frametime;
-		motion->second->velocity_ *= 0.95f;
+		motion->second->velocity_ *= 0.90f;
 
 		SnapZero(motion->second->velocity_);
 
@@ -75,7 +75,6 @@ void Physics::ChangeVelocity(Message* m) {
 	// If there are multiple players the results will be duplicated
 	// because there is no specific entity id at the moment
 
-	//std::cout << "Entered ChangeVelocity" << std::endl;
 	//dynamic cast from message base class to derived message class
 	MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
 

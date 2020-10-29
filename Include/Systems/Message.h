@@ -85,23 +85,6 @@ public:
 	virtual ~Message() = default;
 };
 
-// Entity Message Interface
-struct Entity_Message : public Message
-{
-	size_t entity_one_, entity_two_;
-
-/******************************************************************************/
-/*!
-  \fn Entity_Message
-
-  \brief A constructor for a specialised message derived from Message that is
-		 used if a message is directed to a specific entity.
-*/
-/******************************************************************************/
-	Entity_Message(MessageIDTypes id, size_t id_1 = 0, size_t id_2 = 0);
-	virtual ~Entity_Message() = default;
-};
-
 struct MessagePhysics_Motion : public Message {
 
 	Vec2 new_vec_;
@@ -170,50 +153,6 @@ struct MessageBGM_Play : public Message
 */
 /******************************************************************************/
 	MessageBGM_Play(const std::string file_id);
-};
-
-// can remove possibly
-struct MessageRotation : public Entity_Message
-{
-	//GOC * CollidedWith;
-
-/******************************************************************************/
-/*!
-  \fn MessageRotation()
-
-  \brief Sends a message to a system that handles rotation
-*/
-/******************************************************************************/
-	MessageRotation(size_t entity_id);
-};
-
-// can remove possibly
-struct MessageHPDecre : public Entity_Message
-{
-	//GOC * CollidedWith;
-
-/******************************************************************************/
-/*!
-  \fn MessageHPDecre()
-
-  \brief Sends a message to a system that handles HP decrementing
-*/
-/******************************************************************************/
-	MessageHPDecre(size_t entity_id);
-};
-
-struct Message_CustomState : public Message
-{
-	GameState* state_;
-
-/******************************************************************************/
-/*!
-  \fn Message_CustomState()
-
-  \brief Initializes a message with a new game state and handle type
-*/
-/******************************************************************************/
-	Message_CustomState(GameState* state, MessageIDTypes message_type);
 };
 
 ///Message to tell the game to quit

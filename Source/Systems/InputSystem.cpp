@@ -146,9 +146,10 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
-		case GLFW_KEY_C:
+		case GLFW_KEY_U:
 		{
-			CORE->GetSystem<ImguiSystem>()->b_imguimode = !CORE->GetSystem<ImguiSystem>()->b_imguimode;
+			Message msg(MessageIDTypes::CHANGE_ANIMATION_1);
+			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_I:

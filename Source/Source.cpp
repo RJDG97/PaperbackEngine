@@ -50,6 +50,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	try {
 		CORE->AddSystem<WindowsSystem>();
+		CORE->AddSystem<CameraSystem>();
 		CORE->AddSystem<GraphicsSystem>();
 		CORE->AddSystem<LightingSystem>();
 		CORE->AddSystem<ImguiSystem>();
