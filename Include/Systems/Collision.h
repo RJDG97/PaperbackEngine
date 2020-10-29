@@ -33,6 +33,7 @@ class Collision : public ISystem {
 	Model model_;
 	Shader shdr_pgm_;
 	glm::mat3* world_to_ndc_xform_;
+	float* cam_zoom_;
 
 	using AABBType = std::unordered_map<EntityID, AABB*>;
 	using AABBIt = AABBType::iterator;

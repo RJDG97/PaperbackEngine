@@ -165,12 +165,14 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 
 bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button) {
 
+	Vec2 cursor_pos_scaled = (1 / *cam_zoom_) * cursor_pos;
+
 	//assume that is button
 	//compute if position is within bounding box
-	if (button->bottom_left_.x <= cursor_pos.x &&
-		button->bottom_left_.y <= cursor_pos.y &&
-		button->top_right_.x >= cursor_pos.x &&
-		button->top_right_.y >= cursor_pos.y) {
+	if (button->bottom_left_.x <= cursor_pos_scaled.x &&
+		button->bottom_left_.y <= cursor_pos_scaled.y &&
+		button->top_right_.x >= cursor_pos_scaled.x &&
+		button->top_right_.y >= cursor_pos_scaled.y) {
 		return true;
 	}
 	return false;
@@ -178,12 +180,14 @@ bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* bu
 
 bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const AABB* box) {
 
+	Vec2 cursor_pos_scaled = (1/ *cam_zoom_) * cursor_pos;
+
 	//assume that is button
 	//compute if position is within bounding box
-	if (box->bottom_left_.x <= cursor_pos.x &&
-		box->bottom_left_.y <= cursor_pos.y &&
-		box->top_right_.x >= cursor_pos.x &&
-		box->top_right_.y >= cursor_pos.y) {
+	if (box->bottom_left_.x <= cursor_pos_scaled.x &&
+		box->bottom_left_.y <= cursor_pos_scaled.y &&
+		box->top_right_.x >= cursor_pos_scaled.x &&
+		box->top_right_.y >= cursor_pos_scaled.y) {
 		return true;
 	}
 	return false;
@@ -568,6 +572,7 @@ void Collision::Init() {
 	shdr_pgm_ = *CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
 	model_ = *CORE->GetManager<ModelManager>()->GetModel("LinesModel");
 	world_to_ndc_xform_ = &(CORE->GetSystem<CameraSystem>()->world_to_ndc_xform_);
+	cam_zoom_ = &(CORE->GetSystem<CameraSystem>()->cam_zoom_);
 	glLineWidth(2.0f);
 
 	// Defining collision map layering

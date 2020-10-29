@@ -4,6 +4,7 @@
 
 #include "Systems/ISystem.h"
 #include "Components/Camera.h"
+#include "Components/Transform.h"
 #include "Systems/WindowsSystem.h"
 #include <unordered_map>
 
@@ -23,6 +24,10 @@ public:
 	glm::vec2 cam_pos_;
 	glm::vec2 cam_size_;
 	glm::mat3 world_to_ndc_xform_;
+
+	//TEMPORARY
+	std::shared_ptr<Transform> target_;
+	bool targeted_;
 
 	float cam_zoom_;
 
@@ -49,6 +54,10 @@ public:
 	void TempCameraZoom(float zoom);
 
 	void TempCameraMove(Vector2D displacement);
+
+	void SetTarget(Entity* target);
+
+	void ToggleTargeted();
 };
 
 #endif

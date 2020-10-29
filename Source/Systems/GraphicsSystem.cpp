@@ -259,13 +259,13 @@ void GraphicsSystem::SendMessageD(Message* m) {
         case MessageIDTypes::CAM_UPDATE_POS: {
             //placeholder name for message, will be changed after engineproof
             MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
-            //camera_system_->TempCameraZoom(1.001);
             camera_system_->TempCameraMove(msg->new_vec_);
             break;
         }
         
         case MessageIDTypes::CHANGE_ANIMATION_1: {
 
+            camera_system_->ToggleTargeted();
             SetAnimation(player_renderer->second, "Player_Walk");
 
             break;
@@ -281,14 +281,14 @@ void GraphicsSystem::SendMessageD(Message* m) {
         case MessageIDTypes::FLIP_SPRITE_X: {
 
             FlipTextureX(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
-
+            camera_system_->TempCameraZoom(0.9);
             break;
         }
 
         case MessageIDTypes::FLIP_SPRITE_Y: {
 
             FlipTextureY(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
-
+            camera_system_->TempCameraZoom(1.1);
             break;
         }
 
@@ -524,23 +524,23 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_p
     text_renderer->shdr_pgm_->SetUniform("projection", projection);
     text_renderer->shdr_pgm_->SetUniform("text_color", text_renderer->color_);
 
-    std::shared_ptr<Transform> transform =
-        std::dynamic_pointer_cast<Transform>(text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+    Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
+        text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
 
     Vector2D pos;
     float scale;
 
     if (text_renderer->ui_text_)
     {
-        pos = transform->position_;
+        pos = obj_pos_;
         scale = text_renderer->scale_;
     }
 
     else
     {
-        glm::vec2 translation{ cam_pos + 0.5f * win_size_ };
-        pos = transform->position_ / camera_system_->cam_zoom_ + Vector2D{ translation.x, translation.y };
-        scale = text_renderer->scale_ / camera_system_->cam_zoom_;
+        glm::vec2 translation{ cam_pos * camera_system_->cam_zoom_ + 0.5f * win_size_ };
+        pos = obj_pos_ + Vector2D{ translation.x, translation.y };
+        scale = text_renderer->scale_ * camera_system_->cam_zoom_;
     }
 
     std::string::const_iterator c;

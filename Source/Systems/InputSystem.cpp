@@ -146,6 +146,12 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
+		case GLFW_KEY_U:
+		{
+			Message msg(MessageIDTypes::CHANGE_ANIMATION_1);
+			CORE->BroadcastMessage(&msg);
+			break;
+		}
 		case GLFW_KEY_I:
 		{
 			Message msg(MessageIDTypes::CHANGE_ANIMATION_2);

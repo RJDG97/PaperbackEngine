@@ -43,6 +43,9 @@ void PlayState::Init()
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
 	player = FACTORY->CloneArchetype("Player");
+
+	//TEMPORARY
+	CORE->GetSystem<CameraSystem>()->SetTarget(player);
 	
 	FACTORY->DeSerializeLevelEntities("Resources/EntityConfig/play.json");
 }
