@@ -47,7 +47,7 @@ void PlayState::Init()
 	//TEMPORARY
 	CORE->GetSystem<CameraSystem>()->SetTarget(player);
 	
-	FACTORY->DeSerializeLevelEntities("Resources/EntityConfig/play.json");
+	FACTORY->DeSerializeLevelEntities(FACTORY->GetLevel("Play"));// "Resources/EntityConfig/play.json");
 }
 
 void PlayState::Free()

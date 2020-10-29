@@ -1,6 +1,7 @@
 #pragma once
 #include "Systems/ISystem.h"
 #include "Entity/Entity.h"
+#include "GameStates/Levels.h"
 #include <set>
 #include <map>
 #include <string>
@@ -31,6 +32,10 @@ class EntityFactory : public ISystem {
 	// For storing entities that are to be deleted in update loop
 	using EntityIt = std::set<Entity*>::iterator;
 	std::set<Entity*> objects_to_delete;
+
+	//will contain the additional details about what files are loaded
+	//possibly shifted to entity manager if need be
+	Levels levels_;
 
 /******************************************************************************/
 /*!
@@ -181,6 +186,16 @@ public:
 */
 /******************************************************************************/
 	void AddComponentCreator(const std::string& name, IComponentCreator* creator);
+
+	
+/******************************************************************************/
+/*!
+  \fn GetLevel()
+
+  \brief Used to retrieve a filepath to a specific level json. 
+*/
+/******************************************************************************/
+	std::string GetLevel(const std::string& name);
 
 /******************************************************************************/
 /*!
