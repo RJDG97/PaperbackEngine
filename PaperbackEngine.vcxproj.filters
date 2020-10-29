@@ -126,6 +126,12 @@
     <Filter Include="Entity\Components\Camera">
       <UniqueIdentifier>{b9c2163f-abb5-415a-b632-29bf7ab70408}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\LogicSystem">
+      <UniqueIdentifier>{234a2169-b8cc-4268-84b5-2426810d09d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\AI">
+      <UniqueIdentifier>{3aac60a3-9e01-4157-b72a-d9becdef3061}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -289,6 +295,15 @@
     </ClCompile>
     <ClCompile Include="Source\Systems\Collision.cpp">
       <Filter>Systems\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\AIManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\LogicSystem.cpp">
+      <Filter>Systems\LogicSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\AI.cpp">
+      <Filter>Entity\Components\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -486,6 +501,15 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\Collision.h">
       <Filter>Systems\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\AIManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\LogicSystem.h">
+      <Filter>Systems\LogicSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\AI.h">
+      <Filter>Entity\Components\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

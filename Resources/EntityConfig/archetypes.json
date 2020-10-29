@@ -295,5 +295,45 @@
     {
       "component": "InputController"
     }
+  ],
+  "AITest": [
+    {
+      "component": "AI",
+      "AItype": "Stag_Beetle"
+    },
+    {
+      "component": "Transform",
+      "position": "-700.0 0.0 ",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "Scale",
+      "scale": "10.0 10.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Stone",
+      "model": "TileModel",
+      "shader program": "ObjectShader",
+      "layer": "0"
+    },
+    {
+      "component": "PointLight",
+      "model": "TileModel",
+      "shader program": "LightShader",
+      "color": "1.0 1.0 0.7",
+      "radius": "20.0",
+      "intensity": "0.8"
+    },
+    {
+      "component": "AABB",
+      "scale": "10.0 10.0"
+    },
+    {
+      "component": "Motion",
+      "mass": "8.0",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    }
   ]
 }
