@@ -121,7 +121,8 @@ void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 	Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
 		point_light->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
 
-	point_light->pos_ = glm::vec2(obj_pos_.x, obj_pos_.y) + (*cam_pos_ + 0.5f * win_size_) * camera_system_->cam_zoom_;
+	point_light->pos_ = glm::vec2(obj_pos_.x, obj_pos_.y) * camera_system_->cam_zoom_ +
+							(*cam_pos_ * camera_system_->cam_zoom_ + 0.5f * win_size_);
 	point_light->pos_ *= 0.5f;
 }
 
