@@ -5,9 +5,12 @@ void CameraSystem::Init()
 {
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
 
+    cam_zoom_ = 0.8f;
+    targeted_ = false;
+
     cam_pos_ = glm::vec2{ 0, 0 };
     cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
-                           windows_system_->GetWinHeight() };
+                           windows_system_->GetWinHeight() } / cam_zoom_;
 
     glm::mat3 view_xform_ { 1 , 0 , 0,
                             0 , 1 , 0,
@@ -19,8 +22,6 @@ void CameraSystem::Init()
                                      0 , 0 , 1 };
 
     world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
-
-    cam_zoom_ = 1.0f;
 }
 
 void CameraSystem::Update(float frametime)
@@ -36,6 +37,12 @@ void CameraSystem::Update(float frametime)
         CameraUpdate(it->second);
     }
     */
+
+    if (targeted_)
+    {
+        Vector2D target = target_->GetPosition() * -1;
+        cam_pos_ = glm::vec2{ target.x, target.y };
+    }
 
     TempCameraUpdate();
 }
@@ -88,20 +95,36 @@ void CameraSystem::CameraZoom(Camera* camera, float zoom)
 
 void CameraSystem::CameraMove(Camera* camera, Vector2D displacement)
 {
-    camera->cam_pos_.x -= displacement.x;
-    camera->cam_pos_.y -= displacement.y;
+    if (!targeted_)
+    {
+        camera->cam_pos_.x -= displacement.x;
+        camera->cam_pos_.y -= displacement.y;
+    }
 }
 
 void CameraSystem::TempCameraZoom(float zoom)
 {
     cam_zoom_ *= zoom;
 
-    cam_size_ = cam_zoom_ * glm::vec2{ windows_system_->GetWinWidth(),
-                                       windows_system_->GetWinHeight() };
+    cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
+                           windows_system_->GetWinHeight() } / cam_zoom_;
 }
 
 void CameraSystem::TempCameraMove(Vector2D displacement)
 {
-    cam_pos_.x -= displacement.x;
-    cam_pos_.y -= displacement.y;
+    if (!targeted_)
+    {
+        cam_pos_.x -= displacement.x;
+        cam_pos_.y -= displacement.y;
+    }
+}
+
+void CameraSystem::SetTarget(Entity* target)
+{
+    target_ = std::dynamic_pointer_cast<Transform>(target->GetComponent(ComponentTypes::TRANSFORM));
+}
+
+void CameraSystem::ToggleTargeted()
+{
+    targeted_ = !targeted_;
 }

@@ -121,7 +121,8 @@ void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 	Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
 		point_light->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
 
-	point_light->pos_ = 0.5f * ((glm::vec2(obj_pos_.x, obj_pos_.y) / camera_system_->cam_zoom_ + *cam_pos_ + 0.5f * win_size_));
+	point_light->pos_ = glm::vec2(obj_pos_.x, obj_pos_.y) + (*cam_pos_ + 0.5f * win_size_) * camera_system_->cam_zoom_;
+	point_light->pos_ *= 0.5f;
 }
 
 void LightingSystem::DrawPointLight(PointLight* point_light) {
@@ -132,7 +133,7 @@ void LightingSystem::DrawPointLight(PointLight* point_light) {
 	point_light->shdr_pgm_.SetUniform("light_color", point_light->color_);
 	point_light->shdr_pgm_.SetUniform("light_center", point_light->pos_);
 	point_light->shdr_pgm_.SetUniform("intensity", point_light->intensity_);
-	point_light->shdr_pgm_.SetUniform("radius", point_light->radius_ / camera_system_->cam_zoom_);
+	point_light->shdr_pgm_.SetUniform("radius", point_light->radius_ * camera_system_->cam_zoom_);
 
 	glDrawElements(GL_TRIANGLE_STRIP, point_light->model_.draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 	glBindVertexArray(0);
