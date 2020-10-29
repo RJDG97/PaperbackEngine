@@ -5,7 +5,7 @@ void CameraSystem::Init()
 {
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
 
-    cam_zoom_ = 0.8f;
+    cam_zoom_ = 1.0f;
     targeted_ = false;
 
     cam_pos_ = glm::vec2{ 0, 0 };
