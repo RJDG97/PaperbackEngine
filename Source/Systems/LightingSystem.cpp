@@ -20,10 +20,15 @@ void LightingSystem::Init() {
 	windows_system_ = &*CORE->GetSystem<WindowsSystem>();
 	camera_system_ = &*CORE->GetSystem<CameraSystem>();
 
-	win_size_.x = windows_system_->GetWinWidth();
-	win_size_.y = windows_system_->GetWinHeight();
+	win_size_.x = static_cast<float>(windows_system_->GetWinWidth());
+	win_size_.y = static_cast<float>(windows_system_->GetWinHeight());
 
-	CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
+	CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/point_light.vert", "Shaders/point_light.frag", "PointLightShader");
+	lighting_shaders_["PointLightShader"] = CORE->GetManager<ShaderManager>()->GetShdrpgm("PointLightShader");
+	
+	CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel");
+	light_model_ = CORE->GetManager<ModelManager>()->GetModel("LightModel");
+
 	//Temporary before camera is component
 	std::shared_ptr<GraphicsSystem> graphics_system = CORE->GetSystem<GraphicsSystem>();
 
@@ -38,7 +43,9 @@ void LightingSystem::Init() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, win_size_.x/2, win_size_.y/2, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+				 static_cast<GLsizei>(win_size_.x/2), static_cast<GLsizei>(win_size_.y/2),
+				 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, lighting_texture, 0);
 
@@ -69,10 +76,13 @@ void LightingSystem::Draw() {
 	//reset the lighting texture
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
 	glClear(GL_COLOR_BUFFER_BIT);
-	//glClearColor(0.1f, 0.05f, 0.2f, 1.0f);
 	glClearColor(0.3f, 0.25f, 0.4f, 1.0f);
 	
 	glBlendFunc(GL_ONE, GL_ONE);
+	
+	Shader* point_light_shader = lighting_shaders_["PointLightShader"];
+	glBindVertexArray(light_model_->vaoid_);
+	point_light_shader->Use();
 
 	for (PointLightIt it = point_light_arr_.begin(); it != point_light_arr_.end(); ++it) {
 
@@ -81,9 +91,11 @@ void LightingSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing point light for entity: " + std::to_string(it->first) + "\n");
 		}
 
-		DrawPointLight(it->second);
+		DrawPointLight(point_light_shader, it->second);
 	}
 
+	point_light_shader->UnUse();
+	glBindVertexArray(0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -126,19 +138,14 @@ void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 	point_light->pos_ *= 0.5f;
 }
 
-void LightingSystem::DrawPointLight(PointLight* point_light) {
+void LightingSystem::DrawPointLight(Shader* shader, PointLight* point_light) {
 
-	point_light->shdr_pgm_.Use();
-	glBindVertexArray(point_light->model_.vaoid_);
+	shader->SetUniform("light_color", point_light->color_);
+	shader->SetUniform("light_center", point_light->pos_);
+	shader->SetUniform("intensity", point_light->intensity_);
+	shader->SetUniform("radius", point_light->radius_ * camera_system_->cam_zoom_);
 
-	point_light->shdr_pgm_.SetUniform("light_color", point_light->color_);
-	point_light->shdr_pgm_.SetUniform("light_center", point_light->pos_);
-	point_light->shdr_pgm_.SetUniform("intensity", point_light->intensity_);
-	point_light->shdr_pgm_.SetUniform("radius", point_light->radius_ * camera_system_->cam_zoom_);
-
-	glDrawElements(GL_TRIANGLE_STRIP, point_light->model_.draw_cnt_, GL_UNSIGNED_SHORT, NULL);
-	glBindVertexArray(0);
-	point_light->shdr_pgm_.UnUse();
+	glDrawElements(GL_TRIANGLE_STRIP, light_model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 }
 
 std::string LightingSystem::GetName() {

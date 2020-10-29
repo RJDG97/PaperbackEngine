@@ -12,7 +12,6 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
 
     int const count{ (stacks + 1) * (slices + 1) };
     std::vector<glm::vec2> pos_vtx(count);
-    std::vector<glm::vec3> clr_vtx(count);
     std::vector<glm::vec2> tex_vtx(count);
 
     float const u{ 2.f / static_cast<float>(slices) };
@@ -23,11 +22,6 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
         for (int col{ 0 }; col <= slices; ++col) {
 
             pos_vtx[index] = glm::vec2(u * static_cast<float>(col) - 1.f, v* static_cast<float>(row) - 1.f);
-
-            // Randomly generate r, g, b values for vertex color attribute
-            clr_vtx[index] = glm::vec3{ static_cast<float>(row) / stacks,
-                                        static_cast<float>(col) / slices,
-                                            1.0 - static_cast<float>(row) / stacks - static_cast<float>(col) / slices };
 
             tex_vtx[index++] = glm::vec2{ col, row };
         }
@@ -62,16 +56,12 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
     GLuint vbo_hdl;
     glCreateBuffers(1, &vbo_hdl);
     glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
-        sizeof(glm::vec3) * clr_vtx.size() +
-        sizeof(glm::vec2) * tex_vtx.size(),
-        nullptr, GL_DYNAMIC_STORAGE_BIT);
+                         sizeof(glm::vec2) * tex_vtx.size(),
+                         nullptr, GL_DYNAMIC_STORAGE_BIT);
 
     glNamedBufferSubData(vbo_hdl, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
 
     glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(),
-                         sizeof(glm::vec3) * clr_vtx.size(), clr_vtx.data());
-
-    glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(),
                          sizeof(glm::vec2) * tex_vtx.size(), tex_vtx.data());
 
     GLuint vao_hdl;
@@ -82,14 +72,9 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
     glVertexArrayAttribBinding(vao_hdl, 0, 0);
 
     glEnableVertexArrayAttrib(vao_hdl, 1);
-    glVertexArrayVertexBuffer(vao_hdl, 1, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(), sizeof(glm::vec3));
-    glVertexArrayAttribFormat(vao_hdl, 1, 3, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayVertexBuffer(vao_hdl, 1, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(), sizeof(glm::vec2));
+    glVertexArrayAttribFormat(vao_hdl, 1, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 1, 1);
-
-    glEnableVertexArrayAttrib(vao_hdl, 2);
-    glVertexArrayVertexBuffer(vao_hdl, 2, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size(), sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_hdl, 2, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_hdl, 2, 2);
 
     GLuint ebo_hdl;
     glCreateBuffers(1, &ebo_hdl);
@@ -105,7 +90,7 @@ void ModelManager::AddTristripsModel(int slices, int stacks, std::string model_n
     Model mdl;
     mdl.vaoid_ = vao_hdl;
     mdl.vboid_ = vbo_hdl;
-    mdl.vbo_offset_ = sizeof(glm::vec2) * pos_vtx.size() + sizeof(glm::vec3) * clr_vtx.size();
+    mdl.vbo_offset_ = sizeof(glm::vec2) * pos_vtx.size();
     mdl.primitive_type_ = GL_TRIANGLE_STRIP;
     mdl.draw_cnt_ = static_cast<GLint>(idx_vtx.size());     // number of vertices
     mdl.primitive_cnt_ = count;                             // number of triangles

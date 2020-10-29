@@ -35,9 +35,9 @@ void GraphicsSystem::Init() {
     camera_system_ = &*CORE->GetSystem<CameraSystem>();
 
     // Set up viewports
-    win_size_.x = windows_system_->GetWinWidth();
-    win_size_.y = windows_system_->GetWinHeight();
-    glViewport(0, 0, win_size_.x, win_size_.y);
+    win_size_.x = static_cast<float>(windows_system_->GetWinWidth());
+    win_size_.y = static_cast<float>(windows_system_->GetWinHeight());
+    glViewport(0, 0, static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y));
 
     // Set up frame buffer for rendering all objects to texture
     glGenFramebuffers(1, &frame_buffer_);
@@ -49,12 +49,14 @@ void GraphicsSystem::Init() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, win_size_.x, win_size_.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+                 static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y),
+                 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, final_texture_, 0);
 
     glGenRenderbuffers(1, &render_buffer_);
     glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, win_size_.x, win_size_.y);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y));
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
 
     DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE), "Final framebuffer is not complete!");
@@ -75,7 +77,6 @@ void GraphicsSystem::Init() {
     shader_manager_->AddShdrpgm("Shaders/world_object.vert", "Shaders/world_object.frag", "ObjectShader");
     shader_manager_->AddShdrpgm("Shaders/text.vert", "Shaders/text.frag", "TextShader");
     shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
-    shader_manager_->AddShdrpgm("Shaders/lighting.vert", "Shaders/lighting.frag", "LightShader");
     shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
     font_manager_->LoadFont("comic_sans");
 
@@ -281,14 +282,14 @@ void GraphicsSystem::SendMessageD(Message* m) {
         case MessageIDTypes::FLIP_SPRITE_X: {
 
             FlipTextureX(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
-            camera_system_->TempCameraZoom(0.9);
+            camera_system_->TempCameraZoom(0.9f);
             break;
         }
 
         case MessageIDTypes::FLIP_SPRITE_Y: {
 
             FlipTextureY(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
-            camera_system_->TempCameraZoom(1.1);
+            camera_system_->TempCameraZoom(1.1f);
             break;
         }
 
@@ -557,19 +558,18 @@ void GraphicsSystem::DrawTextObject(TextRenderer* text_renderer, glm::vec2 cam_p
         float w = size.x * scale;
         float h = size.y * scale;
         
-        // update VBO for each character
-        float vertices[4][2] = {
-            { xpos,     ypos + h},
-            { xpos + w, ypos + h},
-            { xpos,     ypos},
-            { xpos + w, ypos}
-        };
+        std::vector<glm::vec2> vertices;
+
+        vertices.push_back({ xpos,     ypos + h });
+        vertices.push_back({ xpos + w, ypos + h });
+        vertices.push_back({ xpos,     ypos });
+        vertices.push_back({ xpos + w, ypos });
 
         // render glyph texture over quad
         glBindTexture(GL_TEXTURE_2D, ch.GetTexID());
 
         glNamedBufferSubData(text_renderer->model_->GetVBOHandle(), 0,
-            sizeof(vertices), vertices);
+            sizeof(vertices), vertices.data());
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         // render quad
         glDrawElements(GL_TRIANGLE_STRIP, text_renderer->model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);

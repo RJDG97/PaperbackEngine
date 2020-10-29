@@ -14,6 +14,9 @@ class LightingSystem : public ISystem {
 
 	bool debug_;
 
+	std::map<std::string, Shader*> lighting_shaders_;
+	Model* light_model_;
+
 	GLuint lighting_buffer;
 	GLuint lighting_texture;
 
@@ -123,12 +126,12 @@ public:
 
 /******************************************************************************/
 /*!
-\fn DrawPointLight(PointLight* point_light)
+\fn DrawPointLight(Shader* shader, PointLight* point_light)
 
 \brief Draws the Light component
 */
 /******************************************************************************/
-	void DrawPointLight(PointLight* point_light);
+	void DrawPointLight(Shader* shader, PointLight* point_light);
 
 /******************************************************************************/
 /*!

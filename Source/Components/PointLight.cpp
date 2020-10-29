@@ -35,15 +35,8 @@ void PointLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* wri
 
 void PointLight::DeSerialize(std::stringstream& data) {
 
-	std::string model;
-	std::string shdr_pgm;
-
-	data >> model >> shdr_pgm
-		 >> color_.x >> color_.y >> color_.z
+	data >> color_.x >> color_.y >> color_.z
 		 >> radius_ >> intensity_;
-
-	model_ = *CORE->GetManager<ModelManager>()->GetModel(model);
-	shdr_pgm_ = *CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }
 
 std::shared_ptr<Component> PointLight::Clone() {
