@@ -132,6 +132,9 @@
     <Filter Include="Entity\Components\AI">
       <UniqueIdentifier>{3aac60a3-9e01-4157-b72a-d9becdef3061}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Scene/State Manager\LevelsStruct">
+      <UniqueIdentifier>{90bbdea2-7772-488b-bc43-21d2159493be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -304,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\AI.cpp">
       <Filter>Entity\Components\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\Levels.cpp">
+      <Filter>Systems\Scene/State Manager\LevelsStruct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -510,6 +516,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\AI.h">
       <Filter>Entity\Components\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\Levels.h">
+      <Filter>Systems\Scene/State Manager\LevelsStruct</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

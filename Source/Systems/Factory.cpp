@@ -47,6 +47,20 @@ EntityFactory::~EntityFactory() {
 	}
 }
 
+std::string EntityFactory::GetLevel(const std::string& name) {
+	
+	if (name == "Menu") {
+		return levels_.menu_.path_;
+	}
+	else if (name == "Play") {
+
+		return levels_.GetPlayLevel(levels_.current_play_index_)->path_;
+	}
+	else if (name == "Splash") {
+		return levels_.splash_.path_;
+	}
+}
+
 void EntityFactory::Init() {
 
 	FACTORY->AddComponentCreator("Transform", new ComponentCreator<Transform>(ComponentTypes::TRANSFORM));
@@ -65,6 +79,12 @@ void EntityFactory::Init() {
 	FACTORY->AddComponentCreator("InputController", new ComponentCreator<InputController>(ComponentTypes::INPUTCONTROLLER));
 
 	FACTORY->AddComponentCreator("AI", new ComponentCreator<AI>(ComponentTypes::AI));
+
+	//load the levels json here
+	rapidjson::Document doc;
+	DeSerializeJSON("Resources/EntityConfig/levels.json", doc);
+	levels_.DeSerialize(&doc);
+	levels_.DeSerializeLevels();
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
 }

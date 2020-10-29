@@ -170,6 +170,7 @@
     <ClCompile Include="Source\Components\Transform.cpp" />
     <ClCompile Include="Source\Engine\Core.cpp" />
     <ClCompile Include="Source\Entity\Entity.cpp" />
+    <ClCompile Include="Source\GameStates\Levels.cpp" />
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
     <ClCompile Include="Source\Imgui\AnotherWindow.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="Include\Entity\ComponentTypes.h" />
     <ClInclude Include="Include\Entity\Entity.h" />
     <ClInclude Include="Include\GameStates\GameState.h" />
+    <ClInclude Include="Include\GameStates\Levels.h" />
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\ImguiWindows\AnotherWindow.h" />
