@@ -22,8 +22,6 @@
     },
     {
       "component": "PointLight",
-      "model": "TileModel",
-      "shader program": "LightShader",
       "color": "1.0 1.0 0.7",
       "radius": "20.0",
       "intensity": "0.8"
