@@ -152,19 +152,56 @@ public:
 /*!
 	\fn ResetSelectedEntity()
 
-	\brief sets the Entity* of the selected entity to nullptr
+	\brief Resets the Entity* of the selected entity to nullptr
 */
 /******************************************************************************/
 	void ResetSelectedEntity();
 
+/******************************************************************************/
+/*!
+	\fn GetDebugBool()
+
+	\brief Returns the Debug Bool of the ImGui System
+*/
+/******************************************************************************/
 	bool GetDebugBool();
 
+/******************************************************************************/
+/*!
+	\fn SetDebugBool()
+
+	\brief Sets the Debug Bool of the ImGui System
+*/
+/******************************************************************************/
 	void SetDebugBool(bool debug);
 
-	bool GetLockEntity();
+/******************************************************************************/
+/*!
+	\fn GetLockBool()
 
-	void SetLockEntity(bool debug);
+	\brief Returns the Lock Entity Bool of the ImGui System
+*/
+/******************************************************************************/
+	bool GetLockBool();
 
+/******************************************************************************/
+/*!
+	\fn SetLockBool()
+
+	\brief Sets the Lock Entity Bool of the ImGui System
+*/
+/******************************************************************************/
+	void SetLockBool(bool debug);
+
+/******************************************************************************/
+/*!
+	\fn ImguiHelp()
+
+	\brief A function to provide infomation of the imgui windows
+*/
+/******************************************************************************/
+
+	void ImguiHelp(const char* description);
 
 private:
 
@@ -188,6 +225,7 @@ private:
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
 
+	// get the entity and its components
 	std::pair<Entity*, std::vector<ComponentTypes>> selected_entity_;
 	Collision* collision_system_;
 };
