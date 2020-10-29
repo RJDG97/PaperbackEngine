@@ -18,14 +18,18 @@ class AI : public Component {
 
 	enum AIState
 	{
-		Idle,
 		Patrol,
 		Chase,
+		Attack,
 		Return
 	};
 
 	AIType type_;
-	AIState state_ = Idle;
+
+	int range_;
+	int attackpower_;
+	
+	AIState state_ = Patrol;
 
 public:
 	friend class LogicSystem;

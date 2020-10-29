@@ -1,6 +1,21 @@
 #include "Manager/AIManager.h"
 #include <iostream>
 
+void StingAttack(AIIt ai)
+{
+
+}
+
+void ExplosionAttack(AIIt ai)
+{
+
+}
+
+void SlashAttack(AIIt ai)
+{
+
+}
+
 void Patrol(AIIt)
 {
 
@@ -13,6 +28,9 @@ void AIManager::StagBeetleHandler(AIIt ai)
 	case AI::AIState::Patrol:
 		Patrol(ai);
 		break;
+	case AI::AIState::Attack:
+		SlashAttack(ai);
+		break;
 	}
 }
 
@@ -22,6 +40,9 @@ void AIManager::MiteHandler(AIIt ai)
 	{
 	case AI::AIState::Patrol:
 		Patrol(ai);
+		break;
+	case AI::AIState::Attack:
+		ExplosionAttack(ai);
 		break;
 	}
 }
@@ -33,12 +54,15 @@ void AIManager::HornetHandler(AIIt ai)
 	case AI::AIState::Patrol:
 		Patrol(ai);
 		break;
+	case AI::AIState::Attack:
+		StingAttack(ai);
+		break;
 	}
 }
 
 void AIManager::Init()
 {
-	std::cout << "AIManager" << std::endl;
+	//std::cout << "AIManager" << std::endl;
 }
 
 void AIManager::AIHandler(AIIt ai)

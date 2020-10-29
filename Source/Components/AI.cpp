@@ -31,7 +31,7 @@ void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;
 
-	data >> type;
+	data >> type >> range_ >> attackpower_;
 
 	type_ = CORE->GetManager<AIManager>()->GetType(type);
 }
@@ -48,6 +48,8 @@ std::shared_ptr<Component> AI::Clone() {
 	std::shared_ptr<AI> cloned = std::make_shared<AI>();
 
 	cloned->type_ = type_;
+	cloned->range_ = range_;
+	cloned->attackpower_ = attackpower_;
 
 	return cloned;
 }
