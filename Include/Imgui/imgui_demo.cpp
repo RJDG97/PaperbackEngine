@@ -532,8 +532,6 @@ void ImGui::ShowDemoWindow(bool* p_open)
     ShowDemoWindowColumns();
     ShowDemoWindowMisc();
 
-    ShowExampleAppLayout(&yes);
-
     // End of ShowDemoWindow()
     ImGui::End();
 }
