@@ -40,6 +40,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeClone()
+
+  \brief Serialises a component as a clone into JSON format
+*/
+/******************************************************************************/
+	virtual void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) { (void)writer; };
+
+/******************************************************************************/
+/*!
   \fn DeSerialize()
 
   \brief Loads a component from JSON format

@@ -283,10 +283,18 @@
   ],
   "InputController": [
     {
+      "component": "Name",
+      "name": "InputController"
+    },
+    {
       "component": "InputController"
     }
   ],
   "AITest": [
+    {
+      "component": "Name",
+      "name": "AITest"
+    },
     {
       "component": "AI",
       "AItype": "Stag_Beetle"

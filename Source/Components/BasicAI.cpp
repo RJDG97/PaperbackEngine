@@ -34,6 +34,26 @@ void BasicAI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer
 	writer->EndObject();
 }
 
+void BasicAI::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("BasicAI");
+
+
+	writer->Key("size");
+	writer->String(std::to_string(num_destinations_).c_str());
+
+	for (DestinationIt it = destinations_.begin(); it != destinations_.end(); ++it) {
+		
+		writer->Key("destination");
+		writer->String((std::to_string(it->x) + " " + std::to_string(it->y)).c_str());
+	}
+
+	writer->EndObject();
+}
+
 void BasicAI::DeSerialize(std::stringstream& data) {
 	
 	// assume archetype only sets speed

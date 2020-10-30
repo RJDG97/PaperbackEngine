@@ -44,6 +44,25 @@ void InputController::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
 	writer->EndObject();
 }
 
+void InputController::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("InputController");
+
+	writer->Key("size");
+	writer->String(std::to_string(num_entries_).c_str());
+
+	for (InputMapTypeIt it = input_map_.begin(); it != input_map_.end(); ++it) {
+
+		writer->Key(it->first.c_str());
+		writer->String((it->first + " " + std::to_string(it->second)).c_str());
+	}
+
+	writer->EndObject();
+}
+
 void InputController::DeSerialize(std::stringstream& data) {
 	
 	(void)data;

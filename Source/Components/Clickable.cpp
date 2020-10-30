@@ -34,6 +34,19 @@ void Clickable::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writ
 	writer->EndObject();
 }
 
+void Clickable::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Clickable");
+
+	writer->Key("index");
+	writer->String(std::to_string(index_).c_str());
+
+	writer->EndObject();
+}
+
 void Clickable::DeSerialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing Clickable Component" << std::endl;
