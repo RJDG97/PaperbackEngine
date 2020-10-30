@@ -524,7 +524,6 @@ void ImGui::ShowDemoWindow(bool* p_open)
         ImGui::Checkbox("No docking", &no_docking);
     }
 
-    bool yes = true;
     // All demo contents
     ShowDemoWindowWidgets();
     ShowDemoWindowLayout();
