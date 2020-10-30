@@ -137,6 +137,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn Serialize()
+
+  \brief Serialises a entity as a clone
+*/
+/******************************************************************************/
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
+
+/******************************************************************************/
+/*!
   \fn GetID()
 
   \brief Returns the entity id of the entity

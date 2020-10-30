@@ -30,8 +30,8 @@ class Collision : public ISystem {
 
 	//For debug drawing
 	bool debug_;
-	Model model_;
-	Shader shdr_pgm_;
+	Model* model_;
+	Shader* shdr_pgm_;
 	glm::mat3* world_to_ndc_xform_;
 	float* cam_zoom_;
 

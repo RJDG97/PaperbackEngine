@@ -69,6 +69,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeClone()
+
+  \brief Serialises a component as a clone into JSON format
+*/
+/******************************************************************************/
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+
+/******************************************************************************/
+/*!
   \fn DeSerialize()
 
   \brief Reads data from a stringstream and stores them into the data members

@@ -119,6 +119,19 @@ void Entity::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 	writer->EndArray();
 }
 
+void Entity::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartArray();
+
+	for (std::shared_ptr<Component> component : components_) {
+
+		component->SerializeClone(writer);
+	}
+
+	//end entity
+	writer->EndArray();
+}
+
 //used for creating copies from a protoype/archetype
 Entity* Entity::Clone() {
 

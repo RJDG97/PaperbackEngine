@@ -39,6 +39,11 @@ void Transform::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writ
 	writer->EndObject();
 }
 
+void Transform::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+	
+	Serialize(writer);
+}
+
 void Transform::DeSerialize(std::stringstream& data) {
 
 	std::cout << "Entered Serialize Transform w/ stream" << std::endl;

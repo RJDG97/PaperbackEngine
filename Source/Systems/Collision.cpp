@@ -569,8 +569,8 @@ void Collision::UpdateClickableBB() {
 // Init function called to initialise a system
 void Collision::Init() {
 
-	shdr_pgm_ = *CORE->GetManager<ShaderManager>()->GetShdrpgm("DebugShader");
-	model_ = *CORE->GetManager<ModelManager>()->GetModel("LinesModel");
+	shdr_pgm_ = CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
+	model_ = CORE->GetManager<ModelManager>()->AddLinesModel(1, 1, "LinesModel");
 	world_to_ndc_xform_ = &(CORE->GetSystem<CameraSystem>()->world_to_ndc_xform_);
 	cam_zoom_ = &(CORE->GetSystem<CameraSystem>()->cam_zoom_);
 	glLineWidth(2.0f);
@@ -663,19 +663,19 @@ void Collision::Draw() {
 
 				glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_)*translation * scaling;
 
-				shdr_pgm_.Use();
-				glBindVertexArray(model_.vaoid_);
+				shdr_pgm_->Use();
+				glBindVertexArray(model_->vaoid_);
 
-				shdr_pgm_.SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
-				shdr_pgm_.SetUniform("collided", (*aabb).second->collided);
+				shdr_pgm_->SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
+				shdr_pgm_->SetUniform("collided", (*aabb).second->collided);
 
-				glDrawArrays(GL_LINES, 0, model_.draw_cnt_);
+				glDrawArrays(GL_LINES, 0, model_->draw_cnt_);
 
 				// after completing the rendering, we tell the driver that the VAO vaoid
 				// and the current shader program are no longer current
 				glBindVertexArray(0);
 
-				shdr_pgm_.UnUse();
+				shdr_pgm_->UnUse();
 			}
 		}
 	}

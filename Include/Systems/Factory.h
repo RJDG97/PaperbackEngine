@@ -97,13 +97,23 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn SerializeLevelEntities()
+  \fn SerializeArchetypes()
+
+  \brief Serializes all archetypes by by saving their component
+		 values within a JSON file
+*/
+/******************************************************************************/
+	void SerializeArchetypes(const std::string& filename);
+	
+/******************************************************************************/
+/*!
+  \fn SerializeCurrentLevelEntities()
 
   \brief Serializes all entities in a level by by saving their component
 		 values within multiple JSON files
 */
 /******************************************************************************/
-	void SerializeLevelEntities(const std::string& filename);
+	void SerializeCurrentLevelEntities();
 
 /******************************************************************************/
 /*!

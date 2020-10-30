@@ -37,42 +37,30 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
 
     std::cout << "Serializing AnimationRenderer" << std::endl;
 
-    std::string model;
-    std::string shdr_pgm;
     std::string font;
 
-    data >> model
-         >> shdr_pgm
-         >> font
+    data >> font
          >> text_
          >> color_.x >> color_.y >> color_.z
          >> scale_
          >> layer_
          >> ui_text_;
 
-    model_ = CORE->GetManager<ModelManager>()->GetModel(model);
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm); 
     font_ = CORE->GetManager<FontManager>()->GetFont(font);
 }
 
 
 void TextRenderer::DeSerializeClone(std::stringstream& data)
 {
-    std::string model;
-    std::string shdr_pgm;
     std::string font;
 
-    data >> model
-        >> shdr_pgm
-        >> font
-        >> text_
-        >> color_.x >> color_.y >> color_.z
-        >> scale_
-        >> layer_
-        >> ui_text_;
+    data >> font
+         >> text_
+         >> color_.x >> color_.y >> color_.z
+         >> scale_
+         >> layer_
+         >> ui_text_;
 
-    model_ = CORE->GetManager<ModelManager>()->GetModel(model);
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
     font_ = CORE->GetManager<FontManager>()->GetFont(font);
 }
 
@@ -81,8 +69,6 @@ std::shared_ptr<Component> TextRenderer::Clone() {
 
     std::shared_ptr<TextRenderer> cloned = std::make_shared<TextRenderer>();
 
-    cloned->model_ = model_; // check this
-    cloned->shdr_pgm_ = shdr_pgm_; // check this
     cloned->font_ = font_;
     cloned->text_ = text_;
     cloned->color_ = color_;

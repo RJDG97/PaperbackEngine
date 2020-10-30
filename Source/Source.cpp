@@ -51,12 +51,11 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	try {
 		CORE->AddSystem<WindowsSystem>();
 		CORE->AddSystem<CameraSystem>();
+		CORE->AddSystem<Physics>();
+		CORE->AddSystem<Collision>();
 		CORE->AddSystem<GraphicsSystem>();
 		CORE->AddSystem<LightingSystem>();
 		CORE->AddSystem<InputSystem>();
-		CORE->AddSystem<Physics>();
-		CORE->AddSystem<Collision>();
-		CORE->AddSystem<ImguiSystem>();
 		CORE->AddSystem<EntityFactory>();
 		CORE->AddSystem<SoundSystem>();
 		CORE->AddSystem<Game>();

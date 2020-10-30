@@ -357,9 +357,8 @@ void EntityFactory::DeSerializeLevelEntities(const std::string& name) {
 	}	
 }
 
-void EntityFactory::SerializeLevelEntities(const std::string& filename) {
+void EntityFactory::SerializeArchetypes(const std::string& filename) {
 
-	//(void)filename;
 	rapidjson::StringBuffer sb;
 	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
 
@@ -385,6 +384,45 @@ void EntityFactory::SerializeLevelEntities(const std::string& filename) {
 	}
 
 	filestream.close();
+}
+
+void EntityFactory::SerializeCurrentLevelEntities() {
+
+	// Loop through and make 1 entry per entity type
+	for (Level::EntityPathsIt it = levels_.current_state_->entity_paths_.begin(); it != levels_.current_state_->entity_paths_.end(); ++it) {
+		
+		// Loads the path for a specific archetype
+		std::ofstream filestream(it->second);
+
+		rapidjson::StringBuffer sb;
+		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+
+		//assuming that it->first is the name of an archetype
+		if (filestream.is_open()) {
+
+			// Start the formatting for JSON
+			writer.StartObject();
+
+			for (EntityIdMapTypeIt begin = entity_id_map_.begin(); begin != entity_id_map_.end(); ++begin) {
+
+				// only log if the name of the entity is the same as the current entity path key
+				if (ENTITYNAME(begin->second) == it->first) {
+					
+					// Begin entity
+					writer.Key(it->first.c_str());
+
+					begin->second->SerializeClone(&writer);
+				}
+			}
+
+			// Closing json
+			writer.EndObject();
+
+			filestream << sb.GetString();
+		}
+
+		filestream.close();
+	}
 }
 
 void EntityFactory::SerializeLevelPaths() {
