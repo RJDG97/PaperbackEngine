@@ -188,9 +188,6 @@
     <ClCompile Include="Source\Systems\WindowsSystem.cpp">
       <Filter>Systems\WindowsSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameStates\MenuState.cpp">
-      <Filter>Systems\Scene/State Manager\Test States</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GameStates\PlayState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
@@ -310,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="Source\GameStates\Levels.cpp">
       <Filter>Systems\Scene/State Manager\LevelsStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\MenuState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

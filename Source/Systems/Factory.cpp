@@ -47,7 +47,7 @@ EntityFactory::~EntityFactory() {
 	}
 }
 
-std::string EntityFactory::GetLevel(const std::string& name) {
+std::string EntityFactory::GetLevelPath(const std::string& name) {
 	
 	if (name == "Menu") {
 		return levels_.menu_.path_;
@@ -59,6 +59,35 @@ std::string EntityFactory::GetLevel(const std::string& name) {
 	else if (name == "Splash") {
 		return levels_.splash_.path_;
 	}
+	else if (name == "Credits") {
+		return levels_.credits_.path_;
+	}
+
+	return {};
+}
+
+Level* EntityFactory::GetLevel(const std::string& name) {
+
+	if (name == "Menu") {
+		return &levels_.menu_;
+	}
+	else if (name == "Play") {
+
+		return levels_.GetPlayLevel(levels_.current_play_index_);
+	}
+	else if (name == "Splash") {
+		return &levels_.splash_;
+	}
+	else if (name == "Credits") {
+		return &levels_.credits_;
+	}
+
+	return nullptr;
+}
+
+Levels* EntityFactory::GetLevelsFile() {
+
+	return &levels_;
 }
 
 void EntityFactory::Init() {
@@ -81,9 +110,7 @@ void EntityFactory::Init() {
 	FACTORY->AddComponentCreator("AI", new ComponentCreator<AI>(ComponentTypes::AI));
 
 	//load the levels json here
-	rapidjson::Document doc;
-	DeSerializeJSON("Resources/EntityConfig/levels.json", doc);
-	levels_.DeSerialize(&doc);
+	levels_.DeSerialize("Resources/EntityConfig/levels.json");
 	levels_.DeSerializeLevels();
 
 	M_DEBUG->WriteDebugMessage("EntityFactory System Init\n");
@@ -303,9 +330,12 @@ void EntityFactory::CloneLevelEntities(const std::string& filename, const std::s
 }
 
 //serialises level
-void EntityFactory::DeSerializeLevelEntities(const std::string& filename) {
+void EntityFactory::DeSerializeLevelEntities(const std::string& name) {
 
 	M_DEBUG->WriteDebugMessage("Beginning loading of level entities\n");
+
+	std::string filename = GetLevelPath(name);
+	levels_.current_state_ = GetLevel(name);
 
 	// Parse the stringstream into document (DOM) format
 	rapidjson::Document doc;
@@ -329,11 +359,11 @@ void EntityFactory::DeSerializeLevelEntities(const std::string& filename) {
 
 void EntityFactory::SerializeLevelEntities(const std::string& filename) {
 
-	(void)filename;
+	//(void)filename;
 	rapidjson::StringBuffer sb;
 	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
 
-	std::ofstream filestream("AyyLmao.json");
+	std::ofstream filestream(filename);
 
 	if (filestream.is_open()) {
 
@@ -355,6 +385,11 @@ void EntityFactory::SerializeLevelEntities(const std::string& filename) {
 	}
 
 	filestream.close();
+}
+
+void EntityFactory::SerializeLevelPaths() {
+
+	levels_.SerializeLevels();
 }
 
 void EntityFactory::StoreEntityID(Entity* entity) {

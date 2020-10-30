@@ -107,6 +107,16 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeLevelPaths()
+
+  \brief Serializes all paths in the levels struct into the currently set 
+		 parameters
+*/
+/******************************************************************************/
+	void SerializeLevelPaths();
+
+/******************************************************************************/
+/*!
   \fn Destroy()
 
   \brief Marks the entity to be destroyed within the next update loop
@@ -190,12 +200,31 @@ public:
 	
 /******************************************************************************/
 /*!
-  \fn GetLevel()
+  \fn GetLevelPath()
 
   \brief Used to retrieve a filepath to a specific level json. 
 */
 /******************************************************************************/
-	std::string GetLevel(const std::string& name);
+	std::string GetLevelPath(const std::string& name);
+
+/******************************************************************************/
+/*!
+  \fn GetLevel()
+
+  \brief Used to retrieve a level struct for a specific level json.
+*/
+/******************************************************************************/
+	Level* GetLevel(const std::string& name);
+
+/******************************************************************************/
+/*!
+  \fn GetLevelsFile()
+
+  \brief Used to retrieve a levels struct containing paths to multiple level 
+		 jsons
+*/
+/******************************************************************************/
+	Levels* GetLevelsFile();
 
 /******************************************************************************/
 /*!

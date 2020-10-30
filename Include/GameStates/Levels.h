@@ -18,13 +18,16 @@ struct Level {
 	Level();
 	Level(const std::string name, const std::string path_name);
 	void DeSerialize();
-	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
+	void Serialize(const std::string filepath);
+	void Serialize();
 	void AddNewEntityPath();
 	void DeleteEntityPath();
 };
 
 struct Levels {
 
+	std::string path_;
+	Level* current_state_;
 	Level splash_, menu_, credits_;
 	using Plays = std::vector<Level>;
 	using PlaysIt = Plays::iterator;
@@ -33,9 +36,11 @@ struct Levels {
 
 
 	Levels();
-	void DeSerialize(rapidjson::Document* doc);
+	void DeSerialize(const std::string filepath);
 	void DeSerializeLevels();
-	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer, std::string filename);
+	void Serialize(std::string filename);
+	void Serialize();
+	void SerializeLevels();
 	Level* GetPlayLevel(size_t index = 0);
 	Level* GetNextPlayableLevel();
 	void AddNewPlayLevelEntry();
