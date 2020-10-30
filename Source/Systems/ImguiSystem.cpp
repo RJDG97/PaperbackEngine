@@ -16,7 +16,6 @@ void ImguiSystem::Init(){
     ImGui::CreateContext();
 
     ImGuiIO& io = ImGui::GetIO();
-    io = ImGui::GetIO();
 
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
@@ -60,7 +59,7 @@ void ImguiSystem::Init(){
     b_fullscreen_persistant = true;
     b_fullscreen = b_fullscreen_persistant;
 
-    dock_space_flags_ = ImGuiDockNodeFlags_None;
+    dock_space_flags_ = ImGuiDockNodeFlags_PassthruCentralNode;
     window_flags_ = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
     b_debug = false;
@@ -80,7 +79,7 @@ void ImguiSystem::Update(float frametime){
         ImGui::NewFrame();
 
         ImGuiIO& io = ImGui::GetIO();
-        if (!b_dock_space_open)
+        if (b_dock_space_open)
         {
             DockSpaceFlagSet();
 
@@ -91,6 +90,7 @@ void ImguiSystem::Update(float frametime){
             // any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+            ImGui::SetNextWindowBgAlpha(0.0f); // set the transparency of the docking central node
             ImGui::Begin("DockSpace", &b_dock_space_open, window_flags_);
             ImGui::PopStyleVar();
 
@@ -98,7 +98,6 @@ void ImguiSystem::Update(float frametime){
                 ImGui::PopStyleVar(2);
 
             // DockSpace
-
             if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
 
                 ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
@@ -134,6 +133,7 @@ void ImguiSystem::Update(float frametime){
                 begin->second->Update();
             }
         }
+
         ImguiRender();
     }
 }
@@ -183,7 +183,6 @@ void ImguiSystem::ImguiRender()
         ImGui::RenderPlatformWindowsDefault();
         glfwMakeContextCurrent(backup_current_context);
     }
-
 }
 
 void ImguiSystem::Draw(){

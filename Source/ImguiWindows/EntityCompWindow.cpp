@@ -12,7 +12,7 @@ void EntityCompWindow::Init(){
 
 void EntityCompWindow::Update(){
 
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 	ImGui::Begin("Entity Inspector");
 	ImGui::Text("Select something");
 
@@ -48,13 +48,13 @@ void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<Compone
 
 				ImGui::Text("Entity:"); ImGui::SameLine(0, 2);
 				ImGui::TextColored(ImVec4{ 0.498f, 1.0f, 0.831f, 1.0f }, entityname->GetName().c_str());
+
+				if (!ImGui::CollapsingHeader("Components"))
+					return;
 				break;
 			}
 			case ComponentTypes::MOTION:
 			{
-				if (!ImGui::CollapsingHeader("Components"))
-					return;
-
 				ImGui::Text("Entity has a Motion Component");
 				break;
 			}
@@ -63,7 +63,8 @@ void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<Compone
 				std::shared_ptr<Transform> entitytransform = std::dynamic_pointer_cast<Transform>(entitycomponent.first->GetComponent(ComponentTypes::TRANSFORM));
 
 				float inputRot = entitytransform->GetRotation();
-				Vector2D inputPos = {entitytransform->GetPosition()};
+				Vector2D inputPos = { entitytransform->GetPosition() };
+
 
 				if (ImGui::TreeNode("Rotation")){
 
@@ -86,6 +87,13 @@ void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<Compone
 					ComponentInput("Y", "##posY", inputPos.y);
 
 					entitytransform->SetPosition(inputPos);
+
+					//if (ImGui::Button("Reset"))
+					//	entitytransform->SetPosition(Vector2D{ 0.0f, 0.0f });
+
+					//ImGui::SameLine();
+					//imgui_system_->ImguiHelp("Sets the position to (0,0).");
+
 
 					ImGui::Text("Entity Position:");
 					ImGui::SameLine();
