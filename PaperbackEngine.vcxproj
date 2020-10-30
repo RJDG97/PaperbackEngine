@@ -179,6 +179,8 @@
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
     <ClCompile Include="Source\Manager\AIManager.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
+    <ClCompile Include="Source\Manager\ComponentManager.cpp" />
+    <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
     <ClCompile Include="Source\Manager\ForcesManager.cpp" />
     <ClCompile Include="Source\Manager\ModelManager.cpp" />
@@ -246,6 +248,8 @@
     <ClInclude Include="Include\Imgui\imstb_truetype.h" />
     <ClInclude Include="Include\Manager\AIManager.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
+    <ClInclude Include="Include\Manager\ComponentManager.h" />
+    <ClInclude Include="Include\Manager\EntityManager.h" />
     <ClInclude Include="Include\Manager\FontManager.h" />
     <ClInclude Include="Include\Manager\ForcesManager.h" />
     <ClInclude Include="Include\Manager\IManager.h" />

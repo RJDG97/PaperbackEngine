@@ -9,17 +9,17 @@ enum class ComponentTypes {
 	MOTION,
 	TRANSFORM,
 	HEALTH,
-	CAMERA,
-	CONTROLLER,
+	CAMERA, //not in yet
+	CONTROLLER, // apparently not used
 	TEXTURERENDERER,
 	ANIMATIONRENDERER,
 	TEXTRENDERER,
 	AABB,
-	AI,
+	AI, // not in yet
 	SCALE,
 	STATUS,
 	POINTLIGHT,
-	CONELIGHT,
+	CONELIGHT, // not in yet
 	BASICAI,
 	CLICKABLE,
 	INPUTCONTROLLER,

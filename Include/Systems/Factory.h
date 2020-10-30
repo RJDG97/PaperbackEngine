@@ -1,4 +1,7 @@
 #pragma once
+#ifndef _FACTORY_H_
+#define _FACTORY_H_
+
 #include "Systems/ISystem.h"
 #include "Entity/Entity.h"
 #include "GameStates/Levels.h"
@@ -266,3 +269,5 @@ extern EntityFactory* FACTORY;
 */
 /******************************************************************************/
 void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
+
+#endif
