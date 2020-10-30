@@ -53,14 +53,13 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<CameraSystem>();
 		CORE->AddSystem<GraphicsSystem>();
 		CORE->AddSystem<LightingSystem>();
-		CORE->AddSystem<ImguiSystem>();
 		CORE->AddSystem<InputSystem>();
 		CORE->AddSystem<Physics>();
 		CORE->AddSystem<Collision>();
+		CORE->AddSystem<ImguiSystem>();
 		CORE->AddSystem<EntityFactory>();
 		CORE->AddSystem<SoundSystem>();
 		CORE->AddSystem<Game>();
-
 		CORE->AddSystem<LogicSystem>();
 
 		// Add Managers to the Core Engine

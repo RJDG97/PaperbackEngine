@@ -1,16 +1,16 @@
-#include "ImguiWindows/AnotherWindow.h"
+#include "ImguiWindows/EntityCompWindow.h"
 #include "Systems/Debug.h"
 #include "Entity/ComponentTypes.h"
 #include "MathLib/Vector2D.h"
 #include <tuple>
 
 
-void AnotherWindow::Init(){
+void EntityCompWindow::Init(){
 
 	imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
 }
 
-void AnotherWindow::Update(){
+void EntityCompWindow::Update(){
 
 	ImGui::ShowDemoWindow();
 	ImGui::Begin("Entity Inspector");
@@ -26,7 +26,7 @@ void AnotherWindow::Update(){
 
 		std::pair<Entity*, std::vector<ComponentTypes>> entitycomp = imgui_system_->GetSelectedEntity();
 
-		ComponentType(entitycomp);
+		CheckComponentType(entitycomp);
 
 		//Imgui_Demo.cpp -> reference: Line 1991 on ImGui::Combo();
 	}
@@ -34,7 +34,7 @@ void AnotherWindow::Update(){
 	ImGui::End();
 }
 
-void AnotherWindow::ComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent)
+void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent)
 {
 	if (entitycomponent.first){
 
@@ -50,11 +50,16 @@ void AnotherWindow::ComponentType(std::pair<Entity*, std::vector<ComponentTypes>
 				ImGui::TextColored(ImVec4{ 0.498f, 1.0f, 0.831f, 1.0f }, entityname->GetName().c_str());
 				break;
 			}
-			case ComponentTypes::TRANSFORM:
+			case ComponentTypes::MOTION:
 			{
 				if (!ImGui::CollapsingHeader("Components"))
 					return;
 
+				ImGui::Text("Entity has a Motion Component");
+				break;
+			}
+			case ComponentTypes::TRANSFORM:
+			{
 				std::shared_ptr<Transform> entitytransform = std::dynamic_pointer_cast<Transform>(entitycomponent.first->GetComponent(ComponentTypes::TRANSFORM));
 
 				float inputRot = entitytransform->GetRotation();
@@ -91,6 +96,24 @@ void AnotherWindow::ComponentType(std::pair<Entity*, std::vector<ComponentTypes>
 				}
 				break;
 			}
+			case ComponentTypes::HEALTH:
+				ImGui::Text("Entity has a Health Component");
+				break;
+			case ComponentTypes::CAMERA:
+				ImGui::Text("Entity has a Camera Component");
+				break;
+			case ComponentTypes::CONTROLLER:
+				ImGui::Text("Entity has a Controller Component");
+				break;
+			case ComponentTypes::TEXTURERENDERER:
+				ImGui::Text("Entity has a Texture Component");
+				break;
+			case ComponentTypes::ANIMATIONRENDERER:
+				ImGui::Text("Entity has a Animation Component");
+				break;
+			case ComponentTypes::TEXTRENDERER:
+				ImGui::Text("Entity has a Text Component");
+				break;
 			case ComponentTypes::AABB:
 			{
 				if (ImGui::TreeNode("Bounding Box Scale")) {
@@ -119,6 +142,7 @@ void AnotherWindow::ComponentType(std::pair<Entity*, std::vector<ComponentTypes>
 				if (ImGui::TreeNode("Texture Scale")) {
 
 					std::shared_ptr<Scale> entityscale = std::dynamic_pointer_cast<Scale>(entitycomponent.first->GetComponent(ComponentTypes::SCALE));
+
 					Vector2D inputScale = {entityscale->GetScale()};
 
 					ComponentInput("X", "##scaleX", inputScale.x);
@@ -135,23 +159,36 @@ void AnotherWindow::ComponentType(std::pair<Entity*, std::vector<ComponentTypes>
 				}
 				break;
 			}
-
+			case ComponentTypes::STATUS:
+				ImGui::Text("Entity has a Status Component");
+				break;
+			case ComponentTypes::POINTLIGHT:
+				ImGui::Text("Entity has a PointLight Component");
+				break;
+			case ComponentTypes::CONELIGHT:
+				ImGui::Text("Entity has a ConeLight Component");
+				break;
+			case ComponentTypes::BASICAI:
+				ImGui::Text("Entity has a BasicAI Component");
+				break;
+			case ComponentTypes::CLICKABLE:
+				ImGui::Text("Entity has a Clickable Component");
+				break;
+			case ComponentTypes::INPUTCONTROLLER:
+				ImGui::Text("Entity has a Input Controller Component");
+				break;
 			}
 		}
 	}
-	else
-		ImGui::Text("There is no Entity(s) selected");
 }
 
-void AnotherWindow::ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float startVal, float endVal, float inputWidth)
+void EntityCompWindow::ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float startVal, float endVal, float inputWidth)
 {
 	ImGui::PushItemWidth(inputWidth);
 
 	ImGui::Text(componentLabel);
 	ImGui::SameLine();
 	ImGui::InputFloat(inputLabel, &componentVar, startVal, endVal, "%.2f");
-
-
 }
 
 

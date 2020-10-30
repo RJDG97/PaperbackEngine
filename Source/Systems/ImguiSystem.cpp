@@ -1,12 +1,12 @@
 #include "Systems/ImguiSystem.h"
 #include "ImguiWindows/ImguiViewport.h"
-#include "ImguiWindows/AnotherWindow.h"
+#include "ImguiWindows/EntityCompWindow.h"
 
 
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
-   //AddWindow<ImguiViewport>();
-    AddWindow<AnotherWindow>();
+    //AddWindow<ImguiViewport>();
+    AddWindow<EntityCompWindow>();
 
     win = &*CORE->GetSystem<WindowsSystem>();
     collision_system_ = &*CORE->GetSystem<Collision>();
@@ -44,7 +44,6 @@ void ImguiSystem::Init(){
         begin->second->Init();
     }
    
-
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(win->ptr_window, true);
     ImGui_ImplOpenGL3_Init(NULL);
@@ -131,6 +130,7 @@ void ImguiSystem::Update(float frametime){
         else {
 
             for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
+
                 begin->second->Update();
             }
         }

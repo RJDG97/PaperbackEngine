@@ -153,8 +153,6 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::HEALTH;
 	else if (str == "Camera")
 		return ComponentTypes::CAMERA;
-	else if (str == "Sprite")
-		return ComponentTypes::SPRITE;
 	else if (str == "Controller")
 		return ComponentTypes::CONTROLLER;
 	else if (str == "TextureRenderer")

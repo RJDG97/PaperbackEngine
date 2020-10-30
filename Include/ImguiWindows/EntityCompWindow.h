@@ -1,17 +1,16 @@
 #pragma once
-#ifndef _ANOTHER_WINDOW_H_
-#define _ANOTHER_WINDOW_H_
+#ifndef _ENTITY_COMP_WINDOW_H_
+#define _ENTITY_COMP_WINDOW_H_
 
 #include "ImguiWindows/IWindow.h"
 #include "Components/Transform.h"
 #include "Components/Scale.h"
 #include <Windows.h>
 #include "Systems/ImguiSystem.h"
-#include "Systems/Collision.h"
 #include "Engine/Core.h"
 
 
-class AnotherWindow : public IWindow{
+class EntityCompWindow : public IWindow{
 
 public:
 	void Init() override;
@@ -24,7 +23,7 @@ public:
 	\brief Prints out the different ImGui widgets required for each component type
 */
 /******************************************************************************/
-	void ComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponents);
+	void CheckComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponents);
 
 /******************************************************************************/
 /*!
