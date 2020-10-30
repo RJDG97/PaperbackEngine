@@ -11,9 +11,6 @@ class IUIObjectRenderer : public Component {
 
 protected:
 
-	Model* model_;
-	Shader* shdr_pgm_;
-
 	GLuint* texture_handle_;
 	int layer_;
 

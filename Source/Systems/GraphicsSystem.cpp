@@ -74,8 +74,9 @@ void GraphicsSystem::Init() {
     graphic_models_["TileModel"] = model_manager_->AddTristripsModel(1, 1, "TileModel");
     graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel");
 
+    /*
     //lines model is used for debug drawing
-    model_manager_->AddLinesModel(1, 1, "LinesModel");
+    model_manager_->AddLinesModel(1, 1, "LinesModel");*/
 
     graphic_shaders_["ObjectShader"] =
         shader_manager_->AddShdrpgm("Shaders/world_object.vert","Shaders/world_object.frag", "ObjectShader");
@@ -86,9 +87,9 @@ void GraphicsSystem::Init() {
     graphic_shaders_["FinalShader"] =
         shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
 
+    /*
     graphic_shaders_["DebugShader"] =
-        shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
-
+        shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");*/
 
     font_manager_->LoadFont("comic_sans");
 
@@ -528,7 +529,7 @@ void GraphicsSystem::DrawWorldObject(Shader* shader, Model* model, IWorldObjectR
     shader->SetUniform("uModel_to_NDC", i_worldobj_renderer->mdl_to_ndc_xform_);
 
     glNamedBufferSubData(model->GetVBOHandle(), model->GetVBOOffset(),
-                         sizeof(glm::vec2) * 4, i_worldobj_renderer->tex_vtx_sent_.data());
+                         sizeof(i_worldobj_renderer->tex_vtx_sent_), i_worldobj_renderer->tex_vtx_sent_.data());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
     // after completing the rendering, we tell the driver that the VAO vaoid

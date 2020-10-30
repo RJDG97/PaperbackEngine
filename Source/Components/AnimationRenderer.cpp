@@ -46,13 +46,9 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     std::cout << "Serializing AnimationRenderer" << std::endl;
 
-    std::string model;
-    std::string shdr_pgm;
     int num_animations;
 
-    data >> model
-         >> shdr_pgm
-         >> num_animations;
+    data >> num_animations;
 
     for (int i = 0; i < num_animations; ++i) {
 
@@ -67,9 +63,6 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
     CORE->GetSystem<GraphicsSystem>()->SetAnimation(this, current_animation_name);
 
     data >> play_animation_ >> has_finished_animating_ >> layer_;
-
-    model_ = CORE->GetManager<ModelManager>()->GetModel(model);
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }
 
 std::shared_ptr<Component> AnimationRenderer::Clone() {
@@ -78,8 +71,6 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
 	std::shared_ptr<AnimationRenderer> cloned = std::make_shared<AnimationRenderer>();
 
     // IRenderer
-    cloned->model_ = model_; // check this
-    cloned->shdr_pgm_ = shdr_pgm_; // check this
     cloned->layer_ = layer_;
 
     // AnimationRenderer

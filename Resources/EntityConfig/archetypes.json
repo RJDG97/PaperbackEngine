@@ -21,8 +21,6 @@
     {
       "component": "TextureRenderer",
       "texture": "Background",
-      "model": "TileModel",
-      "shader program": "ObjectShader",
       "layer": "0"
     }
    ],
@@ -38,8 +36,6 @@
     },
     {
       "component": "TextRenderer",
-      "model": "TextModel",
-      "shader program": "TextShader",
 	  "font": "comic_sans",
 	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
 	  "color": "1.0 0.5 1.0",
@@ -60,8 +56,6 @@
     },
     {
       "component": "TextRenderer",
-      "model": "TextModel",
-      "shader program": "TextShader",
 	  "font": "comic_sans",
 	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
 	  "color": "1.0 0.5 1.0",
@@ -92,8 +86,6 @@
     },
     {
       "component": "AnimationRenderer",
-      "model": "TileModel",
-      "shader program": "ObjectShader",
       "number of animations": "2",
       "add animation": "Player_Walk",
       "add animation": "Player_Idle",
@@ -145,8 +137,6 @@
     {
       "component": "TextureRenderer",
       "texture": "Stone",
-      "model": "TileModel",
-      "shader program": "ObjectShader",
       "layer": "2"
     },
     {
@@ -185,8 +175,6 @@
     {
       "component": "TextureRenderer",
       "texture": "Rock",
-      "model": "TileModel",
-      "shader program": "ObjectShader",
       "layer": "2"
     },
     {
@@ -228,8 +216,6 @@
     {
       "component": "TextureRenderer",
       "texture": "Rock",
-      "model": "TileModel",
-      "shader program": "ObjectShader",
       "layer": "2"
     },
     {
@@ -261,8 +247,6 @@
     {
       "component": "TextureRenderer",
       "texture": "Rock",
-      "model": "TileModel",
-      "shader program": "ObjectShader",
       "layer": "2"
     },
     {
@@ -311,8 +295,6 @@
     {
       "component": "TextureRenderer",
       "texture": "Stone",
-      "model": "TileModel",
-      "shader program": "ObjectShader",
       "layer": "0"
     },
     {

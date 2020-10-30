@@ -46,14 +46,10 @@ void TextureRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
 void TextureRenderer::DeSerialize(std::stringstream& data) {
     
     std::string texture;
-    std::string model;
-    std::string shdr_pgm;
 
-    data >> texture >> model >> shdr_pgm >> layer_;
+    data >> texture >> layer_;
 
     texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture);
-    model_ = CORE->GetManager<ModelManager>()->GetModel(model);
-    shdr_pgm_ = CORE->GetManager<ShaderManager>()->GetShdrpgm(shdr_pgm);
 }
 
 std::shared_ptr<Component> TextureRenderer::Clone() {
@@ -62,8 +58,6 @@ std::shared_ptr<Component> TextureRenderer::Clone() {
     std::shared_ptr<TextureRenderer> cloned = std::make_shared<TextureRenderer>();
 
     // IRenderer
-    cloned->model_ = model_; // check this
-    cloned->shdr_pgm_ = shdr_pgm_; // check this
     cloned->layer_ = layer_;
 
     // TextureRenderer
