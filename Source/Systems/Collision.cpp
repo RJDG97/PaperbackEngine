@@ -561,45 +561,45 @@ void Collision::Update(float frametime) {
 // Color of AABB boxes change on collision to red
 void Collision::Draw() {
 
-	if (debug_)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//if (debug_)
+	//{
+	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
-			for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
+	//	for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
+	//		for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
 
-				Vector2D top_right = (*aabb).second->top_right_;
-				Vector2D bottom_left = (*aabb).second->bottom_left_;
+	//			Vector2D top_right = (*aabb).second->top_right_;
+	//			Vector2D bottom_left = (*aabb).second->bottom_left_;
 
-				Vector2D aabb_middle = bottom_left + (top_right - bottom_left) / 2;
+	//			Vector2D aabb_middle = bottom_left + (top_right - bottom_left) / 2;
 
-				glm::mat3 scaling = glm::mat3{ (top_right.x - bottom_left.x) / 2, 0.0f, 0.0f,
-											   0.0f, (top_right.y - bottom_left.y) / 2, 0.0f,
-											   0.0f, 0.0f, 1.0f };
+	//			glm::mat3 scaling = glm::mat3{ (top_right.x - bottom_left.x) / 2, 0.0f, 0.0f,
+	//										   0.0f, (top_right.y - bottom_left.y) / 2, 0.0f,
+	//										   0.0f, 0.0f, 1.0f };
 
-				glm::mat3 translation{ 1.0f, 0.0f, 0.0f,
-									   0.0f, 1.0f, 0.0f,
-									   aabb_middle.x, aabb_middle.y, 1.0f };
+	//			glm::mat3 translation{ 1.0f, 0.0f, 0.0f,
+	//								   0.0f, 1.0f, 0.0f,
+	//								   aabb_middle.x, aabb_middle.y, 1.0f };
 
-				glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_)*translation * scaling;
+	//			glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_)*translation * scaling;
 
-				shdr_pgm_->Use();
-				glBindVertexArray(model_->vaoid_);
+	//			shdr_pgm_->Use();
+	//			glBindVertexArray(model_->vaoid_);
 
-				shdr_pgm_->SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
-				shdr_pgm_->SetUniform("collided", (*aabb).second->collided);
+	//			shdr_pgm_->SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
+	//			shdr_pgm_->SetUniform("collided", (*aabb).second->collided);
 
-				glDrawArrays(GL_LINES, 0, model_->draw_cnt_);
+	//			glDrawArrays(GL_LINES, 0, model_->draw_cnt_);
 
-				// after completing the rendering, we tell the driver that the VAO vaoid
-				// and the current shader program are no longer current
-				glBindVertexArray(0);
+	//			// after completing the rendering, we tell the driver that the VAO vaoid
+	//			// and the current shader program are no longer current
+	//			glBindVertexArray(0);
 
-				shdr_pgm_->UnUse();
-			}
-		}
-	}
+	//			shdr_pgm_->UnUse();
+	//		}
+	//	}
+	//}
 
 	//if (debug_) { debug_ = !debug_; }
 }

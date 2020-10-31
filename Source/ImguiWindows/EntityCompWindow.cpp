@@ -12,7 +12,7 @@ void EntityCompWindow::Init(){
 
 void EntityCompWindow::Update(){
 
-	//ImGui::ShowDemoWindow();
+	ImGui::ShowDemoWindow();
 	ImGui::Begin("Entity Inspector");
 	ImGui::Text("Select something");
 

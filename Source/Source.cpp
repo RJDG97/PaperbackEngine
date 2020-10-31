@@ -54,8 +54,8 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<InputSystem>();
 		CORE->AddSystem<EntityFactory>();
 		CORE->AddSystem<CameraSystem>();
-		CORE->AddSystem<GraphicsSystem>();
 		CORE->AddSystem<LightingSystem>();
+		CORE->AddSystem<GraphicsSystem>();
 		CORE->AddSystem<Physics>();
 		CORE->AddSystem<Collision>();
 		CORE->AddSystem<ImguiSystem>();

@@ -176,6 +176,7 @@
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityCompWindow.cpp" />
+    <ClCompile Include="Source\ImguiWindows\ImguiMenuBar.cpp" />
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
     <ClCompile Include="Source\Manager\AIManager.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\ImguiWindows\EntityCompWindow.h" />
+    <ClInclude Include="Include\ImguiWindows\ImguiMenuBar.h" />
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
     <ClInclude Include="Include\Imgui\imconfig.h" />

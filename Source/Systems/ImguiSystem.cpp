@@ -1,11 +1,19 @@
 #include "Systems/ImguiSystem.h"
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityCompWindow.h"
+#include "ImguiWindows/ImguiMenuBar.h"
+
+#include <commdlg.h>
+#include <GLFW/glfw3.h>
+
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
 
 
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
     //AddWindow<ImguiViewport>();
+    AddWindow<ImguiMenuBar>();
     AddWindow<EntityCompWindow>();
 
     win = &*CORE->GetSystem<WindowsSystem>();
@@ -103,18 +111,6 @@ void ImguiSystem::Update(float frametime){
                 ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dock_space_flags_);
             }
-
-            if (ImGui::BeginMenuBar()) {
-
-                if (ImGui::BeginMenu("File")) {
-
-                    if (ImGui::MenuItem("test"))
-                        ImGui::Text("text");
-                    ImGui::EndMenu();
-                }
-            }
-
-            ImGui::EndMenuBar();
 
             // For all windows attached.
             /* Has to be called between the ImGui::Begin("DockSpace"); and the corresponding ImGui::End()

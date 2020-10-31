@@ -317,6 +317,9 @@
     <ClCompile Include="Source\Manager\ComponentManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\ImguiMenuBar.cpp">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -531,6 +534,9 @@
     </ClInclude>
     <ClInclude Include="Include\Manager\ComponentManager.h">
       <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\ImguiMenuBar.h">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
