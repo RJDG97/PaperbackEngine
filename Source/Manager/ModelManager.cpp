@@ -6,7 +6,7 @@ void ModelManager::Init() {
     M_DEBUG->WriteDebugMessage("Model Manager Init\n");
 }
 
-Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name) {
+Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name, bool has_transform) {
 
     // Generates the vertices required to render triangle strips
 
@@ -55,26 +55,69 @@ Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model
 
     GLuint vbo_hdl;
     glCreateBuffers(1, &vbo_hdl);
-    glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
-                         sizeof(glm::vec2) * tex_vtx.size(),
-                         nullptr, GL_DYNAMIC_STORAGE_BIT);
+
+    if (has_transform)
+    {
+        glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
+                             sizeof(glm::vec2) * tex_vtx.size() + sizeof(glm::vec2) * count * 3, //3 -> pos, scal, rot
+                             nullptr, GL_DYNAMIC_STORAGE_BIT);
+    }
+
+    else
+    {
+        glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
+                             sizeof(glm::vec2) * tex_vtx.size(),
+                             nullptr, GL_DYNAMIC_STORAGE_BIT);
+    }
 
     glNamedBufferSubData(vbo_hdl, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
 
     glNamedBufferSubData(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(),
                          sizeof(glm::vec2) * tex_vtx.size(), tex_vtx.data());
 
+    size_t offset = 0;
+
     GLuint vao_hdl;
     glCreateVertexArrays(1, &vao_hdl);
+
     glEnableVertexArrayAttrib(vao_hdl, 0);
-    glVertexArrayVertexBuffer(vao_hdl, 0, vbo_hdl, 0, sizeof(glm::vec2));
+    glVertexArrayVertexBuffer(vao_hdl, 0, vbo_hdl, offset, sizeof(glm::vec2));
     glVertexArrayAttribFormat(vao_hdl, 0, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 0, 0);
 
+    offset += sizeof(glm::vec2) * pos_vtx.size();
+
     glEnableVertexArrayAttrib(vao_hdl, 1);
-    glVertexArrayVertexBuffer(vao_hdl, 1, vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(), sizeof(glm::vec2));
+    glVertexArrayVertexBuffer(vao_hdl, 1, vbo_hdl, offset, sizeof(glm::vec2));
     glVertexArrayAttribFormat(vao_hdl, 1, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 1, 1);
+
+    if (has_transform)
+    {
+        offset += sizeof(glm::vec2) * tex_vtx.size();
+
+        //scaling
+        glEnableVertexArrayAttrib(vao_hdl, 2);
+        glVertexArrayVertexBuffer(vao_hdl, 2, vbo_hdl, offset, sizeof(glm::vec2));
+        glVertexArrayAttribFormat(vao_hdl, 2, 2, GL_FLOAT, GL_FALSE, 0);
+        glVertexArrayAttribBinding(vao_hdl, 2, 2);
+        
+        offset += sizeof(glm::vec2) * count;
+
+        //rotation
+        glEnableVertexArrayAttrib(vao_hdl, 3);
+        glVertexArrayVertexBuffer(vao_hdl, 3, vbo_hdl, offset, sizeof(glm::vec2));
+        glVertexArrayAttribFormat(vao_hdl, 3, 2, GL_FLOAT, GL_FALSE, 0);
+        glVertexArrayAttribBinding(vao_hdl, 3, 3);
+        
+        offset += sizeof(glm::vec2) * count;
+
+        //translation
+        glEnableVertexArrayAttrib(vao_hdl, 4);
+        glVertexArrayVertexBuffer(vao_hdl, 4, vbo_hdl, offset, sizeof(glm::vec2));
+        glVertexArrayAttribFormat(vao_hdl, 4, 2, GL_FLOAT, GL_FALSE, 0);
+        glVertexArrayAttribBinding(vao_hdl, 4, 4);
+    }
 
     GLuint ebo_hdl;
     glCreateBuffers(1, &ebo_hdl);
@@ -90,7 +133,8 @@ Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model
     Model mdl;
     mdl.vaoid_ = vao_hdl;
     mdl.vboid_ = vbo_hdl;
-    mdl.vbo_offset_ = sizeof(glm::vec2) * pos_vtx.size();
+
+    mdl.vbo_tex_offset_ = sizeof(glm::vec2) * pos_vtx.size();
     mdl.primitive_type_ = GL_TRIANGLE_STRIP;
     mdl.draw_cnt_ = static_cast<GLint>(idx_vtx.size());     // number of vertices
     mdl.primitive_cnt_ = count;                             // number of triangles
@@ -160,7 +204,7 @@ GLuint Model::GetVBOHandle()
     return vboid_;
 }
 
-size_t Model::GetVBOOffset()
+size_t Model::GetVBOTexOffset()
 {
-    return vbo_offset_;
+    return vbo_tex_offset_;
 }

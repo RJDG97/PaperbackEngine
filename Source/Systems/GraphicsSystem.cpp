@@ -76,9 +76,9 @@ void GraphicsSystem::Init() {
     texture_manager_ = &*CORE->GetManager<TextureManager>();
     animation_manager_ = &*CORE->GetManager<AnimationManager>();
 
-    graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel");
-    graphic_models_["TileModel"] = model_manager_->AddTristripsModel(1, 1, "TileModel");
-    graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel");
+    graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel", false);
+    graphic_models_["TileModel"] = model_manager_->AddTristripsModel(1, 1, "TileModel", true);
+    graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel", false);
 
     graphic_shaders_["ObjectShader"] =
         shader_manager_->AddShdrpgm("Shaders/world_object.vert","Shaders/world_object.frag", "ObjectShader");
@@ -110,19 +110,6 @@ This also updates the size of the squares to be rendered in one of the tasks.
 void GraphicsSystem::Update(float frametime) {
     
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Update Debug Log:\n"); }
-    
-    glm::mat3 world_to_ndc_xform_ = camera_system_->world_to_ndc_xform_;
-
-    //updates all the renderer components
-    for (TextureRendererIt it = texture_renderer_arr_->begin(); it != texture_renderer_arr_->end(); ++it) {
-
-        if (debug_) {
-			// Log id of entity and it's updated components that are being updated
-			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Scale, Rotation & Translation matrix updated)\n");
-		}
-        
-        UpdateObjectMatrix(it->second, world_to_ndc_xform_);
-    }
 
     for (AnimRendererIt it = anim_renderer_arr_->begin(); it != anim_renderer_arr_->end(); ++it) {
 
@@ -131,7 +118,7 @@ void GraphicsSystem::Update(float frametime) {
             M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Scale, Rotation, Translation matrix & Texture animation updated)\n");
         }
         
-        UpdateObjectMatrix(it->second, world_to_ndc_xform_);
+        //UpdateObjectMatrix(it->second, world_to_ndc_xform_);
         UpdateAnimationFrame(it->second, frametime);
     }
 
@@ -151,10 +138,11 @@ void GraphicsSystem::Draw() {
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
 
     glm::vec2 cam_pos_ = camera_system_->cam_pos_;
+    glm::mat3 world_to_ndc_xform_ = camera_system_->world_to_ndc_xform_;
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     graphic_shaders_["ObjectShader"]->Use();
@@ -168,11 +156,8 @@ void GraphicsSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
 		}
 
-        DrawWorldObject(graphic_shaders_["ObjectShader"], graphic_models_["TileModel"], it->second);
+        DrawWorldObject(graphic_shaders_["ObjectShader"], graphic_models_["TileModel"], it->second, world_to_ndc_xform_);
     }
-
-    glBindVertexArray(0);
-    graphic_shaders_["ObjectShader"]->UnUse();
 
     graphic_shaders_["TextShader"]->Use();
     glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
@@ -188,9 +173,8 @@ void GraphicsSystem::Draw() {
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second, cam_pos_);
     }
 
-    glBindVertexArray(0);
-    graphic_shaders_["TextShader"]->UnUse();
-
+    graphic_shaders_["FinalShader"]->Use();
+    glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
 
@@ -214,15 +198,10 @@ void GraphicsSystem::Draw() {
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second, cam_pos_);
     }
 
-    glBindVertexArray(0);
-    graphic_shaders_["TextShader"]->UnUse();
-
     if (debug_) { debug_ = !debug_; }
 }
 
 void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, GLuint* texture) {
-    shader->Use();
-    glBindVertexArray(model->vaoid_);
 
     glBindTexture(GL_TEXTURE_2D, *texture);
     glBindTextureUnit(0, *texture);
@@ -231,12 +210,6 @@ void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, GLuint* text
     shader->SetUniform("uTex2d", 0);
 
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
-
-    // after completing the rendering, we tell the driver that the VAO vaoid
-    // and the current shader program are no longer current
-    glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    shader->UnUse();
 }
 
 /*  _________________________________________________________________________ */
@@ -470,35 +443,6 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
     }
 }
 
-void GraphicsSystem::UpdateObjectMatrix(IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform) {
-
-    glm::mat3 scaling, rotation, translation;
-
-    Vector2D scale = std::dynamic_pointer_cast<Scale>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
-
-    scaling = glm::mat3{ scale.x, 0.0f, 0.0f,
-                         0.0f, scale.y, 0.0f,
-                         0.0f, 0.0f, 1.0f };
-
-    std::shared_ptr<Transform> transform = 
-        std::dynamic_pointer_cast<Transform>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-    //assert(transform);
-    DEBUG_ASSERT(transform, "Entity does not have a Transform component");
-
-    float orientation = transform->rotation_;
-    Vector2D position = transform->position_;
-
-    rotation = glm::mat3{ glm::cos(orientation * M_PI / 180), glm::sin(orientation * M_PI / 180), 0.0f,
-                          -glm::sin(orientation * M_PI / 180), glm::cos(orientation * M_PI / 180), 0.0f,
-                           0.0f, 0.0f, 1.0f };
-
-    translation = glm::mat3{ 1.0f, 0.0f, 0.0f,
-                       0.0f, 1.0f, 0.0f,
-                       position.x, position.y, 1.0f };
-
-    i_worldobj_renderer->mdl_to_ndc_xform_ = world_to_ndc_xform * translation * rotation * scaling;
-}
-
 void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime) {
 
     if (anim_renderer->play_animation_ == true) {
@@ -527,23 +471,55 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
-void GraphicsSystem::DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer) {
+void GraphicsSystem::DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform) {
     
     glBindTexture(GL_TEXTURE_2D, *(i_worldobj_renderer->texture_handle_));
     glBindTextureUnit(0, *(i_worldobj_renderer->texture_handle_));
     glUseProgram(shader->GetHandle());
 
+    Vector2D scale = std::dynamic_pointer_cast<Scale>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
+    
+    std::shared_ptr<Transform> transform =
+        std::dynamic_pointer_cast<Transform>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+
+    float orientation = transform->rotation_ * M_PI / 180;
+    Vector2D pos = transform->position_;
+
+    glm::vec2 scaling { scale.x, scale.y };
+    glm::vec2 rotation { glm::cos(orientation), glm::sin(orientation) };
+    glm::vec2 position { pos.x, pos.y };
+
+    std::vector<glm::vec2> transform_variables;
+
+    for (int i = 0; i < 4; ++i)
+    {
+        transform_variables.push_back(scaling);
+    }
+    
+    for (int i = 0; i < 4; ++i)
+    {
+        transform_variables.push_back(rotation);
+    }
+
+    for (int i = 0; i < 4; ++i)
+    {
+        transform_variables.push_back(position);
+    }
+
     shader->SetUniform("uTex2d", 0);
-    shader->SetUniform("uModel_to_NDC", i_worldobj_renderer->mdl_to_ndc_xform_);
+    shader->SetUniform("world_to_ndc_xform", world_to_ndc_xform);
 
-    glNamedBufferSubData(model->GetVBOHandle(), model->GetVBOOffset(),
-                         sizeof(i_worldobj_renderer->tex_vtx_sent_), i_worldobj_renderer->tex_vtx_sent_.data());
+    size_t offset = model->GetVBOTexOffset();
+    glNamedBufferSubData(model->GetVBOHandle(), offset,
+                         sizeof(glm::vec2) * i_worldobj_renderer->tex_vtx_sent_.size(),
+                         i_worldobj_renderer->tex_vtx_sent_.data());
+    
+    offset += sizeof(glm::vec2) * i_worldobj_renderer->tex_vtx_sent_.size();
+    glNamedBufferSubData(model->GetVBOHandle(), offset,
+                         sizeof(glm::vec2) * transform_variables.size(),
+                         transform_variables.data());
+
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
-
-    // after completing the rendering, we tell the driver that the VAO vaoid
-    // and the current shader program are no longer current
-
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* text_renderer, glm::vec2 cam_pos) {
@@ -603,8 +579,6 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         pos.x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }
-    
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void GraphicsSystem::FlipTextureX(IWorldObjectRenderer* i_worldobj_renderer) {

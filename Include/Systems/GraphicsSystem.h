@@ -167,15 +167,6 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
-    \fn UpdateObjectMatrix(IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform)
-
-    \brief Updates Model to NDC transform of the renderer
-*/
-/******************************************************************************/
-    void UpdateObjectMatrix(IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform);
-
-/******************************************************************************/
-/*!
     \fn UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime)
 
     \brief Updates time elapsed for animation renderers and changes the
@@ -186,12 +177,12 @@ void RemoveTextRendererComponent(EntityID id);
     
 /******************************************************************************/
 /*!
-    \fn DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer)
+    \fn DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform)
 
     \brief Draw objects that have a component that inherits from IObjectRenderer
 */
 /******************************************************************************/
-    void DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer);
+    void DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform);
 
 /******************************************************************************/
 /*!
