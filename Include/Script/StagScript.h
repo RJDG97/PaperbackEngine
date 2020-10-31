@@ -5,7 +5,6 @@
 #include "Script/StagScript.h"
 #include "Script/GeneralScripts.h"
 
-
 class StagBeetle : public AIManager
 {
 public:
@@ -18,7 +17,7 @@ public:
 			Patrol(ai);
 			break;
 		case AI::AIState::Attack:
-			
+			break;
 		}
 	}
 
