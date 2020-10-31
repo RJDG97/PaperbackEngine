@@ -6,6 +6,7 @@
 #include "Entity/Entity.h"
 #include "GameStates/Levels.h"
 #include "Manager/ComponentManager.h"
+#include "Manager/EntityManager.h"
 #include <set>
 #include <map>
 #include <string>
@@ -20,14 +21,14 @@ class EntityFactory : public ISystem {
 	unsigned int last_entity_id_;
 
 	// 
-	using EntityIdMapType = std::map<EntityID, Entity*>;
+	using EntityIdMapType = EntityManager::EntityIdMapType;
 	using EntityIdMapTypeIt = EntityIdMapType::iterator;
-	EntityIdMapType entity_id_map_;
+	//EntityIdMapType entity_id_map_;
 
 	// 
-	using EntityArchetypeMapType = std::map<std::string, Entity*>;
+	using EntityArchetypeMapType = EntityManager::EntityArchetypeMapType;
 	using EntityArchetypeMapTypeIt = EntityArchetypeMapType::iterator;
-	EntityArchetypeMapType entity_archetype_map_;
+	//EntityArchetypeMapType entity_archetype_map_;
 
 	// For storing entities that are to be deleted in update loop
 	using EntityIt = std::set<Entity*>::iterator;
@@ -38,6 +39,7 @@ class EntityFactory : public ISystem {
 	Levels levels_;
 
 	ComponentManager* comp_mgr_;
+	EntityManager* entity_mgr_;
 
 /******************************************************************************/
 /*!
@@ -198,17 +200,6 @@ public:
 */
 /******************************************************************************/
 	void StoreEntityID(Entity* entity);
-
-/******************************************************************************/
-/*!
-  \fn AddComponentCreator()
-
-  \brief Used to add component creator to a map for ease of contructing new
-		 components during serialization
-*/
-/******************************************************************************/
-	//void AddComponentCreator(const std::string& name, IComponentCreator* creator);
-
 	
 /******************************************************************************/
 /*!

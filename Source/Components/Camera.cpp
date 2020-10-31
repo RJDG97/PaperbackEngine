@@ -20,6 +20,7 @@ void Camera::Init()
 
 void Camera::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 {
+    (void)writer;
 }
 
 void Camera::DeSerialize(std::stringstream& data)
@@ -31,6 +32,7 @@ void Camera::DeSerialize(std::stringstream& data)
 
 void Camera::DeSerializeClone(std::stringstream& data)
 {
+    (void)data;
 }
 
 std::shared_ptr<Component> Camera::Clone()
