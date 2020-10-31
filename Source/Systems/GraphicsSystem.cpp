@@ -80,10 +80,6 @@ void GraphicsSystem::Init() {
     graphic_models_["TileModel"] = model_manager_->AddTristripsModel(1, 1, "TileModel");
     graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel");
 
-    /*
-    //lines model is used for debug drawing
-    model_manager_->AddLinesModel(1, 1, "LinesModel");*/
-
     graphic_shaders_["ObjectShader"] =
         shader_manager_->AddShdrpgm("Shaders/world_object.vert","Shaders/world_object.frag", "ObjectShader");
 
@@ -92,10 +88,6 @@ void GraphicsSystem::Init() {
 
     graphic_shaders_["FinalShader"] =
         shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
-
-    /*
-    graphic_shaders_["DebugShader"] =
-        shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");*/
 
     font_manager_->LoadFont("comic_sans");
 
@@ -199,12 +191,13 @@ void GraphicsSystem::Draw() {
     glBindVertexArray(0);
     graphic_shaders_["TextShader"]->UnUse();
 
+    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
+
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], &final_texture_);
-    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
