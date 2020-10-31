@@ -6,32 +6,18 @@
 #include "Systems/Message.h"
 #include "Components/AI.h"
 #include "Systems/ISystem.h"
+#include "Manager/ComponentManager.h"
 
 using AIIt = std::unordered_map<EntityID, AI*>::iterator;
 
 class LogicSystem: public ISystem{
 
-	std::unordered_map<EntityID, AI*> ai_arr_;
+	//std::unordered_map<EntityID, AI*> ai_arr_;
+	using AIType = CMap<AI>;
+	using AIIt = AIType::MapTypeIt;
+	AIType* ai_arr_;
 
 public:
-
-	/******************************************************************************/
-	/*!
-	  \fn AddAIComponent()
-	
-	  \brief Adds a AI component
-	*/
-	/******************************************************************************/
-	void AddAIComponent(EntityID id, AI* ai);
-
-	/******************************************************************************/
-	/*!
-	  \fn RemoveAIComponent()
-
-	  \brief Removes a AI component
-	*/
-	/******************************************************************************/
-	void RemoveAIComponent(EntityID id);
 
 	/******************************************************************************/
 	/*!

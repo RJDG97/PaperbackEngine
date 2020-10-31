@@ -8,6 +8,7 @@
 #include "Components/Status.h"
 #include "Components/BasicAI.h"
 #include "Components/InputController.h"
+#include "Manager/ComponentManager.h"
 
 class GameState;
 
@@ -134,46 +135,6 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn AddStatusComponent()
-
-  \brief Adds a newly created Status Component to the status component array
-         within the Game System
-*/
-/******************************************************************************/
-	void AddStatusComponent(EntityID id, Status* status);
-
-/******************************************************************************/
-/*!
-  \fn RemoveStatusComponent()
-
-  \brief Removes a Status Component from the status component array within the 
-	     Game System
-*/
-/******************************************************************************/
-	void RemoveStatusComponent(EntityID id);
-
-/******************************************************************************/
-/*!
-  \fn AddBasicAIComponent()
-
-  \brief Adds a newly created BasicAI Component to the BasicAI component array
-		 within the Game System
-*/
-/******************************************************************************/
-	void AddBasicAIComponent(EntityID id, BasicAI* basic_ai);
-
-/******************************************************************************/
-/*!
-  \fn RemoveBasicAIComponent()
-
-  \brief Removes a BasicAI Component from the BasicAI component array within the
-		 Game System
-*/
-/******************************************************************************/
-	void RemoveBasicAIComponent(EntityID id);
-
-/******************************************************************************/
-/*!
   \fn AddInputControllerComponent()
 
   \brief Adds a newly created InputController Component to the InputController 
@@ -201,14 +162,23 @@ private:
 	// for the game loop
 	bool b_running_;
 
-	using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
-	std::unordered_map<EntityID, Status*> status_arr_;
+	//using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
+	//std::unordered_map<EntityID, Status*> status_arr_;
+	using StatusMapType = CMap<Status>;
+	using StatusIt = StatusMapType::MapTypeIt;
+	StatusMapType* status_arr_;
 
-	using BasicAIIt = std::unordered_map<EntityID, BasicAI*>::iterator;
-	std::unordered_map<EntityID, BasicAI*> basicai_arr_;
+	//using BasicAIIt = std::unordered_map<EntityID, BasicAI*>::iterator;
+	//std::unordered_map<EntityID, BasicAI*> basicai_arr_;
+	using BasicAIType = CMap<BasicAI>;
+	using BasicAIIt = BasicAIType::MapTypeIt;
+	BasicAIType* basicai_arr_;
 
-	using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
-	std::unordered_map < EntityID, InputController*> input_controller_arr_;
+	//using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
+	//std::unordered_map < EntityID, InputController*> input_controller_arr_;
+	using InputControllerType = CMap<InputController>;
+	using InputControllerIt = InputControllerType::MapTypeIt;
+	InputControllerType* input_controller_arr_;
 
 /******************************************************************************/
 /*!

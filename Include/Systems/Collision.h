@@ -13,6 +13,7 @@
 #include "Components/InputController.h"
 #include "Manager/ShaderManager.h"
 #include "Manager/ModelManager.h"
+#include "Manager/ComponentManager.h"
 #include <unordered_map>
 #include <bitset>
 #include <string>
@@ -38,21 +39,39 @@ class Collision : public ISystem {
 	using AABBType = std::unordered_map<EntityID, AABB*>;
 	using AABBIt = AABBType::iterator;
 	AABBType aabb_arr_;
+	//using AABBType = CMap<AABB>;
+	//using AABBIt = AABBType::MapTypeIt;
+	//AABBType* aabb_arr_;
 
-	using ClickableIt = std::unordered_map<EntityID, Clickable*>::iterator;
-	std::unordered_map<EntityID, Clickable*> clickable_arr_;
+	//using ClickableIt = std::unordered_map<EntityID, Clickable*>::iterator;
+	//std::unordered_map<EntityID, Clickable*> clickable_arr_;
+	using ClickableType = CMap<Clickable>;
+	using ClickableIt = ClickableType::MapTypeIt;
+	ClickableType* clickable_arr_;
 
-	using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
-	std::unordered_map<EntityID, Motion*> motion_arr_;
+	//using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
+	//std::unordered_map<EntityID, Motion*> motion_arr_;
+	using MotionType = CMap<Motion>;
+	using MotionIt = MotionType::MapTypeIt;
+	MotionType* motion_arr_;
 
-	using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
-	std::unordered_map<EntityID, Status*> status_arr_;
-	
-	using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
-	std::unordered_map<EntityID, Transform*> transform_arr_;
+	//using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
+	//std::unordered_map<EntityID, Status*> status_arr_;
+	using StatusMapType = CMap<Status>;
+	using StatusIt = StatusMapType::MapTypeIt;
+	StatusMapType* status_arr_;
 
-	using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
-	std::unordered_map < EntityID, InputController*> input_controller_arr_;
+	//using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
+	//std::unordered_map<EntityID, Transform*> transform_arr_;
+	using TransformType = CMap<Transform>;
+	using TransformIt = TransformType::MapTypeIt;
+	TransformType* transform_arr_;
+
+	//using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
+	//std::unordered_map < EntityID, InputController*> input_controller_arr_;
+	using InputControllerType = CMap<InputController>;
+	using InputControllerIt = InputControllerType::MapTypeIt;
+	InputControllerType* input_controller_arr_;
 
 	// Placeholder stuff, testing Collision Layering
 	typedef std::pair<std::bitset<10>, bool> CollidableLayers;
@@ -230,100 +249,6 @@ public:
 */
 /******************************************************************************/
 	void RemoveAABBComponent(EntityID id);
-
-/******************************************************************************/
-/*!
-  \fn AddClickableComponent()
-
-  \brief Adds a Clickable component to the clickable map
-*/
-/******************************************************************************/
-	void AddClickableComponent(EntityID id, Clickable* clickable);
-
-/******************************************************************************/
-/*!
-  \fn RemoveClickableComponent()
-
-  \brief Removes a Clickable component from the clickable map
-*/
-/******************************************************************************/
-	void RemoveClickableComponent(EntityID id);
-
-/******************************************************************************/
-/*!
-  \fn AddMotionComponent()
-
-  \brief Adds a Motion component to the motion map
-*/
-/******************************************************************************/
-	void AddMotionComponent(EntityID id, Motion* motion);
-
-/******************************************************************************/
-/*!
-  \fn RemoveMotionComponent()
-
-  \brief Removes a Motion component from the motion map
-*/
-/******************************************************************************/
-	void RemoveMotionComponent(EntityID id);
-
-/******************************************************************************/
-/*!
-  \fn AddStatusComponent()
-
-  \brief Adds a Status component to the status map
-*/
-/******************************************************************************/
-	void AddStatusComponent(EntityID id, Status* status);
-
-/******************************************************************************/
-/*!
-  \fn RemoveStatusComponent()
-
-  \brief Removes a Status component from the status map
-*/
-/******************************************************************************/
-	void RemoveStatusComponent(EntityID id);
-
-/******************************************************************************/
-/*!
-  \fn AddTransformComponent()
-
-  \brief Adds a newly created Transform Component to the status component array
-		 within the Collision System
-*/
-/******************************************************************************/
-	void AddTransformComponent(EntityID id, Transform* status);
-
-/******************************************************************************/
-/*!
-  \fn RemoveTransformComponent()
-
-  \brief Removes a Transform Component from the status component array within the
-		 Collision System
-*/
-/******************************************************************************/
-	void RemoveTransformComponent(EntityID id);
-
-/******************************************************************************/
-/*!
-  \fn AddInputControllerComponent()
-
-  \brief Adds a newly created InputController Component to the InputController 
-		 component array within the Game System
-*/
-/******************************************************************************/
-	void AddInputControllerComponent(EntityID id, InputController* input_controller);
-
-/******************************************************************************/
-/*!
-  \fn RemoveInputControllerComponent()
-
-  \brief Removes a InputController Component from the InputController 
-		 component array within the Game System
-*/
-/******************************************************************************/
-	void RemoveInputControllerComponent(EntityID id);
 
 /******************************************************************************/
 /*!

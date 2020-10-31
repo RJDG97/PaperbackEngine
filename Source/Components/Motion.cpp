@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Manager/ComponentManager.h"
 #include "Components/Motion.h"
 #include "Systems/Physics.h"
 #include "Systems/Collision.h"
@@ -12,16 +13,16 @@ Motion::Motion() :
 
 Motion::~Motion() {
 
-	CORE->GetSystem<Physics>()->RemoveMotionComponent(Component::GetOwner()->GetID());
-	CORE->GetSystem<Collision>()->RemoveMotionComponent(Component::GetOwner()->GetID());
-
+	//CORE->GetSystem<Physics>()->RemoveMotionComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<Collision>()->RemoveMotionComponent(Component::GetOwner()->GetID());
+	CORE->GetManager<ComponentManager>()->RemoveComponent<Motion>(Component::GetOwner()->GetID());
 }
 
 void Motion::Init() {
-	// Create the map afterwards
-	//PHYSICS->Motions[Component::GetOwner()->GetID()] = *this;
-	CORE->GetSystem<Physics>()->AddMotionComponent(Component::GetOwner()->GetID(), this);
-	CORE->GetSystem<Collision>()->AddMotionComponent(Component::GetOwner()->GetID(), this);
+
+	//CORE->GetSystem<Physics>()->AddMotionComponent(Component::GetOwner()->GetID(), this);
+	//CORE->GetSystem<Collision>()->AddMotionComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetManager<ComponentManager>()->AddComponent<Motion>(Component::GetOwner()->GetID(), this);
 }
 
 void Motion::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {

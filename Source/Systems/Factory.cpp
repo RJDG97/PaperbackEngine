@@ -1,4 +1,5 @@
 #include "Systems/Factory.h"
+#include "Engine/Core.h"
 #include "Entity/Entity.h"
 #include "Entity/ComponentCreator.h"
 #include <iostream>
@@ -37,13 +38,13 @@ EntityFactory::EntityFactory() {
 
 EntityFactory::~EntityFactory() {
 
-	ComponentMapType::iterator it = component_map_.begin();
+	/*ComponentMapType::iterator it = component_map_.begin();
 
 	//loops through and deleles every component creator
 	for (; it != component_map_.end(); ++it) {
 
 		delete it->second;
-	}
+	}*/
 }
 
 std::string EntityFactory::GetLevelPath(const std::string& name) {
@@ -91,22 +92,24 @@ Levels* EntityFactory::GetLevelsFile() {
 
 void EntityFactory::Init() {
 
-	FACTORY->AddComponentCreator("Transform", new ComponentCreator<Transform>(ComponentTypes::TRANSFORM));
-	FACTORY->AddComponentCreator("Health", new ComponentCreator<Health>(ComponentTypes::HEALTH));
-	FACTORY->AddComponentCreator("Motion", new ComponentCreator<Motion>(ComponentTypes::MOTION));
-	FACTORY->AddComponentCreator("AABB", new ComponentCreator<AABB>(ComponentTypes::AABB));
-	FACTORY->AddComponentCreator("Name",  new ComponentCreator<Name>(ComponentTypes::NAME));
-	FACTORY->AddComponentCreator("Scale", new ComponentCreator<Scale>(ComponentTypes::SCALE));
-	FACTORY->AddComponentCreator("Status", new ComponentCreator<Status>(ComponentTypes::STATUS));
-	FACTORY->AddComponentCreator("BasicAI", new ComponentCreator<BasicAI>(ComponentTypes::BASICAI));
-	FACTORY->AddComponentCreator("PointLight", new ComponentCreator<PointLight>(ComponentTypes::POINTLIGHT));
-	FACTORY->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
-	FACTORY->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
-	FACTORY->AddComponentCreator("TextRenderer", new ComponentCreator<TextRenderer>(ComponentTypes::TEXTRENDERER));
-	FACTORY->AddComponentCreator("Clickable", new ComponentCreator<Clickable>(ComponentTypes::CLICKABLE));
-	FACTORY->AddComponentCreator("InputController", new ComponentCreator<InputController>(ComponentTypes::INPUTCONTROLLER));
+	comp_mgr_ = &*CORE->GetManager<ComponentManager>();
 
-	FACTORY->AddComponentCreator("AI", new ComponentCreator<AI>(ComponentTypes::AI));
+	comp_mgr_->AddComponentCreator("Transform", new ComponentCreator<Transform>(ComponentTypes::TRANSFORM));
+	comp_mgr_->AddComponentCreator("Health", new ComponentCreator<Health>(ComponentTypes::HEALTH));
+	comp_mgr_->AddComponentCreator("Motion", new ComponentCreator<Motion>(ComponentTypes::MOTION));
+	comp_mgr_->AddComponentCreator("AABB", new ComponentCreator<AABB>(ComponentTypes::AABB));
+	comp_mgr_->AddComponentCreator("Name",  new ComponentCreator<Name>(ComponentTypes::NAME));
+	comp_mgr_->AddComponentCreator("Scale", new ComponentCreator<Scale>(ComponentTypes::SCALE));
+	comp_mgr_->AddComponentCreator("Status", new ComponentCreator<Status>(ComponentTypes::STATUS));
+	comp_mgr_->AddComponentCreator("BasicAI", new ComponentCreator<BasicAI>(ComponentTypes::BASICAI));
+	comp_mgr_->AddComponentCreator("PointLight", new ComponentCreator<PointLight>(ComponentTypes::POINTLIGHT));
+	comp_mgr_->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
+	comp_mgr_->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
+	comp_mgr_->AddComponentCreator("TextRenderer", new ComponentCreator<TextRenderer>(ComponentTypes::TEXTRENDERER));
+	comp_mgr_->AddComponentCreator("Clickable", new ComponentCreator<Clickable>(ComponentTypes::CLICKABLE));
+	comp_mgr_->AddComponentCreator("InputController", new ComponentCreator<InputController>(ComponentTypes::INPUTCONTROLLER));
+
+	comp_mgr_->AddComponentCreator("AI", new ComponentCreator<AI>(ComponentTypes::AI));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");
@@ -245,11 +248,12 @@ void EntityFactory::CreateAllArchetypes(const std::string& filename) {
 
 				// Check whether the component's name has been registered
 				//component_map_.find(member.MemberBegin()->value.GetString())->second;
-				ComponentMapType::iterator component_it = component_map_.find(member.MemberBegin()->value.GetString());
+				//ComponentMapType::iterator component_it = component_map_.find(member.MemberBegin()->value.GetString());
+				creator = comp_mgr_->GetComponentCreator(member.MemberBegin()->value.GetString());
 
-				DEBUG_ASSERT((component_it != component_map_.end()), "Component Creator does not exist");
+				DEBUG_ASSERT((creator != nullptr), "Component Creator does not exist");
 
-				creator = component_it->second;
+				//creator = component_it->second;
 
 				component = creator->Create();
 
@@ -440,11 +444,11 @@ void EntityFactory::StoreEntityID(Entity* entity) {
 	M_DEBUG->WriteDebugMessage("Storing entity with ID: " + std::to_string(last_entity_id_) + "\n");
 }
 
-void EntityFactory::AddComponentCreator(const std::string& name, IComponentCreator* creator) {
+/*void EntityFactory::AddComponentCreator(const std::string& name, IComponentCreator* creator) {
 	
 	//binds component creator to entry with component name
 	component_map_.emplace(name, creator);
-}
+}*/
 
 Entity* EntityFactory::GetObjectWithID(EntityID id) {
 	

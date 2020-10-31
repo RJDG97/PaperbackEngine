@@ -1,5 +1,6 @@
 #include "Components/Transform.h"
 #include "MathLib/Vector2D.h"
+#include "Manager/ComponentManager.h"
 #include "Systems/Physics.h"
 #include "Systems/Collision.h"
 #include "Engine/Core.h"
@@ -13,14 +14,17 @@ Transform::Transform() :
 
 Transform::~Transform() {
 
-	CORE->GetSystem<Physics>()->RemoveTransformComponent(Component::GetOwner()->GetID());
-	CORE->GetSystem<Collision>()->RemoveTransformComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<Physics>()->RemoveTransformComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<Collision>()->RemoveTransformComponent(Component::GetOwner()->GetID());
+	CORE->GetManager<ComponentManager>()->RemoveComponent<Transform>(Component::GetOwner()->GetID());
+
 }
 
 void Transform::Init() {
 
-	CORE->GetSystem<Physics>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
-	CORE->GetSystem<Collision>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
+	//CORE->GetSystem<Physics>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
+	//CORE->GetSystem<Collision>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetManager<ComponentManager>()->AddComponent<Transform>(Component::GetOwner()->GetID(), this);
 }
 
 void Transform::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {

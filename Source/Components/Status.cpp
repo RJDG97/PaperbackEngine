@@ -1,5 +1,6 @@
 #include "Components/Status.h"
 #include "Engine/Core.h"
+#include "Manager/ComponentManager.h"
 #include "Systems/Game.h"
 #include "Systems/Collision.h"
 #include "Systems/Physics.h"
@@ -26,9 +27,10 @@ Status::Status() :
 /******************************************************************************/
 void Status::Init() {
 
-	CORE->GetSystem<Game>()->AddStatusComponent(GetOwner()->GetID(), this);
-	CORE->GetSystem<Collision>()->AddStatusComponent(GetOwner()->GetID(), this);
-	CORE->GetSystem<Physics>()->AddStatusComponent(GetOwner()->GetID(), this);
+	//CORE->GetSystem<Game>()->AddStatusComponent(GetOwner()->GetID(), this);
+	//CORE->GetSystem<Collision>()->AddStatusComponent(GetOwner()->GetID(), this);
+	//CORE->GetSystem<Physics>()->AddStatusComponent(GetOwner()->GetID(), this);
+	CORE->GetManager<ComponentManager>()->AddComponent<Status>(GetOwner()->GetID(), this);
 }
 
 void Status::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
@@ -69,7 +71,8 @@ std::shared_ptr<Component> Status::Clone() {
 
 Status::~Status() {
 
-	CORE->GetSystem<Game>()->RemoveStatusComponent(Component::GetOwner()->GetID());
-	CORE->GetSystem<Collision>()->RemoveStatusComponent(Component::GetOwner()->GetID());
-	CORE->GetSystem<Physics>()->RemoveStatusComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<Game>()->RemoveStatusComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<Collision>()->RemoveStatusComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<Physics>()->RemoveStatusComponent(Component::GetOwner()->GetID());
+	CORE->GetManager<ComponentManager>()->RemoveComponent<Status>(Component::GetOwner()->GetID());
 }

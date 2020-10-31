@@ -28,6 +28,12 @@ void Game::Init()
 	CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
 	FACTORY->CreateAllArchetypes("Resources/EntityConfig/archetypes.json");
 
+	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+
+	input_controller_arr_ = comp_mgr->GetComponentArray<InputController>();
+	status_arr_ = comp_mgr->GetComponentArray<Status>();
+	basicai_arr_ = comp_mgr->GetComponentArray<BasicAI>();
+
 	ChangeState(&m_MenuState);
 
 	M_DEBUG->WriteDebugMessage("Game System Init\n");
@@ -108,57 +114,6 @@ void Game::Update(float frametime)
 	if (!states_.empty()) {
 	
 		states_.back()->Update(this, frametime);
-	}
-}
-
-void Game::AddStatusComponent(EntityID id, Status* status) {
-
-	M_DEBUG->WriteDebugMessage("Adding Status Component to entity: " + std::to_string(id) + "\n");
-	status_arr_[id] = status;
-}
-
-void Game::RemoveStatusComponent(EntityID id) {
-
-	StatusIt it = status_arr_.find(id);
-
-	if (it != status_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Status Component from entity: " + std::to_string(id) + "\n");
-		status_arr_.erase(it);
-	}
-}
-
-void Game::AddBasicAIComponent(EntityID id, BasicAI* basic_ai) {
-
-	M_DEBUG->WriteDebugMessage("Adding Status Component to entity: " + std::to_string(id) + "\n");
-	basicai_arr_[id] = basic_ai;
-}
-
-void Game::RemoveBasicAIComponent(EntityID id) {
-
-	BasicAIIt it = basicai_arr_.find(id);
-
-	if (it != basicai_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Status Component from entity: " + std::to_string(id) + "\n");
-		basicai_arr_.erase(it);
-	}
-}
-
-void Game::AddInputControllerComponent(EntityID id, InputController* input_controller) {
-
-	M_DEBUG->WriteDebugMessage("Adding Input Controller Component to entity: " + std::to_string(id) + "\n");
-	input_controller_arr_[id] = input_controller;
-}
-
-void Game::RemoveInputControllerComponent(EntityID id) {
-
-	InputControllerIt it = input_controller_arr_.find(id);
-
-	if (it != input_controller_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Input Controller Component from entity: " + std::to_string(id) + "\n");
-		input_controller_arr_.erase(it);
 	}
 }
 

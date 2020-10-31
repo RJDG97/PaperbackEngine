@@ -243,7 +243,7 @@ void Collision::CheckClickableCollision() {
 
 	Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();
 
-	for (ClickableIt clickable = clickable_arr_.begin(); clickable != clickable_arr_.end(); ++clickable) {
+	for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
 
 		if (CheckCursorCollision(cursor_pos, clickable->second)) {
 
@@ -278,11 +278,11 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 	Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
 	Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
 
-	TransformIt transform1 = transform_arr_.find(aabb1->second->GetOwner()->GetID());
-	TransformIt transform2 = transform_arr_.find(aabb2->second->GetOwner()->GetID());
+	Transform* transform1 = transform_arr_->GetComponent(aabb1->second->GetOwner()->GetID());
+	Transform* transform2 = transform_arr_->GetComponent(aabb2->second->GetOwner()->GetID());
 
 	// Get "fake normal" to colliding side
-	Vector2D normal = Normal(aabb1->second->scale_, aabb2->second->scale_, transform1->second, transform2->second);
+	Vector2D normal = Normal(aabb1->second->scale_, aabb2->second->scale_, transform1, transform2);
 
 	// Isolate relavent vector value based on normal value
 	inverse_vector_1.x *= normal.x;
@@ -291,8 +291,8 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 	inverse_vector_2.y *= normal.y;
 
 	// Reposition entity's position
-	transform1->second->position_ += inverse_vector_1;
-	transform2->second->position_ += inverse_vector_2;
+	transform1->position_ += inverse_vector_1;
+	transform2->position_ += inverse_vector_2;
 
 	// Toggle collision status (For debug boxes)
 	aabb1->second->collided = true;
@@ -308,26 +308,26 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 }
 
 bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
-	StatusIt player_status = status_arr_.find(aabb2->second->GetOwner()->GetID());;
+	Status* player_status = status_arr_->GetComponent(aabb2->second->GetOwner()->GetID());;
 
-	if (player_status->second) {
+	if (player_status) {
 
-		if (player_status->second->status_ == StatusType::NONE) {
+		if (player_status->status_ == StatusType::NONE) {
 
 			// Set collided status
 			aabb1->second->collided = true;
 			aabb2->second->collided = true;
 
-			player_status->second->status_ = StatusType::HIT;
-			player_status->second->status_timer_ = 2.0f;
+			player_status->status_ = StatusType::HIT;
+			player_status->status_timer_ = 2.0f;
 			return true;
 		}
 
-		else if (player_status->second->status_ == StatusType::BURROW) {
+		else if (player_status->status_ == StatusType::BURROW) {
 			return false;
 		}
 
-		else if (player_status->second->status_ == StatusType::INVISIBLE) {
+		else if (player_status->status_ == StatusType::INVISIBLE) {
 
 			// Check this return type again when mechanics are confirmed
 			return false;
@@ -391,10 +391,10 @@ void Collision::ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt 
 				if (layer_a_it->first == layer_b_it->first)
 					continue;
 
-				Vector2D vel1 = motion_arr_.find(layer_a_it->first) != motion_arr_.end() ?
-					motion_arr_.find(layer_a_it->first)->second->velocity_ : Vector2D{};
-				Vector2D vel2 = motion_arr_.find(layer_b_it->first) != motion_arr_.end() ?
-					motion_arr_.find(layer_b_it->first)->second->velocity_ : Vector2D{};
+				Vector2D vel1 = motion_arr_->GetComponent(layer_a_it->first) ?
+					motion_arr_->GetComponent(layer_a_it->first)->velocity_ : Vector2D{};
+				Vector2D vel2 = motion_arr_->GetComponent(layer_b_it->first) ?
+					motion_arr_->GetComponent(layer_b_it->first)->velocity_ : Vector2D{};
 
 				float t_first{};
 
@@ -434,93 +434,6 @@ void Collision::RemoveAABBComponent(EntityID id) {
 	}
 }
 
-void Collision::AddClickableComponent(EntityID id, Clickable* clickable) {
-
-	M_DEBUG->WriteDebugMessage("Adding AABB Component to entity: " + std::to_string(id) + "\n");
-
-	clickable_arr_[id] = clickable;
-}
-
-void Collision::RemoveClickableComponent(EntityID id) {
-
-	ClickableIt it = clickable_arr_.find(id);
-
-	if (it != clickable_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing AABB Component from entity: " + std::to_string(id) + "\n");
-		clickable_arr_.erase(it);
-	}
-}
-
-void Collision::AddMotionComponent(EntityID id, Motion* motion) {
-
-	M_DEBUG->WriteDebugMessage("Adding Motion Component to entity: " + std::to_string(id) + "\n");
-
-	motion_arr_[id] = motion;
-}
-
-void Collision::RemoveMotionComponent(EntityID id) {
-
-	MotionIt it = motion_arr_.find(id);
-
-	if (it != motion_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Motion Component from entity: " + std::to_string(id) + "\n");
-		motion_arr_.erase(it);
-	}
-}
-
-void Collision::AddStatusComponent(EntityID id, Status* status) {
-
-	M_DEBUG->WriteDebugMessage("Adding Status Component to entity: " + std::to_string(id) + "\n");
-	status_arr_[id] = status;
-}
-
-void Collision::RemoveStatusComponent(EntityID id) {
-
-	StatusIt it = status_arr_.find(id);
-
-	if (it != status_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Status Component from entity: " + std::to_string(id) + "\n");
-		status_arr_.erase(it);
-	}
-}
-
-void Collision::AddTransformComponent(EntityID id, Transform* status) {
-
-	M_DEBUG->WriteDebugMessage("Adding Transform Component to entity: " + std::to_string(id) + "\n");
-	transform_arr_[id] = status;
-}
-
-void Collision::RemoveTransformComponent(EntityID id) {
-
-	TransformIt it = transform_arr_.find(id);
-
-	if (it != transform_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Transform Component from entity: " + std::to_string(id) + "\n");
-		transform_arr_.erase(it);
-	}
-}
-
-void Collision::AddInputControllerComponent(EntityID id, InputController* input_controller) {
-
-	M_DEBUG->WriteDebugMessage("Adding Input Controller Component to entity: " + std::to_string(id) + "\n");
-	input_controller_arr_[id] = input_controller;
-}
-
-void Collision::RemoveInputControllerComponent(EntityID id) {
-
-	InputControllerIt it = input_controller_arr_.find(id);
-
-	if (it != input_controller_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Input Controller Component from entity: " + std::to_string(id) + "\n");
-		input_controller_arr_.erase(it);
-	}
-}
-
 void Collision::UpdateBoundingBox() {
 	if (debug_)
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Bounding Boxes\n");
@@ -533,11 +446,11 @@ void Collision::UpdateBoundingBox() {
 
 			Entity* entity = aabb->second->GetOwner();
 			DEBUG_ASSERT((entity), "Entity does not exist");
+			
+			Transform* entity_position = transform_arr_->GetComponent(entity->GetID());
 
-			TransformIt entity_position = transform_arr_.find(entity->GetID());
-
-			aabb->second->bottom_left_ = entity_position->second->position_ - aabb->second->scale_;
-			aabb->second->top_right_ = entity_position->second->position_ + aabb->second->scale_;
+			aabb->second->bottom_left_ = entity_position->position_ - aabb->second->scale_;
+			aabb->second->top_right_ = entity_position->position_ + aabb->second->scale_;
 		}
 	}
 }
@@ -546,7 +459,7 @@ void Collision::UpdateClickableBB() {
 	if (debug_)
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Clickable Bounding Boxes\n");
 
-	for (ClickableIt clickable = clickable_arr_.begin(); clickable != clickable_arr_.end(); ++clickable) {
+	for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
 
 		//reset collided flag to false to prepare for collision check after
 		clickable->second->collided_ = false;
@@ -554,10 +467,10 @@ void Collision::UpdateClickableBB() {
 		Entity* entity = clickable->second->GetOwner();
 		DEBUG_ASSERT((entity), "Entity does not exist");
 
-		TransformIt entity_position = transform_arr_.find(clickable->second->GetOwner()->GetID());
+		Transform* entity_position = transform_arr_->GetComponent(clickable->second->GetOwner()->GetID());
 
-		clickable->second->bottom_left_ = entity_position->second->position_ - clickable->second->scale_;
-		clickable->second->top_right_ = entity_position->second->position_ + clickable->second->scale_;
+		clickable->second->bottom_left_ = entity_position->position_ - clickable->second->scale_;
+		clickable->second->top_right_ = entity_position->position_ + clickable->second->scale_;
 	}
 }
 
@@ -568,6 +481,14 @@ void Collision::UpdateClickableBB() {
 
 // Init function called to initialise a system
 void Collision::Init() {
+
+	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+
+	clickable_arr_ = comp_mgr->GetComponentArray<Clickable>();
+	motion_arr_ = comp_mgr->GetComponentArray<Motion>();
+	status_arr_ = comp_mgr->GetComponentArray<Status>();
+	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
+	input_controller_arr_ = comp_mgr->GetComponentArray<InputController>();
 
 	shdr_pgm_ = CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
 	model_ = CORE->GetManager<ModelManager>()->AddLinesModel(1, 1, "LinesModel");

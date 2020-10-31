@@ -17,6 +17,11 @@ LightingSystem::~LightingSystem() {
 
 void LightingSystem::Init() {
 
+	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+
+	point_light_arr_ = comp_mgr->GetComponentArray<PointLight>();
+	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
+
 	windows_system_ = &*CORE->GetSystem<WindowsSystem>();
 	camera_system_ = &*CORE->GetSystem<CameraSystem>();
 
@@ -60,7 +65,7 @@ void LightingSystem::Init() {
 void LightingSystem::Update(float frametime) {
 
 	UNREFERENCED_PARAMETER(frametime);
-	for (PointLightIt it = point_light_arr_.begin(); it != point_light_arr_.end(); ++it) {
+	for (PointLightIt it = point_light_arr_->begin(); it != point_light_arr_->end(); ++it) {
 
 		if (debug_) {
 			// Log id of entity and it's updated components that are being updated
@@ -84,7 +89,7 @@ void LightingSystem::Draw() {
 	glBindVertexArray(light_model_->vaoid_);
 	point_light_shader->Use();
 
-	for (PointLightIt it = point_light_arr_.begin(); it != point_light_arr_.end(); ++it) {
+	for (PointLightIt it = point_light_arr_->begin(); it != point_light_arr_->end(); ++it) {
 
 		if (debug_) {
 			// Log id of entity and its updated components that are being updated
@@ -110,28 +115,17 @@ GLuint* LightingSystem::GetLightingTexture() {
 	return &lighting_texture;
 }
 
-void LightingSystem::AddLightComponent(EntityID id, PointLight* point_light) {
-
-	M_DEBUG->WriteDebugMessage("Adding PointLight Component to entity: " + std::to_string(id) + "\n");
-
-	point_light_arr_[id] = point_light;
-}
-
-void LightingSystem::RemoveLightComponent(EntityID id) {
-
-	PointLightIt it = point_light_arr_.find(id);
-
-	if (it != point_light_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing PointLight Component from entity: " + std::to_string(id) + "\n");
-		point_light_arr_.erase(it);
-	}
-}
-
 void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 
-	Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
-		point_light->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
+	//if (point_light)
+	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+
+	Transform* xform = transform_arr_->GetComponent(point_light->GetOwner()->GetID());
+	
+	if (!xform)
+		return;
+
+	Vector2D obj_pos_ = xform->position_;
 
 	point_light->pos_ = glm::vec2(obj_pos_.x, obj_pos_.y) * camera_system_->cam_zoom_ +
 							(*cam_pos_ * camera_system_->cam_zoom_ + 0.5f * win_size_);

@@ -1,6 +1,7 @@
 #include "Components/AnimationRenderer.h"
 #include "Components/Transform.h"
 #include "Components/Scale.h"
+#include "Manager/ComponentManager.h"
 #include "Engine/Core.h"
 #include "Systems/GraphicsSystem.h"
 
@@ -13,11 +14,13 @@ AnimationRenderer::AnimationRenderer() {
 AnimationRenderer::~AnimationRenderer() {  
     
     CORE->GetSystem<GraphicsSystem>()->RemoveAnimationRendererComponent(Component::GetOwner()->GetID());
+    //CORE->GetManager<ComponentManager>()->RemoveComponent<AnimationRenderer>(Component::GetOwner()->GetID());
 }
 
 void AnimationRenderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
+    //CORE->GetManager<ComponentManager>()->AddComponent<AnimationRenderer>(Component::GetOwner()->GetID(), this);
     texture_handle_ = current_animation_->GetAnimationFramesHandle();
     tex_vtx_initial_ = *current_animation_->GetTexVtx();
     tex_vtx_mirrored_ = std::vector<glm::vec2*>{ &tex_vtx_initial_[0],

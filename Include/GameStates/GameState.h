@@ -2,6 +2,7 @@
 #define GAMESTATE_H
 
 #include "Systems/Game.h"
+#include "Manager/ComponentManager.h"
 
 // abstract/interface class for all the game states/scenes
 class GameState

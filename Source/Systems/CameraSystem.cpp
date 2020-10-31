@@ -121,7 +121,7 @@ void CameraSystem::TempCameraMove(Vector2D displacement)
 
 void CameraSystem::SetTarget(Entity* target)
 {
-    target_ = std::dynamic_pointer_cast<Transform>(target->GetComponent(ComponentTypes::TRANSFORM));
+    target_ = &*std::dynamic_pointer_cast<Transform>(target->GetComponent(ComponentTypes::TRANSFORM));
 }
 
 void CameraSystem::ToggleTargeted()

@@ -1,5 +1,6 @@
 #include "Components/InputController.h"
 #include "Engine/Core.h"
+#include "Manager/ComponentManager.h"
 #include "Systems/Game.h"
 #include "Systems/Debug.h"
 #include <iostream>
@@ -11,12 +12,14 @@ InputController::InputController() :
 
 InputController::~InputController() {
 
-	CORE->GetSystem<Game>()->RemoveInputControllerComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<Game>()->RemoveInputControllerComponent(Component::GetOwner()->GetID());
+	CORE->GetManager<ComponentManager>()->RemoveComponent<InputController>(Component::GetOwner()->GetID());
 }
 
 void InputController::Init() {
 
-	CORE->GetSystem<Game>()->AddInputControllerComponent(Component::GetOwner()->GetID(), this);
+	//CORE->GetSystem<Game>()->AddInputControllerComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetManager<ComponentManager>()->AddComponent<InputController>(Component::GetOwner()->GetID(), this);
 }
 
 bool InputController::VerifyKey(const std::string& name, const size_t value) {

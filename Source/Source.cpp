@@ -18,6 +18,7 @@
 #include "Manager/AnimationManager.h"
 #include "Manager/ForcesManager.h"
 #include "Manager/AIManager.h"
+#include "Manager/ComponentManager.h"
 
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
@@ -50,19 +51,20 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 	try {
 		CORE->AddSystem<WindowsSystem>();
+		CORE->AddSystem<InputSystem>();
+		CORE->AddSystem<EntityFactory>();
 		CORE->AddSystem<CameraSystem>();
 		CORE->AddSystem<GraphicsSystem>();
 		CORE->AddSystem<LightingSystem>();
 		CORE->AddSystem<Physics>();
 		CORE->AddSystem<Collision>();
 		CORE->AddSystem<ImguiSystem>();
-		CORE->AddSystem<InputSystem>();
-		CORE->AddSystem<EntityFactory>();
 		CORE->AddSystem<SoundSystem>();
 		CORE->AddSystem<Game>();
 		CORE->AddSystem<LogicSystem>();
 
 		// Add Managers to the Core Engine
+		CORE->AddManager<ComponentManager>();
 		CORE->AddManager<ModelManager>();
 		CORE->AddManager<TextureManager>();
 		CORE->AddManager<ShaderManager>();

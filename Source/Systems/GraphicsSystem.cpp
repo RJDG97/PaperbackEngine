@@ -28,6 +28,12 @@ Context information.
 */
 void GraphicsSystem::Init() {
 
+    ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+
+    text_renderer_arr_ = comp_mgr->GetComponentArray<TextRenderer>();
+    texture_renderer_arr_ = comp_mgr->GetComponentArray<TextureRenderer>();
+    anim_renderer_arr_ = comp_mgr->GetComponentArray<AnimationRenderer>();
+
     // Clear colorbuffer with cyan color ...
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -116,7 +122,7 @@ void GraphicsSystem::Update(float frametime) {
     glm::mat3 world_to_ndc_xform_ = camera_system_->world_to_ndc_xform_;
 
     //updates all the renderer components
-    for (TextureRendererIt it = texture_renderer_arr_.begin(); it != texture_renderer_arr_.end(); ++it) {
+    for (TextureRendererIt it = texture_renderer_arr_->begin(); it != texture_renderer_arr_->end(); ++it) {
 
         if (debug_) {
 			// Log id of entity and it's updated components that are being updated
@@ -126,7 +132,7 @@ void GraphicsSystem::Update(float frametime) {
         UpdateObjectMatrix(it->second, world_to_ndc_xform_);
     }
 
-    for (AnimRendererIt it = anim_renderer_arr_.begin(); it != anim_renderer_arr_.end(); ++it) {
+    for (AnimRendererIt it = anim_renderer_arr_->begin(); it != anim_renderer_arr_->end(); ++it) {
 
         if (debug_) {
             // Log id of entity and it's updated components that are being updated
@@ -265,7 +271,7 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
     AnimRendererIt player_renderer;
 
-    for (player_renderer = anim_renderer_arr_.begin(); player_renderer != anim_renderer_arr_.end(); ++player_renderer)
+    for (player_renderer = anim_renderer_arr_->begin(); player_renderer != anim_renderer_arr_->end(); ++player_renderer)
     {
         if (ENTITYNAME(player_renderer->second->GetOwner()) == "Player")
         {
@@ -273,7 +279,7 @@ void GraphicsSystem::SendMessageD(Message* m) {
         }
     }
 
-    if (player_renderer == anim_renderer_arr_.end())
+    if (player_renderer == anim_renderer_arr_->end())
     {
         return;
     }
@@ -332,7 +338,8 @@ void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_re
 {
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
-    text_renderer_arr_[id] = text_renderer;
+    //text_renderer_arr_[id] = text_renderer;
+    text_renderer_arr_->AddComponent(id, text_renderer);
 
     if (text_renderer->ui_text_)
     {
@@ -347,12 +354,14 @@ void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_re
 
 void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
 {
-    TextRendererIt it = text_renderer_arr_.find(id);
+    //TextRendererIt it = text_renderer_arr_.find(id);
+    TextRenderer* it = text_renderer_arr_->GetComponent(id);
+
     int layer;
 
-    if (it != text_renderer_arr_.end()) {
+    if (it) {
 
-        if (it->second->ui_text_)
+        if (it->ui_text_)
         {
             TextRenderOrderIt orderit = uitext_renderers_in_order_.find(layer);
 
@@ -387,8 +396,8 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
         }
 
         M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
-        layer = GetLayer(it->second);
-        text_renderer_arr_.erase(it);
+        layer = GetLayer(it);
+        text_renderer_arr_->RemoveComponent(id);
     }
 }
 
@@ -396,20 +405,23 @@ void GraphicsSystem::AddTextureRendererComponent(EntityID id, TextureRenderer* t
 
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
-    texture_renderer_arr_[id] = texture_renderer;
+    //texture_renderer_arr_[id] = texture_renderer;
+    texture_renderer_arr_->AddComponent(id, texture_renderer);
     worldobj_renderers_in_order_.insert({GetLayer(texture_renderer), texture_renderer });
 }
 
 void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
 
-    TextureRendererIt it = texture_renderer_arr_.find(id);
+    //TextureRendererIt it = texture_renderer_arr_.find(id);
+    TextureRenderer* it = texture_renderer_arr_->GetComponent(id);
     int layer;
 
-    if (it != texture_renderer_arr_.end()) {
+    if (it) {
 
         M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
-        layer = GetLayer(it->second);
-        texture_renderer_arr_.erase(it);
+        layer = GetLayer(it);
+        //texture_renderer_arr_.erase(it);
+        texture_renderer_arr_->RemoveComponent(id);
     }
 
     WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
@@ -431,20 +443,23 @@ void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRendere
 
     M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: " + std::to_string(id) + "\n");
 
-    anim_renderer_arr_[id] = animation_renderer;
+    //anim_renderer_arr_[id] = animation_renderer;
+    anim_renderer_arr_->AddComponent(id, animation_renderer);
     worldobj_renderers_in_order_.insert({GetLayer(animation_renderer), animation_renderer});
 }
 
 void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
 
-    AnimRendererIt it = anim_renderer_arr_.find(id);
+    //AnimRendererIt it = anim_renderer_arr_.find(id);
+    AnimationRenderer* it = anim_renderer_arr_->GetComponent(id);
     int layer;
 
-    if (it != anim_renderer_arr_.end()) {
+    if (it) {
 
         M_DEBUG->WriteDebugMessage("Removing Animation Renderer Component from entity: " + std::to_string(id) + "\n");
-        layer = GetLayer(it->second);
-        anim_renderer_arr_.erase(it);
+        layer = GetLayer(it);
+        //anim_renderer_arr_.erase(it);
+        anim_renderer_arr_->RemoveComponent(id);
     }
 
     WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);

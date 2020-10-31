@@ -27,6 +27,12 @@ void Physics::Init() {
 	// Temporary addition for debugging
 
 	M_DEBUG->WriteDebugMessage("Physics System Init\n");
+
+	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+
+	motion_arr_ = comp_mgr->GetComponentArray<Motion>();
+	status_arr_ = comp_mgr->GetComponentArray<Status>();
+	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
 	force_mgr = &*CORE->GetManager<ForcesManager>();
 }
 
@@ -36,7 +42,7 @@ void Physics::Update(float frametime) {
 	force_mgr->Update(frametime);
 
 	// Updating entity's velocity
-	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
+	for (MotionIt motion = motion_arr_->begin(); motion != motion_arr_->end(); ++motion) {
 
 		// Perform update of entity's motion component
 		//motion->second->velocity_ += motion->second->acceleration_ * frametime;
@@ -47,23 +53,25 @@ void Physics::Update(float frametime) {
 		SnapZero(motion->second->velocity_);
 
 		// Check whether the entity owns a transform component by checking entity ID
-		TransformIt xform = transform_arr_.find(motion->first);
-		if (xform != transform_arr_.end()) {
+		//TransformIt xform = transform_arr_.find(motion->first);
+		Transform* xform = transform_arr_->GetComponent(motion->first);
+
+		if (xform) {
 			if (debug_) {
 				// Log id of entity and it's updated components that are being updated
 				std::stringstream ss;
-				ss << "Updating entity: " << std::to_string(xform->first) << "\n";
-				ss << "\tCurrent Position: " << xform->second->position_.x << ", " << xform->second->position_.y << "\n";
+				ss << "Updating entity: " << std::to_string(motion->first) << "\n";
+				ss << "\tCurrent Position: " << xform->position_.x << ", " << xform->position_.y << "\n";
 				M_DEBUG->WriteDebugMessage(ss.str());
 			}
 
 			// Perform update of entity's transform component
-			xform->second->position_ += motion->second->velocity_ * frametime;
+			xform->position_ += motion->second->velocity_ * frametime;
 
 			if (debug_) {
 				// Log id of entity and it's updated components that are being updated
 				std::stringstream ss;
-				ss << "\tUpdated Position: " << xform->second->position_.x << ", " << xform->second->position_.y << "\n";
+				ss << "\tUpdated Position: " << xform->position_.x << ", " << xform->position_.y << "\n";
 				M_DEBUG->WriteDebugMessage(ss.str());
 			}
 		}
@@ -79,15 +87,16 @@ void Physics::ChangeVelocity(Message* m) {
 	MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
 
 	//locate the motion component that contains a matching entityID as in the message
-	for (MotionIt motion = motion_arr_.begin(); motion != motion_arr_.end(); ++motion) {
+	for (MotionIt motion = motion_arr_->begin(); motion != motion_arr_->end(); ++motion) {
 
 		// Check if entity type of owner is Player
 		if (ENTITYNAME(motion->second->GetOwner()) == "Player") {
 
-			StatusIt status = status_arr_.find(motion->second->GetOwner()->GetID());
+			//StatusIt status = status_arr_.find(motion->second->GetOwner()->GetID());
+			Status* status = status_arr_->GetComponent(motion->second->GetOwner()->GetID());
 
 			// Temporary inclusion for "Hiding and burrow" check until input sys conversion to component
-			if (status->second && (status->second->status_ != StatusType::INVISIBLE)) {
+			if (status && (status->status_ != StatusType::INVISIBLE)) {
 
 				//update the acceleration data member of that component with the message's
 				motion->second->velocity_ = msg->new_vec_;
@@ -98,57 +107,6 @@ void Physics::ChangeVelocity(Message* m) {
 				motion->second->velocity_ = {};
 			}
 		}
-	}
-}
-
-void Physics::AddTransformComponent(EntityID id, Transform* transform) {
-
-	M_DEBUG->WriteDebugMessage("Adding Transform Component to entity: " + std::to_string(id) + "\n");
-	transform_arr_[id] = transform;
-}
-
-void Physics::RemoveTransformComponent(EntityID id) {
-
-	TransformIt it = transform_arr_.find(id);
-
-	if (it != transform_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Transform Component from entity: " + std::to_string(id) + "\n");
-		transform_arr_.erase(it);
-	}
-}
-
-void Physics::AddMotionComponent(EntityID id, Motion* motion) {
-
-	M_DEBUG->WriteDebugMessage("Adding Motion Component to entity: " + std::to_string(id) + "\n");
-	motion_arr_[id] = motion;
-}
-
-void Physics::RemoveMotionComponent(EntityID id) {
-
-	MotionIt it = motion_arr_.find(id);
-
-	if (it != motion_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Motion Component from entity: " + std::to_string(id) + "\n");
-		motion_arr_.erase(it);
-	}
-}
-
-void Physics::AddStatusComponent(EntityID id, Status* status) {
-
-	M_DEBUG->WriteDebugMessage("Adding Status Component to entity: " + std::to_string(id) + "\n");
-	status_arr_[id] = status;
-}
-
-void Physics::RemoveStatusComponent(EntityID id) {
-
-	StatusIt it = status_arr_.find(id);
-
-	if (it != status_arr_.end()) {
-
-		M_DEBUG->WriteDebugMessage("Removing Status Component from entity: " + std::to_string(id) + "\n");
-		status_arr_.erase(it);
 	}
 }
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Components/BasicAI.h"
+#include "Manager/ComponentManager.h"
 #include "Systems/Game.h"
 #include "Engine/Core.h"
 
@@ -11,14 +12,14 @@ BasicAI::BasicAI() :
 
 BasicAI::~BasicAI() {
 
-	CORE->GetSystem<Game>()->RemoveBasicAIComponent(Component::GetOwner()->GetID());
-
+	//CORE->GetSystem<Game>()->RemoveBasicAIComponent(Component::GetOwner()->GetID());
+	CORE->GetManager<ComponentManager>()->RemoveComponent<BasicAI>(Component::GetOwner()->GetID());
 }
 
 void BasicAI::Init() {
 	// Create the map afterwards
-	//PHYSICS->Motions[Component::GetOwner()->GetID()] = *this;
-	CORE->GetSystem<Game>()->AddBasicAIComponent(Component::GetOwner()->GetID(), this);
+	//CORE->GetSystem<Game>()->AddBasicAIComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetManager<ComponentManager>()->AddComponent<BasicAI>(Component::GetOwner()->GetID(), this);
 }
 
 void BasicAI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {

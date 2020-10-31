@@ -133,14 +133,23 @@ private:
 	bool debug_;
 	ForcesManager* force_mgr;
 
-	using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
-	std::unordered_map<EntityID,Transform*> transform_arr_;
+	//using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
+	//std::unordered_map<EntityID,Transform*> transform_arr_;
+	using TransformType = CMap<Transform>;
+	using TransformIt = TransformType::MapTypeIt;
+	TransformType* transform_arr_;
 
-	using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
-	std::unordered_map<EntityID, Motion*> motion_arr_;
+	//using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
+	//std::unordered_map<EntityID, Motion*> motion_arr_;
+	using MotionType = CMap<Motion>;
+	using MotionIt = MotionType::MapTypeIt;
+	MotionType* motion_arr_;
 
-	using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
-	std::unordered_map<EntityID, Status*> status_arr_;
+	//using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
+	//std::unordered_map<EntityID, Status*> status_arr_;
+	using StatusMapType = CMap<Status>;
+	using StatusIt = StatusMapType::MapTypeIt;
+	StatusMapType* status_arr_;
 };
 
 #endif

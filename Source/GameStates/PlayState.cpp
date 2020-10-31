@@ -7,8 +7,6 @@
 
 #include "Systems/InputSystem.h"
 
-#include "Systems/GraphicsSystem.h"
-
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
 
@@ -61,7 +59,7 @@ void PlayState::Update(Game* game, float frametime)
 {
 	// To use in play state, in menu state for testing
 	// meant to handle game logic components like Status
-	for (Game::StatusIt status = game->status_arr_.begin(); status != game->status_arr_.end(); ++status) {
+	for (Game::StatusIt status = game->status_arr_->begin(); status != game->status_arr_->end(); ++status) {
 
 		if (status->second->status_ != StatusType::NONE) {
 
@@ -77,7 +75,7 @@ void PlayState::Update(Game* game, float frametime)
 	}
 
 	// To use in play state meant to handle game logic components like BasicAI
-	for (Game::BasicAIIt basic_ai = game->basicai_arr_.begin(); basic_ai != game->basicai_arr_.end(); ++basic_ai) {
+	for (Game::BasicAIIt basic_ai = game->basicai_arr_->begin(); basic_ai != game->basicai_arr_->end(); ++basic_ai) {
 
 		if (basic_ai->second->num_destinations_ < 1) 
 			continue;
@@ -132,7 +130,7 @@ void PlayState::Draw(Game* game)
 
 void PlayState::SetStatus(std::string entity_name, StatusType status_type, float status_length, Game* game) {
 	
-	for (Game::StatusIt it = game->status_arr_.begin(); it != game->status_arr_.end(); ++it) {
+	for (Game::StatusIt it = game->status_arr_->begin(); it != game->status_arr_->end(); ++it) {
 		
 		std::string name = ENTITYNAME(it->second->GetOwner()); // Check for assert here potentially (JSON formatting)
 
@@ -276,7 +274,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 	}*/
 
 	if (game) {
-		for (Game::InputControllerIt it = game->input_controller_arr_.begin(); it != game->input_controller_arr_.end(); ++it) {
+		for (Game::InputControllerIt it = game->input_controller_arr_->begin(); it != game->input_controller_arr_->end(); ++it) {
 			Message_Input* m = dynamic_cast<Message_Input*>(msg);
 			
 			if (!m)

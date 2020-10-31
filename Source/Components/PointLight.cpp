@@ -1,4 +1,5 @@
 #include "Components/PointLight.h"
+#include "Manager/ComponentManager.h"
 #include "Systems/LightingSystem.h"
 #include "Engine/Core.h"
 #include "Components/Transform.h"
@@ -10,12 +11,14 @@ PointLight::PointLight() {
 
 PointLight::~PointLight() {
 
-	CORE->GetSystem<LightingSystem>()->RemoveLightComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<LightingSystem>()->RemoveLightComponent(Component::GetOwner()->GetID());
+	CORE->GetManager<ComponentManager>()->RemoveComponent<PointLight>(Component::GetOwner()->GetID());
 }
 
 void PointLight::Init() {
 
-	CORE->GetSystem<LightingSystem>()->AddLightComponent(Component::GetOwner()->GetID(), this);
+	//CORE->GetSystem<LightingSystem>()->AddLightComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetManager<ComponentManager>()->AddComponent<PointLight>(Component::GetOwner()->GetID(), this);
 }
 
 void PointLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {

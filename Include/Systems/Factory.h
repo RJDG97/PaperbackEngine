@@ -5,6 +5,7 @@
 #include "Systems/ISystem.h"
 #include "Entity/Entity.h"
 #include "GameStates/Levels.h"
+#include "Manager/ComponentManager.h"
 #include <set>
 #include <map>
 #include <string>
@@ -17,10 +18,6 @@ class EntityFactory : public ISystem {
 
 	//contains incrementally generated id
 	unsigned int last_entity_id_;
-
-	// 
-	using ComponentMapType = std::map<std::string, IComponentCreator*>;
-	ComponentMapType component_map_;
 
 	// 
 	using EntityIdMapType = std::map<EntityID, Entity*>;
@@ -39,6 +36,8 @@ class EntityFactory : public ISystem {
 	//will contain the additional details about what files are loaded
 	//possibly shifted to entity manager if need be
 	Levels levels_;
+
+	ComponentManager* comp_mgr_;
 
 /******************************************************************************/
 /*!
@@ -208,7 +207,7 @@ public:
 		 components during serialization
 */
 /******************************************************************************/
-	void AddComponentCreator(const std::string& name, IComponentCreator* creator);
+	//void AddComponentCreator(const std::string& name, IComponentCreator* creator);
 
 	
 /******************************************************************************/

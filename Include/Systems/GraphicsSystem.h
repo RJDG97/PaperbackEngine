@@ -6,6 +6,7 @@
 #include "Systems/LightingSystem.h"
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
+#include "Manager/ComponentManager.h"
 #include "Systems/ISystem.h"
 #include "Components/TextureRenderer.h"
 #include "Systems/Factory.h"
@@ -293,14 +294,24 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
     GLuint GetFramebuffer();
 
-    using TextRendererIt = std::unordered_map<EntityID, TextRenderer*>::iterator;
-    std::unordered_map<EntityID, TextRenderer*> text_renderer_arr_;
 
-    using TextureRendererIt = std::unordered_map<EntityID, TextureRenderer*>::iterator;
-    std::unordered_map<EntityID, TextureRenderer*> texture_renderer_arr_;
+    //using TextRendererIt = std::unordered_map<EntityID, TextRenderer*>::iterator;
+    //std::unordered_map<EntityID, TextRenderer*> text_renderer_arr_;
+    using TextRendererType = CMap<TextRenderer>;
+    using TextRendererIt = TextRendererType::MapTypeIt;
+    TextRendererType* text_renderer_arr_;
 
-    using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer*>::iterator;
-    std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
+    //using TextureRendererIt = std::unordered_map<EntityID, TextureRenderer*>::iterator;
+    //std::unordered_map<EntityID, TextureRenderer*> texture_renderer_arr_;
+    using TextureRendererType = CMap<TextureRenderer>;
+    using TextureRendererIt = TextureRendererType::MapTypeIt;
+    TextureRendererType* texture_renderer_arr_;
+
+    //using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer*>::iterator;
+    //std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
+    using AnimationRendererType = CMap<AnimationRenderer>;
+    using AnimRendererIt = AnimationRendererType::MapTypeIt;
+    AnimationRendererType* anim_renderer_arr_;
 
     using WorldRenderOrderIt = std::multimap<int, IWorldObjectRenderer*>::iterator;
     using TextRenderOrderIt = std::multimap<int, TextRenderer*>::iterator;

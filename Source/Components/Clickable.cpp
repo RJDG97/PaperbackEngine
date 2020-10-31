@@ -1,5 +1,6 @@
 #include "Components/Clickable.h"
 #include "Engine/Core.h"
+#include "Manager/ComponentManager.h"
 #include "Systems/Debug.h"
 #include "Systems/Collision.h"
 #include <iostream>
@@ -13,12 +14,14 @@ Clickable::Clickable() :
 {}
 
 Clickable::~Clickable() {
-	CORE->GetSystem<Collision>()->RemoveClickableComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<Collision>()->RemoveClickableComponent(Component::GetOwner()->GetID());
+	CORE->GetManager<ComponentManager>()->RemoveComponent<Clickable>(Component::GetOwner()->GetID());
 }
 
 void Clickable::Init() {
 
-	CORE->GetSystem<Collision>()->AddClickableComponent(Component::GetOwner()->GetID(), this);
+	//CORE->GetSystem<Collision>()->AddClickableComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetManager<ComponentManager>()->AddComponent<Clickable>(Component::GetOwner()->GetID(), this);
 }
 
 void Clickable::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {

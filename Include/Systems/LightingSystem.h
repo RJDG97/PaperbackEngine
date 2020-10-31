@@ -6,6 +6,7 @@
 #include "Systems/WindowsSystem.h"
 #include "Systems/CameraSystem.h"
 #include "Components/PointLight.h"
+#include "Manager/ComponentManager.h"
 #include <unordered_map>
 #include <windows.h>
 #include <GL/glew.h>
@@ -94,26 +95,15 @@ public:
 /******************************************************************************/
 	GLuint* GetLightingTexture();
 
-	using PointLightIt = std::unordered_map<EntityID, PointLight*>::iterator;
-	std::unordered_map<EntityID, PointLight*> point_light_arr_;
+	//using PointLightIt = std::unordered_map<EntityID, PointLight*>::iterator;
+	//std::unordered_map<EntityID, PointLight*> point_light_arr_;
+	using PointLightType = CMap<PointLight>;
+	using PointLightIt = PointLightType::MapTypeIt;
+	PointLightType* point_light_arr_;
 
-/******************************************************************************/
-/*!
-\fn AddLightComponent(EntityID id, PointLight* point_light)
-
-\brief Adds an Light component to the Lighting Component's map
-*/
-/******************************************************************************/
-	void AddLightComponent(EntityID id, PointLight* point_light);
-
-/******************************************************************************/
-/*!
-\fn RemoveLightComponent(EntityID id)
-
-\brief Removes a Light component from the Lighting Component's map
-*/
-/******************************************************************************/
-	void RemoveLightComponent(EntityID id);
+	using TransformType = CMap<Transform>;
+	using TransformIt = TransformType::MapTypeIt;
+	TransformType* transform_arr_;
 
 /******************************************************************************/
 /*!

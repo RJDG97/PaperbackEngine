@@ -1,4 +1,5 @@
 #include "Components/TextureRenderer.h"
+#include "Manager/ComponentManager.h"
 #include "Components/Transform.h"
 #include "Components/Scale.h"
 #include "Engine/Core.h"
@@ -14,11 +15,13 @@ TextureRenderer::TextureRenderer() {
 TextureRenderer::~TextureRenderer() {
     
     CORE->GetSystem<GraphicsSystem>()->RemoveTextureRendererComponent(Component::GetOwner()->GetID());
+    //CORE->GetManager<ComponentManager>()->RemoveComponent<TextureRenderer>(Component::GetOwner()->GetID());
 }
 
 void TextureRenderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddTextureRendererComponent(Component::GetOwner()->GetID(), this);
+    //CORE->GetManager<ComponentManager>()->AddComponent<TextureRenderer>(Component::GetOwner()->GetID(), this);
     texture_handle_ = texture_.GetTilesetHandle();
     tex_vtx_initial_ = *texture_.GetTexVtx();
     tex_vtx_mirrored_ = std::vector<glm::vec2*>{ &tex_vtx_initial_[0],

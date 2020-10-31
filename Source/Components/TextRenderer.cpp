@@ -1,4 +1,5 @@
 #include "Components/TextRenderer.h"
+#include "Manager/ComponentManager.h"
 #include "Components/Transform.h"
 #include "Components/Scale.h"
 #include "Engine/Core.h"
@@ -11,11 +12,13 @@ TextRenderer::TextRenderer() {
 TextRenderer::~TextRenderer() {
 
     CORE->GetSystem<GraphicsSystem>()->RemoveTextRendererComponent(Component::GetOwner()->GetID());
+    //CORE->GetManager<ComponentManager>()->RemoveComponent<TextRenderer>(Component::GetOwner()->GetID());
 }
 
 void TextRenderer::Init() {
 
     CORE->GetSystem<GraphicsSystem>()->AddTextRendererComponent(Component::GetOwner()->GetID(), this);
+    //CORE->GetManager<ComponentManager>()->AddComponent<TextRenderer>(Component::GetOwner()->GetID(), this);
 }
 
 void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {

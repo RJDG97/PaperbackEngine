@@ -26,7 +26,7 @@ public:
 	glm::mat3 world_to_ndc_xform_;
 
 	//TEMPORARY
-	std::shared_ptr<Transform> target_;
+	Transform* target_;
 	bool targeted_;
 
 	float cam_zoom_;

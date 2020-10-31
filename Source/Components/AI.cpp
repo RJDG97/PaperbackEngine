@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Components/AI.h"
 #include "Manager/AIManager.h"
+#include "Manager/ComponentManager.h"
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
 
@@ -9,12 +10,13 @@ AI::AI()// : aitype{}, state{}
 
 AI::~AI() {
 
-	CORE->GetSystem<LogicSystem>()->RemoveAIComponent(Component::GetOwner()->GetID());
-
+	//CORE->GetSystem<LogicSystem>()->RemoveAIComponent(Component::GetOwner()->GetID());
+	CORE->GetManager<ComponentManager>()->RemoveComponent<AI>(Component::GetOwner()->GetID());
 }
 
 void AI::Init() {
-	CORE->GetSystem<LogicSystem>()->AddAIComponent(Component::GetOwner()->GetID(), this);
+	//CORE->GetSystem<LogicSystem>()->AddAIComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetManager<ComponentManager>()->AddComponent<AI>(Component::GetOwner()->GetID(), this);
 }
 
 void AI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
