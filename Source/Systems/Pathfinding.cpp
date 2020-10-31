@@ -50,7 +50,7 @@ void Pathfinding::AStar()
 
 	// Calculate Minimum Distance
 	auto distance_ = [](Node* a, Node* b)
-	{return sqrtf((a->x - b->x) * (a->x - a->x) + (a->y - b->y) * (a->y - a->y)); };
+	{return sqrt((a->x - b->x) * (a->x - a->x) + (a->y - b->y) * (a->y - a->y)); };
 	// Get Minimum Distance
 	auto heuristic_ = [distance_](Node* a, Node* b)
 	{return distance_(a, b); };

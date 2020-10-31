@@ -9,6 +9,7 @@
 
 class AI : public Component {
 
+public:
 	enum class AIType
 	{
 		StagBeetle,
@@ -24,14 +25,6 @@ class AI : public Component {
 		Return
 	};
 
-	AIType type_;
-
-	int range_;
-	int attackpower_;
-	
-	AIState state_ = Patrol;
-
-public:
 	friend class LogicSystem;
 	friend class AIManager;
 
@@ -100,6 +93,20 @@ public:
 	*/
 	/******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	AIState GetState();
+		
+	void SetState(AIState state);
+
+private:
+
+	AIType type_;
+	int range_;
+	int attackpower_;
+	AIState state_;
+
+
+
 };
 
 #endif

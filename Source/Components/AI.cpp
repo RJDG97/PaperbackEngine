@@ -5,7 +5,8 @@
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
 
-AI::AI()// : aitype{}, state{}
+AI::AI() : 
+	type_{}, state_{AI::AIState::Patrol}
 {}
 
 AI::~AI() {
@@ -42,6 +43,16 @@ void AI::DeSerializeClone(std::stringstream& data) {
 
 	(void)data;
 	//DEBUG_ASSERT((current_destination_ != destinations_.end()), "Empty destinations in JSON");
+}
+
+AI::AIState AI::GetState()
+{
+	return state_;
+}
+
+void AI::SetState(AIState state)
+{
+	state_ = state;
 }
 
 std::shared_ptr<Component> AI::Clone() {

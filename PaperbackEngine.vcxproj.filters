@@ -126,14 +126,14 @@
     <Filter Include="Entity\Components\Camera">
       <UniqueIdentifier>{b9c2163f-abb5-415a-b632-29bf7ab70408}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systems\LogicSystem">
-      <UniqueIdentifier>{234a2169-b8cc-4268-84b5-2426810d09d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity\Components\AI">
       <UniqueIdentifier>{3aac60a3-9e01-4157-b72a-d9becdef3061}</UniqueIdentifier>
     </Filter>
     <Filter Include="Systems\Scene/State Manager\LevelsStruct">
       <UniqueIdentifier>{90bbdea2-7772-488b-bc43-21d2159493be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{3a370a19-bd15-46bf-9e16-47cd2fc58c7e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="Source\Manager\EntityManager.cpp">
       <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\GeneralScripts.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -528,6 +531,21 @@
     </ClInclude>
     <ClInclude Include="Include\Manager\ComponentManager.h">
       <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\ScriptList.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\GeneralScripts.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\MiteScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\HornetScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\StagScript.h">
+      <Filter>Scripts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

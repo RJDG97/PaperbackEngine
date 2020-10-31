@@ -1,64 +1,5 @@
 #include "Manager/AIManager.h"
-#include <iostream>
-
-void StingAttack(AIIt ai)
-{
-
-}
-
-void ExplosionAttack(AIIt ai)
-{
-
-}
-
-void SlashAttack(AIIt ai)
-{
-
-}
-
-void Patrol(AIIt)
-{
-
-}
-
-void AIManager::StagBeetleHandler(AIIt ai)
-{
-	switch (ai->second->state_)
-	{
-	case AI::AIState::Patrol:
-		Patrol(ai);
-		break;
-	case AI::AIState::Attack:
-		SlashAttack(ai);
-		break;
-	}
-}
-
-void AIManager::MiteHandler(AIIt ai)
-{
-	switch (ai->second->state_)
-	{
-	case AI::AIState::Patrol:
-		Patrol(ai);
-		break;
-	case AI::AIState::Attack:
-		ExplosionAttack(ai);
-		break;
-	}
-}
-
-void AIManager::HornetHandler(AIIt ai)
-{
-	switch (ai->second->state_)
-	{
-	case AI::AIState::Patrol:
-		Patrol(ai);
-		break;
-	case AI::AIState::Attack:
-		StingAttack(ai);
-		break;
-	}
-}
+#include "Script/ScriptList.h"
 
 void AIManager::Init()
 {
@@ -70,13 +11,13 @@ void AIManager::AIHandler(AIIt ai)
 	switch (ai->second->type_)
 	{
 	case AI::AIType::StagBeetle:
-		StagBeetleHandler(ai);
+		StagBeetle.StagBeetleHandler(ai);
 		break;
 	case AI::AIType::Mite:
-		MiteHandler(ai);
+		mite.MiteHandler(ai);
 		break;
 	case AI::AIType::Hornet:
-		HornetHandler(ai);
+		hornet.HornetHandler(ai);
 		break;
 	}
 }
