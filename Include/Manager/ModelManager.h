@@ -16,10 +16,10 @@ struct Model {
     GLuint vboid_;
     GLuint draw_cnt_;
 
-    size_t vbo_offset_;
+    size_t vbo_tex_offset_;
 
     GLuint GetVBOHandle();
-    size_t GetVBOOffset();
+    size_t GetVBOTexOffset();
 };
 
 class ModelManager : public IManager {
@@ -39,14 +39,14 @@ public:
 
 /******************************************************************************/
 /*!
-    \fn AddTristripsModel(int slices, int stacks, std::string model_name)
+    \fn AddTristripsModel(int slices, int stacks, std::string model_name, bool has_transform)
 
     \brief Adds a triangle strips model (with slices being the number of rows
            and stacks being the number of columns) and adds the model to the
            Model Manager's map
 */
 /******************************************************************************/
-    Model* AddTristripsModel(int slices, int stacks, std::string model_name);
+    Model* AddTristripsModel(int slices, int stacks, std::string model_name, bool has_transform);
 
 /******************************************************************************/
 /*!

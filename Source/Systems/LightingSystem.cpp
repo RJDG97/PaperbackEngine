@@ -32,7 +32,7 @@ void LightingSystem::Init() {
 																						  "Shaders/point_light.frag",
 																						  "PointLightShader");
 	
-	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel");
+	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel", false);
 
 	//Temporary before camera is component
 	std::shared_ptr<GraphicsSystem> graphics_system = CORE->GetSystem<GraphicsSystem>();
@@ -101,10 +101,6 @@ void LightingSystem::Draw() {
 
 		DrawPointLight(point_light_shader, it->second);
 	}
-
-	point_light_shader->UnUse();
-	glBindVertexArray(0);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void LightingSystem::Cleanup() {
