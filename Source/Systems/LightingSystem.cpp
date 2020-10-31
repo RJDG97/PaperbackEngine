@@ -32,12 +32,10 @@ void LightingSystem::Init() {
 																						  "Shaders/point_light.frag",
 																						  "PointLightShader");
 	
-	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel");
-
-	//Temporary before camera is component
-	std::shared_ptr<GraphicsSystem> graphics_system = CORE->GetSystem<GraphicsSystem>();
+	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightingModel");
 
 	cam_pos_ = &camera_system_->cam_pos_;
+	cam_zoom_ = &camera_system_->cam_zoom_;
 
 	glGenFramebuffers(1, &lighting_buffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
@@ -49,7 +47,7 @@ void LightingSystem::Init() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-				 static_cast<GLsizei>(win_size_.x/2), static_cast<GLsizei>(win_size_.y/2),
+				 static_cast<GLsizei>(win_size_.x/4), static_cast<GLsizei>(win_size_.y/4),
 				 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, lighting_texture, 0);
@@ -78,7 +76,6 @@ void LightingSystem::Update(float frametime) {
 
 void LightingSystem::Draw() {
 
-	//reset the lighting texture
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.3f, 0.25f, 0.4f, 1.0f);
@@ -117,8 +114,7 @@ GLuint* LightingSystem::GetLightingTexture() {
 
 void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 
-	//if (point_light)
-	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+	//ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
 
 	Transform* xform = transform_arr_->GetComponent(point_light->GetOwner()->GetID());
 	
@@ -127,9 +123,9 @@ void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 
 	Vector2D obj_pos_ = xform->position_;
 
-	point_light->pos_ = glm::vec2(obj_pos_.x, obj_pos_.y) * camera_system_->cam_zoom_ +
-							(*cam_pos_ * camera_system_->cam_zoom_ + 0.5f * win_size_);
-	point_light->pos_ *= 0.5f;
+	point_light->pos_ = glm::vec2(obj_pos_.x, obj_pos_.y) * *cam_zoom_ +
+							(*cam_pos_ * *cam_zoom_ + 0.5f * win_size_);
+	point_light->pos_ *= 0.25f;
 }
 
 void LightingSystem::DrawPointLight(Shader* shader, PointLight* point_light) {
