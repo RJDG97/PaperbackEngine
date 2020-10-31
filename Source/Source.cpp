@@ -19,6 +19,7 @@
 #include "Manager/ForcesManager.h"
 #include "Manager/AIManager.h"
 #include "Manager/ComponentManager.h"
+#include "Manager/EntityManager.h"
 
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
@@ -65,6 +66,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 		// Add Managers to the Core Engine
 		CORE->AddManager<ComponentManager>();
+		CORE->AddManager<EntityManager>();
 		CORE->AddManager<ModelManager>();
 		CORE->AddManager<TextureManager>();
 		CORE->AddManager<ShaderManager>();
@@ -82,8 +84,12 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 
 		// Release all resources allocated during
 		// runtime and compile time
+
 		FACTORY->DestroyAllEntities();
 		FACTORY->DestroyAllArchetypes();
+
+		//CORE->GetSystem<EntityManager>()->DeleteAllEntities();
+		//CORE->GetSystem<EntityManager>()->DeleteAllArchetype();
 		EngineDebug::DeleteInstance();
 	}
 	catch (std::exception& e) {

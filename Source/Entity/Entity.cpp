@@ -1,7 +1,9 @@
 #include "Entity/Entity.h"
 #include "Components/IComponent.h"
+#include "Manager/EntityManager.h"
 #include <algorithm>
 #include "Systems/Factory.h"
+#include "Engine/Core.h"
 #include <iostream>
 #include <functional>
 #include "Systems/Debug.h"
@@ -138,6 +140,7 @@ Entity* Entity::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning Entity\n");
 
 	Entity* cloned = FACTORY->CreateEmptyEntity();
+	//Entity* cloned = CORE->GetManager<EntityManager>()->CreateEmptyEntity();
 
 	for (std::shared_ptr<Component> component : components_) {
 
@@ -151,7 +154,8 @@ Entity* Entity::Clone() {
 
 // Destructs the entity through the factory
 void Entity::Destroy() {
-	FACTORY->Destroy(this);
+	//FACTORY->Destroy(this);
+	CORE->GetManager<EntityManager>()->DeleteEntity(this);
 }
 
 // Function that converts input string from JSON into an equivalent enum

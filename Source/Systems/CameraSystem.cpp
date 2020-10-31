@@ -26,6 +26,7 @@ void CameraSystem::Init()
 
 void CameraSystem::Update(float frametime)
 {
+    (void)frametime;
     /*
     for (CameraIt it = camera_arr_.begin(); it != camera_arr_.end(); ++it) {
 
@@ -58,6 +59,7 @@ std::string CameraSystem::GetName()
 
 void CameraSystem::SendMessageD(Message* m)
 {
+    (void)m;
 }
 
 void CameraSystem::TempCameraUpdate()
