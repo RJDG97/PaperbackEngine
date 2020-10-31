@@ -48,6 +48,7 @@ class Entity {
 public:
 
 	friend class EntityFactory;
+	friend class EntityManager;
 
 
 /******************************************************************************/

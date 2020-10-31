@@ -314,9 +314,6 @@
     <ClCompile Include="Source\Manager\EntityManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Manager\ComponentManager.cpp">
-      <Filter>ResourceManagers</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">

@@ -221,7 +221,7 @@
     {
       "component": "AABB",
       "scale": "30.0 30.0",
-      "layer": "2"
+      "layer": "1"
     },
     {
       "component": "PointLight",
