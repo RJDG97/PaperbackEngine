@@ -15,12 +15,6 @@ public:
 
 	AI::AIType GetType(std::string type);
 
-	void StagBeetleHandler(AIIt ai);
-
-	void MiteHandler(AIIt ai);
-
-	void HornetHandler(AIIt ai);
-
 };
 
 #endif

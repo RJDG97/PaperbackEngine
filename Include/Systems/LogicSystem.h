@@ -9,12 +9,12 @@
 #include "Manager/ComponentManager.h"
 
 using AIIt = std::unordered_map<EntityID, AI*>::iterator;
+using AIType = CMap<AI>;
+using AIIt = AIType::MapTypeIt;
 
 class LogicSystem: public ISystem{
 
 	//std::unordered_map<EntityID, AI*> ai_arr_;
-	using AIType = CMap<AI>;
-	using AIIt = AIType::MapTypeIt;
 	AIType* ai_arr_;
 
 public:
