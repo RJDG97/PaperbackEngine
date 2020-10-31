@@ -22,6 +22,7 @@ class LightingSystem : public ISystem {
 	GLuint lighting_texture;
 
 	glm::vec2* cam_pos_;
+	float* cam_zoom_;
 
 	WindowsSystem* windows_system_;
 	CameraSystem* camera_system_;
