@@ -10,7 +10,6 @@ void LogicSystem::Init()
 	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
 
 	ai_arr_ = comp_mgr->GetComponentArray<AI>();
-	//std::cout << "LogicSystem::Init" << std::endl;
 }
 
 void LogicSystem::Update(float frametime)

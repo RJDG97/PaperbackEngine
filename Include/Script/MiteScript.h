@@ -11,17 +11,18 @@ public:
 
 	void MiteHandler(AIIt ai)
 	{
+		std::cout << "Mite" << std::endl;
 		switch (ai->second->GetState())
 		{
 		case AI::AIState::Patrol:
-			Patrol(ai);
+			GS.Patrol(ai);
 			break;
 		}
 	}
 
 	void ExplosionAttack(AIIt ai)
 	{
-		std::cout << "Attack" << std::endl;
+		//std::cout << "Attack" << std::endl;
 		ai->second->SetState(AI::AIState::Patrol);
 	}
 

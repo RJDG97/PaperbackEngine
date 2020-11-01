@@ -1,9 +1,13 @@
 #ifndef _AI_MANAGER_H_
 #define _AI_MANAGER_H_
 
+#include "Engine/Core.h"
+#include "Components/AI.h"
 #include "Manager/IManager.h"
 #include "Systems/LogicSystem.h"
-#include "Components/AI.h"
+#include "Components/Transform.h"
+#include "Manager/ForcesManager.h"
+#include "Systems/FrameRateController.h"
 
 class AIManager : public IManager {
 

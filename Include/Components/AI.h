@@ -20,13 +20,16 @@ public:
 	enum AIState
 	{
 		Patrol,
+		Detected,
 		Chase,
 		Attack,
 		Return
 	};
 
-	friend class LogicSystem;
 	friend class AIManager;
+	friend class LogicSystem;
+	friend class StagBeetle;
+	friend class GeneralScripts;
 
 	/******************************************************************************/
 	/*!
@@ -98,15 +101,17 @@ public:
 		
 	void SetState(AIState state);
 
-private:
+protected:
 
 	AIType type_;
+	AIState state_;
 	int range_;
 	int attackpower_;
-	AIState state_;
-
-
-
+	float speed_;
+	size_t num_destinations_;
+	using DestinationIt = std::vector<Vector2D>::iterator;
+	std::vector<Vector2D> destinations_;
+	DestinationIt current_destination_;
 };
 
 #endif
