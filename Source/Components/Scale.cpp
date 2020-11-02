@@ -1,12 +1,19 @@
 #include "Components/Scale.h"
+#include "Manager/ComponentManager.h"
+#include "Engine/Core.h"
 #include "Systems/Debug.h"
 
 Scale::Scale() : scale_{}
 {}
 
+Scale::~Scale() {
+
+	CORE->GetManager<ComponentManager>()->RemoveComponent<Scale>(Component::GetOwner()->GetID());
+}
+
 void Scale::Init() {
 	// Create the map afterwards
-	//GRAPHICS->Scales[Component::GetOwner()->GetID()] = *this;
+	CORE->GetManager<ComponentManager>()->AddComponent<Scale>(Component::GetOwner()->GetID(), this);
 }
 
 Vector2D Scale::GetScale() const {

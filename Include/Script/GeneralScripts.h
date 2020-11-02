@@ -2,8 +2,11 @@
 #define _GENERALSCRIPT_H_
 
 #include "Manager/AIManager.h"
+#include "Manager/ComponentManager.h"
+#include "Engine/Core.h"
 
-class GeneralScripts : protected AI
+
+class GeneralScripts
 {
 public:
 
@@ -27,8 +30,8 @@ public:
 
 	void Patrol(AIIt ai)
 	{
-		std::shared_ptr<Transform> xform =
-			std::dynamic_pointer_cast<Transform>(ai->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+
+		Transform* xform = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(ai->first);			// You got to double check if component exists (nullptr check)
 		DEBUG_ASSERT((xform), "AI does not have Transform component");
 
 		// Check if entity close to destination aka point box collision
