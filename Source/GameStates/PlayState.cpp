@@ -26,11 +26,11 @@ PlayState m_PlayState;
 
 // Temporary pre-declaration for Engine Proof
 // Yeah its pretty illegal I know
-void ScaleEntityBig(std::shared_ptr<Scale> scale, bool yes);
-void RotateLeft(std::shared_ptr<Transform> xform, bool yes);
+void ScaleEntityBig(Scale* scale, bool yes);
+void RotateLeft(Transform* xform, bool yes);
 
 //demo pointer to player
-Entity* player;
+//Entity* player;
 
 void PlayState::Init()
 {
@@ -40,10 +40,12 @@ void PlayState::Init()
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	player = FACTORY->CloneArchetype("Player");
+	//player = FACTORY->CloneArchetype("Player");
+	entity_mgr_ = &*CORE->GetManager<EntityManager>();
+	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
 	//TEMPORARY
-	CORE->GetSystem<CameraSystem>()->SetTarget(player);
+	//CORE->GetSystem<CameraSystem>()->SetTarget(player);
 	
 	FACTORY->DeSerializeLevelEntities("Play");
 }
@@ -57,6 +59,8 @@ void PlayState::Free()
 
 void PlayState::Update(Game* game, float frametime)
 {
+	entity_mgr_->GetEntities();
+
 	// To use in play state, in menu state for testing
 	// meant to handle game logic components like Status
 	for (Game::StatusIt status = game->status_arr_->begin(); status != game->status_arr_->end(); ++status) {
@@ -143,135 +147,6 @@ void PlayState::SetStatus(std::string entity_name, StatusType status_type, float
 }
 
 void PlayState::StateInputHandler(Message* msg, Game* game) {
-	//UNREFERENCED_PARAMETER(game);
-
-	/*if (!game) {
-
-		if (msg->message_id_ == MessageIDTypes::M_MOVEMENT) {
-			
-			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
-			assert(m != nullptr && "Message is not a player input message");
-			unsigned char key_val = m->input_flag_;
-
-			// set up velocity based input flag value
-			Vec2 new_force{};
-
-			if (key_val & UP_FLAG) {
-
-				new_force.y += 1000.0f;
-			}
-
-			if (key_val & DOWN_FLAG) {
-
-				new_force.y -= 1000.0f;
-			}
-
-			if (key_val & LEFT_FLAG) {
-
-				new_force.x -= 1000.0f;
-			}
-
-			if (key_val & RIGHT_FLAG) {
-
-				new_force.x += 1000.0f;
-			}
-
-			CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "PlayerMovement", PE_FrameRate.GetFixedDelta(), new_force);
-			//MessagePhysics_Motion m2{ MessageIDTypes::PHY_UPDATE_VEL, new_force };
-			//CORE->BroadcastMessage(&m2);
-		}
-
-		if (msg->message_id_ == MessageIDTypes::C_MOVEMENT) {
-
-			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
-			assert(m != nullptr && "Message is not a player input message");
-			unsigned char key_val = m->input_flag_;
-
-			// set up velocity based input flag value
-			Vec2 new_vel{};
-			float power = 75.0f;
-
-			if (key_val & W_FLAG) {
-
-				new_vel.y += power;
-			}
-
-			if (key_val & S_FLAG) {
-
-				new_vel.y -= power;
-			}
-
-			if (key_val & A_FLAG) {
-
-				new_vel.x -= power;
-			}
-
-			if (key_val & D_FLAG) {
-
-				new_vel.x += power;
-			}
-
-			//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
-
-			MessagePhysics_Motion m2{ MessageIDTypes::CAM_UPDATE_POS, new_vel };
-			CORE->BroadcastMessage(&m2);
-		}
-	}
-
-	if (game) {
-
-		if (msg->message_id_ == MessageIDTypes::M_BUTTON_PRESS) {
-			
-			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
-			assert(m != nullptr && "Message is not a player input message");
-			unsigned char key_val = m->input_flag_;
-
-			switch (key_val)
-			{
-				case GLFW_KEY_E: // "E"
-				{
-					SetStatus("Player", StatusType::INVISIBLE, game);
-					break;
-				}
-				case GLFW_KEY_R: // "R"
-				{
-					SetStatus("Player", StatusType::BURROW, game);
-					break;
-				}
-				case GLFW_KEY_COMMA: // "<"
-				{
-
-					// PLACEHOLDER REMOVE THIS AFTER ENGINE PROOF
-
-					std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
-					ScaleEntityBig(player_scale, false);
-					break;
-				}
-				case GLFW_KEY_PERIOD: // ">"
-				{
-					std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
-					ScaleEntityBig(player_scale, true);
-					break;
-				}
-				case GLFW_KEY_SEMICOLON: // ";"
-				{
-					std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
-					RotateLeft(player_xform, true);
-					break;
-				}
-				case GLFW_KEY_APOSTROPHE: // "'"
-				{
-					std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
-					RotateLeft(player_xform, false);
-					break;
-				}
-				default:
-				{
-					break;
-				}
-			}
-		}
-	}*/
 
 	if (game) {
 		for (Game::InputControllerIt it = game->input_controller_arr_->begin(); it != game->input_controller_arr_->end(); ++it) {
@@ -283,38 +158,52 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			InputController* InputController = it->second;
 			float power = 3000.0f;
 
+			EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
+
 			//input group
 			if (InputController->VerifyKey("move_left", m->input_)) {
 
-				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
+				CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
 			}
 			else if (InputController->VerifyKey("move_right", m->input_)) {
 
-				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
+				CORE->GetManager<ForcesManager>()->AddForce(player_id, "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
 			}
 			else if (InputController->VerifyKey("move_up", m->input_)) {
 
-				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
+				CORE->GetManager<ForcesManager>()->AddForce(player_id, "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
 			}
 			else if (InputController->VerifyKey("move_down", m->input_)) {
-
-				CORE->GetManager<ForcesManager>()->AddForce(player->GetID(), "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
+				
+				CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
 			}
 			else if (InputController->VerifyKey("spin_left", m->input_)) {
-				std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
-				RotateLeft(player_xform, true);
+
+				Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
+				if (player_xform) {
+					RotateLeft(player_xform, true);
+				}
 			}
 			else if (InputController->VerifyKey("spin_right", m->input_)) {
-				std::shared_ptr<Transform> player_xform = std::dynamic_pointer_cast<Transform>(player->GetComponent(ComponentTypes::TRANSFORM));
-				RotateLeft(player_xform, false);
+
+				Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
+				if (player_xform) {
+					RotateLeft(player_xform, false);
+				}
 			}
 			else if (InputController->VerifyKey("shrink", m->input_)) {
-				std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
-				ScaleEntityBig(player_scale, false);
+
+				Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
+				if (player_scale) {
+					ScaleEntityBig(player_scale, false);
+				}
 			}
 			else if (InputController->VerifyKey("expand", m->input_)) {
-				std::shared_ptr<Scale> player_scale = std::dynamic_pointer_cast<Scale>(player->GetComponent(ComponentTypes::SCALE));
-				ScaleEntityBig(player_scale, true);
+
+				Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
+				if (player_scale) {
+					ScaleEntityBig(player_scale, true);
+				}
 			}
 
 			// Temp
@@ -363,7 +252,8 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 	}
 }
 
-void ScaleEntityBig(std::shared_ptr<Scale> scale, bool yes) {
+void ScaleEntityBig(Scale* scale, bool yes) {
+
 	Vector2D new_scale;
 
 	if (yes) {
@@ -378,7 +268,7 @@ void ScaleEntityBig(std::shared_ptr<Scale> scale, bool yes) {
 	scale->SetScale(new_scale);
 }
 
-void RotateLeft(std::shared_ptr<Transform> xform, bool yes) {
+void RotateLeft(Transform* xform, bool yes) {
 	float new_rotation;
 
 	if (yes) {

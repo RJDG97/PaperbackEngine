@@ -130,6 +130,7 @@ void EntityFactory::Update(float frametime) {
 
 void EntityFactory::DestroyAllEntities() {
 
+	entity_mgr_->DeletePlayerEntities();
 	entity_mgr_->DeleteAllEntities();
 }
 
@@ -297,7 +298,9 @@ void EntityFactory::DeSerializeLevelEntities(const std::string& name) {
 		M_DEBUG->WriteDebugMessage("Cloning archetype: " + archetype_name + "\n");
 
 		CloneLevelEntities(file_name, archetype_name);
-	}	
+	}
+
+	entity_mgr_->SortPlayerEntities();
 }
 
 void EntityFactory::SerializeArchetypes(const std::string& filename) {

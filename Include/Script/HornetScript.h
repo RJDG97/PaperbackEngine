@@ -11,10 +11,11 @@ public:
 
 	void HornetHandler(AIIt ai)
 	{
+		std::cout << "Hornet" << std::endl;
 		switch (ai->second->GetState())
 		{
 		case AI::AIState::Patrol:
-			Patrol(ai);
+			GS.Patrol(ai);
 			break;
 		}
 	}

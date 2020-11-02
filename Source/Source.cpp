@@ -88,8 +88,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		FACTORY->DestroyAllEntities();
 		FACTORY->DestroyAllArchetypes();
 
-		//CORE->GetSystem<EntityManager>()->DeleteAllEntities();
-		//CORE->GetSystem<EntityManager>()->DeleteAllArchetype();
 		EngineDebug::DeleteInstance();
 	}
 	catch (std::exception& e) {

@@ -188,7 +188,6 @@
     <ClCompile Include="Source\Manager\TextureManager.cpp" />
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp" />
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
-    <ClCompile Include="Source\Script\GeneralScripts.cpp" />
     <ClCompile Include="Source\Source.cpp" />
     <ClCompile Include="Source\Systems\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Collision.cpp" />

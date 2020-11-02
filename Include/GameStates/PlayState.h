@@ -2,11 +2,15 @@
 #define PLAYSTATE_H
 
 #include "GameStates/GameState.h"
+#include "Manager/EntityManager.h"
 #include "Components/Scale.h"
 
 // inherits the abstract class GameState
 class PlayState : public GameState
 {
+	EntityManager* entity_mgr_;
+	ComponentManager* component_mgr_;
+
 public:
 	friend class Game;
 

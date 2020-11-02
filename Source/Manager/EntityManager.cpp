@@ -1,5 +1,7 @@
 #include "Systems/Debug.h"
+#include "Engine/Core.h"
 #include "Manager/EntityManager.h"
+#include "Manager/ComponentManager.h"
 
 EntityManager::EntityManager() :
 	last_entity_id_{}
@@ -65,6 +67,11 @@ Entity* EntityManager::GetEntity(EntityID id) {
 	return nullptr;
 }
 
+std::vector<Entity*>& EntityManager::GetPlayerEntities() {
+	
+	return player_list_;
+}
+
 void EntityManager::AddNewArchetype(std::string archetype_name, Entity* archetype) {
 	
 	entity_archetype_map_[archetype_name] = archetype;
@@ -96,6 +103,11 @@ void EntityManager::DeleteEntity(EntityID id) {
 void EntityManager::DeleteEntity(Entity* entity) {
 
 	entities_to_delete_.insert(entity);
+}
+
+void EntityManager::DeletePlayerEntities() {
+
+	player_list_.clear();
 }
 
 void EntityManager::DeleteAllEntities() {
@@ -147,4 +159,18 @@ void EntityManager::UpdateEntityMap() {
 	}
 
 	entities_to_delete_.clear();
+}
+
+// Private helper function to search for player entities
+void EntityManager::SortPlayerEntities() {
+	
+	ComponentManager* manager = &*CORE->GetManager<ComponentManager>();
+	CMap<Name>* name = manager->GetComponentArray<Name>();
+
+	for (CMap<Name>::MapTypeIt it = name->begin(); it != name->end(); ++it) {
+		
+		if (it->second->GetEntityName() == "Player") {
+			player_list_.push_back(it->second->GetOwner());
+		}
+	}
 }
