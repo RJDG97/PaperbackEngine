@@ -13,8 +13,6 @@
 class ImguiMenuBar : public IWindow{
 
     public:
-
-	ImguiMenuBar();
 /******************************************************************************/
 /*!
 	\fn Init()
@@ -53,8 +51,6 @@ class ImguiMenuBar : public IWindow{
 	ImguiSystem* imgui_system_;
 	InputSystem* input_;
 	const char* file_filter_;
-
-	ImGuiKey keys_[3];
 };
 
 #endif

@@ -8,8 +8,6 @@
 #include <GLFW/glfw3native.h>
 #include <iostream>
 
-ImguiMenuBar::ImguiMenuBar(): keys_{ ImGuiKey_O , ImGuiKey_S, ImGuiKey_N }
-{}
 
 // Filter="Document files (*.doc,*.docx,*.pdf)|*.doc;*.docx,*.pdf|Image files (*.bmp,*.jpg)|*.bmp;*.jpg";
 void ImguiMenuBar::Init()
@@ -22,6 +20,7 @@ void ImguiMenuBar::Init()
 
    win_ = &*CORE->GetSystem<WindowsSystem>();
    imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
+   input_ = &*CORE->GetSystem<InputSystem>();
 }
 
 void ImguiMenuBar::Update()
