@@ -2,22 +2,18 @@
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityCompWindow.h"
 #include "ImguiWindows/ImguiMenuBar.h"
-
-#include <commdlg.h>
-#include <GLFW/glfw3.h>
-
-#define GLFW_EXPOSE_NATIVE_WIN32
-#include <GLFW/glfw3native.h>
-
+#include "ImguiWindows/EntityWindow.h"
 
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
     //AddWindow<ImguiViewport>();
     AddWindow<ImguiMenuBar>();
     AddWindow<EntityCompWindow>();
+    AddWindow<EntityWindow>();
 
     win = &*CORE->GetSystem<WindowsSystem>();
     collision_system_ = &*CORE->GetSystem<Collision>();
+    //input_sys_ = &*CORE->GetSystem<InputSystem>();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -29,9 +25,11 @@ void ImguiSystem::Init(){
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking (Merging of windows)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    //io.WantCaptureKeyboard = true;
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
 
+    check = false;
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsClassic();
@@ -73,6 +71,8 @@ void ImguiSystem::Init(){
     b_debug = false;
     b_lock_entity = false;
     b_imguimode = false;
+
+    new_entity_ = nullptr;
 }
 
 void ImguiSystem::Update(float frametime){
@@ -80,7 +80,7 @@ void ImguiSystem::Update(float frametime){
     UNREFERENCED_PARAMETER(frametime);
 
     if (b_imguimode){
-       // glfwPollEvents();
+       //glfwPollEvents();
 
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -171,8 +171,7 @@ void ImguiSystem::ImguiRender()
 
     // Update and Render additional Platform Windows
     // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
-    ImGuiIO& io = ImGui::GetIO();
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 
         GLFWwindow* backup_current_context = glfwGetCurrentContext();
         ImGui::UpdatePlatformWindows();
@@ -252,6 +251,18 @@ void ImguiSystem::ImguiHelp(const char* description){
         ImGui::EndTooltip();
     }
 }
+
+Entity* ImguiSystem::GetEntity()
+{
+    return new_entity_;
+}
+
+void ImguiSystem::SetEntity(Entity* newentity)
+{
+    new_entity_ = newentity;
+}
+
+
 
 ImguiSystem::~ImguiSystem(){
     ImGui_ImplOpenGL3_Shutdown();

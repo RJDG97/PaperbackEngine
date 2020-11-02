@@ -62,3 +62,13 @@ std::shared_ptr<Component> Motion::Clone() {
 
 	return cloned;
 }
+
+float Motion::GetMass()
+{
+	return mass_;
+}
+
+void Motion::SetMass(float newMass)
+{
+	mass_ = newMass;
+}

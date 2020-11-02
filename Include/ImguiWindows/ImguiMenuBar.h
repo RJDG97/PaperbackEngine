@@ -6,10 +6,15 @@
 
 #include "ImguiWindows/IWindow.h"
 #include "Systems/WindowsSystem.h"
+#include "Systems/ImguiSystem.h"
+#include "Systems/InputSystem.h"
+
 
 class ImguiMenuBar : public IWindow{
 
     public:
+
+	ImguiMenuBar();
 /******************************************************************************/
 /*!
 	\fn Init()
@@ -37,8 +42,19 @@ class ImguiMenuBar : public IWindow{
 /******************************************************************************/
     std::string OpenSaveDialog(const char* filter, int save);
 
+	void OpenFile();
+	void SaveFile();
+
+	void ImguiInput();
+	int GetKey(ImGuiKey imguikey);
+
     private:
-    WindowsSystem* win;
+    WindowsSystem* win_;
+	ImguiSystem* imgui_system_;
+	InputSystem* input_;
+	const char* file_filter_;
+
+	ImGuiKey keys_[3];
 };
 
 #endif

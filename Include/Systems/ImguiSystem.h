@@ -16,6 +16,7 @@
 
 #include "ImguiWindows/IWindow.h"
 #include "Systems/WindowsSystem.h"
+#include "Systems/InputSystem.h"
 
 
 class ImguiSystem : public ISystem
@@ -23,7 +24,7 @@ class ImguiSystem : public ISystem
 public:
 	
 	//bool b_lock_entity;
-
+	bool check;
 
 	ImguiSystem() {};
 
@@ -203,6 +204,10 @@ public:
 
 	void ImguiHelp(const char* description);
 
+	Entity* GetEntity();
+	void SetEntity(Entity* newentity);
+
+
 private:
 
 	// map to store all imgui windows added to the system
@@ -228,6 +233,8 @@ private:
 	// get the entity and its components
 	std::pair<Entity*, std::vector<ComponentTypes>> selected_entity_;
 	Collision* collision_system_;
+	InputSystem* input_sys_;
+	Entity* new_entity_;
 };
 
 

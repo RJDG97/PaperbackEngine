@@ -311,7 +311,8 @@
     },
     {
       "component": "AABB",
-      "scale": "10.0 10.0"
+      "scale": "10.0 10.0",
+      "layer": "2"
     },
     {
       "component": "Motion",

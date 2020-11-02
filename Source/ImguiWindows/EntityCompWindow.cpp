@@ -12,7 +12,8 @@ void EntityCompWindow::Init(){
 
 void EntityCompWindow::Update(){
 
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
+	ImGuiIO& io = ImGui::GetIO();
 	ImGui::Begin("Entity Inspector");
 	ImGui::Text("Select something");
 
@@ -27,12 +28,11 @@ void EntityCompWindow::Update(){
 		std::pair<Entity*, std::vector<ComponentTypes>> entitycomp = imgui_system_->GetSelectedEntity();
 
 		CheckComponentType(entitycomp);
-
 		//Imgui_Demo.cpp -> reference: Line 1991 on ImGui::Combo();
 	}
-
 	ImGui::End();
 }
+
 
 void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent)
 {

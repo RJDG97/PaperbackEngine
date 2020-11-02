@@ -18,10 +18,11 @@ Entity* EntityManager::CreateEmptyEntity() {
 	return entity;
 }
 
-Entity* EntityManager::CreateNewArchetype() {
+Entity* EntityManager::CreateNewArchetype(std::string new_archetype) {
 
-	// Double check this implementation
-	return CreateEmptyEntity();
+	Entity* entity = new Entity();
+	entity_archetype_map_[new_archetype] = entity;
+	return entity;
 }
 
 Entity* EntityManager::CloneEntity(EntityID id) {

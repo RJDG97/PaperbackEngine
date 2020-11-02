@@ -6,26 +6,39 @@
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
+#include <iostream>
 
+ImguiMenuBar::ImguiMenuBar(): keys_{ ImGuiKey_O , ImGuiKey_S, ImGuiKey_N }
+{}
+
+// Filter="Document files (*.doc,*.docx,*.pdf)|*.doc;*.docx,*.pdf|Image files (*.bmp,*.jpg)|*.bmp;*.jpg";
 void ImguiMenuBar::Init()
 {
-   win = &*CORE->GetSystem<WindowsSystem>();
+   file_filter_ = 
+   "(*.json) Scenes/Archetypes\0*.json\0"
+   "(*.jpg) JPG\0* .jpg\0"
+   "(*.png) PNG\0* .png\0"
+   "(*.*) All Files\0* *.*\0"; 
+
+   win_ = &*CORE->GetSystem<WindowsSystem>();
+   imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
 }
 
 void ImguiMenuBar::Update()
 {
-    const char* filter = "json File (*.json)\0* .json\0";
+    ImGuiIO& io = ImGui::GetIO();
     if(ImGui::BeginMenuBar()){
         if (ImGui::BeginMenu("File")){
             if (ImGui::MenuItem("Open", "Ctrl+O"))
-                OpenSaveDialog(filter, 0);
+                OpenFile();
             if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
-                OpenSaveDialog(filter, 1);
+                SaveFile();
             ImGui::EndMenu();
         }
     }
     ImGui::EndMenuBar();
-}
+    ImguiInput();
+}   
 
 std::string ImguiMenuBar::OpenSaveDialog(const char* filter, int save)
 {
@@ -35,7 +48,7 @@ std::string ImguiMenuBar::OpenSaveDialog(const char* filter, int save)
     // init OPENFILENAME
     ZeroMemory(&ofn, sizeof(OPENFILENAME));
     ofn.lStructSize = sizeof(OPENFILENAME);
-    ofn.hwndOwner = glfwGetWin32Window(win->ptr_window);
+    ofn.hwndOwner = glfwGetWin32Window(win_->ptr_window);
     ofn.lpstrFile = szFile;
     ofn.nMaxFile = sizeof(szFile);
     ofn.lpstrFilter = filter;
@@ -51,4 +64,38 @@ std::string ImguiMenuBar::OpenSaveDialog(const char* filter, int save)
     }
 
     return std::string(); // returns an empty string if user cancels
+}
+
+void ImguiMenuBar::OpenFile(){
+
+    OpenSaveDialog(file_filter_, 0);
+}
+
+void ImguiMenuBar::SaveFile(){
+    OpenSaveDialog(file_filter_, 1);
+}
+
+void ImguiMenuBar::ImguiInput(){
+
+    bool control = ImGui::IsKeyReleased(GetKey(ImGuiKey_ControlL)) || ImGui::IsKeyReleased(GetKey(ImGuiKey_ControlR));
+    bool shift = ImGui::IsKeyReleased(GetKey(ImGuiKey_ShiftL)) || ImGui::IsKeyReleased(GetKey(ImGuiKey_ShiftR));
+   
+    if (control)
+    {
+        if (ImGui::IsKeyReleased(GetKey(ImGuiKey_O)))
+            OpenFile();
+
+        else if (ImGui::IsKeyReleased(GetKey(ImGuiKey_S))){
+
+            if (shift){
+
+                SaveFile();
+            }
+        }
+    }
+}
+
+int ImguiMenuBar::GetKey(ImGuiKey imguikey)
+{
+    return ImGui::GetKeyIndex(imguikey);
 }

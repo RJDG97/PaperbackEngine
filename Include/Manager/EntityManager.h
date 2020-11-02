@@ -31,7 +31,7 @@ public:
 	void Init() override;
 
 	Entity* CreateEmptyEntity();
-	Entity* CreateNewArchetype(/*possible parameters*/);
+	Entity* CreateNewArchetype(std::string new_archetype);
 	Entity* CloneEntity(EntityID id);
 	Entity* CloneArchetype(const std::string& archetype_name);
 	void StoreEntityID(Entity* entity);
