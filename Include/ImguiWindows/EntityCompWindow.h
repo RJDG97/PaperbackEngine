@@ -2,11 +2,15 @@
 #ifndef _ENTITY_COMP_WINDOW_H_
 #define _ENTITY_COMP_WINDOW_H_
 
+#include <Windows.h>
 #include "ImguiWindows/IWindow.h"
+#include "Systems/ImguiSystem.h"
+
 #include "Components/Transform.h"
 #include "Components/Scale.h"
-#include <Windows.h>
-#include "Systems/ImguiSystem.h"
+#include "Components/Motion.h"
+#include "Components/PointLight.h"
+
 #include "Engine/Core.h"
 
 
@@ -35,7 +39,8 @@ public:
 */
 /******************************************************************************/
 	void ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float startVal = 0.1f, float endVal = 1.0f, float inputWidth = 110.0f);
-
+	void ComponentDisplayFloat(ImVec4 color, const char* label, float componentVal = 0.0f, const char* format = "%.2f");
+	void ComponentDisplayVec(ImVec4 color, const char* label, Vector2D componentVec = { 0.0f, 0.0f }, const char* format = "%.2f");
 
 private:
 	ImguiSystem* imgui_system_;

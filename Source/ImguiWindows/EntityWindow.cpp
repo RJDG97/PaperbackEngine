@@ -14,12 +14,6 @@ void EntityWindow::Init() {
 void EntityWindow::Update() {
 	//char* entityTag = {};
 	bool add = false;
-	/*ImGui::Begin("viewport");
-	ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-	viewport_size_ = { viewportPanelSize.x, viewportPanelSize.y };
-	uint64_t textureID = editor_viewport_->GetFramebuffer();
-	ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{viewport_size_.x,viewport_size_.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-	ImGui::End();*/
 
 	ImGui::Begin("Entity Management");
 
@@ -27,7 +21,6 @@ void EntityWindow::Update() {
 
 		b_addentity = !b_addentity;
 	}
-
 
 	if (b_addentity) {
 		if (ImGui::CollapsingHeader("Existing Archetypes")) {
@@ -40,36 +33,38 @@ void EntityWindow::Update() {
 				}
 			}
 		}
+
 		if (ImGui::CollapsingHeader("New Archetypes")) {
 			if (entities_) {
 
 				std::string entityName;
-
+				
 				char buffer[256];
 				memset(buffer, 0, sizeof(buffer));
 				strcpy_s(buffer, sizeof(buffer), entityName.c_str());
-				ImGui::Text("Archetype Name:");
-				if (ImGui::InputText("##name", buffer, sizeof(buffer)))
-				{
-					entityName = std::string(buffer);
-				}
-
-
-				if (ImGui::Button("Add New Archetype"))
+				ImGui::Text("Archetype Name:"); 
+				if (ImGui::InputText("##name", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
 				{
 					add = !add;
 				}
 
-				imgui_->SetEntity(entities_->CreateNewArchetype(entityName));
-
 				if (add)
 				{
+					entityName = (buffer);
+					std::cout << entityName << std::endl;
+					std::stringstream name;
+					name << entityName;
 
-					IComponentCreator* creator = comp_mgr_->GetComponentCreator("Transform");
+					imgui_->SetEntity(entities_->CreateNewArchetype(entityName));
+					IComponentCreator* creator = comp_mgr_->GetComponentCreator("Name");
 					std::shared_ptr<Component> component = creator->Create();
-					imgui_->GetEntity()->AddComponent(ComponentTypes::TRANSFORM, component);
+
+					component->DeSerialize(name);
+					imgui_->GetEntity()->AddComponent(ComponentTypes::NAME, component);
+					imgui_->GetEntity()->InitArchetype();
 
 				}
+				
 			}
 		}
 	}

@@ -5,7 +5,8 @@
 #include <iostream>
 
 AABB::AABB() : top_right_{},
-			   bottom_left_{}
+			   bottom_left_{},
+			scale_{30.0f,30.0f}
 {}
 
 AABB::~AABB() {
