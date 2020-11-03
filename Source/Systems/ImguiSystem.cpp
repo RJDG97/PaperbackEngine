@@ -201,7 +201,7 @@ void ImguiSystem::SendMessageD(Message* m){
     }
     case MessageIDTypes::DEBUG_ALL:
     {
-        if (CORE->GetSystem<Game>()->GetStateName() == "Play") {
+        if (CORE->GetSystem<Game>()->GetStateName() == "Play" || CORE->GetSystem<Game>()->GetStateName() == "Menu") {
             b_debug = !b_debug;
             b_imguimode = !b_imguimode;
         }

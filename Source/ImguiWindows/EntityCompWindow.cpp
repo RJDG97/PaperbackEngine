@@ -14,65 +14,44 @@ void EntityCompWindow::Init(){
 void EntityCompWindow::Update(){
 
 	//ImGui::ShowDemoWindow();
-	ImGui::Begin("Scene Inspector");
-	ImGui::Text("Select something");
 
-	if (imgui_system_->GetDebugBool() && imgui_system_->GetLockBool())
-	{
-		bool lock = imgui_system_->GetLockBool();
-		ImGui::Checkbox("Lock Entity", &lock);
-		ImGui::SameLine(); 
-		imgui_system_->ImguiHelp("To select other entities,\nuncheck this box.");
-		imgui_system_->SetLockBool(lock);
-
-		std::pair<Entity*, std::vector<ComponentTypes>> entitycomp = imgui_system_->GetSelectedEntity();
-
-		CheckComponentType(entitycomp);
-		//Imgui_Demo.cpp -> reference: Line 1991 on ImGui::Combo();
-	}
-	ImGui::End();
+	std::pair<Entity*, std::vector<ComponentTypes>> entity;
+	std::shared_ptr<EntityFactory> factory = CORE->GetSystem<EntityFactory>();
 
 	ImGui::Begin("Scene Entities");
+	bool opened = false;
+	ImGui::Text("Current Scene: "); ImGui::SameLine(0, 2);
+	ImGui::TextColored(ImVec4{ 1.0f, 0.549f, 0.0f, 1.0f}, CORE->GetSystem<Game>()->GetStateName().c_str());
 
-
-	std::vector<ComponentTypes> comp_arr;
-	std::pair<Entity*, std::vector<ComponentTypes>> entity;
 	if (entities_) {
-		std::shared_ptr<EntityFactory> factory = CORE->GetSystem<EntityFactory>();
-		for (EntityManager::EntityIdMapTypeIt entityIT = entities_->GetEntities().begin(); entityIT != entities_->GetEntities().end(); entityIT++) {
+		
+		for (entityIT = entities_->GetEntities().begin(); entityIT != entities_->GetEntities().end(); entityIT++) {
 			
 			std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entityIT->second->GetComponent(ComponentTypes::NAME));
 
 			ImGuiTreeNodeFlags flags = ((selection == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
-			bool opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, entityname->GetName().c_str()));
+			opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, entityname->GetName().c_str()));
 			
-			if (ImGui::IsItemClicked()) {
-				selection = entityIT->second;
-			}
-			if (opened) {
+			if (ImGui::IsItemClicked())
+				selection = entityIT->second; // store the selected Entity to find its components
 
-				if (selection) {
-
-					ComponentArr arr = selection->GetComponentArr();
-					comp_arr.reserve(arr.size());
-
-					for (ComponentArrIt it = arr.begin(); it != arr.end(); ++it) {
-						comp_arr.push_back((*it)->GetComponentTypeID());
-					}
-					entity = std::make_pair(selection, comp_arr);
-					CheckComponentType(entity);
-
-				}
+			if (opened) 
 				ImGui::TreePop();
-			}
-
-
 		}
 	}
-
 	ImGui::End();
-}
 
+	ImGui::Begin("Component Inspector");
+
+	if (selection) {
+
+		entity = GetEntityComponents(selection);
+		CheckComponentType(entity);
+
+	}
+	ImGui::End();
+
+}
 
 void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent)
 {
@@ -89,8 +68,8 @@ void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<Compone
 				ImGui::Text("Entity:"); ImGui::SameLine(0, 2);
 				ImGui::TextColored(ImVec4{ 0.498f, 1.0f, 0.831f, 1.0f }, entityname->GetName().c_str());
 
-				if (!ImGui::CollapsingHeader("Components"))
-					return;
+				//if (!ImGui::CollapsingHeader("Components"))
+				//	return;
 				break;
 			}
 			case ComponentTypes::MOTION:
@@ -114,7 +93,6 @@ void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<Compone
 
 				float inputRot = entitytransform->GetRotation();
 				Vector2D inputPos = { entitytransform->GetPosition() };
-
 
 				if (ImGui::TreeNode("Rotation")){
 
@@ -231,8 +209,7 @@ void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<Compone
 	}
 }
 
-void EntityCompWindow::ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float startVal, float endVal, float inputWidth)
-{
+void EntityCompWindow::ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float startVal, float endVal, float inputWidth){
 	ImGui::PushItemWidth(inputWidth);
 
 	ImGui::Text(componentLabel);
@@ -252,6 +229,19 @@ void EntityCompWindow::ComponentDisplayVec(ImVec4 color, const char* label, Vect
 	ImGui::SameLine();
 	ImGui::TextColored(color, format, format, componentVec.x, componentVec.y);
 	ImGui::NewLine();
+}
+
+std::pair<Entity*, std::vector<ComponentTypes>> EntityCompWindow::GetEntityComponents(Entity* entity){
+
+	std::vector<ComponentTypes> comp_arr;
+
+	ComponentArr arr = entity->GetComponentArr();
+	comp_arr.reserve(arr.size());
+
+	for (ComponentArrIt it = arr.begin(); it != arr.end(); ++it)
+		comp_arr.push_back((*it)->GetComponentTypeID());
+
+	return std::make_pair(selection, comp_arr);
 }
 
 

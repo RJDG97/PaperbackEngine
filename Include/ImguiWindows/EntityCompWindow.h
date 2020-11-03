@@ -12,6 +12,7 @@
 #include "Components/PointLight.h"
 
 #include "Manager/EntityManager.h"
+#include "Systems/Game.h"
 #include "Engine/Core.h"
 
 
@@ -42,11 +43,14 @@ public:
 	void ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float startVal = 0.1f, float endVal = 1.0f, float inputWidth = 110.0f);
 	void ComponentDisplayFloat(ImVec4 color, const char* label, float componentVal = 0.0f, const char* format = "%.2f");
 	void ComponentDisplayVec(ImVec4 color, const char* label, Vector2D componentVec = { 0.0f, 0.0f }, const char* format = "%.2f");
+	std::pair<Entity*, std::vector<ComponentTypes>> GetEntityComponents(Entity* entity);
 
 private:
 	ImguiSystem* imgui_system_;
 	EntityManager* entities_;
 	Entity* selection;
+
+	EntityManager::EntityIdMapTypeIt entityIT;
 
 };
 #endif
