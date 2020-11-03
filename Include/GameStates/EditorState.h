@@ -1,71 +1,61 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef EDITORSTATE_H
+#define EDITORSTATE_H
 
-#include "Systems/Game.h"
-#include "Manager/ComponentManager.h"
+#include "GameStates/GameState.h"
+#include "Manager/EntityManager.h"
 
-// abstract/interface class for all the game states/scenes
-class GameState
+// inherits the abstract class GameState
+class EditorState : public GameState
 {
+	bool pause_;
+
 public:
-	// virtual functions will get overriden in the different states
+	friend class Game;
 
 /******************************************************************************/
 /*!
   \fn Init()
 
-  \brief Initialize the current state
+  \brief Creates entities that are to appear in the current state
 */
 /******************************************************************************/
-	virtual void Init() = 0;
+	void Init();
 
 /******************************************************************************/
 /*!
   \fn Free()
 
-  \brief Clean up the current state
+  \brief Releases all entities created within the current state
 */
 /******************************************************************************/
-	virtual void Free() = 0;
+	void Free();
 
 /******************************************************************************/
 /*!
   \fn Update()
 
-  \brief Updating the current state based on player input
+  \brief Handles the updating of game logic relevant components like status
 */
 /******************************************************************************/
-	virtual void Update(Game* game, float frametime) = 0;
+	void Update(Game* game, float frametime);
 
 /******************************************************************************/
 /*!
   \fn Draw()
 
-  \brief Draw all active entities within the state
+  \brief Handles drawing of entities that are currently active
 */
 /******************************************************************************/
-	virtual void Draw(Game* game) = 0;
+	void Draw(Game* game);
 
 /******************************************************************************/
 /*!
   \fn StateInputHandler()
 
-  \brief Handles gameplay events from input system
+  \brief Performs handling of inputs such as mouse clicks onto buttons
 */
 /******************************************************************************/
-	virtual void StateInputHandler(Message* msg, Game* game = nullptr) = 0;
-
-/******************************************************************************/
-/*!
-  \fn ChangeState()
-
-  \brief Change current state to new state
-*/
-/******************************************************************************/
-	void ChangeState(Game* game, GameState* state)
-	{
-		game->ChangeState(state);
-	}
+	void StateInputHandler(Message* msg, Game* game);
 
 /******************************************************************************/
 /*!
@@ -74,17 +64,18 @@ public:
   \brief Returns the name of the current state
 */
 /******************************************************************************/
-	virtual std::string GetStateName() = 0;
+	std::string GetStateName() override;
 
-protected:
 /******************************************************************************/
 /*!
-  \fn GameState()
+  \fn PlayState()
 
-  \brief Initializes the current state
+  \brief A constructor for PlayState
 */
 /******************************************************************************/
-	GameState() {}
+	EditorState() {}
 };
+extern EditorState m_EditorState;
 
-#endif /*GAMESTATE_H*/
+#endif /*PLAYSTATE_H*/
+

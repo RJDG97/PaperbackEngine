@@ -132,6 +132,12 @@ void Game::Free()
 	}
 }
 
+std::string Game::GetStateName() {
+
+	if (!states_.empty())
+		return states_.back()->GetStateName();
+}
+
 void Game::SendMessageD(Message* m) {
 
 	//std::cout << "Message received by Game" << std::endl;

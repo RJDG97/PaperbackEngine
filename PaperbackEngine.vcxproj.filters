@@ -320,6 +320,9 @@
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameStates\EditorState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -555,6 +558,9 @@
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+      </ClInclude>
+    <ClInclude Include="Include\GameStates\EditorState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

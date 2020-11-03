@@ -8,8 +8,6 @@
 // inherits the abstract class GameState
 class PlayState : public GameState
 {
-	EntityManager* entity_mgr_;
-	ComponentManager* component_mgr_;
 
 public:
 	friend class Game;
@@ -68,6 +66,15 @@ public:
 */
 /******************************************************************************/
 	void StateInputHandler(Message* msg, Game* game);
+
+/******************************************************************************/
+/*!
+  \fn GetStateName()
+
+  \brief Returns the name of the current state
+*/
+/******************************************************************************/
+	std::string GetStateName() override;
 
 /******************************************************************************/
 /*!

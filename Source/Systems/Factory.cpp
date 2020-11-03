@@ -55,6 +55,9 @@ std::string EntityFactory::GetLevelPath(const std::string& name) {
 	else if (name == "Credits") {
 		return levels_.credits_.path_;
 	}
+	else if (name == "Editor") {
+		return levels_.editor_.path_;
+	}
 
 	return {};
 }
@@ -65,7 +68,6 @@ Level* EntityFactory::GetLevel(const std::string& name) {
 		return &levels_.menu_;
 	}
 	else if (name == "Play") {
-
 		return levels_.GetPlayLevel(levels_.current_play_index_);
 	}
 	else if (name == "Splash") {
@@ -74,7 +76,9 @@ Level* EntityFactory::GetLevel(const std::string& name) {
 	else if (name == "Credits") {
 		return &levels_.credits_;
 	}
-
+	else if (name == "Editor") {
+		return &levels_.editor_;
+	}
 	return nullptr;
 }
 

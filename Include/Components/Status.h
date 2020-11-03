@@ -22,7 +22,7 @@ public:
 	friend class Physics;
 	friend class MenuState;
 	friend class PlayState;
-	friend class PauseState;
+	friend class EditorState;
 
 /******************************************************************************/
 /*!

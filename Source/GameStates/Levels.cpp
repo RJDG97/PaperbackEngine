@@ -120,6 +120,11 @@ void Levels::DeSerialize(const std::string filepath) { //needs to directly load 
 
 			plays_.push_back({level_type, path_name});
 		}
+		else if (level_type == "Editor") {
+
+			editor_.name_ = level_type;
+			editor_.path_ = path_name;
+		}
 	}
 }
 
@@ -167,6 +172,12 @@ void Levels::Serialize(const std::string filename) {
 
 			writer.Key(credits_.name_.c_str());
 			writer.String(credits_.path_.c_str());
+		}
+
+		if (editor_.name_ != "") {
+
+			writer.Key(editor_.name_.c_str());
+			writer.String(editor_.path_.c_str());
 		}
 
 		for (PlaysIt it = plays_.begin(); it != plays_.end(); ++it) {
