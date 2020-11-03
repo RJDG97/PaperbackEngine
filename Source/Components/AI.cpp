@@ -1,7 +1,6 @@
-#include <iostream>
 #include "Components/AI.h"
-#include "Manager/AIManager.h"
 #include "Manager/ComponentManager.h"
+#include "Script/GeneralScripts.h"
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
 
@@ -38,8 +37,7 @@ void AI::DeSerialize(std::stringstream& data) {
 	std::string type;
 
 	data >> type >> speed_;
-
-	type_ = CORE->GetManager<AIManager>()->GetType(type);
+	type_ = GeneralScripts::GetType(type);
 	
 }
 
@@ -50,7 +48,7 @@ void AI::DeSerializeClone(std::stringstream& data) {
 	// clone data will be for number of destinations and destinations
 	data >> type >> speed_ >> num_destinations_;
 
-	type_ = CORE->GetManager<AIManager>()->GetType(type);
+	type_ = GeneralScripts::GetType(type);
 
 	DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
@@ -63,16 +61,6 @@ void AI::DeSerializeClone(std::stringstream& data) {
 	current_destination_ = destinations_.begin();
 
 	DEBUG_ASSERT((current_destination_ != destinations_.end()), "Empty destinations in JSON");
-}
-
-AI::AIState AI::GetState()
-{
-	return state_;
-}
-
-void AI::SetState(AIState state)
-{
-	state_ = state;
 }
 
 std::shared_ptr<Component> AI::Clone() {
@@ -91,4 +79,74 @@ std::shared_ptr<Component> AI::Clone() {
 	cloned->current_destination_ = cloned->destinations_.begin();
 
 	return cloned;
+}
+
+AI::AIState AI::GetState()
+{
+	return state_;
+}
+
+void AI::SetState(AIState state)
+{
+	state_ = state;
+}
+
+int AI::GetRange()
+{
+	return range_;
+}
+
+void AI::SetRange(int range)
+{
+	range_ = range;
+}
+
+int AI::GetAtk()
+{
+	return attackpower_;
+}
+
+void AI::SetAtk(int atk)
+{
+	attackpower_ = atk;
+}
+
+float AI::GetSpeed()
+{
+	return speed_;
+}
+
+void AI::SetSpeed(float speed)
+{
+	speed_ = speed;
+}
+
+size_t AI::GetNumDes()
+{
+	return num_destinations_;
+}
+
+void AI::SetNumDes(size_t numdes)
+{
+	num_destinations_ = numdes;
+}
+
+std::vector<Vector2D> AI::GetDestinations()
+{
+	return destinations_;
+}
+
+void AI::SetDestinations(std::vector<Vector2D> des)
+{
+	std::copy(std::begin(des), std::end(des), std::back_inserter(destinations_));
+}
+
+DestinationIt AI::GetCurrentDes()
+{
+	return current_destination_;
+}
+
+void AI::SetCurrentDes(DestinationIt Cdes)
+{
+	current_destination_ = Cdes;
 }

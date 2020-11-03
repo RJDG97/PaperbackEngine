@@ -135,6 +135,9 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{3a370a19-bd15-46bf-9e16-47cd2fc58c7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\GeneralScripts">
+      <UniqueIdentifier>{b17d9952-c5a1-4d6f-b24a-f1e38ab77227}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -290,9 +293,6 @@
     <ClCompile Include="Source\Systems\Collision.cpp">
       <Filter>Systems\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Manager\AIManager.cpp">
-      <Filter>ResourceManagers</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Systems\LogicSystem.cpp">
       <Filter>Systems\LogicSystem</Filter>
     </ClCompile>
@@ -313,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="Source\Manager\EntityManager.cpp">
       <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\GeneralScripts.cpp">
+      <Filter>Scripts\GeneralScripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -505,9 +508,6 @@
     <ClInclude Include="Include\Systems\Collision.h">
       <Filter>Systems\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Manager\AIManager.h">
-      <Filter>ResourceManagers</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Systems\LogicSystem.h">
       <Filter>Systems\LogicSystem</Filter>
     </ClInclude>
@@ -529,20 +529,8 @@
     <ClInclude Include="Include\Manager\ComponentManager.h">
       <Filter>ResourceManagers</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Script\ScriptList.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Script\GeneralScripts.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\MiteScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\HornetScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\StagScript.h">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\GeneralScripts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
