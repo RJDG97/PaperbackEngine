@@ -56,6 +56,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn GetStateName()
+
+  \brief Returns the name of the current state
+*/
+/******************************************************************************/
+	std::string GetStateName() override;
+
+/******************************************************************************/
+/*!
   \fn MenuState()
 
   \brief A constructor for MenuState

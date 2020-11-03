@@ -41,8 +41,6 @@ void PlayState::Init()
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
 	//player = FACTORY->CloneArchetype("Player");
-	entity_mgr_ = &*CORE->GetManager<EntityManager>();
-	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
 	//TEMPORARY
 	//CORE->GetSystem<CameraSystem>()->SetTarget(player);
@@ -59,6 +57,8 @@ void PlayState::Free()
 
 void PlayState::Update(Game* game, float frametime)
 {
+	EntityManager* entity_mgr_ = &*CORE->GetManager<EntityManager>();
+
 	entity_mgr_->GetEntities();
 
 	// To use in play state, in menu state for testing
@@ -146,7 +146,15 @@ void PlayState::SetStatus(std::string entity_name, StatusType status_type, float
 	}
 }
 
+std::string PlayState::GetStateName() {
+
+	return "Play";
+}
+
 void PlayState::StateInputHandler(Message* msg, Game* game) {
+
+	EntityManager* entity_mgr_ = &*CORE->GetManager<EntityManager>();
+	ComponentManager* component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
 	if (game) {
 		for (Game::InputControllerIt it = game->input_controller_arr_->begin(); it != game->input_controller_arr_->end(); ++it) {
@@ -158,57 +166,60 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			InputController* InputController = it->second;
 			float power = 3000.0f;
 
-			EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
+			if (!entity_mgr_->GetPlayerEntities().empty()) {
 
-			//input group
-			if (InputController->VerifyKey("move_left", m->input_)) {
+				EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
 
-				CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
-			}
-			else if (InputController->VerifyKey("move_right", m->input_)) {
+				//input group
+				if (InputController->VerifyKey("move_left", m->input_)) {
 
-				CORE->GetManager<ForcesManager>()->AddForce(player_id, "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
-			}
-			else if (InputController->VerifyKey("move_up", m->input_)) {
-
-				CORE->GetManager<ForcesManager>()->AddForce(player_id, "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
-			}
-			else if (InputController->VerifyKey("move_down", m->input_)) {
-				
-				CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
-			}
-			else if (InputController->VerifyKey("spin_left", m->input_)) {
-
-				Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
-				if (player_xform) {
-					RotateLeft(player_xform, true);
+					CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
 				}
-			}
-			else if (InputController->VerifyKey("spin_right", m->input_)) {
+				else if (InputController->VerifyKey("move_right", m->input_)) {
 
-				Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
-				if (player_xform) {
-					RotateLeft(player_xform, false);
+					CORE->GetManager<ForcesManager>()->AddForce(player_id, "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
 				}
-			}
-			else if (InputController->VerifyKey("shrink", m->input_)) {
+				else if (InputController->VerifyKey("move_up", m->input_)) {
 
-				Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
-				if (player_scale) {
-					ScaleEntityBig(player_scale, false);
+					CORE->GetManager<ForcesManager>()->AddForce(player_id, "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
 				}
-			}
-			else if (InputController->VerifyKey("expand", m->input_)) {
+				else if (InputController->VerifyKey("move_down", m->input_)) {
 
-				Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
-				if (player_scale) {
-					ScaleEntityBig(player_scale, true);
+					CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
 				}
-			}
+				else if (InputController->VerifyKey("spin_left", m->input_)) {
 
-			// Temp
-			else if (InputController->VerifyKey("burrow", m->input_)) {
-				SetStatus("Player", StatusType::BURROW, 5.0f, &*CORE->GetSystem<Game>());
+					Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
+					if (player_xform) {
+						RotateLeft(player_xform, true);
+					}
+				}
+				else if (InputController->VerifyKey("spin_right", m->input_)) {
+
+					Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
+					if (player_xform) {
+						RotateLeft(player_xform, false);
+					}
+				}
+				else if (InputController->VerifyKey("shrink", m->input_)) {
+
+					Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
+					if (player_scale) {
+						ScaleEntityBig(player_scale, false);
+					}
+				}
+				else if (InputController->VerifyKey("expand", m->input_)) {
+
+					Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
+					if (player_scale) {
+						ScaleEntityBig(player_scale, true);
+					}
+				}
+
+				// Temp
+				else if (InputController->VerifyKey("burrow", m->input_)) {
+					SetStatus("Player", StatusType::BURROW, 5.0f, &*CORE->GetSystem<Game>());
+				}
 			}
 		}
 	}
