@@ -317,6 +317,9 @@
     <ClCompile Include="Source\GameStates\EditorState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameStates\WinLoseState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -548,6 +551,9 @@
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Include\GameStates\EditorState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\WinLoseState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
   </ItemGroup>

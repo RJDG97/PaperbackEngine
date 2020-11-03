@@ -25,7 +25,7 @@ EditorState m_EditorState;
 //demo pointer to player
 //Entity* player;
 
-void EditorState::Init()
+void EditorState::Init(std::string)
 {
 	std::cout << "-----------------------------" << std::endl << std::endl;
 	std::cout << "EditorState init Successful" << std::endl;

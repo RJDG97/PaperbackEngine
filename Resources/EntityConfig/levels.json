@@ -4,5 +4,9 @@
   
   "Play": "Resources/EntityConfig/play.json",
   
+  "Win": "Resources/EntityConfig/win.json",
+  
+  "Lose": "Resources/EntityConfig/lose.json",
+  
   "Editor": "Resources/EntityConfig/editor.json"
 }

@@ -53,7 +53,7 @@ public:
   \brief Change current state to new state
 */
 /******************************************************************************/
-	void ChangeState(GameState* state);
+	void ChangeState(GameState* state, std::string level_name = {});
 
 /******************************************************************************/
 /*!

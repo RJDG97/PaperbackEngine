@@ -1,0 +1,9 @@
+{
+  "button": [
+    {
+      "component": "Transform",
+      "position": "330.0 300.0",
+      "rotation": "0.0"
+    }
+  ]
+}

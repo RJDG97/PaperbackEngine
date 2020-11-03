@@ -40,7 +40,7 @@ void Game::Init()
 }
 
 // takes a pointer to a gamestate
-void Game::ChangeState(GameState* state)
+void Game::ChangeState(GameState* state, std::string level_name)
 {
 
 	if (!CheckExist(state)) {
@@ -52,7 +52,7 @@ void Game::ChangeState(GameState* state)
 		}
 
 		states_.push_back(state);
-		states_.back()->Init();
+		states_.back()->Init(level_name);
 	}
 
 	/*
@@ -136,63 +136,12 @@ std::string Game::GetStateName() {
 
 	if (!states_.empty())
 		return states_.back()->GetStateName();
+
+	// Do check the return string
+	return {};
 }
 
 void Game::SendMessageD(Message* m) {
-
-	//std::cout << "Message received by Game" << std::endl;
-	/*
-	switch (m->message_id_) {
-
-	case MessageIDTypes::GSM_PUSHSTATE:
-	{
-		Message_CustomState* msg = dynamic_cast<Message_CustomState*>(m);
-		PushState(msg->state_);
-		break;
-	}
-	case MessageIDTypes::GSM_CHANGESTATE:
-	{	
-		Message_CustomState* msg = dynamic_cast<Message_CustomState*>(m);
-		ChangeState(msg->state_);
-		break;
-	}
-	case MessageIDTypes::GSM_PAUSESTATE:
-	{
-		break;
-	}
-	case MessageIDTypes::GSM_POPSTATE:
-	{
-		PopState();
-		break;
-	}
-	case MessageIDTypes::M_BUTTON_PRESS: 
-	{
-		//std::cout << "GSM: Button press event, dispatching to Game State" << std::endl;
-		//Message_PlayerInput* msg = dynamic_cast<Message_PlayerInput*>(m);
-		
-		states_.back()->StateInputHandler(m, this);
-		break;
-	}
-	case MessageIDTypes::C_MOVEMENT:
-	case MessageIDTypes::M_MOVEMENT:
-	{
-		//value larger than what can be gotten from input flags
-		states_.back()->StateInputHandler(m);
-		break;
-	}
-	case MessageIDTypes::BUTTON:
-	{
-		states_.back()->StateInputHandler(m, this);
-		break;
-	}
-	case MessageIDTypes::DEBUG_ALL:
-	{
-
-		debug_ = !debug_;
-	}
-	default:
-		break;
-	}*/
 
 	//assume all messages of concern to game are only input message
 	switch (m->message_id_) {
