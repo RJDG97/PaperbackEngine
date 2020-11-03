@@ -8,12 +8,13 @@
 void EntityCompWindow::Init(){
 
 	imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
+	entities_ = &*CORE->GetManager<EntityManager>();
 }
 
 void EntityCompWindow::Update(){
 
 	//ImGui::ShowDemoWindow();
-	ImGui::Begin("Entity Inspector");
+	ImGui::Begin("Scene Inspector");
 	ImGui::Text("Select something");
 
 	if (imgui_system_->GetDebugBool() && imgui_system_->GetLockBool())
@@ -29,6 +30,46 @@ void EntityCompWindow::Update(){
 		CheckComponentType(entitycomp);
 		//Imgui_Demo.cpp -> reference: Line 1991 on ImGui::Combo();
 	}
+	ImGui::End();
+
+	ImGui::Begin("Scene Entities");
+
+
+	std::vector<ComponentTypes> comp_arr;
+	std::pair<Entity*, std::vector<ComponentTypes>> entity;
+	if (entities_) {
+		std::shared_ptr<EntityFactory> factory = CORE->GetSystem<EntityFactory>();
+		for (EntityManager::EntityIdMapTypeIt entityIT = entities_->GetEntities().begin(); entityIT != entities_->GetEntities().end(); entityIT++) {
+			
+			std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entityIT->second->GetComponent(ComponentTypes::NAME));
+
+			ImGuiTreeNodeFlags flags = ((selection == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+			bool opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, entityname->GetName().c_str()));
+			
+			if (ImGui::IsItemClicked()) {
+				selection = entityIT->second;
+			}
+			if (opened) {
+
+				if (selection) {
+
+					ComponentArr arr = selection->GetComponentArr();
+					comp_arr.reserve(arr.size());
+
+					for (ComponentArrIt it = arr.begin(); it != arr.end(); ++it) {
+						comp_arr.push_back((*it)->GetComponentTypeID());
+					}
+					entity = std::make_pair(selection, comp_arr);
+					CheckComponentType(entity);
+
+				}
+				ImGui::TreePop();
+			}
+
+
+		}
+	}
+
 	ImGui::End();
 }
 

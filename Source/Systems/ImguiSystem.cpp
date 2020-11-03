@@ -3,6 +3,7 @@
 #include "ImguiWindows/EntityCompWindow.h"
 #include "ImguiWindows/ImguiMenuBar.h"
 #include "ImguiWindows/EntityWindow.h"
+#include "Systems/Game.h"
 
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
@@ -200,9 +201,10 @@ void ImguiSystem::SendMessageD(Message* m){
     }
     case MessageIDTypes::DEBUG_ALL:
     {
-        b_debug = !b_debug;
-        b_imguimode = !b_imguimode;
-
+        if (CORE->GetSystem<Game>()->GetStateName() == "Play") {
+            b_debug = !b_debug;
+            b_imguimode = !b_imguimode;
+        }
         break;
     }
     default:

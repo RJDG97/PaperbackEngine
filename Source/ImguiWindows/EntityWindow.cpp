@@ -3,8 +3,6 @@
 
 void EntityWindow::Init() {
 
-	/*viewport_size_ = ImVec2{ 0.0f, 0.0f };
-	editor_viewport_ = &*CORE->GetSystem<GraphicsSystem>();*/
 	entities_ = &*CORE->GetManager<EntityManager>();
 	b_addentity = false;
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();

@@ -11,6 +11,7 @@
 #include "Components/Motion.h"
 #include "Components/PointLight.h"
 
+#include "Manager/EntityManager.h"
 #include "Engine/Core.h"
 
 
@@ -44,6 +45,8 @@ public:
 
 private:
 	ImguiSystem* imgui_system_;
+	EntityManager* entities_;
+	Entity* selection;
 
 };
 #endif
