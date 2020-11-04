@@ -36,7 +36,7 @@ void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;
 
-	data >> type >> speed_;
+	data >> type;
 	type_ = GeneralScripts::GetType(type);
 	
 }
@@ -131,13 +131,14 @@ void AI::SetNumDes(size_t numdes)
 	num_destinations_ = numdes;
 }
 
-std::vector<Vector2D> AI::GetDestinations()
+std::vector<Vector2D>& AI::GetDestinations()
 {
 	return destinations_;
 }
 
 void AI::SetDestinations(std::vector<Vector2D> des)
 {
+	num_destinations_ = des.size();
 	std::copy(std::begin(des), std::end(des), std::back_inserter(destinations_));
 }
 
@@ -148,5 +149,12 @@ DestinationIt AI::GetCurrentDes()
 
 void AI::SetCurrentDes(DestinationIt Cdes)
 {
+	//if(Cdes == destinations_.end())
+	//	current_destination_ = destinations_.begin();
 	current_destination_ = Cdes;
+}
+
+AI::AIType AI::GetType()
+{
+	return type_;
 }

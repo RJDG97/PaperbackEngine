@@ -1,10 +1,6 @@
 #ifndef _MITESCRIPT_H_
 #define _MITESCRIPT_H_
 
-#include "Manager/AIManager.h"
-#include "Script/MiteScript.h"
-#include "Script/GeneralScripts.h"
-
 //class Mite : public AIManager
 //{
 //public:

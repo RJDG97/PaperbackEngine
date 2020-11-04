@@ -194,7 +194,7 @@ public:
 	  \brief Get component destinations
 	*/
 	/******************************************************************************/
-	std::vector<Vector2D> GetDestinations();
+	std::vector<Vector2D>& GetDestinations();
 
 	/******************************************************************************/
 	/*!
@@ -222,6 +222,8 @@ public:
 	*/
 	/******************************************************************************/
 	void SetCurrentDes(DestinationIt Cdes);
+
+	AIType GetType();
 
 private:
 
