@@ -43,11 +43,17 @@ class GraphicsSystem : public ISystem {
     GLuint final_texture_;
     GLuint* lighting_texture_;
 
+    //for UI
     glm::mat4 projection;
 
-    GLuint vao_batch_;
-    GLuint vbo_batch_;
-    GLuint ebo_batch_;
+    //for batching
+    int batch_size_;
+    std::vector<glm::vec2> tex_vtx_sent;
+    std::vector<glm::vec2> scaling_sent;
+    std::vector<glm::vec2> rotation_sent;
+    std::vector<glm::vec2> position_sent;
+    std::vector<float> texture_id_sent;
+    std::map<GLuint, GLuint> texture_handles;
 
 public:
 
@@ -182,12 +188,22 @@ void RemoveTextRendererComponent(EntityID id);
     
 /******************************************************************************/
 /*!
-    \fn DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform)
+    \fn BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer)
 
-    \brief Draw objects that have a component that inherits from IObjectRenderer
+    \brief Inserts data of objects, that have a component that inherits from
+           IObjectRenderer, into batch
 */
 /******************************************************************************/
-    void DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform);
+    void BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer);
+
+/******************************************************************************/
+/*!
+    \fn DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform)
+
+    \brief Draw all objects in the batch
+*/
+/******************************************************************************/
+    void DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform);
 
 /******************************************************************************/
 /*!

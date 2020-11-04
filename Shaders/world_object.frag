@@ -5,7 +5,7 @@ layout(location=1) flat in int tex_id;
 
 layout (location=0) out vec4 fFragClr;
 
-uniform sampler2D uTex2d[10];
+uniform sampler2D uTex2d[20];
 
 void main () {
 

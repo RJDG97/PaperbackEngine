@@ -32,7 +32,7 @@ void LightingSystem::Init() {
 																						  "Shaders/point_light.frag",
 																						  "PointLightShader");
 	
-	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel", false);
+	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel");
 
 	//Temporary before camera is component
 	std::shared_ptr<GraphicsSystem> graphics_system = CORE->GetSystem<GraphicsSystem>();

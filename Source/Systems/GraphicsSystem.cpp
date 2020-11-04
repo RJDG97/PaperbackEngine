@@ -77,9 +77,10 @@ void GraphicsSystem::Init() {
     animation_manager_ = CORE->GetManager<AnimationManager>();
     component_manager_ = CORE->GetManager<ComponentManager>();
 
-    graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel", false);
-    graphic_models_["TileModel"] = model_manager_->AddTristripsModel(1, 1, "TileModel", true);
-    graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel", false);
+    batch_size_ = 500;
+    graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel");
+    graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel");
+    graphic_models_["BatchModel"] = model_manager_->AddTristripsBatchModel(batch_size_, "BatchModel");
 
     graphic_shaders_["ObjectShader"] =
         shader_manager_->AddShdrpgm("Shaders/world_object.vert","Shaders/world_object.frag", "ObjectShader");
@@ -96,99 +97,6 @@ void GraphicsSystem::Init() {
 
     //For UI
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
-
-    std::vector<glm::vec2> pos_vtx{ {-1.0f, -1.0f},
-                                    { 1.0f, -1.0f},
-                                    {-1.0f,  1.0f},
-                                    { 1.0f,  1.0f}, };
-
-    std::vector<GLushort> idx_vtx_sent;
-    std::vector<glm::vec2> pos_vtx_sent;
-
-    for (int i = 0; i < 500; ++i)
-    {
-        for (int j = 0; j < 4; ++j)
-        {
-            pos_vtx_sent.push_back(pos_vtx[j]);
-        }
-
-        idx_vtx_sent.push_back(static_cast<GLushort>(2 + 4 * i));
-        idx_vtx_sent.push_back(static_cast<GLushort>(0 + 4 * i));
-        idx_vtx_sent.push_back(static_cast<GLushort>(3 + 4 * i));
-        idx_vtx_sent.push_back(static_cast<GLushort>(1 + 4 * i));
-
-        if (i < 500 - 1)
-        {
-            idx_vtx_sent.push_back(static_cast<GLushort>(1 + 4 * i));
-            idx_vtx_sent.push_back(static_cast<GLushort>(2 + 4 * (i + 1)));
-        }
-    }
-
-    glCreateBuffers(1, &vbo_batch_);
-
-    //Render 500 objects at once
-    glNamedBufferStorage(vbo_batch_, sizeof(glm::vec2) * 4 * 5 * 500 + sizeof(float) * 4 * 500, //3 -> pos, scal, rot
-                         nullptr, GL_DYNAMIC_STORAGE_BIT);
-
-    glNamedBufferSubData(vbo_batch_, 0,
-                         sizeof(glm::vec2) * pos_vtx_sent.size(),
-                         pos_vtx_sent.data());
-
-    glCreateVertexArrays(1, &vao_batch_);
-
-    size_t offset = 0;
-
-    glEnableVertexArrayAttrib(vao_batch_, 0);
-    glVertexArrayVertexBuffer(vao_batch_, 0, vbo_batch_, offset, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_batch_, 0, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_batch_, 0, 0);
-
-    offset += sizeof(glm::vec2) * 4 * 500;
-
-    glEnableVertexArrayAttrib(vao_batch_, 1);
-    glVertexArrayVertexBuffer(vao_batch_, 1, vbo_batch_, offset, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_batch_, 1, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_batch_, 1, 1);
-
-    offset += sizeof(glm::vec2) * 4 * 500;
-
-    //scaling
-    glEnableVertexArrayAttrib(vao_batch_, 2);
-    glVertexArrayVertexBuffer(vao_batch_, 2, vbo_batch_, offset, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_batch_, 2, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_batch_, 2, 2);
-
-    offset += sizeof(glm::vec2) * 4 * 500;
-
-    //rotation
-    glEnableVertexArrayAttrib(vao_batch_, 3);
-    glVertexArrayVertexBuffer(vao_batch_, 3, vbo_batch_, offset, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_batch_, 3, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_batch_, 3, 3);
-
-    offset += sizeof(glm::vec2) * 4 * 500;
-
-    //translation
-    glEnableVertexArrayAttrib(vao_batch_, 4);
-    glVertexArrayVertexBuffer(vao_batch_, 4, vbo_batch_, offset, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_batch_, 4, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_batch_, 4, 4);
-
-    offset += sizeof(glm::vec2) * 4 * 500;
-
-    //texture id
-    glEnableVertexArrayAttrib(vao_batch_, 5);
-    glVertexArrayVertexBuffer(vao_batch_, 5, vbo_batch_, offset, sizeof(float));
-    glVertexArrayAttribFormat(vao_batch_, 5, 1, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_batch_, 5, 5);
-
-    glCreateBuffers(1, &ebo_batch_);
-    glNamedBufferStorage(ebo_batch_,
-                         sizeof(GLushort) * (6 * 500 - 2),
-                         idx_vtx_sent.data(),
-                         GL_DYNAMIC_STORAGE_BIT);
-    glVertexArrayElementBuffer(vao_batch_, ebo_batch_);
-    glBindVertexArray(0);
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
@@ -241,14 +149,8 @@ void GraphicsSystem::Draw() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     graphic_shaders_["ObjectShader"]->Use();
-    glBindVertexArray(vao_batch_);
-
-    std::vector<glm::vec2> tex_vtx_sent;
-    std::vector<glm::vec2> scaling_sent;
-    std::vector<glm::vec2> rotation_sent;
-    std::vector<glm::vec2> position_sent;
-    std::vector<float> texture_id_sent;
-    std::map<GLuint, GLuint> texture_handles;
+    glBindVertexArray(graphic_models_["BatchModel"]->vaoid_);
+    GLuint vbo_hdl = graphic_models_["BatchModel"]->vboid_;
 
     //draws all the world textures/animations
     for (WorldRenderOrderIt it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ) {
@@ -258,92 +160,16 @@ void GraphicsSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
 		}
 
-        Vector2D scale = std::dynamic_pointer_cast<Scale>(it->second->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
-        //Scale* scale = component_manager_->GetComponent<Scale>(it->second->GetOwner()->GetID());
-        std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(it->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-        //Transform* transform = component_manager_->GetComponent<Transform>(it->second->GetOwner()->GetID());
-
-        float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
-        Vector2D pos = transform->position_;
-
-        //glm::vec2 scaling{ scale->GetScale().x, scale->GetScale().y };
-        glm::vec2 scaling{ scale.x, scale.y };
-        glm::vec2 rotation{ glm::cos(orientation), glm::sin(orientation) };
-        glm::vec2 position{ pos.x, pos.y };
-
-        if (texture_handles.find(*it->second->texture_handle_) == texture_handles.end())
-        {
-            texture_handles[*it->second->texture_handle_] = static_cast<GLuint>(texture_handles.size());
-        }
-
-        GLuint tex_id = texture_handles[*it->second->texture_handle_];
-
-        for (int i = 0; i < 4; ++i)
-        {
-            tex_vtx_sent.push_back(it->second->tex_vtx_sent_[i]);
-            scaling_sent.push_back(scaling);
-            rotation_sent.push_back(rotation);
-            position_sent.push_back(position);
-            texture_id_sent.push_back(static_cast<float>(tex_id));
-        }
-
-        //DrawWorldObject(graphic_shaders_["ObjectShader"], graphic_models_["TileModel"], it->second, world_to_ndc_xform);
+        BatchWorldObject(it->second);
         
         int current_layer = it->second->layer_;
         auto next_object = ++it;
 
-        if (tex_vtx_sent.size() == 2000 || next_object == worldobj_renderers_in_order_.end() || next_object->second->layer_ != current_layer)
+        if (tex_vtx_sent.size() == batch_size_ * 4 ||
+            next_object == worldobj_renderers_in_order_.end() ||
+            next_object->second->layer_ != current_layer)
         {
-            for (auto tex_it = texture_handles.begin(); tex_it != texture_handles.end(); ++tex_it)
-            {
-                glBindTextureUnit(tex_it->second, tex_it->first);
-            }
-
-            size_t offset = sizeof(glm::vec2) * 4 * 500;
-
-            glNamedBufferSubData(vbo_batch_, offset,
-                sizeof(glm::vec2) * tex_vtx_sent.size(),
-                tex_vtx_sent.data());
-
-            offset += sizeof(glm::vec2) * 4 * 500;
-
-            glNamedBufferSubData(vbo_batch_, offset,
-                sizeof(glm::vec2) * scaling_sent.size(),
-                scaling_sent.data());
-
-            offset += sizeof(glm::vec2) * 4 * 500;
-
-            glNamedBufferSubData(vbo_batch_, offset,
-                sizeof(glm::vec2) * rotation_sent.size(),
-                rotation_sent.data());
-
-            offset += sizeof(glm::vec2) * 4 * 500;
-
-            glNamedBufferSubData(vbo_batch_, offset,
-                sizeof(glm::vec2) * position_sent.size(),
-                position_sent.data());
-
-            offset += sizeof(glm::vec2) * 4 * 500;
-
-            glNamedBufferSubData(vbo_batch_, offset,
-                sizeof(float) * texture_id_sent.size(),
-                texture_id_sent.data());
-
-            int texture_samplers[10]{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-
-            auto loc = glGetUniformLocation(graphic_shaders_["ObjectShader"]->GetHandle(), "uTex2d");
-            glUniform1iv(loc, 10, texture_samplers);
-
-            graphic_shaders_["ObjectShader"]->SetUniform("world_to_ndc_xform", world_to_ndc_xform);
-
-            glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>( 6 * tex_vtx_sent.size()/4 -2), GL_UNSIGNED_SHORT, NULL);
-            
-            tex_vtx_sent.clear();
-            scaling_sent.clear();
-            rotation_sent.clear();
-            position_sent.clear();
-            texture_id_sent.clear();
-            texture_handles.clear();
+            DrawBatch(vbo_hdl, world_to_ndc_xform);
         }
     
     }
@@ -366,7 +192,6 @@ void GraphicsSystem::Draw() {
     glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
-
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -660,57 +485,91 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
-//void GraphicsSystem::DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform) {
-    //sdf
-    ///glBindTexture(GL_TEXTURE_2D, *(i_worldobj_renderer->texture_handle_));
-    //glBindTextureUnit(0, *(i_worldobj_renderer->texture_handle_));
-    //glUseProgram(shader->GetHandle());
-
-    /*
-    Vector2D scale = std::dynamic_pointer_cast<Scale>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
+void GraphicsSystem::BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer) {
     
-    std::shared_ptr<Transform> transform =
-        std::dynamic_pointer_cast<Transform>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+    Vector2D scale = std::dynamic_pointer_cast<Scale>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
+    //Scale* scale = component_manager_->GetComponent<Scale>(it->second->GetOwner()->GetID());
+    std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
+    //Transform* transform = component_manager_->GetComponent<Transform>(it->second->GetOwner()->GetID());
 
     float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
     Vector2D pos = transform->position_;
 
-    glm::vec2 scaling { scale.x, scale.y };
-    glm::vec2 rotation { glm::cos(orientation), glm::sin(orientation) };
-    glm::vec2 position { pos.x, pos.y };
+    //glm::vec2 scaling{ scale->GetScale().x, scale->GetScale().y };
+    glm::vec2 scaling{ scale.x, scale.y };
+    glm::vec2 rotation{ glm::cos(orientation), glm::sin(orientation) };
+    glm::vec2 position{ pos.x, pos.y };
 
-    std::vector<glm::vec2> transform_variables;
+    if (texture_handles.find(*i_worldobj_renderer->texture_handle_) == texture_handles.end())
+    {
+        texture_handles[*i_worldobj_renderer->texture_handle_] = static_cast<GLuint>(texture_handles.size());
+    }
+
+    GLuint tex_id = texture_handles[*i_worldobj_renderer->texture_handle_];
 
     for (int i = 0; i < 4; ++i)
     {
-        transform_variables.push_back(scaling);
+        tex_vtx_sent.push_back(i_worldobj_renderer->tex_vtx_sent_[i]);
+        scaling_sent.push_back(scaling);
+        rotation_sent.push_back(rotation);
+        position_sent.push_back(position);
+        texture_id_sent.push_back(static_cast<float>(tex_id));
     }
-    
-    for (int i = 0; i < 4; ++i)
+}
+
+void GraphicsSystem::DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform)
+{
+    for (auto tex_it = texture_handles.begin(); tex_it != texture_handles.end(); ++tex_it)
     {
-        transform_variables.push_back(rotation);
+        glBindTextureUnit(tex_it->second, tex_it->first);
     }
 
-    for (int i = 0; i < 4; ++i)
-    {
-        transform_variables.push_back(position);
-    }
+    size_t offset = sizeof(glm::vec2) * 4 * batch_size_;
 
-    shader->SetUniform("uTex2d", 0);
-    shader->SetUniform("world_to_ndc_xform", world_to_ndc_xform);
-    
-    size_t offset = model->GetVBOTexOffset();
-    glNamedBufferSubData(model->GetVBOHandle(), offset,
-                         sizeof(glm::vec2) * i_worldobj_renderer->tex_vtx_sent_.size(),
-                         i_worldobj_renderer->tex_vtx_sent_.data());
-   
-    offset += sizeof(glm::vec2) * i_worldobj_renderer->tex_vtx_sent_.size();
-    glNamedBufferSubData(model->GetVBOHandle(), offset,
-                         sizeof(glm::vec2) * transform_variables.size(),
-                         transform_variables.data());*/
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(glm::vec2) * tex_vtx_sent.size(),
+                         tex_vtx_sent.data());
 
-    //glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_ - 1, GL_UNSIGNED_SHORT, NULL);
-//}
+    offset += sizeof(glm::vec2) * 4 * batch_size_;
+
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(glm::vec2) * scaling_sent.size(),
+                         scaling_sent.data());
+
+    offset += sizeof(glm::vec2) * 4 * batch_size_;
+
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(glm::vec2) * rotation_sent.size(),
+                         rotation_sent.data());
+
+    offset += sizeof(glm::vec2) * 4 * batch_size_;
+
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(glm::vec2) * position_sent.size(),
+                         position_sent.data());
+
+    offset += sizeof(glm::vec2) * 4 * batch_size_;
+
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(float) * texture_id_sent.size(),
+                         texture_id_sent.data());
+
+    int texture_samplers[20]{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+
+    auto loc = glGetUniformLocation(graphic_shaders_["ObjectShader"]->GetHandle(), "uTex2d");
+    glUniform1iv(loc, 20, texture_samplers);
+
+    graphic_shaders_["ObjectShader"]->SetUniform("world_to_ndc_xform", world_to_ndc_xform);
+
+    glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(6 * tex_vtx_sent.size() / 4 - 2), GL_UNSIGNED_SHORT, NULL);
+
+    tex_vtx_sent.clear();
+    scaling_sent.clear();
+    rotation_sent.clear();
+    position_sent.clear();
+    texture_id_sent.clear();
+    texture_handles.clear();
+}
 
 void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* text_renderer, glm::vec2 cam_pos) {
 
