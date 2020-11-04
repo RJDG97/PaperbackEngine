@@ -132,7 +132,7 @@
     },
     {
       "component": "Scale",
-      "scale": "40.0 40.0"
+      "scale": "30.0 30.0"
     },
     {
       "component": "TextureRenderer",

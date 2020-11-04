@@ -62,10 +62,12 @@ void GraphicsSystem::Init() {
 
     glGenRenderbuffers(1, &render_buffer_);
     glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y));
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT,
+                          static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y));
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
 
-    DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE), "Final framebuffer is not complete!");
+    DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE),
+                 "Final framebuffer is not complete!");
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -118,7 +120,8 @@ void GraphicsSystem::Update(float frametime) {
 
         if (debug_) {
             // Log id of entity and it's updated components that are being updated
-            M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Scale, Rotation, Translation matrix & Texture animation updated)\n");
+            M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) +
+                " (Scale, Rotation, Translation matrix & Texture animation updated)\n");
         }
         
         //UpdateObjectMatrix(it->second, world_to_ndc_xform_);
@@ -153,11 +156,13 @@ void GraphicsSystem::Draw() {
     GLuint vbo_hdl = graphic_models_["BatchModel"]->vboid_;
 
     //draws all the world textures/animations
-    for (WorldRenderOrderIt it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ) {
+    for (WorldRenderOrderIt it = worldobj_renderers_in_order_.begin();
+         it != worldobj_renderers_in_order_.end() ; ) {
 
         if (debug_) {
 			// Log id of entity and its updated components that are being updated
-			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+			M_DEBUG->WriteDebugMessage("Drawing entity: " +
+                std::to_string(it->first) + "\n");
 		}
 
         BatchWorldObject(it->second);
@@ -165,7 +170,7 @@ void GraphicsSystem::Draw() {
         int current_layer = it->second->layer_;
         auto next_object = ++it;
 
-        if (tex_vtx_sent.size() == batch_size_ * 4 ||
+        if (tex_vtx_sent.size() == static_cast<size_t>(batch_size_) * 4 ||
             next_object == worldobj_renderers_in_order_.end() ||
             next_object->second->layer_ != current_layer)
         {
@@ -178,7 +183,8 @@ void GraphicsSystem::Draw() {
     glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
 
     //draws all the world text
-    for (TextRenderOrderIt it = worldtext_renderers_in_order_.begin(); it != worldtext_renderers_in_order_.end(); ++it) {
+    for (TextRenderOrderIt it = worldtext_renderers_in_order_.begin();
+         it != worldtext_renderers_in_order_.end(); ++it) {
 
         if (debug_) {
             // Log id of entity and its updated components that are being updated
@@ -197,12 +203,13 @@ void GraphicsSystem::Draw() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], &final_texture_);
 
+    //draws all the UI text
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     graphic_shaders_["TextShader"]->Use();
     glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
 
-    for (TextRenderOrderIt it = uitext_renderers_in_order_.begin(); it != uitext_renderers_in_order_.end(); ++it) {
+    for (TextRenderOrderIt it = uitext_renderers_in_order_.begin();
+         it != uitext_renderers_in_order_.end(); ++it) {
 
         if (debug_) {
             // Log id of entity and its updated components that are being updated
@@ -251,7 +258,9 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
     AnimRendererIt player_renderer;
 
-    for (player_renderer = anim_renderer_arr_->begin(); player_renderer != anim_renderer_arr_->end(); ++player_renderer)
+    for (player_renderer = anim_renderer_arr_->begin();
+         player_renderer != anim_renderer_arr_->end();
+         ++player_renderer)
     {
         if (ENTITYNAME(player_renderer->second->GetOwner()) == "Player")
         {
@@ -316,7 +325,8 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
 void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_renderer)
 {
-    M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
+    M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: "
+        + std::to_string(id) + "\n");
 
     //text_renderer_arr_[id] = text_renderer;
     text_renderer_arr_->AddComponent(id, text_renderer);
@@ -347,7 +357,7 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
 
             if (orderit != uitext_renderers_in_order_.end()) {
 
-                for (; orderit != uitext_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+                for ( ; orderit != uitext_renderers_in_order_.end() && (*orderit).first == layer ; ++orderit) {
 
                     if ((*orderit).second->GetOwner()->GetID() == id) {
 
@@ -398,9 +408,10 @@ void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
 
     if (it) {
 
-        M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
+        M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: "
+            + std::to_string(id) + "\n");
+
         layer = GetLayer(it);
-        //texture_renderer_arr_.erase(it);
         texture_renderer_arr_->RemoveComponent(id);
     }
 
@@ -421,24 +432,24 @@ void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
 
 void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer) {
 
-    M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: " + std::to_string(id) + "\n");
+    M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: "
+        + std::to_string(id) + "\n");
 
-    //anim_renderer_arr_[id] = animation_renderer;
     anim_renderer_arr_->AddComponent(id, animation_renderer);
     worldobj_renderers_in_order_.insert({GetLayer(animation_renderer), animation_renderer});
 }
 
 void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
 
-    //AnimRendererIt it = anim_renderer_arr_.find(id);
     AnimationRenderer* it = anim_renderer_arr_->GetComponent(id);
     int layer;
 
     if (it) {
 
-        M_DEBUG->WriteDebugMessage("Removing Animation Renderer Component from entity: " + std::to_string(id) + "\n");
+        M_DEBUG->WriteDebugMessage("Removing Animation Renderer Component from entity: "
+            + std::to_string(id) + "\n");
+
         layer = GetLayer(it);
-        //anim_renderer_arr_.erase(it);
         anim_renderer_arr_->RemoveComponent(id);
     }
 
@@ -487,8 +498,10 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
 void GraphicsSystem::BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer) {
     
-    Vector2D scale = component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID())->GetScale();
-    Transform* transform = component_manager_->GetComponent<Transform>(i_worldobj_renderer->GetOwner()->GetID());
+    Vector2D scale =
+        component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID())->GetScale();
+    Transform* transform =
+        component_manager_->GetComponent<Transform>(i_worldobj_renderer->GetOwner()->GetID());
 
     float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
     Vector2D pos = transform->position_;
@@ -616,13 +629,13 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
         vertices.push_back({ xpos + w, ypos });
 
         // render glyph texture over quad
-        glBindTexture(GL_TEXTURE_2D, ch.GetTexID());
+        glBindTextureUnit(0, ch.GetTexID());
 
         glNamedBufferSubData(model->GetVBOHandle(), 0,
-            sizeof(vertices), vertices.data());
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+                             sizeof(vertices), vertices.data());
         // render quad
         glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+        
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         pos.x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }

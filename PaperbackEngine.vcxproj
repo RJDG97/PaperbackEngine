@@ -253,7 +253,6 @@
     <ClInclude Include="Include\Imgui\imstb_textedit.h" />
     <ClInclude Include="Include\Imgui\imstb_truetype.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
-    <ClInclude Include="Include\Manager\BatchManager.h" />
     <ClInclude Include="Include\Manager\ComponentManager.h" />
     <ClInclude Include="Include\Manager\EntityManager.h" />
     <ClInclude Include="Include\Manager\FontManager.h" />
@@ -286,7 +285,6 @@
     <ClInclude Include="Include\Systems\Physics.h" />
     <ClInclude Include="Include\Systems\SoundSystem.h" />
     <ClInclude Include="Include\Systems\WindowsSystem.h" />
-    <ClInclude Include="Source\Manager\BatchManager.cpp" />
     <ClInclude Include="Source\Source.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

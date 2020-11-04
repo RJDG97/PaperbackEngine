@@ -20,7 +20,7 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
     std::vector<GLushort> idx_vtx_sent;
     std::vector<glm::vec2> pos_vtx_sent;
 
-    for (int i = 0; i < 500; ++i)
+    for (int i = 0; i < batch_size; ++i)
     {
         for (int j = 0; j < 4; ++j)
         {
@@ -32,7 +32,7 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
         idx_vtx_sent.push_back(static_cast<GLushort>(3 + 4 * i));
         idx_vtx_sent.push_back(static_cast<GLushort>(1 + 4 * i));
 
-        if (i < 500 - 1)
+        if (i < batch_size - 1)
         {
             idx_vtx_sent.push_back(static_cast<GLushort>(1 + 4 * i));
             idx_vtx_sent.push_back(static_cast<GLushort>(2 + 4 * (i + 1)));
@@ -42,7 +42,7 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
     glCreateBuffers(1, &vbo_batch_);
 
     //Render 500 objects at once
-    glNamedBufferStorage(vbo_batch_, sizeof(glm::vec2) * 4 * 5 * 500 + sizeof(float) * 4 * 500, //3 -> pos, scal, rot
+    glNamedBufferStorage(vbo_batch_, (sizeof(glm::vec2) * 5 + sizeof(float)) * 4 * batch_size,
         nullptr, GL_DYNAMIC_STORAGE_BIT);
 
     glNamedBufferSubData(vbo_batch_, 0,
@@ -58,14 +58,14 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
     glVertexArrayAttribFormat(vao_batch_, 0, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_batch_, 0, 0);
 
-    offset += sizeof(glm::vec2) * 4 * 500;
+    offset += sizeof(glm::vec2) * 4 * batch_size;
 
     glEnableVertexArrayAttrib(vao_batch_, 1);
     glVertexArrayVertexBuffer(vao_batch_, 1, vbo_batch_, offset, sizeof(glm::vec2));
     glVertexArrayAttribFormat(vao_batch_, 1, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_batch_, 1, 1);
 
-    offset += sizeof(glm::vec2) * 4 * 500;
+    offset += sizeof(glm::vec2) * 4 * batch_size;
 
     //scaling
     glEnableVertexArrayAttrib(vao_batch_, 2);
@@ -73,7 +73,7 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
     glVertexArrayAttribFormat(vao_batch_, 2, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_batch_, 2, 2);
 
-    offset += sizeof(glm::vec2) * 4 * 500;
+    offset += sizeof(glm::vec2) * 4 * batch_size;
 
     //rotation
     glEnableVertexArrayAttrib(vao_batch_, 3);
@@ -81,7 +81,7 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
     glVertexArrayAttribFormat(vao_batch_, 3, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_batch_, 3, 3);
 
-    offset += sizeof(glm::vec2) * 4 * 500;
+    offset += sizeof(glm::vec2) * 4 * batch_size;
 
     //translation
     glEnableVertexArrayAttrib(vao_batch_, 4);
@@ -89,7 +89,7 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
     glVertexArrayAttribFormat(vao_batch_, 4, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_batch_, 4, 4);
 
-    offset += sizeof(glm::vec2) * 4 * 500;
+    offset += sizeof(glm::vec2) * 4 * batch_size;
 
     //texture id
     glEnableVertexArrayAttrib(vao_batch_, 5);
@@ -99,7 +99,7 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
 
     glCreateBuffers(1, &ebo_batch_);
     glNamedBufferStorage(ebo_batch_,
-        sizeof(GLushort) * (6 * 500 - 2),
+        sizeof(GLushort) * (6 * batch_size - 2),
         idx_vtx_sent.data(),
         GL_DYNAMIC_STORAGE_BIT);
     glVertexArrayElementBuffer(vao_batch_, ebo_batch_);
@@ -112,7 +112,7 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
     //mdl.vbo_tex_offset_ = sizeof(glm::vec2) * pos_vtx.size(); NOT USED
     mdl.primitive_type_ = GL_TRIANGLE_STRIP;
     mdl.draw_cnt_ = static_cast<GLint>(idx_vtx_sent.size());     // number of vertices
-    //mdl.primitive_cnt_ = count;          NOT USED                   // number of triangles
+    //mdl.primitive_cnt_ = count;          NOT USED              // number of triangles
     models_[model_name] = mdl;
 
     return &models_[model_name];
