@@ -37,7 +37,8 @@
     {
       "component": "TextRenderer",
 	  "font": "comic_sans",
-	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
+	  "sentence length": "4",
+	  "text": "This is UI text.",
 	  "color": "1.0 0.5 1.0",
 	  "scale": "1.0",
       "layer": "10",
@@ -57,7 +58,8 @@
     {
       "component": "TextRenderer",
 	  "font": "comic_sans",
-	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
+	  "sentence length": "4",
+	  "text": "This is World text.",
 	  "color": "1.0 0.5 1.0",
 	  "scale": "1.0",
       "layer": "10",
