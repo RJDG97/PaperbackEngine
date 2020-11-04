@@ -632,7 +632,7 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
         glBindTextureUnit(0, ch.GetTexID());
 
         glNamedBufferSubData(model->GetVBOHandle(), 0,
-                             sizeof(vertices), vertices.data());
+                             sizeof(glm::vec2) * vertices.size(), vertices.data());
         // render quad
         glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
         
