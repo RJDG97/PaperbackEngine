@@ -487,10 +487,8 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
 void GraphicsSystem::BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer) {
     
-    Vector2D scale = std::dynamic_pointer_cast<Scale>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
-    //Scale* scale = component_manager_->GetComponent<Scale>(it->second->GetOwner()->GetID());
-    std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-    //Transform* transform = component_manager_->GetComponent<Transform>(it->second->GetOwner()->GetID());
+    Vector2D scale = component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID())->GetScale();
+    Transform* transform = component_manager_->GetComponent<Transform>(i_worldobj_renderer->GetOwner()->GetID());
 
     float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
     Vector2D pos = transform->position_;

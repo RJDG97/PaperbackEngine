@@ -574,5 +574,11 @@
     <ClInclude Include="Include\GameStates\WinLoseState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Manager\BatchManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Manager\BatchManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
