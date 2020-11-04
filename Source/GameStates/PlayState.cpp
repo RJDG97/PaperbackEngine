@@ -32,7 +32,7 @@ void RotateLeft(Transform* xform, bool yes);
 //demo pointer to player
 //Entity* player;
 
-void PlayState::Init()
+void PlayState::Init(std::string)
 {
 	std::cout << "-----------------------------" << std::endl << std::endl;
 	std::cout << "PlayState init Successful" << std::endl;

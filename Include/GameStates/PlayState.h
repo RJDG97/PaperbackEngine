@@ -19,7 +19,7 @@ public:
   \brief Creates entities that are to appear in the current state
 */
 /******************************************************************************/
-	void Init();
+	void Init(std::string);
 
 /******************************************************************************/
 /*!
@@ -85,6 +85,7 @@ public:
 /******************************************************************************/
 	PlayState() {}
 };
+
 extern PlayState m_PlayState;
 
 #endif /*PLAYSTATE_H*/

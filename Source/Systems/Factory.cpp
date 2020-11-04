@@ -55,6 +55,12 @@ std::string EntityFactory::GetLevelPath(const std::string& name) {
 	else if (name == "Credits") {
 		return levels_.credits_.path_;
 	}
+	else if (name == "Win") {
+		return levels_.win_.path_;
+	}
+	else if (name == "Lose") {
+		return levels_.lose_.path_;
+	}
 	else if (name == "Editor") {
 		return levels_.editor_.path_;
 	}

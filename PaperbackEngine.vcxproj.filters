@@ -135,6 +135,18 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{3a370a19-bd15-46bf-9e16-47cd2fc58c7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\GeneralScripts">
+      <UniqueIdentifier>{b17d9952-c5a1-4d6f-b24a-f1e38ab77227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\StagBeetle">
+      <UniqueIdentifier>{ac0efd70-6e2e-4b50-a1bb-d65ff6b14e23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Mite">
+      <UniqueIdentifier>{14dd206c-213e-4e65-becd-ecf60de6f434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Hornet">
+      <UniqueIdentifier>{d4eeee00-a8bd-4393-9642-bb99abfccc74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -290,9 +302,6 @@
     <ClCompile Include="Source\Systems\Collision.cpp">
       <Filter>Systems\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Manager\AIManager.cpp">
-      <Filter>ResourceManagers</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Systems\LogicSystem.cpp">
       <Filter>Systems\LogicSystem</Filter>
     </ClCompile>
@@ -320,7 +329,22 @@
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Script\GeneralScripts.cpp">
+      <Filter>Scripts\GeneralScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\StagScript.cpp">
+      <Filter>Scripts\StagBeetle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\HornetScript.cpp">
+      <Filter>Scripts\Hornet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\MiteScript.cpp">
+      <Filter>Scripts\Mite</Filter>
+    </ClCompile>
     <ClCompile Include="Source\GameStates\EditorState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\WinLoseState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
   </ItemGroup>
@@ -514,9 +538,6 @@
     <ClInclude Include="Include\Systems\Collision.h">
       <Filter>Systems\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Manager\AIManager.h">
-      <Filter>ResourceManagers</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Systems\LogicSystem.h">
       <Filter>Systems\LogicSystem</Filter>
     </ClInclude>
@@ -538,19 +559,19 @@
     <ClInclude Include="Include\Manager\ComponentManager.h">
       <Filter>ResourceManagers</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Script\ScriptList.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Script\GeneralScripts.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\MiteScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\HornetScript.h">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\GeneralScripts</Filter>
     </ClInclude>
     <ClInclude Include="Include\Script\StagScript.h">
+      <Filter>Scripts\StagBeetle</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\HornetScript.h">
+      <Filter>Scripts\Hornet</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\MiteScript.h">
+      <Filter>Scripts\Mite</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\ScriptList.h">
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\ImguiMenuBar.h">
@@ -560,6 +581,9 @@
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
       </ClInclude>
     <ClInclude Include="Include\GameStates\EditorState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\WinLoseState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
   </ItemGroup>

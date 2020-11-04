@@ -1,16 +1,14 @@
-#ifndef EDITORSTATE_H
-#define EDITORSTATE_H
+#pragma once
+#ifndef _WIN_LOSE_STATE_H_
+#define _WIN_LOSE_STATE_H_
 
 #include "GameStates/GameState.h"
-#include "Manager/EntityManager.h"
 
-// inherits the abstract class GameState
-class EditorState : public GameState
+class WinLoseState : public GameState
 {
-	bool pause_;
-
+	
 public:
-	friend class Game;
+	WinLoseState() = default;
 
 /******************************************************************************/
 /*!
@@ -19,7 +17,7 @@ public:
   \brief Creates entities that are to appear in the current state
 */
 /******************************************************************************/
-	void Init(std::string);
+	void Init(std::string level_name) override;
 
 /******************************************************************************/
 /*!
@@ -61,21 +59,12 @@ public:
 /*!
   \fn GetStateName()
 
-  \brief Returns the name of the current state
+  \brief Get state's name
 */
 /******************************************************************************/
 	std::string GetStateName() override;
-
-/******************************************************************************/
-/*!
-  \fn PlayState()
-
-  \brief A constructor for PlayState
-*/
-/******************************************************************************/
-	EditorState() {}
 };
-extern EditorState m_EditorState;
 
-#endif /*PLAYSTATE_H*/
+extern WinLoseState m_WinLoseState;
 
+#endif
