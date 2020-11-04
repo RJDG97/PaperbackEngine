@@ -17,7 +17,7 @@ class Game : public ISystem
 public:
 	friend class MenuState;
 	friend class PlayState;
-	friend class PauseState;
+	friend class EditorState;
 
 /******************************************************************************/
 /*!
@@ -53,7 +53,7 @@ public:
   \brief Change current state to new state
 */
 /******************************************************************************/
-	void ChangeState(GameState* state);
+	void ChangeState(GameState* state, std::string level_name = {});
 
 /******************************************************************************/
 /*!
@@ -126,32 +126,21 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn GetStateName()
+
+  \brief Returns the name of the current state
+*/
+/******************************************************************************/
+	std::string GetStateName();
+
+/******************************************************************************/
+/*!
   \fn SendMessageD()
 
   \brief Receives messages sent by the Core Engine
 */
 /******************************************************************************/
 	virtual void SendMessageD(Message* m) override;
-
-/******************************************************************************/
-/*!
-  \fn AddInputControllerComponent()
-
-  \brief Adds a newly created InputController Component to the InputController 
-		 component array within the Game System
-*/
-/******************************************************************************/
-	void AddInputControllerComponent(EntityID id, InputController* input_controller);
-
-/******************************************************************************/
-/*!
-  \fn RemoveInputControllerComponent()
-
-  \brief Removes a InputController Component from the InputController 
-		 component array within the Game System
-*/
-/******************************************************************************/
-	void RemoveInputControllerComponent(EntityID id);
 
 private:
 	bool debug_;

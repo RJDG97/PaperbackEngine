@@ -172,12 +172,13 @@
     <ClCompile Include="Source\Components\Transform.cpp" />
     <ClCompile Include="Source\Engine\Core.cpp" />
     <ClCompile Include="Source\Entity\Entity.cpp" />
+    <ClCompile Include="Source\GameStates\EditorState.cpp" />
     <ClCompile Include="Source\GameStates\Levels.cpp" />
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
+    <ClCompile Include="Source\GameStates\WinLoseState.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityCompWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
-    <ClCompile Include="Source\Manager\AIManager.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
@@ -188,6 +189,9 @@
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp" />
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
     <ClCompile Include="Source\Script\GeneralScripts.cpp" />
+    <ClCompile Include="Source\Script\HornetScript.cpp" />
+    <ClCompile Include="Source\Script\MiteScript.cpp" />
+    <ClCompile Include="Source\Script\StagScript.cpp" />
     <ClCompile Include="Source\Source.cpp" />
     <ClCompile Include="Source\Systems\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Collision.cpp" />
@@ -231,10 +235,12 @@
     <ClInclude Include="Include\Entity\ComponentCreator.h" />
     <ClInclude Include="Include\Entity\ComponentTypes.h" />
     <ClInclude Include="Include\Entity\Entity.h" />
+    <ClInclude Include="Include\GameStates\EditorState.h" />
     <ClInclude Include="Include\GameStates\GameState.h" />
     <ClInclude Include="Include\GameStates\Levels.h" />
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
+    <ClInclude Include="Include\GameStates\WinLoseState.h" />
     <ClInclude Include="Include\ImguiWindows\EntityCompWindow.h" />
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
@@ -246,7 +252,6 @@
     <ClInclude Include="Include\Imgui\imstb_rectpack.h" />
     <ClInclude Include="Include\Imgui\imstb_textedit.h" />
     <ClInclude Include="Include\Imgui\imstb_truetype.h" />
-    <ClInclude Include="Include\Manager\AIManager.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\BatchManager.h" />
     <ClInclude Include="Include\Manager\ComponentManager.h" />

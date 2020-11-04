@@ -17,7 +17,6 @@
 #include "Manager/ShaderManager.h"
 #include "Manager/AnimationManager.h"
 #include "Manager/ForcesManager.h"
-#include "Manager/AIManager.h"
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
 
@@ -73,7 +72,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddManager<FontManager>();
 		CORE->AddManager<AnimationManager>();
 		CORE->AddManager<ForcesManager>();
-		CORE->AddManager<AIManager>();
 
 		// Initialize all Systems & Managers that
 		// were added to the Core Engine
@@ -88,8 +86,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		FACTORY->DestroyAllEntities();
 		FACTORY->DestroyAllArchetypes();
 
-		//CORE->GetSystem<EntityManager>()->DeleteAllEntities();
-		//CORE->GetSystem<EntityManager>()->DeleteAllArchetype();
 		EngineDebug::DeleteInstance();
 	}
 	catch (std::exception& e) {

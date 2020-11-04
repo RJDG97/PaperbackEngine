@@ -1,26 +1,15 @@
 #ifndef _STAGSCRIPT_H_
 #define _STAGSCRIPT_H_
 
-#include "Manager/AIManager.h"
-#include "Script/StagScript.h"
-#include "Script/GeneralScripts.h"
+#include "Systems/LogicSystem.h"
+#include "Script/ScriptList.h"
 
-class StagBeetle : public AIManager
+namespace StagBeetle
 {
-public:
+	bool Attack(AIIt ai);
 
-	void StagBeetleHandler(AIIt ai)
-	{
-		switch (ai->second->GetState())
-		{
-		case AI::AIState::Patrol:
-			Patrol(ai);
-			break;
-		case AI::AIState::Attack:
-			break;
-		}
-	}
+	void Handler(AIIt ai);
 
-}StagBeetle;
+}
 
 #endif

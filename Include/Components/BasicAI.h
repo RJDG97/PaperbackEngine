@@ -16,6 +16,7 @@ class BasicAI : public Component {
 
 public:
 	friend class PlayState;
+	friend class EditorState;
 
 /******************************************************************************/
 /*!

@@ -1,16 +1,14 @@
-#ifndef PLAYSTATE_H
-#define PLAYSTATE_H
+#pragma once
+#ifndef _WIN_LOSE_STATE_H_
+#define _WIN_LOSE_STATE_H_
 
 #include "GameStates/GameState.h"
-#include "Manager/EntityManager.h"
-#include "Components/Scale.h"
 
-// inherits the abstract class GameState
-class PlayState : public GameState
+class WinLoseState : public GameState
 {
-
+	
 public:
-	friend class Game;
+	WinLoseState() = default;
 
 /******************************************************************************/
 /*!
@@ -19,7 +17,7 @@ public:
   \brief Creates entities that are to appear in the current state
 */
 /******************************************************************************/
-	void Init(std::string);
+	void Init(std::string level_name) override;
 
 /******************************************************************************/
 /*!
@@ -50,16 +48,6 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn SetStatus()
-
-  \brief Helper function for StateInputHandler that sets the Status components
-		 of a specific entity type to that of a new status
-*/
-/******************************************************************************/
-	void SetStatus(std::string entity_name, StatusType status_type, float status_length, Game* game);
-
-/******************************************************************************/
-/*!
   \fn StateInputHandler()
 
   \brief Performs handling of inputs such as mouse clicks onto buttons
@@ -71,22 +59,12 @@ public:
 /*!
   \fn GetStateName()
 
-  \brief Returns the name of the current state
+  \brief Get state's name
 */
 /******************************************************************************/
 	std::string GetStateName() override;
-
-/******************************************************************************/
-/*!
-  \fn PlayState()
-
-  \brief A constructor for PlayState
-*/
-/******************************************************************************/
-	PlayState() {}
 };
 
-extern PlayState m_PlayState;
+extern WinLoseState m_WinLoseState;
 
-#endif /*PLAYSTATE_H*/
-
+#endif

@@ -1,6 +1,5 @@
 #include "Systems/LogicSystem.h"
-#include "Components/AI.h"
-#include "Manager/AIManager.h"
+#include "Script/GeneralScripts.h"
 #include "Systems/Debug.h"
 #include "Engine/Core.h"
 
@@ -10,18 +9,16 @@ void LogicSystem::Init()
 	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
 
 	ai_arr_ = comp_mgr->GetComponentArray<AI>();
-	//std::cout << "LogicSystem::Init" << std::endl;
 }
 
 void LogicSystem::Update(float frametime)
 {
 	(void)frametime;
 	//std::cout << "LogicSystem::Update" << std::endl;
+	for (AIIt ai = ai_arr_->begin(); ai != ai_arr_->end(); ++ai) {
 
-	for (AIIt ai1 = ai_arr_->begin(); ai1 != ai_arr_->end(); ++ai1) {
-		
 		// AI type handler
-		CORE->GetManager<AIManager>()->AIHandler(ai1);
+		GeneralScripts::AIHandler(ai);
 
 		// any code relevant for all AI
 

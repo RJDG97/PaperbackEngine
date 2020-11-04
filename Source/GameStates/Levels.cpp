@@ -116,9 +116,24 @@ void Levels::DeSerialize(const std::string filepath) { //needs to directly load 
 			credits_.name_ = level_type;
 			credits_.path_ = path_name;
 		}
+		else if (level_type == "Win") {
+
+			win_.name_ = level_type;
+			win_.path_ = path_name;
+		}
+		else if (level_type == "Lose") {
+
+			lose_.name_ = level_type;
+			lose_.path_ = path_name;
+		}
 		else if (level_type == "Play") {
 
 			plays_.push_back({level_type, path_name});
+		}
+		else if (level_type == "Editor") {
+
+			editor_.name_ = level_type;
+			editor_.path_ = path_name;
 		}
 	}
 }
@@ -169,6 +184,24 @@ void Levels::Serialize(const std::string filename) {
 			writer.String(credits_.path_.c_str());
 		}
 
+		if (win_.name_ != "") {
+
+			writer.Key(win_.name_.c_str());
+			writer.String(win_.path_.c_str());
+		}
+
+		if (lose_.name_ != "") {
+
+			writer.Key(lose_.name_.c_str());
+			writer.String(lose_.path_.c_str());
+		}
+
+		if (editor_.name_ != "") {
+
+			writer.Key(editor_.name_.c_str());
+			writer.String(editor_.path_.c_str());
+		}
+
 		for (PlaysIt it = plays_.begin(); it != plays_.end(); ++it) {
 			
 			writer.Key(it->name_.c_str());
@@ -192,6 +225,8 @@ void Levels::SerializeLevels() {
 	menu_.Serialize();
 	splash_.Serialize();
 	credits_.Serialize();
+	win_.Serialize();
+	lose_.Serialize();
 	
 	for (PlaysIt it = plays_.begin(); it != plays_.end(); ++it) {
 		it->Serialize();

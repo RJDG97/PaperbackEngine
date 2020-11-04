@@ -1,4 +1,5 @@
 #include "Components/Name.h"
+#include "Manager/ComponentManager.h"
 #include "MathLib/Vector2D.h"
 #include "Engine/Core.h"
 #include <iostream> 
@@ -8,11 +9,13 @@ Name::Name() :
 {}
 
 Name::~Name() {
-	// Blank for now
+	
+	CORE->GetManager<ComponentManager>()->RemoveComponent<Name>(Component::GetOwner()->GetID());
 }
 
 void Name::Init() {
-	// Blank for now
+	
+	CORE->GetManager<ComponentManager>()->AddComponent<Name>(Component::GetOwner()->GetID(), this);
 }
 
 void Name::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {

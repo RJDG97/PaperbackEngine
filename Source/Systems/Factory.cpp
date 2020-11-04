@@ -55,6 +55,15 @@ std::string EntityFactory::GetLevelPath(const std::string& name) {
 	else if (name == "Credits") {
 		return levels_.credits_.path_;
 	}
+	else if (name == "Win") {
+		return levels_.win_.path_;
+	}
+	else if (name == "Lose") {
+		return levels_.lose_.path_;
+	}
+	else if (name == "Editor") {
+		return levels_.editor_.path_;
+	}
 
 	return {};
 }
@@ -65,7 +74,6 @@ Level* EntityFactory::GetLevel(const std::string& name) {
 		return &levels_.menu_;
 	}
 	else if (name == "Play") {
-
 		return levels_.GetPlayLevel(levels_.current_play_index_);
 	}
 	else if (name == "Splash") {
@@ -74,7 +82,9 @@ Level* EntityFactory::GetLevel(const std::string& name) {
 	else if (name == "Credits") {
 		return &levels_.credits_;
 	}
-
+	else if (name == "Editor") {
+		return &levels_.editor_;
+	}
 	return nullptr;
 }
 
@@ -130,6 +140,7 @@ void EntityFactory::Update(float frametime) {
 
 void EntityFactory::DestroyAllEntities() {
 
+	entity_mgr_->DeletePlayerEntities();
 	entity_mgr_->DeleteAllEntities();
 }
 
@@ -297,7 +308,9 @@ void EntityFactory::DeSerializeLevelEntities(const std::string& name) {
 		M_DEBUG->WriteDebugMessage("Cloning archetype: " + archetype_name + "\n");
 
 		CloneLevelEntities(file_name, archetype_name);
-	}	
+	}
+
+	entity_mgr_->SortPlayerEntities();
 }
 
 void EntityFactory::SerializeArchetypes(const std::string& filename) {

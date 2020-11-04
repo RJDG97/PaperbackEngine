@@ -3,6 +3,8 @@
 #include "Systems/Game.h"
 #include "GameStates/MenuState.h"
 #include "GameStates/PlayState.h"
+#include "GameStates/EditorState.h"
+#include "GameStates/WinLoseState.h"
 
 #include "Systems/InputSystem.h"
 #include "Systems/WindowsSystem.h"
@@ -24,7 +26,7 @@
 
 MenuState m_MenuState;
 
-void MenuState::Init()
+void MenuState::Init(std::string)
 {
 	std::cout << "-----------------------------" << std::endl << std::endl;
 	std::cout << "MenuState init Successful" << std::endl;
@@ -57,6 +59,11 @@ void MenuState::Draw(Game* game)
 	UNREFERENCED_PARAMETER(game);
 }
 
+std::string MenuState::GetStateName() {
+
+	return "Menu";
+}
+
 void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 	if (game && !game->debug_) {
@@ -76,7 +83,22 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			if (m->button_index_ == 5) {
 
-				DEBUG_ASSERT(false, "Forced Crash Triggered");
+				game->ChangeState(&m_EditorState);
+				return;
+			}
+
+			if (m->button_index_ == 7) {
+
+				// Enter "Win" state
+				game->ChangeState(&m_WinLoseState, "Win");
+				return;
+			}
+
+			if (m->button_index_ == 9) {
+
+				// Enter "Lose" state
+				game->ChangeState(&m_WinLoseState, "Lose");
+				return;
 			}
 			break;
 		}
