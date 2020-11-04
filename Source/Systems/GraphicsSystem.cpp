@@ -37,8 +37,8 @@ void GraphicsSystem::Init() {
     // Clear colorbuffer with cyan color ...
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-    windows_system_ = &*CORE->GetSystem<WindowsSystem>();
-    camera_system_ = &*CORE->GetSystem<CameraSystem>();
+    windows_system_ = CORE->GetSystem<WindowsSystem>();
+    camera_system_ = CORE->GetSystem<CameraSystem>();
 
     // Set up viewports
     win_size_.x = static_cast<float>(windows_system_->GetWinWidth());
@@ -62,23 +62,27 @@ void GraphicsSystem::Init() {
 
     glGenRenderbuffers(1, &render_buffer_);
     glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y));
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT,
+                          static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y));
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
 
-    DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE), "Final framebuffer is not complete!");
+    DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE),
+                 "Final framebuffer is not complete!");
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     //Set up all models and shaders
-    model_manager_ = &*CORE->GetManager<ModelManager>();
-    shader_manager_ = &*CORE->GetManager<ShaderManager>();
-    font_manager_ = &*CORE->GetManager<FontManager>();
-    texture_manager_ = &*CORE->GetManager<TextureManager>();
-    animation_manager_ = &*CORE->GetManager<AnimationManager>();
+    model_manager_ = CORE->GetManager<ModelManager>();
+    shader_manager_ = CORE->GetManager<ShaderManager>();
+    font_manager_ = CORE->GetManager<FontManager>();
+    texture_manager_ = CORE->GetManager<TextureManager>();
+    animation_manager_ = CORE->GetManager<AnimationManager>();
+    component_manager_ = CORE->GetManager<ComponentManager>();
 
-    graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel", false);
-    graphic_models_["TileModel"] = model_manager_->AddTristripsModel(1, 1, "TileModel", true);
-    graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel", false);
+    batch_size_ = 500;
+    graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel");
+    graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel");
+    graphic_models_["BatchModel"] = model_manager_->AddTristripsBatchModel(batch_size_, "BatchModel");
 
     graphic_shaders_["ObjectShader"] =
         shader_manager_->AddShdrpgm("Shaders/world_object.vert","Shaders/world_object.frag", "ObjectShader");
@@ -93,6 +97,7 @@ void GraphicsSystem::Init() {
 
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
+    //For UI
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
@@ -115,7 +120,8 @@ void GraphicsSystem::Update(float frametime) {
 
         if (debug_) {
             // Log id of entity and it's updated components that are being updated
-            M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Scale, Rotation, Translation matrix & Texture animation updated)\n");
+            M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) +
+                " (Scale, Rotation, Translation matrix & Texture animation updated)\n");
         }
         
         //UpdateObjectMatrix(it->second, world_to_ndc_xform_);
@@ -138,7 +144,7 @@ void GraphicsSystem::Draw() {
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
 
     glm::vec2 cam_pos_ = camera_system_->cam_pos_;
-    glm::mat3 world_to_ndc_xform_ = camera_system_->world_to_ndc_xform_;
+    glm::mat3 world_to_ndc_xform = camera_system_->world_to_ndc_xform_;
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_);
@@ -146,24 +152,39 @@ void GraphicsSystem::Draw() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     graphic_shaders_["ObjectShader"]->Use();
-    glBindVertexArray(graphic_models_["TileModel"]->vaoid_);
+    glBindVertexArray(graphic_models_["BatchModel"]->vaoid_);
+    GLuint vbo_hdl = graphic_models_["BatchModel"]->vboid_;
 
     //draws all the world textures/animations
-    for (WorldRenderOrderIt it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ++it) {
+    for (WorldRenderOrderIt it = worldobj_renderers_in_order_.begin();
+         it != worldobj_renderers_in_order_.end() ; ) {
 
         if (debug_) {
 			// Log id of entity and its updated components that are being updated
-			M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+			M_DEBUG->WriteDebugMessage("Drawing entity: " +
+                std::to_string(it->first) + "\n");
 		}
 
-        DrawWorldObject(graphic_shaders_["ObjectShader"], graphic_models_["TileModel"], it->second, world_to_ndc_xform_);
+        BatchWorldObject(it->second);
+        
+        int current_layer = it->second->layer_;
+        auto next_object = ++it;
+
+        if (tex_vtx_sent.size() == static_cast<size_t>(batch_size_) * 4 ||
+            next_object == worldobj_renderers_in_order_.end() ||
+            next_object->second->layer_ != current_layer)
+        {
+            DrawBatch(vbo_hdl, world_to_ndc_xform);
+        }
+    
     }
 
     graphic_shaders_["TextShader"]->Use();
     glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
 
     //draws all the world text
-    for (TextRenderOrderIt it = worldtext_renderers_in_order_.begin(); it != worldtext_renderers_in_order_.end(); ++it) {
+    for (TextRenderOrderIt it = worldtext_renderers_in_order_.begin();
+         it != worldtext_renderers_in_order_.end(); ++it) {
 
         if (debug_) {
             // Log id of entity and its updated components that are being updated
@@ -177,18 +198,18 @@ void GraphicsSystem::Draw() {
     glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
-
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], &final_texture_);
 
+    //draws all the UI text
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     graphic_shaders_["TextShader"]->Use();
     glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
 
-    for (TextRenderOrderIt it = uitext_renderers_in_order_.begin(); it != uitext_renderers_in_order_.end(); ++it) {
+    for (TextRenderOrderIt it = uitext_renderers_in_order_.begin();
+         it != uitext_renderers_in_order_.end(); ++it) {
 
         if (debug_) {
             // Log id of entity and its updated components that are being updated
@@ -237,7 +258,9 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
     AnimRendererIt player_renderer;
 
-    for (player_renderer = anim_renderer_arr_->begin(); player_renderer != anim_renderer_arr_->end(); ++player_renderer)
+    for (player_renderer = anim_renderer_arr_->begin();
+         player_renderer != anim_renderer_arr_->end();
+         ++player_renderer)
     {
         if (ENTITYNAME(player_renderer->second->GetOwner()) == "Player")
         {
@@ -302,7 +325,8 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
 void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_renderer)
 {
-    M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
+    M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: "
+        + std::to_string(id) + "\n");
 
     //text_renderer_arr_[id] = text_renderer;
     text_renderer_arr_->AddComponent(id, text_renderer);
@@ -333,7 +357,7 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
 
             if (orderit != uitext_renderers_in_order_.end()) {
 
-                for (; orderit != uitext_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+                for ( ; orderit != uitext_renderers_in_order_.end() && (*orderit).first == layer ; ++orderit) {
 
                     if ((*orderit).second->GetOwner()->GetID() == id) {
 
@@ -384,9 +408,10 @@ void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
 
     if (it) {
 
-        M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
+        M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: "
+            + std::to_string(id) + "\n");
+
         layer = GetLayer(it);
-        //texture_renderer_arr_.erase(it);
         texture_renderer_arr_->RemoveComponent(id);
     }
 
@@ -407,24 +432,24 @@ void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
 
 void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer) {
 
-    M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: " + std::to_string(id) + "\n");
+    M_DEBUG->WriteDebugMessage("Adding Animation Renderer Component to entity: "
+        + std::to_string(id) + "\n");
 
-    //anim_renderer_arr_[id] = animation_renderer;
     anim_renderer_arr_->AddComponent(id, animation_renderer);
     worldobj_renderers_in_order_.insert({GetLayer(animation_renderer), animation_renderer});
 }
 
 void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
 
-    //AnimRendererIt it = anim_renderer_arr_.find(id);
     AnimationRenderer* it = anim_renderer_arr_->GetComponent(id);
     int layer;
 
     if (it) {
 
-        M_DEBUG->WriteDebugMessage("Removing Animation Renderer Component from entity: " + std::to_string(id) + "\n");
+        M_DEBUG->WriteDebugMessage("Removing Animation Renderer Component from entity: "
+            + std::to_string(id) + "\n");
+
         layer = GetLayer(it);
-        //anim_renderer_arr_.erase(it);
         anim_renderer_arr_->RemoveComponent(id);
     }
 
@@ -471,55 +496,90 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
-void GraphicsSystem::DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform) {
+void GraphicsSystem::BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer) {
     
-    glBindTexture(GL_TEXTURE_2D, *(i_worldobj_renderer->texture_handle_));
-    glBindTextureUnit(0, *(i_worldobj_renderer->texture_handle_));
-    glUseProgram(shader->GetHandle());
+    Vector2D scale =
+        component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID())->GetScale();
+    Transform* transform =
+        component_manager_->GetComponent<Transform>(i_worldobj_renderer->GetOwner()->GetID());
 
-    Vector2D scale = std::dynamic_pointer_cast<Scale>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::SCALE))->GetScale();
-    
-    std::shared_ptr<Transform> transform =
-        std::dynamic_pointer_cast<Transform>(i_worldobj_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-
-    float orientation = transform->rotation_ * M_PI / 180;
+    float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
     Vector2D pos = transform->position_;
 
-    glm::vec2 scaling { scale.x, scale.y };
-    glm::vec2 rotation { glm::cos(orientation), glm::sin(orientation) };
-    glm::vec2 position { pos.x, pos.y };
+    //glm::vec2 scaling{ scale->GetScale().x, scale->GetScale().y };
+    glm::vec2 scaling{ scale.x, scale.y };
+    glm::vec2 rotation{ glm::cos(orientation), glm::sin(orientation) };
+    glm::vec2 position{ pos.x, pos.y };
 
-    std::vector<glm::vec2> transform_variables;
+    if (texture_handles.find(*i_worldobj_renderer->texture_handle_) == texture_handles.end())
+    {
+        texture_handles[*i_worldobj_renderer->texture_handle_] = static_cast<GLuint>(texture_handles.size());
+    }
+
+    GLuint tex_id = texture_handles[*i_worldobj_renderer->texture_handle_];
 
     for (int i = 0; i < 4; ++i)
     {
-        transform_variables.push_back(scaling);
+        tex_vtx_sent.push_back(i_worldobj_renderer->tex_vtx_sent_[i]);
+        scaling_sent.push_back(scaling);
+        rotation_sent.push_back(rotation);
+        position_sent.push_back(position);
+        texture_id_sent.push_back(static_cast<float>(tex_id));
     }
-    
-    for (int i = 0; i < 4; ++i)
+}
+
+void GraphicsSystem::DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform)
+{
+    for (auto tex_it = texture_handles.begin(); tex_it != texture_handles.end(); ++tex_it)
     {
-        transform_variables.push_back(rotation);
+        glBindTextureUnit(tex_it->second, tex_it->first);
     }
 
-    for (int i = 0; i < 4; ++i)
-    {
-        transform_variables.push_back(position);
-    }
+    size_t offset = sizeof(glm::vec2) * 4 * batch_size_;
 
-    shader->SetUniform("uTex2d", 0);
-    shader->SetUniform("world_to_ndc_xform", world_to_ndc_xform);
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(glm::vec2) * tex_vtx_sent.size(),
+                         tex_vtx_sent.data());
 
-    size_t offset = model->GetVBOTexOffset();
-    glNamedBufferSubData(model->GetVBOHandle(), offset,
-                         sizeof(glm::vec2) * i_worldobj_renderer->tex_vtx_sent_.size(),
-                         i_worldobj_renderer->tex_vtx_sent_.data());
-    
-    offset += sizeof(glm::vec2) * i_worldobj_renderer->tex_vtx_sent_.size();
-    glNamedBufferSubData(model->GetVBOHandle(), offset,
-                         sizeof(glm::vec2) * transform_variables.size(),
-                         transform_variables.data());
+    offset += sizeof(glm::vec2) * 4 * batch_size_;
 
-    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(glm::vec2) * scaling_sent.size(),
+                         scaling_sent.data());
+
+    offset += sizeof(glm::vec2) * 4 * batch_size_;
+
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(glm::vec2) * rotation_sent.size(),
+                         rotation_sent.data());
+
+    offset += sizeof(glm::vec2) * 4 * batch_size_;
+
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(glm::vec2) * position_sent.size(),
+                         position_sent.data());
+
+    offset += sizeof(glm::vec2) * 4 * batch_size_;
+
+    glNamedBufferSubData(vbo_hdl, offset,
+                         sizeof(float) * texture_id_sent.size(),
+                         texture_id_sent.data());
+
+    int texture_samplers[20]{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+
+    auto loc = glGetUniformLocation(graphic_shaders_["ObjectShader"]->GetHandle(), "uTex2d");
+    glUniform1iv(loc, 20, texture_samplers);
+
+    graphic_shaders_["ObjectShader"]->SetUniform("world_to_ndc_xform", world_to_ndc_xform);
+
+    glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(6 * tex_vtx_sent.size() / 4 - 2), GL_UNSIGNED_SHORT, NULL);
+
+    tex_vtx_sent.clear();
+    scaling_sent.clear();
+    rotation_sent.clear();
+    position_sent.clear();
+    texture_id_sent.clear();
+    texture_handles.clear();
 }
 
 void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* text_renderer, glm::vec2 cam_pos) {
@@ -569,13 +629,13 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
         vertices.push_back({ xpos + w, ypos });
 
         // render glyph texture over quad
-        glBindTexture(GL_TEXTURE_2D, ch.GetTexID());
+        glBindTextureUnit(0, ch.GetTexID());
 
         glNamedBufferSubData(model->GetVBOHandle(), 0,
-            sizeof(vertices), vertices.data());
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+                             sizeof(glm::vec2) * vertices.size(), vertices.data());
         // render quad
         glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+        
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         pos.x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }

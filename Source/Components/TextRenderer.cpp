@@ -41,13 +41,22 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
     std::cout << "Serializing AnimationRenderer" << std::endl;
 
     std::string font;
+    int sentence_length;
 
     data >> font
-         >> text_
-         >> color_.x >> color_.y >> color_.z
-         >> scale_
-         >> layer_
-         >> ui_text_;
+        >> sentence_length;
+
+    for (int i = 0; i < sentence_length; ++i)
+    {
+        std::string temp;
+        data >> temp;
+        text_ += temp + " ";
+    }
+
+     data >> color_.x >> color_.y >> color_.z
+          >> scale_
+          >> layer_
+          >> ui_text_;
 
     font_ = CORE->GetManager<FontManager>()->GetFont(font);
 }

@@ -28,13 +28,14 @@ class GraphicsSystem : public ISystem {
     std::map<std::string, Shader*> graphic_shaders_;
     std::map<std::string, Model*> graphic_models_;
 
-    WindowsSystem* windows_system_;
-    CameraSystem* camera_system_;
-    TextureManager* texture_manager_;
-    AnimationManager* animation_manager_;
-    ModelManager* model_manager_;
-    ShaderManager* shader_manager_;
-    FontManager* font_manager_;
+    std::shared_ptr<WindowsSystem> windows_system_;
+    std::shared_ptr<CameraSystem> camera_system_;
+    std::shared_ptr<TextureManager> texture_manager_;
+    std::shared_ptr<AnimationManager> animation_manager_;
+    std::shared_ptr<ModelManager> model_manager_;
+    std::shared_ptr<ShaderManager> shader_manager_;
+    std::shared_ptr<FontManager> font_manager_;
+    std::shared_ptr<ComponentManager> component_manager_;
 
     //render all game objects to texture
     GLuint frame_buffer_;
@@ -42,7 +43,17 @@ class GraphicsSystem : public ISystem {
     GLuint final_texture_;
     GLuint* lighting_texture_;
 
+    //for UI
     glm::mat4 projection;
+
+    //for batching
+    int batch_size_;
+    std::vector<glm::vec2> tex_vtx_sent;
+    std::vector<glm::vec2> scaling_sent;
+    std::vector<glm::vec2> rotation_sent;
+    std::vector<glm::vec2> position_sent;
+    std::vector<float> texture_id_sent;
+    std::map<GLuint, GLuint> texture_handles;
 
 public:
 
@@ -177,12 +188,22 @@ void RemoveTextRendererComponent(EntityID id);
     
 /******************************************************************************/
 /*!
-    \fn DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform)
+    \fn BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer)
 
-    \brief Draw objects that have a component that inherits from IObjectRenderer
+    \brief Inserts data of objects, that have a component that inherits from
+           IObjectRenderer, into batch
 */
 /******************************************************************************/
-    void DrawWorldObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer, glm::mat3 world_to_ndc_xform);
+    void BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer);
+
+/******************************************************************************/
+/*!
+    \fn DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform)
+
+    \brief Draw all objects in the batch
+*/
+/******************************************************************************/
+    void DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform);
 
 /******************************************************************************/
 /*!

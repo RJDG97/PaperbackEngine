@@ -37,7 +37,8 @@
     {
       "component": "TextRenderer",
 	  "font": "comic_sans",
-	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
+	  "sentence length": "4",
+	  "text": "This is UI text.",
 	  "color": "1.0 0.5 1.0",
 	  "scale": "1.0",
       "layer": "10",
@@ -57,7 +58,8 @@
     {
       "component": "TextRenderer",
 	  "font": "comic_sans",
-	  "text": "HereIAmWithMyNinjaClan,NinjaClanHereWeStand",
+	  "sentence length": "4",
+	  "text": "This is World text.",
 	  "color": "1.0 0.5 1.0",
 	  "scale": "1.0",
       "layer": "10",
@@ -222,12 +224,6 @@
       "component": "AABB",
       "scale": "30.0 30.0",
       "layer": "1"
-    },
-    {
-      "component": "PointLight",
-      "color": "0.5 1.0 1.0",
-      "radius": "50.0",
-      "intensity": "1.0"
     }
   ],
   "Button": [
@@ -301,7 +297,7 @@
     {
       "component": "TextureRenderer",
       "texture": "Stone",
-      "layer": "0"
+      "layer": "1"
     },
     {
       "component": "PointLight",

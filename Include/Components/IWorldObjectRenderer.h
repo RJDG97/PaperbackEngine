@@ -11,9 +11,6 @@ class IWorldObjectRenderer : public Component {
 
 protected:
 
-	glm::mat3 mdl_to_ndc_xform_;				//model-to-NDC transform
-	glm::mat3 mdl_xform_;						//model (model-to-world)
-
 	bool x_mirror_ = false;
 	bool y_mirror_ = false;
 

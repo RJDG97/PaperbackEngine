@@ -39,14 +39,24 @@ public:
 
 /******************************************************************************/
 /*!
-    \fn AddTristripsModel(int slices, int stacks, std::string model_name, bool has_transform)
+    \fn AddTristripsBatchModel(int batch_size, std::string model_name)
+
+    \brief Adds a triangle strips model (with batch_size being the number of
+           objects rendered) and adds the model to the Model Manager's map
+*/
+/******************************************************************************/
+    Model* AddTristripsBatchModel(int batch_size, std::string model_name);
+
+/******************************************************************************/
+/*!
+    \fn AddTristripsModel(int slices, int stacks, std::string model_name)
 
     \brief Adds a triangle strips model (with slices being the number of rows
            and stacks being the number of columns) and adds the model to the
            Model Manager's map
 */
 /******************************************************************************/
-    Model* AddTristripsModel(int slices, int stacks, std::string model_name, bool has_transform);
+    Model* AddTristripsModel(int slices, int stacks, std::string model_name);
 
 /******************************************************************************/
 /*!
