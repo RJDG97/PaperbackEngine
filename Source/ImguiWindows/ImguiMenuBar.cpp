@@ -8,10 +8,8 @@
 #include <GLFW/glfw3native.h>
 #include <iostream>
 
-
-// Filter="Document files (*.doc,*.docx,*.pdf)|*.doc;*.docx,*.pdf|Image files (*.bmp,*.jpg)|*.bmp;*.jpg";
-void ImguiMenuBar::Init()
-{
+void ImguiMenuBar::Init() {
+	
    file_filter_ = 
    "(*.json) Scenes/Archetypes\0*.json\0"
    "(*.jpg) JPG\0* .jpg\0"
@@ -21,11 +19,11 @@ void ImguiMenuBar::Init()
    win_ = &*CORE->GetSystem<WindowsSystem>();
    imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
    input_ = &*CORE->GetSystem<InputSystem>();
+   factory_ = &* CORE->GetSystem <EntityFactory>();
 }
 
-void ImguiMenuBar::Update()
-{
-    ImGuiIO& io = ImGui::GetIO();
+void ImguiMenuBar::Update() {
+   
     if(ImGui::BeginMenuBar()){
         if (ImGui::BeginMenu("File")){
             if (ImGui::MenuItem("Open", "Ctrl+O"))
@@ -34,6 +32,13 @@ void ImguiMenuBar::Update()
                 SaveFile();
             ImGui::EndMenu();
         }
+    	if (ImGui::BeginMenu("Archetypes")) {
+    		
+    	    if (ImGui::MenuItem("Save Archetypes"))
+                SaveArchetype();
+
+            ImGui::EndMenu();
+    	}
     }
     ImGui::EndMenuBar();
     ImguiInput();
@@ -86,15 +91,20 @@ void ImguiMenuBar::ImguiInput(){
 
         else if (ImGui::IsKeyReleased(GetKey(ImGuiKey_S))){
 
-            if (shift){
-
-                SaveFile();
-            }
+            SaveFile();
         }
     }
 }
 
-int ImguiMenuBar::GetKey(ImGuiKey imguikey)
-{
+int ImguiMenuBar::GetKey(ImGuiKey imguikey){
+	
     return ImGui::GetKeyIndex(imguikey);
+}
+
+void ImguiMenuBar::SaveArchetype(){
+
+    std::string path = OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
+
+    if (!path.empty())
+        factory_->SerializeArchetypes(path);
 }

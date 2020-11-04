@@ -10,6 +10,7 @@
 #include "Components/Scale.h"
 #include "Components/Motion.h"
 #include "Components/PointLight.h"
+#include "Components/AI.h"
 
 #include "Manager/EntityManager.h"
 #include "Systems/Game.h"
@@ -37,13 +38,48 @@ public:
 	float& componentVar, float startVal = 0.1f, float endVal = 1.0f,
 	float inputWidth = 110.0f)
 
-	\brief Prints out ImGui input space for transformation components
+	\brief Prints out ImGui input space for components
 */
 /******************************************************************************/
-	void ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float startVal = 0.1f, float endVal = 1.0f, float inputWidth = 110.0f);
+	void ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth = 100.0f, float startVal = 0.1f, float endVal = 1.0f);
+
+/******************************************************************************/
+/*!
+	\fn ComponentInput(ImVec4 color, const char* label,
+	float componentVal = 0.0f, const char* format = "%.2f")
+
+	\brief Prints out text for the float components
+*/
+/******************************************************************************/
 	void ComponentDisplayFloat(ImVec4 color, const char* label, float componentVal = 0.0f, const char* format = "%.2f");
+
+/******************************************************************************/
+/*!
+	\fn ComponentInput(ImVec4 color, const char* label,
+	float componentVal = 0.0f, const char* format = "%.2f")
+
+	\brief Prints out text for the Vec2D components
+*/
+/******************************************************************************/
 	void ComponentDisplayVec(ImVec4 color, const char* label, Vector2D componentVec = { 0.0f, 0.0f }, const char* format = "%.2f");
+
+/******************************************************************************/
+/*!
+	\fn GetEntityComponents(Entity* entity)
+
+	\brief Retrieves the components that the entity owns
+*/
+/******************************************************************************/
 	std::pair<Entity*, std::vector<ComponentTypes>> GetEntityComponents(Entity* entity);
+
+/******************************************************************************/
+/*!
+	\fn ShowEntityList()
+
+	\brief Shows the list of entities in the scene
+*/
+/******************************************************************************/
+	void ShowEntityList();
 
 private:
 	ImguiSystem* imgui_system_;

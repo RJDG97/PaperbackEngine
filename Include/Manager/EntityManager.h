@@ -48,9 +48,11 @@ public:
 	void DeleteEntity(Entity* entity);
 	void DeletePlayerEntities();
 	void DeleteAllEntities();
+	void DeleteArchetype(Entity* entity);
 	void DeleteAllArchetype();
 
 	void UpdateEntityMap();
+	void UpdateArchetypeMap();
 
 private:
 	size_t last_entity_id_;
@@ -58,6 +60,7 @@ private:
 	EntityIdMapType entity_id_map_;
 	EntityIDSetDelete entities_to_delete_;
 	EntityArchetypeMapType entity_archetype_map_;
+	EntityIDSetDelete archetypes_to_delete_;
 };
 
 #endif

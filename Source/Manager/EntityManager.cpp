@@ -102,8 +102,9 @@ void EntityManager::DeleteEntity(EntityID id) {
 }
 
 void EntityManager::DeleteEntity(Entity* entity) {
-
-	entities_to_delete_.insert(entity);
+	if (entity) {
+		entities_to_delete_.insert(entity);
+	}
 }
 
 void EntityManager::DeletePlayerEntities() {
@@ -127,6 +128,20 @@ void EntityManager::DeleteAllEntities() {
 	entity_id_map_.clear();
 }
 
+void EntityManager::DeleteArchetype(Entity* entity) {
+	
+	//EntityArchetypeMapTypeIt checkit = entity_archetype_map_.find(archetype_name);
+
+	//if (checkit != entity_archetype_map_.end())
+	//	delete checkit->second;
+
+	//entity_archetype_map_.erase(checkit);
+
+	//archetypes_to_delete_.insert(entity);
+	archetypes_to_delete_.insert(entity);
+}
+
+
 void EntityManager::DeleteAllArchetype() {
 
 	for (EntityArchetypeMapTypeIt it2 = entity_archetype_map_.begin(); it2 != entity_archetype_map_.end(); ++it2) {
@@ -140,6 +155,25 @@ void EntityManager::DeleteAllArchetype() {
 
 	entity_archetype_map_.clear();
 }
+
+
+void EntityManager::UpdateArchetypeMap() {
+  for (EntityIDSetDeleteIt begin = archetypes_to_delete_.begin(); begin != archetypes_to_delete_.end(); ++begin) {
+
+	  Entity* entity = *begin;
+	  std::shared_ptr<Name> name = std::dynamic_pointer_cast<Name>(entity->GetComponent(ComponentTypes::NAME));
+	  EntityArchetypeMapTypeIt check_it = entity_archetype_map_.find(name->GetName());
+
+	  if (check_it != entity_archetype_map_.end()) {
+		  M_DEBUG->WriteDebugMessage("Deleting Archetype Name: " + name->GetName() + "\n");
+		  delete entity;
+		  entity_archetype_map_.erase(check_it);
+	  }
+  }
+
+  archetypes_to_delete_.clear();
+}
+
 
 void EntityManager::UpdateEntityMap() {
 

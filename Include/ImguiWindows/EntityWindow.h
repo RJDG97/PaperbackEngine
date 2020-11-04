@@ -30,17 +30,17 @@ public:
 	/******************************************************************************/
 	void Update() override;
 
+	void AddComponents(std::string component);
+	void CloneArchetypes();
+	bool DeletePopUp();
+
 private:
 	EntityManager* entities_;
 	ImguiSystem* imgui_;
 	bool b_addentity;
 	ComponentManager* comp_mgr_;
-
-	//std::vector<const char*> comp_types_{ "Name", "Motion", "Transform", "Health", "Camera",
-	//"Controller", "Texture Renderer", "Animation Renderer", "Text Renderer", "AABB", "AI",
-	//"Scale", "Status", "Point Light", "Cone Light", "Basic AI", "Clickable", "Input Controller" };
-	//const char* component_types_[] = {  };
-
+	bool b_delete;
+	std::string selectionName{};
 };
 
 #endif 

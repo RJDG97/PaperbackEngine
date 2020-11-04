@@ -8,6 +8,7 @@
 #include "Systems/WindowsSystem.h"
 #include "Systems/ImguiSystem.h"
 #include "Systems/InputSystem.h"
+#include "Systems/Factory.h"
 
 
 class ImguiMenuBar : public IWindow{
@@ -46,11 +47,14 @@ class ImguiMenuBar : public IWindow{
 	void ImguiInput();
 	int GetKey(ImGuiKey imguikey);
 
+	void SaveArchetype();
+
     private:
     WindowsSystem* win_;
 	ImguiSystem* imgui_system_;
 	InputSystem* input_;
 	const char* file_filter_;
+	EntityFactory* factory_;
 };
 
 #endif
