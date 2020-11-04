@@ -179,7 +179,6 @@
     <ClCompile Include="Source\GameStates\WinLoseState.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityCompWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
-    <ClCompile Include="Source\Manager\AIManager.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
@@ -189,6 +188,10 @@
     <ClCompile Include="Source\Manager\TextureManager.cpp" />
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp" />
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
+    <ClCompile Include="Source\Script\GeneralScripts.cpp" />
+    <ClCompile Include="Source\Script\HornetScript.cpp" />
+    <ClCompile Include="Source\Script\MiteScript.cpp" />
+    <ClCompile Include="Source\Script\StagScript.cpp" />
     <ClCompile Include="Source\Source.cpp" />
     <ClCompile Include="Source\Systems\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Collision.cpp" />
@@ -249,7 +252,6 @@
     <ClInclude Include="Include\Imgui\imstb_rectpack.h" />
     <ClInclude Include="Include\Imgui\imstb_textedit.h" />
     <ClInclude Include="Include\Imgui\imstb_truetype.h" />
-    <ClInclude Include="Include\Manager\AIManager.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\ComponentManager.h" />
     <ClInclude Include="Include\Manager\EntityManager.h" />

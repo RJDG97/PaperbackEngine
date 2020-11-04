@@ -7,10 +7,13 @@
 #include <sstream>
 #include <vector>
 
+using DestinationIt = std::vector<Vector2D>::iterator;
+
 class AI : public Component {
 
 public:
-	enum class AIType
+
+	enum AIType
 	{
 		StagBeetle,
 		Mite,
@@ -26,10 +29,7 @@ public:
 		Return
 	};
 
-	friend class AIManager;
 	friend class LogicSystem;
-	friend class StagBeetle;
-	friend class GeneralScripts;
 
 	/******************************************************************************/
 	/*!
@@ -97,11 +97,135 @@ public:
 	/******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+	/******************************************************************************/
+	/*!
+	  \fn GetState()
+
+	  \brief Get component state
+	*/
+	/******************************************************************************/
 	AIState GetState();
-		
+	
+	/******************************************************************************/
+	/*!
+	  \fn SetState(AIState state)
+
+	  \brief Set component state
+	*/
+	/******************************************************************************/
 	void SetState(AIState state);
 
-protected:
+	/******************************************************************************/
+	/*!
+	  \fn GetRange()
+
+	  \brief Get component range
+	*/
+	/******************************************************************************/
+	int GetRange();
+
+	/******************************************************************************/
+	/*!
+	  \fn SetRange(int range)
+
+	  \brief Set component range
+	*/
+	/******************************************************************************/
+	void SetRange(int range);
+
+	/******************************************************************************/
+	/*!
+	  \fn GetAtk()
+
+	  \brief Get component attack
+	*/
+	/******************************************************************************/
+	int GetAtk();
+
+	/******************************************************************************/
+	/*!
+	  \fn SetAtk(int atk)
+
+	  \brief Set component attack
+	*/
+	/******************************************************************************/
+	void SetAtk(int atk);
+
+	/******************************************************************************/
+	/*!
+	  \fn GetSpeed()
+
+	  \brief Get component speed
+	*/
+	/******************************************************************************/
+	float GetSpeed();
+
+	/******************************************************************************/
+	/*!
+	  \fn SetSpeed(float speed)
+
+	  \brief Set component speed
+	*/
+	/******************************************************************************/
+	void SetSpeed(float speed);
+
+	/******************************************************************************/
+	/*!
+	  \fn GetNumDes()
+
+	  \brief Get component number of destinations
+	*/
+	/******************************************************************************/
+	size_t GetNumDes();
+
+	/******************************************************************************/
+	/*!
+	  \fn SetNumDes(size_t numdes)
+
+	  \brief Set component number of destinations
+	*/
+	/******************************************************************************/
+	void SetNumDes(size_t numdes);
+
+	/******************************************************************************/
+	/*!
+	  \fn GetDestinations()
+
+	  \brief Get component destinations
+	*/
+	/******************************************************************************/
+	std::vector<Vector2D>& GetDestinations();
+
+	/******************************************************************************/
+	/*!
+	  \fn SetDestinations(std::vector<Vector2D> des)
+
+	  \brief Set component destinations
+	*/
+	/******************************************************************************/
+	void SetDestinations(std::vector<Vector2D> des);
+
+	/******************************************************************************/
+	/*!
+	  \fn GetCurrentDes()
+
+	  \brief Get component current destinations
+	*/
+	/******************************************************************************/
+	DestinationIt GetCurrentDes();
+
+	/******************************************************************************/
+	/*!
+	  \fn SetCurrentDes(DestinationIt Cdes
+
+	  \brief Set component current destinations
+	*/
+	/******************************************************************************/
+	void SetCurrentDes(DestinationIt Cdes);
+
+	AIType GetType();
+
+private:
 
 	AIType type_;
 	AIState state_;
@@ -109,9 +233,9 @@ protected:
 	int attackpower_;
 	float speed_;
 	size_t num_destinations_;
-	using DestinationIt = std::vector<Vector2D>::iterator;
 	std::vector<Vector2D> destinations_;
 	DestinationIt current_destination_;
+
 };
 
 #endif
