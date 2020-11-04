@@ -67,7 +67,7 @@ public:
 	IComponentCreator* GetComponentCreator(std::string name);
 
 	template <typename T>
-	T& GetComponent(EntityID id);
+	T* GetComponent(EntityID id);
 	template <typename T>
 	typename CMap<T>* GetComponentArray();
 
@@ -172,7 +172,7 @@ IComponentCreator* CManager<Ts...>::GetComponentCreator(std::string name) {
 
 template <typename... Ts>
 template <typename T>
-T& CManager<Ts...>::GetComponent(EntityID id) {
+T* CManager<Ts...>::GetComponent(EntityID id) {
 	return CMap<T>::GetComponent(id);
 }
 

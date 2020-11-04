@@ -5,8 +5,10 @@ layout (location=1) in vec2 vVertexTexCoord;
 layout (location=2) in vec2 scaling;
 layout (location=3) in vec2 rotation;
 layout (location=4) in vec2 position;
+layout (location=5) in float texture_id;
 
 layout (location=0) out vec2 vTexCoord;
+layout (location=1) flat out int tex_id;
 
 uniform mat3 world_to_ndc_xform;
 
@@ -28,4 +30,5 @@ void main() {
 
     gl_Position = vec4(vec2(uModel_to_NDC * vec3(vVertexPosition, 1.f)), 0.0, 1.0);
     vTexCoord = vVertexTexCoord;
+    tex_id = int(texture_id);
 }

@@ -28,13 +28,14 @@ class GraphicsSystem : public ISystem {
     std::map<std::string, Shader*> graphic_shaders_;
     std::map<std::string, Model*> graphic_models_;
 
-    WindowsSystem* windows_system_;
-    CameraSystem* camera_system_;
-    TextureManager* texture_manager_;
-    AnimationManager* animation_manager_;
-    ModelManager* model_manager_;
-    ShaderManager* shader_manager_;
-    FontManager* font_manager_;
+    std::shared_ptr<WindowsSystem> windows_system_;
+    std::shared_ptr<CameraSystem> camera_system_;
+    std::shared_ptr<TextureManager> texture_manager_;
+    std::shared_ptr<AnimationManager> animation_manager_;
+    std::shared_ptr<ModelManager> model_manager_;
+    std::shared_ptr<ShaderManager> shader_manager_;
+    std::shared_ptr<FontManager> font_manager_;
+    std::shared_ptr<ComponentManager> component_manager_;
 
     //render all game objects to texture
     GLuint frame_buffer_;
@@ -43,6 +44,10 @@ class GraphicsSystem : public ISystem {
     GLuint* lighting_texture_;
 
     glm::mat4 projection;
+
+    GLuint vao_batch_;
+    GLuint vbo_batch_;
+    GLuint ebo_batch_;
 
 public:
 

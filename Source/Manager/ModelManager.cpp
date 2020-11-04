@@ -59,7 +59,7 @@ Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model
     if (has_transform)
     {
         glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
-                             sizeof(glm::vec2) * tex_vtx.size() + sizeof(glm::vec2) * count * 3, //3 -> pos, scal, rot
+                             sizeof(glm::vec2) * tex_vtx.size() + sizeof(glm::vec2) * count * 3 + sizeof(float) * count, //3 -> pos, scal, rot
                              nullptr, GL_DYNAMIC_STORAGE_BIT);
     }
 
@@ -117,6 +117,14 @@ Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model
         glVertexArrayVertexBuffer(vao_hdl, 4, vbo_hdl, offset, sizeof(glm::vec2));
         glVertexArrayAttribFormat(vao_hdl, 4, 2, GL_FLOAT, GL_FALSE, 0);
         glVertexArrayAttribBinding(vao_hdl, 4, 4);
+
+        offset += sizeof(glm::vec2) * count;
+
+        //texture id
+        glEnableVertexArrayAttrib(vao_hdl, 5);
+        glVertexArrayVertexBuffer(vao_hdl, 5, vbo_hdl, offset, sizeof(float));
+        glVertexArrayAttribFormat(vao_hdl, 5, 1, GL_FLOAT, GL_FALSE, 0);
+        glVertexArrayAttribBinding(vao_hdl, 5, 5);
     }
 
     GLuint ebo_hdl;

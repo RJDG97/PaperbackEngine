@@ -132,7 +132,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "40.0 40.0"
     },
     {
       "component": "TextureRenderer",
@@ -170,7 +170,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "40.0 40.0"
     },
     {
       "component": "TextureRenderer",
@@ -222,12 +222,6 @@
       "component": "AABB",
       "scale": "30.0 30.0",
       "layer": "1"
-    },
-    {
-      "component": "PointLight",
-      "color": "0.5 1.0 1.0",
-      "radius": "50.0",
-      "intensity": "1.0"
     }
   ],
   "Button": [
@@ -295,7 +289,7 @@
     {
       "component": "TextureRenderer",
       "texture": "Stone",
-      "layer": "0"
+      "layer": "1"
     },
     {
       "component": "PointLight",
