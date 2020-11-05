@@ -163,34 +163,39 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 	return 1;
 }
 
-bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button) {
+bool VerifyCursorCollision(const Vector2D& bottom_left, const Vector2D& top_right, const Vector2D& cursor_pos) {
 
-	Vec2 cursor_pos_scaled = (1 / *cam_zoom_) * cursor_pos;
-
-	//assume that is button
 	//compute if position is within bounding box
-	if (button->bottom_left_.x <= cursor_pos_scaled.x &&
-		button->bottom_left_.y <= cursor_pos_scaled.y &&
-		button->top_right_.x >= cursor_pos_scaled.x &&
-		button->top_right_.y >= cursor_pos_scaled.y) {
+	if (bottom_left.x <= cursor_pos.x &&
+		bottom_left.y <= cursor_pos.y &&
+		top_right.x >= cursor_pos.x &&
+		top_right.y >= cursor_pos.y) {
 		return true;
 	}
 	return false;
 }
 
-bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const AABB* box) {
+bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button) {
 
 	Vec2 cursor_pos_scaled = (1 / *cam_zoom_) * cursor_pos;
 
+	//convert button AABB to global
+	Vec2 bottom_left = CORE->GetGlobalScale() * button->bottom_left_;
+	Vec2 top_right = CORE->GetGlobalScale() * button->top_right_;
+
 	//assume that is button
-	//compute if position is within bounding box
-	if (box->bottom_left_.x <= cursor_pos_scaled.x &&
-		box->bottom_left_.y <= cursor_pos_scaled.y &&
-		box->top_right_.x >= cursor_pos_scaled.x &&
-		box->top_right_.y >= cursor_pos_scaled.y) {
-		return true;
-	}
-	return false;
+	return VerifyCursorCollision(bottom_left, top_right, cursor_pos_scaled);
+}
+
+bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const AABB* box) {
+
+	Vec2 cursor_pos_scaled = (1 / *cam_zoom_) * cursor_pos;
+	
+	//convert button AABB to global
+	Vec2 bottom_left = CORE->GetGlobalScale() * box->bottom_left_;
+	Vec2 top_right = CORE->GetGlobalScale() * box->top_right_;
+
+	return VerifyCursorCollision(bottom_left, top_right, cursor_pos_scaled);
 }
 
 std::pair<Entity*, std::vector<ComponentTypes>> Collision::GetAttachedComponentIDs() {
@@ -566,6 +571,8 @@ void Collision::Draw() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		const float scale = CORE->GetGlobalScale();
+
 		for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
 			for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
 
@@ -574,13 +581,13 @@ void Collision::Draw() {
 
 				Vector2D aabb_middle = bottom_left + (top_right - bottom_left) / 2;
 
-				glm::mat3 scaling = glm::mat3{ (top_right.x - bottom_left.x) / 2, 0.0f, 0.0f,
-											   0.0f, (top_right.y - bottom_left.y) / 2, 0.0f,
+				glm::mat3 scaling = glm::mat3{ aabb->second->scale_.x * scale, 0.0f, 0.0f,
+											   0.0f, aabb->second->scale_.y * scale, 0.0f,
 											   0.0f, 0.0f, 1.0f };
 
 				glm::mat3 translation{ 1.0f, 0.0f, 0.0f,
 									   0.0f, 1.0f, 0.0f,
-									   aabb_middle.x, aabb_middle.y, 1.0f };
+									   aabb_middle.x * scale, aabb_middle.y * scale, 1.0f };
 
 				glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_)*translation * scaling;
 

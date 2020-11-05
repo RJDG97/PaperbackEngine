@@ -173,7 +173,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				continue;
 
 			InputController* InputController = it->second;
-			float power = 3000.0f;
+			float power = 40.0f;
 
 			if (!entity_mgr_->GetPlayerEntities().empty()) {
 

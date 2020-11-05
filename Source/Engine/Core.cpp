@@ -7,9 +7,12 @@
 // Global pointer to core engine
 std::unique_ptr<CoreEngine> CORE;
 
-CoreEngine::CoreEngine() {
-	b_game_active_ = true;
-	debug_ = false;
+CoreEngine::CoreEngine() :
+
+	b_game_active_{ true },
+	debug_{ false },
+	global_scale_{ 60.0f }
+{
 }
 
 ///Initializes all Systems & Managers in the game.
@@ -84,6 +87,11 @@ void CoreEngine::GameLoop() {
 	glfwTerminate();
 
 	//PE_FrameRate.SetFPS(30);	
+}
+
+float CoreEngine::GetGlobalScale() const {
+
+	return global_scale_;
 }
 
 ///Broadcasts a message to all systems_.

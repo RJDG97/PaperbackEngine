@@ -15,7 +15,7 @@
     },
     {
       "component": "AABB",
-      "scale": "820.0 400.0",
+      "scale": "27.33 13.33",
       "layer": "0"
     },
     {
@@ -36,11 +36,11 @@
     },
     {
       "component": "TextRenderer",
-	  "font": "comic_sans",
-	  "sentence length": "4",
-	  "text": "This is UI text.",
-	  "color": "1.0 0.5 1.0",
-	  "scale": "1.0",
+      "font": "comic_sans",
+      "sentence length": "4",
+      "text": "This is UI text.",
+      "color": "1.0 0.5 1.0",
+      "scale": "1.0",
       "layer": "10",
 	  "ui text": "10"
     }
@@ -57,13 +57,13 @@
     },
     {
       "component": "TextRenderer",
-	  "font": "comic_sans",
-	  "sentence length": "4",
-	  "text": "This is World text.",
-	  "color": "1.0 0.5 1.0",
-	  "scale": "1.0",
+      "font": "comic_sans",
+      "sentence length": "4",
+      "text": "This is World text.",
+      "color": "1.0 0.5 1.0",
+      "scale": "1.0",
       "layer": "10",
-	  "ui text": "0"
+      "ui text": "0"
     }
    ],
   "Player": [
@@ -73,7 +73,7 @@
     },
     {
       "component": "Transform",
-      "position": "0.0 0.0 ",
+      "position": "0.0 2.0 ",
       "rotation": "0.0" 
     },
     {
@@ -98,7 +98,7 @@
     },
     {
       "component": "AABB",
-      "scale": "50.0 100.0",
+      "scale": "0.5 1.0",
       "layer": "3"
     },
     {
@@ -143,7 +143,7 @@
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0",
+      "scale": "1.0 1.0",
       "layer": "2"
     },
     {
@@ -167,7 +167,7 @@
     },
     {
       "component": "Transform",
-      "position": "-150.0 -100.0",
+      "position": "0.0 0.0",
       "rotation": "0.0"
     },
     {
@@ -181,7 +181,7 @@
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0",
+      "scale": "0.5 0.5",
       "layer": "1"
     },
     {
@@ -198,7 +198,7 @@
     },
     {
       "component": "BasicAI",
-      "speed": "3000.0"
+      "speed": "80.0"
     },
     {
       "component": "Transform",
@@ -222,7 +222,7 @@
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0",
+      "scale": "0.5 0.5",
       "layer": "1"
     }
   ],
@@ -253,12 +253,12 @@
     },
     {
       "component": "AABB",
-      "scale": "30.0 30.0",
+      "scale": "0.5 0.5",
       "layer": "4"
     },
     {
       "component": "Clickable",
-      "scale": "30.0 30.0"
+      "scale": "1.0 1.0"
     }
   ],
   "InputController": [
@@ -278,21 +278,21 @@
     {
       "component": "AI",
       "AItype": "Stag_Beetle",
-      "speed": "3000.0",
+      "speed": "80.0",
       "dest": "4",
-      "destination1": "-750.0 0.0", 
-      "destination2": "-750.0 50.0",
-      "destination3": "-700.0 50.0",
-      "destination4": "-700.0 0.0"
+      "destination1": "-5.0 0.0", 
+      "destination2": "-5.0 -2.0",
+      "destination3": "-3.0 -2.0",
+      "destination4": "-3.0 0.0"
     },
     {
       "component": "Transform",
-      "position": "-700.0 0.0 ",
+      "position": "-5.0 0.0 ",
       "rotation": "0.0" 
     },
     {
       "component": "Scale",
-      "scale": "10.0 10.0"
+      "scale": "30.0 30.0"
     },
     {
       "component": "TextureRenderer",
@@ -307,7 +307,7 @@
     },
     {
       "component": "AABB",
-      "scale": "10.0 10.0",
+      "scale": "0.5 0.5",
       "layer": "2"
     },
     {

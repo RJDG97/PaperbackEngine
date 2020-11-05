@@ -48,6 +48,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn GetGlobalScale()
+
+  \brief Returns the default current scale for translation and scaling
+*/
+/******************************************************************************/
+	float GetGlobalScale() const;
+
+/******************************************************************************/
+/*!
   \fn BroadcastMessage()
 
   \brief Used to broadcast messages to all systems derived from the ISystem
@@ -173,6 +182,8 @@ private:
 	//unsigned LastTime;
 	//Is the game running (true) or being shut down (false)?
 	bool b_game_active_;
+
+	const float global_scale_;
 };
 
 extern std::unique_ptr<CoreEngine> CORE;
