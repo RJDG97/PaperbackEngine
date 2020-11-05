@@ -314,9 +314,6 @@
     <ClCompile Include="Source\GameStates\MenuState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\EntityCompWindow.cpp">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
@@ -324,9 +321,6 @@
       <Filter>ResourceManagers</Filter>
     </ClCompile>
     <ClCompile Include="Source\ImguiWindows\ImguiMenuBar.cpp">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
     <ClCompile Include="Source\Script\GeneralScripts.cpp">
@@ -346,6 +340,12 @@
     </ClCompile>
     <ClCompile Include="Source\GameStates\WinLoseState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -547,9 +547,6 @@
     <ClInclude Include="Include\GameStates\Levels.h">
       <Filter>Systems\Scene/State Manager\LevelsStruct</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\EntityCompWindow.h">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
-    </ClInclude>
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClInclude>
@@ -577,14 +574,17 @@
     <ClInclude Include="Include\ImguiWindows\ImguiMenuBar.h">
       <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\EntityWindow.h">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
-      </ClInclude>
     <ClInclude Include="Include\GameStates\EditorState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
     <ClInclude Include="Include\GameStates\WinLoseState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\EntityWindow.h">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

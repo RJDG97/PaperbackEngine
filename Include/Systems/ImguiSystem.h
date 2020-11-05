@@ -17,6 +17,7 @@
 #include "ImguiWindows/IWindow.h"
 #include "Systems/WindowsSystem.h"
 #include "Systems/InputSystem.h"
+#include "Manager/EntityManager.h"
 
 
 class ImguiSystem : public ISystem
@@ -144,7 +145,7 @@ public:
 	\brief Retrieves the data selected_entity_
 */
 /******************************************************************************/	
-	std::pair<Entity*, std::vector<ComponentTypes>> GetSelectedEntity();
+	EntityID GetSelectedEntity();
 
 /******************************************************************************/
 /*!
@@ -211,13 +212,14 @@ private:
 	using WindowIt = std::map<std::string, std::shared_ptr<IWindow>>::iterator;
 	std::map<std::string, std::shared_ptr<IWindow>> imgui_window_arr_;
 	// get the entity and its components
-	std::pair<Entity*, std::vector<ComponentTypes>> selected_entity_;
+	EntityID selected_entity_;
 
 	// to access the window pointer in the window system
 	WindowsSystem* win;
 	Collision* collision_system_;
 	InputSystem* input_sys_;
 	Entity* new_entity_; // entity* to store selected entity
+	EntityManager* entities_;
 
 	// bools for the docking space
 	bool b_dock_space_open;

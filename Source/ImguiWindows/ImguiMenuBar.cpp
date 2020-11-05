@@ -19,6 +19,7 @@ void ImguiMenuBar::Init() {
    win_ = &*CORE->GetSystem<WindowsSystem>();
    imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
    input_ = &*CORE->GetSystem<InputSystem>();
+   factory_ = &*CORE->GetSystem <EntityFactory>();
 }
 
 void ImguiMenuBar::Update() {

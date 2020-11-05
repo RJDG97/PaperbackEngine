@@ -1,31 +1,33 @@
 #include "Systems/ImguiSystem.h"
 #include "ImguiWindows/ImguiViewport.h"
-#include "ImguiWindows/EntityCompWindow.h"
-#include "ImguiWindows/ImguiMenuBar.h"
 #include "ImguiWindows/EntityWindow.h"
+#include "ImguiWindows/ImguiMenuBar.h"
+#include "ImguiWindows/ArchetypeWindow.h"
 #include "Systems/Game.h"
 
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
     //AddWindow<ImguiViewport>();
     AddWindow<ImguiMenuBar>();
-    AddWindow<EntityCompWindow>();
     AddWindow<EntityWindow>();
+    AddWindow<ArchetypeWindow>();
 
     win = &*CORE->GetSystem<WindowsSystem>();
     collision_system_ = &*CORE->GetSystem<Collision>();
     //input_sys_ = &*CORE->GetSystem<InputSystem>();
+    entities_ = &*CORE->GetManager<EntityManager>();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
     ImGuiIO& io = ImGui::GetIO();
-
+    
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking (Merging of windows)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    
     //io.WantCaptureKeyboard = true;
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
@@ -194,7 +196,8 @@ void ImguiSystem::SendMessageD(Message* m){
     case MessageIDTypes::M_MOUSE_PRESS:
     {
         if (!b_lock_entity){
-            selected_entity_ = collision_system_->GetAttachedComponentIDs();
+            selected_entity_ = collision_system_->SelectEntity();
+            new_entity_ = entities_->GetEntity(selected_entity_);
             b_lock_entity = true;
         }
         break;
@@ -212,13 +215,13 @@ void ImguiSystem::SendMessageD(Message* m){
     }
 }
 
-std::pair<Entity*, std::vector<ComponentTypes>> ImguiSystem::GetSelectedEntity(){
+EntityID ImguiSystem::GetSelectedEntity(){
 
     return selected_entity_;
 }
 
 void ImguiSystem::ResetSelectedEntity(){
-    selected_entity_.first = nullptr;
+    new_entity_ = nullptr;
     b_lock_entity = false;
 }
 

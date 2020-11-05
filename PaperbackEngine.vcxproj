@@ -177,7 +177,7 @@
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
     <ClCompile Include="Source\GameStates\WinLoseState.cpp" />
-    <ClCompile Include="Source\ImguiWindows\EntityCompWindow.cpp" />
+    <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\ImguiMenuBar.cpp" />
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
@@ -243,7 +243,7 @@
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\GameStates\WinLoseState.h" />
-    <ClInclude Include="Include\ImguiWindows\EntityCompWindow.h" />
+    <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h" />
     <ClInclude Include="Include\ImguiWindows\ImguiMenuBar.h" />
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />

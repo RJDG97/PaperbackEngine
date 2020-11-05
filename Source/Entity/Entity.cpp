@@ -80,6 +80,7 @@ void Entity::AddComponent(ComponentTypes type_id, std::shared_ptr<Component> com
 
 	//ensure pointer is not nullptr
 	DEBUG_ASSERT(component, "Component is nullptr");
+	//ensure that the entity/archetype cannot have multiple of the same component
 	DEBUG_ASSERT(!(HasComponent(type_id)), "Component already exist");
 
 	component->type_id_ = type_id;
@@ -90,8 +91,8 @@ void Entity::AddComponent(ComponentTypes type_id, std::shared_ptr<Component> com
 
 bool Entity::HasComponent(ComponentTypes type_id) {
 
-	for (ComponentArrIt begin = components_.begin(); begin != components_.end(); ++begin)
-	{
+	for (ComponentArrIt begin = components_.begin(); begin != components_.end(); ++begin) {
+
 		if (begin->get()->type_id_ == type_id)
 			return true;
 	}
@@ -169,6 +170,12 @@ void Entity::Destroy() {
 	CORE->GetManager<EntityManager>()->DeleteEntity(this);
 }
 
+
+//void RemoveComponent(ComponentTypes id) {
+//
+//	std::shared_ptr<Component> comptoRemove = GetComponent(id);
+//}
+
 // Function that converts input string from JSON into an equivalent enum
 ComponentTypes StringToComponentType(const std::string str) {
 	if (str == "Name")
@@ -210,3 +217,5 @@ ComponentTypes StringToComponentType(const std::string str) {
 	else
 		return ComponentTypes::NONE;
 }
+
+
