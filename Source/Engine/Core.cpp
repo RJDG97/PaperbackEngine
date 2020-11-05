@@ -8,9 +8,9 @@
 std::unique_ptr<CoreEngine> CORE;
 
 CoreEngine::CoreEngine() :
-
-	b_game_active_{ true },
 	debug_{ false },
+	pause_{ false },
+	b_game_active_{ true },
 	global_scale_{ 60.0f }
 {
 }
@@ -51,10 +51,10 @@ void CoreEngine::GameLoop() {
 
 			glfwSetWindowTitle(win->ptr_window, (win->GetWindowName() + " | " + std::to_string(PE_FrameRate.GetFPS()) + " FPS").c_str());
 
-			if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_ESCAPE)) { // Q key
-				M_DEBUG->WriteDebugMessage("TERMINATE GAME LOOP\n");
-				b_game_active_ = false;
-			}
+			//if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_ESCAPE)) { // Q key
+			//	M_DEBUG->WriteDebugMessage("TERMINATE GAME LOOP\n");
+			//	b_game_active_ = false;
+			//}
 
 			for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
 				// Placeholder
@@ -107,4 +107,20 @@ void CoreEngine::BroadcastMessage(Message* m) {
 
 		system->second->SendMessageD(m);
 	};
+}
+
+bool CoreEngine::GetCorePauseStatus() {
+	return pause_;
+}
+
+void CoreEngine::ResetCorePauseStatus() {
+	pause_ = false;
+}
+
+void CoreEngine::ToggleCorePauseStatus() {
+	pause_ = !pause_;
+}
+
+void CoreEngine::SetGameActiveStatus(bool status) {
+	b_game_active_ = status;
 }

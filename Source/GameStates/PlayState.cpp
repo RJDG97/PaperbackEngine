@@ -9,6 +9,7 @@
 
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
+#include "Systems/ImguiSystem.h"
 
 #include "Components/Transform.h"
 #include "Components/Motion.h"
@@ -44,14 +45,15 @@ void PlayState::Init(std::string)
 
 	//TEMPORARY
 	//CORE->GetSystem<CameraSystem>()->SetTarget(player);
-	
+	CORE->ResetCorePauseStatus();
 	FACTORY->DeSerializeLevelEntities("Play");
 }
 
 void PlayState::Free()
 {
 	std::cout << "PlayState clean Successful" << std::endl;
-
+	
+	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
 }
 
@@ -115,14 +117,6 @@ void PlayState::Update(Game* game, float frametime)
 		//multiply by speed
 		directional *= basic_ai->second->speed;
 
-		/*
-		//set vector
-		std::shared_ptr<Motion> motion =
-			std::dynamic_pointer_cast<Motion>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
-		DEBUG_ASSERT((motion), "AI does not have a Motion component");
-
-		motion->velocity_ = directional;*/
-
 		CORE->GetManager<ForcesManager>()->AddForce(basic_ai->second->GetOwner()->GetID(), "movement", frametime, directional);
 
 	}
@@ -175,7 +169,19 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			InputController* InputController = it->second;
 			float power = 40.0f;
 
-			if (!entity_mgr_->GetPlayerEntities().empty()) {
+			if (InputController->VerifyKey("pause", m->input_)) {
+				CORE->ToggleCorePauseStatus(); // "ESC"
+			}
+
+			// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
+			// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
+			if (CORE->GetCorePauseStatus() && InputController->VerifyKey("confirm", m->input_)) {
+				//CORE->SetGameActiveStatus(false);
+				game->ChangeState(&m_MenuState);
+				return;
+			}
+
+			if (!entity_mgr_->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {
 
 				EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
 				Status* player_status = component_mgr_->GetComponent<Status>(player_id);

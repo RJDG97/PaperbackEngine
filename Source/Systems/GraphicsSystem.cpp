@@ -351,6 +351,8 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
 
     if (it) {
 
+        layer = it->layer_;
+    	
         if (it->ui_text_)
         {
             TextRenderOrderIt orderit = uitext_renderers_in_order_.find(layer);
@@ -590,8 +592,15 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
     shader->SetUniform("projection", projection);
     shader->SetUniform("text_color", text_renderer->color_);
 
-    Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
-        text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
+    //Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
+    //    text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
+	
+    Transform* xform = component_manager_->GetComponent<Transform>(text_renderer->GetOwner()->GetID());
+	
+    if (!xform)
+        return;
+
+    Vector2D obj_pos_ = xform->position_;
 
     Vector2D pos;
     float scale;

@@ -166,9 +166,15 @@ public:
 		return std::dynamic_pointer_cast<ManagerType>(return_val->second);
 	}
 
+	bool GetCorePauseStatus();
+	void ResetCorePauseStatus();
+	void ToggleCorePauseStatus();
+	void SetGameActiveStatus(bool status);
+
 private:
 
 	bool debug_;
+	bool pause_;
 
 	// Tracks all the systems the game uses
 	using SystemIt = std::vector< std::pair<std::string, std::shared_ptr<ISystem>> >::iterator;

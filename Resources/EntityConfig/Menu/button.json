@@ -2,45 +2,81 @@
   "button": [
     {
       "component": "Transform",
-      "position": "2.0 2.0",
+      "position": "0.0 -1.66",
       "rotation": "0.0"
     },
     {
       "component": "Clickable",
-      "index": "5"
+      "index": "1"
+    },
+    {
+      "component": "Scale",
+      "scale": "120.0 40.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "4"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "-2.0 -2.0",
+      "position": "0.0 -3.33",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "2"
+    },
+    {
+      "component": "Scale",
+      "scale": "120.0 40.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "4"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "11.1 -6.6",
       "rotation": "0.0"
     },
     {
       "component": "Clickable",
       "index": "3"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "4"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "2.0 -2.0",
+      "position": "12.4 -6.6",
       "rotation": "0.0"
     },
     {
       "component": "Clickable",
-      "index": "7"
-    }
-  ],
-  "button": [
-    {
-      "component": "Transform",
-      "position": "-2.0 2.0",
-      "rotation": "0.0"
+      "index": "4"
     },
     {
-      "component": "Clickable",
-      "index": "9"
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "4"
     }
   ]
 }
