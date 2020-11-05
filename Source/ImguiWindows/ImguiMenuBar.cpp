@@ -13,13 +13,12 @@ void ImguiMenuBar::Init() {
    file_filter_ = 
    "(*.json) Scenes/Archetypes\0*.json\0"
    "(*.jpg) JPG\0* .jpg\0"
-   "(*.png) PNG\0* .png\0"
+   "(*.png) Spritesheets/Textures\0* .png\0"
    "(*.*) All Files\0* *.*\0"; 
 
    win_ = &*CORE->GetSystem<WindowsSystem>();
    imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
    input_ = &*CORE->GetSystem<InputSystem>();
-   factory_ = &* CORE->GetSystem <EntityFactory>();
 }
 
 void ImguiMenuBar::Update() {
@@ -67,7 +66,7 @@ std::string ImguiMenuBar::OpenSaveDialog(const char* filter, int save)
             return ofn.lpstrFile;
     }
 
-    return std::string(); // returns an empty string if user cancels
+    return std::string(); // returns an empty string if user cancels/didnt select anything
 }
 
 void ImguiMenuBar::OpenFile(){

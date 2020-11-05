@@ -13,7 +13,7 @@ void EntityCompWindow::Init(){
 
 void EntityCompWindow::Update() {
 
-	//ImGui::ShowDemoWindow();
+	ImGui::ShowDemoWindow();
 	
 
 	ImGui::Begin("Scene Entities");
@@ -134,7 +134,7 @@ void EntityCompWindow::CheckComponentType(std::pair<Entity*, std::vector<Compone
 
 				if (ImGui::TreeNode("Rotation")) {
 
-					ComponentInput("X", "##rot", inputRot, 1.0f, 10.0f);
+					ComponentInput("X", "##rot", inputRot, 95.0f, 1.0f, 10.0f);
 
 					entitytransform->SetRotation(inputRot);
 

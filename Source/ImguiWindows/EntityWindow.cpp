@@ -12,8 +12,6 @@ void EntityWindow::Init() {
 }
 
 void EntityWindow::Update() {
-
-	Entity* entity;
 	
 	ImGui::Begin("Entity Management");
 
@@ -37,45 +35,38 @@ void EntityWindow::Update() {
 						if (ImGui::Button("Delete Archetype")){
 							
 							imgui_->SetEntity(entityIT->second);
-							//entity = entityIT->second;
-							//selectionName = entityIT->first;
 
 							ImGui::OpenPopup("Delete Confirmation");
+						}
+
+						if (ImGui::Button("Add Components")) {
+
+							imgui_->SetEntity(entityIT->second);
 						}
 
 						ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
 
 						ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
-						if (ImGui::BeginPopupModal("Delete Confirmation", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+						if (ImGui::BeginPopup("Delete Confirmation"))
 						{
 							ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "Delete Entity?\n This operation cannot be undone");
 							ImGui::Separator();
 
-							if (ImGui::Button("Ok"))
-							{
+							if (ImGui::Button("OK")){
+								
 								entities_->DeleteArchetype(entityIT->second);
 								imgui_->SetEntity((nullptr));
 
 								ImGui::CloseCurrentPopup();
-								
-								
 							}
-							//ImGui::SameLine();
+							ImGui::SameLine();
 							if (ImGui::Button("Cancel"))
-							{
 								ImGui::CloseCurrentPopup();
-								
-							}
 
 							ImGui::EndPopup();
 
 						}
-
-						
-
-
-						
 						ImGui::TreePop();
 					}
 				}
@@ -96,7 +87,6 @@ void EntityWindow::Update() {
 				ImGui::Text("Archetype Name:");
 				
 				bool add = (ImGui::InputText("##name", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue));
-				//ComponentArr arr = imgui_->GetEntity()->GetComponentArr();
 
 				if (add)
 				{
@@ -111,21 +101,28 @@ void EntityWindow::Update() {
 					component->DeSerialize(name);
 					imgui_->GetEntity()->AddComponent(ComponentTypes::NAME, component);
 					imgui_->GetEntity()->InitArchetype();
+
+					imgui_->SetEntity(nullptr);
 				}
 
 
-				if (ImGui::Button("add transform"))
-				{
 					if (imgui_->GetEntity()) {
-						IComponentCreator* creator = comp_mgr_->GetComponentCreator("Transform");
-						component = creator->Create();
 
-						//if ()
-						
-						imgui_->GetEntity()->AddComponent(ComponentTypes::TRANSFORM, component);
-						imgui_->GetEntity()->InitArchetype();
+						if (!imgui_->GetEntity()->HasComponent(ComponentTypes::TRANSFORM)) {
+
+							if (ImGui::Button("add transform"))
+							{
+								IComponentCreator* creator = comp_mgr_->GetComponentCreator("Transform");
+								component = creator->Create();
+
+
+
+								imgui_->GetEntity()->AddComponent(ComponentTypes::TRANSFORM, component);
+								imgui_->GetEntity()->InitArchetype();
+							}
+						}
 					}
-				}
+				
 			}
 		}
 	}

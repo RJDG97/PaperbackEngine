@@ -129,15 +129,7 @@ void EntityManager::DeleteAllEntities() {
 }
 
 void EntityManager::DeleteArchetype(Entity* entity) {
-	
-	//EntityArchetypeMapTypeIt checkit = entity_archetype_map_.find(archetype_name);
 
-	//if (checkit != entity_archetype_map_.end())
-	//	delete checkit->second;
-
-	//entity_archetype_map_.erase(checkit);
-
-	//archetypes_to_delete_.insert(entity);
 	archetypes_to_delete_.insert(entity);
 }
 

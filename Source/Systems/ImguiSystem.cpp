@@ -30,7 +30,7 @@ void ImguiSystem::Init(){
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
 
-    check = false;
+    //check = false;
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsClassic();
@@ -208,9 +208,7 @@ void ImguiSystem::SendMessageD(Message* m){
         break;
     }
     default:
-    {
         break;
-    }
     }
 }
 
@@ -264,13 +262,8 @@ void ImguiSystem::SetEntity(Entity* newentity)
     new_entity_ = newentity;
 }
 
-
-
 ImguiSystem::~ImguiSystem(){
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
-
-
-

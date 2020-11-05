@@ -22,9 +22,6 @@
 class ImguiSystem : public ISystem
 {
 public:
-	
-	//bool b_lock_entity;
-	bool check;
 
 	ImguiSystem() {};
 
@@ -213,9 +210,14 @@ private:
 	// map to store all imgui windows added to the system
 	using WindowIt = std::map<std::string, std::shared_ptr<IWindow>>::iterator;
 	std::map<std::string, std::shared_ptr<IWindow>> imgui_window_arr_;
+	// get the entity and its components
+	std::pair<Entity*, std::vector<ComponentTypes>> selected_entity_;
 
 	// to access the window pointer in the window system
 	WindowsSystem* win;
+	Collision* collision_system_;
+	InputSystem* input_sys_;
+	Entity* new_entity_; // entity* to store selected entity
 
 	// bools for the docking space
 	bool b_dock_space_open;
@@ -230,11 +232,6 @@ private:
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
 
-	// get the entity and its components
-	std::pair<Entity*, std::vector<ComponentTypes>> selected_entity_;
-	Collision* collision_system_;
-	InputSystem* input_sys_;
-	Entity* new_entity_;
 };
 
 

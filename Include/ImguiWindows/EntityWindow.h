@@ -41,6 +41,7 @@ private:
 	ComponentManager* comp_mgr_;
 	bool b_delete;
 	std::string selectionName{};
+
 };
 
 #endif 
