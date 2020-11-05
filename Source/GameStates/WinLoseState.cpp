@@ -1,5 +1,6 @@
 #include "GameStates/WinLoseState.h"
 #include "GameStates/MenuState.h"
+#include "GameStates/PlayState.h"
 #include "Systems/Factory.h"
 #include "Engine/Core.h"
 
@@ -7,6 +8,7 @@ WinLoseState m_WinLoseState;
 
 void WinLoseState::Init(std::string level_name) {
 
+	CORE->ResetCorePauseStatus();
 	FACTORY->DeSerializeLevelEntities(level_name);
 }
 
@@ -43,6 +45,22 @@ void WinLoseState::StateInputHandler(Message* msg, Game* game) {
 					game->ChangeState(&m_MenuState);
 			}
 			break;
+		}
+		case MessageIDTypes::BUTTON:
+		{
+			Message_Button* m = dynamic_cast<Message_Button*>(msg);
+
+			if (m->button_index_ == 1) {
+
+				game->ChangeState(&m_PlayState);
+				return;
+			}
+
+			if (m->button_index_ == 2) {
+				
+				game->ChangeState(&m_MenuState);
+				return;
+			}
 		}
 		default:
 			break;

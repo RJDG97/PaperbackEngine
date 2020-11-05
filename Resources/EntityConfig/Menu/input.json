@@ -2,11 +2,10 @@
   "input": [
     {
       "component": "InputController",
-      "size": "4",
-      "move_left": "263",
-      "move_right": "262",
-      "move_up": "265",
-      "move_down": "264"
+      "size": "3",
+      "debug": "debug 66",
+      "quit" : "quit 256",
+      "confirm" : "confirm 257"
     }
   ]
 }

@@ -37,6 +37,9 @@ void Physics::Init() {
 }
 
 void Physics::Update(float frametime) {
+
+	if (CORE->GetCorePauseStatus())
+		return;
 	if (debug_) { M_DEBUG->WriteDebugMessage("\nPhysics System Update Debug Log:\n"); }
 		
 	force_mgr->Update(frametime);

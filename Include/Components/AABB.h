@@ -110,6 +110,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn DeSerializeClone()
+
+  \brief Reads data from a stringstream and stores them into the data members
+*/
+/******************************************************************************/
+	void DeSerializeClone(std::stringstream& data) override;
+
+/******************************************************************************/
+/*!
   \fn Clone()
 
   \brief Clones the existing component

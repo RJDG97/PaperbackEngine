@@ -42,6 +42,11 @@ void AABB::DeSerialize(std::stringstream& data) {
 	data >> scale_.x >> scale_.y >> layer_;
 }
 
+void AABB::DeSerializeClone(std::stringstream& data) {
+
+	DeSerialize(data);
+}
+
 std::shared_ptr<Component> AABB::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning AABB Component\n");
 	
