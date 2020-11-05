@@ -13,8 +13,7 @@ void EntityCompWindow::Init(){
 
 void EntityCompWindow::Update() {
 
-	ImGui::ShowDemoWindow();
-	
+	//ImGui::ShowDemoWindow();
 
 	ImGui::Begin("Scene Entities");
 	

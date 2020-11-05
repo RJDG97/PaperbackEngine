@@ -81,7 +81,7 @@ void ImguiMenuBar::SaveFile(){
 void ImguiMenuBar::ImguiInput(){
 
     bool control = ImGui::IsKeyReleased(GetKey(ImGuiKey_ControlL)) || ImGui::IsKeyReleased(GetKey(ImGuiKey_ControlR));
-    bool shift = ImGui::IsKeyReleased(GetKey(ImGuiKey_ShiftL)) || ImGui::IsKeyReleased(GetKey(ImGuiKey_ShiftR));
+    //bool shift = ImGui::IsKeyReleased(GetKey(ImGuiKey_ShiftL)) || ImGui::IsKeyReleased(GetKey(ImGuiKey_ShiftR));
    
     if (control)
     {
