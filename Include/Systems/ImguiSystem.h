@@ -203,7 +203,10 @@ public:
 	void ImguiHelp(const char* description);
 
 	Entity* GetEntity();
+	
 	void SetEntity(Entity* newentity);
+
+	void DeletePopUp(const char* windowName, std::string objName);
 
 
 private:

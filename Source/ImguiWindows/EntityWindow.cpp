@@ -39,10 +39,7 @@ void EntityWindow::Update() {
 		CheckComponentType(entity);
 	}
 
-
-
 	ImGui::End();
-
 }
 
 std::pair<Entity*, std::vector<ComponentTypes>> EntityWindow::GetEntityComponents(Entity* entity) {
@@ -82,33 +79,13 @@ void EntityWindow::ShowEntityList() {
 					ImGui::OpenPopup("Delete Entity");
 				}
 
-				ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-
-				ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-
-				if (ImGui::BeginPopup("Delete Entity")) {
-
-					if (ImGui::Button("OK")) {
-						entities_->DeleteEntity(imgui_system_->GetEntity());
-						imgui_system_->SetEntity(nullptr);
-						ImGui::CloseCurrentPopup();
-					}
-					if (ImGui::Button("Cancel")) {
-						ImGui::CloseCurrentPopup();
-					}
-
-					ImGui::EndPopup();
-				}
+				imgui_system_->DeletePopUp("Delete Entity", entityname->GetName());
 
 				ImGui::TreePop();
 			}
 		}
 	}
 }
-
-//void EntityWindow::deletepop(const char* windowName)
-//{
-//}
 
 void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent) {
 	if (entitycomponent.first) {

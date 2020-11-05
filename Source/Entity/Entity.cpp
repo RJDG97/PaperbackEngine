@@ -171,11 +171,6 @@ void Entity::Destroy() {
 }
 
 
-//void RemoveComponent(ComponentTypes id) {
-//
-//	std::shared_ptr<Component> comptoRemove = GetComponent(id);
-//}
-
 // Function that converts input string from JSON into an equivalent enum
 ComponentTypes StringToComponentType(const std::string str) {
 	if (str == "Name")

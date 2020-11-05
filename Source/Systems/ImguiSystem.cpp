@@ -14,7 +14,6 @@ void ImguiSystem::Init(){
 
     win = &*CORE->GetSystem<WindowsSystem>();
     collision_system_ = &*CORE->GetSystem<Collision>();
-    //input_sys_ = &*CORE->GetSystem<InputSystem>();
     entities_ = &*CORE->GetManager<EntityManager>();
 
     // Setup Dear ImGui context
@@ -28,15 +27,11 @@ void ImguiSystem::Init(){
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking (Merging of windows)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
     
-    //io.WantCaptureKeyboard = true;
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
 
-    //check = false;
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
-    //ImGui::StyleColorsLight();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();
@@ -78,11 +73,11 @@ void ImguiSystem::Init(){
     new_entity_ = nullptr;
 }
 
-void ImguiSystem::Update(float frametime){
+void ImguiSystem::Update(float frametime) {
 
     UNREFERENCED_PARAMETER(frametime);
 
-    if (b_imguimode){
+    if (b_imguimode) {
        //glfwPollEvents();
 
         ImGui_ImplOpenGL3_NewFrame();
@@ -90,8 +85,7 @@ void ImguiSystem::Update(float frametime){
         ImGui::NewFrame();
 
         ImGuiIO& io = ImGui::GetIO();
-        if (b_dock_space_open)
-        {
+        if (b_dock_space_open) {
             DockSpaceFlagSet();
 
             // Important: note that we proceed even if Begin() returns false (aka window is collapsed).
@@ -119,20 +113,17 @@ void ImguiSystem::Update(float frametime){
             /* Has to be called between the ImGui::Begin("DockSpace"); and the corresponding ImGui::End()
              for windows to be dockable in the docking space */
 
-            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
+            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
                 begin->second->Update();
-            }
 
             ImGui::End(); // end of docking space
         }
         else {
 
-            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
-
+            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
                 begin->second->Update();
-            }
         }
-
+    	
         ImguiRender();
     }
 }
@@ -162,8 +153,7 @@ void ImguiSystem::DockSpaceFlagSet() {
         window_flags_ |= ImGuiWindowFlags_NoBackground;
 }
 
-void ImguiSystem::ImguiRender()
-{
+void ImguiSystem::ImguiRender() {
     // Rendering
     ImGui::Render();
     int display_w, display_h;
@@ -183,19 +173,19 @@ void ImguiSystem::ImguiRender()
     }
 }
 
-void ImguiSystem::Draw(){
+void ImguiSystem::Draw() {
 }
 
-std::string ImguiSystem::GetName(){
+std::string ImguiSystem::GetName() {
 
     return "ImGui System";
 }
 
-void ImguiSystem::SendMessageD(Message* m){
+void ImguiSystem::SendMessageD(Message* m) {
     switch (m->message_id_) {
     case MessageIDTypes::M_MOUSE_PRESS:
     {
-        if (!b_lock_entity){
+        if (!b_lock_entity) {
             selected_entity_ = collision_system_->SelectEntity();
             new_entity_ = entities_->GetEntity(selected_entity_);
             b_lock_entity = true;
@@ -215,37 +205,37 @@ void ImguiSystem::SendMessageD(Message* m){
     }
 }
 
-EntityID ImguiSystem::GetSelectedEntity(){
+EntityID ImguiSystem::GetSelectedEntity() {
 
     return selected_entity_;
 }
 
-void ImguiSystem::ResetSelectedEntity(){
+void ImguiSystem::ResetSelectedEntity() {
     new_entity_ = nullptr;
     b_lock_entity = false;
 }
 
-bool ImguiSystem::GetDebugBool(){
+bool ImguiSystem::GetDebugBool() {
     return b_debug;
 }
 
-void ImguiSystem::SetDebugBool(bool debug){
+void ImguiSystem::SetDebugBool(bool debug) {
     b_debug = debug;
 }
 
-bool ImguiSystem::GetLockBool(){
+bool ImguiSystem::GetLockBool() {
     return b_lock_entity;
 }
 
-void ImguiSystem::SetLockBool(bool debug){
+void ImguiSystem::SetLockBool(bool debug) {
 
     b_lock_entity = debug;
 }
 
-void ImguiSystem::ImguiHelp(const char* description){
+void ImguiSystem::ImguiHelp(const char* description) {
 
     ImGui::TextDisabled("?");
-    if (ImGui::IsItemHovered()){
+    if (ImGui::IsItemHovered()) {
 
         ImGui::BeginTooltip();
         ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
@@ -255,17 +245,54 @@ void ImguiSystem::ImguiHelp(const char* description){
     }
 }
 
-Entity* ImguiSystem::GetEntity()
-{
+Entity* ImguiSystem::GetEntity() {
+	
     return new_entity_;
 }
 
-void ImguiSystem::SetEntity(Entity* newentity)
-{
+void ImguiSystem::SetEntity(Entity* newentity) {
     new_entity_ = newentity;
 }
 
-ImguiSystem::~ImguiSystem(){
+void ImguiSystem::DeletePopUp(const char* windowName, std::string objName) {
+	
+    ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
+
+    ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+    if (ImGui::BeginPopupModal(windowName,NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+
+        ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "Deleting: ");
+        ImGui::Text(objName.c_str());
+        ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "This cannot be undone");
+
+        ImGui::Separator();
+
+        ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0 / 7.0f, 0.6f, 0.6f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0 / 7.0f, 0.7f, 0.7f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
+
+
+        if (ImGui::Button("OK")) {
+            if (!new_entity_->GetID())
+                entities_->DeleteArchetype(new_entity_);
+            else
+                entities_->DeleteEntity((new_entity_));
+
+            SetEntity(nullptr);
+            ImGui::CloseCurrentPopup();
+        }
+
+        ImGui::PopStyleColor(3);
+        if (ImGui::Button("Cancel"))
+            ImGui::CloseCurrentPopup();
+    	
+        ImGui::EndPopup();
+    }
+}
+
+
+ImguiSystem::~ImguiSystem() {
+	
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();

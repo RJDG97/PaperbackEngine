@@ -81,8 +81,6 @@ public:
 /******************************************************************************/
 	void ShowEntityList();
 
-	//void deletepop(const char* windowName);
-
 private:
 	ImguiSystem* imgui_system_;
 	EntityManager* entities_;
