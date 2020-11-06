@@ -93,8 +93,6 @@ void GraphicsSystem::Init() {
     graphic_shaders_["FinalShader"] =
         shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
 
-    font_manager_->LoadFont("comic_sans");
-
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
     //For UI

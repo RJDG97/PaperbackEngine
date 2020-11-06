@@ -173,8 +173,6 @@ public:
 	\brief Loads textures that will be used for the level
 */
 /******************************************************************************/
-	void TempTextureBatchLoad();
-
 	void TextureBatchLoad(std::string level_name);
 
 	void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);

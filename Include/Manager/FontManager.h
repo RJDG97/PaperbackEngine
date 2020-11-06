@@ -8,6 +8,9 @@
 #include <GL/glew.h>
 #include "Manager/IManager.h"
 #include <ft2build.h>
+#include "../rapidjson/filereadstream.h"
+#include "../rapidjson/document.h"
+#include "prettywriter.h"
 #include FT_FREETYPE_H
 
 class Character {
@@ -47,9 +50,13 @@ class FontManager : public IManager {
 
 public:
 
+    ~FontManager();
+
     void Init() override;
-    void LoadFont(std::string font_name);
     Font* GetFont(std::string name);
+    void LoadFont(std::string font_name);
+    void FontBatchLoad(std::string level_name);
+    void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
 };
 
 #endif

@@ -12,6 +12,7 @@
 
 class TextRenderer : public Component {
 
+	std::string font_name_;
 	Font* font_;
 	std::string text_;
 	glm::vec3 color_;

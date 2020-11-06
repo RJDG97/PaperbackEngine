@@ -19,6 +19,8 @@ void TextRenderer::Init() {
 
     CORE->GetSystem<GraphicsSystem>()->AddTextRendererComponent(Component::GetOwner()->GetID(), this);
     //CORE->GetManager<ComponentManager>()->AddComponent<TextRenderer>(Component::GetOwner()->GetID(), this);
+
+    font_ = CORE->GetManager<FontManager>()->GetFont(font_name_);
 }
 
 void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
@@ -40,10 +42,9 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
 
     std::cout << "Serializing AnimationRenderer" << std::endl;
 
-    std::string font;
     int sentence_length;
 
-    data >> font
+    data >> font_name_
         >> sentence_length;
 
     for (int i = 0; i < sentence_length; ++i)
@@ -57,8 +58,6 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
           >> scale_
           >> layer_
           >> ui_text_;
-
-    font_ = CORE->GetManager<FontManager>()->GetFont(font);
 }
 
 
@@ -81,6 +80,7 @@ std::shared_ptr<Component> TextRenderer::Clone() {
 
     std::shared_ptr<TextRenderer> cloned = std::make_shared<TextRenderer>();
 
+    cloned->font_name_ = font_name_;
     cloned->font_ = font_;
     cloned->text_ = text_;
     cloned->color_ = color_;

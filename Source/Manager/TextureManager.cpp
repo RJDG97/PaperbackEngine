@@ -49,15 +49,6 @@ void TextureManager::Init() {
     M_DEBUG->WriteDebugMessage("Texture Manager Init\n");
 }
 
-void TextureManager::TempTextureBatchLoad() {
-    
-    //LoadMiscTextures();
-
-    //load textures
-    //CreateTileset("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_);
-    //CreateTileset("Resources\\Sprites\\Background.png", 1, 1, background_test_);
-}
-
 void TextureManager::TextureBatchLoad(std::string level_name) {
 
     rapidjson::Document textures_to_load;

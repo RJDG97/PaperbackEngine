@@ -36,7 +36,7 @@
     },
     {
       "component": "TextRenderer",
-      "font": "comic_sans",
+      "font": "Grandstander-Medium",
       "sentence length": "4",
       "text": "This is UI text.",
       "color": "1.0 0.5 1.0",
@@ -57,7 +57,7 @@
     },
     {
       "component": "TextRenderer",
-      "font": "comic_sans",
+      "font": "Grandstander-Medium",
       "sentence length": "4",
       "text": "This is World text.",
       "color": "1.0 0.5 1.0",
