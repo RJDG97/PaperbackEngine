@@ -3,13 +3,13 @@
     {
       "component": "BasicAI",
       "size": "3",
-      "destination1": "200.0 200.0", 
-      "destination2": "400.0 10.0",
-      "destination3": "130.0 -200.0"
+      "destination1": "4.0 4.0", 
+      "destination2": "7.0 7.0",
+      "destination3": "2.0 -3.0"
     },
     {
       "component": "Transform",
-      "position": "200.0 200.0",
+      "position": "4.0 4.0",
       "rotation": "0.0"
     }
   ],
@@ -17,14 +17,14 @@
     {
       "component": "BasicAI",
       "size": "4",
-      "destination1": "80.0 200.0", 
-      "destination2": "200.0 000.0",
-      "destination3": "130.0 -200.0",
-      "destination4": "300.0, 100.0"
+      "destination1": "1.0 2.0", 
+      "destination2": "5.0 -5.0",
+      "destination3": "3.0 -2.0",
+      "destination4": "6.0, 4.0"
     },
     {
       "component": "Transform",
-      "position": "80.0 200.0",
+      "position": "1.0 2.0",
       "rotation": "0.0"
     }
   ]

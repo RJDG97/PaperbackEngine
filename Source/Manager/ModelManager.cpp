@@ -6,7 +6,119 @@ void ModelManager::Init() {
     M_DEBUG->WriteDebugMessage("Model Manager Init\n");
 }
 
-Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name, bool has_transform) {
+Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_name)
+{
+    GLuint vao_batch_;
+    GLuint vbo_batch_;
+    GLuint ebo_batch_;
+
+    std::vector<glm::vec2> pos_vtx{ {-1.0f, -1.0f},
+                                    { 1.0f, -1.0f},
+                                    {-1.0f,  1.0f},
+                                    { 1.0f,  1.0f}, };
+
+    std::vector<GLushort> idx_vtx_sent;
+    std::vector<glm::vec2> pos_vtx_sent;
+
+    for (int i = 0; i < batch_size; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            pos_vtx_sent.push_back(pos_vtx[j]);
+        }
+
+        idx_vtx_sent.push_back(static_cast<GLushort>(2 + 4 * i));
+        idx_vtx_sent.push_back(static_cast<GLushort>(0 + 4 * i));
+        idx_vtx_sent.push_back(static_cast<GLushort>(3 + 4 * i));
+        idx_vtx_sent.push_back(static_cast<GLushort>(1 + 4 * i));
+
+        if (i < batch_size - 1)
+        {
+            idx_vtx_sent.push_back(static_cast<GLushort>(1 + 4 * i));
+            idx_vtx_sent.push_back(static_cast<GLushort>(2 + 4 * (i + 1)));
+        }
+    }
+
+    glCreateBuffers(1, &vbo_batch_);
+
+    //Render 500 objects at once
+    glNamedBufferStorage(vbo_batch_, (sizeof(glm::vec2) * 5 + sizeof(float)) * 4 * batch_size,
+        nullptr, GL_DYNAMIC_STORAGE_BIT);
+
+    glNamedBufferSubData(vbo_batch_, 0,
+        sizeof(glm::vec2) * pos_vtx_sent.size(),
+        pos_vtx_sent.data());
+
+    glCreateVertexArrays(1, &vao_batch_);
+
+    size_t offset = 0;
+
+    glEnableVertexArrayAttrib(vao_batch_, 0);
+    glVertexArrayVertexBuffer(vao_batch_, 0, vbo_batch_, offset, sizeof(glm::vec2));
+    glVertexArrayAttribFormat(vao_batch_, 0, 2, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(vao_batch_, 0, 0);
+
+    offset += sizeof(glm::vec2) * 4 * batch_size;
+
+    glEnableVertexArrayAttrib(vao_batch_, 1);
+    glVertexArrayVertexBuffer(vao_batch_, 1, vbo_batch_, offset, sizeof(glm::vec2));
+    glVertexArrayAttribFormat(vao_batch_, 1, 2, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(vao_batch_, 1, 1);
+
+    offset += sizeof(glm::vec2) * 4 * batch_size;
+
+    //scaling
+    glEnableVertexArrayAttrib(vao_batch_, 2);
+    glVertexArrayVertexBuffer(vao_batch_, 2, vbo_batch_, offset, sizeof(glm::vec2));
+    glVertexArrayAttribFormat(vao_batch_, 2, 2, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(vao_batch_, 2, 2);
+
+    offset += sizeof(glm::vec2) * 4 * batch_size;
+
+    //rotation
+    glEnableVertexArrayAttrib(vao_batch_, 3);
+    glVertexArrayVertexBuffer(vao_batch_, 3, vbo_batch_, offset, sizeof(glm::vec2));
+    glVertexArrayAttribFormat(vao_batch_, 3, 2, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(vao_batch_, 3, 3);
+
+    offset += sizeof(glm::vec2) * 4 * batch_size;
+
+    //translation
+    glEnableVertexArrayAttrib(vao_batch_, 4);
+    glVertexArrayVertexBuffer(vao_batch_, 4, vbo_batch_, offset, sizeof(glm::vec2));
+    glVertexArrayAttribFormat(vao_batch_, 4, 2, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(vao_batch_, 4, 4);
+
+    offset += sizeof(glm::vec2) * 4 * batch_size;
+
+    //texture id
+    glEnableVertexArrayAttrib(vao_batch_, 5);
+    glVertexArrayVertexBuffer(vao_batch_, 5, vbo_batch_, offset, sizeof(float));
+    glVertexArrayAttribFormat(vao_batch_, 5, 1, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(vao_batch_, 5, 5);
+
+    glCreateBuffers(1, &ebo_batch_);
+    glNamedBufferStorage(ebo_batch_,
+        sizeof(GLushort) * (6 * batch_size - 2),
+        idx_vtx_sent.data(),
+        GL_DYNAMIC_STORAGE_BIT);
+    glVertexArrayElementBuffer(vao_batch_, ebo_batch_);
+    glBindVertexArray(0);
+
+    Model mdl;
+    mdl.vaoid_ = vao_batch_;
+    mdl.vboid_ = vbo_batch_;
+
+    //mdl.vbo_tex_offset_ = sizeof(glm::vec2) * pos_vtx.size(); NOT USED
+    mdl.primitive_type_ = GL_TRIANGLE_STRIP;
+    mdl.draw_cnt_ = static_cast<GLint>(idx_vtx_sent.size());     // number of vertices
+    //mdl.primitive_cnt_ = count;          NOT USED              // number of triangles
+    models_[model_name] = mdl;
+
+    return &models_[model_name];
+}
+
+Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model_name) {
 
     // Generates the vertices required to render triangle strips
 
@@ -56,19 +168,10 @@ Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model
     GLuint vbo_hdl;
     glCreateBuffers(1, &vbo_hdl);
 
-    if (has_transform)
-    {
-        glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
-                             sizeof(glm::vec2) * tex_vtx.size() + sizeof(glm::vec2) * count * 3, //3 -> pos, scal, rot
-                             nullptr, GL_DYNAMIC_STORAGE_BIT);
-    }
 
-    else
-    {
-        glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
-                             sizeof(glm::vec2) * tex_vtx.size(),
-                             nullptr, GL_DYNAMIC_STORAGE_BIT);
-    }
+    glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size() +
+                            sizeof(glm::vec2) * tex_vtx.size(),
+                            nullptr, GL_DYNAMIC_STORAGE_BIT);
 
     glNamedBufferSubData(vbo_hdl, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
 
@@ -92,39 +195,12 @@ Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model
     glVertexArrayAttribFormat(vao_hdl, 1, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 1, 1);
 
-    if (has_transform)
-    {
-        offset += sizeof(glm::vec2) * tex_vtx.size();
-
-        //scaling
-        glEnableVertexArrayAttrib(vao_hdl, 2);
-        glVertexArrayVertexBuffer(vao_hdl, 2, vbo_hdl, offset, sizeof(glm::vec2));
-        glVertexArrayAttribFormat(vao_hdl, 2, 2, GL_FLOAT, GL_FALSE, 0);
-        glVertexArrayAttribBinding(vao_hdl, 2, 2);
-        
-        offset += sizeof(glm::vec2) * count;
-
-        //rotation
-        glEnableVertexArrayAttrib(vao_hdl, 3);
-        glVertexArrayVertexBuffer(vao_hdl, 3, vbo_hdl, offset, sizeof(glm::vec2));
-        glVertexArrayAttribFormat(vao_hdl, 3, 2, GL_FLOAT, GL_FALSE, 0);
-        glVertexArrayAttribBinding(vao_hdl, 3, 3);
-        
-        offset += sizeof(glm::vec2) * count;
-
-        //translation
-        glEnableVertexArrayAttrib(vao_hdl, 4);
-        glVertexArrayVertexBuffer(vao_hdl, 4, vbo_hdl, offset, sizeof(glm::vec2));
-        glVertexArrayAttribFormat(vao_hdl, 4, 2, GL_FLOAT, GL_FALSE, 0);
-        glVertexArrayAttribBinding(vao_hdl, 4, 4);
-    }
-
     GLuint ebo_hdl;
     glCreateBuffers(1, &ebo_hdl);
     glNamedBufferStorage(ebo_hdl,
-        sizeof(GLushort) * idx_vtx.size(),
-        reinterpret_cast<GLvoid*>(idx_vtx.data()),
-        GL_DYNAMIC_STORAGE_BIT);
+                         sizeof(GLushort) * idx_vtx.size(),
+                         reinterpret_cast<GLvoid*>(idx_vtx.data()),
+                         GL_DYNAMIC_STORAGE_BIT);
     glVertexArrayElementBuffer(vao_hdl, ebo_hdl);
     glBindVertexArray(0);
 

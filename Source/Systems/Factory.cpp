@@ -136,6 +136,7 @@ void EntityFactory::Update(float frametime) {
 
 	// Remove all entities that are marked as delete
 	entity_mgr_->UpdateEntityMap();
+	entity_mgr_->UpdateArchetypeMap();
 }
 
 void EntityFactory::DestroyAllEntities() {

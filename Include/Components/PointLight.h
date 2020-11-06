@@ -80,6 +80,12 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	float GetRadius();
+	float GetIntensity();
+	void SetRadius(float newRadius);
+	void SetIntensity(float newIntensity);
+	
 };
 
 #endif

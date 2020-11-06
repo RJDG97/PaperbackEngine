@@ -9,6 +9,7 @@
 
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
+#include "Systems/ImguiSystem.h"
 
 #include "Components/Transform.h"
 #include "Components/Motion.h"
@@ -44,14 +45,15 @@ void PlayState::Init(std::string)
 
 	//TEMPORARY
 	//CORE->GetSystem<CameraSystem>()->SetTarget(player);
-	
+	CORE->ResetCorePauseStatus();
 	FACTORY->DeSerializeLevelEntities("Play");
 }
 
 void PlayState::Free()
 {
 	std::cout << "PlayState clean Successful" << std::endl;
-
+	
+	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
 }
 
@@ -65,11 +67,12 @@ void PlayState::Update(Game* game, float frametime)
 	// meant to handle game logic components like Status
 	for (Game::StatusIt status = game->status_arr_->begin(); status != game->status_arr_->end(); ++status) {
 
-		if (status->second->status_ != StatusType::NONE) {
+		if (status->second->status_ != StatusType::NONE &&
+			status->second->status_ != StatusType::INVISIBLE &&
+			status->second->status_ != StatusType::BURROW) {
 
 			if (status->second->status_timer_ > 0.0f) {
 				status->second->status_timer_ -= frametime;
-				//std::cout << "Reducing status timer" << std::endl;
 			}
 			else {
 				std::cout << "Resetting status type to none" << std::endl;
@@ -114,14 +117,6 @@ void PlayState::Update(Game* game, float frametime)
 		//multiply by speed
 		directional *= basic_ai->second->speed;
 
-		/*
-		//set vector
-		std::shared_ptr<Motion> motion =
-			std::dynamic_pointer_cast<Motion>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::MOTION));
-		DEBUG_ASSERT((motion), "AI does not have a Motion component");
-
-		motion->velocity_ = directional;*/
-
 		CORE->GetManager<ForcesManager>()->AddForce(basic_ai->second->GetOwner()->GetID(), "movement", frametime, directional);
 
 	}
@@ -141,7 +136,15 @@ void PlayState::SetStatus(std::string entity_name, StatusType status_type, float
 		if (name == entity_name && it->second->status_ == StatusType::NONE) {
 			
 			it->second->status_ = status_type;
-			it->second->status_timer_ = status_length; // change timer accordingly in the future
+			it->second->status_timer_ = status_length;
+		}
+		else {
+			// Double check this condition
+			if (it->second->status_ == status_type &&
+				it->second->status_timer_ == 0.0f) {
+				
+				it->second->status_ = StatusType::NONE;
+			}
 		}
 	}
 }
@@ -164,61 +167,79 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				continue;
 
 			InputController* InputController = it->second;
-			float power = 3000.0f;
+			float power = 40.0f;
 
-			if (!entity_mgr_->GetPlayerEntities().empty()) {
+			if (InputController->VerifyKey("pause", m->input_)) {
+				CORE->ToggleCorePauseStatus(); // "ESC"
+			}
+
+			// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
+			// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
+			if (CORE->GetCorePauseStatus() && InputController->VerifyKey("confirm", m->input_)) {
+				//CORE->SetGameActiveStatus(false);
+				game->ChangeState(&m_MenuState);
+				return;
+			}
+
+			if (!entity_mgr_->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {
 
 				EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
+				Status* player_status = component_mgr_->GetComponent<Status>(player_id);
 
-				//input group
-				if (InputController->VerifyKey("move_left", m->input_)) {
-
-					CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
+				// Skills
+				if (InputController->VerifyKey("burrow", m->input_)) {
+					SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "M"
 				}
-				else if (InputController->VerifyKey("move_right", m->input_)) {
-
-					CORE->GetManager<ForcesManager>()->AddForce(player_id, "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
+				else if (InputController->VerifyKey("invisible", m->input_)) {
+					SetStatus("Player", StatusType::INVISIBLE, 0.0f, &*CORE->GetSystem<Game>()); // "N"
 				}
-				else if (InputController->VerifyKey("move_up", m->input_)) {
 
-					CORE->GetManager<ForcesManager>()->AddForce(player_id, "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
-				}
-				else if (InputController->VerifyKey("move_down", m->input_)) {
+				if (player_status && player_status->status_ != StatusType::INVISIBLE) {
+					//input group
+					if (InputController->VerifyKey("move_left", m->input_)) {
 
-					CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
-				}
-				else if (InputController->VerifyKey("spin_left", m->input_)) {
-
-					Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
-					if (player_xform) {
-						RotateLeft(player_xform, true);
+						CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
 					}
-				}
-				else if (InputController->VerifyKey("spin_right", m->input_)) {
+					else if (InputController->VerifyKey("move_right", m->input_)) {
 
-					Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
-					if (player_xform) {
-						RotateLeft(player_xform, false);
+						CORE->GetManager<ForcesManager>()->AddForce(player_id, "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
 					}
-				}
-				else if (InputController->VerifyKey("shrink", m->input_)) {
+					else if (InputController->VerifyKey("move_up", m->input_)) {
 
-					Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
-					if (player_scale) {
-						ScaleEntityBig(player_scale, false);
+						CORE->GetManager<ForcesManager>()->AddForce(player_id, "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
 					}
-				}
-				else if (InputController->VerifyKey("expand", m->input_)) {
+					else if (InputController->VerifyKey("move_down", m->input_)) {
 
-					Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
-					if (player_scale) {
-						ScaleEntityBig(player_scale, true);
+						CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
 					}
-				}
+					else if (InputController->VerifyKey("spin_left", m->input_)) {
 
-				// Temp
-				else if (InputController->VerifyKey("burrow", m->input_)) {
-					SetStatus("Player", StatusType::BURROW, 5.0f, &*CORE->GetSystem<Game>());
+						Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
+						if (player_xform) {
+							RotateLeft(player_xform, true);
+						}
+					}
+					else if (InputController->VerifyKey("spin_right", m->input_)) {
+
+						Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
+						if (player_xform) {
+							RotateLeft(player_xform, false);
+						}
+					}
+					else if (InputController->VerifyKey("shrink", m->input_)) {
+
+						Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
+						if (player_scale) {
+							ScaleEntityBig(player_scale, false);
+						}
+					}
+					else if (InputController->VerifyKey("expand", m->input_)) {
+
+						Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
+						if (player_scale) {
+							ScaleEntityBig(player_scale, true);
+						}
+					}
 				}
 			}
 		}

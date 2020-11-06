@@ -5,7 +5,8 @@
 #include <iostream>
 
 AABB::AABB() : top_right_{},
-			   bottom_left_{}
+			   bottom_left_{},
+			scale_{30.0f,30.0f}
 {}
 
 AABB::~AABB() {
@@ -39,6 +40,11 @@ void AABB::DeSerialize(std::stringstream& data) {
 	std::cout << "Serializing AABB Component" << std::endl;
 	
 	data >> scale_.x >> scale_.y >> layer_;
+}
+
+void AABB::DeSerializeClone(std::stringstream& data) {
+
+	DeSerialize(data);
 }
 
 std::shared_ptr<Component> AABB::Clone() {

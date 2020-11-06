@@ -48,6 +48,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn GetGlobalScale()
+
+  \brief Returns the default current scale for translation and scaling
+*/
+/******************************************************************************/
+	float GetGlobalScale() const;
+
+/******************************************************************************/
+/*!
   \fn BroadcastMessage()
 
   \brief Used to broadcast messages to all systems derived from the ISystem
@@ -157,9 +166,15 @@ public:
 		return std::dynamic_pointer_cast<ManagerType>(return_val->second);
 	}
 
+	bool GetCorePauseStatus();
+	void ResetCorePauseStatus();
+	void ToggleCorePauseStatus();
+	void SetGameActiveStatus(bool status);
+
 private:
 
 	bool debug_;
+	bool pause_;
 
 	// Tracks all the systems the game uses
 	using SystemIt = std::vector< std::pair<std::string, std::shared_ptr<ISystem>> >::iterator;
@@ -173,6 +188,8 @@ private:
 	//unsigned LastTime;
 	//Is the game running (true) or being shut down (false)?
 	bool b_game_active_;
+
+	const float global_scale_;
 };
 
 extern std::unique_ptr<CoreEngine> CORE;

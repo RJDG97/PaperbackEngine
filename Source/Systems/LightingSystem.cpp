@@ -32,7 +32,7 @@ void LightingSystem::Init() {
 																						  "Shaders/point_light.frag",
 																						  "PointLightShader");
 	
-	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel", false);
+	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel");
 
 	//Temporary before camera is component
 	std::shared_ptr<GraphicsSystem> graphics_system = CORE->GetSystem<GraphicsSystem>();
@@ -117,16 +117,17 @@ GLuint* LightingSystem::GetLightingTexture() {
 void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 
 	//if (point_light)
-	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+	//ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
 
 	Transform* xform = transform_arr_->GetComponent(point_light->GetOwner()->GetID());
-	
+	const float global_scale = CORE->GetGlobalScale();
+
 	if (!xform)
 		return;
 
 	Vector2D obj_pos_ = xform->position_;
 
-	point_light->pos_ = glm::vec2(obj_pos_.x, obj_pos_.y) * *cam_zoom_ +
+	point_light->pos_ = glm::vec2(obj_pos_.x * global_scale, obj_pos_.y * global_scale) * *cam_zoom_ +
 							(*cam_pos_ * *cam_zoom_ + 0.5f * win_size_);
 	point_light->pos_ *= 0.5f;
 }

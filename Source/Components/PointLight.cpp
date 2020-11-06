@@ -55,3 +55,23 @@ std::shared_ptr<Component> PointLight::Clone() {
 
 	return cloned;
 }
+
+float PointLight::GetRadius(){
+
+	return radius_;
+}
+
+float PointLight::GetIntensity(){
+
+	return intensity_;
+}
+
+void PointLight::SetRadius(float newRadius){
+
+	radius_ = newRadius;
+}
+
+void PointLight::SetIntensity(float newIntensity){
+
+	intensity_ = newIntensity;
+}
