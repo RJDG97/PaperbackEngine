@@ -92,6 +92,14 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	std::vector<Vector2D>& GetDestinations();
+
+	void SetDestinations(std::vector<Vector2D> des);
+
+	DestinationIt GetCurrentDes();
+
+	void SetCurrentDes(DestinationIt Cdes);
 };
 
 #endif

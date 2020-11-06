@@ -215,9 +215,11 @@ public:
 	void ImguiInput();
 
 	void SaveArchetype();
+
 	void LoadArchetype();
 
 	void OpenFile();
+
 	void SaveFile();
 
 	void ImguiMenuBar();

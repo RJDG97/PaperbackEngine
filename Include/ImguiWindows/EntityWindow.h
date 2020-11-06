@@ -41,7 +41,8 @@ public:
 	\brief Prints out ImGui input space for components
 */
 /******************************************************************************/
-	void ComponentInput(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth = 100.0f, float startVal = 0.1f, float endVal = 1.0f);
+	void ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth = 100.0f, float startVal = 0.1f, float endVal = 1.0f);
+	void ComponentInputInt(const char* componentLabel, const char* inputLabel, int& componentVar, float inputWidth = 100.0f, int startVal = 1, int endVal = 5);
 
 /******************************************************************************/
 /*!
@@ -61,7 +62,7 @@ public:
 	\brief Prints out text for the Vec2D components
 */
 /******************************************************************************/
-	void ComponentDisplayVec(ImVec4 color, const char* label, Vector2D componentVec = { 0.0f, 0.0f }, const char* format = "%.2f");
+	void ComponentDisplayVec(ImVec4 color, const char* label, Vector2D componentVec = { 0.0f, 0.0f });
 
 /******************************************************************************/
 /*!
@@ -81,12 +82,16 @@ public:
 /******************************************************************************/
 	void ShowEntityList();
 
+	const char* GetAIState(int aiState);
+
 private:
 	ImguiSystem* imgui_system_;
 	EntityManager* entities_;
 	Entity* selection;
 
 	EntityManager::EntityIdMapTypeIt entityIT;
+
+	const char* AIstates[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
 
 };
 #endif

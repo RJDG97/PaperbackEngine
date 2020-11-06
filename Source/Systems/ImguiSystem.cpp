@@ -208,6 +208,7 @@ void ImguiSystem::ImguiMenuBar() {
     }
     ImGui::EndMenuBar();
 }
+
 void ImguiSystem::Draw() {}
 
 std::string ImguiSystem::GetName() {
@@ -285,9 +286,8 @@ void ImguiSystem::ImguiInput() {
 		
 		if (ImGui::IsKeyReleased(GLFW_KEY_O))
             OpenFile();
-        if (shift && ImGui::IsKeyPressed(GLFW_KEY_S)) {
+        if (shift && ImGui::IsKeyPressed(GLFW_KEY_S))
             SaveFile();
-        }
 		if (ImGui::IsKeyPressed(GLFW_KEY_N)){
 			// to create new scene
 		}	
@@ -296,9 +296,24 @@ void ImguiSystem::ImguiInput() {
 
 void ImguiSystem::SaveArchetype() {
     std::string path = OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
-
     if (!path.empty())
         factory_->SerializeArchetypes(path);
+}
+
+void ImguiSystem::LoadArchetype() {
+
+    std::string path = OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 0);
+    if (!path.empty()) {
+
+        size_t pos = path.find("Resources");
+
+        std::string file = path.substr(pos);
+
+        factory_->DestroyAllArchetypes();
+        factory_->SerializeArchetypes(file);
+    }
+
+
 }
 
 void ImguiSystem::OpenFile() {
@@ -310,6 +325,7 @@ void ImguiSystem::OpenFile() {
 
         std::string file = filepath.substr(pos);
 
+        factory_->DestroyAllEntities();
         factory_->DeSerializeLevelEntities(file);
     }
 }

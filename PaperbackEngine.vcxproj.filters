@@ -96,17 +96,8 @@
     <Filter Include="Entity\Components\Clickable">
       <UniqueIdentifier>{f7a423a9-55e2-4154-a544-d78ac838822f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systems\ImguiSystem">
-      <UniqueIdentifier>{8b0c5799-936b-431d-8470-034f324d4ffb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Systems\ImguiSystem\ImguiFiles">
-      <UniqueIdentifier>{dcd95455-fba2-4267-93a7-83e2ff3ac8b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Systems\Pathfinding">
       <UniqueIdentifier>{50bb6902-33ce-41fd-b45a-9880aebab039}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Systems\ImguiSystem\ImguiWindows">
-      <UniqueIdentifier>{f6f019ce-bee4-46e8-9d65-5a5ea603ddfb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Entity\Components\InputController">
       <UniqueIdentifier>{8bdad12a-98c2-4e3d-9596-0c974f1871ff}</UniqueIdentifier>
@@ -116,9 +107,6 @@
     </Filter>
     <Filter Include="Systems\Logic">
       <UniqueIdentifier>{59021681-0e82-45bf-a3be-55b191505591}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Systems\LightingSystem">
-      <UniqueIdentifier>{49e006f8-c914-4a2b-8cf1-32fe29d17c71}</UniqueIdentifier>
     </Filter>
     <Filter Include="Systems\CameraSystem">
       <UniqueIdentifier>{11c7abbd-1499-49b7-93b2-0987a0f928f2}</UniqueIdentifier>
@@ -146,6 +134,18 @@
     </Filter>
     <Filter Include="Scripts\Hornet">
       <UniqueIdentifier>{d4eeee00-a8bd-4393-9642-bb99abfccc74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Imgui System">
+      <UniqueIdentifier>{8b0c5799-936b-431d-8470-034f324d4ffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Imgui System\ImguiFiles">
+      <UniqueIdentifier>{dcd95455-fba2-4267-93a7-83e2ff3ac8b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Imgui System\ImguiWindows">
+      <UniqueIdentifier>{f6f019ce-bee4-46e8-9d65-5a5ea603ddfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Lighting System">
+      <UniqueIdentifier>{49e006f8-c914-4a2b-8cf1-32fe29d17c71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -249,25 +249,25 @@
       <Filter>Entity\Components\Clickable</Filter>
     </ClCompile>
     <ClCompile Include="Include\Imgui\imgui.cpp">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClCompile>
     <ClCompile Include="Include\Imgui\imgui_demo.cpp">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClCompile>
     <ClCompile Include="Include\Imgui\imgui_draw.cpp">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClCompile>
     <ClCompile Include="Include\Imgui\imgui_impl_glfw.cpp">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClCompile>
     <ClCompile Include="Include\Imgui\imgui_impl_opengl3.cpp">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClCompile>
     <ClCompile Include="Include\Imgui\imgui_widgets.cpp">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\ImguiSystem.cpp">
-      <Filter>Systems\ImguiSystem</Filter>
+      <Filter>Systems\Imgui System</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\Pathfinding.cpp">
       <Filter>Systems\Pathfinding</Filter>
@@ -288,7 +288,7 @@
       <Filter>Systems\Logic</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\LightingSystem.cpp">
-      <Filter>Systems\LightingSystem</Filter>
+      <Filter>Systems\Lighting System</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\TextRenderer.cpp">
       <Filter>Entity\Components\Renderer</Filter>
@@ -315,7 +315,7 @@
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
     <ClCompile Include="Source\Manager\EntityManager.cpp">
       <Filter>ResourceManagers</Filter>
@@ -339,10 +339,10 @@
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
     <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -467,31 +467,31 @@
       <Filter>Entity\Components\Clickable</Filter>
     </ClInclude>
     <ClInclude Include="Include\Imgui\imconfig.h">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Imgui\imgui.h">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Imgui\imgui_impl_glfw.h">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Imgui\imgui_impl_opengl3.h">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Imgui\imgui_internal.h">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Imgui\imstb_rectpack.h">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Imgui\imstb_textedit.h">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Imgui\imstb_truetype.h">
-      <Filter>Systems\ImguiSystem\ImguiFiles</Filter>
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\ImguiSystem.h">
-      <Filter>Systems\ImguiSystem</Filter>
+      <Filter>Systems\Imgui System</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\Pathfinding.h">
       <Filter>Systems\Pathfinding</Filter>
@@ -506,7 +506,7 @@
       <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\IWindow.h">
-      <Filter>Systems\ImguiSystem</Filter>
+      <Filter>Systems\Imgui System</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\InputController.h">
       <Filter>Entity\Components\InputController</Filter>
@@ -524,7 +524,7 @@
       <Filter>Systems\Logic</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\LightingSystem.h">
-      <Filter>Systems\LightingSystem</Filter>
+      <Filter>Systems\Lighting System</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\CameraSystem.h">
       <Filter>Systems\CameraSystem</Filter>
@@ -545,7 +545,7 @@
       <Filter>Systems\Scene/State Manager\LevelsStruct</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\EntityManager.h">
       <Filter>ResourceManagers</Filter>
@@ -575,10 +575,10 @@
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h">
-      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

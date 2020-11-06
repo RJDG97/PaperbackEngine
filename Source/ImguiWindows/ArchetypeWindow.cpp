@@ -104,40 +104,6 @@ void ArchetypeWindow::AddComponents(ComponentTypes type, const char* typeName, c
 	imgui_->GetEntity()->InitArchetype();
 }
 
-//void ArchetypeWindow::DeletePopUp(Entity* archetype, std::string archetypeName) {
-//	ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-//
-//	ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-//
-//	if (ImGui::BeginPopup("Delete Confirmation"))
-//	{
-//		ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "Deleting: ");
-//		ImGui::Text(archetypeName.c_str());
-//		ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "This cannot be undone");
-//
-//		ImGui::Separator();
-//
-//		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0 / 7.0f, 0.6f, 0.6f));
-//		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0 / 7.0f, 0.7f, 0.7f));
-//		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
-//
-//		if (ImGui::Button("OK")) {
-//			entities_->DeleteArchetype(archetype);
-//			imgui_->SetEntity((nullptr));
-//
-//			ImGui::CloseCurrentPopup();
-//		}
-//		ImGui::PopStyleColor(3);
-//
-//		ImGui::SameLine();
-//
-//		if (ImGui::Button("Cancel"))
-//			ImGui::CloseCurrentPopup();
-//
-//		ImGui::EndPopup();
-//	}
-//}
-
 void ArchetypeWindow::AddArchetype(std::string archetypeName)
 {
 	std::stringstream name;
