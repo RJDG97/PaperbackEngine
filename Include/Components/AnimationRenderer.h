@@ -13,7 +13,9 @@
 
 class AnimationRenderer : public IWorldObjectRenderer {
 
+	std::vector<std::string> animation_names_;
 	std::map<std::string, Animation> obj_animations_;	// all possible animations that an object can switch between
+	std::string current_animation_name_;
 	Animation* current_animation_;						// current animation playing (points to an animation inside obj_animations_)
 
 	bool play_animation_;								// true - play animation, false - stop playing animation

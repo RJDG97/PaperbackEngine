@@ -101,7 +101,7 @@ public:
 class AnimationSet {
 
 	GLuint animation_frames_;
-	std::vector<std::pair<std::string, int>>* animation_names_;
+	std::vector<std::pair<std::string, int>>* animation_names_frames_;
 
 public:
 
@@ -175,15 +175,32 @@ public:
 
 /******************************************************************************/
 /*!
+	\fn AnimationBatchLoad(std::string level_name)
+
+	\brief Loads animations that will be used for the level
+*/
+/******************************************************************************/
+void AnimationBatchLoad(std::string level_name);
+
+/******************************************************************************/
+/*!
 	\fn CreateAnimation(const char* filename,
-						std::vector<std::pair<std::string, int>>* texture_name,
-						GLfloat frame_duration)
+						std::string animation_set_name,
+						int columns,
+						int rows,
+						std::vector<std::pair<std::string, int>>* animation_names_frames,
+						std::vector<GLfloat> frame_durations)
 
 	\brief Loads an image file, creates and stores all the animations that the
 		   file contains into the Animation Manager's map.
 */
 /******************************************************************************/
-	void CreateAnimation(const char* filename, std::vector<std::pair<std::string, int>>* texture_name, GLfloat frame_duration);
+	void CreateAnimation(const char* filename,
+						 std::string animation_set_name,
+						 int columns,
+						 int rows,
+						 std::vector<std::pair<std::string, int>>* animation_names_frames,
+						 std::vector<GLfloat> frame_durations);
 
 /******************************************************************************/
 /*!

@@ -289,6 +289,7 @@ void GraphicsSystem::SendMessageD(Message* m) {
         
         case MessageIDTypes::CHANGE_ANIMATION_1: {
 
+            camera_system_->SetTarget(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
             camera_system_->ToggleTargeted();
             SetAnimation(player_renderer->second, "Player_Walk");
 

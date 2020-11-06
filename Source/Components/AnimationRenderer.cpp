@@ -20,13 +20,20 @@ AnimationRenderer::~AnimationRenderer() {
 void AnimationRenderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
-    //CORE->GetManager<ComponentManager>()->AddComponent<AnimationRenderer>(Component::GetOwner()->GetID(), this);
+    
+    for (int i = 0; i < animation_names_.size(); ++i)
+    {
+        CORE->GetSystem<GraphicsSystem>()->AddAnimation(this, animation_names_[i]);
+    }
+    
+    CORE->GetSystem<GraphicsSystem>()->SetAnimation(this, current_animation_name_);
     texture_handle_ = current_animation_->GetAnimationFramesHandle();
     tex_vtx_initial_ = *current_animation_->GetTexVtx();
     tex_vtx_mirrored_ = std::vector<glm::vec2*>{ &tex_vtx_initial_[0],
                                                  &tex_vtx_initial_[1],
                                                  &tex_vtx_initial_[2],
                                                  &tex_vtx_initial_[3], };
+
     tex_vtx_sent_ = *current_animation_->GetTexVtx();
 }
 
@@ -55,15 +62,15 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     for (int i = 0; i < num_animations; ++i) {
 
-        std::string animation_name;
-        data >> animation_name;
+        std::string temp;
+        data >> temp;
+
+        animation_names_.push_back(temp);
         //won't need this after serialize is moved to GraphicsSystem
-        CORE->GetSystem<GraphicsSystem>()->AddAnimation(this, animation_name);
+        //CORE->GetSystem<GraphicsSystem>()->AddAnimation(this, animation_name);
     }
 
-    std::string current_animation_name;
-    data >> current_animation_name;
-    CORE->GetSystem<GraphicsSystem>()->SetAnimation(this, current_animation_name);
+    data >> current_animation_name_;
 
     data >> play_animation_ >> has_finished_animating_ >> layer_;
 }
@@ -78,6 +85,8 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
 
     // AnimationRenderer
 	cloned->obj_animations_ = obj_animations_; // Might need copy ctor
+    cloned->animation_names_ = animation_names_;
+    cloned->current_animation_name_ = current_animation_name_;
 	cloned->current_animation_ = current_animation_;
 	cloned->play_animation_ = play_animation_;
     cloned->has_finished_animating_ = has_finished_animating_;
