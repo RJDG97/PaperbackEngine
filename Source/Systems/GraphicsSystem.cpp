@@ -487,11 +487,6 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
                 anim_renderer->has_finished_animating_ = true;
                 anim_renderer->total_time_elapsed_ = 0.0f;
-
-                for (int i = 0; i < anim_renderer->tex_vtx_sent_.size(); ++i) {
-
-                    anim_renderer->tex_vtx_sent_[i] = *anim_renderer->tex_vtx_mirrored_[i];
-                }
             }
 
             anim_renderer->time_elapsed_ = 0.0f;
@@ -525,7 +520,7 @@ void GraphicsSystem::BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer)
 
     for (int i = 0; i < 4; ++i)
     {
-        tex_vtx_sent.push_back(i_worldobj_renderer->tex_vtx_sent_[i]);
+        tex_vtx_sent.push_back(i_worldobj_renderer->tex_vtx_[i]);
         scaling_sent.push_back(scaling);
         rotation_sent.push_back(rotation);
         position_sent.push_back(position);
@@ -657,30 +652,16 @@ void GraphicsSystem::FlipTextureX(IWorldObjectRenderer* i_worldobj_renderer) {
 
     i_worldobj_renderer->x_mirror_ = !i_worldobj_renderer->x_mirror_;
 
-    std::swap(i_worldobj_renderer->tex_vtx_mirrored_[0], i_worldobj_renderer->tex_vtx_mirrored_[2]);
-    std::swap(i_worldobj_renderer->tex_vtx_mirrored_[1], i_worldobj_renderer->tex_vtx_mirrored_[3]);
-
-    i_worldobj_renderer->tex_vtx_sent_.clear();
-
-    for (int i = 0; i < i_worldobj_renderer->tex_vtx_mirrored_.size(); ++i) {
-
-        i_worldobj_renderer->tex_vtx_sent_.push_back(*i_worldobj_renderer->tex_vtx_mirrored_[i]);
-    }
+    std::swap(i_worldobj_renderer->tex_vtx_[0], i_worldobj_renderer->tex_vtx_[2]);
+    std::swap(i_worldobj_renderer->tex_vtx_[1], i_worldobj_renderer->tex_vtx_[3]);
 }
 
 void GraphicsSystem::FlipTextureY(IWorldObjectRenderer* i_worldobj_renderer) {
 
     i_worldobj_renderer->y_mirror_ = !i_worldobj_renderer->y_mirror_;
 
-    std::swap(i_worldobj_renderer->tex_vtx_mirrored_[0], i_worldobj_renderer->tex_vtx_mirrored_[1]);
-    std::swap(i_worldobj_renderer->tex_vtx_mirrored_[2], i_worldobj_renderer->tex_vtx_mirrored_[3]);
-
-    i_worldobj_renderer->tex_vtx_sent_.clear();
-
-    for (int i = 0; i < i_worldobj_renderer->tex_vtx_mirrored_.size(); ++i) {
-
-        i_worldobj_renderer->tex_vtx_sent_.push_back(*i_worldobj_renderer->tex_vtx_mirrored_[i]);
-    }
+    std::swap(i_worldobj_renderer->tex_vtx_[0], i_worldobj_renderer->tex_vtx_[1]);
+    std::swap(i_worldobj_renderer->tex_vtx_[2], i_worldobj_renderer->tex_vtx_[3]);
 }
 
 int GraphicsSystem::GetLayer(IWorldObjectRenderer* i_worldobj_renderer) {
@@ -709,21 +690,26 @@ void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string 
     anim_renderer->time_elapsed_ = 0.0f;
 
     anim_renderer->texture_handle_ = anim_renderer->current_animation_->GetAnimationFramesHandle();
-    anim_renderer->tex_vtx_initial_ = *anim_renderer->current_animation_->GetTexVtx();
+    anim_renderer->tex_vtx_ = *anim_renderer->current_animation_->GetTexVtx();
 
-    anim_renderer->tex_vtx_sent_.clear();
+    if (anim_renderer->x_mirror_)
+    {
+        std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[2]);
+        std::swap(anim_renderer->tex_vtx_[1], anim_renderer->tex_vtx_[3]);
+    }
 
-    for (int i = 0; i < anim_renderer->tex_vtx_mirrored_.size(); ++i) {
-
-        anim_renderer->tex_vtx_sent_.push_back(*anim_renderer->tex_vtx_mirrored_[i]);
+    if (anim_renderer->y_mirror_)
+    {
+        std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[1]);
+        std::swap(anim_renderer->tex_vtx_[2], anim_renderer->tex_vtx_[3]);
     }
 }
 
 void GraphicsSystem::SetToNextFrame(AnimationRenderer* anim_renderer) {
 
-    for (int i = 0; i < anim_renderer->tex_vtx_sent_.size(); ++i) {
+    for (int i = 0; i < anim_renderer->tex_vtx_.size(); ++i) {
 
-        anim_renderer->tex_vtx_sent_[i].x +=
+        anim_renderer->tex_vtx_[i].x +=
             anim_renderer->current_animation_->GetOffsetX() * ( 1 - 2 * anim_renderer->y_mirror_);
     }
 }

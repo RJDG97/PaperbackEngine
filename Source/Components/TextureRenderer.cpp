@@ -24,12 +24,7 @@ void TextureRenderer::Init() {
     //CORE->GetManager<ComponentManager>()->AddComponent<TextureRenderer>(Component::GetOwner()->GetID(), this);
     texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
     texture_handle_ = texture_.GetTilesetHandle();
-    tex_vtx_initial_ = *texture_.GetTexVtx();
-    tex_vtx_mirrored_ = std::vector<glm::vec2*>{ &tex_vtx_initial_[0],
-                                                 &tex_vtx_initial_[1],
-                                                 &tex_vtx_initial_[2],
-                                                 &tex_vtx_initial_[3], };
-    tex_vtx_sent_ = *texture_.GetTexVtx();
+    tex_vtx_ = *texture_.GetTexVtx();
 }
 
 void TextureRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
