@@ -6,9 +6,9 @@
 
 namespace StagBeetle
 {
-	bool Attack(AIIt ai);
+	bool Attack(AIIt obj);
 
-	void Handler(AIIt ai);
+	void Handler(AIIt obj);
 
 }
 

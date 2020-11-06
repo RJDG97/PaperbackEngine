@@ -13,10 +13,12 @@ namespace GeneralScripts
 
 	bool Chase(AIIt obj)
 	{
+		obj->second->SetPlayerLastPos(player_rigidbody->GetPosition());
+
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(player_rigidbody->GetPosition(), obj_rigidbody->GetPosition());
 		// If obj is close enough, return true
-		if (distance < 100.0f)
+		if (distance < obj->second->GetRange()/5)
 			return true;
 
 		//get directional unit vector
@@ -34,13 +36,15 @@ namespace GeneralScripts
 
 	bool DetectPlayer(AIIt obj)
 	{
+		obj->second->SetPlayerLastPos(player_rigidbody->GetPosition());
+
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(player_rigidbody->GetPosition(), obj_rigidbody->GetPosition());
 		// If Player is very close, is detected
 		if (distance < 200.0f)
 			return true;
 		// Else check if player is in line of sight (May replace check after shadows)
-		else if(distance < 300.0f)
+		else if(distance < obj->second->GetRange())
 		{
 			// Get current direction of object
 			Vector2D vector1 = *obj->second->GetCurrentDes() - obj_rigidbody->GetPosition();
@@ -51,7 +55,7 @@ namespace GeneralScripts
 			// Change angle from rad to degrees
 			angle *= 180 / 3.14159f;
 			// If within view, return detected
-			if (angle < 45.0f)
+			if (angle > -45.0f && angle < 45.0f)
 				// Note: will have to check for object obstruction in the line of sight
 				return true;
 		}
@@ -93,36 +97,36 @@ namespace GeneralScripts
 		return AI::AIType::StagBeetle;
 	}
 
-	void Patrol(AIIt ai)
+	void Patrol(AIIt obj)
 	{
 
 		// Calculate distance between ai and destination
-		float distance = Vector2DLength(*(ai->second->GetCurrentDes()) - obj_rigidbody->GetPosition());
+		float distance = Vector2DLength(*(obj->second->GetCurrentDes()) - obj_rigidbody->GetPosition());
 
 		// if ai is near then calculate new vector and set
 		if (distance <= 0.5f) {
 
-			DestinationIt next_it = ai->second->GetCurrentDes();
+			DestinationIt next_it = obj->second->GetCurrentDes();
 
 			// check if next destination is out of range, and loop to beginning if so
-			if (++next_it == ai->second->GetDestinations().end())
+			if (++next_it == obj->second->GetDestinations().end())
 				//if next destination does not exist, then wrap back to beginning
-				next_it = ai->second->GetDestinations().begin();
+				next_it = obj->second->GetDestinations().begin();
 
 			// continue to next destination
-			ai->second->SetCurrentDes(next_it);
+			obj->second->SetCurrentDes(next_it);
 
 		}
 
 		//get directional unit vector
-		Vector2D directional = *ai->second->GetCurrentDes() - obj_rigidbody->GetPosition();
+		Vector2D directional = *obj->second->GetCurrentDes() - obj_rigidbody->GetPosition();
 		directional /= Vector2DLength(directional);
 
 		//multiply by speed
-		directional *= ai->second->GetSpeed();
+		directional *= obj->second->GetSpeed();
 
 		// Move AI
-		CORE->GetManager<ForcesManager>()->AddForce(ai->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
+		CORE->GetManager<ForcesManager>()->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
 	}
 
 }

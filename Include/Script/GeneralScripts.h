@@ -6,6 +6,10 @@
 
 namespace GeneralScripts
 {
+	extern EntityID player_id;
+	extern Transform* player_rigidbody;
+	extern Transform* obj_rigidbody;
+
 	//AI* obj_{nullptr};
 	bool Chase(AIIt obj);
 
@@ -15,7 +19,7 @@ namespace GeneralScripts
 
 	AI::AIType GetType(std::string type);
 
-	void Patrol(AIIt ai);
+	void Patrol(AIIt obj);
 }
 
 #endif
