@@ -284,13 +284,18 @@ void EntityFactory::CloneLevelEntities(const std::string& filename, const std::s
 	}
 }
 
+void EntityFactory::LoadLevel(const std::string& level_name) {
+
+	std::string filename = GetLevelPath(level_name);
+	levels_.current_state_ = GetLevel(level_name);
+
+	DeSerializeLevelEntities(filename);
+}
+
 //serialises level
-void EntityFactory::DeSerializeLevelEntities(const std::string& name) {
+void EntityFactory::DeSerializeLevelEntities(const std::string& filename) {
 
 	M_DEBUG->WriteDebugMessage("Beginning loading of level entities\n");
-
-	std::string filename = GetLevelPath(name);
-	levels_.current_state_ = GetLevel(name);
 
 	// Parse the stringstream into document (DOM) format
 	rapidjson::Document doc;

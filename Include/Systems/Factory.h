@@ -101,6 +101,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn LoadLevel()
+
+  \brief Loads a file given a level name
+*/
+/******************************************************************************/
+	void LoadLevel(const std::string& level_name);
+
+/******************************************************************************/
+/*!
   \fn SerializeArchetypes()
 
   \brief Serializes all archetypes by by saving their component

@@ -9,7 +9,7 @@ WinLoseState m_WinLoseState;
 void WinLoseState::Init(std::string level_name) {
 
 	CORE->ResetCorePauseStatus();
-	FACTORY->DeSerializeLevelEntities(level_name);
+	FACTORY->LoadLevel(level_name);
 }
 
 

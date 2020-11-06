@@ -36,7 +36,7 @@ void MenuState::Init(std::string)
 
 	CORE->ResetCorePauseStatus();
 	// Entities created within cannot be checked against directly (No * to entity)
-	FACTORY->DeSerializeLevelEntities("Menu");
+	FACTORY->LoadLevel("Menu");
 }
 
 void MenuState::Free()
