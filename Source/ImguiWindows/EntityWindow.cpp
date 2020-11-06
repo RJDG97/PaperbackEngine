@@ -57,10 +57,11 @@ std::pair<Entity*, std::vector<ComponentTypes>> EntityWindow::GetEntityComponent
 
 void EntityWindow::ShowEntityList() {
 
-	bool opened = false, deleteentity = false;
+	bool opened = false;
 
 	if (entities_) {
 
+		ImGui::Text("Entity Count: %d", entities_->GetEntities().size());
 		for (entityIT = entities_->GetEntities().begin(); entityIT != entities_->GetEntities().end(); entityIT++) {
 
 			std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entityIT->second->GetComponent(ComponentTypes::NAME));
@@ -88,6 +89,7 @@ void EntityWindow::ShowEntityList() {
 }
 
 void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent) {
+
 	if (entitycomponent.first) {
 
 		for (auto componenttype : entitycomponent.second) {
@@ -122,31 +124,35 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 			}
 			case ComponentTypes::TRANSFORM:
 			{
+				
 				std::shared_ptr<Transform> entitytransform = std::dynamic_pointer_cast<Transform>(entitycomponent.first->GetComponent(ComponentTypes::TRANSFORM));
 
 				float inputRot = entitytransform->GetRotation();
 				Vector2D inputPos = { entitytransform->GetPosition() };
 
-				if (ImGui::TreeNode("Rotation")) {
+				if (ImGui::TreeNode("Transform Component")) {
+					if (ImGui::TreeNode("Rotation")) {
 
-					ComponentInput("X", "##rot", inputRot, 95.0f, 1.0f, 10.0f);
+						ComponentInput("X", "##rot", inputRot, 95.0f, 1.0f, 10.0f);
 
-					entitytransform->SetRotation(inputRot);
+						entitytransform->SetRotation(inputRot);
 
-					ComponentDisplayFloat(ImVec4{ 0.678f, 1.0f, 0.184f, 1.0f }, "Angle: ", entitytransform->GetRotation());
-					ImGui::TreePop();
-				}
+						ComponentDisplayFloat(ImVec4{ 0.678f, 1.0f, 0.184f, 1.0f }, "Angle: ", entitytransform->GetRotation());
+						ImGui::TreePop();
+					}
 
-				if (ImGui::TreeNode("Position")) {
+					if (ImGui::TreeNode("Position")) {
 
-					ComponentInput("X", "##posX", inputPos.x, 102.0f);
-					ImGui::SameLine();
-					ComponentInput("Y", "##posY", inputPos.y, 95.0f);
+						ComponentInput("X", "##posX", inputPos.x, 102.0f);
+						ImGui::SameLine();
+						ComponentInput("Y", "##posY", inputPos.y, 95.0f);
 
-					entitytransform->SetPosition(inputPos);
+						entitytransform->SetPosition(inputPos);
 
-					ComponentDisplayVec(ImVec4{ 1.0f, 0.843f, 0.0f, 1.0f }, "Entity Position: ", entitytransform->GetPosition());
+						ComponentDisplayVec(ImVec4{ 1.0f, 0.843f, 0.0f, 1.0f }, "Entity Position: ", entitytransform->GetPosition());
 
+						ImGui::TreePop();
+					}
 					ImGui::TreePop();
 				}
 				break;

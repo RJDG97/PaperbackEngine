@@ -32,14 +32,14 @@ public:
 	void AddArchetype(std::string component);
 
 	void AvaliableArchetypes();
-	void DeletePopUp(Entity* archetype, std::string archetypeName);
-
+	
+	void AddComponents(ComponentTypes type, const char* typeName, const char* buttonLabel);
 
 private:
 	EntityManager* entities_;
 	ImguiSystem* imgui_;
-	bool b_addentity;
 	ComponentManager* comp_mgr_;
+	bool b_addentity;
 	bool b_delete;
 
 };

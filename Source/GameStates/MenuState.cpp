@@ -90,12 +90,18 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			if (m->button_index_ == 3) {
 
+				CORE->SetGameActiveStatus(false);
+				return;
+			}
+
+			if (m->button_index_ == 4) {
+
 				// Enter "Win" state
 				game->ChangeState(&m_WinLoseState, "Win"); // convert to settings
 				return;
 			}
 
-			if (m->button_index_ == 4) {
+			if (m->button_index_ == 5) {
 
 				// Enter "Lose" state
 				game->ChangeState(&m_WinLoseState, "Lose"); // convert to quit game

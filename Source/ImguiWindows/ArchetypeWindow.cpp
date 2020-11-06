@@ -17,7 +17,6 @@ void ArchetypeWindow::Update() {
 
 	//if (ImGui::Button("Add Entities"))
 	//	b_addentity = !b_addentity;
-
 	
 	if (ImGui::CollapsingHeader("Existing Archetypes"))
 		AvaliableArchetypes();
@@ -43,6 +42,10 @@ void ArchetypeWindow::Update() {
 			// function for all of these as well
 			if (imgui_->GetEntity()) {
 
+				for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it)
+				{
+					ImGui::Button(it->first.c_str());
+				}
 				//add for loop (put this chunk into a fn taking in ComponentTypes id + char* component Name)
 				if (!imgui_->GetEntity()->HasComponent(ComponentTypes::TRANSFORM)) {
 
@@ -89,6 +92,16 @@ void ArchetypeWindow::AvaliableArchetypes() {
 			}
 		}
 	}
+}
+
+void ArchetypeWindow::AddComponents(ComponentTypes type, const char* typeName, const char* buttonLabel){
+	std::shared_ptr<Component> component;
+	IComponentCreator* creator = comp_mgr_->GetComponentCreator(typeName);
+
+	component = creator->Create();
+
+	imgui_->GetEntity()->AddComponent(type, component);
+	imgui_->GetEntity()->InitArchetype();
 }
 
 //void ArchetypeWindow::DeletePopUp(Entity* archetype, std::string archetypeName) {
