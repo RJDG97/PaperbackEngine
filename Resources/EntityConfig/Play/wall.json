@@ -2,21 +2,21 @@
   "wall": [
     {
       "component": "Transform",
-      "position": "-150.0 -100.0",
+      "position": "0.0 -4.0",
       "rotation": "0.0"
     }
   ],
   "wall": [
     {
       "component": "Transform",
-      "position": "-150.0 -160.0",
+      "position": "0.0 -3.0",
       "rotation": "0.0"
     }
   ],
   "wall": [
     {
       "component": "Transform",
-      "position": "-90.0 -160.0",
+      "position": "1.0 -4.0",
       "rotation": "0.0"
     }
   ]

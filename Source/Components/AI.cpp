@@ -26,6 +26,9 @@ void AI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 	writer->Key("component");
 	writer->String("AI");
 
+	writer->Key("range");
+	writer->String(std::to_string(range_).c_str());
+
 	writer->Key("speed");
 	writer->String(std::to_string(speed_).c_str());
 
@@ -36,7 +39,7 @@ void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;
 
-	data >> type;
+	data >> type >> range_ >> speed_;
 	type_ = GeneralScripts::GetType(type);
 	
 }
@@ -46,7 +49,7 @@ void AI::DeSerializeClone(std::stringstream& data) {
 	std::string type;
 
 	// clone data will be for number of destinations and destinations
-	data >> type >> speed_ >> num_destinations_;
+	data >> type >> range_ >> speed_ >> num_destinations_;
 
 	type_ = GeneralScripts::GetType(type);
 
@@ -91,12 +94,12 @@ void AI::SetState(AIState state)
 	state_ = state;
 }
 
-int AI::GetRange()
+float AI::GetRange()
 {
 	return range_;
 }
 
-void AI::SetRange(int range)
+void AI::SetRange(float range)
 {
 	range_ = range;
 }
@@ -157,4 +160,14 @@ void AI::SetCurrentDes(DestinationIt Cdes)
 AI::AIType AI::GetType()
 {
 	return type_;
+}
+
+Vector2D AI::GetPlayerLastPos()
+{
+	return player_last_pos_;
+}
+
+void AI::SetPlayerLastPos(Vector2D pos)
+{
+	player_last_pos_ = pos;
 }

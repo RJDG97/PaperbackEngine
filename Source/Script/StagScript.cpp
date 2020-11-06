@@ -1,53 +1,59 @@
 #include "Script/StagScript.h"
+#include "Engine/Core.h"
+#include "Manager/ForcesManager.h"
 
 namespace StagBeetle
 {
-	bool Attack(AIIt ai)
+	bool Attack(AIIt obj)
 	{
-		// Get direction from player
-		//ai->second->speed_ += 5.0f;// Increase speed
-		// continue until collision
+		// Find current distance of player from obj
+		float distance = Vector2DDistance(obj->second->GetPlayerLastPos(), GeneralScripts::obj_rigidbody->GetPosition());
+		// If obj is close enough, return true
+		if (distance < 1.0f)
+		{
+			// Fall animation
+			// Collision check for damage
+			return false;
+		}
+
+		//get directional unit vector
+		Vector2D directional = obj->second->GetPlayerLastPos() - GeneralScripts::obj_rigidbody->GetPosition();
+		directional /= Vector2DLength(directional);
+
+		//multiply by speed
+		directional *= (obj->second->GetSpeed()*2);
+
 		// Move AI
-		//CORE->GetManager<ForcesManager>()->AddForce(ai->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
-		//ai->second->speed_ -= 5.0f;// Decrease speed
-		return false;
+		CORE->GetManager<ForcesManager>()->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
+
+		return true;
 	}
 
-	void Handler(AIIt ai)
+	void Handler(AIIt obj)
 	{
-		switch (ai->second->GetState())
+		switch (obj->second->GetState())
 		{
 		case AI::AIState::Patrol:
-			GeneralScripts::Patrol(ai);
+			GeneralScripts::Patrol(obj);
 			// Animation (maybe check vector direction to determine which 
 			//			  side enemy is facing)
-			if (GeneralScripts::DetectPlayer(ai))
-				ai->second->SetState(AI::AIState::Detected);
+			if (GeneralScripts::DetectPlayer(obj))
+				obj->second->SetState(AI::AIState::Detected);
 			break;
 		case AI::AIState::Detected:
 			// Player Detected anim
-			ai->second->SetState(AI::AIState::Chase);
-			break;
-		case AI::AIState::Chase:
-			if (!GeneralScripts::DetectPlayer(ai)) // Player not in radius
-			{
-				ai->second->SetState(AI::AIState::Patrol);
-			}
-			else if (GeneralScripts::Chase(ai))
-			{
-				ai->second->SetState(AI::AIState::Attack);
-			}
+			obj->second->SetState(AI::AIState::Attack);
 			break;
 		case AI::AIState::Attack:
-			if (!Attack(ai))
+			if (!Attack(obj))
 			{
-				if (GeneralScripts::DetectPlayer(ai)) // Player in radius
+				if (GeneralScripts::DetectPlayer(obj)) // Player in radius
 				{
-					ai->second->SetState(AI::AIState::Chase);
+					obj->second->SetState(AI::AIState::Attack);
 				} // Pursue player
 				else
 				{
-					ai->second->SetState(AI::AIState::Patrol);
+					obj->second->SetState(AI::AIState::Patrol);
 				}
 			}
 			break;

@@ -39,7 +39,8 @@ void EditorState::Init(std::string)
 	//TEMPORARY
 	//CORE->GetSystem<CameraSystem>()->SetTarget(player);
 	
-	FACTORY->DeSerializeLevelEntities("Editor");
+	CORE->ResetCorePauseStatus();
+	FACTORY->LoadLevel("Editor");
 }
 
 void EditorState::Free()

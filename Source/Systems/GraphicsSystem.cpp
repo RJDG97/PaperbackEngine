@@ -352,6 +352,8 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
 
     if (it) {
 
+        layer = it->layer_;
+    	
         if (it->ui_text_)
         {
             TextRenderOrderIt orderit = uitext_renderers_in_order_.find(layer);
@@ -507,10 +509,12 @@ void GraphicsSystem::BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer)
     float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
     Vector2D pos = transform->position_;
 
+    const float global_scale = CORE->GetGlobalScale();
+
     //glm::vec2 scaling{ scale->GetScale().x, scale->GetScale().y };
     glm::vec2 scaling{ scale.x, scale.y };
     glm::vec2 rotation{ glm::cos(orientation), glm::sin(orientation) };
-    glm::vec2 position{ pos.x, pos.y };
+    glm::vec2 position{ pos.x * global_scale, pos.y * global_scale };
 
     if (texture_handles.find(*i_worldobj_renderer->texture_handle_) == texture_handles.end())
     {
@@ -589,8 +593,15 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
     shader->SetUniform("projection", projection);
     shader->SetUniform("text_color", text_renderer->color_);
 
-    Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
-        text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
+    //Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
+    //    text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
+	
+    Transform* xform = component_manager_->GetComponent<Transform>(text_renderer->GetOwner()->GetID());
+	
+    if (!xform)
+        return;
+
+    Vector2D obj_pos_ = xform->position_;
 
     Vector2D pos;
     float scale;

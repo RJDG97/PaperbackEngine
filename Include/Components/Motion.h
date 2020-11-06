@@ -79,6 +79,9 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	float GetMass();
+	void SetMass(float newMass);
 };
 
 #endif

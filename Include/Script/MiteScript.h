@@ -1,27 +1,15 @@
 #ifndef _MITESCRIPT_H_
 #define _MITESCRIPT_H_
 
-//class Mite : public AIManager
-//{
-//public:
-//
-//	void MiteHandler(AIIt ai)
-//	{
-//		std::cout << "Mite" << std::endl;
-//		switch (ai->second->GetState())
-//		{
-//		case AI::AIState::Patrol:
-//			GS.Patrol(ai);
-//			break;
-//		}
-//	}
-//
-//	void ExplosionAttack(AIIt ai)
-//	{
-//		//std::cout << "Attack" << std::endl;
-//		ai->second->SetState(AI::AIState::Patrol);
-//	}
-//
-//}mite;
+#include "Systems/LogicSystem.h"
+#include "Script/ScriptList.h"
+
+namespace Mite
+{
+	bool Attack(AIIt obj);
+
+	void Handler(AIIt obj);
+
+}
 
 #endif

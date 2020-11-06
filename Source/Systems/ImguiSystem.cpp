@@ -1,15 +1,20 @@
 #include "Systems/ImguiSystem.h"
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityCompWindow.h"
-
+#include "ImguiWindows/ImguiMenuBar.h"
+#include "ImguiWindows/EntityWindow.h"
+#include "Systems/Game.h"
 
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
     //AddWindow<ImguiViewport>();
+    AddWindow<ImguiMenuBar>();
     AddWindow<EntityCompWindow>();
+    AddWindow<EntityWindow>();
 
     win = &*CORE->GetSystem<WindowsSystem>();
     collision_system_ = &*CORE->GetSystem<Collision>();
+    //input_sys_ = &*CORE->GetSystem<InputSystem>();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -21,9 +26,11 @@ void ImguiSystem::Init(){
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking (Merging of windows)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    //io.WantCaptureKeyboard = true;
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
 
+    //check = false;
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsClassic();
@@ -65,6 +72,8 @@ void ImguiSystem::Init(){
     b_debug = false;
     b_lock_entity = false;
     b_imguimode = false;
+
+    new_entity_ = nullptr;
 }
 
 void ImguiSystem::Update(float frametime){
@@ -72,7 +81,7 @@ void ImguiSystem::Update(float frametime){
     UNREFERENCED_PARAMETER(frametime);
 
     if (b_imguimode){
-       // glfwPollEvents();
+       //glfwPollEvents();
 
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -103,18 +112,6 @@ void ImguiSystem::Update(float frametime){
                 ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dock_space_flags_);
             }
-
-            if (ImGui::BeginMenuBar()) {
-
-                if (ImGui::BeginMenu("File")) {
-
-                    if (ImGui::MenuItem("test"))
-                        ImGui::Text("text");
-                    ImGui::EndMenu();
-                }
-            }
-
-            ImGui::EndMenuBar();
 
             // For all windows attached.
             /* Has to be called between the ImGui::Begin("DockSpace"); and the corresponding ImGui::End()
@@ -175,8 +172,7 @@ void ImguiSystem::ImguiRender()
 
     // Update and Render additional Platform Windows
     // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
-    ImGuiIO& io = ImGui::GetIO();
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 
         GLFWwindow* backup_current_context = glfwGetCurrentContext();
         ImGui::UpdatePlatformWindows();
@@ -205,15 +201,14 @@ void ImguiSystem::SendMessageD(Message* m){
     }
     case MessageIDTypes::DEBUG_ALL:
     {
-        b_debug = !b_debug;
-        b_imguimode = !b_imguimode;
-
+        if (CORE->GetSystem<Game>()->GetStateName() == "Play" || CORE->GetSystem<Game>()->GetStateName() == "Menu") {
+            b_debug = !b_debug;
+            b_imguimode = !b_imguimode;
+        }
         break;
     }
     default:
-    {
         break;
-    }
     }
 }
 
@@ -257,11 +252,18 @@ void ImguiSystem::ImguiHelp(const char* description){
     }
 }
 
+Entity* ImguiSystem::GetEntity()
+{
+    return new_entity_;
+}
+
+void ImguiSystem::SetEntity(Entity* newentity)
+{
+    new_entity_ = newentity;
+}
+
 ImguiSystem::~ImguiSystem(){
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
-
-
-

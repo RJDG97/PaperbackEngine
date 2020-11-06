@@ -42,6 +42,11 @@ void Scale::DeSerialize(std::stringstream& data) {
 	data >> scale_.x >> scale_.y;
 }
 
+void Scale::DeSerializeClone(std::stringstream& data) {
+		
+	DeSerialize((data));
+}
+
 std::shared_ptr<Component> Scale::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning Scale Component\n");	
 

@@ -34,10 +34,12 @@ void MenuState::Init(std::string)
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
+	CORE->ResetCorePauseStatus();
 	// Entities created within cannot be checked against directly (No * to entity)
 	CORE->GetManager<TextureManager>()->TextureBatchLoad("Menu");
 	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Menu");
 	FACTORY->DeSerializeLevelEntities("Menu");
+	FACTORY->LoadLevel("Menu");
 }
 
 void MenuState::Free()
@@ -76,30 +78,30 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
-			if (m->button_index_ == 3) {
+			if (m->button_index_ == 1) {
 
 				//true returned, trigger scene change
 				game->ChangeState(&m_PlayState);
 				return;
 			}
 
-			if (m->button_index_ == 5) {
+			if (m->button_index_ == 2) {
 
 				game->ChangeState(&m_EditorState);
 				return;
 			}
 
-			if (m->button_index_ == 7) {
+			if (m->button_index_ == 3) {
 
 				// Enter "Win" state
-				game->ChangeState(&m_WinLoseState, "Win");
+				game->ChangeState(&m_WinLoseState, "Win"); // convert to settings
 				return;
 			}
 
-			if (m->button_index_ == 9) {
+			if (m->button_index_ == 4) {
 
 				// Enter "Lose" state
-				game->ChangeState(&m_WinLoseState, "Lose");
+				game->ChangeState(&m_WinLoseState, "Lose"); // convert to quit game
 				return;
 			}
 			break;

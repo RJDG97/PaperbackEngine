@@ -3,16 +3,41 @@
     {
       "component": "AI",
       "AItype": "Stag_Beetle",
+      "range": "300.0",
       "speed": "3000.0",
       "dest": "4",
-      "destination1": "-750.0 0.0", 
-      "destination2": "-750.0 50.0",
-      "destination3": "-700.0 50.0",
-      "destination4": "-700.0 0.0"
+      "destination1": "-5.0 0.0", 
+      "destination2": "-5.0 -2.0",
+      "destination3": "-3.0 -2.0",
+      "destination4": "-3.0 0.0"
     },
     {
       "component": "Transform",
-      "position": "-700.0 0.0 ",
+      "position": "-5.0 0.0 ",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.7",
+      "radius": "20.0",
+      "intensity": "0.8"
+    }
+  ],
+  "AITest": [
+    {
+      "component": "AI",
+      "AItype": "Stag_Beetle",
+      "range": "300.0",
+      "speed": "3000.0",
+      "dest": "4",
+      "destination1": "-750.0 100.0", 
+      "destination2": "-750.0 150.0",
+      "destination3": "-700.0 150.0",
+      "destination4": "-700.0 100.0"
+    },
+    {
+      "component": "Transform",
+      "position": "-700.0 100.0 ",
       "rotation": "0.0" 
     },
     {

@@ -80,11 +80,22 @@ void Entity::AddComponent(ComponentTypes type_id, std::shared_ptr<Component> com
 
 	//ensure pointer is not nullptr
 	DEBUG_ASSERT(component, "Component is nullptr");
+	DEBUG_ASSERT(!(HasComponent(type_id)), "Component already exist");
 
 	component->type_id_ = type_id;
 	components_.push_back(component);
 
 	std::sort(components_.begin(), components_.end(), ComponentSorter);
+}
+
+bool Entity::HasComponent(ComponentTypes type_id) {
+
+	for (ComponentArrIt begin = components_.begin(); begin != components_.end(); ++begin)
+	{
+		if (begin->get()->type_id_ == type_id)
+			return true;
+	}
+	return false;
 }
 
 // Returns a pointer to a component attached to an entity

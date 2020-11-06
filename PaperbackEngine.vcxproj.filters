@@ -323,6 +323,12 @@
     <ClCompile Include="Source\Manager\EntityManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\ImguiMenuBar.cpp">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Script\GeneralScripts.cpp">
       <Filter>Scripts\GeneralScripts</Filter>
     </ClCompile>
@@ -568,6 +574,12 @@
     <ClInclude Include="Include\Script\ScriptList.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\ImguiMenuBar.h">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\EntityWindow.h">
+      <Filter>Systems\ImguiSystem\ImguiWindows</Filter>
+      </ClInclude>
     <ClInclude Include="Include\GameStates\EditorState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>

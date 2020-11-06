@@ -2,8 +2,41 @@
   "button": [
     {
       "component": "Transform",
-      "position": "-330.0 -300.0",
+      "position": "0.0 -2.0",
       "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "1"
+    },
+    {
+      "component": "Scale",
+      "scale": "120.0 40.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "4"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.0 -5.5",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "2"
+    },
+    {
+      "component": "Scale",
+      "scale": "120.0 40.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "4"
     }
   ]
 }

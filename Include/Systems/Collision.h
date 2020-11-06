@@ -10,6 +10,7 @@
 #include "Components/Motion.h"
 #include "Components/Status.h"
 #include "Components/Transform.h"
+#include "Components/Scale.h"
 #include "Components/InputController.h"
 #include "Manager/ShaderManager.h"
 #include "Manager/ModelManager.h"
@@ -66,6 +67,10 @@ class Collision : public ISystem {
 	using TransformType = CMap<Transform>;
 	using TransformIt = TransformType::MapTypeIt;
 	TransformType* transform_arr_;
+
+	using ScaleType = CMap<Scale>;
+	using ScaleIt = ScaleType::MapTypeIt;
+	ScaleType* scale_arr_;
 
 	//using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
 	//std::unordered_map < EntityID, InputController*> input_controller_arr_;
