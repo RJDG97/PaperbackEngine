@@ -38,7 +38,6 @@ void MenuState::Init(std::string)
 	// Entities created within cannot be checked against directly (No * to entity)
 	CORE->GetManager<TextureManager>()->TextureBatchLoad("Menu");
 	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Menu");
-	FACTORY->DeSerializeLevelEntities("Menu");
 	FACTORY->LoadLevel("Menu");
 }
 
