@@ -8,6 +8,7 @@
 
 class Pathfinding : public ISystem {
 
+public:
 	struct Node
 	{
 		bool obstacle_ = false;
@@ -19,6 +20,8 @@ class Pathfinding : public ISystem {
 		std::vector<Node*> neighbour_;
 		Node* parent_;
 	};
+
+private:
 
 	Node* nodes_{ nullptr };
 	Node* nstart_{ nullptr };
