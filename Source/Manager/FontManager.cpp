@@ -46,6 +46,12 @@ std::map<char, Character>* Font::GetCharacters()
     return &characters_;
 }
 
+FontManager::~FontManager()
+{
+
+    FT_Done_FreeType(ft);
+}
+
 void FontManager::Init() {
 
     if (FT_Init_FreeType(&ft))
@@ -60,9 +66,32 @@ Font* FontManager::GetFont(std::string name)
     return &(fonts_.find(name)->second);
 }
 
+void FontManager::FontBatchLoad(std::string level_name)
+{
+    rapidjson::Document fonts_to_load;
+    std::string path = "Resources/AssetsLoading/" + level_name + "_font.json";
+
+    DeSerializeJSON(path, fonts_to_load);
+
+    const rapidjson::Value& fonts_arr = fonts_to_load;
+    DEBUG_ASSERT(fonts_arr.IsObject(), "Level JSON does not exist in proper format");
+
+    for (rapidjson::Value::ConstMemberIterator font_it = fonts_arr.MemberBegin(); font_it != fonts_arr.MemberEnd(); ++font_it) {
+
+        LoadFont(font_it->value.GetString());
+    }
+}
+
 void FontManager::LoadFont(std::string font_name)
 {
-    std::string pathname = "Resources\\Font\\" + font_name + ".ttf";
+    auto it = fonts_.find(font_name);
+
+    if (it != fonts_.end())
+    {
+        return;
+    }
+
+    std::string pathname = "Resources/Font/" + font_name + ".ttf";
 
     FT_Face face;
     if (FT_New_Face(ft, pathname.c_str(), 0, &face))
@@ -122,7 +151,27 @@ void FontManager::LoadFont(std::string font_name)
         temp.insert(std::pair<char, Character>(c, character));
     }
 
-    fonts_.insert({ font_name, Font(temp) });
+    fonts_[font_name] = Font(temp);
     FT_Done_Face(face);
-    FT_Done_FreeType(ft);
+}
+
+void FontManager::DeSerializeJSON(const std::string& filename, rapidjson::Document& doc) {
+
+    std::ifstream input_file(filename.c_str());
+    DEBUG_ASSERT(input_file.is_open(), "File does not exist");
+
+    // Read each line separated by a '\n' into a stringstream
+    std::stringstream json_doc_buffer;
+    std::string input;
+
+    while (std::getline(input_file, input)) {
+
+        json_doc_buffer << input << "\n";
+    }
+
+    // Close the file (.json) after
+    input_file.close();
+
+    // Parse the stringstream into document (DOM) format
+    doc.Parse(json_doc_buffer.str().c_str());
 }

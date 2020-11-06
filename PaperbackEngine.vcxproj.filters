@@ -15,9 +15,6 @@
     <Filter Include="Systems">
       <UniqueIdentifier>{ebeb2066-502c-412b-b210-1796c09f3153}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systems\InputSystem">
-      <UniqueIdentifier>{e34f2000-4d88-49ed-86d2-3f2dfcaf1f87}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Systems\WindowsSystem">
       <UniqueIdentifier>{4edf8eaa-d0fb-496d-ab91-c7e40ec1781f}</UniqueIdentifier>
     </Filter>
@@ -32,9 +29,6 @@
     </Filter>
     <Filter Include="Systems\Scene/State Manager\Test States">
       <UniqueIdentifier>{c3996147-acc3-4e82-ac35-cade7a0fa0f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Systems\GraphicsSystem">
-      <UniqueIdentifier>{707765b0-cef9-4294-91e4-211866991ae3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Systems\Physics">
       <UniqueIdentifier>{8bfe5313-3d35-4544-88d1-53b25f7cd9a6}</UniqueIdentifier>
@@ -135,6 +129,12 @@
     <Filter Include="Scripts\Hornet">
       <UniqueIdentifier>{d4eeee00-a8bd-4393-9642-bb99abfccc74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Lighting System">
+      <UniqueIdentifier>{49e006f8-c914-4a2b-8cf1-32fe29d17c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Input System">
+      <UniqueIdentifier>{e34f2000-4d88-49ed-86d2-3f2dfcaf1f87}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Systems\Imgui System">
       <UniqueIdentifier>{8b0c5799-936b-431d-8470-034f324d4ffb}</UniqueIdentifier>
     </Filter>
@@ -144,8 +144,11 @@
     <Filter Include="Systems\Imgui System\ImguiWindows">
       <UniqueIdentifier>{f6f019ce-bee4-46e8-9d65-5a5ea603ddfb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systems\Lighting System">
-      <UniqueIdentifier>{49e006f8-c914-4a2b-8cf1-32fe29d17c71}</UniqueIdentifier>
+    <Filter Include="Systems\Graphics System">
+      <UniqueIdentifier>{707765b0-cef9-4294-91e4-211866991ae3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\AMap System">
+      <UniqueIdentifier>{4274bd2b-3520-415f-947c-ad585244f534}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -180,10 +183,10 @@
       <Filter>Systems\Factory</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\GraphicsSystem.cpp">
-      <Filter>Systems\GraphicsSystem</Filter>
+      <Filter>Systems\Graphics System</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\InputSystem.cpp">
-      <Filter>Systems\InputSystem</Filter>
+      <Filter>Systems\Input System</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\Physics.cpp">
       <Filter>Systems\Physics</Filter>
@@ -343,6 +346,9 @@
     </ClCompile>
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
+      </ClCompile>
+    <ClCompile Include="Source\Manager\AMap.cpp">
+      <Filter>Systems\AMap System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,7 +398,7 @@
       <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\GraphicsSystem.h">
-      <Filter>Systems\GraphicsSystem</Filter>
+      <Filter>Systems\Graphics System</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\Game.h">
       <Filter>Systems\Scene/State Manager</Filter>
@@ -458,7 +464,7 @@
       <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\InputSystem.h">
-      <Filter>Systems\InputSystem</Filter>
+      <Filter>Systems\Input System</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\Name.h">
       <Filter>Entity\Components\Name</Filter>
@@ -579,6 +585,9 @@
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
+      </ClInclude>
+    <ClInclude Include="Include\Manager\AMap.h">
+      <Filter>Systems\AMap System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

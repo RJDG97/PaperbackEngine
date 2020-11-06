@@ -49,14 +49,67 @@ void TextureManager::Init() {
     M_DEBUG->WriteDebugMessage("Texture Manager Init\n");
 }
 
-void TextureManager::TempTextureBatchLoad() {
+void TextureManager::TextureBatchLoad(std::string level_name) {
 
-    //create misc textures
-    LoadMiscTextures();
+    rapidjson::Document textures_to_load;
+    std::string path = "Resources/AssetsLoading/" + level_name + "_texture.json";
 
-    //load textures
-    CreateTileset("Resources\\Sprites\\tiles.png", 3, 7, environment_tiles_);
-    CreateTileset("Resources\\Sprites\\Background.png", 1, 1, background_test_);
+    DeSerializeJSON(path, textures_to_load);
+
+    const rapidjson::Value& files_arr = textures_to_load;
+    DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
+
+    //handle sorting of information into the map
+    for (rapidjson::Value::ConstMemberIterator file_it = files_arr.MemberBegin(); file_it != files_arr.MemberEnd(); ++file_it) {
+
+        std::string path_name{ file_it->value.GetString() };
+
+        rapidjson::Document texture_data;
+        DeSerializeJSON(path_name, texture_data);
+        
+        //Only one element in this array
+        const rapidjson::Value& texture_arr = texture_data;
+        DEBUG_ASSERT(texture_arr.IsObject(), "Level JSON does not exist in proper format");
+        std::string texture_pathname = std::string{"Resources/Sprites/"} + texture_arr.MemberBegin()->name.GetString();
+
+        const rapidjson::Value& texture_param = *texture_arr.MemberBegin()->value.Begin();
+        
+        rapidjson::Value::ConstMemberIterator texture_param_it = texture_param.MemberBegin();
+        
+        std::string tileset_name = (texture_param_it++)->value.GetString();
+        int columns = std::stoi((texture_param_it++)->value.GetString());
+        int rows = std::stoi((texture_param_it++)->value.GetString());
+
+        std::vector<std::string> tile_names;
+
+        for (; texture_param_it != texture_param.MemberEnd(); ++texture_param_it)
+        {
+            tile_names.push_back(texture_param_it->value.GetString());
+        }
+
+        CreateTileset(texture_pathname.c_str(), columns, rows, tile_names, tileset_name);
+    }
+}
+
+void TextureManager::DeSerializeJSON(const std::string& filename, rapidjson::Document& doc) {
+
+    std::ifstream input_file(filename.c_str());
+    DEBUG_ASSERT(input_file.is_open(), "File does not exist");
+
+    // Read each line separated by a '\n' into a stringstream
+    std::stringstream json_doc_buffer;
+    std::string input;
+
+    while (std::getline(input_file, input)) {
+
+        json_doc_buffer << input << "\n";
+    }
+
+    // Close the file (.json) after
+    input_file.close();
+
+    // Parse the stringstream into document (DOM) format
+    doc.Parse(json_doc_buffer.str().c_str());
 }
 
 void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char red,
@@ -156,10 +209,18 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     return texobj_hdl;
 }
 
-void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names)
+void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string>& texture_names, std::string tileset_name)
 {
+    auto it = tilesets_.find(tileset_name);
+
+    if (it != tilesets_.end())
+    {
+        std::cout << "Tileset already exists!" << std::endl;
+        return;
+    }
+
     GLuint tileset_handle_ = LoadImageFile(filename);
-    tilesets_[texture_names[0]] = { tileset_handle_, &texture_names };
+    tilesets_[tileset_name] = { tileset_handle_, &texture_names };
 
     glm::vec2 offset{ 1.0f / columns, 1.0f / rows };
 
@@ -167,7 +228,7 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
 
         for (int x = 0; x < columns; ++x) {
 
-            if (texture_names[y * columns + x + 1] == "Empty") {
+            if (texture_names[y * columns + x] == "Empty") {
 
                 continue;
             }
@@ -176,7 +237,7 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
                                1 - y / static_cast<float>(rows) - offset.y };
 
             // + 1 skips over the name of the tilset
-            textures_[texture_names[y * columns + x + 1]] =
+            textures_[texture_names[y * columns + x]] =
                 Texture{ tileset_handle_,
                          { {origin.x, origin.y},
                            {origin.x + offset.x, origin.y},

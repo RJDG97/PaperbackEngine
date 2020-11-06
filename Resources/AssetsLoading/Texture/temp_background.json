@@ -1,0 +1,10 @@
+{
+  "Background.png": [
+    {
+	  "Tileset Name": "Temp_Background",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "Background"
+    }
+  ]
+}

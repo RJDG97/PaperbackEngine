@@ -180,6 +180,7 @@
     <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
+    <ClCompile Include="Source\Manager\AMap.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="Include\Imgui\imstb_rectpack.h" />
     <ClInclude Include="Include\Imgui\imstb_textedit.h" />
     <ClInclude Include="Include\Imgui\imstb_truetype.h" />
+    <ClInclude Include="Include\Manager\AMap.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\ComponentManager.h" />
     <ClInclude Include="Include\Manager\EntityManager.h" />

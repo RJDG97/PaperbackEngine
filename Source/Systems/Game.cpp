@@ -24,8 +24,8 @@ void Game::Init()
 {
 	b_running_ = true;
 
-	CORE->GetManager<TextureManager>()->TempTextureBatchLoad();
-	CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
+	//CORE->GetManager<TextureManager>()->TempTextureBatchLoad();
+	//CORE->GetManager<AnimationManager>()->TempAnimationBatchLoad();
 	FACTORY->CreateAllArchetypes("Resources/EntityConfig/archetypes.json");
 
 	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();

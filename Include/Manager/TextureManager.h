@@ -8,6 +8,9 @@
 #include <vector>
 #include <string>
 #include "Manager/IManager.h"
+#include "../rapidjson/filereadstream.h"
+#include "../rapidjson/document.h"
+#include "prettywriter.h"
 
 class Texture {
 
@@ -165,13 +168,14 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn Init()
+	\fn TextureBatchLoad(std::string level_name)
 
-	\brief Loads textures that will be used for the level, will make use of
-		   serialization at a later time
+	\brief Loads textures that will be used for the level
 */
 /******************************************************************************/
-	void TempTextureBatchLoad();
+	void TextureBatchLoad(std::string level_name);
+
+	void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
 
 /******************************************************************************/
 /*!
@@ -207,15 +211,17 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn CreateTileset(const char* filename,
-					  size_t columns, size_t rows,
-					  std::vector<std::string> texture_names)
+	\fn CreateTileset(const char* filename, size_t columns, size_t rows,
+					  std::vector<std::string>& texture_names,
+					  std::string tileset_name)
 
 	\brief Creates a tileset using the path given and stores all the tiles
 		   in the Texture Manager's map
 */
 /******************************************************************************/
-	void CreateTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string> texture_names);
+	void CreateTileset(const char* filename, size_t columns, size_t rows,
+					   std::vector<std::string>& texture_names,
+					   std::string tileset_name);
 
 /******************************************************************************/
 /*!

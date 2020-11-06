@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 #include "Systems/Game.h"
@@ -18,6 +17,7 @@
 #include "Entity/ComponentTypes.h"
 
 #include "Manager/ForcesManager.h"
+#include "Manager/AMap.h"
 
 #include <memory>
 
@@ -45,8 +45,11 @@ void PlayState::Init(std::string)
 
 	//TEMPORARY
 	//CORE->GetSystem<CameraSystem>()->SetTarget(player);
+
 	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel("Play");
+
+	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 }
 
 void PlayState::Free()

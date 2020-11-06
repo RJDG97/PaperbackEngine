@@ -14,10 +14,9 @@ protected:
 	bool x_mirror_ = false;
 	bool y_mirror_ = false;
 
+	std::string texture_name_;
 	GLuint* texture_handle_;
-	std::vector<glm::vec2> tex_vtx_initial_;	//initial texture vertex (before flipping)
-	std::vector<glm::vec2*> tex_vtx_mirrored_;	//mirrored texture vertex (after flipping the initial)
-	std::vector<glm::vec2> tex_vtx_sent_;		//texture vertex sent to the shaders
+	std::vector<glm::vec2> tex_vtx_;
 	int layer_;
 
 public:

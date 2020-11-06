@@ -2,24 +2,24 @@
 
 void Pathfinding::Init()
 {
-	// Allocate memory
-	nodes_ = new Node[mapwidth_ * mapheight_];
+	//// Allocate memory
+	//nodes_ = new Node[mapwidth_ * mapheight_];
 
-	// Initialise map
-	for (int x = 0; x < mapwidth_; ++x)
-	{
-		for (int y = 0; y < mapheight_; ++y)
-		{
-			// Set Location
-			nodes_[y * mapwidth_ + x].x = x;
-			nodes_[y * mapwidth_ + x].y = y;
-			// Init variables
-			nodes_[y * mapwidth_ + x].parent_ = nullptr;
-			nodes_[y * mapwidth_ + x].visited_ = false;
-			// Set Obstacle
-			nodes_[y * mapwidth_ + x].obstacle_ = false;
-		}
-	}
+	//// Initialise map
+	//for (int x = 0; x < mapwidth_; ++x)
+	//{
+	//	for (int y = 0; y < mapheight_; ++y)
+	//	{
+	//		// Set Location
+	//		nodes_[y * mapwidth_ + x].x = x;
+	//		nodes_[y * mapwidth_ + x].y = y;
+	//		// Init variables
+	//		nodes_[y * mapwidth_ + x].parent_ = nullptr;
+	//		nodes_[y * mapwidth_ + x].visited_ = false;
+	//		// Set Obstacle
+	//		nodes_[y * mapwidth_ + x].obstacle_ = false;
+	//	}
+	//}
 
 	// Connect nodes to neighbour nodes
 	for (int x = 0; x < mapwidth_; ++x)
