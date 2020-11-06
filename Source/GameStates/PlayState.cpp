@@ -46,7 +46,7 @@ void PlayState::Init(std::string)
 	//TEMPORARY
 	//CORE->GetSystem<CameraSystem>()->SetTarget(player);
 	CORE->ResetCorePauseStatus();
-	FACTORY->DeSerializeLevelEntities("Play");
+	FACTORY->LoadLevel("Play");
 }
 
 void PlayState::Free()

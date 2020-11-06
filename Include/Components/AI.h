@@ -122,7 +122,7 @@ public:
 	  \brief Get component range
 	*/
 	/******************************************************************************/
-	int GetRange();
+	float GetRange();
 
 	/******************************************************************************/
 	/*!
@@ -131,7 +131,7 @@ public:
 	  \brief Set component range
 	*/
 	/******************************************************************************/
-	void SetRange(int range);
+	void SetRange(float range);
 
 	/******************************************************************************/
 	/*!
@@ -225,17 +225,21 @@ public:
 
 	AIType GetType();
 
+	Vector2D GetPlayerLastPos();
+
+	void SetPlayerLastPos(Vector2D pos);
+
 private:
 
 	AIType type_;
 	AIState state_;
-	int range_;
+	float range_;
 	int attackpower_;
 	float speed_;
 	size_t num_destinations_;
 	std::vector<Vector2D> destinations_;
 	DestinationIt current_destination_;
-
+	Vector2D player_last_pos_;
 };
 
 #endif
