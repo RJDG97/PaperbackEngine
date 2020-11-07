@@ -12,30 +12,47 @@ TextRenderer::TextRenderer() {
 TextRenderer::~TextRenderer() {
 
     CORE->GetSystem<GraphicsSystem>()->RemoveTextRendererComponent(Component::GetOwner()->GetID());
-    //CORE->GetManager<ComponentManager>()->RemoveComponent<TextRenderer>(Component::GetOwner()->GetID());
 }
 
 void TextRenderer::Init() {
 
     CORE->GetSystem<GraphicsSystem>()->AddTextRendererComponent(Component::GetOwner()->GetID(), this);
-    //CORE->GetManager<ComponentManager>()->AddComponent<TextRenderer>(Component::GetOwner()->GetID(), this);
 
     font_ = CORE->GetManager<FontManager>()->GetFont(font_name_);
 }
 
 void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
-
-    (void)writer;
-    /*
+    
     writer->StartObject();
 
     writer->Key("component");
-    writer->String("AABB");
+    writer->String("TextRenderer");
+
+    writer->Key("font");
+    writer->String((font_name_).c_str());
+
+    writer->Key("sentence length");
+    int a;
+    writer->String(std::to_string(a = (std::count(text_.begin(), text_.end(), ' '))).c_str());
+
+    writer->Key("text");
+    writer->String((text_).c_str());
+
+    writer->Key("color");
+    writer->String((std::to_string(color_.x) + " " +
+                    std::to_string(color_.y) + " " +
+                    std::to_string(color_.z)).c_str());
 
     writer->Key("scale");
-    writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+    writer->String(std::to_string(scale_).c_str());
 
-    writer->EndObject();*/
+    writer->Key("layer");
+    writer->String(std::to_string(layer_).c_str());
+
+    writer->Key("ui text");
+    writer->String(std::to_string(ui_text_).c_str());
+
+    writer->EndObject();
 }
 
 void TextRenderer::DeSerialize(std::stringstream& data) {
@@ -47,8 +64,8 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
     data >> font_name_
         >> sentence_length;
 
-    for (int i = 0; i < sentence_length; ++i)
-    {
+    for (int i = 0; i < sentence_length; ++i) {
+
         std::string temp;
         data >> temp;
         text_ += temp + " ";
@@ -63,16 +80,7 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
 
 void TextRenderer::DeSerializeClone(std::stringstream& data)
 {
-    std::string font;
-
-    data >> font
-         >> text_
-         >> color_.x >> color_.y >> color_.z
-         >> scale_
-         >> layer_
-         >> ui_text_;
-
-    font_ = CORE->GetManager<FontManager>()->GetFont(font);
+    DeSerialize(data);
 }
 
 std::shared_ptr<Component> TextRenderer::Clone() {

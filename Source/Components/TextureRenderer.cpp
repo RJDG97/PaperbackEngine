@@ -15,13 +15,11 @@ TextureRenderer::TextureRenderer() {
 TextureRenderer::~TextureRenderer() {
     
     CORE->GetSystem<GraphicsSystem>()->RemoveTextureRendererComponent(Component::GetOwner()->GetID());
-    //CORE->GetManager<ComponentManager>()->RemoveComponent<TextureRenderer>(Component::GetOwner()->GetID());
 }
 
 void TextureRenderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddTextureRendererComponent(Component::GetOwner()->GetID(), this);
-    //CORE->GetManager<ComponentManager>()->AddComponent<TextureRenderer>(Component::GetOwner()->GetID(), this);
     texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
     texture_handle_ = texture_.GetTilesetHandle();
     tex_vtx_ = *texture_.GetTexVtx();
@@ -29,22 +27,28 @@ void TextureRenderer::Init() {
 
 void TextureRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 
-    (void)writer;
-    /*
     writer->StartObject();
 
     writer->Key("component");
-    writer->String("AABB");
+    writer->String("TextureRenderer");
 
-    writer->Key("scale");
-    writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+    writer->Key("texture");
+    writer->String(texture_name_.c_str());
 
-    writer->EndObject();*/
+    writer->Key("layer");
+    writer->String(std::to_string(layer_).c_str());
+
+    writer->EndObject();
 }
 
 void TextureRenderer::DeSerialize(std::stringstream& data) {
     
     data >> texture_name_ >> layer_;
+}
+
+void TextureRenderer::DeSerializeClone(std::stringstream& data) {
+
+    DeSerialize(data);
 }
 
 std::shared_ptr<Component> TextureRenderer::Clone() {

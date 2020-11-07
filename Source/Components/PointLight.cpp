@@ -23,17 +23,23 @@ void PointLight::Init() {
 
 void PointLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 
-	(void)writer;
-	/*
 	writer->StartObject();
 
 	writer->Key("component");
-	writer->String("AABB");
+	writer->String("PointLight");
 
-	writer->Key("scale");
-	writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+	writer->Key("color");
+	writer->String((std::to_string(color_.x) + " " +
+					std::to_string(color_.y) + " " +
+					std::to_string(color_.y)).c_str());
 
-	writer->EndObject();*/
+	writer->Key("radius");
+	writer->String(std::to_string(radius_).c_str());
+
+	writer->Key("intensity");
+	writer->String(std::to_string(intensity_).c_str());
+
+	writer->EndObject();
 }
 
 void PointLight::DeSerialize(std::stringstream& data) {

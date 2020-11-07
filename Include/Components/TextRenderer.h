@@ -77,7 +77,7 @@ public:
 /*!
 	\fn DeSerializeClone(std::stringstream& data)
 
-	\brief Reads data from a stringstream and stores them into the data members
+	\brief Serializes data members within the Component
 */
 /******************************************************************************/
 	void DeSerializeClone(std::stringstream& data) override;

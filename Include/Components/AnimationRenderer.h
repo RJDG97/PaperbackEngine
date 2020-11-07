@@ -61,7 +61,7 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn Serialize()
+  \fn Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 
   \brief Serialises a component into JSON format
 */
@@ -76,6 +76,15 @@ public:
 */
 /******************************************************************************/
 	void DeSerialize(std::stringstream& data) override;
+
+/******************************************************************************/
+/*!
+	\fn DeSerializeClone(std::stringstream& data)
+
+	\brief Serializes data members within the Component
+*/
+/******************************************************************************/
+	void DeSerializeClone(std::stringstream& data) override;
 
 /******************************************************************************/
 /*!

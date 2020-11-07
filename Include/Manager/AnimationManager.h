@@ -145,13 +145,6 @@ class AnimationManager : public IManager {
 	
 	TextureManager* texture_manager_;
 
-	std::vector<std::pair<std::string, int>> player_animations_{
-
-		{"Player_Animations", 8}, //first element stores name of AnimationSet and the number of columns the file has
-		{"Player_Walk", 8},
-		{"Player_Idle", 8}
-	};
-
 public:
 
 /******************************************************************************/
@@ -162,16 +155,6 @@ public:
 */
 /******************************************************************************/
 	void Init() override;
-
-/******************************************************************************/
-/*!
-	\fn TempAnimationBatchLoad()
-
-	\brief Loads animations that will be used for the level, will make use of
-		   serialization at a later time
-*/
-/******************************************************************************/
-	void TempAnimationBatchLoad();
 
 /******************************************************************************/
 /*!

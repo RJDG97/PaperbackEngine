@@ -116,45 +116,6 @@ class TextureManager : public IManager {
 	std::map<std::string, Tileset> tilesets_;
 	std::map<std::string, Texture> textures_;
 
-	//Serialize for names in the future
-	std::vector<std::string> misc_tiles_ {
-
-		"MiscTiles",
-		"BlackQuad",
-		"WhiteQuad"
-	};
-
-	std::vector<std::string> environment_tiles_	{
-
-		"EnvironmentTiles",
-		"Carpet_TopLeft",
-		"Carpet_TopMid",
-		"Carpet_TopRight",
-		"Carpet_Left",
-		"Carpet_Mid",
-		"Carpet_Right",
-		"Carpet_BtmLeft",
-		"Carpet_BtmMid",
-		"Carpet_BtmRight",
-		"Carpet_Brick_BtmLeft",
-		"Carpet_Brick_BtmMid",
-		"Carpet_Brick_BtmRight",
-		"Brick_Left",
-		"Brick_Mid",
-		"Brick_Right",
-		"Empty",
-		"Plank",
-		"Stone",
-		"Empty",
-		"Empty",
-		"Rock"
-	};			 
-
-	std::vector<std::string> background_test_{
-		"BackgroundTest",
-		"Background",
-	};
-
 public:
 
 /******************************************************************************/
