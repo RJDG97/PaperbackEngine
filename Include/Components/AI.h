@@ -229,6 +229,9 @@ public:
 
 	void SetPlayerLastPos(Vector2D pos);
 
+	Vector2D GetNewDestination();
+	void SetNewDestination(Vector2D newnode);
+
 private:
 
 	AIType type_;
@@ -237,6 +240,7 @@ private:
 	int attackpower_;
 	float speed_;
 	size_t num_destinations_;
+	Vector2D new_node_;
 	std::vector<Vector2D> destinations_;
 	DestinationIt current_destination_;
 	Vector2D player_last_pos_;

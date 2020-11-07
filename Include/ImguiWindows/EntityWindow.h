@@ -11,6 +11,7 @@
 #include "Components/Motion.h"
 #include "Components/PointLight.h"
 #include "Components/AI.h"
+#include "Components/BasicAI.h"
 
 #include "Manager/EntityManager.h"
 #include "Systems/Game.h"
@@ -83,6 +84,7 @@ public:
 	void ShowEntityList();
 
 	const char* GetAIState(int aiState);
+	const char* GetAIType(int aiType);
 
 private:
 	ImguiSystem* imgui_system_;
@@ -92,6 +94,7 @@ private:
 	EntityManager::EntityIdMapTypeIt entityIT;
 
 	const char* AIstates[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
+	const char* AItype[3]{ "StagBeetle", "Mite", "Hornet"};
 
 };
 #endif
