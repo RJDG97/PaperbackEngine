@@ -19,6 +19,7 @@
 #include "Manager/ForcesManager.h"
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
+#include "Manager/AMap.h"
 
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
@@ -66,6 +67,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		// Add Managers to the Core Engine
 		CORE->AddManager<ComponentManager>();
 		CORE->AddManager<EntityManager>();
+		CORE->AddManager<AMap>();
 		CORE->AddManager<ModelManager>();
 		CORE->AddManager<TextureManager>();
 		CORE->AddManager<ShaderManager>();

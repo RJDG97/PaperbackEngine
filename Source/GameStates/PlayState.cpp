@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 #include "Systems/Game.h"
@@ -18,6 +17,7 @@
 #include "Entity/ComponentTypes.h"
 
 #include "Manager/ForcesManager.h"
+#include "Manager/AMap.h"
 
 #include <memory>
 
@@ -46,6 +46,8 @@ void PlayState::Init(std::string)
 	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
 	CORE->GetManager<FontManager>()->FontBatchLoad("Play");
 	FACTORY->LoadLevel("Play");
+
+	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 }
 
 void PlayState::Free()
