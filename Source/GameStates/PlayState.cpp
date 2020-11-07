@@ -41,11 +41,10 @@ void PlayState::Init(std::string)
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	//player = FACTORY->CloneArchetype("Player");
-
-	//TEMPORARY
-	//CORE->GetSystem<CameraSystem>()->SetTarget(player);
 	CORE->ResetCorePauseStatus();
+	CORE->GetManager<TextureManager>()->TextureBatchLoad("Play");
+	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
+	CORE->GetManager<FontManager>()->FontBatchLoad("Play");
 	FACTORY->LoadLevel("Play");
 }
 

@@ -14,15 +14,14 @@ AnimationRenderer::AnimationRenderer() {
 AnimationRenderer::~AnimationRenderer() {  
     
     CORE->GetSystem<GraphicsSystem>()->RemoveAnimationRendererComponent(Component::GetOwner()->GetID());
-    //CORE->GetManager<ComponentManager>()->RemoveComponent<AnimationRenderer>(Component::GetOwner()->GetID());
 }
 
 void AnimationRenderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddAnimationRendererComponent(Component::GetOwner()->GetID(), this);
     
-    for (int i = 0; i < animation_names_.size(); ++i)
-    {
+    for (int i = 0; i < animation_names_.size(); ++i) {
+
         CORE->GetSystem<GraphicsSystem>()->AddAnimation(this, animation_names_[i]);
     }
     
@@ -32,18 +31,34 @@ void AnimationRenderer::Init() {
 }
 
 void AnimationRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
-
-    (void)writer;
-    /*
+    
     writer->StartObject();
 
     writer->Key("component");
-    writer->String("AABB");
+    writer->String("AnimationRenderer");
 
-    writer->Key("scale");
-    writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
+    writer->Key("number of animations");
+    writer->String((std::to_string(animation_names_.size()).c_str()));
+    
+    for (auto it = animation_names_.begin(); it != animation_names_.end(); ++it) {
 
-    writer->EndObject();*/
+        writer->Key("add animation");
+        writer->String(it->c_str());
+    }
+
+    writer->Key("set animation");
+    writer->String(current_animation_name_.c_str());
+
+    writer->Key("play_animation");
+    writer->String((std::to_string(play_animation_).c_str()));
+
+    writer->Key("has_finished_animating");
+    writer->String((std::to_string(has_finished_animating_).c_str()));
+
+    writer->Key("layer");
+    writer->String((std::to_string(layer_).c_str()));
+
+    writer->EndObject();
 }
 
 void AnimationRenderer::DeSerialize(std::stringstream& data) {
@@ -60,13 +75,16 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
         data >> temp;
 
         animation_names_.push_back(temp);
-        //won't need this after serialize is moved to GraphicsSystem
-        //CORE->GetSystem<GraphicsSystem>()->AddAnimation(this, animation_name);
     }
 
     data >> current_animation_name_;
 
     data >> play_animation_ >> has_finished_animating_ >> layer_;
+}
+
+void AnimationRenderer::DeSerializeClone(std::stringstream& data)
+{
+    DeSerialize(data);
 }
 
 std::shared_ptr<Component> AnimationRenderer::Clone() {
@@ -78,7 +96,7 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
     cloned->layer_ = layer_;
 
     // AnimationRenderer
-	cloned->obj_animations_ = obj_animations_; // Might need copy ctor
+	cloned->obj_animations_ = obj_animations_;
     cloned->animation_names_ = animation_names_;
     cloned->current_animation_name_ = current_animation_name_;
 	cloned->current_animation_ = current_animation_;

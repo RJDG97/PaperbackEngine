@@ -96,8 +96,6 @@ public:
 /******************************************************************************/
 	GLuint* GetLightingTexture();
 
-	//using PointLightIt = std::unordered_map<EntityID, PointLight*>::iterator;
-	//std::unordered_map<EntityID, PointLight*> point_light_arr_;
 	using PointLightType = CMap<PointLight>;
 	using PointLightIt = PointLightType::MapTypeIt;
 	PointLightType* point_light_arr_;
