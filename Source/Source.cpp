@@ -26,6 +26,7 @@
 #include "Systems/Factory.h"
 #include "Systems/Game.h"
 #include "Systems/Collision.h"
+#include "Systems/Partitioning.h"
 #include "Systems/Debug.h"
 #include <sstream>
 
@@ -58,6 +59,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<LightingSystem>();
 		CORE->AddSystem<GraphicsSystem>();
 		CORE->AddSystem<Physics>();
+		CORE->AddSystem<PartitioningSystem>();
 		CORE->AddSystem<Collision>();
 		CORE->AddSystem<ImguiSystem>();
 		CORE->AddSystem<SoundSystem>();
@@ -89,6 +91,10 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		FACTORY->DestroyAllArchetypes();
 
 		EngineDebug::DeleteInstance();
+	}
+
+	catch (std::bad_alloc& e) {
+		DEBUG_ASSERT(false, "Noob get more RAM");
 	}
 	catch (std::exception& e) {
 

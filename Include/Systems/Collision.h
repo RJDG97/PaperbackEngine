@@ -4,6 +4,7 @@
 
 #include <string>
 #include "Systems/Message.h"
+#include "Systems/Partitioning.h"
 #include "ISystem.h"
 #include "Components/AABB.h"
 #include "Components/Clickable.h"
@@ -70,9 +71,6 @@ private:
 	float* cam_zoom_;
 
 	AABBType aabb_arr_;
-	//using AABBType = CMap<AABB>;
-	//using AABBIt = AABBType::MapTypeIt;
-	//AABBType* aabb_arr_;
 
 	ClickableType* clickable_arr_;
 
@@ -89,6 +87,8 @@ private:
 	std::unordered_map<CollisionLayer, CollidableLayers> collision_layer_arr_;
 
 	std::map<CollisionLayer, AABBType> collision_map_;
+
+	PartitioningSystem* partitioning_;
 
 /******************************************************************************/
 /*!
@@ -300,6 +300,16 @@ public:
 */
 /******************************************************************************/
 	void ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime);
+
+/******************************************************************************/
+/*!
+  \fn ProcessParitionedEntities()
+
+  \brief Helper function to handle collision checking between entities in a
+		 partition
+*/
+/******************************************************************************/
+	void ProcessPartitionedEntities(size_t y, size_t x, float frametime);
 
 /******************************************************************************/
 /*!

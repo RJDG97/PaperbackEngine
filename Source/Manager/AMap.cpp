@@ -39,6 +39,16 @@ void AMap::UpdateAMap(std::pair<EntityID, Entity*> entity) {
 	(void)entity;
 }
 
+Vector2D AMap::GetBottomLeft() {
+
+	return bottom_left_;
+}
+
+Vector2D AMap::GetTopRight() {
+
+	return top_right_;
+}
+
 // Helper function to determine the "boundaries" of the level
 void AMap::AMapInitialization(std::map<EntityID, Entity*> entity_map) {
 

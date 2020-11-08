@@ -495,6 +495,7 @@ void Collision::Init() {
 	status_arr_ = comp_mgr->GetComponentArray<Status>();
 	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
 	input_controller_arr_ = comp_mgr->GetComponentArray<InputController>();
+	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
 
 	shdr_pgm_ = CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
 	model_ = CORE->GetManager<ModelManager>()->AddLinesModel(1, 1, "LinesModel");
@@ -534,6 +535,53 @@ void Collision::Init() {
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }
 
+void Collision::ProcessPartitionedEntities(size_t y, size_t x, float frametime) {										//test fn
+
+	std::vector<AABBIt> aabbs{};
+	partitioning_->GetPartitionedEntities(aabbs, x, y);
+	
+	if (aabbs.empty())
+		return;
+	
+	//nested loop checking each other
+	for (std::vector<AABBIt>::iterator it1 = aabbs.begin(); it1 != aabbs.end(); ++it1) {
+		for (std::vector<AABBIt>::iterator it2 = aabbs.begin(); it2 != aabbs.end(); ++it2) {
+
+			if (it1 == it2)
+				continue;
+
+			CollidableLayers& layer_1 = collision_layer_arr_.find(static_cast<CollisionLayer>((*it1)->second->layer_))->second;
+			CollidableLayers& layer_2 = collision_layer_arr_.find(static_cast<CollisionLayer>((*it2)->second->layer_))->second;
+
+			//reject and move on if same layer that doesn't allow for collisions on layer
+			if ((layer_1.first == layer_2.first) && !layer_1.second)
+				continue;
+
+			CollidableLayer test = layer_1.first & layer_2.first;
+
+			//verify if matching layer collision
+			if (test.test((*it1)->second->layer_)) {
+
+				Vector2D vel1 = motion_arr_->GetComponent((*it1)->first) ?
+					motion_arr_->GetComponent((*it1)->first)->velocity_ : Vector2D{};
+				Vector2D vel2 = motion_arr_->GetComponent((*it2)->first) ?
+					motion_arr_->GetComponent((*it2)->first)->velocity_ : Vector2D{};
+
+				float t_first{};
+	
+				if (CheckCollision(*(*it1)->second, vel1, *(*it2)->second, vel2, frametime, t_first)) {
+
+					CollisionResponse(
+						static_cast<CollisionLayer>((*it1)->second->layer_), 
+						static_cast<CollisionLayer>((*it2)->second->layer_), 
+						*it1, &vel1, *it2, &vel2, frametime, t_first
+					);
+				}
+			}
+		}
+	}
+}
+
 // Update function that contains collision checking logic to determine collision
 // between entities
 void Collision::Update(float frametime) {
@@ -543,6 +591,32 @@ void Collision::Update(float frametime) {
 	UpdateBoundingBox();
 	UpdateClickableBB();
 
+
+	std::pair<size_t, size_t> sizes = partitioning_->GetAxisSizes();
+	std::vector<std::future<void>> futures{};
+
+	for (size_t i = 0; i < sizes.second; ++i) { // y-axis
+		for (size_t j = 0; j < sizes.first; ++j) { // x-axis
+		
+			/*std::vector<AABBIt> aabbs{};
+
+			if (aabbs.empty())
+				continue;
+				*/
+			//ProcessParitionedEntities(aabbs, frametime);
+
+			futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
+		}
+	}
+	
+	for (std::future<void>& future : futures) {
+
+		future.get();
+	}
+
+	//loop through both
+
+	/*
 	Vector2D empty{};
 	std::vector<std::future<void>> futures{};
 
@@ -562,7 +636,7 @@ void Collision::Update(float frametime) {
 	for (std::future<void>& future : futures) {
 
 		future.get();
-	}
+	}*/
 
 	// Possibly to toggle off debug mode
 	if (debug_)

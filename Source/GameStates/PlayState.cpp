@@ -9,6 +9,7 @@
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
 #include "Systems/ImguiSystem.h"
+#include "Systems/Partitioning.h"
 
 #include "Components/Transform.h"
 #include "Components/Motion.h"
@@ -48,6 +49,7 @@ void PlayState::Init(std::string)
 	FACTORY->LoadLevel("Play");
 
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
+	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 }
 
 void PlayState::Free()
