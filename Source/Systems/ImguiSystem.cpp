@@ -2,8 +2,8 @@
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityWindow.h"
 #include "ImguiWindows/ArchetypeWindow.h"
-#include "Systems/Game.h"
 
+// Expose the Win32 API
 #include <commdlg.h>
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -28,7 +28,6 @@ void ImguiSystem::Init(){
     ImGuiIO& io = ImGui::GetIO();
     
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking (Merging of windows)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
     
@@ -61,7 +60,8 @@ void ImguiSystem::Init(){
     // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
     // - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
     // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
-
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Medium.ttf", 16.0f);
+    bold_font_ = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Bold.ttf", 16.0f);
     // end of Imgui init
 
     b_dock_space_open = true;
@@ -123,6 +123,8 @@ void ImguiSystem::Update(float frametime) {
                 ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dock_space_flags_);
             }
+
+            ImGuiCustomStyle();
 
             /* This has to be called between the ImGui::Begin("DockSpace"); and the corresponding ImGui::End()
              for windows to be dockable in the docking space */
@@ -195,18 +197,52 @@ void ImguiSystem::ImguiMenuBar() {
                 OpenFile();
             if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
                 SaveFile();
+            if (ImGui::MenuItem("Return to Menu")){
+                //add pop up
+                b_imguimode = false;
+                FACTORY->DestroyAllEntities();
+                new_entity_ = {};
+                CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
+            }
+            if (ImGui::MenuItem("Exit")) {
+                CORE->SetGameActiveStatus(false);
+            }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Archetypes")) {
 
             if (ImGui::MenuItem("Save Archetypes"))
                 SaveArchetype();
-            //if (ImGui::MenuItem("Load Archetypes"))
+            if (ImGui::MenuItem("Load Archetypes"))
+                LoadArchetype();
 
             ImGui::EndMenu();
         }
     }
     ImGui::EndMenuBar();
+}
+
+void ImguiSystem::ImGuiCustomStyle() {
+
+    ImVec4* colors = ImGui::GetStyle().Colors;
+
+    colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.251f, 0.737f, 0.529f, 1.0f};
+    colors[ImGuiCol_HeaderActive] = ImVec4{ 0.659f, 0.969f, 0.659f, 1.0f };
+    colors[ImGuiCol_Header] = ImVec4{ 0.2f, 0.565f, 0.408f, 1.0f };
+
+    colors[ImGuiCol_Button] = ImVec4{ 0.643f,0.224f,0.459f, 1.0f };
+    colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.706f,0.314f,0.533f, 1.0f };
+    colors[ImGuiCol_ButtonActive] = ImVec4{ 0.788f,0.416f,0.624f, 1.0f };
+}
+
+bool ImguiSystem::GetImguiBool() {
+
+    return b_imguimode;
+}
+
+void ImguiSystem::SetImguiBool(bool mode) {
+
+    b_imguimode = mode;
 }
 
 void ImguiSystem::Draw() {}
@@ -229,10 +265,8 @@ void ImguiSystem::SendMessageD(Message* m) {
     }
     case MessageIDTypes::DEBUG_ALL:
     {
-        if (CORE->GetSystem<Game>()->GetStateName() == "Play" || CORE->GetSystem<Game>()->GetStateName() == "Menu") {
+        if (CORE->GetSystem<Game>()->GetStateName() == "Editor")
             b_debug = !b_debug;
-            b_imguimode = !b_imguimode;
-        }
         break;
     }
     default:
@@ -246,19 +280,23 @@ EntityID ImguiSystem::GetSelectedEntity() {
 }
 
 void ImguiSystem::ResetSelectedEntity() {
+
     new_entity_ = nullptr;
     b_lock_entity = false;
 }
 
 bool ImguiSystem::GetDebugBool() {
+
     return b_debug;
 }
 
 void ImguiSystem::SetDebugBool(bool debug) {
+
     b_debug = debug;
 }
 
 bool ImguiSystem::GetLockBool() {
+
     return b_lock_entity;
 }
 
@@ -310,10 +348,8 @@ void ImguiSystem::LoadArchetype() {
         std::string file = path.substr(pos);
 
         factory_->DestroyAllArchetypes();
-        factory_->SerializeArchetypes(file);
+        factory_->CreateAllArchetypes(file);
     }
-
-
 }
 
 void ImguiSystem::OpenFile() {
@@ -347,7 +383,7 @@ void ImguiSystem::ImguiHelp(const char* description) {
     }
 }
 
-void ImguiSystem::DeletePopUp(const char* windowName, std::string objName) {
+void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
 	
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
 
@@ -364,18 +400,21 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName) {
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0 / 7.0f, 0.7f, 0.7f));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
 
-
         if (ImGui::Button("OK")) {
-            if (!new_entity_->GetID()) //archetype id == 0
+            if (!new_entity_->GetID() && !entity) //archetype id == 0
                 entities_->DeleteArchetype(new_entity_);
-            else
+            else if (new_entity_->GetID() && !entity)
                 entities_->DeleteEntity((new_entity_));
+            else // delete component
+                entity->RemoveComponent(component);
 
             SetEntity(nullptr);
             ImGui::CloseCurrentPopup();
         }
 
         ImGui::PopStyleColor(3);
+        ImGui::SameLine(0, 4);
+
         if (ImGui::Button("Cancel"))
             ImGui::CloseCurrentPopup();
     	

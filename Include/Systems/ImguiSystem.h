@@ -16,8 +16,11 @@
 #include "Systems/WindowsSystem.h"
 #include "Systems/InputSystem.h"
 #include "Systems/Factory.h"
+#include "Systems/Game.h"
 
 #include "ImguiWindows/IWindow.h"
+#include "GameStates/GameState.h"
+#include "GameStates/MenuState.h"
 
 #include "Manager/EntityManager.h"
 
@@ -25,6 +28,7 @@
 class ImguiSystem : public ISystem
 {
 public:
+	ImFont* bold_font_;
 
 	ImguiSystem() {};
 
@@ -202,18 +206,22 @@ public:
 */
 /******************************************************************************/
 
-	void ImguiHelp(const char* description);
-
 	Entity* GetEntity();
 	
 	void SetEntity(Entity* newentity);
 
-	void DeletePopUp(const char* windowName, std::string objName);
+	bool GetImguiBool();
+
+	void SetImguiBool(bool mode);
+
+	void DeletePopUp(const char* windowName, std::string objName, Entity* entity = nullptr, std::shared_ptr<Component> component = nullptr);
+
+	void ImguiHelp(const char* description);
+
+	void ImguiInput();
 
 	std::string OpenSaveDialog(const char* filter, int save);
 	
-	void ImguiInput();
-
 	void SaveArchetype();
 
 	void LoadArchetype();
@@ -223,12 +231,17 @@ public:
 	void SaveFile();
 
 	void ImguiMenuBar();
+
+	void ImGuiCustomStyle(); // may not be used
+
+
 private:
 
 	// map to store all imgui windows added to the system
 	using WindowIt = std::map<std::string, std::shared_ptr<IWindow>>::iterator;
 	std::map<std::string, std::shared_ptr<IWindow>> imgui_window_arr_;
-	// get the entity and its components
+
+	// get the selected entity ID
 	EntityID selected_entity_;
 
 	// to access the window pointer in the window system

@@ -10,7 +10,6 @@ class ImguiViewport : public IWindow
 {
 public:
 
-	
 /******************************************************************************/
 /*!
 	\fn Init()
@@ -36,12 +35,6 @@ private:
 
 	// pointer to the graphics system to get the framebuffer
 	GraphicsSystem* editor_viewport_;
-	
-	//std::vector<const char*> comp_types_{ "Name", "Motion", "Transform", "Health", "Camera",
-	//"Controller", "Texture Renderer", "Animation Renderer", "Text Renderer", "AABB", "AI",
-	//"Scale", "Status", "Point Light", "Cone Light", "Basic AI", "Clickable", "Input Controller" };
-	//const char* component_types_[] = {  };
-
 };
 
 #endif 

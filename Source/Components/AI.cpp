@@ -143,6 +143,7 @@ void AI::SetDestinations(std::vector<Vector2D> des)
 {
 	num_destinations_ = des.size();
 	std::copy(std::begin(des), std::end(des), std::back_inserter(destinations_));
+	current_destination_ = destinations_.begin();
 }
 
 DestinationIt AI::GetCurrentDes()

@@ -13,13 +13,22 @@ void ArchetypeWindow::Init() {
 
 void ArchetypeWindow::Update() {
 	
-	ImGui::Begin("Entity Management");
+	ImGui::Begin("Archetypes");
 
-	//if (ImGui::Button("Add Entities"))
-	//	b_addentity = !b_addentity;
-	
-	if (ImGui::CollapsingHeader("Existing Archetypes"))
+	if (ImGui::CollapsingHeader("Existing Archetypes")) {
 		AvaliableArchetypes();
+
+		ImGui::Separator();
+
+		if (ImGui::Button("Save List"))
+			imgui_->SaveArchetype();
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Load List"))
+			imgui_->LoadArchetype();
+
+	}
 	
 	if (ImGui::CollapsingHeader("Create New Archetypes")) {
 		if (entities_) {
@@ -42,21 +51,21 @@ void ArchetypeWindow::Update() {
 			// function for all of these as well
 			if (imgui_->GetEntity()) {
 
-				for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it)
-				{
-					ImGui::Button(it->first.c_str());
-				}
+				//for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it)
+				//{
+				//	ImGui::Button(it->first.c_str());
+				//}
 				//add for loop (put this chunk into a fn taking in ComponentTypes id + char* component Name)
 				if (!imgui_->GetEntity()->HasComponent(ComponentTypes::TRANSFORM)) {
 
 					if (ImGui::Button("add transform")) {
 
-						//std::shared_ptr<Component> component;
-						//IComponentCreator* creator = comp_mgr_->GetComponentCreator("Transform");
-						//component = creator->Create();
+						std::shared_ptr<Component> component;
+						IComponentCreator* creator = comp_mgr_->GetComponentCreator("Transform");
+						component = creator->Create();
 
-						//imgui_->GetEntity()->AddComponent(ComponentTypes::TRANSFORM, component);
-						//imgui_->GetEntity()->InitArchetype();
+						imgui_->GetEntity()->AddComponent(ComponentTypes::TRANSFORM, component);
+						imgui_->GetEntity()->InitArchetype();
 					}
 				}
 			}

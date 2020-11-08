@@ -11,12 +11,9 @@
 #include "Components/Motion.h"
 #include "Components/PointLight.h"
 #include "Components/AI.h"
-#include "Components/BasicAI.h"
 
 #include "Manager/EntityManager.h"
-#include "Systems/Game.h"
 #include "Engine/Core.h"
-
 
 class EntityWindow : public IWindow{
 
@@ -39,10 +36,20 @@ public:
 	float& componentVar, float startVal = 0.1f, float endVal = 1.0f,
 	float inputWidth = 110.0f)
 
-	\brief Prints out ImGui input space for components
+	\brief Prints out ImGui input space for Float components
 */
 /******************************************************************************/
 	void ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth = 100.0f, float startVal = 0.1f, float endVal = 1.0f);
+
+/******************************************************************************/
+/*!
+	\fn ComponentInput(const char* componentLabel, const char* inputLabel,
+	int& componentVar, int startVal = 1, int endVal = 5,
+	float inputWidth = 110.0f)
+
+	\brief Prints out ImGui input space for components
+*/
+/******************************************************************************/
 	void ComponentInputInt(const char* componentLabel, const char* inputLabel, int& componentVar, float inputWidth = 100.0f, int startVal = 1, int endVal = 5);
 
 /******************************************************************************/
@@ -53,7 +60,8 @@ public:
 	\brief Prints out text for the float components
 */
 /******************************************************************************/
-	void ComponentDisplayFloat(ImVec4 color, const char* label, float componentVal = 0.0f, const char* format = "%.2f");
+	void ComponentDisplayFloat(ImVec4 color, const char* label, float componentVal, const char* format = "%.2f");
+	void ComponentDisplayInt(ImVec4 color, const char* label, int componentVal, const char* format = "%d");
 
 /******************************************************************************/
 /*!
@@ -85,6 +93,8 @@ public:
 
 	const char* GetAIState(int aiState);
 	const char* GetAIType(int aiType);
+
+	void AxisButton(const char* label);
 
 private:
 	ImguiSystem* imgui_system_;

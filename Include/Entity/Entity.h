@@ -50,7 +50,6 @@ public:
 	friend class EntityFactory;
 	friend class EntityManager;
 
-
 /******************************************************************************/
 /*!
   \fn GetComponentArr()
@@ -172,6 +171,9 @@ public:
 */
 /******************************************************************************/
 	Entity* Clone();
+
+	void RemoveComponent(std::shared_ptr<Component> component);
+
 };
 
 /******************************************************************************/
@@ -183,7 +185,7 @@ public:
 /******************************************************************************/
 ComponentTypes StringToComponentType(const std::string str);
 
-void RemoveComponent(ComponentTypes id);
+
 
 //Assumes that name component is a guaranteed component for every entity
 #define ENTITYNAME(ref) std::dynamic_pointer_cast<Name>(ref->GetComponent(ComponentTypes::NAME))->GetEntityName()

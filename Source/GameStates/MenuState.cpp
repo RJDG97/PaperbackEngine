@@ -8,6 +8,7 @@
 
 #include "Systems/InputSystem.h"
 #include "Systems/WindowsSystem.h"
+#include "Systems/ImGuiSystem.h"
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
 
@@ -36,9 +37,7 @@ void MenuState::Init(std::string)
 
 	CORE->ResetCorePauseStatus();
 	// Entities created within cannot be checked against directly (No * to entity)
-	CORE->GetManager<TextureManager>()->TextureBatchLoad("Menu");
-	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Menu");
-	CORE->GetManager<FontManager>()->FontBatchLoad("Menu");
+
 	FACTORY->LoadLevel("Menu");
 }
 
@@ -87,6 +86,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			if (m->button_index_ == 2) {
 
+				CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
 				game->ChangeState(&m_EditorState);
 				return;
 			}

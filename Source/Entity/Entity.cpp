@@ -89,6 +89,16 @@ void Entity::AddComponent(ComponentTypes type_id, std::shared_ptr<Component> com
 	std::sort(components_.begin(), components_.end(), ComponentSorter);
 }
 
+void Entity::RemoveComponent(std::shared_ptr<Component> component)
+{
+	for (ComponentArrIt begin = components_.begin(); begin != components_.end();) {
+		if (*begin == component)
+			begin = components_.erase(begin);
+		else
+			begin++;
+	}
+}
+
 bool Entity::HasComponent(ComponentTypes type_id) {
 
 	for (ComponentArrIt begin = components_.begin(); begin != components_.end(); ++begin) {
@@ -212,5 +222,10 @@ ComponentTypes StringToComponentType(const std::string str) {
 	else
 		return ComponentTypes::NONE;
 }
+
+
+
+
+
 
 
