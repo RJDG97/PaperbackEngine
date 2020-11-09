@@ -265,15 +265,15 @@ EntityID Collision::SelectEntity() {
 	Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();
 
 	// Iterate through the external layer map to access all AABB components on that "Layer"
-	//for (CollisionMapReverseIt it1 = collision_map_.rbegin(); it1 != collision_map_.rend(); ++it1) {
+	for (CollisionMapReverseIt it1 = collision_map_.rbegin(); it1 != collision_map_.rend(); ++it1) {
 		// Iterate through the internal layer map to access each individual AABB component
-	for (AABBIt it = aabb_arr_->begin(); it != aabb_arr_->end(); it) {
+		for (AABBIt it = aabb_arr_->begin(); it != aabb_arr_->end(); it) {
 
-		if (CheckCursorCollision(cursor_pos, it->second)) {
-			return it->second->GetOwner()->GetID();
+			if (CheckCursorCollision(cursor_pos, it->second)) {
+				return it->second->GetOwner()->GetID();
+			}
 		}
 	}
-	//}
 	return 0;
 }
 
@@ -380,45 +380,6 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	}
 }
 
-/*
-void Collision::ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime) {
-
-	CollidableLayer mask_a{};
-	mask_a.set(static_cast<size_t>(col_layer_a->first));
-
-	//get collision flag value
-	if (((col_layer_a->second.first & col_layer_b->second.first) & mask_a) == mask_a) {
-
-		CollisionLayer layer_a = static_cast<CollisionLayer>(col_layer_a->first);
-		CollisionLayer layer_b = static_cast<CollisionLayer>(col_layer_b->first);
-
-		for (AABBIt layer_a_it = collision_map_[layer_a].begin(); layer_a_it != collision_map_[layer_a].end(); ++layer_a_it) {
-			for (AABBIt layer_b_it = collision_map_[layer_b].begin(); layer_b_it != collision_map_[layer_b].end(); ++layer_b_it) {
-
-				if (layer_a_it->first == layer_b_it->first)
-					continue;
-
-				Vector2D vel1 = motion_arr_->GetComponent(layer_a_it->first) ?
-					motion_arr_->GetComponent(layer_a_it->first)->velocity_ : Vector2D{};
-				Vector2D vel2 = motion_arr_->GetComponent(layer_b_it->first) ?
-					motion_arr_->GetComponent(layer_b_it->first)->velocity_ : Vector2D{};
-
-				float t_first{};
-
-				if (CheckCollision(*layer_a_it->second, vel1, *layer_b_it->second, vel2, frametime, t_first)) {
-
-					AABBIt aabb1 = layer_a_it;
-					AABBIt aabb2 = layer_b_it;
-
-					CollisionResponse(col_layer_a->first, col_layer_b->first, aabb1, &vel1, aabb2, &vel2, frametime, t_first);
-
-				}
-			}
-		}
-	}
-}
-*/
-/*
 void Collision::AddAABBComponent(EntityID id, AABB* aabb) {
 
 	M_DEBUG->WriteDebugMessage("Adding AABB Component to entity: " + std::to_string(id) + "\n");
@@ -440,27 +401,27 @@ void Collision::RemoveAABBComponent(EntityID id) {
 			break;
 		}
 	}
-}*/
+}
 
 void Collision::UpdateBoundingBox() {
 	if (debug_)
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Bounding Boxes\n");
 
-	//for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
-	for (AABBIt aabb = aabb_arr_->begin(); aabb != aabb_arr_->end(); ++aabb) {
+	for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
+		for (AABBIt aabb = aabb_arr_->begin(); aabb != aabb_arr_->end(); ++aabb) {
 
-		//reset collided flag to false to prepare for collision check after
-		aabb->second->collided = false;
+			//reset collided flag to false to prepare for collision check after
+			aabb->second->collided = false;
 
-		Entity* entity = aabb->second->GetOwner();
-		DEBUG_ASSERT((entity), "Entity does not exist");
+			Entity* entity = aabb->second->GetOwner();
+			DEBUG_ASSERT((entity), "Entity does not exist");
 
-		Transform* entity_position = transform_arr_->GetComponent(entity->GetID());
+			Transform* entity_position = transform_arr_->GetComponent(entity->GetID());
 
-		aabb->second->bottom_left_ = entity_position->position_ - aabb->second->scale_;
-		aabb->second->top_right_ = entity_position->position_ + aabb->second->scale_;
+			aabb->second->bottom_left_ = entity_position->position_ - aabb->second->scale_;
+			aabb->second->top_right_ = entity_position->position_ + aabb->second->scale_;
+		}
 	}
-	//}
 }
 
 void Collision::UpdateClickableBB() {
@@ -600,15 +561,9 @@ void Collision::Update(float frametime) {
 
 	for (size_t i = 0; i < sizes.second; ++i) { // y-axis
 		for (size_t j = 0; j < sizes.first; ++j) { // x-axis
-		
-			/*std::vector<AABBIt> aabbs{};
 
-			if (aabbs.empty())
-				continue;
-				*/
-			//ProcessParitionedEntities(aabbs, frametime);
 
-			futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
+			futures.push_back(std::async(std::launch::async, [this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
 		}
 	}
 	
@@ -616,30 +571,6 @@ void Collision::Update(float frametime) {
 
 		future.get();
 	}
-
-	//loop through both
-
-	/*
-	Vector2D empty{};
-	std::vector<std::future<void>> futures{};
-
-	for (CollisionLayerIt it1 = collision_layer_arr_.begin(); it1 != collision_layer_arr_.end(); ++it1) {
-		for (CollisionLayerIt it2 = collision_layer_arr_.begin(); it2 != collision_layer_arr_.end(); ++it2) {
-
-			if (!it1->second.second && (it1->second == it2->second))
-				continue;
-
-			//uses async to run the computation as a asynchronous task, creating a new thread for each
-			futures.push_back(std::async(std::launch::async, [this, it1, it2, frametime] { this->ProcessCollision(it1, it2, frametime); }));
-
-			//ProcessCollision(it1, it2, frametime);
-		}
-	}
-
-	for (std::future<void>& future : futures) {
-
-		future.get();
-	}*/
 
 	// Possibly to toggle off debug mode
 	if (debug_)

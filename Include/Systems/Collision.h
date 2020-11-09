@@ -33,8 +33,9 @@ class Collision : public ISystem {
 
 public:
 
-	//using AABBType = std::unordered_map<EntityID, AABB*>;
-	//using AABBIt = AABBType::iterator;
+	using AABBMapType = std::unordered_map<EntityID, AABB*>;
+	using AABBMapIt = AABBMapType::iterator;
+	
 	using AABBType = CMap<AABB>;
 	using AABBIt = AABBType::MapTypeIt;
 
@@ -62,8 +63,8 @@ public:
 	using CollidableLayer = std::bitset<10>;
 
 	using CollisionLayerIt = std::unordered_map<CollisionLayer, CollidableLayers>::iterator;
-	//using CollisionMapIt = std::map<CollisionLayer, AABBType>::iterator;
-	//using CollisionMapReverseIt = std::map<CollisionLayer, AABBType>::reverse_iterator;
+	using CollisionMapIt = std::map<CollisionLayer, AABBMapType>::iterator;
+	using CollisionMapReverseIt = std::map<CollisionLayer, AABBMapType>::reverse_iterator;
 private:
 	//For debug drawing
 	bool debug_;
@@ -88,7 +89,7 @@ private:
 
 	std::unordered_map<CollisionLayer, CollidableLayers> collision_layer_arr_;
 
-	//std::map<CollisionLayer, AABBType> collision_map_;
+	std::map<CollisionLayer, AABBMapType> collision_map_;
 
 	PartitioningSystem* partitioning_;
 
@@ -237,7 +238,7 @@ public:
   \brief Adds a AABB component to the aabb map
 */
 /******************************************************************************/
-	//void AddAABBComponent(EntityID id, AABB* aabb);
+	void AddAABBComponent(EntityID id, AABB* aabb);
 
 /******************************************************************************/
 /*!
@@ -246,7 +247,7 @@ public:
   \brief Removes a AABB component from the aabb map
 */
 /******************************************************************************/
-	//void RemoveAABBComponent(EntityID id);
+	void RemoveAABBComponent(EntityID id);
 
 /******************************************************************************/
 /*!

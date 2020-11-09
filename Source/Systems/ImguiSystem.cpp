@@ -218,18 +218,20 @@ std::string ImguiSystem::GetName() {
 
 void ImguiSystem::SendMessageD(Message* m) {
     switch (m->message_id_) {
-    case MessageIDTypes::M_MOUSE_PRESS:
-    {
-        if (!b_lock_entity) {
-            selected_entity_ = collision_system_->SelectEntity();
-            new_entity_ = entities_->GetEntity(selected_entity_);
-            b_lock_entity = true;
-        }
-        break;
-    }
+    //case MessageIDTypes::M_MOUSE_PRESS:
+    //{
+    //    if (!b_lock_entity) {
+    //        selected_entity_ = collision_system_->SelectEntity();
+    //        new_entity_ = entities_->GetEntity(selected_entity_);
+    //        b_lock_entity = true;
+    //    }
+    //    break;
+    //}
     case MessageIDTypes::DEBUG_ALL:
     {
-        if (CORE->GetSystem<Game>()->GetStateName() == "Play" || CORE->GetSystem<Game>()->GetStateName() == "Menu") {
+        if (CORE->GetSystem<Game>()->GetStateName() == "Play" || 
+            CORE->GetSystem<Game>()->GetStateName() == "Menu" ||
+            CORE->GetSystem<Game>()->GetStateName() == "Editor") {
             b_debug = !b_debug;
             b_imguimode = !b_imguimode;
         }
