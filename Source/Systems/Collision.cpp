@@ -15,7 +15,6 @@
 #include <iostream>
 #include <assert.h>
 #include <glm/gtc/type_ptr.hpp>
-#include <future>
 
 #define EPSILON 0.001f
 
@@ -544,7 +543,6 @@ void Collision::Update(float frametime) {
 	UpdateClickableBB();
 
 	Vector2D empty{};
-	std::vector<std::future<void>> futures{};
 
 	for (CollisionLayerIt it1 = collision_layer_arr_.begin(); it1 != collision_layer_arr_.end(); ++it1) {
 		for (CollisionLayerIt it2 = collision_layer_arr_.begin(); it2 != collision_layer_arr_.end(); ++it2) {
@@ -552,16 +550,8 @@ void Collision::Update(float frametime) {
 			if (!it1->second.second && (it1->second == it2->second))
 				continue;
 
-			//uses async to run the computation as a asynchronous task, creating a new thread for each
-			futures.push_back(std::async(std::launch::async, [this, it1, it2, frametime] { this->ProcessCollision(it1, it2, frametime); }));
-
-			//ProcessCollision(it1, it2, frametime);
+			ProcessCollision(it1, it2, frametime);
 		}
-	}
-
-	for (std::future<void>& future : futures) {
-
-		future.get();
 	}
 
 	// Possibly to toggle off debug mode
