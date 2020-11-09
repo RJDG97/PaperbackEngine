@@ -33,8 +33,10 @@ class Collision : public ISystem {
 
 public:
 
-	using AABBType = std::unordered_map<EntityID, AABB*>;
-	using AABBIt = AABBType::iterator;
+	//using AABBType = std::unordered_map<EntityID, AABB*>;
+	//using AABBIt = AABBType::iterator;
+	using AABBType = CMap<AABB>;
+	using AABBIt = AABBType::MapTypeIt;
 
 	using ClickableType = CMap<Clickable>;
 	using ClickableIt = ClickableType::MapTypeIt;
@@ -60,8 +62,8 @@ public:
 	using CollidableLayer = std::bitset<10>;
 
 	using CollisionLayerIt = std::unordered_map<CollisionLayer, CollidableLayers>::iterator;
-	using CollisionMapIt = std::map<CollisionLayer, AABBType>::iterator;
-	using CollisionMapReverseIt = std::map<CollisionLayer, AABBType>::reverse_iterator;
+	//using CollisionMapIt = std::map<CollisionLayer, AABBType>::iterator;
+	//using CollisionMapReverseIt = std::map<CollisionLayer, AABBType>::reverse_iterator;
 private:
 	//For debug drawing
 	bool debug_;
@@ -70,7 +72,7 @@ private:
 	glm::mat3* world_to_ndc_xform_;
 	float* cam_zoom_;
 
-	AABBType aabb_arr_;
+	AABBType* aabb_arr_;
 
 	ClickableType* clickable_arr_;
 
@@ -86,7 +88,7 @@ private:
 
 	std::unordered_map<CollisionLayer, CollidableLayers> collision_layer_arr_;
 
-	std::map<CollisionLayer, AABBType> collision_map_;
+	//std::map<CollisionLayer, AABBType> collision_map_;
 
 	PartitioningSystem* partitioning_;
 
@@ -235,7 +237,7 @@ public:
   \brief Adds a AABB component to the aabb map
 */
 /******************************************************************************/
-	void AddAABBComponent(EntityID id, AABB* aabb);
+	//void AddAABBComponent(EntityID id, AABB* aabb);
 
 /******************************************************************************/
 /*!
@@ -244,7 +246,7 @@ public:
   \brief Removes a AABB component from the aabb map
 */
 /******************************************************************************/
-	void RemoveAABBComponent(EntityID id);
+	//void RemoveAABBComponent(EntityID id);
 
 /******************************************************************************/
 /*!
@@ -299,7 +301,7 @@ public:
   \brief Helper function to handle collision checking between 2 layers
 */
 /******************************************************************************/
-	void ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime);
+	//void ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime);
 
 /******************************************************************************/
 /*!

@@ -43,9 +43,9 @@ void PlayState::Init(std::string)
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
 	CORE->ResetCorePauseStatus();
-	CORE->GetManager<TextureManager>()->TextureBatchLoad("Play");
+	/*CORE->GetManager<TextureManager>()->TextureBatchLoad("Play");
 	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
-	CORE->GetManager<FontManager>()->FontBatchLoad("Play");
+	CORE->GetManager<FontManager>()->FontBatchLoad("Play");*/
 	FACTORY->LoadLevel("Play");
 
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );

@@ -11,13 +11,13 @@ AABB::AABB() : top_right_{},
 
 AABB::~AABB() {
 
-	CORE->GetSystem<Collision>()->RemoveAABBComponent(Component::GetOwner()->GetID());
+	//CORE->GetSystem<Collision>()->RemoveAABBComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<AABB>(Component::GetOwner()->GetID());
 }
 
 void AABB::Init() {
 
-	CORE->GetSystem<Collision>()->AddAABBComponent(Component::GetOwner()->GetID(), this);
+	//CORE->GetSystem<Collision>()->AddAABBComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<AABB>(Component::GetOwner()->GetID(), this);
 }
 

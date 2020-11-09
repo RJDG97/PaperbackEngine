@@ -93,9 +93,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		EngineDebug::DeleteInstance();
 	}
 
-	catch (std::bad_alloc& e) {
-		DEBUG_ASSERT(false, "Noob get more RAM");
-	}
 	catch (std::exception& e) {
 
 		DEBUG_ASSERT(false, e.what());
