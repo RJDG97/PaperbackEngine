@@ -125,6 +125,7 @@ void EntityManager::DeleteAllEntities() {
 
 	// Clear and resize map
 	entity_id_map_.clear();
+	last_entity_id_ = 0;
 }
 
 void EntityManager::DeleteArchetype(Entity* entity) {

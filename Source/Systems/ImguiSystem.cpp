@@ -265,8 +265,8 @@ void ImguiSystem::SendMessageD(Message* m) {
     }
     case MessageIDTypes::DEBUG_ALL:
     {
-        if (CORE->GetSystem<Game>()->GetStateName() == "Editor")
-            b_debug = !b_debug;
+       // if (CORE->GetSystem<Game>()->GetStateName() == "Editor")
+            //b_debug = !b_debug;
         break;
     }
     default:

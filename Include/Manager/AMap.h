@@ -21,6 +21,8 @@ public:
 	void Init() override;
 	void InitAMap(std::map<EntityID, Entity*> entity_map);
 	void UpdateAMap(std::pair<EntityID, Entity*> entity);
+	Vector2D GetBottomLeft();
+	Vector2D GetTopRight();
 	
 
 private:

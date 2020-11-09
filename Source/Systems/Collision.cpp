@@ -15,6 +15,7 @@
 #include <iostream>
 #include <assert.h>
 #include <glm/gtc/type_ptr.hpp>
+#include <future>
 
 #define EPSILON 0.001f
 
@@ -379,38 +380,28 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	}
 }
 
-void Collision::ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime) {
+void Collision::ProcessCollision(CollisionMapIt col_layer_a, CollisionMapIt col_layer_b, float frametime) {
 
-	CollidableLayer mask_a{};
-	mask_a.set(static_cast<size_t>(col_layer_a->first));
+	for (AABBIt layer_a_it = col_layer_a->second.begin(); layer_a_it != col_layer_a->second.end(); ++layer_a_it) {
+		for (AABBIt layer_b_it = col_layer_b->second.begin(); layer_b_it != col_layer_b->second.end(); ++layer_b_it) {
 
-	//get collision flag value
-	if (((col_layer_a->second.first & col_layer_b->second.first) & mask_a) == mask_a) {
+			//skip if same 
+			if (layer_a_it->first == layer_b_it->first)
+				continue;
 
-		CollisionLayer layer_a = static_cast<CollisionLayer>(col_layer_a->first);
-		CollisionLayer layer_b = static_cast<CollisionLayer>(col_layer_b->first);
+			Vector2D vel1 = motion_arr_->GetComponent(layer_a_it->first) ?
+				motion_arr_->GetComponent(layer_a_it->first)->velocity_ : Vector2D{};
+			Vector2D vel2 = motion_arr_->GetComponent(layer_b_it->first) ?
+				motion_arr_->GetComponent(layer_b_it->first)->velocity_ : Vector2D{};
 
-		for (AABBIt layer_a_it = collision_map_[layer_a].begin(); layer_a_it != collision_map_[layer_a].end(); ++layer_a_it) {
-			for (AABBIt layer_b_it = collision_map_[layer_b].begin(); layer_b_it != collision_map_[layer_b].end(); ++layer_b_it) {
+			float t_first{};
 
-				if (layer_a_it->first == layer_b_it->first)
-					continue;
+			if (CheckCollision(*layer_a_it->second, vel1, *layer_b_it->second, vel2, frametime, t_first)) {
 
-				Vector2D vel1 = motion_arr_->GetComponent(layer_a_it->first) ?
-					motion_arr_->GetComponent(layer_a_it->first)->velocity_ : Vector2D{};
-				Vector2D vel2 = motion_arr_->GetComponent(layer_b_it->first) ?
-					motion_arr_->GetComponent(layer_b_it->first)->velocity_ : Vector2D{};
+				AABBIt aabb1 = layer_a_it;
+				AABBIt aabb2 = layer_b_it;
 
-				float t_first{};
-
-				if (CheckCollision(*layer_a_it->second, vel1, *layer_b_it->second, vel2, frametime, t_first)) {
-
-					AABBIt aabb1 = layer_a_it;
-					AABBIt aabb2 = layer_b_it;
-
-					CollisionResponse(col_layer_a->first, col_layer_b->first, aabb1, &vel1, aabb2, &vel2, frametime, t_first);
-
-				}
+				CollisionResponse(col_layer_a->first, col_layer_b->first, aabb1, &vel1, aabb2, &vel2, frametime, t_first);
 			}
 		}
 	}
@@ -494,6 +485,7 @@ void Collision::Init() {
 	status_arr_ = comp_mgr->GetComponentArray<Status>();
 	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
 	input_controller_arr_ = comp_mgr->GetComponentArray<InputController>();
+	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
 
 	shdr_pgm_ = CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
 	model_ = CORE->GetManager<ModelManager>()->AddLinesModel(1, 1, "LinesModel");
@@ -533,6 +525,48 @@ void Collision::Init() {
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }
 
+void Collision::SortVectorToCollisionMap(std::vector<AABBIt>& vec, CollisionMapType& col_map) {
+
+	for (std::vector<AABBIt>::iterator it = vec.begin(); it != vec.end(); ++it) {
+
+		CollisionLayer map_layer = static_cast<CollisionLayer>((*it)->second->GetLayer());
+
+		col_map[map_layer].insert({ static_cast<EntityID>((*it)->first), (*it)->second });
+	}
+}
+
+void Collision::ProcessPartitionedEntities(size_t y, size_t x, float frametime) {										//test fn
+
+	std::vector<AABBIt> aabbs{};
+	partitioning_->GetPartitionedEntities(aabbs, x, y);
+
+	if (aabbs.empty())
+		return;
+
+	CollisionMapType col_map{};
+
+	SortVectorToCollisionMap(aabbs, col_map);
+
+	for (CollisionMapIt layer1 = col_map.begin(); layer1 != col_map.end(); ++layer1) {
+		for (CollisionMapIt layer2 = col_map.begin(); layer2 != col_map.end(); ++layer2) {
+
+			CollisionLayerIt layer1_mask = collision_layer_arr_.find(layer1->first);
+			CollisionLayerIt layer2_mask = collision_layer_arr_.find(layer2->first);
+
+			//if same & not meant to collide
+			if (!layer1_mask->second.second && (layer1->first == layer2->first))
+				continue;
+
+			// check if bit for layer 1 is active, meaning that both layers will interact
+			if ((layer1_mask->second.first & layer2_mask->second.first).test(static_cast<size_t>(layer1->first))) {
+
+				//proceed to pass onto next function
+				ProcessCollision(layer1, layer2, frametime);
+			}
+		}
+	}
+}
+
 // Update function that contains collision checking logic to determine collision
 // between entities
 void Collision::Update(float frametime) {
@@ -542,16 +576,21 @@ void Collision::Update(float frametime) {
 	UpdateBoundingBox();
 	UpdateClickableBB();
 
-	Vector2D empty{};
 
-	for (CollisionLayerIt it1 = collision_layer_arr_.begin(); it1 != collision_layer_arr_.end(); ++it1) {
-		for (CollisionLayerIt it2 = collision_layer_arr_.begin(); it2 != collision_layer_arr_.end(); ++it2) {
+	std::pair<size_t, size_t> sizes = partitioning_->GetAxisSizes();
+	std::vector<std::future<void>> futures{};
 
-			if (!it1->second.second && (it1->second == it2->second))
-				continue;
+	for (size_t i = 0; i < sizes.second; ++i) { // y-axis
+		for (size_t j = 0; j < sizes.first; ++j) { // x-axis
 
-			ProcessCollision(it1, it2, frametime);
+
+			futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
 		}
+	}
+	
+	for (std::future<void>& future : futures) {
+
+		future.get();
 	}
 
 	// Possibly to toggle off debug mode

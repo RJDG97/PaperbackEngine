@@ -4,6 +4,7 @@
 
 #include <string>
 #include "Systems/Message.h"
+#include "Systems/Partitioning.h"
 #include "ISystem.h"
 #include "Components/AABB.h"
 #include "Components/Clickable.h"
@@ -30,53 +31,28 @@ enum class CollisionLayer
 
 class Collision : public ISystem {
 
-	//For debug drawing
-	bool debug_;
-	Model* model_;
-	Shader* shdr_pgm_;
-	glm::mat3* world_to_ndc_xform_;
-	float* cam_zoom_;
+public:
 
 	using AABBType = std::unordered_map<EntityID, AABB*>;
 	using AABBIt = AABBType::iterator;
-	AABBType aabb_arr_;
-	//using AABBType = CMap<AABB>;
-	//using AABBIt = AABBType::MapTypeIt;
-	//AABBType* aabb_arr_;
 
-	//using ClickableIt = std::unordered_map<EntityID, Clickable*>::iterator;
-	//std::unordered_map<EntityID, Clickable*> clickable_arr_;
 	using ClickableType = CMap<Clickable>;
 	using ClickableIt = ClickableType::MapTypeIt;
-	ClickableType* clickable_arr_;
 
-	//using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
-	//std::unordered_map<EntityID, Motion*> motion_arr_;
 	using MotionType = CMap<Motion>;
 	using MotionIt = MotionType::MapTypeIt;
-	MotionType* motion_arr_;
 
-	//using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
-	//std::unordered_map<EntityID, Status*> status_arr_;
 	using StatusMapType = CMap<Status>;
 	using StatusIt = StatusMapType::MapTypeIt;
-	StatusMapType* status_arr_;
 
-	//using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
-	//std::unordered_map<EntityID, Transform*> transform_arr_;
 	using TransformType = CMap<Transform>;
 	using TransformIt = TransformType::MapTypeIt;
-	TransformType* transform_arr_;
 
 	using ScaleType = CMap<Scale>;
 	using ScaleIt = ScaleType::MapTypeIt;
-	ScaleType* scale_arr_;
 
-	//using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
-	//std::unordered_map < EntityID, InputController*> input_controller_arr_;
 	using InputControllerType = CMap<InputController>;
 	using InputControllerIt = InputControllerType::MapTypeIt;
-	InputControllerType* input_controller_arr_;
 
 	// Placeholder stuff, testing Collision Layering
 	typedef std::pair<std::bitset<10>, bool> CollidableLayers;
@@ -84,11 +60,38 @@ class Collision : public ISystem {
 	using CollidableLayer = std::bitset<10>;
 
 	using CollisionLayerIt = std::unordered_map<CollisionLayer, CollidableLayers>::iterator;
+
+	using CollisionMapType = std::map<CollisionLayer, AABBType>;
+
+	using CollisionMapIt = CollisionMapType::iterator;
+	using CollisionMapReverseIt = CollisionMapType::reverse_iterator;
+private:
+	//For debug drawing
+	bool debug_;
+	Model* model_;
+	Shader* shdr_pgm_;
+	glm::mat3* world_to_ndc_xform_;
+	float* cam_zoom_;
+
+	AABBType aabb_arr_;
+
+	ClickableType* clickable_arr_;
+
+	MotionType* motion_arr_;
+
+	StatusMapType* status_arr_;
+
+	TransformType* transform_arr_;
+
+	ScaleType* scale_arr_;
+
+	InputControllerType* input_controller_arr_;
+
 	std::unordered_map<CollisionLayer, CollidableLayers> collision_layer_arr_;
 
-	using CollisionMapIt = std::map<CollisionLayer, AABBType>::iterator;
-	using CollisionMapReverseIt = std::map<CollisionLayer, AABBType>::reverse_iterator;
 	std::map<CollisionLayer, AABBType> collision_map_;
+
+	PartitioningSystem* partitioning_;
 
 /******************************************************************************/
 /*!
@@ -137,15 +140,6 @@ class Collision : public ISystem {
 	void CollisionResponse(const CollisionLayer& col_layer_a, const CollisionLayer& col_layer_b, 
 						   AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, 
 						   float frametime, float t_first);
-
-/******************************************************************************/
-/*!
-  \fn ProcessCollision()
-
-  \brief Helper function to handle collision checking between 2 layers
-*/
-/******************************************************************************/
-	void ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime);
 
 /******************************************************************************/
 /*!
@@ -300,6 +294,34 @@ public:
 */
 /******************************************************************************/
 	virtual void SendMessageD(Message* m) override;
+
+/******************************************************************************/
+/*!
+  \fn ProcessCollision()
+
+  \brief Helper function to handle collision checking between 2 layers
+*/
+/******************************************************************************/
+	void ProcessCollision(CollisionMapIt col_layer_a, CollisionMapIt col_layer_b, float frametime);
+
+/******************************************************************************/
+/*!
+  \fn SortVectorToCollisionMap()
+
+  \brief Sorts the vector of AABBIt's into their respective collision layers
+*/
+/******************************************************************************/
+	void SortVectorToCollisionMap(std::vector<AABBIt>& vec, CollisionMapType& col_map);
+
+/******************************************************************************/
+/*!
+  \fn ProcessParitionedEntities()
+
+  \brief Helper function to handle collision checking between entities in a
+		 partition
+*/
+/******************************************************************************/
+	void ProcessPartitionedEntities(size_t y, size_t x, float frametime);
 
 /******************************************************************************/
 /*!

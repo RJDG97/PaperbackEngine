@@ -38,6 +38,7 @@ public:
 	void AddComponent(EntityID id, T* component);
 	void RemoveComponent(EntityID id);
 	T* GetComponent(EntityID id);
+	MapTypeIt GetComponentIt(EntityID id);
 	~CMap();
 private:
 
@@ -131,6 +132,12 @@ T* CMap<T>::GetComponent(EntityID id) {
 
 	//DEBUG_ASSERT(component_map_.find(id) == component_map_.end(), "Component does not exist for entity!");
 	return (component_map_.find(id) == component_map_.end()) ? nullptr : component_map_[id];
+}
+
+template <typename T>
+typename CMap<T>::MapTypeIt CMap<T>::GetComponentIt(EntityID id) {
+
+	return (component_map_.find(id) == component_map_.end()) ? component_map_.end() : component_map_.find(id);
 }
 
 template <typename T>

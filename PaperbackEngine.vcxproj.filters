@@ -150,6 +150,9 @@
     <Filter Include="Systems\AMap System">
       <UniqueIdentifier>{4274bd2b-3520-415f-947c-ad585244f534}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Partitioning System">
+      <UniqueIdentifier>{6157a7c2-606d-4780-bd59-f35b15eccae9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -349,6 +352,9 @@
     </ClCompile>
     <ClCompile Include="Source\Manager\AMap.cpp">
       <Filter>Systems\AMap System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Partitioning.cpp">
+      <Filter>Systems\Partitioning System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -588,6 +594,9 @@
     </ClInclude>
     <ClInclude Include="Include\Manager\AMap.h">
       <Filter>Systems\AMap System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Partitioning.h">
+      <Filter>Systems\Partitioning System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
