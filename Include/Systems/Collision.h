@@ -61,8 +61,10 @@ public:
 
 	using CollisionLayerIt = std::unordered_map<CollisionLayer, CollidableLayers>::iterator;
 
-	using CollisionMapIt = std::map<CollisionLayer, AABBType>::iterator;
-	using CollisionMapReverseIt = std::map<CollisionLayer, AABBType>::reverse_iterator;
+	using CollisionMapType = std::map<CollisionLayer, AABBType>;
+
+	using CollisionMapIt = CollisionMapType::iterator;
+	using CollisionMapReverseIt = CollisionMapType::reverse_iterator;
 private:
 	//For debug drawing
 	bool debug_;
@@ -300,7 +302,16 @@ public:
   \brief Helper function to handle collision checking between 2 layers
 */
 /******************************************************************************/
-	void ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime);
+	void ProcessCollision(CollisionMapIt col_layer_a, CollisionMapIt col_layer_b, float frametime);
+
+/******************************************************************************/
+/*!
+  \fn SortVectorToCollisionMap()
+
+  \brief Sorts the vector of AABBIt's into their respective collision layers
+*/
+/******************************************************************************/
+	void SortVectorToCollisionMap(std::vector<AABBIt>& vec, CollisionMapType& col_map);
 
 /******************************************************************************/
 /*!

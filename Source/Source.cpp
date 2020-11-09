@@ -94,7 +94,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 	}
 
 	catch (std::bad_alloc& e) {
-		DEBUG_ASSERT(false, "Noob get more RAM");
+		DEBUG_ASSERT(false, e.what());
 	}
 	catch (std::exception& e) {
 
