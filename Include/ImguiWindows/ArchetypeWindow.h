@@ -39,8 +39,8 @@ private:
 	EntityManager* entities_;
 	ImguiSystem* imgui_;
 	ComponentManager* comp_mgr_;
-	bool b_addentity;
-	bool b_delete;
+
+	bool b_editcomp;
 
 };
 

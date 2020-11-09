@@ -25,11 +25,12 @@ void EntityWindow::Update() {
 
 	ImGui::End();
 
+
 	ImGui::Begin("Component Inspector");
 
 	bool lock = imgui_system_->GetLockBool();
 	ImGui::Checkbox("Select Entity", &lock);
-	ImGui::SameLine(); imgui_system_->ImguiHelp("Uncheck this box,\nif want to selected Entities directly");
+	ImGui::SameLine(); imgui_system_->ImguiHelp("Uncheck this box,\n to select Entities directly");
 	imgui_system_->SetLockBool(lock);
 
 	if (imgui_system_->GetEntity()) {
@@ -65,10 +66,11 @@ void EntityWindow::ShowEntityList() {
 		for (entityIT = entities_->GetEntities().begin(); entityIT != entities_->GetEntities().end(); entityIT++) {
 
 			std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entityIT->second->GetComponent(ComponentTypes::NAME));
+			std::string label = entityname->GetName() + " (" + std::to_string(entityIT->second->GetID()) + ")";
 
 			ImGuiTreeNodeFlags flags = ((selection == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
-
-			opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, entityname->GetName().c_str()));
+			
+			opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, label.c_str()));
 
 			if (ImGui::IsItemClicked())
 				imgui_system_->SetEntity(entityIT->second); // store the selected Entity to find its components
@@ -170,16 +172,22 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				break;
 			}
 			case ComponentTypes::HEALTH:
+				ImGui::Text("Health Component");
 				break;
 			case ComponentTypes::CAMERA:
+				ImGui::Text("Camera Component");
 				break;
 			case ComponentTypes::CONTROLLER:
+				ImGui::Text("Controller");
 				break;
 			case ComponentTypes::TEXTURERENDERER:
+				ImGui::Text("Texture Renderer");
 				break;
 			case ComponentTypes::ANIMATIONRENDERER:
+				ImGui::Text("Animation Renderer");
 				break;
 			case ComponentTypes::TEXTRENDERER:
+				ImGui::Text("Text Renderer");
 				break;
 			case ComponentTypes::AABB:
 			{
@@ -196,6 +204,14 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					entityAABB->SetAABBScale(inputAABB);
 
 					ComponentDisplayVec(ImVec4{ 0.863f, 0.078f, 0.235f, 1.0f }, "Bounding Box Scale: ", entityAABB->GetAABBScale());
+					
+					if (ImGui::Checkbox("Draw Bounding Box", &b_draw)) {
+
+						Message msg(MessageIDTypes::DEBUG_ALL);
+						CORE->BroadcastMessage(&msg);
+
+					}
+
 					ImGui::TreePop();
 				}
 				break;
@@ -353,6 +369,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				break;
 			}
 			case ComponentTypes::STATUS:
+				ImGui::Text("Status Component");
 				break;
 			case ComponentTypes::POINTLIGHT:
 			{
@@ -379,18 +396,21 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 					imgui_system_->DeletePopUp("Delete Point Light Component", std::string("Point Light Component"), entitycomponent.first, entitypointlight);
 
-
 					ImGui::TreePop();
 				}
 				break;
 			}
 			case ComponentTypes::CONELIGHT:
+				ImGui::Text("Cone Light");
 				break;
 			case ComponentTypes::BASICAI:
+				ImGui::Text("Basic AI");
 				break;
 			case ComponentTypes::CLICKABLE:
+				ImGui::Text("Clickable");
 				break;
 			case ComponentTypes::INPUTCONTROLLER:
+				ImGui::Text("Input Controller");
 				break;
 			}
 		}
@@ -414,8 +434,6 @@ const char* EntityWindow::GetAIType(int aiType)
 	}
 	return nullptr;
 }
-
-
 
 void EntityWindow::ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth, float startVal, float endVal) {
 	ImGui::PushItemWidth(inputWidth);

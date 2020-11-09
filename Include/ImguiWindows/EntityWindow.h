@@ -106,5 +106,7 @@ private:
 	const char* AIstates[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
 	const char* AItype[3]{ "StagBeetle", "Mite", "Hornet"};
 
+	bool b_draw = false;
+
 };
 #endif

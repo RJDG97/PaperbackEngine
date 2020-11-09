@@ -1,4 +1,5 @@
 #include "ImguiWindows/ArchetypeWindow.h"
+#include "Entity/Entity.h"
 #include "Engine/Core.h"
 
 void ArchetypeWindow::Init() {
@@ -6,9 +7,7 @@ void ArchetypeWindow::Init() {
 	entities_ = &*CORE->GetManager<EntityManager>();
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
 	comp_mgr_ = &*CORE->GetManager<ComponentManager>();
-
-	b_addentity = false;
-	b_delete = false;
+	b_editcomp = false;
 }
 
 void ArchetypeWindow::Update() {
@@ -29,7 +28,7 @@ void ArchetypeWindow::Update() {
 			imgui_->LoadArchetype();
 
 	}
-	
+
 	if (ImGui::CollapsingHeader("Create New Archetypes")) {
 		if (entities_) {
 			std::string entityName;
@@ -47,31 +46,31 @@ void ArchetypeWindow::Update() {
 				AddArchetype(entityName);
 			}
 			ImGui::PopItemWidth();
+		}
+	}
+	ImGui::Separator();
 
-			// function for all of these as well
-			if (imgui_->GetEntity()) {
+	if (imgui_->GetEntity()) {
 
-				//for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it)
-				//{
-				//	ImGui::Button(it->first.c_str());
-				//}
-				//add for loop (put this chunk into a fn taking in ComponentTypes id + char* component Name)
-				if (!imgui_->GetEntity()->HasComponent(ComponentTypes::TRANSFORM)) {
+		for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it)
+		{
+			ComponentTypes component = StringToComponentType(it->first.c_str());
 
-					if (ImGui::Button("add transform")) {
+			if (!imgui_->GetEntity()->HasComponent(component)) {
 
-						std::shared_ptr<Component> component;
-						IComponentCreator* creator = comp_mgr_->GetComponentCreator("Transform");
-						component = creator->Create();
+				if (ImGui::Button(it->first.c_str())) {
 
-						imgui_->GetEntity()->AddComponent(ComponentTypes::TRANSFORM, component);
-						imgui_->GetEntity()->InitArchetype();
-					}
+					std::shared_ptr<Component> comp;
+					IComponentCreator* creator = comp_mgr_->GetComponentCreator(it->first.c_str());
+					comp = creator->Create();
+					imgui_->GetEntity()->AddComponent(component, comp);
+					imgui_->GetEntity()->InitArchetype();
+
 				}
 			}
 		}
 	}
-	
+
 	ImGui::End();
 }
 
@@ -94,8 +93,9 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 				imgui_->DeletePopUp("Delete Confirmation", entityIT->first);
 
-				if (ImGui::Button("Add/Edit Components"))
+				if (ImGui::Button("Add/Edit Components")) {
 					imgui_->SetEntity(entityIT->second);
+				}
 
 				ImGui::TreePop();
 			}
