@@ -267,10 +267,10 @@ EntityID Collision::SelectEntity() {
 	// Iterate through the external layer map to access all AABB components on that "Layer"
 	for (CollisionMapReverseIt it1 = collision_map_.rbegin(); it1 != collision_map_.rend(); ++it1) {
 		// Iterate through the internal layer map to access each individual AABB component
-		for (AABBIt it = aabb_arr_->begin(); it != aabb_arr_->end(); it) {
+		for (AABBIt it2 = it1->second.begin(); it2 != it1->second.end(); ++it2) {
 
-			if (CheckCursorCollision(cursor_pos, it->second)) {
-				return it->second->GetOwner()->GetID();
+			if (CheckCursorCollision(cursor_pos, it2->second)) {
+				return it2->second->GetOwner()->GetID();
 			}
 		}
 	}
@@ -380,6 +380,43 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	}
 }
 
+void Collision::ProcessCollision(CollisionLayerIt col_layer_a, CollisionLayerIt col_layer_b, float frametime) {
+
+	CollidableLayer mask_a{};
+	mask_a.set(static_cast<size_t>(col_layer_a->first));
+
+	//get collision flag value
+	if (((col_layer_a->second.first & col_layer_b->second.first) & mask_a) == mask_a) {
+
+		CollisionLayer layer_a = static_cast<CollisionLayer>(col_layer_a->first);
+		CollisionLayer layer_b = static_cast<CollisionLayer>(col_layer_b->first);
+
+		for (AABBIt layer_a_it = collision_map_[layer_a].begin(); layer_a_it != collision_map_[layer_a].end(); ++layer_a_it) {
+			for (AABBIt layer_b_it = collision_map_[layer_b].begin(); layer_b_it != collision_map_[layer_b].end(); ++layer_b_it) {
+
+				if (layer_a_it->first == layer_b_it->first)
+					continue;
+
+				Vector2D vel1 = motion_arr_->GetComponent(layer_a_it->first) ?
+					motion_arr_->GetComponent(layer_a_it->first)->velocity_ : Vector2D{};
+				Vector2D vel2 = motion_arr_->GetComponent(layer_b_it->first) ?
+					motion_arr_->GetComponent(layer_b_it->first)->velocity_ : Vector2D{};
+
+				float t_first{};
+
+				if (CheckCollision(*layer_a_it->second, vel1, *layer_b_it->second, vel2, frametime, t_first)) {
+
+					AABBIt aabb1 = layer_a_it;
+					AABBIt aabb2 = layer_b_it;
+
+					CollisionResponse(col_layer_a->first, col_layer_b->first, aabb1, &vel1, aabb2, &vel2, frametime, t_first);
+
+				}
+			}
+		}
+	}
+}
+
 void Collision::AddAABBComponent(EntityID id, AABB* aabb) {
 
 	M_DEBUG->WriteDebugMessage("Adding AABB Component to entity: " + std::to_string(id) + "\n");
@@ -408,7 +445,7 @@ void Collision::UpdateBoundingBox() {
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Bounding Boxes\n");
 
 	for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
-		for (AABBIt aabb = aabb_arr_->begin(); aabb != aabb_arr_->end(); ++aabb) {
+		for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
 
 			//reset collided flag to false to prepare for collision check after
 			aabb->second->collided = false;
@@ -453,7 +490,6 @@ void Collision::Init() {
 
 	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
 
-	aabb_arr_ = comp_mgr->GetComponentArray<AABB>();
 	clickable_arr_ = comp_mgr->GetComponentArray<Clickable>();
 	motion_arr_ = comp_mgr->GetComponentArray<Motion>();
 	status_arr_ = comp_mgr->GetComponentArray<Status>();
@@ -591,39 +627,39 @@ void Collision::Draw() {
 
 		const float scale = CORE->GetGlobalScale();
 
-		//for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
-		for (AABBIt aabb = aabb_arr_->begin(); aabb != aabb_arr_->end(); ++aabb) {
+		for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
+			for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
 
-			Vector2D top_right = (*aabb).second->top_right_;
-			Vector2D bottom_left = (*aabb).second->bottom_left_;
+				Vector2D top_right = (*aabb).second->top_right_;
+				Vector2D bottom_left = (*aabb).second->bottom_left_;
 
-			Vector2D aabb_middle = bottom_left + (top_right - bottom_left) / 2;
+				Vector2D aabb_middle = bottom_left + (top_right - bottom_left) / 2;
 
-			glm::mat3 scaling = glm::mat3{ aabb->second->scale_.x * scale, 0.0f, 0.0f,
-										   0.0f, aabb->second->scale_.y * scale, 0.0f,
-										   0.0f, 0.0f, 1.0f };
+				glm::mat3 scaling = glm::mat3{ aabb->second->scale_.x * scale, 0.0f, 0.0f,
+											   0.0f, aabb->second->scale_.y * scale, 0.0f,
+											   0.0f, 0.0f, 1.0f };
 
-			glm::mat3 translation{ 1.0f, 0.0f, 0.0f,
-								   0.0f, 1.0f, 0.0f,
-								   aabb_middle.x * scale, aabb_middle.y * scale, 1.0f };
+				glm::mat3 translation{ 1.0f, 0.0f, 0.0f,
+									   0.0f, 1.0f, 0.0f,
+									   aabb_middle.x * scale, aabb_middle.y * scale, 1.0f };
 
-			glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_)*translation * scaling;
+				glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_)*translation * scaling;
 
-			shdr_pgm_->Use();
-			glBindVertexArray(model_->vaoid_);
+				shdr_pgm_->Use();
+				glBindVertexArray(model_->vaoid_);
 
-			shdr_pgm_->SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
-			shdr_pgm_->SetUniform("collided", (*aabb).second->collided);
+				shdr_pgm_->SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
+				shdr_pgm_->SetUniform("collided", (*aabb).second->collided);
 
-			glDrawArrays(GL_LINES, 0, model_->draw_cnt_);
+				glDrawArrays(GL_LINES, 0, model_->draw_cnt_);
 
-			// after completing the rendering, we tell the driver that the VAO vaoid
-			// and the current shader program are no longer current
-			glBindVertexArray(0);
+				// after completing the rendering, we tell the driver that the VAO vaoid
+				// and the current shader program are no longer current
+				glBindVertexArray(0);
 
-			shdr_pgm_->UnUse();
+				shdr_pgm_->UnUse();
+			}
 		}
-		//}
 	}
 
 	//if (debug_) { debug_ = !debug_; }
