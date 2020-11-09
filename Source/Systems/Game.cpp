@@ -34,12 +34,6 @@ void Game::Init()
 	status_arr_ = comp_mgr->GetComponentArray<Status>();
 	basicai_arr_ = comp_mgr->GetComponentArray<BasicAI>();
 
-	CORE->GetManager<TextureManager>()->TextureBatchLoad("Menu");
-	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Menu");
-	CORE->GetManager<FontManager>()->FontBatchLoad("Menu");
-	CORE->GetManager<TextureManager>()->TextureBatchLoad("Play");
-	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
-	CORE->GetManager<FontManager>()->FontBatchLoad("Play");
 	ChangeState(&m_MenuState);
 
 	M_DEBUG->WriteDebugMessage("Game System Init\n");
