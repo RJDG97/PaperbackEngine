@@ -41,7 +41,7 @@ void ArchetypeWindow::Update() {
 				strcpy_s(buffer, sizeof(buffer), entityName.c_str());
 
 				ImGui::Text("Archetype Name:");
-				ImGui::PushItemWidth(200.0f);
+				ImGui::PushItemWidth(250.0f);
 
 				if (ImGui::InputTextWithHint("##name", "Enter name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
 
@@ -62,27 +62,7 @@ void ArchetypeWindow::Update() {
 
 				ImGui::PushItemWidth(250.0f);
 
-				if (ImGui::BeginCombo("##components", "Available Components")) {
-
-					for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it) {
-
-						ComponentTypes component = StringToComponentType(it->first.c_str());
-
-						if (!imgui_->GetEntity()->HasComponent(component)) {
-
-							if (ImGui::Selectable(it->first.c_str())) {
-
-								std::shared_ptr<Component> comp;
-								IComponentCreator* creator = comp_mgr_->GetComponentCreator(it->first.c_str());
-								comp = creator->Create();
-								imgui_->GetEntity()->AddComponent(component, comp);
-								imgui_->GetEntity()->InitArchetype();
-							}
-						}
-					}
-
-					ImGui::EndCombo();
-				}
+				AddComponent();
 
 				ImGui::PopItemWidth();
 			}
@@ -92,7 +72,8 @@ void ArchetypeWindow::Update() {
 
 	if (imgui_->b_display) {
 
-		ImGui::Begin("System Performance", &imgui_->b_display);
+		
+		ImGui::Begin("System Performance", &imgui_->b_display, ImGuiDockNodeFlags_AutoHideTabBar);
 		float total_time_ = 0.0f;
 		for (std::map<std::string, float>::iterator it = PE_FrameRate.GetSystemPerformance().begin(); it != PE_FrameRate.GetSystemPerformance().end(); ++it) {
 			total_time_ += it->second;
@@ -107,12 +88,20 @@ void ArchetypeWindow::Update() {
 }
 
 void ArchetypeWindow::AvaliableArchetypes() {
+	bool opened = false;
 
 	if (entities_) {
 
 		for (EntityManager::EntityArchetypeMapTypeIt entityIT = entities_->GetArchetypes().begin(); entityIT != entities_->GetArchetypes().end(); ++entityIT) {
-			if (ImGui::TreeNode(entityIT->first.c_str())) {
 
+			ImGuiTreeNodeFlags flags = ((imgui_->GetEntity() == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+
+			opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, entityIT->first.c_str()));
+
+			if (ImGui::IsItemClicked())
+				imgui_->SetEntity(entityIT->second); // store the selected Entity to find its components
+
+			if (opened) {
 				if (ImGui::Button("Add Entity"))
 					entities_->CloneArchetype(entityIT->first);
 
@@ -126,6 +115,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 				imgui_->DeletePopUp("Delete Confirmation", entityIT->first);
 
 				ImGui::Checkbox("Add / Edit Components", &b_editcomp);
+
 				imgui_->SetEntity(entityIT->second);
 
 				ImGui::TreePop();
@@ -151,4 +141,31 @@ void ArchetypeWindow::AddArchetype(std::string archetypeName)
 	imgui_->GetEntity()->InitArchetype();
 
 	imgui_->SetEntity(nullptr);
+}
+
+void ArchetypeWindow::AddComponent() {
+
+	if (ImGui::BeginCombo("##components", "Available Components")) {
+
+		for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it) {
+
+			ComponentTypes component = StringToComponentType(it->first.c_str());
+
+			if (!imgui_->GetEntity()->HasComponent(component)) {
+
+				if (ImGui::Selectable(it->first.c_str())) {
+
+					std::shared_ptr<Component> comp;
+					IComponentCreator* creator = comp_mgr_->GetComponentCreator(it->first.c_str());
+					comp = creator->Create();
+					imgui_->GetEntity()->AddComponent(component, comp);
+					imgui_->GetEntity()->InitArchetype();
+				}
+			}
+		}
+
+		ImGui::EndCombo();
+	}
+
+
 }

@@ -30,6 +30,7 @@ public:
 	void Update() override;
 
 	void AddArchetype(std::string component);
+	void AddComponent();
 
 	void AvaliableArchetypes();
 

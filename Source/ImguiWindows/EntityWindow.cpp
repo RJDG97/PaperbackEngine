@@ -70,9 +70,10 @@ void EntityWindow::ShowEntityList() {
 		for (entityIT = entities_->GetEntities().begin(); entityIT != entities_->GetEntities().end(); entityIT++) {
 
 			std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entityIT->second->GetComponent(ComponentTypes::NAME));
+
 			std::string label = entityname->GetName() + " (" + std::to_string(entityIT->second->GetID()) + ")";
 
-			ImGuiTreeNodeFlags flags = ((selection == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+			ImGuiTreeNodeFlags flags = ((imgui_system_->GetEntity() == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
 			
 			opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, label.c_str()));
 
@@ -201,9 +202,9 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 				if (ImGui::TreeNode("Bounding Box")) {
 
-					ComponentInputFloat("X", "##aabbX", inputAABB.x);
+					ComponentInputFloat("X", "##aabbX", inputAABB.x, 100.0f);
 					ImGui::SameLine();
-					ComponentInputFloat("Y", "##aabbY", inputAABB.y);
+					ComponentInputFloat("Y", "##aabbY", inputAABB.y, 100.0f);
 
 					entityAABB->SetAABBScale(inputAABB);
 
@@ -384,13 +385,13 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				if (ImGui::TreeNode("PointLight")) {
 
 					ImGui::Text("Radius");
-					ComponentInputFloat("Light Radius", "##lightRad", inputRadius);
+					ComponentInputFloat("Light Radius", "##lightRad", inputRadius, 102.0f);
 					entitypointlight->SetRadius(inputRadius);
 
 					ComponentDisplayFloat(ImVec4{ 1.0f, 0.271f, 0.0f, 1.0f }, "Point Light Radius: ", entitypointlight->GetRadius());
 					
 					ImGui::Text("Intensity");
-					ComponentInputFloat("Light Intensity", "##lightinten", inputIntensity);
+					ComponentInputFloat("Light Intensity", "##lightinten", inputIntensity, 102.0f);
 					entitypointlight->SetIntensity(inputIntensity);
 
 					ComponentDisplayFloat(ImVec4{ 1.0f, 0.271f, 0.0f, 1.0f }, "Point Light Intensity: ", entitypointlight->GetIntensity());
@@ -459,19 +460,19 @@ void EntityWindow::ComponentDisplayFloat(ImVec4 color, const char* label, float 
 	ImGui::Text(label);
 	ImGui::SameLine();
 	ImGui::TextColored(color, format, componentVal);
-	ImGui::NewLine();
+	ImGui::Separator();
 }
 
 void EntityWindow::ComponentDisplayInt(ImVec4 color, const char* label, int componentVal, const char* format) {
 	ImGui::Text(label);
 	ImGui::SameLine();
 	ImGui::TextColored(color, format, componentVal);
-	ImGui::NewLine();
+	ImGui::Separator();
 }
 
 void EntityWindow::ComponentDisplayVec(ImVec4 color, const char* label, Vector2D componentVec) {
 	ImGui::Text(label);
 	ImGui::SameLine();
 	ImGui::TextColored(color, "X: %.2f Y: %.2f", componentVec.x, componentVec.y);
-	ImGui::NewLine();
+	ImGui::Separator();
 }

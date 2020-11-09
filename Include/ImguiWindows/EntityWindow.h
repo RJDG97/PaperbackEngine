@@ -99,7 +99,7 @@ public:
 private:
 	ImguiSystem* imgui_system_;
 	EntityManager* entities_;
-	Entity* selection;
+	//Entity* selection;
 
 	EntityManager::EntityIdMapTypeIt entityIT;
 

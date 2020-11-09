@@ -220,6 +220,8 @@ public:
 
 	void ImGuiCustomStyle(); // may not be used
 
+	void CustomImGuiButton(ImVec4 Buttoncol, ImVec4 HoveredCol, ImVec4 SelectCol);
+
 
 private:
 

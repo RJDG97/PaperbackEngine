@@ -244,6 +244,8 @@ void ImguiSystem::ImGuiCustomStyle() {
     colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.706f,0.314f,0.533f, 1.0f };
     colors[ImGuiCol_ButtonActive] = ImVec4{ 0.788f,0.416f,0.624f, 1.0f };
 
+    colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.75f);
+
 }
 
 bool ImguiSystem::GetImguiBool() {
@@ -328,14 +330,14 @@ void ImguiSystem::ImguiInput() {
 }
 
 void ImguiSystem::SaveArchetype() {
-    std::string path = OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
+    std::string path = OpenSaveDialog(scene_filter_, 1);
     if (!path.empty())
         factory_->SerializeArchetypes(path);
 }
 
 void ImguiSystem::LoadArchetype() {
 
-    std::string path = OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 0);
+    std::string path = OpenSaveDialog(scene_filter_, 0);
     if (!path.empty()) {
 
         size_t pos = path.find("Resources");
@@ -381,12 +383,22 @@ void ImguiSystem::ImguiHelp(const char* description) {
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
 	
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
+    std::string warning;
+
+    if (entity) {
+        std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entity->GetComponent(ComponentTypes::NAME));
+        warning = objName + " from " + entityname->GetName();
+    }
 
     ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
     if (ImGui::BeginPopupModal(windowName,NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
         ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "Deleting: ");
-        ImGui::Text(objName.c_str());
+        if (!entity)
+            ImGui::Text(objName.c_str());
+        else 
+            ImGui::Text(warning.c_str());
+
         ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "This cannot be undone");
 
         ImGui::Separator();
