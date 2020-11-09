@@ -164,6 +164,7 @@ public:
 	int GetSteps();
 
 	void SetSystemPerformance(ISystem* system);
+	std::map<std::string, float>& GetSystemPerformance();
 	void PrintSystemPerformance();
 	void StartSystemTimer();
 	void EndSystemTimer();

@@ -71,14 +71,21 @@ void ImguiSystem::Init(){
     dock_space_flags_ = ImGuiDockNodeFlags_PassthruCentralNode;
     window_flags_ = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
-    b_debug = false;
+    b_windows = true;
     b_lock_entity = false;
     b_imguimode = false;
 
+    b_entitywin = true;
+    b_archetypewin = true;
+    b_component = true;
+
     new_entity_ = nullptr;
 
-    file_filter_ =
+    scene_filter_ =
     "(*.json) Scenes/Archetypes\0*.json\0"
+    "(*.*) All Files\0* *.*\0";
+
+    texture_filter_ =    
     "(*.jpg) JPG\0* .jpg\0"
     "(*.png) Spritesheets/Textures\0* .png\0"
     "(*.*) All Files\0* *.*\0";
@@ -99,12 +106,6 @@ void ImguiSystem::Update(float frametime) {
         ImGuiIO& io = ImGui::GetIO();
         if (b_dock_space_open) {
             DockSpaceFlagSet();
-
-            // Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-            // This is because we want to keep our DockSpace() active. If a DockSpace() is inactive, 
-            // all active windows docked into it will lose their parent and become undocked.
-            // We cannot preserve the docking relationship between an active window and an inactive docking, otherwise 
-            // any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
             ImGui::SetNextWindowBgAlpha(0.0f); // set the transparency of the docking central node
@@ -129,17 +130,12 @@ void ImguiSystem::Update(float frametime) {
             /* This has to be called between the ImGui::Begin("DockSpace"); and the corresponding ImGui::End()
              for windows to be dockable in the docking space */
         	
-            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
-                begin->second->Update();
-
+            if (b_windows) {
+                for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
+                    begin->second->Update();
+            }
             ImGui::End(); // end of docking space
         }
-        else {
-
-            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
-                begin->second->Update();
-        }
-    	
         ImguiRender();
     }
 }
@@ -218,6 +214,20 @@ void ImguiSystem::ImguiMenuBar() {
 
             ImGui::EndMenu();
         }
+
+        if (ImGui::BeginMenu("ImGui Windows")) {
+            if (ImGui::MenuItem("Toggle Windows", "shift+S")) // hide/show windows
+                b_windows = !b_windows;
+            ImGui::Text("Individual Windows");
+
+            ImGui::Separator();
+            ImGui::Checkbox("Toggle Scene Hierachy", &b_entitywin);
+            ImGui::Checkbox("Toggle Component Viewer", &b_component);
+            ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
+            ImGui::Checkbox("See System Performance", &b_display);
+
+            ImGui::EndMenu();
+        }
     }
     ImGui::EndMenuBar();
 }
@@ -233,6 +243,7 @@ void ImguiSystem::ImGuiCustomStyle() {
     colors[ImGuiCol_Button] = ImVec4{ 0.643f,0.224f,0.459f, 1.0f };
     colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.706f,0.314f,0.533f, 1.0f };
     colors[ImGuiCol_ButtonActive] = ImVec4{ 0.788f,0.416f,0.624f, 1.0f };
+
 }
 
 bool ImguiSystem::GetImguiBool() {
@@ -263,12 +274,6 @@ void ImguiSystem::SendMessageD(Message* m) {
         }
         break;
     }
-    case MessageIDTypes::DEBUG_ALL:
-    {
-       // if (CORE->GetSystem<Game>()->GetStateName() == "Editor")
-            //b_debug = !b_debug;
-        break;
-    }
     default:
         break;
     }
@@ -281,18 +286,8 @@ EntityID ImguiSystem::GetSelectedEntity() {
 
 void ImguiSystem::ResetSelectedEntity() {
 
-    new_entity_ = nullptr;
+    new_entity_ = {};
     b_lock_entity = false;
-}
-
-bool ImguiSystem::GetDebugBool() {
-
-    return b_debug;
-}
-
-void ImguiSystem::SetDebugBool(bool debug) {
-
-    b_debug = debug;
 }
 
 bool ImguiSystem::GetLockBool() {
@@ -353,7 +348,7 @@ void ImguiSystem::LoadArchetype() {
 }
 
 void ImguiSystem::OpenFile() {
-    std::string filepath = OpenSaveDialog(file_filter_, 0);
+    std::string filepath = OpenSaveDialog(scene_filter_, 0);
 
     if (!filepath.empty())
     {
@@ -367,7 +362,7 @@ void ImguiSystem::OpenFile() {
 }
 
 void ImguiSystem::SaveFile(){
-    OpenSaveDialog(file_filter_, 1);
+    OpenSaveDialog(scene_filter_, 1);
 }
 
 void ImguiSystem::ImguiHelp(const char* description) {
@@ -402,11 +397,11 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
 
         if (ImGui::Button("OK")) {
             if (!new_entity_->GetID() && !entity) //archetype id == 0
-                entities_->DeleteArchetype(new_entity_);
+                entities_->DeleteArchetype(new_entity_); //delete archetype
             else if (new_entity_->GetID() && !entity)
-                entities_->DeleteEntity((new_entity_));
+                entities_->DeleteEntity((new_entity_)); //delete entities
             else // delete component
-                entity->RemoveComponent(component);
+                entity->RemoveComponent(component); // delete component from entity/archetype
 
             SetEntity(nullptr);
             ImGui::CloseCurrentPopup();

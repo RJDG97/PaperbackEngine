@@ -32,8 +32,6 @@ public:
 	void AddArchetype(std::string component);
 
 	void AvaliableArchetypes();
-	
-	void AddComponents(ComponentTypes type, const char* typeName, const char* buttonLabel);
 
 private:
 	EntityManager* entities_;

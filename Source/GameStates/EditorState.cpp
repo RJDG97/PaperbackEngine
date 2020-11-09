@@ -35,17 +35,6 @@ void EditorState::Init(std::string)
 	
 	//used to freeze logic update and keep entities stationary except for actions tied to input
 	pause_ = true;
-
-	//CORE->GetManager<TextureManager>()->TextureBatchLoad("Menu");
-	//CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Menu");
-	//CORE->GetManager<FontManager>()->FontBatchLoad("Menu");
-
-	//CORE->GetManager<TextureManager>()->TextureBatchLoad("Play");
-	//CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
-	//CORE->GetManager<FontManager>()->FontBatchLoad("Play");
-
-	//TEMPORARY
-	//CORE->GetSystem<CameraSystem>()->SetTarget(player);
 	
 	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel("Editor");

@@ -28,7 +28,11 @@
 class ImguiSystem : public ISystem
 {
 public:
+
 	ImFont* bold_font_;
+	//bools for windows
+
+	bool b_entitywin, b_archetypewin, b_component, b_display;
 
 	ImguiSystem() {};
 
@@ -164,24 +168,6 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn GetDebugBool()
-
-	\brief Returns the Debug Bool of the ImGui System
-*/
-/******************************************************************************/
-	bool GetDebugBool();
-
-/******************************************************************************/
-/*!
-	\fn SetDebugBool()
-
-	\brief Sets the Debug Bool of the ImGui System
-*/
-/******************************************************************************/
-	void SetDebugBool(bool debug);
-
-/******************************************************************************/
-/*!
 	\fn GetLockBool()
 
 	\brief Returns the Lock Entity Bool of the ImGui System
@@ -253,7 +239,8 @@ private:
 	EntityManager* entities_;
 	EntityFactory* factory_;
 
-	const char* file_filter_;
+	const char* scene_filter_;
+	const char* texture_filter_;
 
 	// bools for the docking space
 	bool b_dock_space_open;
@@ -261,7 +248,7 @@ private:
 	bool b_fullscreen;
 
 	bool b_imguimode;
-	bool b_debug;
+	bool b_windows;
 	bool b_lock_entity;
 
 	// imGui flags for the docking space

@@ -14,33 +14,37 @@ void EntityWindow::Init(){
 void EntityWindow::Update() {
 
 	//ImGui::ShowDemoWindow();
+	if (imgui_system_->b_entitywin) {
 
-	ImGui::Begin("Entity Inspector");
+		ImGui::Begin("Entity Inspector", &imgui_system_->b_entitywin);
 
-	ImGui::Text("Current Scene: "); ImGui::SameLine(0, 2);
+		ImGui::Text("Current Scene: "); ImGui::SameLine(0, 2);
 
-	ImGui::TextColored(ImVec4{ 1.0f, 0.549f, 0.0f, 1.0f}, CORE->GetSystem<Game>()->GetStateName().c_str());
+		ImGui::TextColored(ImVec4{ 1.0f, 0.549f, 0.0f, 1.0f }, CORE->GetSystem<Game>()->GetStateName().c_str());
 
-	ShowEntityList();
+		ShowEntityList();
 
-	ImGui::End();
-
-
-	ImGui::Begin("Component Inspector");
-
-	bool lock = imgui_system_->GetLockBool();
-	ImGui::Checkbox("Select Entity", &lock);
-	ImGui::SameLine(); imgui_system_->ImguiHelp("Uncheck this box,\n to select Entities directly");
-	imgui_system_->SetLockBool(lock);
-
-	if (imgui_system_->GetEntity()) {
-
-		std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_system_->GetEntity());
-
-		CheckComponentType(entity);
+		ImGui::End();
 	}
 
-	ImGui::End();
+	if (imgui_system_->b_component) {
+
+		ImGui::Begin("Component Inspector", &imgui_system_->b_component);
+
+		bool lock = imgui_system_->GetLockBool();
+		ImGui::Checkbox("Select Entity", &lock);
+		ImGui::SameLine(); imgui_system_->ImguiHelp("Uncheck this box,\n to select Entities directly");
+		imgui_system_->SetLockBool(lock);
+
+		if (imgui_system_->GetEntity()) {
+
+			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_system_->GetEntity());
+
+			CheckComponentType(entity);
+		}
+
+		ImGui::End();
+	}
 }
 
 std::pair<Entity*, std::vector<ComponentTypes>> EntityWindow::GetEntityComponents(Entity* entity) {
