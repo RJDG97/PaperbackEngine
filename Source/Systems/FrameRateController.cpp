@@ -160,6 +160,11 @@ void FrameRateController::SetSystemPerformance(ISystem* system) {
 	system_performance_[system->GetName()] = system_update_time;
 }
 
+std::map<std::string, float>& FrameRateController::GetSystemPerformance()
+{
+	return system_performance_;
+}
+
 void FrameRateController::PrintSystemPerformance() {
 	total_time = 0.0f;
 	std::cout << "=========================================\nDisplaying System Performance Data:" << std::endl;

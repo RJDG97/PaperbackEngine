@@ -78,6 +78,11 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	int GetCurrentHealth();
+	void SetCurrentHealth(int newHealth);
+	int GetMaxHealth();
+	void SetMaxHealth(int newHealth);
 };
 
 #endif

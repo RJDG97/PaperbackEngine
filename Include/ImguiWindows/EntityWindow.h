@@ -54,19 +54,28 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn ComponentInput(ImVec4 color, const char* label,
-	float componentVal = 0.0f, const char* format = "%.2f")
+	\fn ComponentDisplayFLoat(ImVec4 color, const char* label,
+	float componentVal, const char* format = "%.2f")
 
 	\brief Prints out text for the float components
 */
 /******************************************************************************/
 	void ComponentDisplayFloat(ImVec4 color, const char* label, float componentVal, const char* format = "%.2f");
+
+/******************************************************************************/
+/*!
+	\fn ComponentDisplayInt(ImVec4 color, const char* label,
+	int componentVal, const char* format = "%d")
+
+	\brief Prints out text for the float components
+*/
+/******************************************************************************/
 	void ComponentDisplayInt(ImVec4 color, const char* label, int componentVal, const char* format = "%d");
 
 /******************************************************************************/
 /*!
-	\fn ComponentInput(ImVec4 color, const char* label,
-	float componentVal = 0.0f, const char* format = "%.2f")
+	\fn ComponentDisplayVec(ImVec4 color, const char* label,
+	Vector2D componentVec = { 0.0f, 0.0f })
 
 	\brief Prints out text for the Vec2D components
 */
@@ -92,14 +101,18 @@ public:
 	void ShowEntityList();
 
 	const char* GetAIState(int aiState);
+
 	const char* GetAIType(int aiType);
 
-	void AxisButton(const char* label);
+	void SetArrowButtons(int& componentVar);
+	ImVec2 SetButtonSize();
+
+	void Vec2Input(Vector2D& componentVar, float defaultVal = 0.0f);
+	void FloatInput(float& componentVar, const char* label = "X##hey", float defaultVal = 0.0f);
 
 private:
-	ImguiSystem* imgui_system_;
+	ImguiSystem* imgui_;
 	EntityManager* entities_;
-	Entity* selection;
 
 	EntityManager::EntityIdMapTypeIt entityIT;
 

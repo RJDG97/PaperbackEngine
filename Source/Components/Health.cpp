@@ -56,3 +56,23 @@ std::shared_ptr<Component> Health::Clone() {
 
 	return cloned;
 }
+
+void Health::SetCurrentHealth(int newHealth)
+{
+	current_health_ = newHealth;
+}
+
+int Health::GetCurrentHealth()
+{
+	return current_health_;
+}
+
+int Health::GetMaxHealth()
+{
+	return maximum_health_;
+}
+
+void Health::SetMaxHealth(int newHealth){
+
+	maximum_health_ = newHealth;
+}

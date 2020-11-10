@@ -12,75 +12,76 @@ void ArchetypeWindow::Init() {
 
 void ArchetypeWindow::Update() {
 	
-	ImGui::Begin("Archetypes");
+	if (imgui_->b_archetypewin) {
 
-	if (ImGui::CollapsingHeader("Existing Archetypes")) {
-		AvaliableArchetypes();
+		ImGui::Begin("Archetypes", &imgui_->b_archetypewin);
+
+		if (ImGui::CollapsingHeader("Existing Archetypes")) {
+			AvaliableArchetypes();
+
+			ImGui::Separator();
+
+			if (ImGui::Button("Save List"))
+				imgui_->SaveArchetype();
+
+			ImGui::SameLine();
+
+			if (ImGui::Button("Load List"))
+				imgui_->LoadArchetype();
+		}
+
+		if (ImGui::CollapsingHeader("Create New Archetypes")) {
+
+			if (entities_) {
+				std::string entityName;
+
+				char buffer[256];
+				memset(buffer, 0, sizeof(buffer));
+				strcpy_s(buffer, sizeof(buffer), entityName.c_str());
+
+				ImGui::Text("New Archetype Name:");
+				ImGui::PushItemWidth(250.0f);
+
+				if (ImGui::InputTextWithHint("##name", "Enter name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
+					AddArchetype(std::string(buffer));
+
+				ImGui::PopItemWidth();
+			}
+		}
 
 		ImGui::Separator();
 
-		if (ImGui::Button("Save List"))
-			imgui_->SaveArchetype();
+		if (b_editcomp) {
 
-		ImGui::SameLine();
+			if (imgui_->GetEntity()) {
 
-		if (ImGui::Button("Load List"))
-			imgui_->LoadArchetype();
+				ImGui::PushItemWidth(250.0f);
 
-	}
+				AddComponent();
 
-	if (ImGui::CollapsingHeader("Create New Archetypes")) {
-		if (entities_) {
-			std::string entityName;
-			
-			char buffer[256];
-			memset(buffer, 0, sizeof(buffer));
-			strcpy_s(buffer, sizeof(buffer), entityName.c_str());
-			
-			ImGui::Text("Archetype Name:");
-			ImGui::PushItemWidth(200.0f);
-
-			if (ImGui::InputTextWithHint("##name", "Enter name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue)) { 
-
-				entityName = buffer;
-				AddArchetype(entityName);
-			}
-			ImGui::PopItemWidth();
-		}
-	}
-	ImGui::Separator();
-
-	if (imgui_->GetEntity()) {
-
-		for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it)
-		{
-			ComponentTypes component = StringToComponentType(it->first.c_str());
-
-			if (!imgui_->GetEntity()->HasComponent(component)) {
-
-				if (ImGui::Button(it->first.c_str())) {
-
-					std::shared_ptr<Component> comp;
-					IComponentCreator* creator = comp_mgr_->GetComponentCreator(it->first.c_str());
-					comp = creator->Create();
-					imgui_->GetEntity()->AddComponent(component, comp);
-					imgui_->GetEntity()->InitArchetype();
-
-				}
+				ImGui::PopItemWidth();
 			}
 		}
-	}
 
-	ImGui::End();
+		ImGui::End();
+	}
 }
 
 void ArchetypeWindow::AvaliableArchetypes() {
+	bool opened = false;
 
 	if (entities_) {
 
 		for (EntityManager::EntityArchetypeMapTypeIt entityIT = entities_->GetArchetypes().begin(); entityIT != entities_->GetArchetypes().end(); ++entityIT) {
-			if (ImGui::TreeNode(entityIT->first.c_str())) {
 
+			ImGuiTreeNodeFlags flags = ((imgui_->GetEntity() == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+
+			opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, entityIT->first.c_str()));
+
+			if (ImGui::IsItemClicked())
+				imgui_->SetEntity(entityIT->second); // store the selected Entity to find its components
+
+			if (opened) {
 				if (ImGui::Button("Add Entity"))
 					entities_->CloneArchetype(entityIT->first);
 
@@ -93,24 +94,14 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 				imgui_->DeletePopUp("Delete Confirmation", entityIT->first);
 
-				if (ImGui::Button("Add/Edit Components")) {
-					imgui_->SetEntity(entityIT->second);
-				}
+				ImGui::Checkbox("Add / Edit Components", &b_editcomp);
+
+				imgui_->SetEntity(entityIT->second);
 
 				ImGui::TreePop();
 			}
 		}
 	}
-}
-
-void ArchetypeWindow::AddComponents(ComponentTypes type, const char* typeName, const char* buttonLabel){
-	std::shared_ptr<Component> component;
-	IComponentCreator* creator = comp_mgr_->GetComponentCreator(typeName);
-
-	component = creator->Create();
-
-	imgui_->GetEntity()->AddComponent(type, component);
-	imgui_->GetEntity()->InitArchetype();
 }
 
 void ArchetypeWindow::AddArchetype(std::string archetypeName)
@@ -130,4 +121,31 @@ void ArchetypeWindow::AddArchetype(std::string archetypeName)
 	imgui_->GetEntity()->InitArchetype();
 
 	imgui_->SetEntity(nullptr);
+}
+
+void ArchetypeWindow::AddComponent() {
+
+	if (ImGui::BeginCombo("##components", "Available Components")) {
+
+		for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it) {
+
+			ComponentTypes component = StringToComponentType(it->first.c_str());
+
+			if (!imgui_->GetEntity()->HasComponent(component)) {
+
+				if (ImGui::Selectable(it->first.c_str())) {
+
+					std::shared_ptr<Component> comp;
+					IComponentCreator* creator = comp_mgr_->GetComponentCreator(it->first.c_str());
+					comp = creator->Create();
+					imgui_->GetEntity()->AddComponent(component, comp);
+					imgui_->GetEntity()->InitArchetype();
+				}
+			}
+		}
+
+		ImGui::EndCombo();
+	}
+
+
 }
