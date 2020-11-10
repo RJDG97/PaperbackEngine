@@ -305,6 +305,15 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
+\fn SetToFirstFrame(AnimationRenderer* anim_renderer)
+
+\brief Set current frame to the first frame of the current animation
+*/
+/******************************************************************************/
+    void SetToFirstFrame(AnimationRenderer* anim_renderer);
+
+/******************************************************************************/
+/*!
 \fn IsLastFrame(AnimationRenderer* anim_renderer)
 
 \brief Checks if the current frame is the last frame of the animation

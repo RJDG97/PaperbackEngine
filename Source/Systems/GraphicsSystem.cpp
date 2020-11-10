@@ -727,6 +727,23 @@ void GraphicsSystem::SetToNextFrame(AnimationRenderer* anim_renderer) {
     }
 }
 
+void GraphicsSystem::SetToFirstFrame(AnimationRenderer* anim_renderer) {
+
+    anim_renderer->tex_vtx_ = *(anim_renderer->current_animation_->GetTexVtx());
+
+    if (anim_renderer->x_mirror_)
+    {
+        std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[2]);
+        std::swap(anim_renderer->tex_vtx_[1], anim_renderer->tex_vtx_[3]);
+    }
+
+    if (anim_renderer->y_mirror_)
+    {
+        std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[1]);
+        std::swap(anim_renderer->tex_vtx_[2], anim_renderer->tex_vtx_[3]);
+    }
+}
+
 bool GraphicsSystem::IsLastFrame(AnimationRenderer* anim_renderer) {
 
     return anim_renderer->total_time_elapsed_ >=
