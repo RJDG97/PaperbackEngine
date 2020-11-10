@@ -82,6 +82,7 @@ void GraphicsSystem::Init() {
     batch_size_ = 500;
     graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel");
     graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel");
+    graphic_models_["UIModel"] = model_manager_->AddTristripsModel(1, 1, "UIModel");
     graphic_models_["BatchModel"] = model_manager_->AddTristripsBatchModel(batch_size_, "BatchModel");
 
     graphic_shaders_["ObjectShader"] =
@@ -90,12 +91,15 @@ void GraphicsSystem::Init() {
     graphic_shaders_["TextShader"] =
         shader_manager_->AddShdrpgm("Shaders/text.vert", "Shaders/text.frag", "TextShader");
 
+    graphic_shaders_["UIShader"] =
+        shader_manager_->AddShdrpgm("Shaders/ui_object.vert", "Shaders/ui_object.frag", "UIShader");
+
     graphic_shaders_["FinalShader"] =
         shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
 
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
 
-    //For UI
+    //For UI and text
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
@@ -200,6 +204,21 @@ void GraphicsSystem::Draw() {
     glClear(GL_COLOR_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], &final_texture_);
+
+    //draw all the UI textures
+    graphic_shaders_["UIShader"]->Use();
+    glBindVertexArray(graphic_models_["UIModel"]->vaoid_);
+
+    for (WorldRenderOrderIt it = uirenderers_in_order_.begin();
+        it != uirenderers_in_order_.end(); ++it) {
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
+    }
 
     //draws all the UI text
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -585,14 +604,13 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
     shader->SetUniform("uTex2d", 0);
     shader->SetUniform("projection", projection);
     shader->SetUniform("text_color", text_renderer->color_);
-
-    //Vector2D obj_pos_ = std::dynamic_pointer_cast<Transform>(
-    //    text_renderer->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->position_;
 	
     Transform* xform = component_manager_->GetComponent<Transform>(text_renderer->GetOwner()->GetID());
 	
     if (!xform)
+    {
         return;
+    }
 
     Vector2D obj_pos_ = xform->position_;
 
@@ -644,6 +662,38 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         pos.x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }
+}
+
+void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer)
+{
+    shader->SetUniform("uTex2d", 0);
+    shader->SetUniform("projection", projection);
+
+    Transform* xform = component_manager_->GetComponent<Transform>(i_worldobj_renderer->GetOwner()->GetID());
+    Scale* scale = component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID());
+
+    glm::vec2 translation{ camera_system_->cam_pos_ * camera_system_->cam_zoom_ + 0.5f * win_size_ };
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_ +
+                            Vector2D{ translation.x, translation.y };
+    Vector2D obj_scale = scale->scale_ * camera_system_->cam_zoom_;
+
+    std::vector<glm::vec2> vertices;
+    vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y + obj_scale.y });
+    vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y + obj_scale.y });
+    vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
+    vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y - obj_scale.y });
+    
+    for (int i = 0; i < 4; ++i)
+    {
+        vertices.push_back(i_worldobj_renderer->tex_vtx_[i]);
+    }
+
+    glBindTextureUnit(0, *i_worldobj_renderer->texture_handle_);
+    
+    glNamedBufferSubData(model->GetVBOHandle(), 0,
+                         sizeof(glm::vec2) * vertices.size(), vertices.data());
+    // render quad
+    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 }
 
 void GraphicsSystem::FlipTextureX(IWorldObjectRenderer* i_worldobj_renderer) {
