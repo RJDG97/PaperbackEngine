@@ -238,6 +238,8 @@ private:
 	float speed_;
 	size_t num_destinations_;
 	std::vector<Vector2D> destinations_;
+	//Vector2D current_destination_;
+	//std::list<Vector2D> current_destination_;
 	DestinationIt current_destination_;
 	Vector2D player_last_pos_;
 };

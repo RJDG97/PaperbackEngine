@@ -9,7 +9,7 @@ namespace StagBeetle
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(obj->second->GetPlayerLastPos(), GeneralScripts::obj_rigidbody->GetPosition());
 		// If obj is close enough, return true
-		if (distance < 1.0f)
+		if (distance < 0.1f)
 		{
 			// Fall animation
 			// Collision check for damage

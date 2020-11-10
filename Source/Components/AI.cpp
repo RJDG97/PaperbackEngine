@@ -150,6 +150,11 @@ DestinationIt AI::GetCurrentDes()
 	return current_destination_;
 }
 
+//Vector2D AI::GetCurrentDes()
+//{
+//	return current_destination_;
+//}
+
 void AI::SetCurrentDes(DestinationIt Cdes)
 {
 	//if(Cdes == destinations_.end())

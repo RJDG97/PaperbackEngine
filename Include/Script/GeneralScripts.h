@@ -3,12 +3,14 @@
 
 #include "Systems/LogicSystem.h"
 #include "Script/ScriptList.h"
+#include "Manager/AMap.h"
 
 namespace GeneralScripts
 {
 	extern EntityID player_id;
 	extern Transform* player_rigidbody;
 	extern Transform* obj_rigidbody;
+	extern AMap* map;
 
 	//AI* obj_{nullptr};
 	bool Chase(AIIt obj);

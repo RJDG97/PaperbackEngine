@@ -10,6 +10,8 @@ namespace GeneralScripts
 	EntityID player_id;
 	Transform* player_rigidbody;
 	Transform* obj_rigidbody;
+	AMap* map;
+
 
 	bool Chase(AIIt obj)
 	{
@@ -41,7 +43,7 @@ namespace GeneralScripts
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(player_rigidbody->GetPosition(), obj_rigidbody->GetPosition());
 		// If Player is very close, is detected
-		if (distance < 200.0f)
+		if (distance < 3.0f)
 			return true;
 		// Else check if player is in line of sight (May replace check after shadows)
 		else if(distance < obj->second->GetRange())
@@ -104,10 +106,10 @@ namespace GeneralScripts
 		float distance = Vector2DLength(*(obj->second->GetCurrentDes()) - obj_rigidbody->GetPosition());
 
 		// if ai is near then calculate new vector and set
-		if (distance <= 0.5f) {
+		if (distance <= 0.1f) {
 
 			DestinationIt next_it = obj->second->GetCurrentDes();
-
+			//map->DrawMap();
 			// check if next destination is out of range, and loop to beginning if so
 			if (++next_it == obj->second->GetDestinations().end())
 				//if next destination does not exist, then wrap back to beginning
@@ -118,6 +120,8 @@ namespace GeneralScripts
 
 		}
 
+		//map->Astar(obj_rigidbody->GetPosition(), *obj->second->GetCurrentDes());
+		//map->Astar({ -3,-5 }, {-3, 5});
 		//get directional unit vector
 		Vector2D directional = *obj->second->GetCurrentDes() - obj_rigidbody->GetPosition();
 		directional /= Vector2DLength(directional);
