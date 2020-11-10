@@ -674,8 +674,11 @@ int GraphicsSystem::GetLayer(TextRenderer* text_renderer)
 
 void GraphicsSystem::ChangeTexture(TextureRenderer* renderer, std::string texture_name) {
 
-    renderer->texture_ = *(texture_manager_->GetTexture(texture_name));
-    renderer->texture_name_ = texture_name;
+    if (renderer->texture_name_ != texture_name) {
+     
+        renderer->texture_ = *(texture_manager_->GetTexture(texture_name));
+        renderer->texture_name_ = texture_name;
+    }
 }
 
 void GraphicsSystem::AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
@@ -683,8 +686,18 @@ void GraphicsSystem::AddAnimation(AnimationRenderer* anim_renderer, std::string 
     anim_renderer->obj_animations_[animation_name] = animation_manager_->GetAnimation(animation_name);
 }
 
-void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
+void GraphicsSystem::ChangeAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
 
+    if (anim_renderer->current_animation_name_ == animation_name)
+        return;
+
+    SetAnimation(anim_renderer, animation_name);
+
+    anim_renderer->play_animation_ = true;
+}
+
+void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
+    
     anim_renderer->current_animation_ = &anim_renderer->obj_animations_[animation_name];
     anim_renderer->current_animation_name_ = animation_name;
     anim_renderer->time_elapsed_ = 0.0f;

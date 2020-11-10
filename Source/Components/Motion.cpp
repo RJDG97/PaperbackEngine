@@ -8,20 +8,17 @@
 Motion::Motion() : 
 	velocity_{},
 	acceleration_{},
-	mass_{}
+	mass_{},
+	is_left_{ false }
 {}
 
 Motion::~Motion() {
 
-	//CORE->GetSystem<Physics>()->RemoveMotionComponent(Component::GetOwner()->GetID());
-	//CORE->GetSystem<Collision>()->RemoveMotionComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<Motion>(Component::GetOwner()->GetID());
 }
 
 void Motion::Init() {
 
-	//CORE->GetSystem<Physics>()->AddMotionComponent(Component::GetOwner()->GetID(), this);
-	//CORE->GetSystem<Collision>()->AddMotionComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<Motion>(Component::GetOwner()->GetID(), this);
 }
 
@@ -46,7 +43,9 @@ void Motion::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 void Motion::DeSerialize(std::stringstream& data) {
 	std::cout << "Entered DeSerialize Motion w/ stream" << std::endl;
 	
-	data >> mass_ >> velocity_.x >> velocity_.y >> acceleration_.x >> acceleration_.y;
+	data >> mass_ >> velocity_.x >> velocity_.y >> 
+			acceleration_.x >> acceleration_.y;
+
 	inv_mass_ = mass_ == 0.0f ? 0.0f : 1 / mass_;
 }
 

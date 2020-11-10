@@ -11,7 +11,8 @@ class Health : public Component
 	int current_health_;
 	int maximum_health_;
 public:
-	friend class Physics; // Temporary friend class for testing purposes
+	friend class Physics;
+	friend class Collision;
 
 /******************************************************************************/
 /*!
@@ -22,6 +23,15 @@ public:
 */
 /******************************************************************************/
 	Health();
+
+/******************************************************************************/
+/*!
+  \fn ~Health()
+
+  \brief Destructor for Health that removes the component from the component map
+*/
+/******************************************************************************/
+	~Health();
 
 /******************************************************************************/
 /*!

@@ -285,6 +285,17 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
+\fn ChangeAnimation(AnimationRenderer* anim_renderer, std::string animation_name)
+
+\brief Changes the current animation to the specified animation in the animation
+       renderer's animation map
+*/
+/******************************************************************************/
+    void ChangeAnimation(AnimationRenderer* anim_renderer,
+                      std::string animation_name);
+
+/******************************************************************************/
+/*!
 \fn SetToNextFrame(AnimationRenderer* anim_renderer)
 
 \brief Set current frame to the next frame of the current animation

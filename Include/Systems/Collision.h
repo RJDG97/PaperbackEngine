@@ -26,6 +26,7 @@ enum class CollisionLayer
 	TILES,
 	ENEMY,
 	PLAYER,
+	HOLE,
 	UI_ELEMENTS     // Non-interactable
 };
 
@@ -92,6 +93,8 @@ private:
 	std::map<CollisionLayer, AABBType> collision_map_;
 
 	PartitioningSystem* partitioning_;
+	EntityManager* entity_mgr_;
+	ComponentManager* component_mgr_;
 
 /******************************************************************************/
 /*!
@@ -211,6 +214,15 @@ public:
 */
 /******************************************************************************/
 	void CheckClickableCollision();
+	
+/******************************************************************************/
+/*!
+  \fn BurrowReady()
+
+  \brief Helper function to check if a player is over a hole before burrowing
+*/
+/******************************************************************************/
+	bool BurrowReady();
 
 /******************************************************************************/
 /*!
