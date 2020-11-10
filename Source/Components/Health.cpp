@@ -1,14 +1,26 @@
 #include "Components/Health.h"
+
 #include "Systems/Physics.h"
 #include "Systems/Debug.h"
+
+#include "Manager/ComponentManager.h"
+
+#include "Engine/Core.h"
+
 #include <iostream>
 
 Health::Health() {
 	current_health_ = maximum_health_ = 5;
 }
 
+Health::~Health() {
+
+	CORE->GetManager<ComponentManager>()->RemoveComponent<Motion>(Component::GetOwner()->GetID());
+}
+
 void Health::Init() {
 
+	CORE->GetManager<ComponentManager>()->AddComponent<Health>(Component::GetOwner()->GetID(), this);
 }
 
 void Health::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {

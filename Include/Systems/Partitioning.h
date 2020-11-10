@@ -102,6 +102,15 @@ public:
 /******************************************************************************/
 	std::pair<size_t, size_t> GetAxisSizes();
 
+/******************************************************************************/
+/*!
+  \fn ConvertTransformToGridScale()
+
+  \brief Converts world coordinates to grid coordinates
+*/
+/******************************************************************************/
+	Vector2D ConvertTransformToGridScale(const Vector2D& pos);
+
 private:
 
 	ComponentManager* component_manager_;
