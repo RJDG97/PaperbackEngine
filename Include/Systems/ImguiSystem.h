@@ -13,10 +13,13 @@
 #include "Systems/Message.h"
 #include "Systems/Debug.h"
 #include "Systems/Collision.h"
-
-#include "ImguiWindows/IWindow.h"
 #include "Systems/WindowsSystem.h"
 #include "Systems/InputSystem.h"
+#include "Systems/Factory.h"
+
+#include "ImguiWindows/IWindow.h"
+
+#include "Manager/EntityManager.h"
 
 
 class ImguiSystem : public ISystem
@@ -144,7 +147,7 @@ public:
 	\brief Retrieves the data selected_entity_
 */
 /******************************************************************************/	
-	std::pair<Entity*, std::vector<ComponentTypes>> GetSelectedEntity();
+	EntityID GetSelectedEntity();
 
 /******************************************************************************/
 /*!
@@ -202,22 +205,42 @@ public:
 	void ImguiHelp(const char* description);
 
 	Entity* GetEntity();
+	
 	void SetEntity(Entity* newentity);
 
+	void DeletePopUp(const char* windowName, std::string objName);
 
+	std::string OpenSaveDialog(const char* filter, int save);
+	
+	void ImguiInput();
+
+	void SaveArchetype();
+
+	void LoadArchetype();
+
+	void OpenFile();
+
+	void SaveFile();
+
+	void ImguiMenuBar();
 private:
 
 	// map to store all imgui windows added to the system
 	using WindowIt = std::map<std::string, std::shared_ptr<IWindow>>::iterator;
 	std::map<std::string, std::shared_ptr<IWindow>> imgui_window_arr_;
 	// get the entity and its components
-	std::pair<Entity*, std::vector<ComponentTypes>> selected_entity_;
+	EntityID selected_entity_;
 
 	// to access the window pointer in the window system
-	WindowsSystem* win;
+	WindowsSystem* win_;
 	Collision* collision_system_;
 	InputSystem* input_sys_;
+	
 	Entity* new_entity_; // entity* to store selected entity
+	EntityManager* entities_;
+	EntityFactory* factory_;
+
+	const char* file_filter_;
 
 	// bools for the docking space
 	bool b_dock_space_open;

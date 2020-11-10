@@ -176,3 +176,13 @@ void AI::SetPlayerLastPos(Vector2D pos)
 {
 	player_last_pos_ = pos;
 }
+
+Vector2D AI::GetNewDestination()
+{
+	return new_node_;
+}
+
+void AI::SetNewDestination(Vector2D newnode)
+{
+	new_node_ = newnode;
+}

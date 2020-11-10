@@ -65,7 +65,7 @@ public:
 
 	void AddComponentCreator(std::string name, IComponentCreator* creator);
 	IComponentCreator* GetComponentCreator(std::string name);
-	ComponentMapType& GetComponentCreators();
+	ComponentMapType& GetComponentList();
 
 	template <typename T>
 	T* GetComponent(EntityID id);
@@ -172,7 +172,7 @@ IComponentCreator* CManager<Ts...>::GetComponentCreator(std::string name) {
 }
 
 template <typename... Ts>
-typename CManager<Ts...>::ComponentMapType& CManager<Ts...>::GetComponentCreators()
+typename CManager<Ts...>::ComponentMapType& CManager<Ts...>::GetComponentList()
 {
 	return component_creator_arr_;
 }

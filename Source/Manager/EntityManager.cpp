@@ -102,9 +102,8 @@ void EntityManager::DeleteEntity(EntityID id) {
 }
 
 void EntityManager::DeleteEntity(Entity* entity) {
-	if (entity) {
+	if (entity)
 		entities_to_delete_.insert(entity);
-	}
 }
 
 void EntityManager::DeletePlayerEntities() {

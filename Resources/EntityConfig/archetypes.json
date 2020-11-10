@@ -27,7 +27,7 @@
    "UIText": [
     {
       "component": "Name",
-      "name": "TextTest"
+      "name": "UIText"
     },
     {
       "component": "Transform",
@@ -48,7 +48,7 @@
   "WorldText": [
     {
       "component": "Name",
-      "name": "TextTest"
+      "name": "WorldText"
     },
     {
       "component": "Transform",
@@ -123,7 +123,7 @@
     },
     {
       "component": "Transform",
-      "position": "-150.0 100.0",
+      "position": "0.0 0.0",
       "rotation": "0.0" 
     },
     {

@@ -24,7 +24,6 @@ public:
 	using EntityArchetypeMapType = std::map<std::string, Entity*>;
 	using EntityArchetypeMapTypeIt = EntityArchetypeMapType::iterator;
 
-
 	// Functions
 	EntityManager();
 

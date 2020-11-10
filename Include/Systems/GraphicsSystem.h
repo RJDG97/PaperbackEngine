@@ -207,12 +207,14 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
-    \fn DrawText(Shader* shader, Model* model,  TextRenderer* text_renderer, glm::vec2 cam_pos)
+    \fn DrawText(Shader* shader, Model* model,
+                 TextRenderer* text_renderer, glm::vec2 cam_pos)
 
     \brief Draw text that have a TextRenderer component
 */
 /******************************************************************************/
-    void DrawTextObject(Shader* shader, Model* model, TextRenderer* text_renderer, glm::vec2 cam_pos);
+    void DrawTextObject(Shader* shader, Model* model,
+                        TextRenderer* text_renderer, glm::vec2 cam_pos);
 
 /******************************************************************************/
 /*!
@@ -267,7 +269,8 @@ void RemoveTextRendererComponent(EntityID id);
        animation map
 */
 /******************************************************************************/
-    void AddAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
+    void AddAnimation(AnimationRenderer* anim_renderer,
+                      std::string animation_name);
 
 /******************************************************************************/
 /*!
@@ -277,7 +280,8 @@ void RemoveTextRendererComponent(EntityID id);
        renderer's animation map
 */
 /******************************************************************************/
-    void SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name);
+    void SetAnimation(AnimationRenderer* anim_renderer,
+                      std::string animation_name);
 
 /******************************************************************************/
 /*!
@@ -306,21 +310,14 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
     GLuint GetFramebuffer();
 
-
-    //using TextRendererIt = std::unordered_map<EntityID, TextRenderer*>::iterator;
-    //std::unordered_map<EntityID, TextRenderer*> text_renderer_arr_;
     using TextRendererType = CMap<TextRenderer>;
     using TextRendererIt = TextRendererType::MapTypeIt;
     TextRendererType* text_renderer_arr_;
 
-    //using TextureRendererIt = std::unordered_map<EntityID, TextureRenderer*>::iterator;
-    //std::unordered_map<EntityID, TextureRenderer*> texture_renderer_arr_;
     using TextureRendererType = CMap<TextureRenderer>;
     using TextureRendererIt = TextureRendererType::MapTypeIt;
     TextureRendererType* texture_renderer_arr_;
 
-    //using AnimRendererIt = std::unordered_map<EntityID, AnimationRenderer*>::iterator;
-    //std::unordered_map<EntityID, AnimationRenderer*> anim_renderer_arr_;
     using AnimationRendererType = CMap<AnimationRenderer>;
     using AnimRendererIt = AnimationRendererType::MapTypeIt;
     AnimationRendererType* anim_renderer_arr_;

@@ -60,14 +60,9 @@ void AnimationSet::UnloadAnimationSet() {
 
 
 void AnimationManager::Init() {
-	
+
 	M_DEBUG->WriteDebugMessage("Animation Manager Init\n");
 	texture_manager_ = &*CORE->GetManager<TextureManager>();
-}
-
-void AnimationManager::TempAnimationBatchLoad() {
-	
-	//CreateAnimation("Resources\\Sprites\\MC_States.png", &player_animations_, 0.07f);
 }
 
 void AnimationManager::AnimationBatchLoad(std::string level_name)

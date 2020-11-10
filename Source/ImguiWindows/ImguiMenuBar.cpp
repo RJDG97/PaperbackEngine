@@ -19,13 +19,14 @@ void ImguiMenuBar::Init() {
    win_ = &*CORE->GetSystem<WindowsSystem>();
    imgui_system_ = &*CORE->GetSystem<ImguiSystem>();
    input_ = &*CORE->GetSystem<InputSystem>();
+   factory_ = &*CORE->GetSystem <EntityFactory>();
 }
 
 void ImguiMenuBar::Update() {
    
     if(ImGui::BeginMenuBar()){
         if (ImGui::BeginMenu("File")){
-            if (ImGui::MenuItem("Open", "Ctrl+O"))
+            if (ImGui::MenuItem("Open Scene", "Ctrl+O"))
                 OpenFile();
             if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
                 SaveFile();
@@ -35,65 +36,32 @@ void ImguiMenuBar::Update() {
     		
     	    if (ImGui::MenuItem("Save Archetypes"))
                 SaveArchetype();
+    		//if (ImGui::MenuItem("Load Archetypes"))
 
             ImGui::EndMenu();
     	}
     }
-    ImGui::EndMenuBar();
-    ImguiInput();
+	ImGui::EndMenuBar();
 }   
-
-std::string ImguiMenuBar::OpenSaveDialog(const char* filter, int save)
-{
-	OPENFILENAMEA ofn;
-    CHAR szFile[260] = { 0 };
-
-    // init OPENFILENAME
-    ZeroMemory(&ofn, sizeof(OPENFILENAME));
-    ofn.lStructSize = sizeof(OPENFILENAME);
-    ofn.hwndOwner = glfwGetWin32Window(win_->ptr_window);
-    ofn.lpstrFile = szFile;
-    ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = filter;
-    ofn.nFilterIndex = 1;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
-    if (!save){
-        if (GetOpenFileNameA(&ofn) == TRUE)
-            return ofn.lpstrFile;
-    }
-    else{
-        if (GetSaveFileNameA(&ofn) == TRUE)
-            return ofn.lpstrFile;
-    }
-
-    return std::string(); // returns an empty string if user cancels/didnt select anything
-}
 
 void ImguiMenuBar::OpenFile(){
 
-    OpenSaveDialog(file_filter_, 0);
+    std::string filepath = OpenSaveDialog(file_filter_, 0);
+
+    if (!filepath.empty())
+    {
+        size_t pos = filepath.find("Resources");
+
+        std::string file = filepath.substr(pos);
+    	
+        factory_->DeSerializeLevelEntities(file);
+    }
 }
 
 void ImguiMenuBar::SaveFile(){
-    OpenSaveDialog(file_filter_, 1);
+   OpenSaveDialog(file_filter_, 1);
 }
 
-void ImguiMenuBar::ImguiInput(){
-
-    bool control = ImGui::IsKeyReleased(GetKey(ImGuiKey_ControlL)) || ImGui::IsKeyReleased(GetKey(ImGuiKey_ControlR));
-    //bool shift = ImGui::IsKeyReleased(GetKey(ImGuiKey_ShiftL)) || ImGui::IsKeyReleased(GetKey(ImGuiKey_ShiftR));
-   
-    if (control)
-    {
-        if (ImGui::IsKeyReleased(GetKey(ImGuiKey_O)))
-            OpenFile();
-
-        else if (ImGui::IsKeyReleased(GetKey(ImGuiKey_S))){
-
-            SaveFile();
-        }
-    }
-}
 
 int ImguiMenuBar::GetKey(ImGuiKey imguikey){
 	

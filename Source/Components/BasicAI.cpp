@@ -93,3 +93,25 @@ std::shared_ptr<Component> BasicAI::Clone() {
 
 	return cloned;
 }
+
+std::vector<Vector2D>& BasicAI::GetDestinations()
+{
+	return destinations_;
+}
+
+void BasicAI::SetDestinations(std::vector<Vector2D> des)
+{
+	num_destinations_ = des.size();
+	std::copy(std::begin(des), std::end(des), std::back_inserter(destinations_));
+}
+
+DestinationIt BasicAI::GetCurrentDes()
+{
+	return current_destination_;
+}
+
+void BasicAI::SetCurrentDes(DestinationIt Cdes)
+{
+	current_destination_ = Cdes;
+}
+
