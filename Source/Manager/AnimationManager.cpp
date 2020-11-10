@@ -86,12 +86,14 @@ void AnimationManager::AnimationBatchLoad(std::string level_name)
 		//Only one element in this array
 		const rapidjson::Value& animation_set_arr = animation_set_data;
 		DEBUG_ASSERT(animation_set_arr.IsObject(), "Level JSON does not exist in proper format");
-		std::string texture_pathname = std::string{ "Resources/Sprites/" } + animation_set_arr.MemberBegin()->name.GetString();
 
 
 		const rapidjson::Value& animation_set_param = *animation_set_arr.MemberBegin()->value.Begin();
 
 		rapidjson::Value::ConstMemberIterator animation_set_param_it = animation_set_param.MemberBegin();
+
+		std::string texture_pathname = std::string{ "Resources/Sprites/" } + (animation_set_param_it++)->value.GetString() +
+											"/" + animation_set_arr.MemberBegin()->name.GetString();
 
 		std::string animation_set_name = (animation_set_param_it++)->value.GetString();
 		int columns = std::stoi((animation_set_param_it++)->value.GetString());
@@ -111,6 +113,7 @@ void AnimationManager::AnimationBatchLoad(std::string level_name)
 			float frame_duration;
 
 			stream >> animation_name >> number_of_frames >> frame_duration;
+
 			animation_names_frames.push_back({animation_name, number_of_frames});
 			frame_durations.push_back(frame_duration);
 		}
@@ -133,10 +136,15 @@ void AnimationManager::CreateAnimation(const char* filename,
 
 	for (int i = 0; i < rows; ++i) {
 
-		std::vector<glm::vec2> temp{ { 0.0f, 1 - (i * 1.0f / rows) },
-									 { offset_x, 1 - (i * 1.0f / rows) },
-									 { 0.0f, 1 - ((i - 1) * 1.0f / rows) },
-									 { offset_x, 1 - ((i - 1) * 1.0f / rows) } };
+		if ((*animation_names_frames)[i].first == "Blank")
+		{
+			continue;
+		}
+
+		std::vector<glm::vec2> temp{ { 0.0f, 1 - ((i+1) * 1.0f / rows) },
+									 { offset_x, 1 - ((i+1) * 1.0f / rows) },
+									 { 0.0f, 1 - (i * 1.0f / rows) },
+									 { offset_x, 1 - (i * 1.0f / rows) } };
 
 		int num_frames = (*animation_names_frames)[i].second;
 		animations_[(*animation_names_frames)[i].first] = Animation{ num_frames, image_handle, frame_durations[i], offset_x,  temp };

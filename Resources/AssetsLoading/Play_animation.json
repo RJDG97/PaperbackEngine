@@ -1,3 +1,7 @@
 {
-	"Player States": "Resources/AssetsLoading/Animation/player_states.json"
+	"Player Animations": "Resources/AssetsLoading/Animation/player_animations.json",
+	
+	"Mite Animations": "Resources/AssetsLoading/Animation/mite_animations.json",
+	
+	"Stagbeetle Animations": "Resources/AssetsLoading/Animation/stagbeetle_animations.json"
 }

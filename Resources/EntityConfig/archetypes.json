@@ -84,14 +84,13 @@
     },
     {
       "component": "Scale",
-      "scale": "50.0 100.0"
+      "scale": "200.0 200.0"
     },
     {
       "component": "AnimationRenderer",
-      "number of animations": "2",
-      "add animation": "Player_Walk",
-      "add animation": "Player_Idle",
-      "set animation": "Player_Walk",
+      "number of animations": "1",
+      "add animation": "Stagbeetle_Attack",
+      "set animation": "Stagbeetle_Attack",
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2"

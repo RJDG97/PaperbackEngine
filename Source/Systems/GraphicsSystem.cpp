@@ -485,6 +485,7 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
                 anim_renderer->has_finished_animating_ = true;
                 anim_renderer->total_time_elapsed_ = 0.0f;
+                anim_renderer->tex_vtx_ = *(anim_renderer->current_animation_->GetTexVtx());
             }
 
             anim_renderer->time_elapsed_ = 0.0f;
