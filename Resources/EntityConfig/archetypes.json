@@ -202,7 +202,7 @@
     },
     {
       "component": "Transform",
-      "position": "80.0 200.0",
+      "position": "0.0 0.0",
       "rotation": "0.0"
     },
     {
@@ -233,7 +233,7 @@
     },
     {
       "component": "Transform",
-      "position": "150.0 100.0",
+      "position": "0.0 0.0",
       "rotation": "0.0"
     },
     {
@@ -288,8 +288,8 @@
     },
     {
       "component": "Transform",
-      "position": "-5.0 0.0 ",
-      "rotation": "0.0" 
+      "position": "0.0 0.0",
+      "rotation": "0.0"
     },
     {
       "component": "Scale",

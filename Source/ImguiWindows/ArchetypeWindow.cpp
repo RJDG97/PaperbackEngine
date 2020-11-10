@@ -1,5 +1,4 @@
 #include "ImguiWindows/ArchetypeWindow.h"
-#include "Systems/FrameRateController.h"
 #include "Entity/Entity.h"
 #include "Engine/Core.h"
 
@@ -40,14 +39,12 @@ void ArchetypeWindow::Update() {
 				memset(buffer, 0, sizeof(buffer));
 				strcpy_s(buffer, sizeof(buffer), entityName.c_str());
 
-				ImGui::Text("Archetype Name:");
+				ImGui::Text("New Archetype Name:");
 				ImGui::PushItemWidth(250.0f);
 
-				if (ImGui::InputTextWithHint("##name", "Enter name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
+				if (ImGui::InputTextWithHint("##name", "Enter name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
+					AddArchetype(std::string(buffer));
 
-					entityName = buffer;
-					AddArchetype(entityName);
-				}
 				ImGui::PopItemWidth();
 			}
 		}
@@ -55,8 +52,6 @@ void ArchetypeWindow::Update() {
 		ImGui::Separator();
 
 		if (b_editcomp) {
-
-			ImGui::Text("Available Components:");
 
 			if (imgui_->GetEntity()) {
 
@@ -67,22 +62,7 @@ void ArchetypeWindow::Update() {
 				ImGui::PopItemWidth();
 			}
 		}
-		ImGui::End();
-	}
 
-	if (imgui_->b_display) {
-
-		
-		ImGui::Begin("System Performance", &imgui_->b_display, ImGuiDockNodeFlags_AutoHideTabBar);
-		float total_time_ = 0.0f;
-		for (std::map<std::string, float>::iterator it = PE_FrameRate.GetSystemPerformance().begin(); it != PE_FrameRate.GetSystemPerformance().end(); ++it) {
-			total_time_ += it->second;
-		}
-
-		for (std::map<std::string, float>::iterator it = PE_FrameRate.GetSystemPerformance().begin(); it != PE_FrameRate.GetSystemPerformance().end(); ++it) {
-			std::string output = it->first + ": " + std::to_string(it->second / total_time_ * 100) + "%";
-			ImGui::Text(output.c_str());
-		}
 		ImGui::End();
 	}
 }

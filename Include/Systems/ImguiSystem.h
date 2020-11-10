@@ -24,13 +24,15 @@
 
 #include "Manager/EntityManager.h"
 
+#define REDACTIVE ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
+#define REDDEFAULT ImVec4{ 0.973f ,0.227f ,0.267f, 1.0f }
+#define REDHOVERED ImVec4{ 0.976f, 0.384f, 0.412f, 1.0f }
+#define AQUAMARINE ImVec4{ 0.498f, 1.0f, 0.831f, 1.0f }
 
 class ImguiSystem : public ISystem
 {
 public:
-
 	ImFont* bold_font_;
-	//bools for windows
 
 	bool b_entitywin, b_archetypewin, b_component, b_display;
 
@@ -220,7 +222,7 @@ public:
 
 	void ImGuiCustomStyle(); // may not be used
 
-	void CustomImGuiButton(ImVec4 Buttoncol, ImVec4 HoveredCol, ImVec4 SelectCol);
+	void CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol);
 
 
 private:

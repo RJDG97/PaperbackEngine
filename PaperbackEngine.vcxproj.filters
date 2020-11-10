@@ -356,6 +356,9 @@
     <ClCompile Include="Source\Systems\Partitioning.cpp">
       <Filter>Systems\Partitioning System</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\SystemWindow.cpp">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -556,9 +559,6 @@
     <ClInclude Include="Include\GameStates\Levels.h">
       <Filter>Systems\Scene/State Manager\LevelsStruct</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Manager\EntityManager.h">
       <Filter>ResourceManagers</Filter>
     </ClInclude>
@@ -597,6 +597,12 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\Partitioning.h">
       <Filter>Systems\Partitioning System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\SystemWindow.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

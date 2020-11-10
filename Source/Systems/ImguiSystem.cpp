@@ -2,6 +2,7 @@
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityWindow.h"
 #include "ImguiWindows/ArchetypeWindow.h"
+#include "ImguiWindows/SystemWindow.h"
 
 // Expose the Win32 API
 #include <commdlg.h>
@@ -14,6 +15,7 @@ void ImguiSystem::Init(){
     //AddWindow<ImguiViewport>();
     AddWindow<EntityWindow>();
     AddWindow<ArchetypeWindow>();
+    AddWindow<SystemWindow>();
 
     win_ = &*CORE->GetSystem<WindowsSystem>();
     collision_system_ = &*CORE->GetSystem<Collision>();
@@ -78,6 +80,7 @@ void ImguiSystem::Init(){
     b_entitywin = true;
     b_archetypewin = true;
     b_component = true;
+    b_display = false;
 
     new_entity_ = nullptr;
 
@@ -200,9 +203,8 @@ void ImguiSystem::ImguiMenuBar() {
                 new_entity_ = {};
                 CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
             }
-            if (ImGui::MenuItem("Exit")) {
+            if (ImGui::MenuItem("Exit"))
                 CORE->SetGameActiveStatus(false);
-            }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Archetypes")) {
@@ -216,7 +218,7 @@ void ImguiSystem::ImguiMenuBar() {
         }
 
         if (ImGui::BeginMenu("ImGui Windows")) {
-            if (ImGui::MenuItem("Toggle Windows", "shift+S")) // hide/show windows
+            if (ImGui::MenuItem("Toggle Windows")) // hide/show windows
                 b_windows = !b_windows;
             ImGui::Text("Individual Windows");
 
@@ -246,6 +248,13 @@ void ImguiSystem::ImGuiCustomStyle() {
 
     colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.75f);
 
+}
+
+void ImguiSystem::CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol) {
+
+    ImGui::PushStyleColor(ImGuiCol_Button, ButtonCol);
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, HoveredCol);
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive, SelectCol);
 }
 
 bool ImguiSystem::GetImguiBool() {
