@@ -7,7 +7,6 @@
 #include "MathLib/Vector2D.h"
 #include "Entity/Entity.h"
 #include "Manager/IManager.h"
-#include "Systems/Pathfinding.h"
 
 class AMap : public IManager
 {
@@ -24,19 +23,8 @@ class AMap : public IManager
 		std::vector<node*> neighbour_;
 	};
 
-	// F variable for least cost from one node to another (for optimal path)
-	// G cost from current node to the next
-	// H heuristic distant from current node to destination node
-	
-	// Cost to enter source and enter destination are zero
-	
-	// F = G + H
-	
-	// Final path is the lowest cost 
-
 public:
 
-	//using AMapTypeX = std::vector<Pathfinding::Node>;
 	using AMapTypeX = std::vector<node>;
 	using AMapTypeY = std::vector<AMapTypeX>;
 	using AMapTypeItX = AMapTypeX::iterator;

@@ -208,7 +208,6 @@
     <ClCompile Include="Source\Systems\LightingSystem.cpp" />
     <ClCompile Include="Source\Systems\LogicSystem.cpp" />
     <ClCompile Include="Source\Systems\Message.cpp" />
-    <ClCompile Include="Source\Systems\Pathfinding.cpp" />
     <ClCompile Include="Source\Systems\Physics.cpp" />
     <ClCompile Include="Source\Systems\SoundSystem.cpp" />
     <ClCompile Include="Source\Systems\WindowsSystem.cpp" />
@@ -287,7 +286,6 @@
     <ClInclude Include="Include\Systems\LightingSystem.h" />
     <ClInclude Include="Include\Systems\LogicSystem.h" />
     <ClInclude Include="Include\Systems\Message.h" />
-    <ClInclude Include="Include\Systems\Pathfinding.h" />
     <ClInclude Include="Include\Systems\Physics.h" />
     <ClInclude Include="Include\Systems\SoundSystem.h" />
     <ClInclude Include="Include\Systems\WindowsSystem.h" />

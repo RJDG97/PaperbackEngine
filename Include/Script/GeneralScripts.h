@@ -1,6 +1,7 @@
 #ifndef _GENERALSCRIPT_H_
 #define _GENERALSCRIPT_H_
 
+#include "Manager/ForcesManager.h"
 #include "Systems/LogicSystem.h"
 #include "Script/ScriptList.h"
 #include "Manager/AMap.h"
@@ -10,7 +11,8 @@ namespace GeneralScripts
 	extern EntityID player_id;
 	extern Transform* player_rigidbody;
 	extern Transform* obj_rigidbody;
-	extern AMap* map;
+	extern AMap* map_;
+	extern ForcesManager* forces_;
 
 	//AI* obj_{nullptr};
 	bool Chase(AIIt obj);

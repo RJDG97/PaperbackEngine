@@ -89,7 +89,6 @@ void AMap::SetNodeNeighbours() {
 		
 			node_map_[i][j].obstacle_ = false;
 			node_map_[i][j].visited_ = false;
-			node_map_[i][j].parent_ = nullptr;
 			node_map_[i][j].nodepos_ = {static_cast<float>(j), static_cast<float>(i)};
 			
 			for (int y = -1; y < 2; ++y) {
@@ -132,32 +131,25 @@ void AMap::Astar(Vector2D start, Vector2D des)
 			node_map_[i][j].start_ = false;
 			node_map_[i][j].des_ = false;
 			node_map_[i][j].visited_ = false;
-			node_map_[i][j].parent_ = nullptr;
 			node_map_[i][j].F = INFINITY;
 			node_map_[i][j].G = INFINITY;
 			node_map_[i][j].H = INFINITY;
 		}
 	}
 
-	// Add start node to the list
+	// Localize coordinates
 	Vector2D abs_min;
 	abs_min.x = bottom_left_.x < 0 ? -bottom_left_.x : bottom_left_.x;
 	abs_min.y = bottom_left_.y < 0 ? -bottom_left_.y : bottom_left_.y;
-		// Set start and destination nodes
+		
+	// Set start and destination nodes
 	node* startnode = &node_map_[static_cast<int>((start + abs_min).y)][static_cast<int>((start + abs_min).x)];
 	node* desnode = &node_map_[static_cast<int>((des + abs_min).y)][static_cast<int>((des + abs_min).x)];;
 	node* currentnode;
-	startnode->start_ = true;
-	desnode->des_ = true;
+	// Set for Drawing on map
+		startnode->start_ = true;
+		desnode->des_ = true;
 
-	std::cout << "Start Node: ";
-	std::cout << "X: " << startnode->nodepos_.x;
-	std::cout << ",Y: " << startnode->nodepos_.y;
-	std::cout << std::endl;
-	std::cout << "End Node: ";
-	std::cout << "X: " << desnode->nodepos_.x;
-	std::cout << ",Y: " << desnode->nodepos_.y;
-	std::cout << std::endl;
 	std::list<node> openlist;
 	std::list<node> closedlist;
 	// Push starting node into front of the list
@@ -170,29 +162,37 @@ void AMap::Astar(Vector2D start, Vector2D des)
 		// For all neighbouring nodes, find least cost F node
 		for (int i = 0; i < 9; i++)
 		{
+			// set nnode to neighbour node
 			node* nnode = currentnode->neighbour_[i];
+			// Calculate distance from nnode to neighbour node
 			nnode->G = Vector2DDistance(nnode->nodepos_, currentnode->nodepos_);
+			// Calculate Heuristic (nnode to destination node)
 			nnode->H = Vector2DDistance(desnode->nodepos_, nnode->nodepos_);
 			nnode->F = nnode->G + nnode->H;
+			// If the neighbour is an obstacle or has been visited, ignore
 			if(!nnode->obstacle_ && !nnode->visited_)
 				closedlist.push_front(*nnode);
 		}
 
 		// Arrange list according from lowest to highst F
 		closedlist.sort([](const node lhs, const node rhs) { return lhs.F < rhs.F; });
-		// Pop current node
-		if(closedlist.front().G == 0)
-			closedlist.pop_front();
 
 		// No available nodes
 		if (closedlist.empty())
-			break;
+		{
+			currentnode = &node_map_[currentnode->parent_->nodepos_.y][currentnode->parent_->nodepos_.x];
+			openlist.pop_back();
+			continue;
+		}
 
-		closedlist.front().parent_ = currentnode;
-		currentnode = &closedlist.front();
+		// Pop current node
+		if (closedlist.front().G == 0)
+			closedlist.pop_front();
+
+		node_map_[closedlist.front().nodepos_.y][closedlist.front().nodepos_.x].parent_ = currentnode;
+		currentnode = &node_map_[closedlist.front().nodepos_.y][closedlist.front().nodepos_.x];
 		currentnode->visited_ = true;
 		openlist.push_back(*currentnode);
-		std::cout << currentnode->nodepos_.x << ", " <<currentnode->nodepos_.y << std::endl;
 		
 		// If destination hs reached
 		if (currentnode->nodepos_.x == desnode->nodepos_.x &&
@@ -201,8 +201,15 @@ void AMap::Astar(Vector2D start, Vector2D des)
 		node_map_[currentnode->nodepos_.y][currentnode->nodepos_.x].visited_ = true;
 		
 		// clear list
-		//if(!closedlist.empty())
-		//	closedlist.clear();
+		closedlist.clear();
+	}
+	int i = 0;
+	while (!openlist.empty())
+	{
+		i++;
+		std::cout << "Node no." << i << " X: " << openlist.front().nodepos_.x << ",Y: " << openlist.front().nodepos_.y
+			<< std::endl;
+		openlist.pop_front();
 	}
 }
 
@@ -212,11 +219,10 @@ void AMap::DrawMap()
 	for (int i = node_map_.size()-1; i >= 0; --i) {
 		for (int j = 0; j < node_map_[0].size(); ++j) {
 			std::cout << "|";
-			//std::cout << node_map_[i][j].visited_;
-			if(node_map_[i][j].visited_)
-				std::cout << "*";
-			else if(node_map_[i][j].start_)
+			if(node_map_[i][j].start_)
 				std::cout << "S";
+			else if (node_map_[i][j].visited_)
+				std::cout << "V";
 			else if(node_map_[i][j].des_)
 				std::cout << "D";
 			else if (node_map_[i][j].obstacle_)

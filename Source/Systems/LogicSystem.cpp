@@ -1,5 +1,6 @@
 #include "Systems/LogicSystem.h"
 #include "Script/GeneralScripts.h"
+#include "Manager/ForcesManager.h"
 #include "Manager/AMap.h"
 #include "Systems/Debug.h"
 #include "Engine/Core.h"
@@ -10,7 +11,9 @@ void LogicSystem::Init()
 	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
 
 	ai_arr_ = comp_mgr->GetComponentArray<AI>();
-	GeneralScripts::map = &*CORE->GetManager<AMap>();
+	
+	GeneralScripts::map_ = &*CORE->GetManager<AMap>();
+	GeneralScripts::forces_ = &*CORE->GetManager<ForcesManager>();
 }
 
 void LogicSystem::Update(float frametime)

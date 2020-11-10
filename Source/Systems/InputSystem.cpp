@@ -171,9 +171,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
-		case GLFW_KEY_T:
-			CORE->GetManager<AMap>()->Astar({ -4,-4 }, { 4,-4 });
-			CORE->GetManager<AMap>()->DrawMap();
 		}
 	}
 }

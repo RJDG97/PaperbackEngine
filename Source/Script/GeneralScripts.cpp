@@ -1,5 +1,4 @@
 #include "Script/GeneralScripts.h"
-#include "Manager/ForcesManager.h"
 #include "Manager/EntityManager.h"
 #include "Engine/Core.h"
 #include <cmath>
@@ -10,8 +9,8 @@ namespace GeneralScripts
 	EntityID player_id;
 	Transform* player_rigidbody;
 	Transform* obj_rigidbody;
-	AMap* map;
-
+	AMap* map_;
+	ForcesManager* forces_;
 
 	bool Chase(AIIt obj)
 	{
@@ -31,7 +30,7 @@ namespace GeneralScripts
 		directional *= (obj->second->GetSpeed());
 
 		// Move AI
-		CORE->GetManager<ForcesManager>()->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
+		forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
 
 		return false;
 	}
@@ -130,7 +129,7 @@ namespace GeneralScripts
 		directional *= obj->second->GetSpeed();
 
 		// Move AI
-		CORE->GetManager<ForcesManager>()->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
+		forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
 	}
 
 }

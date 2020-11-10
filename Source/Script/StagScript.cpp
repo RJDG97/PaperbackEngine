@@ -24,7 +24,7 @@ namespace StagBeetle
 		directional *= (obj->second->GetSpeed()*2);
 
 		// Move AI
-		CORE->GetManager<ForcesManager>()->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
+		GeneralScripts::forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
 
 		return true;
 	}
