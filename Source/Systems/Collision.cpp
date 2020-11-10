@@ -314,7 +314,7 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 }
 
 bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
-	Status* player_status = status_arr_->GetComponent(aabb2->second->GetOwner()->GetID());;
+	Status* player_status = status_arr_->GetComponent(aabb2->first);;
 
 	if (player_status) {
 
@@ -323,9 +323,14 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 			// Set collided status
 			aabb1->second->collided = true;
 			aabb2->second->collided = true;
+			Health* player_health = component_mgr_->GetComponent<Health>(aabb2->first);
+
+			// Throw an exception if player does not have a health component
+			DEBUG_ASSERT(player_health, "Player does not have a health component!");
 
 			player_status->status_ = StatusType::HIT;
 			player_status->status_timer_ = 2.0f;
+			--(player_health->current_health_);
 			return true;
 		}
 
@@ -470,6 +475,45 @@ void Collision::UpdateClickableBB() {
 	}
 }
 
+bool Collision::BurrowReady() {
+	
+	Entity* player_entity = entity_mgr_->GetPlayerEntities().back();
+	Vector2D player_pos = transform_arr_->GetComponent(player_entity->GetID())->GetPosition();
+	Vector2D grid_scale = partitioning_->ConvertTransformToGridScale(player_pos);
+
+	std::vector<AABBIt> partition{};
+	partitioning_->GetPartitionedEntities(partition, grid_scale.x, grid_scale.y);
+	
+	if (partition.empty() || partition.size() < 2)
+		return false;
+
+	CollisionMapType col_map{};
+
+	SortVectorToCollisionMap(partition, col_map);
+
+	//only check player vs burrow
+	//player layer == 3
+	//hole layer == 4
+
+	if (col_map.find(CollisionLayer::PLAYER) != col_map.end() &&
+		col_map.find(CollisionLayer::HOLE) != col_map.end()) {
+	
+		AABBIt player = col_map[CollisionLayer::PLAYER].find(player_entity->GetID());
+
+		AABBType* hole_map = &col_map[CollisionLayer::HOLE];
+
+		for (AABBIt hole = hole_map->begin(); hole != hole_map->end(); ++hole) {
+
+			float t{};
+			if (CheckCollision(*hole->second, Vec2{}, *player->second, Vec2{}, PE_FrameRate.GetFixedDelta(), t)) {
+
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 /***************************************************************************/
 /*                            Class Functions                              */
@@ -479,13 +523,16 @@ void Collision::UpdateClickableBB() {
 void Collision::Init() {
 
 	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
+	entity_mgr_ = &*CORE->GetManager<EntityManager>();
+	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
 	clickable_arr_ = comp_mgr->GetComponentArray<Clickable>();
 	motion_arr_ = comp_mgr->GetComponentArray<Motion>();
 	status_arr_ = comp_mgr->GetComponentArray<Status>();
 	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
 	input_controller_arr_ = comp_mgr->GetComponentArray<InputController>();
-	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
+
 
 	shdr_pgm_ = CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
 	model_ = CORE->GetManager<ModelManager>()->AddLinesModel(1, 1, "LinesModel");
@@ -515,9 +562,16 @@ void Collision::Init() {
 		Parameter 1: Collision layer 3
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER)
 */
-	AddCollisionLayers(CollisionLayer::PLAYER, "00000110");
+	AddCollisionLayers(CollisionLayer::PLAYER, "00001110");
+	
 	/*
 		Parameter 1: Collision layer 4
+		Parameter 2: Collidable with Layer 3 (PLAYER)
+		"THIS HOLE WAS MADE FOR ME"
+	*/
+	AddCollisionLayers(CollisionLayer::HOLE, "00001000", false);
+	/*
+		Parameter 1: Collision layer 5
 		Parameter 2: Collidable with nothing, does not collide with similar layer
 	*/
 	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "00000000", false);

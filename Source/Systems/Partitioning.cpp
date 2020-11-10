@@ -1,6 +1,7 @@
 #include "Engine/Core.h"
 #include "Manager/AMap.h"
 #include "Systems/Partitioning.h"
+#include "Systems/Collision.h"
 
 void RoundDown(float& var) {
 	
@@ -57,8 +58,8 @@ void PartitioningSystem::Update(float frametime) {
 
 	for (AABBMapIt it = aabb_map_->begin(); it != aabb_map_->end(); ++it) {
 		
-		if (it->second->GetLayer() == 0 ||
-			it->second->GetLayer() == 4)
+		if (it->second->GetLayer() == static_cast<size_t>(CollisionLayer::BACKGROUND) ||
+			it->second->GetLayer() == static_cast<size_t>(CollisionLayer::UI_ELEMENTS))
 			continue;
 
 		//int min_x, min_y, max_x, max_y;
@@ -125,8 +126,13 @@ void PartitioningSystem::ResetPartition() {
 
 void PartitioningSystem::GetPartitionedEntities(std::vector<AABBMapIt>& vec, size_t x, size_t y) {
 	
-	if ((x >= x_.size() || y >= y_.size()) && (x_[x].count() < 1 || y_[y].count() < 1))
+	// If out of bounds (Too big or too small)
+	// or there is fewer than 1 entity within the partition
+	if ((x >= x_.size() || y >= y_.size()) || (x < 0 || y < 0) && 
+		(x_[x].count() < 1 || y_[y].count() < 1)) {
+		vec.clear();
 		return;
+	}
 
 	Bitset entities_within_ = x_[x] & y_[y];
 
@@ -143,4 +149,17 @@ std::pair<size_t, size_t> PartitioningSystem::GetAxisSizes() {
 	x_ = x_;
 	return { x_.size(), y_.size() };
 	
+}
+
+Vector2D PartitioningSystem::ConvertTransformToGridScale(const Vector2D& pos) {
+	
+	Vector2D grid_coords = pos;
+
+	grid_coords += abs_bottom_left_;
+	grid_coords /= grid_size_;
+
+	RoundDown(grid_coords.x);
+	RoundDown(grid_coords.y);
+
+	return grid_coords;
 }

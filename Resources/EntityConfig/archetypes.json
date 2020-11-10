@@ -87,6 +87,10 @@
       "scale": "200.0 200.0"
     },
     {
+      "component": "Health",
+      "health": "10.0"
+    },
+    {
       "component": "AnimationRenderer",
       "number of animations": "1",
       "add animation": "Stagbeetle_Attack",
@@ -102,10 +106,6 @@
     },
     {
       "component": "Status"
-    },
-    {
-      "component": "Health",
-      "maximum health": "5"
     },
     {
       "component": "PointLight",
@@ -223,6 +223,12 @@
       "component": "AABB",
       "scale": "0.5 0.5",
       "layer": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.7",
+      "radius": "150.0",
+      "intensity": "0.8"
     }
   ],
   "Button": [
@@ -260,6 +266,31 @@
       "scale": "1.0 1.0"
     }
   ],
+  "Hole": [
+    {
+      "component": "Name",
+      "name": "Hole"
+    },
+    {
+      "component": "Transform",
+      "position": "5.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock",
+      "layer": "2"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "4"
+    }
+  ],
   "InputController": [
     {
       "component": "Name",
@@ -293,6 +324,10 @@
     {
       "component": "Scale",
       "scale": "30.0 30.0"
+    },
+    {
+      "component": "Health",
+      "health": "10.0"
     },
     {
       "component": "TextureRenderer",

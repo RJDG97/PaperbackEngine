@@ -5,14 +5,21 @@
 #include "Components/Status.h"
 #include <assert.h>
 
+bool VerifyZeroFloat(const float& val) {
+
+	if (val > -0.001f && val < 0.001f)
+		return true;
+	return false;
+}
+
 auto SnapZero = [](Vector2D& vec) {
 
-	if (vec.x >= -0.001f && vec.x <= 0.001f) {
+	if (VerifyZeroFloat(vec.x)) {
 
 		vec.x = 0.0f;
 	}
 
-	if (vec.y >= -0.001f && vec.y <= 0.001f) {
+	if (VerifyZeroFloat(vec.y)) {
 
 		vec.y = 0.0f;
 	}
@@ -34,6 +41,8 @@ void Physics::Init() {
 	status_arr_ = comp_mgr->GetComponentArray<Status>();
 	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
 	force_mgr = &*CORE->GetManager<ForcesManager>();
+	component_mgr_ = &*CORE->GetManager<ComponentManager>();
+	graphics_sys_ = &*CORE->GetSystem<GraphicsSystem>();
 }
 
 void Physics::Update(float frametime) {
@@ -53,7 +62,40 @@ void Physics::Update(float frametime) {
 		motion->second->velocity_ += motion->second->acceleration_ * frametime;
 		motion->second->velocity_ *= 0.90f;
 
+		// If velocity is close to 0, reset to 0	
 		SnapZero(motion->second->velocity_);
+
+		//if velocity x is 0 and status is NONE, swap to idle
+		Status* status = status_arr_->GetComponent(motion->first);
+		
+		AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(motion->first);
+
+		if (renderer) {
+
+			if (status && (status->status_ != StatusType::BURROW && status->status_ != StatusType::INVISIBLE)) {
+
+				if (VerifyZeroFloat(motion->second->velocity_.x)) {
+
+					//to verify is name is correct
+					graphics_sys_->ChangeAnimation(renderer, "Player_Idle");
+				}
+				else {
+					
+					graphics_sys_->ChangeAnimation(renderer, "Player_Walk");
+				}
+			}
+		
+			if (motion->second->velocity_.x > 0 && motion->second->is_left_) {
+
+				graphics_sys_->FlipTextureY(renderer);
+				motion->second->is_left_ = false;
+			}
+			else if (motion->second->velocity_.x < 0 && !motion->second->is_left_) {
+
+				graphics_sys_->FlipTextureY(renderer);
+				motion->second->is_left_ = true;
+			}
+		}
 
 		// Check whether the entity owns a transform component by checking entity ID
 		//TransformIt xform = transform_arr_.find(motion->first);
