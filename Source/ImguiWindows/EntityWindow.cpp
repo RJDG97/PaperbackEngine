@@ -97,7 +97,6 @@ void EntityWindow::ShowEntityList() {
 
 void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTypes>> entitycomponent) {
 
-	ImGuiIO& io = ImGui::GetIO();
 	if (entitycomponent.first) {
 
 		for (auto componenttype : entitycomponent.second) {
@@ -459,7 +458,7 @@ void EntityWindow::FloatInput(float& componentVar, const char* label, float defa
 
 	ImGui::PushFont(imgui_->bold_font_);
 	if (ImGui::Button(label, SetButtonSize()))
-		componentVar = 0.0f;
+		componentVar = defaultVal;
 	ImGui::PopFont();
 	ImGui::PopStyleColor(3);
 
