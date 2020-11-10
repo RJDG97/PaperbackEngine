@@ -104,6 +104,12 @@ public:
 
 	const char* GetAIType(int aiType);
 
+	void SetArrowButtons(int& componentVar);
+	ImVec2 SetButtonSize();
+
+	void Vec2Input(Vector2D& componentVar, float defaultVal = 0.0f);
+	void FloatInput(float& componentVar, const char* label = "X##hey", float defaultVal = 0.0f);
+
 private:
 	ImguiSystem* imgui_;
 	EntityManager* entities_;

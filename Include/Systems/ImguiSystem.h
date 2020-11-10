@@ -24,9 +24,15 @@
 
 #include "Manager/EntityManager.h"
 
-#define REDACTIVE ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
-#define REDDEFAULT ImVec4{ 0.973f ,0.227f ,0.267f, 1.0f }
-#define REDHOVERED ImVec4{ 0.976f, 0.384f, 0.412f, 1.0f }
+#define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
+#define REDHOVERED ImVec4{ 0.965f, 0.075f, 0.118f, 1.0f }
+#define REDACTIVE  ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
+#define GREENDEFAULT ImVec4{ 0.294f, 0.804f, 0.075f, 1.0f }
+#define GREENHOVERED ImVec4{ 0.361f, 0.918f, 0.122f, 1.0f }
+#define GREENACTIVE  ImVec4{ 0.216f, 0.584f, 0.055f, 1.0f }
+#define BLUEDEFAULT ImVec4{ 0.141f, 0.176f, 0.839f, 1.0f }
+#define BLUEHOVERED ImVec4{ 0.318f, 0.345f, 0.882f, 1.0f }
+#define BLUEACTIVE  ImVec4{ 0.118f, 0.145f, 0.682f, 1.0f }
 #define AQUAMARINE ImVec4{ 0.498f, 1.0f, 0.831f, 1.0f }
 
 class ImguiSystem : public ISystem

@@ -18,9 +18,10 @@ void EntityWindow::Update() {
 
 		ImGui::Begin("Entity Inspector", &imgui_->b_entitywin);
 
-		ImGui::Text("Current Scene: "); ImGui::SameLine(0, 2);
-
-		ImGui::TextColored(ImVec4{ 1.0f, 0.549f, 0.0f, 1.0f }, CORE->GetSystem<Game>()->GetStateName().c_str());
+		//maybe move this somewhere else
+		if (ImGui::Button("Clear Selection"))
+			imgui_->SetEntity({});
+		ImGui::Separator();
 
 		ShowEntityList();
 
@@ -139,30 +140,15 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 				if (ImGui::TreeNode("Transform Component")) {
 
-					ImGui::Text("Rotation:");
-
-					// move into a function
-					float lineHeight = io.FontDefault->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
-					ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
-
-					imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
-					ImGui::PushFont(imgui_->bold_font_);
-					if (ImGui::Button("X", buttonSize))
-						entitytransform->SetRotation(0.0f);
-					ImGui::PopFont();
-					ImGui::PopStyleColor(3);
-
-					ImGui::SameLine(0,2);
-
-					ComponentInputFloat("", "##rot", inputRot, 95.0f, 1.0f, 10.0f);
+					ImGui::Text("Rotation");
+					FloatInput(inputRot);
 
 					entitytransform->SetRotation(inputRot);
+					ImGui::Separator();
 
-					ImGui::Text("Position:");
-					ComponentInputFloat("X", "##posX", inputPos.x, 102.0f);
-					ImGui::SameLine();
-					ComponentInputFloat("Y", "##posY", inputPos.y, 100.0f);
+					ImGui::Text("Position");
 
+					Vec2Input(inputPos);
 					entitytransform->SetPosition(inputPos);
 
 					ImGui::TreePop();
@@ -170,7 +156,23 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				break;
 			}
 			case ComponentTypes::HEALTH:
+			{
+				std::shared_ptr<Health> entityHealth = std::dynamic_pointer_cast<Health>(entitycomponent.first->GetComponent(ComponentTypes::HEALTH));
+				int entityCurrenthealth = entityHealth->GetCurrentHealth();
+				int entityMaxhealth = entityHealth->GetMaxHealth();
+
+				if (ImGui::TreeNode("Health")) {
+
+					SetArrowButtons(entityCurrenthealth);
+					entityHealth->SetMaxHealth(entityCurrenthealth);
+
+					SetArrowButtons(entityMaxhealth);
+					entityHealth->SetMaxHealth(entityMaxhealth);
+
+					ImGui::TreePop();
+				}
 				break;
+			}
 			case ComponentTypes::CAMERA:
 				break;
 			case ComponentTypes::CONTROLLER:
@@ -187,11 +189,9 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 				Vector2D inputAABB{ entityAABB->GetAABBScale() };
 
-				if (ImGui::TreeNode("Bounding Box")) {
+				if (ImGui::TreeNode("Collider")) {
 
-					ComponentInputFloat("X", "##aabbX", inputAABB.x, 100.0f);
-					ImGui::SameLine();
-					ComponentInputFloat("Y", "##aabbY", inputAABB.y, 100.0f);
+					Vec2Input(inputAABB);
 
 					entityAABB->SetAABBScale(inputAABB);
 					
@@ -199,9 +199,6 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 						Message msg(MessageIDTypes::DEBUG_ALL);
 						CORE->BroadcastMessage(&msg);
-
-						
-
 					}
 
 					ImGui::TreePop();
@@ -240,7 +237,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 						ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f, 1.0f }, entityState);
 
 
-						ImGui::PushItemWidth(100.0f);
+						ImGui::PushItemWidth(130.0f);
 						if (ImGui::BeginCombo("##abc", "AI States")) {
 							for (int i = 0; i < IM_ARRAYSIZE(AIstates); ++i)
 								if (ImGui::Selectable(AIstates[i]))
@@ -254,22 +251,23 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					}
 
 					if (ImGui::TreeNode("AI Range")) {
-						ComponentInputFloat("Range", "##range", inputRange);
+
+						ComponentInputFloat("Range", "##range", inputRange, 175.0f);
 						entityAI->SetRange(inputRange);
 						ImGui::TreePop();
 					}
 
 					if (ImGui::TreeNode("AI Attack Power")) {
 
-						ComponentInputInt("Power", "##power", inputAtk, 100.0f, 1, 5);
+						ComponentInputInt("Power", "##power", inputAtk, 175.0f, 1, 2);
 						entityAI->SetAtk(inputAtk);
 
 						ImGui::TreePop();
 					}
 
 					if (ImGui::TreeNode("AI Speed")) {
-						ComponentInputFloat("Speed", "##speed", inputSpeed, 100.0f, 1.0f, 5.0f);
 
+						ComponentInputFloat("Speed", "##speed", inputSpeed, 175.0f, 0.1f, 1.0f);
 						entityAI->SetSpeed(inputSpeed);
 
 						ImGui::TreePop();
@@ -308,10 +306,10 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 							ImGui::Text("New Node Position:");
 
-							ComponentInputFloat("X Position", "##nodeXpos", newNode.x, 100.0f, 0.5f, 1.0f);
-							ComponentInputFloat("Y Position", "##nodeYpos", newNode.y, 100.0f, 0.5f, 1.0f);
+							Vec2Input(newNode);
 
 							entityAI->SetNewDestination(newNode);
+
 							ImGui::Text("%.2f, %.2f", newNode.x, newNode.y);
 
 							if (ImGui::Button("Add")) {
@@ -343,19 +341,14 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				Vector2D inputScale = { entityscale->GetScale() };
 
 				if (ImGui::TreeNode("Scale")) {
-					ImGui::Text("Texture Scale");
-
-					ComponentInputFloat("X", "##scaleX", inputScale.x);
-					ImGui::SameLine();
-					ComponentInputFloat("Y", "##scaleY", inputScale.y, 102.0f);
-
+					
+					Vec2Input(inputScale);
 					entityscale->SetScale(inputScale);
 					ImGui::TreePop();
 				}
 				break;
 			}
 			case ComponentTypes::STATUS:
-				ImGui::Text("Status Component");
 				break;
 			case ComponentTypes::POINTLIGHT:
 			{
@@ -365,11 +358,9 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				float inputIntensity = entitypointlight->GetIntensity();
 				if (ImGui::TreeNode("PointLight")) {
 
-					ImGui::Text("Radius");
 					ComponentInputFloat("Light Radius", "##lightRad", inputRadius, 102.0f);
 					entitypointlight->SetRadius(inputRadius);
 					
-					ImGui::Text("Intensity");
 					ComponentInputFloat("Light Intensity", "##lightinten", inputIntensity, 102.0f);
 					entitypointlight->SetIntensity(inputIntensity);
 					
@@ -413,12 +404,77 @@ const char* EntityWindow::GetAIType(int aiType)
 	return nullptr;
 }
 
+void EntityWindow::SetArrowButtons(int& componentVar) {
+
+	ImGui::Text("Current Health: %d", componentVar);
+	ImGui::SameLine(0, 3);
+	ImGui::PushButtonRepeat(true);
+	if (ImGui::ArrowButton("##left", ImGuiDir_Left)) { componentVar--; }
+	ImGui::SameLine(0, 5);
+	if (ImGui::ArrowButton("##right", ImGuiDir_Right)) { componentVar++; }
+	ImGui::PopButtonRepeat();
+}
+
+ImVec2 EntityWindow::SetButtonSize() {
+
+	float lineHeight = ImGui::GetIO().FontDefault->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
+	ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+	return buttonSize;
+}
+
+void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal) {
+
+	SetButtonSize();
+	imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
+
+	ImGui::PushFont(imgui_->bold_font_);
+	if (ImGui::Button("X", SetButtonSize()))
+		componentVar.x = defaultVal;
+	ImGui::PopFont();
+
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine(0, 2);
+
+	ComponentInputFloat("", "##X", componentVar.x, 102.0f);
+
+	ImGui::SameLine();
+
+	imgui_->CustomImGuiButton(GREENDEFAULT, GREENHOVERED, GREENACTIVE);
+
+	ImGui::PushFont(imgui_->bold_font_);
+	if (ImGui::Button("Y", SetButtonSize()))
+		componentVar.y = defaultVal;
+	ImGui::PopFont();
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine(0, 2);
+
+	ComponentInputFloat("", "##Y", componentVar.y, 100.0f);
+}
+
+void EntityWindow::FloatInput(float& componentVar, const char* label, float defaultVal) {
+
+	imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
+
+	ImGui::PushFont(imgui_->bold_font_);
+	if (ImGui::Button(label, SetButtonSize()))
+		componentVar = 0.0f;
+	ImGui::PopFont();
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine(0, 2);
+
+	ComponentInputFloat("", "##rot", componentVar, 95.0f, 1.0f, 10.0f);
+}
+
 void EntityWindow::ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth, float startVal, float endVal) {
 	ImGui::PushItemWidth(inputWidth);
 
 	ImGui::Text(componentLabel);
 	ImGui::SameLine();
 	ImGui::InputFloat(inputLabel, &componentVar, startVal, endVal, "%.2f");
+	ImGui::PopItemWidth();
 }
 
 void EntityWindow::ComponentInputInt(const char* componentLabel, const char* inputLabel, int& componentVar, float inputWidth, int startVal, int endVal) {
@@ -427,6 +483,8 @@ void EntityWindow::ComponentInputInt(const char* componentLabel, const char* inp
 	ImGui::Text(componentLabel);
 	ImGui::SameLine();
 	ImGui::InputInt(inputLabel, &componentVar, startVal, endVal);
+	ImGui::PopItemWidth();
+
 }
 
 void EntityWindow::ComponentDisplayFloat(ImVec4 color, const char* label, float componentVal, const char* format) {

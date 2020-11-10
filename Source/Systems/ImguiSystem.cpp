@@ -29,7 +29,7 @@ void ImguiSystem::Init(){
 
     ImGuiIO& io = ImGui::GetIO();
     
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking (Merging of windows)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
     
@@ -238,13 +238,13 @@ void ImguiSystem::ImGuiCustomStyle() {
 
     ImVec4* colors = ImGui::GetStyle().Colors;
 
-    colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.251f, 0.737f, 0.529f, 1.0f};
-    colors[ImGuiCol_HeaderActive] = ImVec4{ 0.659f, 0.969f, 0.659f, 1.0f };
-    colors[ImGuiCol_Header] = ImVec4{ 0.2f, 0.565f, 0.408f, 1.0f };
+    //colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.251f, 0.737f, 0.529f, 1.0f};
+    //colors[ImGuiCol_HeaderActive] = ImVec4{ 0.659f, 0.969f, 0.659f, 1.0f };
+    //colors[ImGuiCol_Header] = ImVec4{ 0.2f, 0.565f, 0.408f, 1.0f };
 
-    colors[ImGuiCol_Button] = ImVec4{ 0.643f,0.224f,0.459f, 1.0f };
-    colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.706f,0.314f,0.533f, 1.0f };
-    colors[ImGuiCol_ButtonActive] = ImVec4{ 0.788f,0.416f,0.624f, 1.0f };
+    //colors[ImGuiCol_Button] = ImVec4{ 0.643f,0.224f,0.459f, 1.0f };
+    //colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.706f,0.314f,0.533f, 1.0f };
+    //colors[ImGuiCol_ButtonActive] = ImVec4{ 0.788f,0.416f,0.624f, 1.0f };
 
     colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.75f);
 
