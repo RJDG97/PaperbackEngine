@@ -84,7 +84,7 @@
     },
     {
       "component": "Scale",
-      "scale": "200.0 200.0"
+      "scale": "30.0 60.0"
     },
     {
       "component": "Health",
@@ -92,9 +92,10 @@
     },
     {
       "component": "AnimationRenderer",
-      "number of animations": "1",
-      "add animation": "Stagbeetle_Attack",
-      "set animation": "Stagbeetle_Attack",
+      "number of animations": "2",
+      "add animation": "Player_Idle",
+	  "add animation": "Player_Walk",
+      "set animation": "Player_Walk",
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2"

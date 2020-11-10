@@ -485,7 +485,6 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
                 anim_renderer->has_finished_animating_ = true;
                 anim_renderer->total_time_elapsed_ = 0.0f;
-                anim_renderer->tex_vtx_ = *(anim_renderer->current_animation_->GetTexVtx());
             }
 
             anim_renderer->time_elapsed_ = 0.0f;
@@ -725,6 +724,23 @@ void GraphicsSystem::SetToNextFrame(AnimationRenderer* anim_renderer) {
 
         anim_renderer->tex_vtx_[i].x +=
             anim_renderer->current_animation_->GetOffsetX() * ( 1 - 2 * anim_renderer->y_mirror_);
+    }
+}
+
+void GraphicsSystem::SetToFirstFrame(AnimationRenderer* anim_renderer) {
+
+    anim_renderer->tex_vtx_ = *(anim_renderer->current_animation_->GetTexVtx());
+
+    if (anim_renderer->x_mirror_)
+    {
+        std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[2]);
+        std::swap(anim_renderer->tex_vtx_[1], anim_renderer->tex_vtx_[3]);
+    }
+
+    if (anim_renderer->y_mirror_)
+    {
+        std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[1]);
+        std::swap(anim_renderer->tex_vtx_[2], anim_renderer->tex_vtx_[3]);
     }
 }
 
