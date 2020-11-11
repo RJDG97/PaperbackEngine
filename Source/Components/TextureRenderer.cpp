@@ -61,11 +61,6 @@ void TextureRenderer::DeSerializeClone(std::stringstream& data) {
         M_DEBUG->WriteDebugMessage("Layer is keyed in wrongly!");
     }
 
-    else
-    {
-        layer_ = layer;
-    }
-
     //DeSerialize(data);
 
     texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
