@@ -1,0 +1,10 @@
+{
+  "UI_Elements/HowTo/UI_HowToPlay_Pause.png": [
+  {
+	  "Tileset Name": "HowTo_Pause",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "HowToPause"
+    }
+  ]
+}

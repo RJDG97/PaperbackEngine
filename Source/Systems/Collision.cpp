@@ -647,6 +647,7 @@ void Collision::Update(float frametime) {
 
 
 			futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
+			//ProcessPartitionedEntities(i, j, frametime);
 		}
 	}
 	

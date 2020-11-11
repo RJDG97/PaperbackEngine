@@ -1,0 +1,10 @@
+{
+  "UI_Elements/HowTo/UI_HowToPlay_WaterGauge.png": [
+  {
+	  "Tileset Name": "HowTo_WaterGauge",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "HowToWaterGauge"
+    }
+  ]
+}

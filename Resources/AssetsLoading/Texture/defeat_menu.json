@@ -1,0 +1,10 @@
+{
+  "UI_Elements/Lose/UI_Defeat.png": [
+  {
+	  "Tileset Name": "Menu_Defeat",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "MenuDefeat"
+    }
+  ]
+}

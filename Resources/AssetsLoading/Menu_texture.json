@@ -7,13 +7,41 @@
   
   "Menu Start": "Resources/AssetsLoading/Texture/menu_start_button.json",
   
+  "Menu HowToPlay": "Resources/AssetsLoading/Texture/menu_howtoplay_button.json",
+  
+  "Menu Editor": "Resources/AssetsLoading/Texture/menu_editor.json",
+  
   "Menu Quit": "Resources/AssetsLoading/Texture/menu_quit_button.json",
   
   "Menu Settings": "Resources/AssetsLoading/Texture/menu_settings_button.json",
   
   "Menu TryAgain": "Resources/AssetsLoading/Texture/menu_tryagain_button.json",
   
-  "Menu HowToPlay": "Resources/AssetsLoading/Texture/menu_howtoplay_button.json",
+  "Lose Background": "Resources/AssetsLoading/Texture/lose_background.json",
   
-  "Lose Background": "Resources/AssetsLoading/Texture/lose_background.json"
+  "Menu CloudOne": "Resources/AssetsLoading/Texture/menu_cloud1.json",
+  
+  "Menu CloudTwo": "Resources/AssetsLoading/Texture/menu_cloud2.json",
+  
+  "Menu Defeat": "Resources/AssetsLoading/Texture/defeat_menu.json",
+  
+  "HowTo Ability": "Resources/AssetsLoading/Texture/howto_play_ability.json",
+  
+  "HowTo Movement": "Resources/AssetsLoading/Texture/howto_play_movement.json",
+  
+  "HowTo Pause": "Resources/AssetsLoading/Texture/howto_play_pause.json",
+  
+  "HowTo WaterGauge": "Resources/AssetsLoading/Texture/howto_play_watergauge.json",
+  
+  "UI LeftButton": "Resources/AssetsLoading/Texture/ui_leftbutton.json",
+  
+  "UI RightButton": "Resources/AssetsLoading/Texture/ui_rightbutton.json",
+  
+  "UI QuitGame": "Resources/AssetsLoading/Texture/ui_quitgame.json",
+  
+  "UI QuitNo": "Resources/AssetsLoading/Texture/ui_quitgame_no.json",
+  
+  "UI QuitYes": "Resources/AssetsLoading/Texture/ui_quitgame_yes.json",
+  
+  "UI Win": "Resources/AssetsLoading/Texture/ui_win.json"
 }

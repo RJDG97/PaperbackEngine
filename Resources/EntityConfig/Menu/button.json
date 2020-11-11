@@ -46,7 +46,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuSettings",
+      "texture": "MenuEditor",
       "layer": "2",
       "ui": "0"
     }
