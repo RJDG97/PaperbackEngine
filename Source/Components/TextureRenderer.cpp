@@ -20,6 +20,7 @@ TextureRenderer::~TextureRenderer() {
 void TextureRenderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddTextureRendererComponent(Component::GetOwner()->GetID(), this);
+
     texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
     texture_handle_ = texture_.GetTilesetHandle();
     tex_vtx_ = *texture_.GetTexVtx();
@@ -52,6 +53,10 @@ void TextureRenderer::DeSerialize(std::stringstream& data) {
 void TextureRenderer::DeSerializeClone(std::stringstream& data) {
 
     DeSerialize(data);
+
+    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
+    texture_handle_ = texture_.GetTilesetHandle();
+    tex_vtx_ = *texture_.GetTexVtx();
 }
 
 std::shared_ptr<Component> TextureRenderer::Clone() {

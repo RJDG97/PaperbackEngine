@@ -1,4 +1,5 @@
 {
-
+  "MenuBG": "Resources/EntityConfig/Win/background.json",
+  
   "Button": "Resources/EntityConfig/Win/button.json"
 }

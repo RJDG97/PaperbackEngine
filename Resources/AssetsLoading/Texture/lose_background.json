@@ -1,0 +1,10 @@
+{
+  "menu_assets/Death_Screen.png": [
+  {
+	  "Tileset Name": "Lose_Background",
+	  "Columns": "1",
+	  "Rows": "1",
+    "Tile Name": "LoseBackground"
+    }
+  ]
+}

@@ -13,5 +13,7 @@
   
   "Menu TryAgain": "Resources/AssetsLoading/Texture/menu_tryagain_button.json",
   
-  "Menu HowToPlay": "Resources/AssetsLoading/Texture/menu_howtoplay_button.json"
+  "Menu HowToPlay": "Resources/AssetsLoading/Texture/menu_howtoplay_button.json",
+  
+  "Lose Background": "Resources/AssetsLoading/Texture/lose_background.json"
 }

@@ -1,5 +1,5 @@
 {
-  "background": [
+  "Background": [
     {
       "component": "Transform",
       "position": "0.0 0.0",
@@ -7,7 +7,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuBackground",
+      "texture": "Background",
       "layer": "0",
       "ui": "0"
     }

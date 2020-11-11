@@ -22,7 +22,7 @@
       "component": "TextureRenderer",
       "texture": "Background",
       "layer": "0",
-	  "ui": "0"
+      "ui": "0"
     }
    ],
    "UIText": [
@@ -255,7 +255,7 @@
       "component": "TextureRenderer",
       "texture": "Rock",
       "layer": "2",
-	  "ui": "0"
+      "ui": "0"
     },
     {
       "component": "PointLight",
