@@ -17,12 +17,6 @@
       "component": "AABB",
       "scale": "2.0 0.66",
       "layer": "4"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-      "ui": "0"
     }
   ],
   "button": [
@@ -43,12 +37,6 @@
       "component": "AABB",
       "scale": "2.0 0.66",
       "layer": "4"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-      "ui": "0"
     }
   ],
   "button": [
@@ -69,12 +57,6 @@
       "component": "AABB",
       "scale": "2.0 0.66",
       "layer": "4"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-      "ui": "0"
     }
   ],
   "button": [
@@ -95,12 +77,6 @@
       "component": "AABB",
       "scale": "0.5 0.5",
       "layer": "4"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-      "ui": "0"
     }
   ],
   "button": [
@@ -121,12 +97,6 @@
       "component": "AABB",
       "scale": "0.5 0.5",
       "layer": "4"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-      "ui": "0"
     }
   ]
 }

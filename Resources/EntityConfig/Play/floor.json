@@ -4,6 +4,12 @@
       "component": "Transform",
       "position": "0.0 0.0",
       "rotation": "0.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Background",
+      "layer": "0",
+      "ui": "0"
     }
   ]
 }

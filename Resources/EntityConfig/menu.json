@@ -1,5 +1,3 @@
-{ 
-  "MenuBG": "Resources/EntityConfig/Menu/background.json",
-  
+{
   "Button": "Resources/EntityConfig/Menu/button.json"
 }

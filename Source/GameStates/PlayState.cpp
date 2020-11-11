@@ -174,16 +174,19 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			InputController* InputController = it->second;
 			float power = 40.0f;
 
-			if (InputController->VerifyKey("pause", m->input_)) {
-				CORE->ToggleCorePauseStatus(); // "ESC"
-			}
+			if (game->GetStateName() == "Play") {
+			
+				if (InputController->VerifyKey("pause", m->input_)) {
+					CORE->ToggleCorePauseStatus(); // "ESC"
+				}
 
-			// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
-			// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
-			if (CORE->GetCorePauseStatus() && InputController->VerifyKey("confirm", m->input_)) {
-				//CORE->SetGameActiveStatus(false);
-				game->ChangeState(&m_MenuState);
-				return;
+				// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
+				// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
+				if (CORE->GetCorePauseStatus() && InputController->VerifyKey("confirm", m->input_)) {
+					//CORE->SetGameActiveStatus(false);
+					game->ChangeState(&m_MenuState);
+					return;
+				}
 			}
 
 			if (!entity_mgr_->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {

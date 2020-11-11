@@ -2,7 +2,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.0 -2.0",
+      "position": "-5.1 -3.25",
       "rotation": "0.0"
     },
     {
@@ -11,32 +11,44 @@
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "190.0 50.0"
     },
     {
       "component": "AABB",
-      "scale": "2.0 0.66",
+      "scale": "2.7 0.66",
       "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuTryAgain",
+      "layer": "2",
+      "ui": "0"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "0.0 -5.5",
+      "position": "6.15 -3.25",
       "rotation": "0.0"
     },
     {
       "component": "Clickable",
-      "index": "2"
+      "index": "3"
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "190.0 50.0"
     },
     {
       "component": "AABB",
-      "scale": "2.0 0.66",
+      "scale": "2.7 0.66",
       "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuQuit",
+      "layer": "2",
+      "ui": "0"
     }
   ]
 }

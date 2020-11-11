@@ -318,12 +318,12 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn SortVectorToCollisionMap()
+  \fn GetPartitionedCollisionMap()
 
-  \brief Sorts the vector of AABBIt's into their respective collision layers
+  \brief Converts paritioned entities from vector into a collision layered map
 */
 /******************************************************************************/
-	void SortVectorToCollisionMap(std::vector<AABBIt>& vec, CollisionMapType& col_map);
+	void GetPartitionedCollisionMap(size_t x, size_t y, CollisionMapType& col_map);
 
 /******************************************************************************/
 /*!

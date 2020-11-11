@@ -1,5 +1,5 @@
 {
-  "background": [
+  "MenuBG": [
     {
       "component": "Transform",
       "position": "0.0 0.0",
