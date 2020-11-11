@@ -28,7 +28,7 @@ struct Levels {
 
 	std::string path_;
 	Level* current_state_;
-	Level splash_, menu_, credits_, editor_, win_, lose_;
+	Level splash_, menu_, credits_, editor_, win_, lose_, pause_;
 	using Plays = std::vector<Level>;
 	using PlaysIt = Plays::iterator;
 	Plays plays_;

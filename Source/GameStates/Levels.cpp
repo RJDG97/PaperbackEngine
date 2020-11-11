@@ -137,6 +137,11 @@ void Levels::DeSerialize(const std::string filepath) { //needs to directly load 
 			editor_.name_ = level_type;
 			editor_.path_ = path_name;
 		}
+		else if (level_type == "Pause") {
+
+			pause_.name_ = level_type;
+			pause_.path_ = path_name;
+		}
 	}
 }
 

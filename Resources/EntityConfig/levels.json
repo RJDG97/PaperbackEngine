@@ -8,5 +8,7 @@
   
   "Lose": "Resources/EntityConfig/lose.json",
   
-  "Editor": "Resources/EntityConfig/editor.json"
+  "Editor": "Resources/EntityConfig/editor.json",
+  
+  "Pause": "Resources/EntityConfig/pause.json"
 }

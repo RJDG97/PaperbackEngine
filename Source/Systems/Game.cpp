@@ -51,6 +51,18 @@ void Game::Init()
 void Game::ChangeState(GameState* state, std::string level_name)
 {
 
+	// Remove current state
+	if (!states_.empty()) {
+	
+		states_.back()->Free();
+		states_.pop_back();
+	}
+
+	states_.push_back(state);
+	states_.back()->Init(level_name);
+	
+	// Backup copy
+	/*
 	if (!CheckExist(state)) {
 		// Remove current state
 		if (!states_.empty()) {
@@ -62,20 +74,6 @@ void Game::ChangeState(GameState* state, std::string level_name)
 		states_.push_back(state);
 		states_.back()->Init(level_name);
 	}
-
-	/*
-	// cleanup the current state
-	if (!states_.empty())
-	{
-		// free(); removes the old state from the stack
-		states_.back()->free();
-		states_.pop_back();
-	}
-
-	// store and init the new state
-	states_.push_back(state);
-	states_.back()->init();
-	// back(); refers to the last element on the stack
 	*/
 }
 
@@ -83,18 +81,6 @@ void Game::ChangeState(GameState* state, std::string level_name)
 void Game::PushState(GameState* state) // need to check if current state already exists in stack
 {
 	(void)state;
-	// pause the current state
-	/*if (!states_.empty())
-	{
-		states_.back()->pause();
-	}
-	
-	//store and init the new state
-	if (std::find_if(states_.begin(), states_.end(), CheckExist) == states_.end()) {
-		states_.push_back(state);
-		states_.back()->init();
-		std::cout << "States in stack after push: " << states_.size() << std::endl;
-	}*/
 }
 
 void Game::PopState()
@@ -105,14 +91,6 @@ void Game::PopState()
 		states_.back()->Free();
 		states_.pop_back();
 	}
-
-	//resume the previous state
-	/*if (!states_.empty())
-	{
-		states_.back()->resume();
-	}*/
-
-	//std::cout << "States in stack after pop: " << states_.size() << std::endl;
 }
 
 void Game::Update(float frametime)

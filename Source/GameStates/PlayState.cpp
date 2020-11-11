@@ -49,6 +49,7 @@ void PlayState::Init(std::string)
 	//CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
 	//CORE->GetManager<FontManager>()->FontBatchLoad("Play");
 	FACTORY->LoadLevel("Play");
+	FACTORY->LoadLevel("Pause");
 
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
@@ -178,6 +179,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			
 				if (InputController->VerifyKey("pause", m->input_)) {
 					CORE->ToggleCorePauseStatus(); // "ESC"
+					CORE->GetSystem<Collision>()->ToggleClickables();
 				}
 
 				// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
@@ -254,6 +256,38 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 						}
 					}
 				}
+			}
+		}
+
+		if (!game->debug_ && game->GetStateName() == "Play") {
+
+			switch (msg->message_id_) {
+				//check for collision between button & mouse
+			case MessageIDTypes::BUTTON: {
+
+				Message_Button* m = dynamic_cast<Message_Button*>(msg);
+
+				if (m->button_index_ == 1) {
+
+					//true returned, trigger scene change
+					game->ChangeState(&m_MenuState);
+					return;
+				}
+
+				if (m->button_index_ == 2) {
+
+					game->ChangeState(&m_MenuState);
+					//CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
+					return;
+				}
+
+				if (m->button_index_ == 3) {
+
+					game->ChangeState(&m_MenuState);
+					//CORE->SetGameActiveStatus(false);
+					return;
+				}
+			}
 			}
 		}
 	}

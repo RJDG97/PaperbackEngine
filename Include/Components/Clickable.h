@@ -11,7 +11,7 @@ class Clickable : public Component {
 	Vector2D scale_; // double check if needed
 	Vector2D top_right_;
     Vector2D bottom_left_;
-	bool collided_; // double check if needed
+	bool collided_, active_; // double check if needed
 	size_t index_;
 
 public:
@@ -80,6 +80,15 @@ public:
 	void SetTopRight(const Vector2D& top_right) {
 		top_right_ = top_right;
 	}
+
+/******************************************************************************/
+/*!
+  \fn GetActive()
+
+  \brief Get active status
+*/
+/******************************************************************************/
+	bool GetActive();
 
 /******************************************************************************/
 /*!
