@@ -5,7 +5,7 @@
 	  "Animation Batch Name": "Stagbeetle_Animations",
 	  "Columns": "16",
 	  "Rows": "8",
-      "Animation Name, Number of Frames, Frame Duration": "Stagbeetle_Charge 12 0.05",
+    "Animation Name, Number of Frames, Frame Duration": "Stagbeetle_Charge 12 0.05",
 	  "Animation Name, Number of Frames, Frame Duration": "Stagbeetle_Attack 7 0.05",
 	  "Animation Name, Number of Frames, Frame Duration": "Stagbeetle_Run 12 0.05",
 	  "Animation Name, Number of Frames, Frame Duration": "Stagbeetle_Alert 8 0.05",

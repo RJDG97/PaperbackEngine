@@ -43,7 +43,7 @@
       "color": "1.0 0.5 1.0",
       "scale": "1.0",
       "layer": "10",
-	  "ui": "1"
+      "ui": "1"
     }
    ],
   "WorldText": [
@@ -100,7 +100,7 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-	  "ui": "0"
+      "ui": "0"
     },
     {
       "component": "AABB",
@@ -139,10 +139,20 @@
       "scale": "30.0 30.0"
     },
     {
-      "component": "TextureRenderer",
-      "texture": "Stone",
+      "component": "AnimationRenderer",
+      "number of animations": "7",
+      "add animation": "Stagbeetle_Charge",
+      "add animation": "Stagbeetle_Attack",
+      "add animation": "Stagbeetle_Run",
+      "add animation": "Stagbeetle_Alert",
+      "add animation": "Stagbeetle_Idle",
+      "add animation": "Stagbeetle_Confused",
+      "add animation": "Stagbeetle_Walk",
+      "set animation": "Stagbeetle_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
       "layer": "2",
-	  "ui": "0"
+      "ui": "0"
     },
     {
       "component": "AABB",
@@ -181,7 +191,7 @@
       "component": "TextureRenderer",
       "texture": "Rock",
       "layer": "2",
-	  "ui": "0"
+      "ui": "0"
     },
     {
       "component": "AABB",
@@ -220,10 +230,20 @@
       "acceleration": "0.0 0.0"
     },
     {
-      "component": "TextureRenderer",
-      "texture": "Rock",
+      "component": "AnimationRenderer",
+      "number of animations": "7",
+      "add animation": "Stagbeetle_Charge",
+      "add animation": "Stagbeetle_Attack",
+      "add animation": "Stagbeetle_Run",
+      "add animation": "Stagbeetle_Alert",
+      "add animation": "Stagbeetle_Idle",
+      "add animation": "Stagbeetle_Confused",
+      "add animation": "Stagbeetle_Walk",
+      "set animation": "Stagbeetle_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
       "layer": "2",
-	  "ui": "0"
+      "ui": "0"
     },
     {
       "component": "AABB",
@@ -338,10 +358,20 @@
       "health": "10.0"
     },
     {
-      "component": "TextureRenderer",
-      "texture": "Stone",
-      "layer": "1",
-	  "ui": "0"
+      "component": "AnimationRenderer",
+      "number of animations": "7",
+      "add animation": "Stagbeetle_Charge",
+      "add animation": "Stagbeetle_Attack",
+      "add animation": "Stagbeetle_Run",
+      "add animation": "Stagbeetle_Alert",
+      "add animation": "Stagbeetle_Idle",
+      "add animation": "Stagbeetle_Confused",
+      "add animation": "Stagbeetle_Walk",
+      "set animation": "Stagbeetle_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "2",
+      "ui": "0"
     },
     {
       "component": "PointLight",
@@ -385,6 +415,26 @@
       "texture": "MenuBackground",
       "layer": "0",
       "ui": "0"
+    }
+  ],
+  "Boundary": [
+    {
+      "component": "Name",
+      "name": "Boundary"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "1"
     }
   ]
 }

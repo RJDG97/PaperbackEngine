@@ -17,5 +17,7 @@
 
   "AITest": "Resources/EntityConfig/Play/aitest.json",
   
-  "Hole": "Resources/EntityConfig/Play/hole.json"
+  "Hole": "Resources/EntityConfig/Play/hole.json",
+  
+  "Boundary": "Resources/EntityConfig/Play/boundary.json"
 }
