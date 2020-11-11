@@ -1,5 +1,4 @@
 #include "Script/GeneralScripts.h"
-#include "Manager/ForcesManager.h"
 #include "Manager/EntityManager.h"
 #include "Engine/Core.h"
 #include <cmath>
@@ -10,6 +9,8 @@ namespace GeneralScripts
 	EntityID player_id;
 	Transform* player_rigidbody;
 	Transform* obj_rigidbody;
+	AMap* map_;
+	ForcesManager* forces_;
 
 	bool Chase(AIIt obj)
 	{
@@ -29,7 +30,7 @@ namespace GeneralScripts
 		directional *= (obj->second->GetSpeed());
 
 		// Move AI
-		CORE->GetManager<ForcesManager>()->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
+		forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
 
 		return false;
 	}
@@ -41,7 +42,7 @@ namespace GeneralScripts
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(player_rigidbody->GetPosition(), obj_rigidbody->GetPosition());
 		// If Player is very close, is detected
-		if (distance < 200.0f)
+		if (distance < 3.0f)
 			return true;
 		// Else check if player is in line of sight (May replace check after shadows)
 		else if(distance < obj->second->GetRange())
@@ -99,34 +100,54 @@ namespace GeneralScripts
 
 	void Patrol(AIIt obj)
 	{
-
-		// Calculate distance between ai and destination
-		float distance = Vector2DLength(*(obj->second->GetCurrentDes()) - obj_rigidbody->GetPosition());
-
-		// if ai is near then calculate new vector and set
-		if (distance <= 0.5f) {
-
-			DestinationIt next_it = obj->second->GetCurrentDes();
-
-			// check if next destination is out of range, and loop to beginning if so
-			if (++next_it == obj->second->GetDestinations().end())
-				//if next destination does not exist, then wrap back to beginning
-				next_it = obj->second->GetDestinations().begin();
-
-			// continue to next destination
-			obj->second->SetCurrentDes(next_it);
+		// If path is empty, set path
+		if (obj->second->GetPath().empty())
+		{
+			if (obj_rigidbody->GetPosition().x == obj->second->GetCurrentDes()->x &&
+				obj_rigidbody->GetPosition().y == obj->second->GetCurrentDes()->y)
+				obj->second->SetCurrentDes(++obj->second->GetCurrentDes());
+			// Set new path
+			GeneralScripts::map_->Pathing
+			(obj->second->GetPath(), obj_rigidbody->GetPosition(), 
+				*obj->second->GetCurrentDes());
 
 		}
 
+	// Calculate distance between ai and destination
+		float distance = Vector2DLength(obj->second->GetPath().back() - obj_rigidbody->GetPosition());
+
+		// If object is at next path node
+		if (distance <= 0.1f) {
+			// Remove node destination
+			obj->second->GetPath().pop_back();
+			// If path is empty, destination is reached
+			if (obj->second->GetPath().empty())
+			{	// Update next destination
+				DestinationIt next_it = obj->second->GetCurrentDes();
+				//map->DrawMap();
+				// check if next destination is out of range, and loop to beginning if so
+				if (++next_it == obj->second->GetDestinations().end())
+					//if next destination does not exist, then wrap back to beginning
+					next_it = obj->second->GetDestinations().begin();
+
+				// continue to next destination
+				obj->second->SetCurrentDes(next_it);
+				// Set new path
+				GeneralScripts::map_->Pathing
+				(obj->second->GetPath(), obj_rigidbody->GetPosition(),
+					*obj->second->GetCurrentDes());
+			}
+		}
+
 		//get directional unit vector
-		Vector2D directional = *obj->second->GetCurrentDes() - obj_rigidbody->GetPosition();
+		Vector2D directional = obj->second->GetPath().back() - obj_rigidbody->GetPosition();
 		directional /= Vector2DLength(directional);
 
 		//multiply by speed
 		directional *= obj->second->GetSpeed();
 
 		// Move AI
-		CORE->GetManager<ForcesManager>()->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
+		forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
 	}
 
 }

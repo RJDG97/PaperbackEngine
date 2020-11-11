@@ -4,16 +4,14 @@
       "component": "AI",
       "AItype": "Stag_Beetle",
       "range": "3.0",
-      "speed": "30.0",
-      "dest": "4",
-      "destination1": "-5.0 0.0", 
-      "destination2": "-5.0 -2.0",
-      "destination3": "-3.0 -2.0",
-      "destination4": "-3.0 0.0"
+      "speed": "100.0",
+      "dest": "2",
+      "destination1": "-10.0 -5.0", 
+      "destination2": "-10.0 5.0"
     },
     {
       "component": "Transform",
-      "position": "-15.0 0.0 ",
+      "position": "-10.0 -5.0 ",
       "rotation": "0.0" 
     },
     {

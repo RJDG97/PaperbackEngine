@@ -5,6 +5,7 @@
 #include "Systems/Debug.h"
 #include "Systems/GraphicsSystem.h"
 #include "Systems/ImguiSystem.h"
+#include "Manager/AMap.h"
 
 InputSystem sys_input_;
 

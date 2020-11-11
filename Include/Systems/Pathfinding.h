@@ -13,9 +13,11 @@ public:
 	{
 		bool obstacle_ = false;
 		bool visited_ = false;
+		bool start_ = false;
+		bool des_ = false;
 		float globaldes_;
 		float localdes_;
-		int x, y;
+		Vector2D pos;
 
 		std::vector<Node*> neighbour_;
 		Node* parent_;

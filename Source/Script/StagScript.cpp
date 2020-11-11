@@ -9,7 +9,7 @@ namespace StagBeetle
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(obj->second->GetPlayerLastPos(), GeneralScripts::obj_rigidbody->GetPosition());
 		// If obj is close enough, return true
-		if (distance < 1.0f)
+		if (distance < 0.1f)
 		{
 			// Fall animation
 			// Collision check for damage
@@ -21,10 +21,10 @@ namespace StagBeetle
 		directional /= Vector2DLength(directional);
 
 		//multiply by speed
-		directional *= (obj->second->GetSpeed()*2);
+		directional *= (obj->second->GetSpeed());
 
 		// Move AI
-		CORE->GetManager<ForcesManager>()->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
+		GeneralScripts::forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
 
 		return true;
 	}

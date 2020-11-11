@@ -90,9 +90,6 @@
     <Filter Include="Entity\Components\Clickable">
       <UniqueIdentifier>{f7a423a9-55e2-4154-a544-d78ac838822f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systems\Pathfinding">
-      <UniqueIdentifier>{50bb6902-33ce-41fd-b45a-9880aebab039}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity\Components\InputController">
       <UniqueIdentifier>{8bdad12a-98c2-4e3d-9596-0c974f1871ff}</UniqueIdentifier>
     </Filter>
@@ -274,9 +271,6 @@
     </ClCompile>
     <ClCompile Include="Source\Systems\ImguiSystem.cpp">
       <Filter>Systems\Imgui System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Systems\Pathfinding.cpp">
-      <Filter>Systems\Pathfinding</Filter>
     </ClCompile>
     <ClCompile Include="Source\Manager\ForcesManager.cpp">
       <Filter>ResourceManagers</Filter>
@@ -507,9 +501,6 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\ImguiSystem.h">
       <Filter>Systems\Imgui System</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Systems\Pathfinding.h">
-      <Filter>Systems\Pathfinding</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\ForcesManager.h">
       <Filter>ResourceManagers</Filter>

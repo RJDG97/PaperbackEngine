@@ -7,13 +7,25 @@
 #include "MathLib/Vector2D.h"
 #include "Entity/Entity.h"
 #include "Manager/IManager.h"
-#include "Systems/Pathfinding.h"
 
 class AMap : public IManager
 {
+	struct node
+	{
+		Vector2D nodepos_;
+		float F, G, H;
+
+		bool start_;
+		bool des_;
+		bool obstacle_;
+		bool visited_;
+		node* parent_;
+		std::vector<node*> neighbour_;
+	};
+
 public:
 
-	using AMapTypeX = std::vector<Pathfinding::Node>;
+	using AMapTypeX = std::vector<node>;
 	using AMapTypeY = std::vector<AMapTypeX>;
 	using AMapTypeItX = AMapTypeX::iterator;
 	using AMapTypeItY = AMapTypeY::iterator;
@@ -21,9 +33,10 @@ public:
 	void Init() override;
 	void InitAMap(std::map<EntityID, Entity*> entity_map);
 	void UpdateAMap(std::pair<EntityID, Entity*> entity);
-	Vector2D GetBottomLeft();
-	Vector2D GetTopRight();
-	
+	AMapTypeY GetNodeMap();
+	void DrawMap();
+	//void UpdatePath(Vector2D start, Vector2D des);
+	void Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des);
 
 private:
 	
