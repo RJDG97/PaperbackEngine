@@ -132,6 +132,12 @@ void AMap::InsertEntityNodes(const Vector2D& pos) {
 		return;
 
 	node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].obstacle_ = true;
+	// Set surrounding nodes as obstacles as well
+	for (int i = 0; i < node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_.size(); i++)
+	{
+		node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_[i]->obstacle_ = true;
+	}
+
 }
 
 AMap::AMapTypeY AMap::GetNodeMap()
