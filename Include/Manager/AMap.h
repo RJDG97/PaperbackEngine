@@ -37,6 +37,8 @@ public:
 	void DrawMap();
 	//void UpdatePath(Vector2D start, Vector2D des);
 	void Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des);
+	Vector2D GetTopRight();
+	Vector2D GetBottomLeft();
 
 private:
 	
