@@ -6,6 +6,8 @@
 #include "Systems/ImguiSystem.h"
 #include "Manager/EntityManager.h"
 #include "Manager/ComponentManager.h"
+#include "GameStates/Levels.h"
+#include "Systems/Factory.h"
 
 class ArchetypeWindow : public IWindow
 {
@@ -39,6 +41,8 @@ private:
 	EntityManager* entities_;
 	ImguiSystem* imgui_;
 	ComponentManager* comp_mgr_;
+	Levels levels_;
+	EntityFactory* factory_;
 
 	bool b_editcomp;
 

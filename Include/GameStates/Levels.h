@@ -20,8 +20,8 @@ struct Level {
 	void DeSerialize();
 	void Serialize(const std::string filepath);
 	void Serialize();
-	void AddNewEntityPath();
-	void DeleteEntityPath();
+	void AddNewEntityPath(const std::string& name, const std::string& path);
+	void DeleteEntityPath(const std::string& name);
 };
 
 struct Levels {

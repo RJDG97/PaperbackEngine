@@ -58,12 +58,13 @@ void ImguiSystem::Init(){
     ImGui_ImplOpenGL3_Init(NULL);
 
     // Load Fonts
-    // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
+    // - If no fonts are loaded, dear imgui  will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
     // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
     // - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
     // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
     io.FontDefault = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Medium.ttf", 16.0f);
     bold_font_ = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Bold.ttf", 16.0f);
+    //img_font_ = io.Fonts->AddFontFromFileTTF("Resources/Font/fa-regular-400.tff", 18.0f);
     // end of Imgui init
 
     b_dock_space_open = true;
@@ -81,6 +82,7 @@ void ImguiSystem::Init(){
     b_archetypewin = true;
     b_component = true;
     b_display = false;
+    b_editpath = false;
 
     new_entity_ = nullptr;
 
@@ -194,8 +196,10 @@ void ImguiSystem::ImguiMenuBar() {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("Open Scene", "Ctrl+O"))
                 OpenFile();
-            if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
+            if (ImGui::MenuItem("Save", "Ctrl+S"))
                 SaveFile();
+
+            ImGui::Separator();
             if (ImGui::MenuItem("Return to Menu")){
                 //add pop up
                 b_imguimode = false;
@@ -213,6 +217,14 @@ void ImguiSystem::ImguiMenuBar() {
                 SaveArchetype();
             if (ImGui::MenuItem("Load Archetypes"))
                 LoadArchetype();
+
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Levels")) {
+            if (ImGui::MenuItem("Edit Path")) {
+                b_editpath = true;
+            }
 
             ImGui::EndMenu();
         }
@@ -373,7 +385,7 @@ void ImguiSystem::OpenFile() {
 }
 
 void ImguiSystem::SaveFile(){
-    OpenSaveDialog(scene_filter_, 1);
+    factory_->SerializeCurrentLevelEntities();
 }
 
 void ImguiSystem::ImguiHelp(const char* description) {

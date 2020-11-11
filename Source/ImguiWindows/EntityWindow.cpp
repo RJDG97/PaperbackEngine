@@ -277,7 +277,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 						ImGui::Text("Number of Destinations: %d", inputNumDes);
 						ImGui::Text("Current Destinations: ");
 
-						for (std::vector<Vector2D>::iterator it = inputDes.begin(); it != inputDes.end(); it++) {
+						for (std::vector<Vector2D>::iterator it = inputDes.begin(); it != inputDes.end(); ++it) {
 							counter++; 
 							if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, "%.2f, %.2f", (*it).x, (*it).y))
 							{
@@ -286,7 +286,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 										it = inputDes.erase(it);
 									else {
 										it = inputDes.erase(it);
-										it--;
+										--it;
 									}
 									entityAI->GetDestinations().clear();
 									entityAI->SetDestinations(inputDes);

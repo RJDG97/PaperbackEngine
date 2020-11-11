@@ -65,14 +65,16 @@ void Level::Serialize(const std::string filepath) {
 	filestream.close();
 }
 
-void Level::AddNewEntityPath() {
+void Level::AddNewEntityPath(const std::string& name, const std::string& path) {
 	
-	entity_paths_.insert({});
+	entity_paths_.insert({name, path});
 }
 
-void Level::DeleteEntityPath() {
+void Level::DeleteEntityPath(const std::string& name) {
 
-	entity_paths_.erase(entity_paths_.end());
+	EntityPathsIt it = entity_paths_.find(name);
+	if (it != entity_paths_.end())
+		entity_paths_.erase(it);
 }
 
 
@@ -143,6 +145,7 @@ void Levels::DeSerializeLevels() {
 	menu_.DeSerialize();
 	splash_.DeSerialize();
 	credits_.DeSerialize();
+	editor_.DeSerialize();
 
 	for (PlaysIt play = plays_.begin(); play != plays_.end(); ++play) {
 

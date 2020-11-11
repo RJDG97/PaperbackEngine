@@ -38,9 +38,9 @@
 class ImguiSystem : public ISystem
 {
 public:
-	ImFont* bold_font_;
+	ImFont* bold_font_, *img_font_;
 
-	bool b_entitywin, b_archetypewin, b_component, b_display;
+	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath;
 
 	ImguiSystem() {};
 
