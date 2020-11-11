@@ -359,5 +359,31 @@
       "velocity": "0.0 0.0",
       "acceleration": "0.0 0.0"
     }
+  ],
+  "MenuBG": [
+    {
+      "component": "Name",
+      "name": "MenuBG"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "800.0 460.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "27.33 13.33",
+      "layer": "0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuBackground",
+      "layer": "0",
+      "ui": "0"
+    }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "MenuBG": [
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuBackground",
+      "layer": "0",
+      "ui": "0"
+    }
+  ]
+}
