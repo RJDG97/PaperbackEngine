@@ -52,7 +52,21 @@ void TextureRenderer::DeSerialize(std::stringstream& data) {
 
 void TextureRenderer::DeSerializeClone(std::stringstream& data) {
 
-    DeSerialize(data);
+    int layer;
+
+    data >> texture_name_ >> layer >> ui_;
+
+    if (layer != layer_)
+    {
+        M_DEBUG->WriteDebugMessage("Layer is keyed in wrongly!");
+    }
+
+    else
+    {
+        layer_ = layer;
+    }
+
+    //DeSerialize(data);
 
     texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
     texture_handle_ = texture_.GetTilesetHandle();
@@ -66,11 +80,11 @@ std::shared_ptr<Component> TextureRenderer::Clone() {
 
     // IRenderer
     cloned->layer_ = layer_;
+    cloned->ui_ = ui_;
 
     // TextureRenderer
     cloned->texture_name_ = texture_name_;
     cloned->texture_ = texture_;
-    cloned->ui_ = ui_;
 
     return cloned;
 }
