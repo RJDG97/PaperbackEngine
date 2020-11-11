@@ -3,6 +3,7 @@
 #include "ImguiWindows/EntityWindow.h"
 #include "ImguiWindows/ArchetypeWindow.h"
 #include "ImguiWindows/SystemWindow.h"
+#include "ImguiWindows/EntityPathWindow.h"
 
 // Expose the Win32 API
 #include <commdlg.h>
@@ -16,6 +17,7 @@ void ImguiSystem::Init(){
     AddWindow<EntityWindow>();
     AddWindow<ArchetypeWindow>();
     AddWindow<SystemWindow>();
+    AddWindow<EntityPathWindow>();
 
     win_ = &*CORE->GetSystem<WindowsSystem>();
     collision_system_ = &*CORE->GetSystem<Collision>();
@@ -29,12 +31,9 @@ void ImguiSystem::Init(){
 
     ImGuiIO& io = ImGui::GetIO();
     
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking (Merging of windows)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-    
-    //io.ConfigViewportsNoAutoMerge = true;
-    //io.ConfigViewportsNoTaskBarIcon = true;
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
@@ -49,22 +48,19 @@ void ImguiSystem::Init(){
     }
 
     // Initialize Imgui Window that is attached to the Imgui System
-    for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin) {
+    for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
         begin->second->Init();
-    }
    
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(win_->ptr_window, true);
     ImGui_ImplOpenGL3_Init(NULL);
 
     // Load Fonts
-    // - If no fonts are loaded, dear imgui  will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
-    // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
-    // - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
-    // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
     io.FontDefault = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Medium.ttf", 16.0f);
+    static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+    ImFontConfig icons_config; icons_config.MergeMode = true; icons_config.PixelSnapH = true;
+    img_font_ = io.Fonts->AddFontFromFileTTF(FONT_ICON_FILE_NAME_FA, 14.0f, &icons_config, icon_ranges);
     bold_font_ = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Bold.ttf", 16.0f);
-    //img_font_ = io.Fonts->AddFontFromFileTTF("Resources/Font/fa-regular-400.tff", 18.0f);
     // end of Imgui init
 
     b_dock_space_open = true;
@@ -83,6 +79,7 @@ void ImguiSystem::Init(){
     b_component = true;
     b_display = false;
     b_editpath = false;
+    b_showpop = false;
 
     new_entity_ = nullptr;
 
@@ -122,18 +119,18 @@ void ImguiSystem::Update(float frametime) {
 
         	// menu bar
             ImguiMenuBar();
-        	
+            if (b_showpop) {
+                ImGui::OpenPopup("Save Confirmation");
+            }
+            PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
+            b_showpop = false;
+
             // DockSpace
             if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
 
                 ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dock_space_flags_);
             }
-
-            ImGuiCustomStyle();
-
-            /* This has to be called between the ImGui::Begin("DockSpace"); and the corresponding ImGui::End()
-             for windows to be dockable in the docking space */
         	
             if (b_windows) {
                 for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
@@ -148,9 +145,6 @@ void ImguiSystem::Update(float frametime) {
 void ImguiSystem::DockSpaceFlagSet() {
 
     b_fullscreen = b_fullscreen_persistant;
-
-    // We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
-    // because it would be confusing to have two docking targets within each others.
     if (b_fullscreen) {
 
         ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -193,48 +187,44 @@ void ImguiSystem::ImguiRender() {
 void ImguiSystem::ImguiMenuBar() {
 	
     if (ImGui::BeginMenuBar()) {
-        if (ImGui::BeginMenu("File")) {
-            if (ImGui::MenuItem("Open Scene", "Ctrl+O"))
+
+        ImGui::PushFont(img_font_);
+
+        if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
+            if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene", "Ctrl+O"))
                 OpenFile();
-            if (ImGui::MenuItem("Save", "Ctrl+S"))
+            if (ImGui::MenuItem(ICON_FA_FLOPPY_O " Save", "Ctrl+S")) {
                 SaveFile();
+                b_showpop = true;
+            }
 
             ImGui::Separator();
-            if (ImGui::MenuItem("Return to Menu")){
-                //add pop up
+            if (ImGui::MenuItem(ICON_FA_REPLY " Return to Menu")){
+
                 b_imguimode = false;
                 FACTORY->DestroyAllEntities();
                 new_entity_ = {};
                 CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
             }
-            if (ImGui::MenuItem("Exit"))
+            if (ImGui::MenuItem(ICON_FA_POWER_OFF " Exit"))
                 CORE->SetGameActiveStatus(false);
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Archetypes")) {
 
-            if (ImGui::MenuItem("Save Archetypes"))
+            if (ImGui::MenuItem(ICON_FA_FLOPPY_O " Save Archetypes"))
                 SaveArchetype();
-            if (ImGui::MenuItem("Load Archetypes"))
+            if (ImGui::MenuItem(ICON_FA_UPLOAD " Load Archetypes"))
                 LoadArchetype();
-
-            ImGui::EndMenu();
-        }
-
-        if (ImGui::BeginMenu("Levels")) {
-            if (ImGui::MenuItem("Edit Path")) {
-                b_editpath = true;
-            }
-
-            ImGui::EndMenu();
-        }
-
-        if (ImGui::BeginMenu("ImGui Windows")) {
-            if (ImGui::MenuItem("Toggle Windows")) // hide/show windows
-                b_windows = !b_windows;
-            ImGui::Text("Individual Windows");
-
             ImGui::Separator();
+            if (ImGui::MenuItem(ICON_FA_PENCIL_SQUARE_O " Edit Archetype Path"))
+                b_editpath = true;
+
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu(ICON_FA_WINDOW_RESTORE " ImGui Windows")) {
+
             ImGui::Checkbox("Toggle Scene Hierachy", &b_entitywin);
             ImGui::Checkbox("Toggle Component Viewer", &b_component);
             ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
@@ -242,13 +232,14 @@ void ImguiSystem::ImguiMenuBar() {
 
             ImGui::EndMenu();
         }
+        ImGui::PopFont();
     }
     ImGui::EndMenuBar();
 }
 
 void ImguiSystem::ImGuiCustomStyle() {
 
-    ImVec4* colors = ImGui::GetStyle().Colors;
+    //ImVec4* colors = ImGui::GetStyle().Colors;
 
     //colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.251f, 0.737f, 0.529f, 1.0f};
     //colors[ImGuiCol_HeaderActive] = ImVec4{ 0.659f, 0.969f, 0.659f, 1.0f };
@@ -258,7 +249,7 @@ void ImguiSystem::ImGuiCustomStyle() {
     //colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.706f,0.314f,0.533f, 1.0f };
     //colors[ImGuiCol_ButtonActive] = ImVec4{ 0.788f,0.416f,0.624f, 1.0f };
 
-    colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.75f);
+    //colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.75f);
 
 }
 
@@ -267,6 +258,25 @@ void ImguiSystem::CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 
     ImGui::PushStyleColor(ImGuiCol_Button, ButtonCol);
     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, HoveredCol);
     ImGui::PushStyleColor(ImGuiCol_ButtonActive, SelectCol);
+}
+
+std::string ImguiSystem::EditString(std::string filepath, const char* startpos) {   
+    return filepath.substr(filepath.find(startpos));
+}
+
+void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
+    ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
+
+    ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+    if (ImGui::BeginPopup(windowName)) {
+
+        ImGui::Text(message);
+
+        if (ImGui::Button("OK"))
+            ImGui::CloseCurrentPopup();
+
+        ImGui::EndPopup();
+    }
 }
 
 bool ImguiSystem::GetImguiBool() {
@@ -284,22 +294,6 @@ void ImguiSystem::Draw() {}
 std::string ImguiSystem::GetName() {
 	
     return "ImGui System";
-}
-
-void ImguiSystem::SendMessageD(Message* m) {
-    switch (m->message_id_) {
-    case MessageIDTypes::M_MOUSE_PRESS:
-    {
-        if (!b_lock_entity) {
-            selected_entity_ = collision_system_->SelectEntity();
-            new_entity_ = entities_->GetEntity(selected_entity_);
-            b_lock_entity = true;
-        }
-        break;
-    }
-    default:
-        break;
-    }
 }
 
 EntityID ImguiSystem::GetSelectedEntity() {
@@ -350,6 +344,22 @@ void ImguiSystem::ImguiInput() {
 	}
 }
 
+void ImguiSystem::SendMessageD(Message* m) {
+    switch (m->message_id_) {
+    case MessageIDTypes::M_MOUSE_PRESS:
+    {
+        if (!b_lock_entity) {
+            selected_entity_ = collision_system_->SelectEntity();
+            new_entity_ = entities_->GetEntity(selected_entity_);
+            b_lock_entity = true;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+}
+
 void ImguiSystem::SaveArchetype() {
     std::string path = OpenSaveDialog(scene_filter_, 1);
     if (!path.empty())
@@ -361,9 +371,7 @@ void ImguiSystem::LoadArchetype() {
     std::string path = OpenSaveDialog(scene_filter_, 0);
     if (!path.empty()) {
 
-        size_t pos = path.find("Resources");
-
-        std::string file = path.substr(pos);
+        std::string file = EditString(path);
 
         factory_->DestroyAllArchetypes();
         factory_->CreateAllArchetypes(file);
@@ -371,13 +379,11 @@ void ImguiSystem::LoadArchetype() {
 }
 
 void ImguiSystem::OpenFile() {
-    std::string filepath = OpenSaveDialog(scene_filter_, 0);
+    std::string path = OpenSaveDialog(scene_filter_, 0);
 
-    if (!filepath.empty())
+    if (!path.empty())
     {
-        size_t pos = filepath.find("Resources");
-
-        std::string file = filepath.substr(pos);
+        std::string file = EditString(path);
 
         factory_->DestroyAllEntities();
         factory_->DeSerializeLevelEntities(file);
@@ -385,6 +391,7 @@ void ImguiSystem::OpenFile() {
 }
 
 void ImguiSystem::SaveFile(){
+
     factory_->SerializeCurrentLevelEntities();
 }
 
@@ -423,7 +430,6 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
         ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "This cannot be undone");
 
         ImGui::Separator();
-
         ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0 / 7.0f, 0.6f, 0.6f));
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0 / 7.0f, 0.7f, 0.7f));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));

@@ -179,6 +179,7 @@
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
     <ClCompile Include="Source\GameStates\WinLoseState.cpp" />
     <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp" />
+    <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
     <ClCompile Include="Source\ImguiWindows\SystemWindow.cpp" />
@@ -246,10 +247,12 @@
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\GameStates\WinLoseState.h" />
     <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h" />
+    <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h" />
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
     <ClInclude Include="Include\ImguiWindows\SystemWindow.h" />
+    <ClInclude Include="Include\Imgui\IconsFontAwesome4.h" />
     <ClInclude Include="Include\Imgui\imconfig.h" />
     <ClInclude Include="Include\Imgui\imgui.h" />
     <ClInclude Include="Include\Imgui\imgui_impl_glfw.h" />

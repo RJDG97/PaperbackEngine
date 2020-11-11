@@ -13,7 +13,6 @@ void EntityWindow::Init(){
 
 void EntityWindow::Update() {
 
-	//ImGui::ShowDemoWindow();
 	if (imgui_->b_entitywin) {
 
 		ImGui::Begin("Entity Inspector", &imgui_->b_entitywin);

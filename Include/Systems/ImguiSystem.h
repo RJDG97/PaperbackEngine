@@ -23,7 +23,9 @@
 #include "GameStates/MenuState.h"
 
 #include "Manager/EntityManager.h"
+#include "Imgui/IconsFontAwesome4.h"
 
+//colours for axis buttons
 #define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
 #define REDHOVERED ImVec4{ 0.965f, 0.075f, 0.118f, 1.0f }
 #define REDACTIVE  ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
@@ -230,6 +232,9 @@ public:
 
 	void CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol);
 
+	std::string EditString(std::string filepath, const char* startpos = "Resources");
+
+	void PopUpMessage(const char* windowName, const char* message);
 
 private:
 
@@ -260,6 +265,8 @@ private:
 	bool b_imguimode;
 	bool b_windows;
 	bool b_lock_entity;
+
+	bool b_showpop;
 
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;

@@ -18,17 +18,22 @@ void ArchetypeWindow::Update() {
 		ImGui::Begin("Archetypes", &imgui_->b_archetypewin);
 
 		if (ImGui::CollapsingHeader("Existing Archetypes")) {
+
 			AvaliableArchetypes();
 
 			ImGui::Separator();
-
-			if (ImGui::Button("Save List"))
+			ImGui::PushFont(imgui_->img_font_);
+			if (ImGui::Button(ICON_FA_FLOPPY_O " Save List"))
 				imgui_->SaveArchetype();
 
 			ImGui::SameLine();
 
-			if (ImGui::Button("Load List"))
+			if (ImGui::Button(ICON_FA_UPLOAD " Load List"))
 				imgui_->LoadArchetype();
+			ImGui::PopFont();
+
+			ImGui::SameLine(0, 4);
+			imgui_->ImguiHelp("Close Archetype Node before \nmaking other selections");
 		}
 
 		if (ImGui::CollapsingHeader("Create New Archetypes")) {
@@ -40,7 +45,7 @@ void ArchetypeWindow::Update() {
 				memset(buffer, 0, sizeof(buffer));
 				strcpy_s(buffer, sizeof(buffer), entityName.c_str());
 
-				ImGui::Text("New Archetype Name:");
+				ImGui::Text(ICON_FA_PENCIL " New Archetype Name:");
 				ImGui::PushItemWidth(250.0f);
 
 				if (ImGui::InputTextWithHint("##name", "Enter name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
@@ -66,62 +71,6 @@ void ArchetypeWindow::Update() {
 
 		ImGui::End();
 	}
-	std::string path, name;
-	int counter = 0;
-	if (imgui_->b_editpath) {
-		ImGui::Begin("Add Archetype to Scene", &imgui_->b_editpath);
-		Level* editor = factory_->GetLevel("Editor");
-		if (!editor->entity_paths_.empty()) {
-			for (Level::EntityPathsIt it = editor->entity_paths_.begin(); it != editor->entity_paths_.end(); ++it) {
-				++counter;
-				if (ImGui::TreeNodeEx((void*)counter, 0, it->first.c_str())) {
-					ImGui::Text(it->second.c_str());
-					if (ImGui::Button("Delete Path")) {
-
-						if (it == editor->entity_paths_.begin()) 
-							it = editor->entity_paths_.erase(it);
-						else
-						{
-							it = editor->entity_paths_.erase(it);
-							--it;
-						}
-					}
-
-					ImGui::TreePop();
-					break;
-				}
-			}
-		}
-		
-		ImGui::Separator();
-
-		if (entities_) {
-			if (ImGui::BeginCombo("##Archetypes", "Archetypes")) {
-				for (EntityManager::EntityArchetypeMapTypeIt entityIT = entities_->GetArchetypes().begin(); entityIT != entities_->GetArchetypes().end(); ++entityIT) {
-					name = entityIT->first;
-					if (ImGui::Selectable(entityIT->first.c_str())) {
-						path = imgui_->OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
-
-						if (!path.empty()) {
-
-							size_t pos = path.find("Resources");
-
-							std::string file = path.substr(pos);
-
-							editor->AddNewEntityPath(name, file);
-						}
-
-					}
-				}
-
-				ImGui::EndCombo();
-			}
-		}
-
-		
-		
-		ImGui::End();
-	}
 }
 
 void ArchetypeWindow::AvaliableArchetypes() {
@@ -137,12 +86,12 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 			if (ImGui::IsItemClicked())
 				imgui_->SetEntity(entityIT->second); // store the selected Entity to find its components
-
+			
 			if (opened) {
-				if (ImGui::Button("Add Entity"))
+				if (ImGui::Button(ICON_FA_CLONE " Clone Archetype"))
 					entities_->CloneArchetype(entityIT->first);
 
-				if (ImGui::Button("Delete Archetype")) {
+				if (ImGui::Button(ICON_FA_TRASH_O " Delete Archetype")) {
 
 					imgui_->SetEntity(entityIT->second);
 
@@ -151,7 +100,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 				imgui_->DeletePopUp("Delete Confirmation", entityIT->first);
 
-				ImGui::Checkbox("Add / Edit Components", &b_editcomp);
+				ImGui::Checkbox("Add/Edit Components", &b_editcomp);
 
 				imgui_->SetEntity(entityIT->second);
 
