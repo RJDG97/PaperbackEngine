@@ -232,6 +232,10 @@ public:
 	Vector2D GetNewDestination();
 	void SetNewDestination(Vector2D newnode);
 
+	std::vector<Vector2D>& GetPath();
+
+	void SetPath(std::vector<Vector2D>& path);
+
 private:
 
 	AIType type_;
@@ -246,6 +250,7 @@ private:
 	//std::list<Vector2D> current_destination_;
 	DestinationIt current_destination_;
 	Vector2D player_last_pos_;
+	std::vector<Vector2D> path_;
 };
 
 #endif

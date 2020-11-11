@@ -35,8 +35,8 @@ public:
 	void UpdateAMap(std::pair<EntityID, Entity*> entity);
 	AMapTypeY GetNodeMap();
 	void DrawMap();
-	void UpdatePath(Vector2D start, Vector2D des);
-	void Astar(Vector2D start, Vector2D des);
+	//void UpdatePath(Vector2D start, Vector2D des);
+	void Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des);
 
 private:
 	

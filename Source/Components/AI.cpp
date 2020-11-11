@@ -186,3 +186,13 @@ void AI::SetNewDestination(Vector2D newnode)
 {
 	new_node_ = newnode;
 }
+
+std::vector<Vector2D>& AI::GetPath()
+{
+	return path_;
+}
+
+void AI::SetPath(std::vector<Vector2D>& path)
+{
+	path_ = path;
+}

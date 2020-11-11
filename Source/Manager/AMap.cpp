@@ -1,6 +1,8 @@
 #include "Manager/AMap.h"
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
+#include "Systems/Collision.h"
+#include "Components/AABB.h"
 #include "Engine/Core.h"
 
 void AMap::Init() {
@@ -29,7 +31,11 @@ void AMap::InitAMap(std::map<EntityID, Entity*> entity_map) {
 		pos = transform->GetPosition();
 		pos += abs_min;
 
-		InsertEntityNodes(pos);
+		AABB* aabb = component_manager_->GetComponent<AABB>(it->first);
+		if (aabb && (aabb->GetLayer() == static_cast<size_t>(CollisionLayer::TILES)
+			|| aabb->GetLayer() == static_cast<size_t>(CollisionLayer::BACKGROUND) 
+			|| aabb->GetLayer() == static_cast<size_t>(CollisionLayer::UI_ELEMENTS)))
+			InsertEntityNodes(pos);
 	}
 }
 
@@ -123,7 +129,7 @@ AMap::AMapTypeY AMap::GetNodeMap()
 	return node_map_;
 }
 
-void AMap::Astar(Vector2D start, Vector2D des)
+void AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 {
 	// Reset nodes
 	for (int i = node_map_.size() - 1; i >= 0; --i) {
@@ -131,6 +137,7 @@ void AMap::Astar(Vector2D start, Vector2D des)
 			node_map_[i][j].start_ = false;
 			node_map_[i][j].des_ = false;
 			node_map_[i][j].visited_ = false;
+			node_map_[i][j].parent_ = nullptr;
 			node_map_[i][j].F = INFINITY;
 			node_map_[i][j].G = INFINITY;
 			node_map_[i][j].H = INFINITY;
@@ -143,8 +150,8 @@ void AMap::Astar(Vector2D start, Vector2D des)
 	abs_min.y = bottom_left_.y < 0 ? -bottom_left_.y : bottom_left_.y;
 		
 	// Set start and destination nodes
-	node* startnode = &node_map_[static_cast<int>((start + abs_min).y)][static_cast<int>((start + abs_min).x)];
-	node* desnode = &node_map_[static_cast<int>((des + abs_min).y)][static_cast<int>((des + abs_min).x)];;
+	node* startnode = &node_map_[static_cast<size_t>((start + abs_min).y)][static_cast<size_t>((start + abs_min).x)];
+	node* desnode = &node_map_[static_cast<size_t>((des + abs_min).y)][static_cast<size_t>((des + abs_min).x)];;
 	node* currentnode;
 	// Set for Drawing on map
 		startnode->start_ = true;
@@ -160,7 +167,7 @@ void AMap::Astar(Vector2D start, Vector2D des)
 	while (!openlist.empty())
 	{
 		// For all neighbouring nodes, find least cost F node
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < currentnode->neighbour_.size(); i++)
 		{
 			// set nnode to neighbour node
 			node* nnode = currentnode->neighbour_[i];
@@ -180,7 +187,7 @@ void AMap::Astar(Vector2D start, Vector2D des)
 		// No available nodes
 		if (closedlist.empty())
 		{
-			currentnode = &node_map_[currentnode->parent_->nodepos_.y][currentnode->parent_->nodepos_.x];
+			currentnode = &node_map_[static_cast<size_t>(currentnode->parent_->nodepos_.y)][static_cast<size_t>(currentnode->parent_->nodepos_.x)];
 			openlist.pop_back();
 			continue;
 		}
@@ -189,27 +196,24 @@ void AMap::Astar(Vector2D start, Vector2D des)
 		if (closedlist.front().G == 0)
 			closedlist.pop_front();
 
-		node_map_[closedlist.front().nodepos_.y][closedlist.front().nodepos_.x].parent_ = currentnode;
-		currentnode = &node_map_[closedlist.front().nodepos_.y][closedlist.front().nodepos_.x];
-		currentnode->visited_ = true;
+		node_map_[static_cast<size_t>(closedlist.front().nodepos_.y)][static_cast<size_t>(closedlist.front().nodepos_.x)].parent_ = currentnode;
+		currentnode = &node_map_[static_cast<size_t>(closedlist.front().nodepos_.y)][static_cast<size_t>(closedlist.front().nodepos_.x)];
+		//currentnode->visited_ = true;
 		openlist.push_back(*currentnode);
 		
 		// If destination hs reached
 		if (currentnode->nodepos_.x == desnode->nodepos_.x &&
 			currentnode->nodepos_.y == desnode->nodepos_.y)
 			break;
-		node_map_[currentnode->nodepos_.y][currentnode->nodepos_.x].visited_ = true;
+		node_map_[static_cast<size_t>(currentnode->nodepos_.y)][static_cast<size_t>(currentnode->nodepos_.x)].visited_ = true;
 		
 		// clear list
 		closedlist.clear();
 	}
-	int i = 0;
 	while (!openlist.empty())
 	{
-		i++;
-		std::cout << "Node no." << i << " X: " << openlist.front().nodepos_.x << ",Y: " << openlist.front().nodepos_.y
-			<< std::endl;
-		openlist.pop_front();
+		path.push_back(openlist.back().nodepos_-abs_min);
+		openlist.pop_back();
 	}
 }
 
@@ -221,10 +225,10 @@ void AMap::DrawMap()
 			std::cout << "|";
 			if(node_map_[i][j].start_)
 				std::cout << "S";
+			//else if (node_map_[i][j].des_)
+			//	std::cout << "D";
 			else if (node_map_[i][j].visited_)
-				std::cout << "V";
-			else if(node_map_[i][j].des_)
-				std::cout << "D";
+				std::cout << ".";
 			else if (node_map_[i][j].obstacle_)
 				std::cout << "X";
 			else

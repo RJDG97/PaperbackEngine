@@ -21,7 +21,7 @@ namespace StagBeetle
 		directional /= Vector2DLength(directional);
 
 		//multiply by speed
-		directional *= (obj->second->GetSpeed()*2);
+		directional *= (obj->second->GetSpeed());
 
 		// Move AI
 		GeneralScripts::forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);

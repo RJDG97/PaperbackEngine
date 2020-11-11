@@ -2,6 +2,7 @@
 #include "Engine/Core.h"
 #include "Systems/Collision.h"
 #include "Systems/Debug.h"
+#include "Manager/ComponentManager.h"
 #include <iostream>
 
 AABB::AABB() : top_right_{},
@@ -12,11 +13,14 @@ AABB::AABB() : top_right_{},
 AABB::~AABB() {
 
 	CORE->GetSystem<Collision>()->RemoveAABBComponent(Component::GetOwner()->GetID());
+
+	CORE->GetManager<ComponentManager>()->RemoveComponent<AABB>(Component::GetOwner()->GetID());
 }
 
 void AABB::Init() {
 
 	CORE->GetSystem<Collision>()->AddAABBComponent(Component::GetOwner()->GetID(), this);
+	CORE->GetManager<ComponentManager>()->AddComponent(Component::GetOwner()->GetID(), this);
 }
 
 void AABB::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
@@ -68,4 +72,9 @@ Vector2D AABB::GetAABBScale(){
 void AABB::SetAABBScale(Vector2D newscale){
 
 	scale_ = newscale;
+}
+
+size_t AABB::GetLayer() {
+
+	return layer_;
 }
