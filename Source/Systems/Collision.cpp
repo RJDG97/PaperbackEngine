@@ -251,11 +251,15 @@ void Collision::CheckClickableCollision() {
 
 	for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
 
-		if (CheckCursorCollision(cursor_pos, clickable->second)) {
+		// Only if clickable is set to active
+		if (clickable->second->active_) {
 
-			Message_Button msg{ clickable->second->index_ };
-			CORE->BroadcastMessage(&msg);
-			return;
+			if (CheckCursorCollision(cursor_pos, clickable->second)) {
+
+				Message_Button msg{ clickable->second->index_ };
+				CORE->BroadcastMessage(&msg);
+				return;
+			}
 		}
 	}
 }
@@ -510,6 +514,14 @@ bool Collision::BurrowReady() {
 	}
 
 	return false;
+}
+
+void Collision::ToggleClickables() {
+
+	for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
+
+		clickable->second->active_ = !clickable->second->active_;
+	}
 }
 
 /***************************************************************************/

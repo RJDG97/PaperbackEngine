@@ -64,6 +64,9 @@ std::string EntityFactory::GetLevelPath(const std::string& name) {
 	else if (name == "Editor") {
 		return levels_.editor_.path_;
 	}
+	else if (name == "Pause") {
+		return levels_.pause_.path_;
+	}
 
 	return {};
 }
@@ -84,6 +87,9 @@ Level* EntityFactory::GetLevel(const std::string& name) {
 	}
 	else if (name == "Editor") {
 		return &levels_.editor_;
+	}
+	else if (name == "Pause") {
+		return &levels_.pause_;
 	}
 	return nullptr;
 }
@@ -286,7 +292,9 @@ void EntityFactory::CloneLevelEntities(const std::string& filename, const std::s
 void EntityFactory::LoadLevel(const std::string& level_name) {
 
 	std::string filename = GetLevelPath(level_name);
-	levels_.current_state_ = GetLevel(level_name);
+
+	if (level_name != "Pause")
+		levels_.current_state_ = GetLevel(level_name);
 
 	DeSerializeLevelEntities(filename);
 }

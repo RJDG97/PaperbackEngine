@@ -13,6 +13,7 @@
 #include "Systems/Message.h"
 #include "Systems/LightingSystem.h"
 #include "Components/Scale.h"
+#include "Components/Clickable.h"
 #include "Components/Transform.h"
 #include <glm/gtc/type_ptr.hpp>
 
@@ -580,8 +581,24 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
+// temporary function for checking
+bool HasClickableAndActive(ComponentManager& mgr, EntityID id) {
+    
+    Clickable* clickable = mgr.GetComponent<Clickable>(id);
+
+    if (clickable) {
+        
+        return (clickable->GetActive()) ? true : false;
+    }
+    //no clickable but active for rendering
+    return true;
+}
+
 void GraphicsSystem::BatchWorldObject(IRenderer* i_worldobj_renderer) {
     
+    if (!HasClickableAndActive(*component_manager_, i_worldobj_renderer->GetOwner()->GetID()))
+        return;
+
     Vector2D scale =
         component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID())->GetScale();
     Transform* transform =

@@ -66,7 +66,9 @@ public:
 
 	using CollisionMapIt = CollisionMapType::iterator;
 	using CollisionMapReverseIt = CollisionMapType::reverse_iterator;
+
 private:
+
 	//For debug drawing
 	bool debug_;
 	Model* model_;
@@ -74,24 +76,20 @@ private:
 	glm::mat3* world_to_ndc_xform_;
 	float* cam_zoom_;
 
+	// Component arrays
 	AABBType aabb_arr_;
-
 	ClickableType* clickable_arr_;
-
 	MotionType* motion_arr_;
-
 	StatusMapType* status_arr_;
-
 	TransformType* transform_arr_;
-
 	ScaleType* scale_arr_;
-
 	InputControllerType* input_controller_arr_;
 
+	// Collision maps
 	std::unordered_map<CollisionLayer, CollidableLayers> collision_layer_arr_;
-
 	std::map<CollisionLayer, AABBType> collision_map_;
 
+	// System pointers
 	PartitioningSystem* partitioning_;
 	EntityManager* entity_mgr_;
 	ComponentManager* component_mgr_;
@@ -334,6 +332,15 @@ public:
 */
 /******************************************************************************/
 	void ProcessPartitionedEntities(size_t y, size_t x, float frametime);
+
+/******************************************************************************/
+/*!
+  \fn ToggleClickables()
+
+  \brief Helper function to set UI elements to be clickable
+*/
+/******************************************************************************/
+	void ToggleClickables();
 
 /******************************************************************************/
 /*!

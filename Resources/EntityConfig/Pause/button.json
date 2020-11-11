@@ -1,0 +1,83 @@
+{
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.3 1.1",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "1",
+      "active": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "120.0 40.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuStart",
+      "layer": "2",
+      "ui": "0"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.3 -0.6",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "2",
+      "active": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "120.0 40.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuSettings",
+      "layer": "2",
+      "ui": "0"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.3 -2.4",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "3",
+      "active": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "120.0 40.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuQuit",
+      "layer": "2",
+      "ui": "0"
+    }
+  ]
+}
