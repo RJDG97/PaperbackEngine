@@ -207,14 +207,25 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
-    \fn DrawText(Shader* shader, Model* model,
-                 TextRenderer* text_renderer, glm::vec2 cam_pos)
+    \fn DrawTextObject(Shader* shader, Model* model,
+                       TextRenderer* text_renderer, glm::vec2 cam_pos)
 
-    \brief Draw text that have a TextRenderer component
+    \brief Draw objects that have a TextRenderer component
 */
 /******************************************************************************/
     void DrawTextObject(Shader* shader, Model* model,
                         TextRenderer* text_renderer, glm::vec2 cam_pos);
+
+/******************************************************************************/
+/*!
+    \fn DrawUIObject(Shader* shader, Model* model,
+                     IWorldObjectRenderer* i_worldobj_renderer)
+
+    \brief Draw UI objects that have a IWorldObjectRenderer component CHANGE THIS OMG
+*/
+/******************************************************************************/
+    void DrawUIObject(Shader* shader, Model* model,
+                      IWorldObjectRenderer* i_worldobj_renderer);
 
 /******************************************************************************/
 /*!
