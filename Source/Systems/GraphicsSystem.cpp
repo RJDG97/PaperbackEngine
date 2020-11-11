@@ -158,7 +158,7 @@ void GraphicsSystem::Draw() {
     GLuint vbo_hdl = graphic_models_["BatchModel"]->vboid_;
 
     //draws all the world textures/animations
-    for (WorldRenderOrderIt it = worldobj_renderers_in_order_.begin();
+    for (IRenderOrderIt it = worldobj_renderers_in_order_.begin();
          it != worldobj_renderers_in_order_.end() ; ) {
 
         if (debug_) {
@@ -209,7 +209,7 @@ void GraphicsSystem::Draw() {
     graphic_shaders_["UIShader"]->Use();
     glBindVertexArray(graphic_models_["UIModel"]->vaoid_);
 
-    for (WorldRenderOrderIt it = uirenderers_in_order_.begin();
+    for (IRenderOrderIt it = uirenderers_in_order_.begin();
         it != uirenderers_in_order_.end(); ++it) {
 
         if (debug_) {
@@ -322,14 +322,14 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
         case MessageIDTypes::FLIP_SPRITE_X: {
 
-            FlipTextureX(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
+            FlipTextureX(dynamic_cast<IRenderer*>(player_renderer->second));
             camera_system_->TempCameraZoom(0.9f);
             break;
         }
 
         case MessageIDTypes::FLIP_SPRITE_Y: {
 
-            FlipTextureY(dynamic_cast<IWorldObjectRenderer*>(player_renderer->second));
+            FlipTextureY(dynamic_cast<IRenderer*>(player_renderer->second));
             camera_system_->TempCameraZoom(1.1f);
             break;
         }
@@ -447,7 +447,7 @@ void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
 
     if (it->ui_)
     {
-        WorldRenderOrderIt orderit = uirenderers_in_order_.find(layer);
+        IRenderOrderIt orderit = uirenderers_in_order_.find(layer);
 
         if (orderit != uirenderers_in_order_.end()) {
 
@@ -464,7 +464,7 @@ void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
 
     else
     {
-        WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
+        IRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
 
         if (orderit != worldobj_renderers_in_order_.end()) {
 
@@ -521,7 +521,7 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
 
     if (it->ui_)
     {
-        WorldRenderOrderIt orderit = uirenderers_in_order_.find(layer);
+        IRenderOrderIt orderit = uirenderers_in_order_.find(layer);
 
         if (orderit != uirenderers_in_order_.end()) {
 
@@ -538,7 +538,7 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
 
     else
     {
-        WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
+        IRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
 
         if (orderit != worldobj_renderers_in_order_.end()) {
 
@@ -580,7 +580,7 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
-void GraphicsSystem::BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer) {
+void GraphicsSystem::BatchWorldObject(IRenderer* i_worldobj_renderer) {
     
     Vector2D scale =
         component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID())->GetScale();
@@ -733,7 +733,7 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
     }
 }
 
-void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IWorldObjectRenderer* i_worldobj_renderer)
+void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_worldobj_renderer)
 {
     shader->SetUniform("uTex2d", 0);
     shader->SetUniform("projection", projection);
@@ -741,16 +741,14 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IWorldObjectRend
     Transform* xform = component_manager_->GetComponent<Transform>(i_worldobj_renderer->GetOwner()->GetID());
     Scale* scale = component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID());
 
-    glm::vec2 translation{ camera_system_->cam_pos_ * camera_system_->cam_zoom_ + 0.5f * win_size_ };
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_ +
-                            Vector2D{ translation.x, translation.y };
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_;
     Vector2D obj_scale = scale->scale_ * camera_system_->cam_zoom_;
 
     std::vector<glm::vec2> vertices;
-    vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y + obj_scale.y });
-    vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y + obj_scale.y });
     vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
     vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y - obj_scale.y });
+    vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y + obj_scale.y });
+    vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y + obj_scale.y });
     
     for (int i = 0; i < 4; ++i)
     {
@@ -765,25 +763,25 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IWorldObjectRend
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 }
 
-void GraphicsSystem::FlipTextureX(IWorldObjectRenderer* i_worldobj_renderer) {
+void GraphicsSystem::FlipTextureX(IRenderer* i_renderer) {
 
-    i_worldobj_renderer->x_mirror_ = !i_worldobj_renderer->x_mirror_;
+    i_renderer->x_mirror_ = !i_renderer->x_mirror_;
 
-    std::swap(i_worldobj_renderer->tex_vtx_[0], i_worldobj_renderer->tex_vtx_[2]);
-    std::swap(i_worldobj_renderer->tex_vtx_[1], i_worldobj_renderer->tex_vtx_[3]);
+    std::swap(i_renderer->tex_vtx_[0], i_renderer->tex_vtx_[2]);
+    std::swap(i_renderer->tex_vtx_[1], i_renderer->tex_vtx_[3]);
 }
 
-void GraphicsSystem::FlipTextureY(IWorldObjectRenderer* i_worldobj_renderer) {
+void GraphicsSystem::FlipTextureY(IRenderer* i_renderer) {
 
-    i_worldobj_renderer->y_mirror_ = !i_worldobj_renderer->y_mirror_;
+    i_renderer->y_mirror_ = !i_renderer->y_mirror_;
 
-    std::swap(i_worldobj_renderer->tex_vtx_[0], i_worldobj_renderer->tex_vtx_[1]);
-    std::swap(i_worldobj_renderer->tex_vtx_[2], i_worldobj_renderer->tex_vtx_[3]);
+    std::swap(i_renderer->tex_vtx_[0], i_renderer->tex_vtx_[1]);
+    std::swap(i_renderer->tex_vtx_[2], i_renderer->tex_vtx_[3]);
 }
 
-int GraphicsSystem::GetLayer(IWorldObjectRenderer* i_worldobj_renderer) {
+int GraphicsSystem::GetLayer(IRenderer* i_renderer) {
 
-    return i_worldobj_renderer->layer_;
+    return i_renderer->layer_;
 }
 
 int GraphicsSystem::GetLayer(TextRenderer* text_renderer)

@@ -526,12 +526,6 @@
     <ClInclude Include="Include\Components\InputController.h">
       <Filter>Entity\Components\InputController</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Components\IWorldObjectRenderer.h">
-      <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Components\IUIObjectRenderer.h">
-      <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Components\AI.h">
       <Filter>Entity\Components\AI</Filter>
     </ClInclude>
@@ -603,6 +597,9 @@
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\IRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

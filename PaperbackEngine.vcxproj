@@ -226,8 +226,7 @@
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\InputController.h" />
-    <ClInclude Include="Include\Components\IWorldObjectRenderer.h" />
-    <ClInclude Include="Include\Components\IUIObjectRenderer.h" />
+    <ClInclude Include="Include\Components\IRenderer.h" />
     <ClInclude Include="Include\Components\Motion.h" />
     <ClInclude Include="Include\Components\Name.h" />
     <ClInclude Include="Include\Components\PointLight.h" />

@@ -4,12 +4,12 @@
 #define _TEXTURERENDERER_H_
 
 #include <windows.h>
-#include "IWorldObjectRenderer.h"
+#include "Components/IRenderer.h"
 #include "Entity/Entity.h"
 #include "Manager/TextureManager.h"
 #include <glm/glm.hpp>
 
-class TextureRenderer : public IWorldObjectRenderer {
+class TextureRenderer : public IRenderer {
 
 	Texture texture_;
 

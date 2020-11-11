@@ -8,10 +8,10 @@
 #include "Manager/ModelManager.h"
 #include "Manager/FontManager.h"
 #include "Manager/ShaderManager.h"
-#include "Components/IWorldObjectRenderer.h"
+#include "Components/IRenderer.h"
 #include <glm/glm.hpp>
 
-class TextRenderer : public IWorldObjectRenderer {
+class TextRenderer : public IRenderer {
 
 	std::string font_name_;
 	Font* font_;
