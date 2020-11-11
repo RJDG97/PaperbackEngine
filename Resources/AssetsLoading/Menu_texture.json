@@ -1,5 +1,17 @@
-{
-	"Environment Tiles": "Resources/AssetsLoading/Texture/environment_tiles.json",
-	
-	"Temp Background": "Resources/AssetsLoading/Texture/temp_background.json"
+{ 
+  "Environment Tiles": "Resources/AssetsLoading/Texture/environment_tiles.json",
+  
+  "Temp Background": "Resources/AssetsLoading/Texture/temp_background.json",
+
+  "Menu Background": "Resources/AssetsLoading/Texture/menu_background.json",
+  
+  "Menu Start": "Resources/AssetsLoading/Texture/menu_start_button.json",
+  
+  "Menu Quit": "Resources/AssetsLoading/Texture/menu_quit_button.json",
+  
+  "Menu Settings": "Resources/AssetsLoading/Texture/menu_settings_button.json",
+  
+  "Menu TryAgain": "Resources/AssetsLoading/Texture/menu_tryagain_button.json",
+  
+  "Menu HowToPlay": "Resources/AssetsLoading/Texture/menu_howtoplay_button.json"
 }

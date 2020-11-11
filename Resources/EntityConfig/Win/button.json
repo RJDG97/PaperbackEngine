@@ -17,6 +17,12 @@
       "component": "AABB",
       "scale": "2.0 0.66",
       "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuTryAgain",
+      "layer": "2",
+      "ui": "0"
     }
   ],
   "button": [
@@ -37,6 +43,12 @@
       "component": "AABB",
       "scale": "2.0 0.66",
       "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuTryAgain",
+      "layer": "2",
+      "ui": "0"
     }
   ]
 }

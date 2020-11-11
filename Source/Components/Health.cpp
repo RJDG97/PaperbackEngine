@@ -15,7 +15,7 @@ Health::Health() {
 
 Health::~Health() {
 
-	CORE->GetManager<ComponentManager>()->RemoveComponent<Motion>(Component::GetOwner()->GetID());
+	CORE->GetManager<ComponentManager>()->RemoveComponent<Health>(Component::GetOwner()->GetID());
 }
 
 void Health::Init() {

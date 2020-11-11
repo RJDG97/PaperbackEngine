@@ -1,0 +1,10 @@
+{
+  "menu_assets/start_button.png": [
+  {
+	  "Tileset Name": "Menu_Start",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "MenuStart"
+    }
+  ]
+}

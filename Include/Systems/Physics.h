@@ -20,6 +20,15 @@ class Physics : public ISystem
 {
 public:
 
+	using MotionType = CMap<Motion>;
+	using MotionIt = MotionType::MapTypeIt;
+
+	using TransformType = CMap<Transform>;
+	using TransformIt = TransformType::MapTypeIt;
+	
+	using StatusMapType = CMap<Status>;
+	using StatusIt = StatusMapType::MapTypeIt;
+
 /******************************************************************************/
 /*!
   \fn ChangeVelocity()
@@ -32,57 +41,12 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn AddTransformComponent()
+  \fn TextureHandler()
 
-  \brief Adds a Transform component to the transform map
+  \brief Handles the change of textures depending on conditions
 */
 /******************************************************************************/
-	void AddTransformComponent(EntityID id, Transform* transform);
-
-/******************************************************************************/
-/*!
-  \fn RemoveTransformComponent()
-
-  \brief Removes a Transform component from the transform map
-*/
-/******************************************************************************/
-	void RemoveTransformComponent(EntityID id);
-
-/******************************************************************************/
-/*!
-  \fn AddMotionComponent()
-
-  \brief Adds a Motion component to the motion map
-*/
-/******************************************************************************/
-	void AddMotionComponent(EntityID id, Motion* motion);
-
-/******************************************************************************/
-/*!
-  \fn RemoveMotionComponent()
-
-  \brief Removes a Motion component from the motion map
-*/
-/******************************************************************************/
-	void RemoveMotionComponent(EntityID id);
-
-/******************************************************************************/
-/*!
-  \fn AddStatusComponent()
-
-  \brief Adds a Status component to the status map
-*/
-/******************************************************************************/
-	void AddStatusComponent(EntityID id, Status* status);
-
-/******************************************************************************/
-/*!
-  \fn RemoveStatusComponent()
-
-  \brief Removes a Status component from the status map
-*/
-/******************************************************************************/
-	void RemoveStatusComponent(EntityID id);
+	void TextureHandler(MotionIt motion);
 
 /******************************************************************************/
 /*!
@@ -133,26 +97,15 @@ public:
 private:
 
 	bool debug_;
+
+	// System and manager pointers
 	ForcesManager* force_mgr;
 	GraphicsSystem* graphics_sys_;
 	ComponentManager* component_mgr_;
-
-	//using TransformIt = std::unordered_map<EntityID, Transform*>::iterator;
-	//std::unordered_map<EntityID,Transform*> transform_arr_;
-	using TransformType = CMap<Transform>;
-	using TransformIt = TransformType::MapTypeIt;
+	
+	// Component map pointers
 	TransformType* transform_arr_;
-
-	//using MotionIt = std::unordered_map<EntityID, Motion*>::iterator;
-	//std::unordered_map<EntityID, Motion*> motion_arr_;
-	using MotionType = CMap<Motion>;
-	using MotionIt = MotionType::MapTypeIt;
 	MotionType* motion_arr_;
-
-	//using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
-	//std::unordered_map<EntityID, Status*> status_arr_;
-	using StatusMapType = CMap<Status>;
-	using StatusIt = StatusMapType::MapTypeIt;
 	StatusMapType* status_arr_;
 };
 

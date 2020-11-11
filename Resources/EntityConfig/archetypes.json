@@ -21,7 +21,8 @@
     {
       "component": "TextureRenderer",
       "texture": "Background",
-      "layer": "0"
+      "layer": "0",
+	  "ui": "0"
     }
    ],
    "UIText": [
@@ -42,7 +43,7 @@
       "color": "1.0 0.5 1.0",
       "scale": "1.0",
       "layer": "10",
-	  "ui text": "10"
+	  "ui": "1"
     }
    ],
   "WorldText": [
@@ -63,7 +64,7 @@
       "color": "1.0 0.5 1.0",
       "scale": "1.0",
       "layer": "10",
-      "ui text": "0"
+      "ui": "0"
     }
    ],
   "Player": [
@@ -98,7 +99,8 @@
       "set animation": "Player_Walk",
       "play_animation": "1",
       "has_finished_animating": "0",
-      "layer": "2"
+      "layer": "2",
+	  "ui": "0"
     },
     {
       "component": "AABB",
@@ -139,7 +141,8 @@
     {
       "component": "TextureRenderer",
       "texture": "Stone",
-      "layer": "2"
+      "layer": "2",
+	  "ui": "0"
     },
     {
       "component": "AABB",
@@ -177,7 +180,8 @@
     {
       "component": "TextureRenderer",
       "texture": "Rock",
-      "layer": "2"
+      "layer": "2",
+	  "ui": "0"
     },
     {
       "component": "AABB",
@@ -218,7 +222,8 @@
     {
       "component": "TextureRenderer",
       "texture": "Rock",
-      "layer": "2"
+      "layer": "2",
+	  "ui": "0"
     },
     {
       "component": "AABB",
@@ -249,7 +254,8 @@
     {
       "component": "TextureRenderer",
       "texture": "Rock",
-      "layer": "2"
+      "layer": "2",
+	  "ui": "0"
     },
     {
       "component": "PointLight",
@@ -284,7 +290,8 @@
     {
       "component": "TextureRenderer",
       "texture": "Rock",
-      "layer": "2"
+      "layer": "2",
+	  "ui": "0"
     },
     {
       "component": "AABB",
@@ -333,7 +340,8 @@
     {
       "component": "TextureRenderer",
       "texture": "Stone",
-      "layer": "1"
+      "layer": "1",
+	  "ui": "0"
     },
     {
       "component": "PointLight",
@@ -351,6 +359,32 @@
       "mass": "8.0",
       "velocity": "0.0 0.0",
       "acceleration": "0.0 0.0"
+    }
+  ],
+  "MenuBG": [
+    {
+      "component": "Name",
+      "name": "MenuBG"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "800.0 460.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "27.33 13.33",
+      "layer": "0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuBackground",
+      "layer": "0",
+      "ui": "0"
     }
   ]
 }

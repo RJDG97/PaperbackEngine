@@ -8,18 +8,16 @@
 #include "Manager/ModelManager.h"
 #include "Manager/FontManager.h"
 #include "Manager/ShaderManager.h"
+#include "Components/IRenderer.h"
 #include <glm/glm.hpp>
 
-class TextRenderer : public Component {
+class TextRenderer : public IRenderer {
 
 	std::string font_name_;
 	Font* font_;
 	std::string text_;
 	glm::vec3 color_;
 	float scale_;
-
-	int layer_;
-	bool ui_text_; //true if text is part of UI, false if it is part of world
 
 public:
 

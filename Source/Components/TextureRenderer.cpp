@@ -38,12 +38,15 @@ void TextureRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
     writer->Key("layer");
     writer->String(std::to_string(layer_).c_str());
 
+    writer->Key("ui");
+    writer->String(std::to_string(ui_).c_str());
+
     writer->EndObject();
 }
 
 void TextureRenderer::DeSerialize(std::stringstream& data) {
     
-    data >> texture_name_ >> layer_;
+    data >> texture_name_ >> layer_ >> ui_;
 }
 
 void TextureRenderer::DeSerializeClone(std::stringstream& data) {
@@ -62,6 +65,7 @@ std::shared_ptr<Component> TextureRenderer::Clone() {
     // TextureRenderer
     cloned->texture_name_ = texture_name_;
     cloned->texture_ = texture_;
+    cloned->ui_ = ui_;
 
     return cloned;
 }

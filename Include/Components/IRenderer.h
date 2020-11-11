@@ -7,7 +7,7 @@
 #include "Manager/ModelManager.h"
 #include "Manager/ShaderManager.h"
 
-class IWorldObjectRenderer : public Component {
+class IRenderer : public Component {
 
 protected:
 
@@ -17,7 +17,9 @@ protected:
 	std::string texture_name_;
 	GLuint* texture_handle_;
 	std::vector<glm::vec2> tex_vtx_;
+	
 	int layer_;
+	bool ui_; //if object is on UI or in the world
 
 public:
 

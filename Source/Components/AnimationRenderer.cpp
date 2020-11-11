@@ -58,6 +58,9 @@ void AnimationRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffe
     writer->Key("layer");
     writer->String((std::to_string(layer_).c_str()));
 
+    writer->Key("ui");
+    writer->String(std::to_string(ui_).c_str());
+
     writer->EndObject();
 }
 
@@ -79,7 +82,7 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     data >> current_animation_name_;
 
-    data >> play_animation_ >> has_finished_animating_ >> layer_;
+    data >> play_animation_ >> has_finished_animating_ >> layer_ >> ui_;
 }
 
 void AnimationRenderer::DeSerializeClone(std::stringstream& data)
@@ -102,6 +105,7 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
 	cloned->current_animation_ = current_animation_;
 	cloned->play_animation_ = play_animation_;
     cloned->has_finished_animating_ = has_finished_animating_;
+    cloned->ui_ = ui_;
 
 	return cloned;
 }

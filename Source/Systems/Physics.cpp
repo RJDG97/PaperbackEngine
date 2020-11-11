@@ -65,37 +65,8 @@ void Physics::Update(float frametime) {
 		// If velocity is close to 0, reset to 0	
 		SnapZero(motion->second->velocity_);
 
-		//if velocity x is 0 and status is NONE, swap to idle
-		Status* status = status_arr_->GetComponent(motion->first);
-		
-		AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(motion->first);
-
-		if (renderer) {
-
-			if (status && (status->status_ != StatusType::BURROW && status->status_ != StatusType::INVISIBLE)) {
-
-				if (VerifyZeroFloat(motion->second->velocity_.x)) {
-
-					//to verify is name is correct
-					graphics_sys_->ChangeAnimation(renderer, "Player_Idle");
-				}
-				else {
-					
-					graphics_sys_->ChangeAnimation(renderer, "Player_Walk");
-				}
-			}
-		
-			if (motion->second->velocity_.x > 0 && motion->second->is_left_) {
-
-				graphics_sys_->FlipTextureY(renderer);
-				motion->second->is_left_ = false;
-			}
-			else if (motion->second->velocity_.x < 0 && !motion->second->is_left_) {
-
-				graphics_sys_->FlipTextureY(renderer);
-				motion->second->is_left_ = true;
-			}
-		}
+		// Handles the updating of textures for player and enemy sprites
+		TextureHandler(motion);
 
 		// Check whether the entity owns a transform component by checking entity ID
 		//TransformIt xform = transform_arr_.find(motion->first);
@@ -121,7 +92,63 @@ void Physics::Update(float frametime) {
 			}
 		}
 	}
-	//if (debug_) { debug_ = !debug_; }
+}
+
+void Physics::TextureHandler(MotionIt motion) {
+
+	// If velocity x is 0 and status is NONE, swap to idle
+	AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(motion->first);
+
+	if (renderer) {
+
+		Status* status = status_arr_->GetComponent(motion->first);
+
+		if (status && (status->status_ != StatusType::BURROW && status->status_ != StatusType::INVISIBLE)) {
+
+			Name* name = component_mgr_->GetComponent<Name>(motion->first);
+
+			if (name) {
+
+				if (VerifyZeroFloat(motion->second->velocity_.x)) {
+
+					//to verify is name is correct
+					if (name->GetName() == "Player") {
+
+						graphics_sys_->ChangeAnimation(renderer, "Player_Idle");
+					}
+					else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "AITest") {
+
+						// Renzo probably needs to add an extra check here to disable this setting if AI detects player
+						graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Idle");
+					}
+				}
+				else {
+
+					if (name->GetName() == "Player") {
+
+						graphics_sys_->ChangeAnimation(renderer, "Player_Walk");
+
+					}
+					else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "AITest") {
+
+						// Renzo probably needs to add an extra check here to disable this setting if AI detects player
+						graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Walk");
+					}
+				}
+			}
+		}
+	
+		if (motion->second->velocity_.x > 0 && motion->second->is_left_) {
+
+			graphics_sys_->FlipTextureY(renderer);
+			motion->second->is_left_ = false;
+		}
+		else if (motion->second->velocity_.x < 0 && !motion->second->is_left_) {
+
+			graphics_sys_->FlipTextureY(renderer);
+			motion->second->is_left_ = true;
+		}
+	}
 }
 
 void Physics::ChangeVelocity(Message* m) {

@@ -287,7 +287,7 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 	Transform* transform1 = transform_arr_->GetComponent(aabb1->second->GetOwner()->GetID());
 	Transform* transform2 = transform_arr_->GetComponent(aabb2->second->GetOwner()->GetID());
 
-	// Get "fake normal" to colliding side
+	// Get "normal" to colliding side
 	Vector2D normal = Normal(aabb1->second->scale_, aabb2->second->scale_, transform1, transform2);
 
 	// Isolate relavent vector value based on normal value
@@ -480,16 +480,13 @@ bool Collision::BurrowReady() {
 	Entity* player_entity = entity_mgr_->GetPlayerEntities().back();
 	Vector2D player_pos = transform_arr_->GetComponent(player_entity->GetID())->GetPosition();
 	Vector2D grid_scale = partitioning_->ConvertTransformToGridScale(player_pos);
-
-	std::vector<AABBIt> partition{};
-	partitioning_->GetPartitionedEntities(partition, grid_scale.x, grid_scale.y);
 	
-	if (partition.empty() || partition.size() < 2)
-		return false;
-
 	CollisionMapType col_map{};
 
-	SortVectorToCollisionMap(partition, col_map);
+	GetPartitionedCollisionMap(grid_scale.x, grid_scale.y, col_map);
+
+	if (col_map.empty() || col_map.size() < 2)
+		return false;
 
 	//only check player vs burrow
 	//player layer == 3
@@ -561,9 +558,8 @@ void Collision::Init() {
 	/*
 		Parameter 1: Collision layer 3
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER)
-*/
+	*/
 	AddCollisionLayers(CollisionLayer::PLAYER, "00001110");
-	
 	/*
 		Parameter 1: Collision layer 4
 		Parameter 2: Collidable with Layer 3 (PLAYER)
@@ -579,8 +575,11 @@ void Collision::Init() {
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }
 
-void Collision::SortVectorToCollisionMap(std::vector<AABBIt>& vec, CollisionMapType& col_map) {
-
+void Collision::GetPartitionedCollisionMap(size_t x, size_t y, CollisionMapType& col_map) {
+	
+	std::vector<AABBIt> vec{};
+	partitioning_->GetPartitionedEntities(vec, x, y);
+	
 	for (std::vector<AABBIt>::iterator it = vec.begin(); it != vec.end(); ++it) {
 
 		CollisionLayer map_layer = static_cast<CollisionLayer>((*it)->second->GetLayer());
@@ -591,15 +590,12 @@ void Collision::SortVectorToCollisionMap(std::vector<AABBIt>& vec, CollisionMapT
 
 void Collision::ProcessPartitionedEntities(size_t y, size_t x, float frametime) {										//test fn
 
-	std::vector<AABBIt> aabbs{};
-	partitioning_->GetPartitionedEntities(aabbs, x, y);
-
-	if (aabbs.empty())
-		return;
-
 	CollisionMapType col_map{};
 
-	SortVectorToCollisionMap(aabbs, col_map);
+	GetPartitionedCollisionMap(x, y, col_map);
+
+	if (col_map.empty())
+		return;
 
 	for (CollisionMapIt layer1 = col_map.begin(); layer1 != col_map.end(); ++layer1) {
 		for (CollisionMapIt layer2 = col_map.begin(); layer2 != col_map.end(); ++layer2) {

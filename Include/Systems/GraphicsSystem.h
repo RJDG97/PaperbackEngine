@@ -188,13 +188,13 @@ void RemoveTextRendererComponent(EntityID id);
     
 /******************************************************************************/
 /*!
-    \fn BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer)
+    \fn BatchWorldObject(IRenderer* i_renderer)
 
     \brief Inserts data of objects, that have a component that inherits from
-           IObjectRenderer, into batch
+           IRenderer, into batch.
 */
 /******************************************************************************/
-    void BatchWorldObject(IWorldObjectRenderer* i_worldobj_renderer);
+    void BatchWorldObject(IRenderer* i_renderer);
 
 /******************************************************************************/
 /*!
@@ -219,40 +219,40 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
 /*!
     \fn DrawUIObject(Shader* shader, Model* model,
-                     IWorldObjectRenderer* i_worldobj_renderer)
+                     IRenderer* i_renderer)
 
     \brief Draw UI objects that have a IWorldObjectRenderer component CHANGE THIS OMG
 */
 /******************************************************************************/
     void DrawUIObject(Shader* shader, Model* model,
-                      IWorldObjectRenderer* i_worldobj_renderer);
+                      IRenderer* i_renderer);
 
 /******************************************************************************/
 /*!
-    \fn FlipTextureX(IWorldObjectRenderer* i_worldobj_renderer)
+    \fn FlipTextureX(IRenderer* i_renderer)
 
     \brief Flips the texture renderered in the x axis
 */
 /******************************************************************************/
-    void FlipTextureX(IWorldObjectRenderer* i_worldobj_renderer);
+    void FlipTextureX(IRenderer* i_worldobj_renderer);
 
 /******************************************************************************/
 /*!
-\fn FlipTextureY(IWorldObjectRenderer* i_worldobj_renderer)
+\fn FlipTextureY(IRenderer* i_renderer)
 
 \brief Flips the texture renderered in the y axis
 */
 /******************************************************************************/
-    void FlipTextureY(IWorldObjectRenderer* i_worldobj_renderer);
+    void FlipTextureY(IRenderer* i_renderer);
 
 /******************************************************************************/
 /*!
-\fn GetLayer(IWorldObjectRenderer* i_worldobj_renderer)
+\fn GetLayer(IRenderer* i_renderer)
 
 \brief Gets the layer that the texture will be renderered on
 */
 /******************************************************************************/
-    int GetLayer(IWorldObjectRenderer* i_worldobj_renderer);
+    int GetLayer(IRenderer* i_renderer);
 
 /******************************************************************************/
 /*!
@@ -353,11 +353,11 @@ void RemoveTextRendererComponent(EntityID id);
     using AnimRendererIt = AnimationRendererType::MapTypeIt;
     AnimationRendererType* anim_renderer_arr_;
 
-    using WorldRenderOrderIt = std::multimap<int, IWorldObjectRenderer*>::iterator;
+    using IRenderOrderIt = std::multimap<int, IRenderer*>::iterator;
     using TextRenderOrderIt = std::multimap<int, TextRenderer*>::iterator;
-    std::multimap<int, IWorldObjectRenderer*> worldobj_renderers_in_order_;
+    std::multimap<int, IRenderer*> worldobj_renderers_in_order_;
     std::multimap<int, TextRenderer*> worldtext_renderers_in_order_;
-    std::multimap<int, IWorldObjectRenderer*> uirenderers_in_order_;
+    std::multimap<int, IRenderer*> uirenderers_in_order_;
     std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
 
 };
