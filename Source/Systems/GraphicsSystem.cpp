@@ -343,13 +343,13 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
 void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_renderer)
 {
-    M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: "
+    M_DEBUG->WriteDebugMessage("Adding Text Renderer Component to entity: "
         + std::to_string(id) + "\n");
 
     //text_renderer_arr_[id] = text_renderer;
     text_renderer_arr_->AddComponent(id, text_renderer);
 
-    if (text_renderer->ui_text_)
+    if (text_renderer->ui_)
     {
         uitext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
     }
@@ -365,13 +365,11 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
     //TextRendererIt it = text_renderer_arr_.find(id);
     TextRenderer* it = text_renderer_arr_->GetComponent(id);
 
-    int layer;
-
     if (it) {
 
-        layer = it->layer_;
+        int layer = GetLayer(it);
     	
-        if (it->ui_text_)
+        if (it->ui_)
         {
             TextRenderOrderIt orderit = uitext_renderers_in_order_.find(layer);
 
@@ -406,7 +404,6 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
         }
 
         M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: " + std::to_string(id) + "\n");
-        layer = GetLayer(it);
         text_renderer_arr_->RemoveComponent(id);
     }
 }
@@ -415,9 +412,18 @@ void GraphicsSystem::AddTextureRendererComponent(EntityID id, TextureRenderer* t
 
     M_DEBUG->WriteDebugMessage("Adding Renderer Component to entity: " + std::to_string(id) + "\n");
 
-    //texture_renderer_arr_[id] = texture_renderer;
     texture_renderer_arr_->AddComponent(id, texture_renderer);
-    worldobj_renderers_in_order_.insert({GetLayer(texture_renderer), texture_renderer });
+    TextureRenderer* it = texture_renderer_arr_->GetComponent(id);
+
+    if (it->ui_)
+    {
+        uirenderers_in_order_.insert({ GetLayer(texture_renderer), texture_renderer });
+    }
+
+    else
+    {
+        worldobj_renderers_in_order_.insert({ GetLayer(texture_renderer), texture_renderer });
+    }
 }
 
 void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
@@ -426,28 +432,54 @@ void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
     TextureRenderer* it = texture_renderer_arr_->GetComponent(id);
     int layer;
 
-    if (it) {
+    if (!it) {
 
-        M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: "
+        M_DEBUG->WriteDebugMessage("Renderer Component from entity had already been removed: "
             + std::to_string(id) + "\n");
 
-        layer = GetLayer(it);
-        texture_renderer_arr_->RemoveComponent(id);
+        return;
     }
 
-    WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
+    M_DEBUG->WriteDebugMessage("Removing Renderer Component from entity: "
+        + std::to_string(id) + "\n");
 
-    if (orderit != worldobj_renderers_in_order_.end()) {
+    layer = GetLayer(it);
 
-        for ( ; orderit != worldobj_renderers_in_order_.end() && (*orderit).first == layer ; ++orderit) {
+    if (it->ui_)
+    {
+        WorldRenderOrderIt orderit = uirenderers_in_order_.find(layer);
 
-            if ((*orderit).second->GetOwner()->GetID() == id) {
+        if (orderit != uirenderers_in_order_.end()) {
 
-                orderit = worldobj_renderers_in_order_.erase(orderit);
-                break;
+            for (; orderit != uirenderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+                if ((*orderit).second->GetOwner()->GetID() == id) {
+
+                    orderit = uirenderers_in_order_.erase(orderit);
+                    break;
+                }
             }
         }
     }
+
+    else
+    {
+        WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
+
+        if (orderit != worldobj_renderers_in_order_.end()) {
+
+            for (; orderit != worldobj_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+                if ((*orderit).second->GetOwner()->GetID() == id) {
+
+                    orderit = worldobj_renderers_in_order_.erase(orderit);
+                    break;
+                }
+            }
+        }
+    }
+
+    texture_renderer_arr_->RemoveComponent(id);
 }
 
 void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRenderer* animation_renderer) {
@@ -456,7 +488,17 @@ void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRendere
         + std::to_string(id) + "\n");
 
     anim_renderer_arr_->AddComponent(id, animation_renderer);
-    worldobj_renderers_in_order_.insert({GetLayer(animation_renderer), animation_renderer});
+    AnimationRenderer* it = anim_renderer_arr_->GetComponent(id);
+
+    if (it->ui_)
+    {
+        uirenderers_in_order_.insert({ GetLayer(animation_renderer), animation_renderer });
+    }
+
+    else
+    {
+        worldobj_renderers_in_order_.insert({ GetLayer(animation_renderer), animation_renderer });
+    }
 }
 
 void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
@@ -464,28 +506,54 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
     AnimationRenderer* it = anim_renderer_arr_->GetComponent(id);
     int layer;
 
-    if (it) {
+    if (!it) {
 
-        M_DEBUG->WriteDebugMessage("Removing Animation Renderer Component from entity: "
+        M_DEBUG->WriteDebugMessage("Animation Renderer Component from entity had already been removed: "
             + std::to_string(id) + "\n");
 
-        layer = GetLayer(it);
-        anim_renderer_arr_->RemoveComponent(id);
+        return;
     }
 
-    WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
+    M_DEBUG->WriteDebugMessage("Removing Animation Renderer Component from entity: "
+        + std::to_string(id) + "\n");
 
-    if (orderit != worldobj_renderers_in_order_.end()) {
+    layer = GetLayer(it);
 
-        for (; orderit != worldobj_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+    if (it->ui_)
+    {
+        WorldRenderOrderIt orderit = uirenderers_in_order_.find(layer);
 
-            if ((*orderit).second->GetOwner()->GetID() == id) {
+        if (orderit != uirenderers_in_order_.end()) {
 
-                orderit = worldobj_renderers_in_order_.erase(orderit);
-                break;
+            for (; orderit != uirenderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+                if ((*orderit).second->GetOwner()->GetID() == id) {
+
+                    orderit = uirenderers_in_order_.erase(orderit);
+                    break;
+                }
             }
         }
     }
+
+    else
+    {
+        WorldRenderOrderIt orderit = worldobj_renderers_in_order_.find(layer);
+
+        if (orderit != worldobj_renderers_in_order_.end()) {
+
+            for (; orderit != worldobj_renderers_in_order_.end() && (*orderit).first == layer; ++orderit) {
+
+                if ((*orderit).second->GetOwner()->GetID() == id) {
+
+                    orderit = worldobj_renderers_in_order_.erase(orderit);
+                    break;
+                }
+            }
+        }
+    }
+
+    anim_renderer_arr_->RemoveComponent(id);
 }
 
 void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, float frametime) {
@@ -504,6 +572,7 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
                 anim_renderer->has_finished_animating_ = true;
                 anim_renderer->total_time_elapsed_ = 0.0f;
+                SetToFirstFrame(anim_renderer);
             }
 
             anim_renderer->time_elapsed_ = 0.0f;
@@ -617,7 +686,7 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
     Vector2D pos;
     float scale;
 
-    if (text_renderer->ui_text_)
+    if (text_renderer->ui_)
     {
         pos = obj_pos_;
         scale = text_renderer->scale_;
@@ -748,6 +817,15 @@ void GraphicsSystem::ChangeAnimation(AnimationRenderer* anim_renderer, std::stri
 
 void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
     
+    auto it = anim_renderer->obj_animations_.find(animation_name);
+
+    if (it == anim_renderer->obj_animations_.end())
+    {
+        M_DEBUG->WriteDebugMessage("Tried to set to non-existant animation for entity: "
+            + std::to_string(anim_renderer->GetOwner()->GetID()) + "\n");
+        return;
+    }
+
     anim_renderer->current_animation_ = &anim_renderer->obj_animations_[animation_name];
     anim_renderer->current_animation_name_ = animation_name;
     anim_renderer->time_elapsed_ = 0.0f;
@@ -773,7 +851,7 @@ void GraphicsSystem::SetToNextFrame(AnimationRenderer* anim_renderer) {
     for (int i = 0; i < anim_renderer->tex_vtx_.size(); ++i) {
 
         anim_renderer->tex_vtx_[i].x +=
-            anim_renderer->current_animation_->GetOffsetX() * ( 1 - 2 * anim_renderer->y_mirror_);
+            anim_renderer->current_animation_->GetOffsetX();
     }
 }
 

@@ -32,7 +32,7 @@ void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
     writer->String((font_name_).c_str());
 
     writer->Key("sentence length");
-    int a;
+    size_t a;
     writer->String(std::to_string(a = (std::count(text_.begin(), text_.end(), ' '))).c_str());
 
     writer->Key("text");
@@ -49,8 +49,8 @@ void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
     writer->Key("layer");
     writer->String(std::to_string(layer_).c_str());
 
-    writer->Key("ui text");
-    writer->String(std::to_string(ui_text_).c_str());
+    writer->Key("ui");
+    writer->String(std::to_string(ui_).c_str());
 
     writer->EndObject();
 }
@@ -74,7 +74,7 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
      data >> color_.x >> color_.y >> color_.z
           >> scale_
           >> layer_
-          >> ui_text_;
+          >> ui_;
 }
 
 
@@ -94,7 +94,7 @@ std::shared_ptr<Component> TextRenderer::Clone() {
     cloned->color_ = color_;
     cloned->scale_ = scale_;
     cloned->layer_ = layer_;
-    cloned->ui_text_ = ui_text_;
+    cloned->ui_ = ui_;
 
     return cloned;
 }
