@@ -13,7 +13,7 @@ void ArchetypeWindow::Init() {
 
 void ArchetypeWindow::Update() {
 	
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 	if (imgui_->b_archetypewin) {
 
 		ImGui::Begin("Archetypes", &imgui_->b_archetypewin);
