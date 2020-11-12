@@ -268,7 +268,7 @@
       "component": "TextureRenderer",
       "texture": "Rock",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     },
     {
       "component": "AABB",
@@ -396,7 +396,7 @@
       "component": "TextureRenderer",
       "texture": "MenuBackground",
       "layer": "0",
-      "ui": "0"
+      "ui": "1"
     },
     {
       "component": "PointLight",

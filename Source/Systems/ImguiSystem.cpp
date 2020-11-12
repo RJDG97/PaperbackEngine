@@ -169,7 +169,7 @@ void ImguiSystem::DockSpaceFlagSet() {
 void ImguiSystem::ImGuiCustomStyle() {
 
     ImVec4* colors = ImGui::GetStyle().Colors;
-
+    (void)colors;
    // colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.55f);
 }
 
