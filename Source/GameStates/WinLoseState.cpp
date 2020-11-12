@@ -5,6 +5,7 @@
 #include "Engine/Core.h"
 #include "Manager/AMap.h"
 #include "Systems/Partitioning.h"
+#include "Systems/ImguiSystem.h"
 
 WinLoseState m_WinLoseState;
 
@@ -33,6 +34,7 @@ void WinLoseState::Draw(Game* game) {
 
 void WinLoseState::Free() {
 
+	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
 }
 

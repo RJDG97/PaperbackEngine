@@ -3,11 +3,14 @@
 
 #include "GameStates/GameState.h"
 #include "Manager/EntityManager.h"
+#include "Manager/ComponentManager.h"
 #include "Components/Scale.h"
 
 // inherits the abstract class GameState
 class PlayState : public GameState
 {
+	ComponentManager* component_mgr_;
+	EntityManager* entity_mgr_;
 
 public:
 	friend class Game;
