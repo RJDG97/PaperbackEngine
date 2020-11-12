@@ -14,6 +14,8 @@ public:
 
 	void Init() override;
 	void Update() override;
+	void ManagePaths(Level* editor);
+	void AddPaths(Level* editor);
 
 private:
 
