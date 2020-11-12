@@ -11,7 +11,7 @@
     },
     {
       "component": "Scale",
-      "scale": "820.0 400.0"
+      "scale": "2000.0 2000.0"
     },
     {
       "component": "AABB",
