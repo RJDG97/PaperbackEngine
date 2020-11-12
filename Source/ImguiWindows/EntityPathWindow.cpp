@@ -14,6 +14,7 @@ void EntityPathWindow::Update() {
 		ImGui::Begin("Add Archetype to Scene", &imgui_->b_editpath);
 		Level* editor = factory_->GetLevel("Editor");
 		if (!editor->entity_paths_.empty()) {
+			ImGui::Text("Current Set Path(s): ");
 			for (Level::EntityPathsIt it = editor->entity_paths_.begin(); it != editor->entity_paths_.end(); ++it) {
 				++counter;
 				if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, it->first.c_str())) {
