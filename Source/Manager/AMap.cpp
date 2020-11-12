@@ -37,8 +37,6 @@ void AMap::InitAMap(std::map<EntityID, Entity*> entity_map) {
 			|| aabb->GetLayer() == static_cast<size_t>(CollisionLayer::UI_ELEMENTS)))
 			InsertEntityNodes(pos);
 	}
-
-	DrawMap();
 }
 
 // For use during run-time if there are necessary updates
@@ -148,10 +146,10 @@ void AMap::InsertEntityNodes(const Vector2D& pos) {
 
 	node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].obstacle_ = true;
 	// Set surrounding nodes as obstacles as well
-	/*for (int i = 0; i < node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_.size(); i++)
+	for (int i = 0; i < node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_.size(); i++)
 	{
 		node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_[i]->obstacle_ = true;
-	}*/
+	}
 
 }
 
@@ -241,6 +239,7 @@ void AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 		// clear list
 		closedlist.clear();
 	}
+	// Put open list path into the path
 	while (!openlist.empty())
 	{
 		path.push_back(openlist.back().nodepos_-abs_min);
@@ -256,8 +255,8 @@ void AMap::DrawMap()
 			std::cout << "|";
 			if(node_map_[i][j].start_)
 				std::cout << "S";
-			//else if (node_map_[i][j].des_)
-			//	std::cout << "D";
+			else if (node_map_[i][j].des_)
+				std::cout << "D";
 			else if (node_map_[i][j].visited_)
 				std::cout << ".";
 			else if (node_map_[i][j].obstacle_)
