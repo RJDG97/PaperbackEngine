@@ -99,7 +99,9 @@
     },
     {
       "component": "AnimationRenderer",
-      "number of animations": "2",
+      "number of animations": "4",
+      "add animation": "Player_Burrow_Walk",
+      "add animation": "Player_Burrow_Idle",
       "add animation": "Player_Idle",
 	    "add animation": "Player_Walk",
       "set animation": "Player_Walk",
@@ -267,7 +269,7 @@
     {
       "component": "AABB",
       "scale": "0.5 0.5",
-      "layer": "4"
+      "layer": "5"
     },
     {
       "component": "Clickable",
@@ -291,9 +293,9 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-	  "ui": "0"
+      "texture": "Hole",
+      "layer": "1",
+	    "ui": "0"
     },
     {
       "component": "AABB",

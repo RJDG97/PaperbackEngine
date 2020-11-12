@@ -54,6 +54,9 @@
   
   "WitheringTree One": "Resources/AssetsLoading/PropsTexture/props_witheringtree_one.json",
   
-  "WitheringTree Two": "Resources/AssetsLoading/PropsTexture/props_witheringtree_two.json"
+  "WitheringTree Two": "Resources/AssetsLoading/PropsTexture/props_witheringtree_two.json",
   
+  "Empty Pot": "Resources/AssetsLoading/PropsTexture/props_emptypot.json",
+  
+  "Hole": "Resources/AssetsLoading/PropsTexture/props_hole.json"
 }
