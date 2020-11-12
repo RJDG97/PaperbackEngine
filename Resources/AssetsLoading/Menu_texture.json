@@ -45,6 +45,8 @@
   
   "UI Win": "Resources/AssetsLoading/Texture/ui_win.json",
   
+  "WaterGauge Leaves": "Resources/AssetsLoading/Texture/watergauge_leaves.json",
+  
   "WaterGauge Droplet": "Resources/AssetsLoading/Texture/watergauge_droplet.json",
   
   "WaterGauge Shine": "Resources/AssetsLoading/Texture/watergauge_shine.json",

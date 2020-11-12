@@ -760,6 +760,12 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
         water_vertices.push_back(tex_vtx[i]);
     }
     
+    glNamedBufferSubData(model->GetVBOHandle(), 0,
+        sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
+    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeLeaves")->GetTilesetHandle());
+    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glDisable(GL_DEPTH_TEST);
+
     glEnable(GL_STENCIL_TEST);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
