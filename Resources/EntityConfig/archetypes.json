@@ -424,5 +424,31 @@
       "scale": "0.5 0.5",
       "layer": "1"
     }
+  ],
+  "Clouds": [
+    {
+      "component": "Name",
+      "name": "Clouds"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 5.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "800.0 150.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "27.33 4.33",
+      "layer": "0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuCloudOne",
+      "layer": "0",
+      "ui": "0"
+    }
   ]
 }

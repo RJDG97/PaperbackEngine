@@ -88,32 +88,40 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			if (m->button_index_ == 1) {
 
-				//true returned, trigger scene change
+				// Enter play state
 				game->ChangeState(&m_PlayState);
 				return;
 			}
 
 			if (m->button_index_ == 2) {
 
-				CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
-				game->ChangeState(&m_EditorState);
+				// "How to play"
 				return;
 			}
 
 			if (m->button_index_ == 3) {
 
-				CORE->SetGameActiveStatus(false);
+				// Editor mode
+				CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
+				game->ChangeState(&m_EditorState);
 				return;
 			}
 
 			if (m->button_index_ == 4) {
 
-				// Enter "Win" state
-				game->ChangeState(&m_WinLoseState, "Win"); // convert to settings
+				// Toggle off game
+				CORE->SetGameActiveStatus(false);
 				return;
 			}
 
 			if (m->button_index_ == 5) {
+
+				// Enter "Win" state
+				game->ChangeState(&m_WinLoseState, "Win"); // convert to quit game
+				return;
+			}
+
+			if (m->button_index_ == 6) {
 
 				// Enter "Lose" state
 				game->ChangeState(&m_WinLoseState, "Lose"); // convert to quit game

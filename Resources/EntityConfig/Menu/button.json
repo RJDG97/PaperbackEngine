@@ -7,11 +7,13 @@
     },
     {
       "component": "Clickable",
-      "index": "1"
+      "index": "1",
+      "active": "1",
+      "scale": "2.0 0.66"
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "150.0 50.0"
     },
     {
       "component": "AABB",
@@ -33,11 +35,41 @@
     },
     {
       "component": "Clickable",
-      "index": "2"
+      "index": "2",
+      "active": "1",
+      "scale": "2.0 0.66"
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "150.0 50.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuHowToPlay",
+      "layer": "2",
+      "ui": "0"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.3 -2.3",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "3",
+      "active": "1",
+      "scale": "2.5 0.66"
+    },
+    {
+      "component": "Scale",
+      "scale": "150.0 50.0"
     },
     {
       "component": "AABB",
@@ -54,16 +86,18 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 -2.4",
+      "position": "0.3 -4.0",
       "rotation": "0.0"
     },
     {
       "component": "Clickable",
-      "index": "3"
+      "index": "4",
+      "active": "1",
+      "scale": "2.0 0.66"
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "150.0 50.0"
     },
     {
       "component": "AABB",
@@ -85,7 +119,7 @@
     },
     {
       "component": "Clickable",
-      "index": "4"
+      "index": "5"
     },
     {
       "component": "Scale",
@@ -105,7 +139,7 @@
     },
     {
       "component": "Clickable",
-      "index": "5"
+      "index": "6"
     },
     {
       "component": "Scale",

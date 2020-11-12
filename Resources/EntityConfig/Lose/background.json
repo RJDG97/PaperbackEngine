@@ -7,7 +7,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "LoseBackground",
+      "texture": "MenuDefeat",
       "layer": "0",
       "ui": "0"
     }

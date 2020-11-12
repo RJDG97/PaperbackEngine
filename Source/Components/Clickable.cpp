@@ -67,7 +67,7 @@ void Clickable::DeSerialize(std::stringstream& data) {
 
 void Clickable::DeSerializeClone(std::stringstream& data) {
 	
-	data >> index_ >> active_;
+	data >> index_ >> active_ >> scale_.x >> scale_.y;
 }
 
 std::shared_ptr<Component> Clickable::Clone() {

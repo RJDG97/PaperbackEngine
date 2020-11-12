@@ -52,15 +52,11 @@ void WinLoseState::StateInputHandler(Message* msg, Game* game) {
 
 			if (m->button_index_ == 1) {
 
-				game->ChangeState(&m_PlayState);
+				game->ChangeState(&m_MenuState);
 				return;
 			}
 			if (m->button_index_ == 2) {
-				// "How to play"
-				return;
-			}
-			if (m->button_index_ == 3) {
-				
+				// "How to play" but currently return to menu
 				game->ChangeState(&m_MenuState);
 				return;
 			}
