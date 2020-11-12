@@ -62,6 +62,9 @@ void AMap::AMapInitialization(std::map<EntityID, Entity*> entity_map) {
 	Vector2D position{};
 	Vector2D size{};
 
+	top_right_ = {};
+	bottom_left_ = {};
+
 	// Iterates through all entities to determine the bottom left and top right coords
 	for (EntityManager::EntityIdMapTypeIt it = entity_map.begin(); it != entity_map.end(); ++it) {
 
@@ -87,8 +90,18 @@ void AMap::AMapInitialization(std::map<EntityID, Entity*> entity_map) {
 	SetNodeNeighbours();
 }
 
+void AMap::ClearMap() {
+
+	for (int i = 0; i < node_map_.size(); ++i) {
+		node_map_.clear();
+	}
+	node_map_.clear();
+}
+
 // Resizes the 2D vector of Nodes
 void AMap::SetAMapSize(Vector2D& size) {
+
+	ClearMap();
 
 	node_map_.resize(static_cast<size_t>(size.y));
 

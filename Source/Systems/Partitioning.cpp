@@ -145,6 +145,18 @@ void PartitioningSystem::GetPartitionedEntities(std::vector<AABBMapIt>& vec, siz
 	}
 }
 
+bool PartitioningSystem::VerifyPartition(size_t x, size_t y) {
+	
+	if ((x >= x_.size() || y >= y_.size()) || (x < 0 || y < 0)) {
+
+		return false;
+	}
+
+	Bitset entities_within = x_[x] & y_[y];
+
+	return (entities_within.count() > 1);
+}
+
 std::pair<size_t, size_t> PartitioningSystem::GetAxisSizes() {
 	x_ = x_;
 	return { x_.size(), y_.size() };

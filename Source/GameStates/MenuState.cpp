@@ -11,6 +11,7 @@
 #include "Systems/ImGuiSystem.h"
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
+#include "Manager/AMap.h"
 
 #include "Engine/Core.h" //FOR TESTING
 
@@ -42,8 +43,12 @@ void MenuState::Init(std::string)
 
 	MessageBGM_Play msg{ "MenuDefault" };
 	CORE->BroadcastMessage(&msg);
+
+	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
+	CORE->GetSystem<PartitioningSystem>()->InitPartition();
+
 	//Temporary
-	CORE->GetSystem<CameraSystem>()->CameraSetPosition({0, 0});
+	CORE->GetSystem<CameraSystem>()->CameraSetPosition({ 0, 0 });
 	CORE->GetSystem<CameraSystem>()->CameraUnTarget();
 }
 

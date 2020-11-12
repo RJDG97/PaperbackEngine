@@ -132,16 +132,16 @@ void Game::SendMessageD(Message* m) {
 	//assume all messages of concern to game are only input message
 	switch (m->message_id_) {
 
+	case MessageIDTypes::DEBUG_ALL: 
+	{
+
+		debug_ = !debug_;
+		states_.back()->StateInputHandler(m, this);
+		break;
+	}
 	case MessageIDTypes::M_BUTTON_PRESS:
 	case MessageIDTypes::M_BUTTON_TRIGGERED:
 	{
-		Message_Input* msg = dynamic_cast<Message_Input*>(m);
-
-		if (msg && msg->input_ == GLFW_KEY_B) {
-
-			debug_ = !debug_;
-			break;
-		}
 
 		//forward onto state to handle
 		states_.back()->StateInputHandler(m, this);

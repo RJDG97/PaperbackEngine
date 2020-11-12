@@ -16,6 +16,7 @@
 #include "Manager/ShaderManager.h"
 #include "Manager/ModelManager.h"
 #include "Manager/ComponentManager.h"
+#include "Manager/EntityManager.h"
 #include <unordered_map>
 #include <bitset>
 #include <string>

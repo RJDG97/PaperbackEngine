@@ -3,6 +3,7 @@
 #include "Entity/ComponentTypes.h"
 #include "MathLib/Vector2D.h"
 #include <tuple>
+#include "Entity/Entity.h"
 
 
 void EntityWindow::Init(){
@@ -172,14 +173,21 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				break;
 			}
 			case ComponentTypes::CAMERA:
+				ImGui::Text("Camera Component");
 				break;
 			case ComponentTypes::CONTROLLER:
+				ImGui::Text("Controller Component");
 				break;
 			case ComponentTypes::TEXTURERENDERER:
+				ImGui::Text("Texture Renderer Component");
 				break;
 			case ComponentTypes::ANIMATIONRENDERER:
+
+				ImGui::Text("Animation Renderer Component");
 				break;
 			case ComponentTypes::TEXTRENDERER:
+				ImGui::Text("Text Renderer Component");
+
 				break;
 			case ComponentTypes::AABB:
 			{
@@ -234,11 +242,10 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 						ImGui::SameLine(0, 2);
 						ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f, 1.0f }, entityState);
 
-
 						ImGui::PushItemWidth(130.0f);
 						if (ImGui::BeginCombo("##abc", "AI States")) {
-							for (int i = 0; i < IM_ARRAYSIZE(AIstates); ++i)
-								if (ImGui::Selectable(AIstates[i]))
+							for (int i = 0; i < IM_ARRAYSIZE(AIstates_); ++i)
+								if (ImGui::Selectable(AIstates_[i]))
 									entityAI->SetState(static_cast<AI::AIState>(i));
 
 							ImGui::EndCombo();
@@ -278,46 +285,46 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 						for (std::vector<Vector2D>::iterator it = inputDes.begin(); it != inputDes.end(); ++it) {
 							counter++; 
-							if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, "%.2f, %.2f", (*it).x, (*it).y))
-							{
-								if (ImGui::Button("Delete Node")) {
-									if (it == inputDes.begin()) 
-										it = inputDes.erase(it);
-									else {
-										it = inputDes.erase(it);
-										--it;
-									}
-									entityAI->GetDestinations().clear();
-									entityAI->SetDestinations(inputDes);
-								}
+							(ImGui::TreeNodeEx((void*)(size_t)counter, 0, "%.2f, %.2f", (*it).x, (*it).y));
+							//{
+								//if (ImGui::Button("Delete Node")) {
+								//	if (it == inputDes.begin()) 
+								//		it = inputDes.erase(it);
+								//	else {
+								//		it = inputDes.erase(it);
+								//		--it;
+								//	}
+								//	entityAI->GetDestinations().clear();
+								//	entityAI->SetDestinations(inputDes);
+								//}
 
-								ImGui::TreePop();
-							}
+								//ImGui::TreePop();
+							//}
 						}
 
-						if (ImGui::Button("Clear All Nodes")) {
-							entityAI->GetDestinations().clear();
-							entityAI->SetDestinations({});
-						}
+						//if (ImGui::Button("Clear All Nodes")) {
+						//	entityAI->GetDestinations().clear();
+						//	entityAI->SetDestinations({});
+						//}
 					
-						if (ImGui::TreeNode("Add Destination")) {
+						//if (ImGui::TreeNode("Add Destination")) {
 
-							ImGui::Text("New Node Position:");
+						//	ImGui::Text("New Node Position:");
 
-							Vec2Input(newNode);
+						//	Vec2Input(newNode);
 
-							entityAI->SetNewDestination(newNode);
+						//	entityAI->SetNewDestination(newNode);
 
-							ImGui::Text("%.2f, %.2f", newNode.x, newNode.y);
+						//	ImGui::Text("%.2f, %.2f", newNode.x, newNode.y);
 
-							if (ImGui::Button("Add")) {
-								inputDes.push_back(newNode);
-								entityAI->GetDestinations().clear();
-								entityAI->SetDestinations(inputDes);
-								entityAI->SetNewDestination(Vector2D{ 0.0f, 0.0f });
-							}
-							ImGui::TreePop();
-						}
+						//	if (ImGui::Button("Add")) {
+						//		inputDes.push_back(newNode);
+						//		entityAI->GetDestinations().clear();
+						//		entityAI->SetDestinations(inputDes);
+						//		entityAI->SetNewDestination(Vector2D{ 0.0f, 0.0f });
+						//	}
+						//	ImGui::TreePop();
+						//}
 
 						ImGui::TreePop();
 					}
@@ -347,7 +354,50 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				break;
 			}
 			case ComponentTypes::STATUS:
+			{
+				std::shared_ptr<Status> entitystatus = std::dynamic_pointer_cast<Status>(entitycomponent.first->GetComponent(ComponentTypes::STATUS));
+			
+				const char* inputState = GetPlayerStatus(static_cast<int>(entitystatus->GetStatus()));
+
+				float inputStatustimer = entitystatus->GetStatusTimer();
+				float inputcooldown = entitystatus->GetCooldownTimer();
+
+				if (ImGui::TreeNode("Status")) {
+
+					ImGui::Text("Current Status: "); ImGui::SameLine(0, 4); ImGui::Text(inputState);
+					ImGui::PushItemWidth(170.0f);
+
+					if (ImGui::BeginCombo("##combo", "Player Status")) {
+
+						for (int i = 0; i < IM_ARRAYSIZE(Playerstatus_); ++i) {
+
+							if (ImGui::Selectable(Playerstatus_[i]))
+							{
+								entitystatus->SetStatus(static_cast<StatusType>(i));
+							}
+						}
+
+						ImGui::EndCombo();
+					}
+
+					ImGui::PopItemWidth();
+
+					if (ImGui::TreeNode("Timers")) {
+
+						ComponentInputFloat("Status Timer", "##status", inputStatustimer);
+						entitystatus->SetStatusTimer(inputStatustimer);
+
+						ComponentInputFloat("CoolDown Timer", "##timer", inputcooldown);
+						entitystatus->SetCoolDownTimer(inputcooldown);
+
+						ImGui::TreePop();
+					}
+
+					ImGui::TreePop();
+				}
+
 				break;
+			}
 			case ComponentTypes::POINTLIGHT:
 			{
 				std::shared_ptr<PointLight> entitypointlight = std::dynamic_pointer_cast<PointLight>(entitycomponent.first->GetComponent(ComponentTypes::POINTLIGHT));
@@ -372,12 +422,16 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				break;
 			}
 			case ComponentTypes::CONELIGHT:
+				ImGui::Text("Cone Light Component");
 				break;
 			case ComponentTypes::BASICAI:
+				ImGui::Text("Basic AI Component");
 				break;
 			case ComponentTypes::CLICKABLE:
+				ImGui::Text("Clickable Component");
 				break;
 			case ComponentTypes::INPUTCONTROLLER:
+				ImGui::Text("Input Controller Component");
 				break;
 			}
 		}
@@ -388,7 +442,7 @@ const char* EntityWindow::GetAIState(int aiState)
 {
 	for (int i = 0; i < 5; ++i) {
 		if (i == aiState)
-			return AIstates[i];
+			return AIstates_[i];
 	}
 	return nullptr;
 }
@@ -397,7 +451,16 @@ const char* EntityWindow::GetAIType(int aiType)
 {
 	for (int i = 0; i < 3; ++i) {
 		if (i == aiType)
-			return AItype[i];
+			return AItype_[i];
+	}
+	return nullptr;
+}
+
+const char* EntityWindow::GetPlayerStatus(int playerState) {
+	
+	for (int i = 0; i < 4; ++i) {
+		if (i == playerState)
+			return Playerstatus_[i];
 	}
 	return nullptr;
 }

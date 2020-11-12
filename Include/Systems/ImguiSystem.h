@@ -226,6 +226,8 @@ public:
 
 	void SaveFile();
 
+	void CloseCurrentScene();
+
 	void ImguiMenuBar();
 
 	void ImGuiCustomStyle(); // may not be used
