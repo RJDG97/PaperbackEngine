@@ -141,7 +141,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "100.0 100.0"
     },
     {
       "component": "AnimationRenderer",
@@ -220,7 +220,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "100.0 100.0"
     },
     {
       "component": "Motion",
@@ -230,18 +230,12 @@
     },
     {
       "component": "AnimationRenderer",
-      "number of animations": "7",
-      "add animation": "Stagbeetle_Charge",
-      "add animation": "Stagbeetle_Attack",
-      "add animation": "Stagbeetle_Run",
-      "add animation": "Stagbeetle_Alert",
-      "add animation": "Stagbeetle_Idle",
-      "add animation": "Stagbeetle_Confused",
-      "add animation": "Stagbeetle_Walk",
-      "set animation": "Stagbeetle_Walk",
+      "number of animations": "1",
+      "add animation": "Mite_Walk",
+      "set animation": "Mite_Walk",
       "play_animation": "1",
       "has_finished_animating": "0",
-      "layer": "2",
+      "layer": "1",
       "ui": "0"
     },
     {
@@ -339,7 +333,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "100.0 100.0"
     },
     {
       "component": "Health",
