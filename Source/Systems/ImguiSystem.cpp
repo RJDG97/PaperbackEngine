@@ -133,6 +133,8 @@ void ImguiSystem::Update(float frametime) {
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dock_space_flags_);
             }
         	
+            ImGuiCustomStyle();
+
             if (b_windows) {
                 for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
                     begin->second->Update();
@@ -163,6 +165,13 @@ void ImguiSystem::DockSpaceFlagSet() {
     // When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background and handle the pass-thru hole, so we ask Begin() to not render a background.
     if (dock_space_flags_ & ImGuiDockNodeFlags_PassthruCentralNode)
         window_flags_ |= ImGuiWindowFlags_NoBackground;
+}
+
+void ImguiSystem::ImGuiCustomStyle() {
+
+    ImVec4* colors = ImGui::GetStyle().Colors;
+
+    colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.55f);
 }
 
 void ImguiSystem::ImguiRender() {
@@ -238,46 +247,12 @@ void ImguiSystem::ImguiMenuBar() {
     ImGui::EndMenuBar();
 }
 
-void ImguiSystem::ImGuiCustomStyle() {
-
-    //ImVec4* colors = ImGui::GetStyle().Colors;
-
-    //colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.251f, 0.737f, 0.529f, 1.0f};
-    //colors[ImGuiCol_HeaderActive] = ImVec4{ 0.659f, 0.969f, 0.659f, 1.0f };
-    //colors[ImGuiCol_Header] = ImVec4{ 0.2f, 0.565f, 0.408f, 1.0f };
-
-    //colors[ImGuiCol_Button] = ImVec4{ 0.643f,0.224f,0.459f, 1.0f };
-    //colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.706f,0.314f,0.533f, 1.0f };
-    //colors[ImGuiCol_ButtonActive] = ImVec4{ 0.788f,0.416f,0.624f, 1.0f };
-
-    //colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.75f);
-
-}
 
 void ImguiSystem::CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol) {
 
     ImGui::PushStyleColor(ImGuiCol_Button, ButtonCol);
     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, HoveredCol);
     ImGui::PushStyleColor(ImGuiCol_ButtonActive, SelectCol);
-}
-
-std::string ImguiSystem::EditString(std::string filepath, const char* startpos) {   
-    return filepath.substr(filepath.find(startpos));
-}
-
-void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
-    ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-
-    ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-    if (ImGui::BeginPopup(windowName)) {
-
-        ImGui::Text(message);
-
-        if (ImGui::Button("OK"))
-            ImGui::CloseCurrentPopup();
-
-        ImGui::EndPopup();
-    }
 }
 
 bool ImguiSystem::GetImguiBool() {
@@ -289,8 +264,6 @@ void ImguiSystem::SetImguiBool(bool mode) {
 
     b_imguimode = mode;
 }
-
-void ImguiSystem::Draw() {}
 
 std::string ImguiSystem::GetName() {
 	
@@ -345,22 +318,6 @@ void ImguiSystem::ImguiInput() {
 	}
 }
 
-void ImguiSystem::SendMessageD(Message* m) {
-    switch (m->message_id_) {
-    case MessageIDTypes::M_MOUSE_PRESS:
-    {
-        if (!b_lock_entity) {
-            selected_entity_ = collision_system_->SelectEntity();
-            new_entity_ = entities_->GetEntity(selected_entity_);
-            b_lock_entity = true;
-        }
-        break;
-    }
-    default:
-        break;
-    }
-}
-
 void ImguiSystem::SaveArchetype() {
     std::string path = OpenSaveDialog(scene_filter_, 1);
     if (!path.empty())
@@ -397,21 +354,68 @@ void ImguiSystem::SaveFile(){
     factory_->SerializeCurrentLevelEntities();
 }
 
-void ImguiSystem::ImguiHelp(const char* description) {
+std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {
+    OPENFILENAMEA ofn;
+    CHAR szFile[260] = { 0 };
 
-    ImGui::TextDisabled("?");
-    if (ImGui::IsItemHovered()) {
+    // init OPENFILENAME
+    ZeroMemory(&ofn, sizeof(OPENFILENAME));
+    ofn.lStructSize = sizeof(OPENFILENAME);
+    ofn.hwndOwner = glfwGetWin32Window(win_->ptr_window);
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = filter;
+    ofn.nFilterIndex = 1;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+    if (!save) {
+        if (GetOpenFileNameA(&ofn) == TRUE)
+            return ofn.lpstrFile;
+    }
+    else {
+        if (GetSaveFileNameA(&ofn) == TRUE)
+            return ofn.lpstrFile;
+    }
 
-        ImGui::BeginTooltip();
-        ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-        ImGui::TextUnformatted(description);
-        ImGui::PopTextWrapPos();
-        ImGui::EndTooltip();
+    return std::string(); // returns an empty string if user cancels/didnt select anything
+}
+
+std::string ImguiSystem::EditString(std::string filepath, const char* startpos) {
+    return filepath.substr(filepath.find(startpos));
+}
+
+void ImguiSystem::SendMessageD(Message* m) {
+    switch (m->message_id_) {
+    case MessageIDTypes::M_MOUSE_PRESS:
+    {
+        if (!b_lock_entity) {
+            selected_entity_ = collision_system_->SelectEntity();
+            new_entity_ = entities_->GetEntity(selected_entity_);
+            b_lock_entity = true;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
+    ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
+
+    ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+    if (ImGui::BeginPopup(windowName)) {
+
+        ImGui::Text(message);
+
+        if (ImGui::Button("OK"))
+            ImGui::CloseCurrentPopup();
+
+        ImGui::EndPopup();
     }
 }
 
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
-	
+
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
     std::string warning;
 
@@ -421,12 +425,12 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
     }
 
     ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-    if (ImGui::BeginPopupModal(windowName,NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+    if (ImGui::BeginPopupModal(windowName, NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
         ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "Deleting: ");
         if (!entity)
             ImGui::Text(objName.c_str());
-        else 
+        else
             ImGui::Text(warning.c_str());
 
         ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "This cannot be undone");
@@ -453,34 +457,22 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
 
         if (ImGui::Button("Cancel"))
             ImGui::CloseCurrentPopup();
-    	
+
         ImGui::EndPopup();
     }
 }
 
-std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {
-    OPENFILENAMEA ofn;
-    CHAR szFile[260] = { 0 };
+void ImguiSystem::ImguiHelp(const char* description) {
 
-    // init OPENFILENAME
-    ZeroMemory(&ofn, sizeof(OPENFILENAME));
-    ofn.lStructSize = sizeof(OPENFILENAME);
-    ofn.hwndOwner = glfwGetWin32Window(win_->ptr_window);
-    ofn.lpstrFile = szFile;
-    ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = filter;
-    ofn.nFilterIndex = 1;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
-    if (!save) {
-        if (GetOpenFileNameA(&ofn) == TRUE)
-            return ofn.lpstrFile;
-    }
-    else {
-        if (GetSaveFileNameA(&ofn) == TRUE)
-            return ofn.lpstrFile;
-    }
+    ImGui::TextDisabled("?");
+    if (ImGui::IsItemHovered()) {
 
-    return std::string(); // returns an empty string if user cancels/didnt select anything
+        ImGui::BeginTooltip();
+        ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+        ImGui::TextUnformatted(description);
+        ImGui::PopTextWrapPos();
+        ImGui::EndTooltip();
+    }
 }
 
 ImguiSystem::~ImguiSystem() {
@@ -489,3 +481,5 @@ ImguiSystem::~ImguiSystem() {
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
+
+void ImguiSystem::Draw() {}

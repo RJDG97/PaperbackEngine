@@ -104,6 +104,8 @@ public:
 
 	const char* GetAIType(int aiType);
 
+	const char* GetPlayerStatus(int playerState);
+
 	void SetArrowButtons(int& componentVar);
 	ImVec2 SetButtonSize();
 
@@ -116,8 +118,9 @@ private:
 
 	EntityManager::EntityIdMapTypeIt entityIT;
 
-	const char* AIstates[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
-	const char* AItype[3]{ "StagBeetle", "Mite", "Hornet"};
+	const char* AIstates_[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
+	const char* AItype_[3]{ "StagBeetle", "Mite", "Hornet"};
+	const char* Playerstatus_[4]{ "None", "Invisible", "Hit", "Burrow"};
 
 	bool b_draw = false;
 

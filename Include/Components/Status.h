@@ -70,6 +70,16 @@ public:
 	std::shared_ptr<Component> Clone() override;
 
 	~Status();
+
+	StatusType GetStatus();
+	void SetStatus(StatusType newStatus);
+
+	float GetStatusTimer();
+	void SetStatusTimer(float newtimer);
+
+	float GetCooldownTimer();
+	void SetCoolDownTimer(float newTimer);
+
 };
 
 #endif

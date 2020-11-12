@@ -76,3 +76,33 @@ Status::~Status() {
 	//CORE->GetSystem<Physics>()->RemoveStatusComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<Status>(Component::GetOwner()->GetID());
 }
+
+StatusType Status::GetStatus() {
+
+	return status_;
+}
+
+void Status::SetStatus(StatusType newStatus) {
+
+	status_ = newStatus;
+}
+
+float Status::GetStatusTimer() {
+
+	return status_timer_;
+}
+
+void Status::SetStatusTimer(float newtimer) {
+
+	status_timer_ = newtimer;
+}
+
+float Status::GetCooldownTimer() {
+
+	return cooldown_timer_;
+}
+
+void Status::SetCoolDownTimer(float newTimer) {
+
+	cooldown_timer_ = newTimer;
+}
