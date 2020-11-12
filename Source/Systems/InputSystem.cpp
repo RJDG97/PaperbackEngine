@@ -6,6 +6,7 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/ImguiSystem.h"
 #include "Manager/AMap.h"
+#include "Script/GeneralScripts.h"
 
 InputSystem sys_input_;
 
@@ -146,6 +147,11 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			Message msg(MessageIDTypes::FLIP_SPRITE_Y);
 			CORE->BroadcastMessage(&msg);
 			break;
+		}
+		case GLFW_KEY_T:
+		{
+
+			GeneralScripts::map_->DrawMap();
 		}
 		}
 	}

@@ -190,7 +190,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Rock",
+      "texture": "RockThree",
       "layer": "2",
       "ui": "0"
     },

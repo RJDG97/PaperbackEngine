@@ -1,0 +1,21 @@
+{
+  "input": [
+    {
+      "component": "InputController",
+      "size": "13",
+      "move_left": "move_left 263",
+      "move_right": "move_right 262",
+      "move_up": "move_up 265",
+      "move_down": "move_down 264",
+      "invisible": "invisible 77",
+      "burrow": "burrow 78",
+      "debug": "debug 66",
+      "spin_left": "spin_left 44",
+      "spin_right": "spin_right 46",
+      "shrink": "shrink 59",
+      "expand": "expand 39",
+      "pause" : "pause 256",
+      "confirm" : "confirm 257"
+    }
+  ]
+}

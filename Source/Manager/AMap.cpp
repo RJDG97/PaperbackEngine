@@ -37,6 +37,8 @@ void AMap::InitAMap(std::map<EntityID, Entity*> entity_map) {
 			|| aabb->GetLayer() == static_cast<size_t>(CollisionLayer::UI_ELEMENTS)))
 			InsertEntityNodes(pos);
 	}
+
+	DrawMap();
 }
 
 // For use during run-time if there are necessary updates
@@ -146,10 +148,10 @@ void AMap::InsertEntityNodes(const Vector2D& pos) {
 
 	node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].obstacle_ = true;
 	// Set surrounding nodes as obstacles as well
-	for (int i = 0; i < node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_.size(); i++)
+	/*for (int i = 0; i < node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_.size(); i++)
 	{
 		node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_[i]->obstacle_ = true;
-	}
+	}*/
 
 }
 

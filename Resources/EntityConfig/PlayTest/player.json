@@ -1,0 +1,15 @@
+{
+  "player": [
+    {
+      "component": "Transform",
+      "position": "0.0 0.0 ",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.7",
+      "radius": "150.0",
+      "intensity": "0.8"
+    }
+  ]
+}

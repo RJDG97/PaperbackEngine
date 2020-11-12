@@ -186,14 +186,12 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 				EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
 				Status* player_status = component_mgr_->GetComponent<Status>(player_id);
-				AnimationRenderer* anim = component_mgr_->GetComponent<AnimationRenderer>(player_id);
 
 				// Skills
 				if (InputController->VerifyKey("burrow", m->input_)) {
 
 					if (CORE->GetSystem<Collision>()->BurrowReady()) {
 						SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "M"
-						//CORE->GetSystem<GraphicsSystem>()->FlipTextureX(anim);
 					}
 				}
 				else if (InputController->VerifyKey("invisible", m->input_)) {

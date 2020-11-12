@@ -1,55 +1,15 @@
 {
-  "wall": [
-    {
-      "component": "Transform",
-      "position": "0.0 -4.0",
-      "rotation": "0.0"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-      "ui": "0"
-    }
-  ],
-  "wall": [
-    {
-      "component": "Transform",
-      "position": "0.0 -3.0",
-      "rotation": "0.0"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-      "ui": "0"
-    }
-  ],
-  "wall": [
-    {
-      "component": "Transform",
-      "position": "25.0 25.0",
-      "rotation": "0.0"
-    }
-  ],
-  "wall": [
-    {
-      "component": "Transform",
-      "position": "-25.0 -25.0",
-      "rotation": "0.0"
-    }
-  ],
-  "wall": [
-    {
-      "component": "Transform",
-      "position": "-10.0 0.0",
-      "rotation": "0.0"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-      "ui": "0"
-    }
-  ]
+    "Wall": [
+        {
+            "component": "Transform",
+            "position": "-17.500031 -0.000000",
+            "rotation": "0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "RockThree",
+            "layer": "2",
+            "ui": "0"
+        }
+    ]
 }
