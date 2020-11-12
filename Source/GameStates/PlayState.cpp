@@ -203,15 +203,15 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 					Status* status = CORE->GetManager<ComponentManager>()->GetComponent<Status>(player->GetID());
 					AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(player->GetID());
 
-					if (status->GetStatus() != StatusType::BURROW)
-					{
-						if (status->GetStatus() == StatusType::INVISIBLE)
-						{
+					if (status->GetStatus() != StatusType::BURROW) {
+
+						if (status->GetStatus() == StatusType::INVISIBLE) {
+
 							CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Idle");
 						}
 
-						else
-						{
+						else {
+
 							CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Hiding");
 						}
 
