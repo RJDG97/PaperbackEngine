@@ -92,6 +92,15 @@ public:
 */
 /******************************************************************************/
 	void GetPartitionedEntities(std::vector<AABBMapIt>& vec, size_t x, size_t y);
+	
+/******************************************************************************/
+/*!
+  \fn VerifyPartition()
+
+  \brief Ensures that partition has at least 2 entities for collision
+*/
+/******************************************************************************/
+	bool VerifyPartition(size_t x, size_t y);
 
 /******************************************************************************/
 /*!
