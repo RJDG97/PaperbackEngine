@@ -21,6 +21,5 @@ private:
 	EntityManager* entities_;
 	EntityFactory* factory_;
 
-  
 };
 #endif
