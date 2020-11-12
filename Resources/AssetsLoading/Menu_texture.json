@@ -43,5 +43,11 @@
   
   "UI QuitYes": "Resources/AssetsLoading/Texture/ui_quitgame_yes.json",
   
-  "UI Win": "Resources/AssetsLoading/Texture/ui_win.json"
+  "UI Win": "Resources/AssetsLoading/Texture/ui_win.json",
+  
+  "WaterGauge Droplet": "Resources/AssetsLoading/Texture/watergauge_droplet.json",
+  
+  "WaterGauge Shine": "Resources/AssetsLoading/Texture/watergauge_shine.json",
+  
+  "WaterGauge Water": "Resources/AssetsLoading/Texture/watergauge_water.json"
 }

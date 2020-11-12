@@ -450,5 +450,26 @@
       "layer": "0",
       "ui": "0"
     }
+  ],
+  "Watergauge": [
+    {
+      "component": "Name",
+      "name": "Watergauge"
+    },
+    {
+      "component": "Transform",
+      "position": "11.0 -5.2",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "100.0 100.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "WatergaugeDroplet",
+      "layer": "0",
+      "ui": "1"
+    }
   ]
 }

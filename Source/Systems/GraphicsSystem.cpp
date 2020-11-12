@@ -202,7 +202,7 @@ void GraphicsSystem::Draw() {
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], &final_texture_);
 
@@ -216,6 +216,12 @@ void GraphicsSystem::Draw() {
         if (debug_) {
             // Log id of entity and its updated components that are being updated
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        if (component_manager_->GetComponent<Name>(it->second->GetOwner()->GetID())->GetName() == "Watergauge")
+        {
+            DrawHealthbar(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
+            continue;
         }
 
         DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
@@ -274,72 +280,7 @@ std::string GraphicsSystem::GetName() {
 
 void GraphicsSystem::SendMessageD(Message* m) {
 
-    AnimRendererIt player_renderer;
-
-    for (player_renderer = anim_renderer_arr_->begin();
-         player_renderer != anim_renderer_arr_->end();
-         ++player_renderer)
-    {
-        if (ENTITYNAME(player_renderer->second->GetOwner()) == "Player")
-        {
-            break;
-        }
-    }
-
-    if (player_renderer == anim_renderer_arr_->end())
-    {
-        return;
-    }
-
-    switch(m->message_id_) {
-
-        //case MessageIDTypes::DEBUG_ALL: {
-        //    debug_ = true;
-        //    break;
-        //}
-        //
-        //case MessageIDTypes::CAM_UPDATE_POS: {
-        //    //placeholder name for message, will be changed after engineproof
-        //    MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
-        //    camera_system_->TempCameraMove(msg->new_vec_);
-        //    break;
-        //}
-        //
-        //case MessageIDTypes::CHANGE_ANIMATION_1: {
-
-        //    camera_system_->SetTarget(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
-        //    camera_system_->ToggleTargeted();
-        //    SetAnimation(player_renderer->second, "Player_Walk");
-
-        //    break;
-        //}
-        //
-        //case MessageIDTypes::CHANGE_ANIMATION_2: {
-
-        //    SetAnimation(player_renderer->second, "Player_Idle");
-
-        //    break;
-        //}
-
-        //case MessageIDTypes::FLIP_SPRITE_X: {
-
-        //    FlipTextureX(dynamic_cast<IRenderer*>(player_renderer->second));
-        //    camera_system_->TempCameraZoom(0.9f);
-        //    break;
-        //}
-
-        //case MessageIDTypes::FLIP_SPRITE_Y: {
-
-        //    FlipTextureY(dynamic_cast<IRenderer*>(player_renderer->second));
-        //    camera_system_->TempCameraZoom(1.1f);
-        //    break;
-        //}
-
-        default: {
-
-            break;
-        }
-    }
+    (void) m;
 }
 
 void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_renderer)
@@ -749,15 +690,15 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
     }
 }
 
-void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_worldobj_renderer)
+void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_renderer)
 {
     shader->SetUniform("uTex2d", 0);
     shader->SetUniform("projection", projection);
 
-    Transform* xform = component_manager_->GetComponent<Transform>(i_worldobj_renderer->GetOwner()->GetID());
-    Scale* scale = component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID());
+    Transform* xform = component_manager_->GetComponent<Transform>(i_renderer->GetOwner()->GetID());
+    Scale* scale = component_manager_->GetComponent<Scale>(i_renderer->GetOwner()->GetID());
 
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_;
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_ + 0.5f * Vector2D{ win_size_.x, win_size_.y };
     Vector2D obj_scale = scale->scale_ * camera_system_->cam_zoom_;
 
     std::vector<glm::vec2> vertices;
@@ -768,15 +709,81 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_wor
     
     for (int i = 0; i < 4; ++i)
     {
-        vertices.push_back(i_worldobj_renderer->tex_vtx_[i]);
+        vertices.push_back(i_renderer->tex_vtx_[i]);
     }
 
-    glBindTextureUnit(0, *i_worldobj_renderer->texture_handle_);
+    glBindTextureUnit(0, *i_renderer->texture_handle_);
     
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * vertices.size(), vertices.data());
     // render quad
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+}
+
+void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_renderer)
+{
+    shader->SetUniform("uTex2d", 0);
+    shader->SetUniform("projection", projection);
+
+    Transform* xform = component_manager_->GetComponent<Transform>(i_renderer->GetOwner()->GetID());
+    Scale* scale = component_manager_->GetComponent<Scale>(i_renderer->GetOwner()->GetID());
+
+    Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]->GetID());
+
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_ + 0.5f * Vector2D{ win_size_.x, win_size_.y };
+    Vector2D obj_scale = scale->scale_ * camera_system_->cam_zoom_;
+
+    std::vector<glm::vec2> gauge_vertices;
+    std::vector<glm::vec2> water_vertices;
+
+    gauge_vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
+    gauge_vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y - obj_scale.y });
+    gauge_vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y + obj_scale.y });
+    gauge_vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y + obj_scale.y });
+
+    obj_pos_.y -= 1.5f * obj_scale.y * (1.0f - health->GetCurrentHealth() / static_cast<float>(health->GetMaxHealth()));
+
+    water_vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
+    water_vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y - obj_scale.y });
+    water_vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y + obj_scale.y });
+    water_vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y + obj_scale.y });
+
+    std::vector<glm::vec2> tex_vtx{ { 0.0f, 0.0f},
+                                    { 1.0f, 0.0f},
+                                    { 0.0f, 1.0f},
+                                    { 1.0f, 1.0f}, };
+
+    for (int i = 0; i < 4; ++i)
+    {
+        gauge_vertices.push_back(tex_vtx[i]);
+        water_vertices.push_back(tex_vtx[i]);
+    }
+    
+    glEnable(GL_STENCIL_TEST);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    glStencilFunc(GL_ALWAYS, 1, 0xFF);
+    glStencilMask(0xFF);
+    glNamedBufferSubData(model->GetVBOHandle(), 0,
+                         sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
+    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeDroplet")->GetTilesetHandle());
+    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glDisable(GL_DEPTH_TEST);
+
+    glStencilFunc(GL_EQUAL, 1, 0xFF);
+    glStencilMask(0x00);
+    glNamedBufferSubData(model->GetVBOHandle(), 0,
+                         sizeof(glm::vec2) * water_vertices.size(), water_vertices.data());
+    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeWater")->GetTilesetHandle());
+    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glDisable(GL_STENCIL_TEST);
+
+    glNamedBufferSubData(model->GetVBOHandle(), 0,
+                         sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
+    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeShine")->GetTilesetHandle());
+    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+
 }
 
 void GraphicsSystem::FlipTextureX(IRenderer* i_renderer) {

@@ -19,5 +19,7 @@
   
   "Hole": "Resources/EntityConfig/Play/hole.json",
   
-  "Boundary": "Resources/EntityConfig/Play/boundary.json"
+  "Boundary": "Resources/EntityConfig/Play/boundary.json",
+  
+  "Watergauge": "Resources/EntityConfig/Play/watergauge.json"
 }

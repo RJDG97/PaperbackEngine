@@ -8,5 +8,11 @@ uniform sampler2D uTex2d;
 
 void main () {
     
-    fFragClr = texture(uTex2d, vTexCoord);
+    vec4 color = texture(uTex2d, vTexCoord);
+
+    if (color.a == 0.0) {
+        discard; 
+    }
+
+    fFragClr = color;
 }

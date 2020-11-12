@@ -218,14 +218,21 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
-    \fn DrawUIObject(Shader* shader, Model* model,
-                     IRenderer* i_renderer)
+    \fn DrawUIObject(Shader* shader, Model* model, IRenderer* i_renderer)
 
-    \brief Draw UI objects that have a IWorldObjectRenderer component CHANGE THIS OMG
+    \brief Draw UI objects that have a IRenderer component
 */
 /******************************************************************************/
-    void DrawUIObject(Shader* shader, Model* model,
-                      IRenderer* i_renderer);
+    void DrawUIObject(Shader* shader, Model* model, IRenderer* i_renderer);
+
+/******************************************************************************/
+/*!
+    \fn DrawHealthbar(Shader* shader, Model* model, IRenderer* i_renderer)
+
+    \brief Draws the healthbar
+*/
+/******************************************************************************/
+    void DrawHealthbar(Shader* shader, Model* model, IRenderer* i_renderer);
 
 /******************************************************************************/
 /*!
