@@ -162,7 +162,6 @@ void ImguiSystem::DockSpaceFlagSet() {
         window_flags_ |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
     }
 
-    // When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background and handle the pass-thru hole, so we ask Begin() to not render a background.
     if (dock_space_flags_ & ImGuiDockNodeFlags_PassthruCentralNode)
         window_flags_ |= ImGuiWindowFlags_NoBackground;
 }
@@ -171,7 +170,7 @@ void ImguiSystem::ImGuiCustomStyle() {
 
     ImVec4* colors = ImGui::GetStyle().Colors;
 
-    colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.55f);
+   // colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.55f);
 }
 
 void ImguiSystem::ImguiRender() {
@@ -207,6 +206,9 @@ void ImguiSystem::ImguiMenuBar() {
                 SaveFile();
                 b_showpop = true;
             }
+
+            if (ImGui::MenuItem(ICON_FA_TIMES " Close Current Scene"))
+                CloseCurrentScene();
 
             ImGui::Separator();
             if (ImGui::MenuItem(ICON_FA_REPLY " Return to Menu")){
@@ -312,9 +314,9 @@ void ImguiSystem::ImguiInput() {
             OpenFile();
         if (shift && ImGui::IsKeyPressed(GLFW_KEY_S))
             SaveFile();
-		if (ImGui::IsKeyPressed(GLFW_KEY_N)){
-			// to create new scene
-		}	
+		//if (ImGui::IsKeyPressed(GLFW_KEY_N)){
+		//	// to create new scene
+		//}	
 	}
 }
 
@@ -353,6 +355,12 @@ void ImguiSystem::OpenFile() {
 void ImguiSystem::SaveFile(){
 
     factory_->SerializeCurrentLevelEntities();
+}
+
+void ImguiSystem::CloseCurrentScene() {
+
+    factory_->DestroyAllEntities();
+    factory_->DeSerializeLevelEntities("Resources\\EntityConfig\\editor.json");
 }
 
 std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {

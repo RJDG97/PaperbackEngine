@@ -285,46 +285,46 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 						for (std::vector<Vector2D>::iterator it = inputDes.begin(); it != inputDes.end(); ++it) {
 							counter++; 
-							if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, "%.2f, %.2f", (*it).x, (*it).y))
-							{
-								if (ImGui::Button("Delete Node")) {
-									if (it == inputDes.begin()) 
-										it = inputDes.erase(it);
-									else {
-										it = inputDes.erase(it);
-										--it;
-									}
-									entityAI->GetDestinations().clear();
-									entityAI->SetDestinations(inputDes);
-								}
+							(ImGui::TreeNodeEx((void*)(size_t)counter, 0, "%.2f, %.2f", (*it).x, (*it).y));
+							//{
+								//if (ImGui::Button("Delete Node")) {
+								//	if (it == inputDes.begin()) 
+								//		it = inputDes.erase(it);
+								//	else {
+								//		it = inputDes.erase(it);
+								//		--it;
+								//	}
+								//	entityAI->GetDestinations().clear();
+								//	entityAI->SetDestinations(inputDes);
+								//}
 
-								ImGui::TreePop();
-							}
+								//ImGui::TreePop();
+							//}
 						}
 
-						if (ImGui::Button("Clear All Nodes")) {
-							entityAI->GetDestinations().clear();
-							entityAI->SetDestinations({});
-						}
+						//if (ImGui::Button("Clear All Nodes")) {
+						//	entityAI->GetDestinations().clear();
+						//	entityAI->SetDestinations({});
+						//}
 					
-						if (ImGui::TreeNode("Add Destination")) {
+						//if (ImGui::TreeNode("Add Destination")) {
 
-							ImGui::Text("New Node Position:");
+						//	ImGui::Text("New Node Position:");
 
-							Vec2Input(newNode);
+						//	Vec2Input(newNode);
 
-							entityAI->SetNewDestination(newNode);
+						//	entityAI->SetNewDestination(newNode);
 
-							ImGui::Text("%.2f, %.2f", newNode.x, newNode.y);
+						//	ImGui::Text("%.2f, %.2f", newNode.x, newNode.y);
 
-							if (ImGui::Button("Add")) {
-								inputDes.push_back(newNode);
-								entityAI->GetDestinations().clear();
-								entityAI->SetDestinations(inputDes);
-								entityAI->SetNewDestination(Vector2D{ 0.0f, 0.0f });
-							}
-							ImGui::TreePop();
-						}
+						//	if (ImGui::Button("Add")) {
+						//		inputDes.push_back(newNode);
+						//		entityAI->GetDestinations().clear();
+						//		entityAI->SetDestinations(inputDes);
+						//		entityAI->SetNewDestination(Vector2D{ 0.0f, 0.0f });
+						//	}
+						//	ImGui::TreePop();
+						//}
 
 						ImGui::TreePop();
 					}
