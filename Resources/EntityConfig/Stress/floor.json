@@ -9,7 +9,7 @@
       "component": "PointLight",
       "color": "1.0 1.0 0.7",
       "radius": "550.0",
-      "intensity": "25.0"
+      "intensity": "5.0"
     }
   ]
 }
