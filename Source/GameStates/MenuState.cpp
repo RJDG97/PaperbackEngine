@@ -42,6 +42,9 @@ void MenuState::Init(std::string)
 
 	MessageBGM_Play msg{ "MenuDefault" };
 	CORE->BroadcastMessage(&msg);
+	//Temporary
+	CORE->GetSystem<CameraSystem>()->CameraSetPosition({0, 0});
+	CORE->GetSystem<CameraSystem>()->CameraUnTarget();
 }
 
 void MenuState::Free()

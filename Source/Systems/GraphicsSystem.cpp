@@ -194,7 +194,7 @@ void GraphicsSystem::Draw() {
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
         }
 
-        DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second, cam_pos_);
+        DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
 
     graphic_shaders_["FinalShader"]->Use();
@@ -234,7 +234,7 @@ void GraphicsSystem::Draw() {
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
         }
 
-        DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second, cam_pos_);
+        DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
 
     if (debug_) { debug_ = !debug_; }
@@ -293,47 +293,47 @@ void GraphicsSystem::SendMessageD(Message* m) {
 
     switch(m->message_id_) {
 
-        case MessageIDTypes::DEBUG_ALL: {
-            debug_ = true;
-            break;
-        }
-        
-        case MessageIDTypes::CAM_UPDATE_POS: {
-            //placeholder name for message, will be changed after engineproof
-            MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
-            camera_system_->TempCameraMove(msg->new_vec_);
-            break;
-        }
-        
-        case MessageIDTypes::CHANGE_ANIMATION_1: {
+        //case MessageIDTypes::DEBUG_ALL: {
+        //    debug_ = true;
+        //    break;
+        //}
+        //
+        //case MessageIDTypes::CAM_UPDATE_POS: {
+        //    //placeholder name for message, will be changed after engineproof
+        //    MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
+        //    camera_system_->TempCameraMove(msg->new_vec_);
+        //    break;
+        //}
+        //
+        //case MessageIDTypes::CHANGE_ANIMATION_1: {
 
-            camera_system_->SetTarget(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
-            camera_system_->ToggleTargeted();
-            SetAnimation(player_renderer->second, "Player_Walk");
+        //    camera_system_->SetTarget(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
+        //    camera_system_->ToggleTargeted();
+        //    SetAnimation(player_renderer->second, "Player_Walk");
 
-            break;
-        }
-        
-        case MessageIDTypes::CHANGE_ANIMATION_2: {
+        //    break;
+        //}
+        //
+        //case MessageIDTypes::CHANGE_ANIMATION_2: {
 
-            SetAnimation(player_renderer->second, "Player_Idle");
+        //    SetAnimation(player_renderer->second, "Player_Idle");
 
-            break;
-        }
+        //    break;
+        //}
 
-        case MessageIDTypes::FLIP_SPRITE_X: {
+        //case MessageIDTypes::FLIP_SPRITE_X: {
 
-            FlipTextureX(dynamic_cast<IRenderer*>(player_renderer->second));
-            camera_system_->TempCameraZoom(0.9f);
-            break;
-        }
+        //    FlipTextureX(dynamic_cast<IRenderer*>(player_renderer->second));
+        //    camera_system_->TempCameraZoom(0.9f);
+        //    break;
+        //}
 
-        case MessageIDTypes::FLIP_SPRITE_Y: {
+        //case MessageIDTypes::FLIP_SPRITE_Y: {
 
-            FlipTextureY(dynamic_cast<IRenderer*>(player_renderer->second));
-            camera_system_->TempCameraZoom(1.1f);
-            break;
-        }
+        //    FlipTextureY(dynamic_cast<IRenderer*>(player_renderer->second));
+        //    camera_system_->TempCameraZoom(1.1f);
+        //    break;
+        //}
 
         default: {
 
@@ -604,15 +604,14 @@ void GraphicsSystem::BatchWorldObject(IRenderer* i_worldobj_renderer) {
     Transform* transform =
         component_manager_->GetComponent<Transform>(i_worldobj_renderer->GetOwner()->GetID());
 
-    float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
-    Vector2D pos = transform->position_;
-
     const float global_scale = CORE->GetGlobalScale();
+    float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
+    Vector2D pos = transform->position_ * global_scale;
 
     //glm::vec2 scaling{ scale->GetScale().x, scale->GetScale().y };
     glm::vec2 scaling{ scale.x, scale.y };
     glm::vec2 rotation{ glm::cos(orientation), glm::sin(orientation) };
-    glm::vec2 position{ pos.x * global_scale, pos.y * global_scale };
+    glm::vec2 position{ pos.x, pos.y};
 
     if (texture_handles.find(*i_worldobj_renderer->texture_handle_) == texture_handles.end())
     {
@@ -685,7 +684,7 @@ void GraphicsSystem::DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform)
     texture_handles.clear();
 }
 
-void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* text_renderer, glm::vec2 cam_pos) {
+void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* text_renderer) {
 
     shader->SetUniform("uTex2d", 0);
     shader->SetUniform("projection", projection);
@@ -711,7 +710,7 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
 
     else
     {
-        glm::vec2 translation{ cam_pos * camera_system_->cam_zoom_ + 0.5f * win_size_ };
+        glm::vec2 translation{ camera_system_->cam_pos_ * camera_system_->cam_zoom_ + 0.5f * win_size_ };
         pos = obj_pos_ + Vector2D{ translation.x, translation.y };
         scale = text_renderer->scale_ * camera_system_->cam_zoom_;
     }

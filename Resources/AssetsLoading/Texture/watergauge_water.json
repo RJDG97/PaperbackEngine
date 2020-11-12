@@ -1,0 +1,10 @@
+{
+  "UI_Elements/WaterGauge/UI_Watergauge_Water.png": [
+  {
+	  "Tileset Name": "Watergauge_Water",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "WatergaugeWater"
+    }
+  ]
+}

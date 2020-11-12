@@ -208,13 +208,13 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
 /*!
     \fn DrawTextObject(Shader* shader, Model* model,
-                       TextRenderer* text_renderer, glm::vec2 cam_pos)
+                       TextRenderer* text_renderer)
 
     \brief Draw objects that have a TextRenderer component
 */
 /******************************************************************************/
     void DrawTextObject(Shader* shader, Model* model,
-                        TextRenderer* text_renderer, glm::vec2 cam_pos);
+                        TextRenderer* text_renderer);
 
 /******************************************************************************/
 /*!
