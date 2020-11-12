@@ -353,9 +353,6 @@
     <ClCompile Include="Source\ImguiWindows\SystemWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Systems\Pathfinding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
@@ -598,7 +595,6 @@
     <ClInclude Include="Include\Components\IRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Systems\Pathfinding.h" />
     <ClInclude Include="Include\Imgui\IconsFontAwesome4.h">
       <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
