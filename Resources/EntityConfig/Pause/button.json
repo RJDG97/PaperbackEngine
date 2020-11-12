@@ -17,7 +17,7 @@
     {
       "component": "AABB",
       "scale": "2.0 0.66",
-      "layer": "4"
+      "layer": "5"
     },
     {
       "component": "TextureRenderer",
@@ -44,7 +44,7 @@
     {
       "component": "AABB",
       "scale": "2.0 0.66",
-      "layer": "4"
+      "layer": "5"
     },
     {
       "component": "TextureRenderer",
@@ -71,7 +71,7 @@
     {
       "component": "AABB",
       "scale": "2.0 0.66",
-      "layer": "4"
+      "layer": "5"
     },
     {
       "component": "TextureRenderer",

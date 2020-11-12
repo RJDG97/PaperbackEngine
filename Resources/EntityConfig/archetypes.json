@@ -11,7 +11,7 @@
     },
     {
       "component": "Scale",
-      "scale": "820.0 400.0"
+      "scale": "2000.0 2000.0"
     },
     {
       "component": "AABB",
@@ -99,7 +99,9 @@
     },
     {
       "component": "AnimationRenderer",
-      "number of animations": "2",
+      "number of animations": "4",
+      "add animation": "Player_Burrow_Walk",
+      "add animation": "Player_Burrow_Idle",
       "add animation": "Player_Idle",
 	    "add animation": "Player_Walk",
       "set animation": "Player_Walk",
@@ -141,7 +143,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "100.0 100.0"
     },
     {
       "component": "AnimationRenderer",
@@ -220,7 +222,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "90.0 90.0"
     },
     {
       "component": "Motion",
@@ -230,18 +232,12 @@
     },
     {
       "component": "AnimationRenderer",
-      "number of animations": "7",
-      "add animation": "Stagbeetle_Charge",
-      "add animation": "Stagbeetle_Attack",
-      "add animation": "Stagbeetle_Run",
-      "add animation": "Stagbeetle_Alert",
-      "add animation": "Stagbeetle_Idle",
-      "add animation": "Stagbeetle_Confused",
-      "add animation": "Stagbeetle_Walk",
-      "set animation": "Stagbeetle_Walk",
+      "number of animations": "1",
+      "add animation": "Mite_Walk",
+      "set animation": "Mite_Walk",
       "play_animation": "1",
       "has_finished_animating": "0",
-      "layer": "2",
+      "layer": "1",
       "ui": "0"
     },
     {
@@ -273,7 +269,7 @@
     {
       "component": "AABB",
       "scale": "0.5 0.5",
-      "layer": "4"
+      "layer": "5"
     },
     {
       "component": "Clickable",
@@ -297,9 +293,9 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-	  "ui": "0"
+      "texture": "Hole",
+      "layer": "1",
+	    "ui": "0"
     },
     {
       "component": "AABB",
@@ -339,7 +335,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "100.0 100.0"
     },
     {
       "component": "Health",

@@ -193,7 +193,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 					if (CORE->GetSystem<Collision>()->BurrowReady()) {
 						SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "M"
-						CORE->GetSystem<GraphicsSystem>()->FlipTextureX(anim);
+						//CORE->GetSystem<GraphicsSystem>()->FlipTextureX(anim);
 					}
 				}
 				else if (InputController->VerifyKey("invisible", m->input_)) {

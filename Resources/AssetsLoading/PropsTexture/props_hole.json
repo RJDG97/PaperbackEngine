@@ -1,0 +1,10 @@
+{
+  "Props/Hole.png": [
+  {
+	  "Tileset Name": "Hole",
+	  "Columns": "1",
+	  "Rows": "1",
+    "Tile Name": "Hole"
+  }
+  ]
+}

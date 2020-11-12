@@ -103,36 +103,58 @@ void Physics::TextureHandler(MotionIt motion) {
 
 		Status* status = status_arr_->GetComponent(motion->first);
 
-		if (status && (status->status_ != StatusType::BURROW && status->status_ != StatusType::INVISIBLE)) {
+		if (status) {
 
 			Name* name = component_mgr_->GetComponent<Name>(motion->first);
 
-			if (name) {
+			if (status->status_ != StatusType::BURROW && status->status_ != StatusType::INVISIBLE) {
+
+				if (name) {
+
+					if (VerifyZeroFloat(motion->second->velocity_.x) && VerifyZeroFloat(motion->second->velocity_.y)) {
+
+						//to verify is name is correct
+						if (name->GetName() == "Player") {
+
+							graphics_sys_->ChangeAnimation(renderer, "Player_Idle");
+						}
+						else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "AITest") {
+
+							// Renzo probably needs to add an extra check here to disable this setting if AI detects player
+							graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Idle");
+						}
+					}
+					else {
+
+						if (name->GetName() == "Player") {
+
+							graphics_sys_->ChangeAnimation(renderer, "Player_Walk");
+
+						}
+						else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "AITest") {
+
+							// Renzo probably needs to add an extra check here to disable this setting if AI detects player
+							graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Walk");
+						}
+					}
+				}
+			}
+			else if (status->status_ == StatusType::BURROW) {
 
 				if (VerifyZeroFloat(motion->second->velocity_.x) && VerifyZeroFloat(motion->second->velocity_.y)) {
 
 					//to verify is name is correct
 					if (name->GetName() == "Player") {
 
-						graphics_sys_->ChangeAnimation(renderer, "Player_Idle");
-					}
-					else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "AITest") {
-
-						// Renzo probably needs to add an extra check here to disable this setting if AI detects player
-						graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Idle");
+						graphics_sys_->ChangeAnimation(renderer, "Player_Burrow_Idle");
 					}
 				}
 				else {
 
 					if (name->GetName() == "Player") {
 
-						graphics_sys_->ChangeAnimation(renderer, "Player_Walk");
+						graphics_sys_->ChangeAnimation(renderer, "Player_Burrow_Walk");
 
-					}
-					else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "AITest") {
-
-						// Renzo probably needs to add an extra check here to disable this setting if AI detects player
-						graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Walk");
 					}
 				}
 			}
