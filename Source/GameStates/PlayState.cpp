@@ -161,7 +161,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				continue;
 
 			InputController* InputController = it->second;
-			float power = 40.0f;
+			float power = 120.0f;
 
 			if (InputController->VerifyKey("pause", m->input_)) {
 				CORE->ToggleCorePauseStatus(); // "ESC"

@@ -42,6 +42,8 @@ void Game::Init()
 	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
 	CORE->GetManager<FontManager>()->FontBatchLoad("Play");
 
+	CORE->GetManager<TextureManager>()->TextureBatchLoad("UIProps");
+
 	ChangeState(&m_MenuState);
 
 	M_DEBUG->WriteDebugMessage("Game System Init\n");

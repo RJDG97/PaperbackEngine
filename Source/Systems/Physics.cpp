@@ -60,7 +60,7 @@ void Physics::Update(float frametime) {
 		//motion->second->velocity_ += motion->second->acceleration_ * frametime;
 		motion->second->acceleration_ = force_mgr->GetForce(motion->second->GetOwner()->GetID()) / motion->second->mass_;
 		motion->second->velocity_ += motion->second->acceleration_ * frametime;
-		motion->second->velocity_ *= 0.90f;
+		motion->second->velocity_ *= 0.80f;
 
 		// If velocity is close to 0, reset to 0	
 		SnapZero(motion->second->velocity_);
