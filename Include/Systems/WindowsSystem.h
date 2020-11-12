@@ -41,7 +41,7 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn Serialize()
+  \fn DeSerialize()
 
   \brief Initializes data members of windows system
 */

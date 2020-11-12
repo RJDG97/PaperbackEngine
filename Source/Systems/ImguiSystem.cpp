@@ -1,4 +1,5 @@
 #include "Systems/ImguiSystem.h"
+#include "Manager/Amap.h"
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityWindow.h"
 #include "ImguiWindows/ArchetypeWindow.h"
@@ -387,6 +388,7 @@ void ImguiSystem::OpenFile() {
 
         factory_->DestroyAllEntities();
         factory_->DeSerializeLevelEntities(file);
+        CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
     }
 }
 

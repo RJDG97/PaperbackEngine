@@ -100,6 +100,15 @@ public:
 	DestinationIt GetCurrentDes();
 
 	void SetCurrentDes(DestinationIt Cdes);
+	
+/******************************************************************************/
+/*!
+  \fn Update()
+
+  \brief Handles the updating of the component's logic
+*/
+/******************************************************************************/
+	void Update(float frametime);
 };
 
 #endif

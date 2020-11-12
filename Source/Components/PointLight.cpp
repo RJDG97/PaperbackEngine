@@ -48,6 +48,11 @@ void PointLight::DeSerialize(std::stringstream& data) {
 		 >> radius_ >> intensity_;
 }
 
+void PointLight::DeSerializeClone(std::stringstream& data) {
+
+	DeSerialize(data);
+}
+
 std::shared_ptr<Component> PointLight::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning PointLight Component\n");
 

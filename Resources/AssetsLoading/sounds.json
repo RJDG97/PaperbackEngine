@@ -1,0 +1,51 @@
+{
+
+  "MenuDefault": [
+    {
+      "path": "Resources/SoundCache/States/MM_BGM.mp3",
+      "loop": "1"
+    }
+  ],
+  "GameBGM": [
+    {
+      "path": "Resources/SoundCache/States/Game_Mode_BGM_V3.mp3",
+      "loop": "1"
+    }
+  ],
+  "ButtonPress": [
+    {
+      "path": "Resources/SoundCache/States/Press_Button.mp3",
+      "loop": "0"
+    }
+  ],
+  "PlayerJump":  [
+    {
+      "path": "Resources/SoundCache/Player/Player_Jump.mp3",
+      "loop": "0"
+    }
+  ],
+  "PlayerDrink":  [
+    {
+      "path": "Resources/SoundCache/Player/Player_Drink.mp3",
+      "loop": "0"
+    }
+  ],
+  "PlayerHurt":  [
+    {
+      "path": "Resources/SoundCache/Player/Player_Hurt.mp3",
+      "loop": "0"
+    }
+  ],
+  "PlayerDies":  [
+    {
+      "path": "Resources/SoundCache/Player/Player_Dies.mp3",
+      "loop": "0"
+    }
+  ],
+  "EnemyWalk":  [
+    {
+      "path": "Resources/SoundCache/Player/Enemy_Walk.mp3",
+      "loop": "0"
+    }
+  ]
+}

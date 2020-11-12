@@ -148,10 +148,53 @@ void SoundSystem::RemoveCompletedChannel() {
 	completed_channel_.clear();
 }
 
+void SoundSystem::DeSerialize(const std::string& filepath) {
+
+	// Parse the stringstream into document (DOM) format
+	rapidjson::Document doc;
+	DeSerializeJSON(filepath, doc);
+
+	// Treats entire filestream at index as array and ensure that it is an array
+	const rapidjson::Value& sound_arr = doc;
+	DEBUG_ASSERT(sound_arr.IsObject(), "Entry does not exist in JSON");
+
+	// Iterate through each prefab
+	for (rapidjson::Value::ConstMemberIterator var_it = sound_arr.MemberBegin(); var_it != sound_arr.MemberEnd(); ++var_it) {
+
+		const rapidjson::Value& value_arr = var_it->value;
+
+		std::string sound_name{ var_it->name.GetString() };
+
+		M_DEBUG->WriteDebugMessage("Loading soundfile: " + sound_name + "\n");
+
+		// Iterate through the body of the prefab that contains components
+		for (rapidjson::Value::ConstValueIterator it = value_arr.Begin(); it != value_arr.End(); ++it) {
+
+			// Each value is essentially a container for multiple members
+			// IsObject enforces that the member is an object that will contain data:key pairs
+			const rapidjson::Value& member = *it;
+
+			DEBUG_ASSERT(member.IsObject(), "Entry does not exist in JSON");
+			//stores the data into a stream that is easier to read data from
+			std::stringstream stream;
+
+			for (rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin(); it2 != member.MemberEnd(); ++it2) {
+
+				stream << it2->value.GetString() << " ";
+			}
+
+			std::string path{};
+			bool loop{};
+			stream >> path >> loop;
+
+			LoadSound(path, sound_name, loop);
+		}
+	}
+}
+
 void SoundSystem::Init() {
 	// Load all sound files
-	LoadSound("Resources/SoundCache/GameBGM.wav", "BGM", 1);
-	LoadSound("Resources/SoundCache/MenuBGM.wav", "Menu", 1);
+	DeSerialize("Resources/AssetsLoading/sounds.json");
 
 	M_DEBUG->WriteDebugMessage("Sound System Init\n");
 }
@@ -218,7 +261,9 @@ void SoundSystem::SendMessageD(Message* m) {
 	{
 		// stops the current BGM
 		//need to check id of song to stop
-		StopSound("BGM");
+		MessageBGM_Stop* msg = dynamic_cast<MessageBGM_Stop*>(m);
+		std::cout << "Stopping Sound File: " << msg->file_id_ << std::endl;
+		StopSound(msg->file_id_);
 		break;
 	}
 	case MessageIDTypes::BGM_RELOAD:

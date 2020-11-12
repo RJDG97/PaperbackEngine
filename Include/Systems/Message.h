@@ -155,6 +155,20 @@ struct MessageBGM_Play : public Message
 	MessageBGM_Play(const std::string file_id);
 };
 
+struct MessageBGM_Stop : public Message
+{
+	std::string file_id_;
+
+	/******************************************************************************/
+	/*!
+	  \fn MessageBGM_Stop()
+
+	  \brief Initializes a message with the name of sound file to be stopped
+	*/
+	/******************************************************************************/
+	MessageBGM_Stop(const std::string file_id);
+};
+
 ///Message to tell the game to quit
 class MessageQuit : public Message
 {

@@ -23,6 +23,12 @@
       "texture": "Background",
       "layer": "0",
       "ui": "0"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.0 0.0 0.0",
+      "radius": "0.0",
+      "intensity": "0.0"
     }
    ],
    "UIText": [
@@ -112,11 +118,10 @@
     },
     {
       "component": "PointLight",
-      "color": "1.0 1.0 0.7",
-      "radius": "150.0",
-      "intensity": "0.8"
+      "color": "0.0 0.0 0.0",
+      "radius": "0.0",
+      "intensity": "0.0"
     }
-    
   ],
   "Enemy": [
     {
@@ -165,12 +170,6 @@
     {
       "component": "Health",
       "maximum health": "5"
-    },
-    {
-      "component": "PointLight",
-      "color": "0.5 1.0 1.0",
-      "radius": "150.0",
-      "intensity": "1.0"
     }
   ],
   "Wall": [
@@ -249,12 +248,6 @@
       "component": "AABB",
       "scale": "0.5 0.5",
       "layer": "1"
-    },
-    {
-      "component": "PointLight",
-      "color": "1.0 1.0 0.7",
-      "radius": "150.0",
-      "intensity": "0.8"
     }
   ],
   "Button": [
@@ -276,12 +269,6 @@
       "texture": "Rock",
       "layer": "2",
       "ui": "0"
-    },
-    {
-      "component": "PointLight",
-      "color": "0.5 1.0 1.0",
-      "radius": "50.0",
-      "intensity": "1.0"
     },
     {
       "component": "AABB",
@@ -375,12 +362,6 @@
       "ui": "0"
     },
     {
-      "component": "PointLight",
-      "color": "1.0 1.0 0.7",
-      "radius": "20.0",
-      "intensity": "0.8"
-    },
-    {
       "component": "AABB",
       "scale": "0.5 0.5",
       "layer": "2"
@@ -416,6 +397,12 @@
       "texture": "MenuBackground",
       "layer": "0",
       "ui": "0"
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.7",
+      "radius": "550.0",
+      "intensity": "25.0"
     }
   ],
   "Boundary": [

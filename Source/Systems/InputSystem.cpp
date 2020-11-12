@@ -116,30 +116,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	if (action == GLFW_PRESS) {
 		switch (key) {
 
-		case GLFW_KEY_1:	//'1'
-		{
-			MessageBGM_Play msg{ std::string{"BGM"} };
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		case GLFW_KEY_2:	//'2'
-		{
-			Message msg(MessageIDTypes::BGM_STOP);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		case GLFW_KEY_3:	//'3'
-		{
-			Message msg(MessageIDTypes::BGM_MUTE);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		case GLFW_KEY_4:	//'4'
-		{
-			Message msg(MessageIDTypes::BGM_PAUSE);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
 		case GLFW_KEY_B: 	//'B'
 		{
 			//for debug bomb

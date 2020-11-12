@@ -156,6 +156,15 @@ public:
 */
 /******************************************************************************/
 	virtual void SendMessageD(Message* m) override;
+
+/******************************************************************************/
+/*!
+  \fn DeSerialize()
+
+  \brief Initializes data members of sound system
+*/
+/******************************************************************************/
+	void DeSerialize(const std::string& filepath);
 };
 
 #endif

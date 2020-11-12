@@ -156,7 +156,7 @@ Vector2D PartitioningSystem::ConvertTransformToGridScale(const Vector2D& pos) {
 	Vector2D grid_coords = pos;
 
 	grid_coords += abs_bottom_left_;
-	grid_coords /= grid_size_;
+	grid_coords /= static_cast<float>(grid_size_);
 
 	RoundDown(grid_coords.x);
 	RoundDown(grid_coords.y);

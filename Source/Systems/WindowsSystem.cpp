@@ -86,31 +86,13 @@ void WindowsSystem::Init() {
 	M_DEBUG->WriteDebugMessage("Window System Init\n");
 }
 
-// Placeholder function
 void WindowsSystem::DeSerialize() {
-
-	// Load the input file (.json) and ensure it is open
-	std::ifstream input_file("Resources/EntityConfig/window.json");
-	//assert(input_file);
-	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
 
 	M_DEBUG->WriteDebugMessage("Initializing Windows System\n");
 
-	// Read each line separated by a '\n' into a stringstream
-	std::stringstream json_doc_buffer;
-	std::string input;
-
-	while (std::getline(input_file, input)) {
-
-		json_doc_buffer << input << "\n";
-	}
-
-	// Close the file (.json) after
-	input_file.close();
-
 	// Parse the stringstream into document (DOM) format
 	rapidjson::Document doc;
-	doc.Parse(json_doc_buffer.str().c_str());
+	DeSerializeJSON("Resources/EntityConfig/window.json", doc);
 
 	// Treats entire filestream at index as array and ensure that it is an array
 	const rapidjson::Value& value_arr = doc["Window"];

@@ -1,8 +1,10 @@
 #include <iostream>
 #include "Components/BasicAI.h"
 #include "Manager/ComponentManager.h"
+#include "Manager/ForcesManager.h"
 #include "Systems/Game.h"
 #include "Engine/Core.h"
+#include <algorithm>
 
 BasicAI::BasicAI() : 
 	num_destinations_{},
@@ -115,3 +117,39 @@ void BasicAI::SetCurrentDes(DestinationIt Cdes)
 	current_destination_ = Cdes;
 }
 
+void BasicAI::Update(float frametime) {
+
+	if (num_destinations_ < 1)
+		return;
+
+	Transform* xform = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(GetOwner()->GetID());
+	DEBUG_ASSERT((xform), "AI does not have Transform component");
+
+	// Check if entity close to destination aka point box collision
+
+	// Calculate distance between ai and destination
+	float distance = Vector2DLength(*current_destination_ - xform->GetPosition());
+	if (distance <= 1.0f) {
+
+		// if ai is near then calculate new vector and set
+		// check if next destination is out of range, and loop to beginning if so
+		BasicAI::DestinationIt next_it = current_destination_;
+
+		if (++next_it == std::end(destinations_)) {
+
+			//if next destination does not exist, then wrap back to beginning
+			next_it = destinations_.begin();
+		}
+
+		current_destination_ = next_it;
+	}
+
+	//get directional unit vector
+	Vector2D directional = *current_destination_ - xform->GetPosition();
+	directional /= Vector2DLength(directional);
+
+	//multiply by speed
+	directional *= speed;
+
+	CORE->GetManager<ForcesManager>()->AddForce(GetOwner()->GetID(), "movement", frametime, directional);
+}

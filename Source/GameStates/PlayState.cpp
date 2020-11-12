@@ -50,6 +50,9 @@ void PlayState::Init(std::string)
 	//CORE->GetManager<FontManager>()->FontBatchLoad("Play");
 	FACTORY->LoadLevel("Play");
 	FACTORY->LoadLevel("Pause");
+	
+	MessageBGM_Play msg{ "GameBGM" };
+	CORE->BroadcastMessage(&msg);
 
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
@@ -58,7 +61,10 @@ void PlayState::Init(std::string)
 void PlayState::Free()
 {
 	std::cout << "PlayState clean Successful" << std::endl;
-	
+
+	MessageBGM_Stop msg{ "GameBGM" };
+	CORE->BroadcastMessage(&msg);
+
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
 }
@@ -90,41 +96,7 @@ void PlayState::Update(Game* game, float frametime)
 	// To use in play state meant to handle game logic components like BasicAI
 	for (Game::BasicAIIt basic_ai = game->basicai_arr_->begin(); basic_ai != game->basicai_arr_->end(); ++basic_ai) {
 
-		if (basic_ai->second->num_destinations_ < 1) 
-			continue;
-
-		std::shared_ptr<Transform> xform = 
-			std::dynamic_pointer_cast<Transform>(basic_ai->second->GetOwner()->GetComponent(ComponentTypes::TRANSFORM));
-		DEBUG_ASSERT((xform), "AI does not have Transform component");
-
-		// Check if entity close to destination aka point box collision
-
-		// Calculate distance between ai and destination
-		float distance = Vector2DLength(*(basic_ai->second->current_destination_) - xform->position_);
-		if (distance <= 1.0f) {
-
-			// if ai is near then calculate new vector and set
-			// check if next destination is out of range, and loop to beginning if so
-			BasicAI::DestinationIt next_it = basic_ai->second->current_destination_;
-
-			if (++next_it == std::end(basic_ai->second->destinations_)) {
-
-				//if next destination does not exist, then wrap back to beginning
-				next_it = basic_ai->second->destinations_.begin();
-			}
-
-			basic_ai->second->current_destination_ = next_it;
-		}
-			
-		//get directional unit vector
-		Vector2D directional = *basic_ai->second->current_destination_ - xform->position_;
-		directional /= Vector2DLength(directional);
-
-		//multiply by speed
-		directional *= basic_ai->second->speed;
-
-		CORE->GetManager<ForcesManager>()->AddForce(basic_ai->second->GetOwner()->GetID(), "movement", frametime, directional);
-
+		basic_ai->second->Update(frametime);
 	}
 }
 
@@ -175,12 +147,15 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			InputController* InputController = it->second;
 			float power = 40.0f;
 
+			if (InputController->VerifyKey("pause", m->input_)) {
+				CORE->ToggleCorePauseStatus(); // "ESC"
+				CORE->GetSystem<Collision>()->ToggleClickables();
+
+				Message pause{ MessageIDTypes::BGM_PAUSE };
+				CORE->BroadcastMessage(&pause);
+			}
+
 			if (game->GetStateName() == "Play") {
-			
-				if (InputController->VerifyKey("pause", m->input_)) {
-					CORE->ToggleCorePauseStatus(); // "ESC"
-					CORE->GetSystem<Collision>()->ToggleClickables();
-				}
 
 				// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
 				// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
@@ -269,6 +244,9 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 				if (m->button_index_ == 1) {
 
+					MessageBGM_Play button{ "ButtonPress" };
+					CORE->BroadcastMessage(&button);
+
 					//true returned, trigger scene change
 					game->ChangeState(&m_MenuState);
 					return;
@@ -276,12 +254,18 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 				if (m->button_index_ == 2) {
 
+					MessageBGM_Play button{ "ButtonPress" };
+					CORE->BroadcastMessage(&button);
+
 					game->ChangeState(&m_MenuState);
 					//CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
 					return;
 				}
 
 				if (m->button_index_ == 3) {
+
+					MessageBGM_Play button{ "ButtonPress" };
+					CORE->BroadcastMessage(&button);
 
 					game->ChangeState(&m_MenuState);
 					//CORE->SetGameActiveStatus(false);

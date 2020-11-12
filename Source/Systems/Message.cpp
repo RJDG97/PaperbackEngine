@@ -23,6 +23,11 @@ MessageBGM_Play::MessageBGM_Play(const std::string file_id) :
 	file_id_ { file_id }
 {}
 
+MessageBGM_Stop::MessageBGM_Stop(const std::string file_id) :
+	Message(MessageIDTypes::BGM_STOP),
+	file_id_{ file_id }
+{}
+
 Message_Button::Message_Button(size_t button_index) :
 	Message{ MessageIDTypes::BUTTON },
 	button_index_{ button_index }

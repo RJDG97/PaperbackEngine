@@ -33,9 +33,6 @@ void EditorState::Init(std::string)
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 	
-	//used to freeze logic update and keep entities stationary except for actions tied to input
-	pause_ = true;
-	
 	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel("Editor");
 }
@@ -49,7 +46,7 @@ void EditorState::Free()
 
 void EditorState::Update(Game* game, float frametime)
 {
-	if (!pause_) 
+	if (!CORE->GetCorePauseStatus()) 
 		m_PlayState.Update(game, frametime);
 }
 
@@ -64,22 +61,6 @@ std::string EditorState::GetStateName() {
 }
 
 void EditorState::StateInputHandler(Message* msg, Game* game) {
-
-	if (msg->message_id_ == MessageIDTypes::M_BUTTON_PRESS) {
-
-		Message_Input* m = dynamic_cast<Message_Input*>(msg);
-		switch (m->message_id_) {
-
-			case MessageIDTypes::M_BUTTON_PRESS:
-			{
-
-				if (m->input_ == GLFW_KEY_P) {
-
-					pause_ = !pause_;
-				}
-			}
-		}
-	}
 
 	m_PlayState.StateInputHandler(msg, game);
 }

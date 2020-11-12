@@ -148,8 +148,8 @@ AMap::AMapTypeY AMap::GetNodeMap()
 void AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 {
 	// Reset nodes
-	for (int i = node_map_.size() - 1; i >= 0; --i) {
-		for (int j = 0; j < node_map_[0].size(); ++j) {
+	for (int i = static_cast<int>(node_map_.size() - 1); i >= 0; --i) {
+		for (int j = 0; j < static_cast<int>(node_map_[0].size()); ++j) {
 			node_map_[i][j].start_ = false;
 			node_map_[i][j].des_ = false;
 			node_map_[i][j].visited_ = false;
@@ -236,8 +236,8 @@ void AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 void AMap::DrawMap()
 {
 	std::cout << "---------------------------" << std::endl;
-	for (int i = node_map_.size()-1; i >= 0; --i) {
-		for (int j = 0; j < node_map_[0].size(); ++j) {
+	for (int i = static_cast<int>(node_map_.size()-1); i >= 0; --i) {
+		for (int j = 0; j < static_cast<int>(node_map_[0].size()); ++j) {
 			std::cout << "|";
 			if(node_map_[i][j].start_)
 				std::cout << "S";

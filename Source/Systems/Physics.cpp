@@ -109,7 +109,7 @@ void Physics::TextureHandler(MotionIt motion) {
 
 			if (name) {
 
-				if (VerifyZeroFloat(motion->second->velocity_.x)) {
+				if (VerifyZeroFloat(motion->second->velocity_.x) && VerifyZeroFloat(motion->second->velocity_.y)) {
 
 					//to verify is name is correct
 					if (name->GetName() == "Player") {

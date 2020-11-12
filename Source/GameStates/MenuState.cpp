@@ -39,11 +39,17 @@ void MenuState::Init(std::string)
 	// Entities created within cannot be checked against directly (No * to entity)
 
 	FACTORY->LoadLevel("Menu");
+
+	MessageBGM_Play msg{ "MenuDefault" };
+	CORE->BroadcastMessage(&msg);
 }
 
 void MenuState::Free()
 {
 	std::cout << "MenuState clean Successful" << std::endl;
+
+	MessageBGM_Stop msg{ "MenuDefault" };
+	CORE->BroadcastMessage(&msg);
 
 	FACTORY->DestroyAllEntities();
 
@@ -76,6 +82,9 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 		case MessageIDTypes::BUTTON: {
 
 			Message_Button* m = dynamic_cast<Message_Button*>(msg);
+
+			MessageBGM_Play button{ "ButtonPress" };
+			CORE->BroadcastMessage(&button);
 
 			if (m->button_index_ == 1) {
 

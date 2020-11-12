@@ -487,7 +487,7 @@ bool Collision::BurrowReady() {
 	
 	CollisionMapType col_map{};
 
-	GetPartitionedCollisionMap(grid_scale.x, grid_scale.y, col_map);
+	GetPartitionedCollisionMap(static_cast<size_t>(grid_scale.x), static_cast<size_t>(grid_scale.y), col_map);
 
 	if (col_map.empty() || col_map.size() < 2)
 		return false;
