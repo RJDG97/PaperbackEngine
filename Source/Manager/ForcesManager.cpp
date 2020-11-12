@@ -99,3 +99,8 @@ Vector2D ForcesManager::GetForce(EntityID id) {
 
 	return Vector2D{};
 }
+
+void ForcesManager::Purge() {
+
+	force_map_.clear();
+}

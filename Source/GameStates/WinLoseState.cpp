@@ -3,6 +3,8 @@
 #include "GameStates/PlayState.h"
 #include "Systems/Factory.h"
 #include "Engine/Core.h"
+#include "Manager/AMap.h"
+#include "Systems/Partitioning.h"
 
 WinLoseState m_WinLoseState;
 
@@ -10,6 +12,9 @@ void WinLoseState::Init(std::string level_name) {
 
 	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel(level_name);
+
+	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
+	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 }
 
 

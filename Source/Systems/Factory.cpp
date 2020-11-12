@@ -8,6 +8,8 @@
 #include <assert.h>
 #include "Systems/Debug.h"
 
+#include "Manager/ForcesManager.h"
+
 #include "Components/Scale.h"
 #include "Components/Status.h"
 #include "Components/Health.h"
@@ -148,6 +150,7 @@ void EntityFactory::DestroyAllEntities() {
 
 	entity_mgr_->DeletePlayerEntities();
 	entity_mgr_->DeleteAllEntities();
+	CORE->GetManager<ForcesManager>()->Purge();
 }
 
 void EntityFactory::DestroyAllArchetypes() {

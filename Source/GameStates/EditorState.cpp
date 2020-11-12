@@ -17,6 +17,9 @@
 #include "Entity/ComponentTypes.h"
 
 #include "Manager/ForcesManager.h"
+#include "Manager/AMap.h"
+
+#include "Systems/Partitioning.h"
 
 #include <memory>
 
@@ -35,6 +38,9 @@ void EditorState::Init(std::string)
 	
 	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel("Editor");
+
+	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
+	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 }
 
 void EditorState::Free()
