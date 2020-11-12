@@ -21,9 +21,7 @@ void TextureRenderer::Init() {
     
     CORE->GetSystem<GraphicsSystem>()->AddTextureRendererComponent(Component::GetOwner()->GetID(), this);
 
-    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
-    texture_handle_ = texture_.GetTilesetHandle();
-    tex_vtx_ = *texture_.GetTexVtx();
+    InitTextures();
 }
 
 void TextureRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
@@ -45,12 +43,20 @@ void TextureRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
     writer->EndObject();
 }
 
+void TextureRenderer::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+    Serialize(writer);
+}
+
 void TextureRenderer::DeSerialize(std::stringstream& data) {
     
     data >> texture_name_ >> layer_ >> ui_;
 }
 
 void TextureRenderer::DeSerializeClone(std::stringstream& data) {
+
+    //remove existing entry before proceeding
+    CORE->GetSystem<GraphicsSystem>()->RemoveTextureRendererComponent(Component::GetOwner()->GetID());
 
     int layer;
 
@@ -61,11 +67,9 @@ void TextureRenderer::DeSerializeClone(std::stringstream& data) {
         M_DEBUG->WriteDebugMessage("Layer is keyed in wrongly!");
     }
 
-    //DeSerialize(data);
-
-    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
-    texture_handle_ = texture_.GetTilesetHandle();
-    tex_vtx_ = *texture_.GetTexVtx();
+    //readd with new info
+    CORE->GetSystem<GraphicsSystem>()->AddTextureRendererComponent(Component::GetOwner()->GetID(), this);
+    InitTextures();
 }
 
 std::shared_ptr<Component> TextureRenderer::Clone() {
@@ -82,4 +86,11 @@ std::shared_ptr<Component> TextureRenderer::Clone() {
     cloned->texture_ = texture_;
 
     return cloned;
+}
+
+void TextureRenderer::InitTextures() {
+
+    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
+    texture_handle_ = texture_.GetTilesetHandle();
+    tex_vtx_ = *texture_.GetTexVtx();
 }

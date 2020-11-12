@@ -201,7 +201,7 @@
       "component": "PointLight",
       "color": "0.5 1.0 1.0",
       "radius": "50.0",
-      "intensity": "1.0"
+      "intensity": "2.0"
     }
   ],
   "MovingWall": [

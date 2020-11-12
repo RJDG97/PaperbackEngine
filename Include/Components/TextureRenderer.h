@@ -58,6 +58,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeClone()
+
+  \brief Serialises a component as a clone into JSON format
+*/
+/******************************************************************************/
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+
+/******************************************************************************/
+/*!
 	\fn DeSerialize(std::stringstream& data)
 
 	\brief Reads data from a stringstream and stores them into the data members
@@ -82,6 +91,15 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+/******************************************************************************/
+/*!
+  \fn InitTextures()
+
+  \brief Called to initialise textures
+*/
+/******************************************************************************/
+	void InitTextures();
 };
 
 #endif
