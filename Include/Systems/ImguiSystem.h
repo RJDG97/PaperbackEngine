@@ -196,46 +196,168 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn ImguiHelp()
+	\fn GetEntity()
 
-	\brief A function to provide infomation of the imgui windows
+	\brief Retrieve the entity*
 */
 /******************************************************************************/
 
 	Entity* GetEntity();
-	
+
+/******************************************************************************/
+/*!
+	\fn  SetEntity(Entity* newentity)
+
+	\brief Set the entity* to the selected entity
+*/
+/******************************************************************************/
+
 	void SetEntity(Entity* newentity);
 
+/******************************************************************************/
+/*!
+	\fn  GetImguiBool()
+
+	\brief Retrieve the imguimode bool
+*/
+/******************************************************************************/
 	bool GetImguiBool();
+
+/******************************************************************************/
+/*!
+	\fn SetImguiBool(bool mode);
+
+	\brief Set the imguimode bool
+*/
+/******************************************************************************/
 
 	void SetImguiBool(bool mode);
 
+/******************************************************************************/
+/*!
+	\fn DeletePopUp(const char* windowName, std::string objName, 
+	Entity* entity = nullptr, std::shared_ptr<Component> component = nullptr)
+
+	\brief Manages the pop up for deletion of entities/archetype/components
+*/
+/******************************************************************************/
 	void DeletePopUp(const char* windowName, std::string objName, Entity* entity = nullptr, std::shared_ptr<Component> component = nullptr);
 
+/******************************************************************************/
+/*!
+	\fn ImguiHelp(const char* description)
+
+	\brief to generate hints if needed
+*/
+/******************************************************************************/	
 	void ImguiHelp(const char* description);
 
+/******************************************************************************/
+/*!
+	\fn ImguiInput()
+
+	\brief Manages the input used in the imgui system
+*/
+/******************************************************************************/
 	void ImguiInput();
 
+/******************************************************************************/
+/*!
+	\fn OpenSaveDialog(const char* filter, int save)
+
+	\brief Runs the win32 API for the file dialog
+*/
+/******************************************************************************/
 	std::string OpenSaveDialog(const char* filter, int save);
-	
+
+/******************************************************************************/
+/*!
+	\fn SaveArchetype()
+
+	\brief Saves the list of avaliable archetypes
+*/
+/******************************************************************************/
 	void SaveArchetype();
 
+/******************************************************************************/
+/*!
+	\fn LoadArchetype()
+
+	\brief Load a list of avaliable archetype
+*/
+/******************************************************************************/
 	void LoadArchetype();
 
+/******************************************************************************/
+/*!
+	\fn OpenFile()
+
+	\brief Runs the filedialog to load file into Deserialize
+*/
+/******************************************************************************/
 	void OpenFile();
 
+/******************************************************************************/
+/*!
+	\fn SaveFile()
+
+	\brief Saves the entities into their corresponding json files
+*/
+/******************************************************************************/
 	void SaveFile();
 
+/******************************************************************************/
+/*!
+	\fn CloseCurrentScene();
+
+	\brief Closes the current scene and runs Editor.json
+*/
+/******************************************************************************/
 	void CloseCurrentScene();
 
+/******************************************************************************/
+/*!
+	\fn ImguiMenuBar()
+
+	\brief Manages the options of the menu bar
+*/
+/******************************************************************************/
 	void ImguiMenuBar();
 
-	void ImGuiCustomStyle(); // may not be used
+/******************************************************************************/
+/*!
+	\fn ImGuiCustomStyle()
 
+	\brief Set a custom imgui style
+*/
+/******************************************************************************/
+	void ImGuiCustomStyle();
+
+/******************************************************************************/
+/*!
+	\fn CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol)
+
+	\brief Set the 3 types of colours of imgui buttons
+*/
+/******************************************************************************/
 	void CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol);
 
+/******************************************************************************/
+/*!
+	\fn EditString(std::string filepath, const char* startpos = "Resources")
+
+	\brief Edits the string for usage of Serialize and Deserialize
+*/
+/******************************************************************************/
 	std::string EditString(std::string filepath, const char* startpos = "Resources");
 
+/******************************************************************************/
+/*!
+	\fn PopUpMessage(const char* windowName, const char* message)
+
+	\brief Shows a pop message with a simple confirmation from the user
+*/
+/******************************************************************************/
 	void PopUpMessage(const char* windowName, const char* message);
 
 private:

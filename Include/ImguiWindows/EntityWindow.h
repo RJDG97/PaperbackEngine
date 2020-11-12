@@ -18,7 +18,22 @@
 class EntityWindow : public IWindow{
 
 public:
+/******************************************************************************/
+/*!
+	\fn Init()
+
+	\brief Initializes the ImGui System
+*/
+/******************************************************************************/
 	void Init() override;
+
+/******************************************************************************/
+/*!
+	\fn Update()
+
+	\brief Updates all ImGui Windows in the system
+*/
+/******************************************************************************/
 	void Update() override;
 
 /******************************************************************************/
@@ -39,7 +54,8 @@ public:
 	\brief Prints out ImGui input space for Float components
 */
 /******************************************************************************/
-	void ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth = 100.0f, float startVal = 0.1f, float endVal = 1.0f);
+	void ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, 
+    float inputWidth = 100.0f, float startVal = 0.1f, float endVal = 1.0f);
 
 /******************************************************************************/
 /*!
@@ -50,7 +66,8 @@ public:
 	\brief Prints out ImGui input space for components
 */
 /******************************************************************************/
-	void ComponentInputInt(const char* componentLabel, const char* inputLabel, int& componentVar, float inputWidth = 100.0f, int startVal = 1, int endVal = 5);
+	void ComponentInputInt(const char* componentLabel, const char* inputLabel, int& componentVar, 
+	float inputWidth = 100.0f, int startVal = 1, int endVal = 5);
 
 /******************************************************************************/
 /*!

@@ -79,9 +79,40 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+/******************************************************************************/
+/*!
+  \fn GetCurrentHealth()
+
+  \brief Retrieve the current health of the entity
+*/
+/******************************************************************************/
 	int GetCurrentHealth();
+
+/******************************************************************************/
+/*!
+  \fn SetCurrentHealth(int newHealth)
+
+  \brief Set the current health of the entity
+*/
+/******************************************************************************/
 	void SetCurrentHealth(int newHealth);
+
+/******************************************************************************/
+/*!
+  \fn GetMaxHealth()
+
+  \brief Retrieve the Max health of the entity
+*/
+/******************************************************************************/
 	int GetMaxHealth();
+
+/******************************************************************************/
+/*!
+  \fn SetMaxHealth(int newHealth)
+
+  \brief Sets the Max health of the entity
+*/
+/******************************************************************************/
 	void SetMaxHealth(int newHealth);
 };
 
