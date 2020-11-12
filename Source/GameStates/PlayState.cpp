@@ -3,6 +3,7 @@
 #include "Systems/Game.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/MenuState.h"
+#include "GameStates/WinLoseState.h"
 
 #include "Systems/InputSystem.h"
 
@@ -44,6 +45,9 @@ void PlayState::Init(std::string)
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
+	component_mgr_ = &*CORE->GetManager<ComponentManager>();
+	entity_mgr_ = &*CORE->GetManager<EntityManager>();
+
 	CORE->ResetCorePauseStatus();
 	//CORE->GetManager<TextureManager>()->TextureBatchLoad("Play");
 	//CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
@@ -71,7 +75,8 @@ void PlayState::Free()
 
 void PlayState::Update(Game* game, float frametime)
 {
-	EntityManager* entity_mgr_ = &*CORE->GetManager<EntityManager>();
+	if (!entity_mgr_)
+		entity_mgr_ = &*CORE->GetManager<EntityManager>();
 
 	entity_mgr_->GetEntities();
 
@@ -97,6 +102,20 @@ void PlayState::Update(Game* game, float frametime)
 	for (Game::BasicAIIt basic_ai = game->basicai_arr_->begin(); basic_ai != game->basicai_arr_->end(); ++basic_ai) {
 
 		basic_ai->second->Update(frametime);
+	}
+
+	// If there exists at least 1 player
+	if (entity_mgr_->GetPlayerEntities().size() > 0) {
+
+		if (!component_mgr_)
+			component_mgr_ = &*CORE->GetManager<ComponentManager>();
+
+		EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
+		Health* health = component_mgr_->GetComponent<Health>(player_id);
+
+		if (health && health->GetCurrentHealth() <= 0) {
+			game->ChangeState(&m_WinLoseState, "Lose");
+		}
 	}
 }
 
@@ -133,9 +152,6 @@ std::string PlayState::GetStateName() {
 }
 
 void PlayState::StateInputHandler(Message* msg, Game* game) {
-
-	EntityManager* entity_mgr_ = &*CORE->GetManager<EntityManager>();
-	ComponentManager* component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
 	if (game) {
 		for (Game::InputControllerIt it = game->input_controller_arr_->begin(); it != game->input_controller_arr_->end(); ++it) {
