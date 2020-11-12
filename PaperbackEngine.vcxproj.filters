@@ -150,6 +150,9 @@
     <Filter Include="Systems\Partitioning System">
       <UniqueIdentifier>{6157a7c2-606d-4780-bd59-f35b15eccae9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Pathfinding">
+      <UniqueIdentifier>{8e256e93-32a5-4aa9-ab1a-f00e665a4422}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -353,11 +356,11 @@
     <ClCompile Include="Source\ImguiWindows\SystemWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Systems\Pathfinding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Pathfinding.cpp">
+      <Filter>Systems\Pathfinding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -598,12 +601,14 @@
     <ClInclude Include="Include\Components\IRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Systems\Pathfinding.h" />
     <ClInclude Include="Include\Imgui\IconsFontAwesome4.h">
       <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\Pathfinding.h">
+      <Filter>Systems\Pathfinding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
