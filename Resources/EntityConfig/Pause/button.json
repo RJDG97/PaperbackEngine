@@ -23,7 +23,7 @@
       "component": "TextureRenderer",
       "texture": "MenuStart",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     }
   ],
   "button": [
@@ -50,7 +50,7 @@
       "component": "TextureRenderer",
       "texture": "MenuSettings",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     }
   ],
   "button": [
@@ -77,7 +77,7 @@
       "component": "TextureRenderer",
       "texture": "MenuQuit",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     }
   ]
 }

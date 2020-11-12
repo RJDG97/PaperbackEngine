@@ -8,22 +8,17 @@ void EntityPathWindow::Init() {
 }
 
 void EntityPathWindow::Update() {
-	std::string path;
-	int counter = 0;
-
+	std::string path, name;
+	size_t counter = 0;
 	if (imgui_->b_editpath) {
-		ImGui::Begin("Set Archetype File Location", &imgui_->b_editpath);
-
-		ImGui::Text("Current Set Paths:");
+		ImGui::Begin("Add Archetype to Scene", &imgui_->b_editpath);
 		Level* editor = factory_->GetLevel("Editor");
-
 		if (!editor->entity_paths_.empty()) {
-
+			ImGui::Text("Current Set Path(s): ");
 			for (Level::EntityPathsIt it = editor->entity_paths_.begin(); it != editor->entity_paths_.end(); ++it) {
-				++counter; //used as unique id for treenodeEx
-
-				if (ImGui::TreeNodeEx((void*)counter, 0, ("Entity: " + it->first).c_str())) {
-					ImGui::Text(("path: " + it->second).c_str());
+				++counter;
+				if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, it->first.c_str())) {
+					ImGui::Text(it->second.c_str());
 
 					if (ImGui::Button(ICON_FA_PENCIL" Update Current Path")) {
 
@@ -48,43 +43,36 @@ void EntityPathWindow::Update() {
 					break;
 				}
 
-				if (ImGui::Button(ICON_FA_TIMES_CIRCLE " Clear All Paths"))
-					editor->entity_paths_.clear();
-				break;
 			}
+
+			if (ImGui::Button(ICON_FA_TIMES_CIRCLE " Clear All Paths"))
+				editor->entity_paths_.clear();
 		}
 
 		ImGui::Separator();
 
 		if (entities_) {
-
-			if (ImGui::BeginCombo("##Archetypes", "List of Archetypes")) {
-
+			if (ImGui::BeginCombo("##Archetypes", "Archetypes")) {
 				for (EntityManager::EntityArchetypeMapTypeIt entityIT = entities_->GetArchetypes().begin(); entityIT != entities_->GetArchetypes().end(); ++entityIT) {
-
+					name = entityIT->first;
 					if (ImGui::Selectable(entityIT->first.c_str())) {
-
 						path = imgui_->OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
 
 						if (!path.empty()) {
 
-							std::string file = imgui_->EditString(path);
+							size_t pos = path.find("Resources");
 
-							editor->AddNewEntityPath(entityIT->first, file);
+							std::string file = path.substr(pos);
+
+							editor->AddNewEntityPath(name, file);
 						}
 
 					}
 				}
-
 				ImGui::EndCombo();
 			}
 		}
-
-		if (ImGui::Button(ICON_FA_WINDOW_CLOSE_O " Close"))
-			imgui_->b_editpath = false;
-
 		ImGui::End();
 	}
 
-    
 }

@@ -2,9 +2,9 @@
 #include "Manager/Amap.h"
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityWindow.h"
+#include "ImguiWindows/EntityPathWindow.h"
 #include "ImguiWindows/ArchetypeWindow.h"
 #include "ImguiWindows/SystemWindow.h"
-#include "ImguiWindows/EntityPathWindow.h"
 
 // Expose the Win32 API
 #include <commdlg.h>
@@ -17,8 +17,8 @@ void ImguiSystem::Init(){
     //AddWindow<ImguiViewport>();
     AddWindow<EntityWindow>();
     AddWindow<ArchetypeWindow>();
-    AddWindow<SystemWindow>();
     AddWindow<EntityPathWindow>();
+    AddWindow<SystemWindow>();
 
     win_ = &*CORE->GetSystem<WindowsSystem>();
     collision_system_ = &*CORE->GetSystem<Collision>();
@@ -170,7 +170,7 @@ void ImguiSystem::ImGuiCustomStyle() {
 
     ImVec4* colors = ImGui::GetStyle().Colors;
 
-   // colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.55f);
+    colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.45f);
 }
 
 void ImguiSystem::ImguiRender() {

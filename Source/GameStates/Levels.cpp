@@ -77,9 +77,6 @@ void Level::DeleteEntityPath(const std::string& name) {
 		entity_paths_.erase(it);
 }
 
-
-
-
 Levels::Levels() :
 	path_{},
 	current_play_index_{}

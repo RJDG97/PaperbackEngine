@@ -9,7 +9,7 @@
       "component": "TextureRenderer",
       "texture": "MenuDefeat",
       "layer": "0",
-      "ui": "0"
+      "ui": "1"
     }
   ]
 }

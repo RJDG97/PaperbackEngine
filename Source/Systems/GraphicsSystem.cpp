@@ -17,6 +17,19 @@
 #include "Components/Transform.h"
 #include <glm/gtc/type_ptr.hpp>
 
+// temporary function for checking
+bool HasClickableAndActive(ComponentManager& mgr, EntityID id) {
+
+    Clickable* clickable = mgr.GetComponent<Clickable>(id);
+
+    if (clickable) {
+
+        return (clickable->GetActive()) ? true : false;
+    }
+    //no clickable but active for rendering
+    return true;
+}
+
 /*  _________________________________________________________________________ */
 /*! GraphicsSystem::Init
 
@@ -224,6 +237,9 @@ void GraphicsSystem::Draw() {
             continue;
         }
 
+        if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID()))
+            continue;
+
         DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
     }
 
@@ -279,6 +295,7 @@ std::string GraphicsSystem::GetName() {
 }
 
 void GraphicsSystem::SendMessageD(Message* m) {
+    UNREFERENCED_PARAMETER(m);
 
     (void) m;
 }
@@ -522,23 +539,7 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
     }
 }
 
-// temporary function for checking
-bool HasClickableAndActive(ComponentManager& mgr, EntityID id) {
-    
-    Clickable* clickable = mgr.GetComponent<Clickable>(id);
-
-    if (clickable) {
-        
-        return (clickable->GetActive()) ? true : false;
-    }
-    //no clickable but active for rendering
-    return true;
-}
-
 void GraphicsSystem::BatchWorldObject(IRenderer* i_worldobj_renderer) {
-    
-    if (!HasClickableAndActive(*component_manager_, i_worldobj_renderer->GetOwner()->GetID()))
-        return;
 
     Vector2D scale =
         component_manager_->GetComponent<Scale>(i_worldobj_renderer->GetOwner()->GetID())->GetScale();

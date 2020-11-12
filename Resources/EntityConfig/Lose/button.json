@@ -24,7 +24,7 @@
       "component": "TextureRenderer",
       "texture": "UIQuitYes",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     }
   ],
   "button": [
@@ -52,7 +52,7 @@
       "component": "TextureRenderer",
       "texture": "UIQuitNo",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     }
   ]
 }
