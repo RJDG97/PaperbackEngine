@@ -77,12 +77,12 @@ float PointLight::GetIntensity(){
 	return intensity_;
 }
 
-void PointLight::SetRadius(float newRadius){
+void PointLight::SetRadius(float new_radius){
 
-	radius_ = newRadius;
+	radius_ = new_radius;
 }
 
-void PointLight::SetIntensity(float newIntensity){
+void PointLight::SetIntensity(float new_intensity){
 
-	intensity_ = newIntensity;
+	intensity_ = new_intensity;
 }

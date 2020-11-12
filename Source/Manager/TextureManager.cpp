@@ -213,8 +213,8 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
 {
     auto it = tilesets_.find(tileset_name);
 
-    if (it != tilesets_.end())
-    {
+    if (it != tilesets_.end()) {
+
         std::cout << "Tileset already exists!" << std::endl;
         return;
     }

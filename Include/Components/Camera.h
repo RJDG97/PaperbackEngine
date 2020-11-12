@@ -24,18 +24,69 @@ public:
 
 	friend class CameraSystem;
 
+/******************************************************************************/
+/*!
+	\fn Camera()
+
+	\brief Constructor for Camera that defaults the data members of
+			the component
+*/
+/******************************************************************************/
 	Camera();
 
+/******************************************************************************/
+/*!
+	\fn ~Camera()
+
+	\brief Destructor for Camera that removes the component from the
+			Camera System's camera map
+*/
+/******************************************************************************/
 	~Camera();
 
+/******************************************************************************/
+/*!
+	\fn Init()
+
+	\brief Adds the component itself to the Camera System's camera map
+*/
+/******************************************************************************/
 	void Init();
 
+/******************************************************************************/
+/*!
+	\fn Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
+
+	\brief Serialises a component into JSON format
+*/
+/******************************************************************************/
 	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
 
+/******************************************************************************/
+/*!
+	\fn DeSerialize(std::stringstream& data)
+
+	\brief Reads data from a stringstream and stores them into the data members
+*/
+/******************************************************************************/
 	void DeSerialize(std::stringstream& data) override;
 
+/******************************************************************************/
+/*!
+	\fn DeSerializeClone(std::stringstream& data)
+
+	\brief Serializes data members within the Component
+*/
+/******************************************************************************/
 	void DeSerializeClone(std::stringstream& data);
 
+/******************************************************************************/
+/*!
+	\fn Clone()
+
+	\brief Clones the existing component
+*/
+/******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 };
 

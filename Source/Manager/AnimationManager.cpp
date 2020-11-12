@@ -65,8 +65,8 @@ void AnimationManager::Init() {
 	texture_manager_ = &*CORE->GetManager<TextureManager>();
 }
 
-void AnimationManager::AnimationBatchLoad(std::string level_name)
-{
+void AnimationManager::AnimationBatchLoad(std::string level_name) {
+
 	rapidjson::Document animations_to_load;
 	std::string path = "Resources/AssetsLoading/" + level_name + "_animation.json";
 
@@ -102,8 +102,7 @@ void AnimationManager::AnimationBatchLoad(std::string level_name)
 		std::vector<std::pair<std::string, int>> animation_names_frames;
 		std::vector<GLfloat> frame_durations;
 
-		for (; animation_set_param_it != animation_set_param.MemberEnd(); ++animation_set_param_it)
-		{
+		for (; animation_set_param_it != animation_set_param.MemberEnd(); ++animation_set_param_it) {
 
 			std::stringstream stream;
 			stream << animation_set_param_it->value.GetString();
@@ -136,8 +135,8 @@ void AnimationManager::CreateAnimation(const char* filename,
 
 	for (int i = 0; i < rows; ++i) {
 
-		if ((*animation_names_frames)[i].first == "Blank")
-		{
+		if ((*animation_names_frames)[i].first == "Blank") {
+
 			continue;
 		}
 

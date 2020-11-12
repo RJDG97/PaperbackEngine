@@ -33,54 +33,54 @@ public:
 
 /******************************************************************************/
 /*!
-\fn LightingSystem()
+	\fn LightingSystem()
 
-\brief Default constructor for lighting system
+	\brief Default constructor for lighting system
 */
 /******************************************************************************/
 	LightingSystem();
 
 /******************************************************************************/
 /*!
-\fn ~LightingSystem()
+	\fn ~LightingSystem()
 
-\brief Default destructor for lighting system
+	\brief Default destructor for lighting system
 */
 /******************************************************************************/
 	~LightingSystem();
 
 /******************************************************************************/
 /*!
-\fn Init()
+	\fn Init()
 
-\brief Initializes the lighting system
+	\brief Initializes the lighting system
 */
 /******************************************************************************/
 	void Init();
 
 /******************************************************************************/
 /*!
-\fn Update(float frametime)
+	\fn Update(float frametime)
 
-\brief Updates the position of lights
+	\brief Updates the position of lights
 */
 /******************************************************************************/
 	void Update(float frametime);
 
 /******************************************************************************/
 /*!
-\fn Draw()
+	\fn Draw()
 
-\brief Renders all light components
+	\brief Renders all light components
 */
 /******************************************************************************/
 	void Draw();
 
 /******************************************************************************/
 /*!
-\fn Cleanup()
+	\fn Cleanup()
 
-\brief Cleans up the lighting system
+	\brief Cleans up the lighting system
 */
 /******************************************************************************/
 	void Cleanup();
@@ -88,10 +88,10 @@ public:
 
 /******************************************************************************/
 /*!
-\fn GetLightingTexture()
+	\fn GetLightingTexture()
 
-\brief Gets the texture where the lights are rendered to and returns its
-	   texture handle
+	\brief Gets the texture where the lights are rendered to and returns its
+		   texture handle
 */
 /******************************************************************************/
 	GLuint* GetLightingTexture();
@@ -106,36 +106,36 @@ public:
 
 /******************************************************************************/
 /*!
-\fn UpdateLightPosition(PointLight* point_light)
+	\fn UpdateLightPosition(PointLight* point_light)
 
-\brief Updates the light position of a Light component from the Lighting Component's map
+	\brief Updates the light position of a Light component from the Lighting Component's map
 */
 /******************************************************************************/
 	void UpdateLightPosition(PointLight* point_light);
 
 /******************************************************************************/
 /*!
-\fn DrawPointLight(Shader* shader, PointLight* point_light)
+	\fn DrawPointLight(Shader* shader, PointLight* point_light)
 
-\brief Draws the Light component
+	\brief Draws the Light component
 */
 /******************************************************************************/
 	void DrawPointLight(Shader* shader, PointLight* point_light);
 
 /******************************************************************************/
 /*!
-\fn GetName()
+	\fn GetName()
 
-\brief Returns the name of the system for debug use
+	\brief Returns the name of the system for debug use
 */
 /******************************************************************************/
 	std::string GetName();
 
 /******************************************************************************/
 /*!
-\fn SendMessageD(Message* m)
+	\fn SendMessageD(Message* m)
 
-\brief Function more akin to "What to do when message is received" for internal logic
+	\brief Function more akin to "What to do when message is received" for internal logic
 */
 /******************************************************************************/
 	void SendMessageD(Message* m);

@@ -60,6 +60,9 @@ void PlayState::Init(std::string)
 
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
+
+	CORE->GetSystem<CameraSystem>()->SetTarget(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
+	CORE->GetSystem<CameraSystem>()->ToggleTargeted();
 }
 
 void PlayState::Free()
@@ -191,11 +194,26 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				if (InputController->VerifyKey("burrow", m->input_)) {
 
 					if (CORE->GetSystem<Collision>()->BurrowReady()) {
-						SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "M"
+						SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
 					}
 				}
 				else if (InputController->VerifyKey("invisible", m->input_)) {
-					SetStatus("Player", StatusType::INVISIBLE, 0.0f, &*CORE->GetSystem<Game>()); // "N"
+
+					Entity* player = CORE->GetManager<EntityManager>()->GetPlayerEntities()[0];
+					Status* status = CORE->GetManager<ComponentManager>()->GetComponent<Status>(player->GetID());
+					AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(player->GetID());
+
+					if (status->GetStatus() == StatusType::INVISIBLE)
+					{
+						CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Idle");
+					}
+
+					else
+					{
+						CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Hiding");
+					}
+
+					SetStatus("Player", StatusType::INVISIBLE, 0.0f, &*CORE->GetSystem<Game>()); // "M"
 				}
 
 				if (player_status && player_status->status_ != StatusType::INVISIBLE) {

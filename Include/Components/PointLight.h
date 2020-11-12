@@ -91,10 +91,41 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+/******************************************************************************/
+/*!
+	\fn GetRadius()
+
+	\brief Gets the radius of the component
+*/
+/******************************************************************************/
 	float GetRadius();
+
+/******************************************************************************/
+/*!
+	\fn GetIntensity()
+
+	\brief Gets the intensity of the component
+*/
+/******************************************************************************/
 	float GetIntensity();
-	void SetRadius(float newRadius);
-	void SetIntensity(float newIntensity);
+
+/******************************************************************************/
+/*!
+	\fn SetRadius()
+
+	\brief Sets the radius of the component
+*/
+/******************************************************************************/
+	void SetRadius(float new_radius);
+
+/******************************************************************************/
+/*!
+	\fn SetIntensity()
+
+	\brief Sets the intensity of the component
+*/
+/******************************************************************************/
+	void SetIntensity(float new_intensity);
 	
 };
 

@@ -136,6 +136,13 @@ public:
 /******************************************************************************/
 	void TextureBatchLoad(std::string level_name);
 
+/******************************************************************************/
+/*!
+	\fn DeSerializeJSON()
+
+	\brief Loads the content of a JSON file into a doc
+*/
+/******************************************************************************/
 	void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
 
 /******************************************************************************/

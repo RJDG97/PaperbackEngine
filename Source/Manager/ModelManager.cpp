@@ -20,10 +20,10 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
     std::vector<GLushort> idx_vtx_sent;
     std::vector<glm::vec2> pos_vtx_sent;
 
-    for (int i = 0; i < batch_size; ++i)
-    {
-        for (int j = 0; j < 4; ++j)
-        {
+    for (int i = 0; i < batch_size; ++i) {
+
+        for (int j = 0; j < 4; ++j) {
+
             pos_vtx_sent.push_back(pos_vtx[j]);
         }
 
@@ -32,8 +32,8 @@ Model* ModelManager::AddTristripsBatchModel(int batch_size, std::string model_na
         idx_vtx_sent.push_back(static_cast<GLushort>(3 + 4 * i));
         idx_vtx_sent.push_back(static_cast<GLushort>(1 + 4 * i));
 
-        if (i < batch_size - 1)
-        {
+        if (i < batch_size - 1) {
+
             idx_vtx_sent.push_back(static_cast<GLushort>(1 + 4 * i));
             idx_vtx_sent.push_back(static_cast<GLushort>(2 + 4 * (i + 1)));
         }

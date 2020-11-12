@@ -188,8 +188,8 @@ void GraphicsSystem::Draw() {
 
         if (tex_vtx_sent.size() == static_cast<size_t>(batch_size_) * 4 ||
             next_object == worldobj_renderers_in_order_.end() ||
-            next_object->second->layer_ != current_layer)
-        {
+            next_object->second->layer_ != current_layer) {
+
             DrawBatch(vbo_hdl, world_to_ndc_xform);
         }
     
@@ -231,8 +231,8 @@ void GraphicsSystem::Draw() {
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
         }
 
-        if (component_manager_->GetComponent<Name>(it->second->GetOwner()->GetID())->GetName() == "Watergauge")
-        {
+        if (component_manager_->GetComponent<Name>(it->second->GetOwner()->GetID())->GetName() == "Watergauge") {
+
             DrawHealthbar(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
             continue;
         }
@@ -308,13 +308,13 @@ void GraphicsSystem::AddTextRendererComponent(EntityID id, TextRenderer* text_re
     //text_renderer_arr_[id] = text_renderer;
     text_renderer_arr_->AddComponent(id, text_renderer);
 
-    if (text_renderer->ui_)
-    {
+    if (text_renderer->ui_) {
+
         uitext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
     }
 
-    else
-    {
+    else {
+
         worldtext_renderers_in_order_.insert({ GetLayer(text_renderer), text_renderer });
     }
 }
@@ -328,8 +328,8 @@ void GraphicsSystem::RemoveTextRendererComponent(EntityID id)
 
         int layer = GetLayer(it);
     	
-        if (it->ui_)
-        {
+        if (it->ui_) {
+
             TextRenderOrderIt orderit = uitext_renderers_in_order_.find(layer);
 
             if (orderit != uitext_renderers_in_order_.end()) {
@@ -374,13 +374,13 @@ void GraphicsSystem::AddTextureRendererComponent(EntityID id, TextureRenderer* t
     texture_renderer_arr_->AddComponent(id, texture_renderer);
     TextureRenderer* it = texture_renderer_arr_->GetComponent(id);
 
-    if (it->ui_)
-    {
+    if (it->ui_) {
+
         uirenderers_in_order_.insert({ GetLayer(texture_renderer), texture_renderer });
     }
 
-    else
-    {
+    else {
+
         worldobj_renderers_in_order_.insert({ GetLayer(texture_renderer), texture_renderer });
     }
 }
@@ -404,8 +404,8 @@ void GraphicsSystem::RemoveTextureRendererComponent(EntityID id) {
 
     layer = GetLayer(it);
 
-    if (it->ui_)
-    {
+    if (it->ui_) {
+
         IRenderOrderIt orderit = uirenderers_in_order_.find(layer);
 
         if (orderit != uirenderers_in_order_.end()) {
@@ -449,13 +449,13 @@ void GraphicsSystem::AddAnimationRendererComponent(EntityID id, AnimationRendere
     anim_renderer_arr_->AddComponent(id, animation_renderer);
     AnimationRenderer* it = anim_renderer_arr_->GetComponent(id);
 
-    if (it->ui_)
-    {
+    if (it->ui_) {
+
         uirenderers_in_order_.insert({ GetLayer(animation_renderer), animation_renderer });
     }
 
-    else
-    {
+    else {
+
         worldobj_renderers_in_order_.insert({ GetLayer(animation_renderer), animation_renderer });
     }
 }
@@ -478,8 +478,8 @@ void GraphicsSystem::RemoveAnimationRendererComponent(EntityID id) {
 
     layer = GetLayer(it);
 
-    if (it->ui_)
-    {
+    if (it->ui_) {
+
         IRenderOrderIt orderit = uirenderers_in_order_.find(layer);
 
         if (orderit != uirenderers_in_order_.end()) {
@@ -555,15 +555,15 @@ void GraphicsSystem::BatchWorldObject(IRenderer* i_worldobj_renderer) {
     glm::vec2 rotation{ glm::cos(orientation), glm::sin(orientation) };
     glm::vec2 position{ pos.x, pos.y};
 
-    if (texture_handles.find(*i_worldobj_renderer->texture_handle_) == texture_handles.end())
-    {
+    if (texture_handles.find(*i_worldobj_renderer->texture_handle_) == texture_handles.end()) {
+
         texture_handles[*i_worldobj_renderer->texture_handle_] = static_cast<GLuint>(texture_handles.size());
     }
 
     GLuint tex_id = texture_handles[*i_worldobj_renderer->texture_handle_];
 
-    for (int i = 0; i < 4; ++i)
-    {
+    for (int i = 0; i < 4; ++i) {
+
         tex_vtx_sent.push_back(i_worldobj_renderer->tex_vtx_[i]);
         scaling_sent.push_back(scaling);
         rotation_sent.push_back(rotation);
@@ -574,8 +574,8 @@ void GraphicsSystem::BatchWorldObject(IRenderer* i_worldobj_renderer) {
 
 void GraphicsSystem::DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform)
 {
-    for (auto tex_it = texture_handles.begin(); tex_it != texture_handles.end(); ++tex_it)
-    {
+    for (auto tex_it = texture_handles.begin(); tex_it != texture_handles.end(); ++tex_it) {
+
         glBindTextureUnit(tex_it->second, tex_it->first);
     }
 
@@ -634,8 +634,8 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
 	
     Transform* xform = component_manager_->GetComponent<Transform>(text_renderer->GetOwner()->GetID());
 	
-    if (!xform)
-    {
+    if (!xform) {
+
         return;
     }
 
@@ -644,22 +644,22 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
     Vector2D pos;
     float scale;
 
-    if (text_renderer->ui_)
-    {
+    if (text_renderer->ui_) {
+
         pos = obj_pos_;
         scale = text_renderer->scale_;
     }
 
-    else
-    {
+    else {
+
         glm::vec2 translation{ camera_system_->cam_pos_ * camera_system_->cam_zoom_ + 0.5f * win_size_ };
         pos = obj_pos_ + Vector2D{ translation.x, translation.y };
         scale = text_renderer->scale_ * camera_system_->cam_zoom_;
     }
 
     std::string::const_iterator c;
-    for (c = text_renderer->text_.begin(); c != text_renderer->text_.end(); c++)
-    {
+    for (c = text_renderer->text_.begin(); c != text_renderer->text_.end(); c++) {
+
         Character ch = (*text_renderer->font_->GetCharacters())[*c];
 
         glm::ivec2 bearing = ch.GetBearing();
@@ -708,8 +708,8 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_ren
     vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y + obj_scale.y });
     vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y + obj_scale.y });
     
-    for (int i = 0; i < 4; ++i)
-    {
+    for (int i = 0; i < 4; ++i) {
+
         vertices.push_back(i_renderer->tex_vtx_[i]);
     }
 
@@ -754,8 +754,8 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
                                     { 0.0f, 1.0f},
                                     { 1.0f, 1.0f}, };
 
-    for (int i = 0; i < 4; ++i)
-    {
+    for (int i = 0; i < 4; ++i) {
+
         gauge_vertices.push_back(tex_vtx[i]);
         water_vertices.push_back(tex_vtx[i]);
     }
@@ -836,7 +836,9 @@ void GraphicsSystem::AddAnimation(AnimationRenderer* anim_renderer, std::string 
 void GraphicsSystem::ChangeAnimation(AnimationRenderer* anim_renderer, std::string animation_name) {
 
     if (anim_renderer->current_animation_name_ == animation_name)
+    {
         return;
+    }
 
     SetAnimation(anim_renderer, animation_name);
 
@@ -847,8 +849,8 @@ void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string 
     
     auto it = anim_renderer->obj_animations_.find(animation_name);
 
-    if (it == anim_renderer->obj_animations_.end())
-    {
+    if (it == anim_renderer->obj_animations_.end()) {
+
         M_DEBUG->WriteDebugMessage("Tried to set to non-existant animation for entity: "
             + std::to_string(anim_renderer->GetOwner()->GetID()) + "\n");
         return;
@@ -861,14 +863,14 @@ void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string 
     anim_renderer->texture_handle_ = anim_renderer->current_animation_->GetAnimationFramesHandle();
     anim_renderer->tex_vtx_ = *anim_renderer->current_animation_->GetTexVtx();
 
-    if (anim_renderer->x_mirror_)
-    {
+    if (anim_renderer->x_mirror_) {
+
         std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[2]);
         std::swap(anim_renderer->tex_vtx_[1], anim_renderer->tex_vtx_[3]);
     }
 
-    if (anim_renderer->y_mirror_)
-    {
+    if (anim_renderer->y_mirror_) {
+
         std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[1]);
         std::swap(anim_renderer->tex_vtx_[2], anim_renderer->tex_vtx_[3]);
     }
@@ -887,14 +889,14 @@ void GraphicsSystem::SetToFirstFrame(AnimationRenderer* anim_renderer) {
 
     anim_renderer->tex_vtx_ = *(anim_renderer->current_animation_->GetTexVtx());
 
-    if (anim_renderer->x_mirror_)
-    {
+    if (anim_renderer->x_mirror_) {
+
         std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[2]);
         std::swap(anim_renderer->tex_vtx_[1], anim_renderer->tex_vtx_[3]);
     }
 
-    if (anim_renderer->y_mirror_)
-    {
+    if (anim_renderer->y_mirror_) {
+
         std::swap(anim_renderer->tex_vtx_[0], anim_renderer->tex_vtx_[1]);
         std::swap(anim_renderer->tex_vtx_[2], anim_renderer->tex_vtx_[3]);
     }

@@ -22,11 +22,60 @@ class Character {
 
 public:
 
+/******************************************************************************/
+/*!
+    \fn Character()
+
+    \brief Default constructor for Character
+*/
+/******************************************************************************/
     Character() = default;
+
+/******************************************************************************/
+/*!
+    \fn Character(unsigned int textureID, glm::ivec2 size, glm::ivec2 bearing,
+                  unsigned int advance)
+
+    \brief Constructor for character that initializes all its data members
+		   according to the respective values
+*/
+/******************************************************************************/
     Character(unsigned int textureID, glm::ivec2 size, glm::ivec2 bearing, unsigned int advance);
+
+/******************************************************************************/
+/*!
+    \fn GetTexID()
+
+    \brief Get texture ID for character
+*/
+/******************************************************************************/
     unsigned int GetTexID();
+
+/******************************************************************************/
+/*!
+    \fn GetSize()
+
+    \brief Get size of character
+*/
+/******************************************************************************/
     glm::ivec2 GetSize();
+
+/******************************************************************************/
+/*!
+    \fn GetBearing()
+
+    \brief Get bearing of character
+*/
+/******************************************************************************/
     glm::ivec2 GetBearing();
+
+/******************************************************************************/
+/*!
+    \fn GetAdvance()
+
+    \brief Get advance of character
+*/
+/******************************************************************************/
     unsigned int GetAdvance();
     
 };
@@ -37,8 +86,32 @@ class Font {
 
 public:
 
+/******************************************************************************/
+/*!
+    \fn Font()
+
+    \brief Default constructor for font
+*/
+/******************************************************************************/
     Font() = default;
+
+/******************************************************************************/
+/*!
+    \fn Font(std::map<char, Character> characters)
+
+    \brief Constructor for Font that initializes all its data members
+		   according to the respective values
+*/
+/******************************************************************************/
     Font(std::map<char, Character> characters);
+
+/******************************************************************************/
+/*!
+    \fn GetCharacters()
+
+    \brief Gets the characters within a font
+*/
+/******************************************************************************/
     std::map<char, Character>* GetCharacters();
 };
 
@@ -50,12 +123,58 @@ class FontManager : public IManager {
 
 public:
 
+/******************************************************************************/
+/*!
+    \fn ~FontManager()
+
+    \brief Destructor for Font Manager
+*/
+/******************************************************************************/
     ~FontManager();
 
+/******************************************************************************/
+/*!
+    \fn Init()
+
+    \brief Initializes the Font Manager
+*/
+/******************************************************************************/
     void Init() override;
+
+/******************************************************************************/
+/*!
+    \fn GetFont(std::string name)
+
+    \brief Gets font from the Font Manager's container
+*/
+/******************************************************************************/
     Font* GetFont(std::string name);
+
+/******************************************************************************/
+/*!
+    \fn LoadFont(std::string font_name)
+
+    \brief Loads a font into the Font Manager's container
+*/
+/******************************************************************************/
     void LoadFont(std::string font_name);
+
+/******************************************************************************/
+/*!
+    \fn FontBatchLoad(std::string level_name)
+
+    \brief Loads all fonts used for the level
+*/
+/******************************************************************************/
     void FontBatchLoad(std::string level_name);
+
+/******************************************************************************/
+/*!
+    \fn DeSerializeJSON()
+
+    \brief Loads the content of a JSON file into a doc
+*/
+/******************************************************************************/
     void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
 };
 
