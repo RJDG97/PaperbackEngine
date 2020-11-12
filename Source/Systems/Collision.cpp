@@ -645,9 +645,14 @@ void Collision::Update(float frametime) {
 	for (size_t i = 0; i < sizes.second; ++i) { // y-axis
 		for (size_t j = 0; j < sizes.first; ++j) { // x-axis
 
+			if (entity_mgr_->GetEntities().size() > 10) {
 
-			futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
-			//ProcessPartitionedEntities(i, j, frametime);
+				futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
+			}
+			else {
+
+				ProcessPartitionedEntities(i, j, frametime);
+			}
 		}
 	}
 	

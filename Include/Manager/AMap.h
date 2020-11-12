@@ -51,6 +51,7 @@ private:
 	void SetAMapSize(Vector2D& size);
 	void SetNodeNeighbours();
 	void InsertEntityNodes(const Vector2D& pos);
+	void ClearMap();
 };
 
 #endif

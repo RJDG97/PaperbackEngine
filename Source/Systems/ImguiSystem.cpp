@@ -389,6 +389,7 @@ void ImguiSystem::OpenFile() {
         factory_->DestroyAllEntities();
         factory_->DeSerializeLevelEntities(file);
         CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
+        CORE->GetSystem<PartitioningSystem>()->InitPartition();
     }
 }
 
