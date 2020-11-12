@@ -33,12 +33,68 @@ class CMap
 public:
 	using MapType = std::unordered_map<EntityID, T*>;
 	using MapTypeIt = typename MapType::iterator;
+
+/******************************************************************************/
+/*!
+  \fn begin()
+
+  \brief Returns an iterator to the beginning of the Type component map
+*/
+/******************************************************************************/
 	MapTypeIt begin();
+
+/******************************************************************************/
+/*!
+  \fn end()
+
+  \brief Returns an iterator to the end of the Type component map
+*/
+/******************************************************************************/
 	MapTypeIt end();
+
+/******************************************************************************/
+/*!
+  \fn AddComponent()
+
+  \brief Adds a component to the Type component map
+*/
+/******************************************************************************/
 	void AddComponent(EntityID id, T* component);
+
+/******************************************************************************/
+/*!
+  \fn RemoveComponent()
+
+  \brief Remove a component from the Type component map
+*/
+/******************************************************************************/
 	void RemoveComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn GetComponent()
+
+  \brief Returns an component of Type attached to the entity
+*/
+/******************************************************************************/
 	T* GetComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn GetComponentIt()
+
+  \brief Get iterator to a component attached to the entity
+*/
+/******************************************************************************/
 	MapTypeIt GetComponentIt(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn ~CMap()
+
+  \brief CMap destructor
+*/
+/******************************************************************************/
 	~CMap();
 private:
 
@@ -59,25 +115,99 @@ public:
 
 
 
-	// Functions
+/******************************************************************************/
+/*!
+  \fn CManager()
+
+  \brief Constructor for CManager
+*/
+/******************************************************************************/
 	CManager();
 
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Init for CManager
+*/
+/******************************************************************************/
 	void Init() override;
 
+/******************************************************************************/
+/*!
+  \fn AddComponentCreator()
+
+  \brief Returns an iterator to the end of the Type component map
+*/
+/******************************************************************************/
 	void AddComponentCreator(std::string name, IComponentCreator* creator);
+
+/******************************************************************************/
+/*!
+  \fn GetComponentCreator()
+
+  \brief Returns a IComponentCreator for a component
+*/
+/******************************************************************************/
 	IComponentCreator* GetComponentCreator(std::string name);
+
+/******************************************************************************/
+/*!
+  \fn GetComponentList()
+
+  \brief Retrieves a map of IComponentCreators
+*/
+/******************************************************************************/
 	ComponentMapType& GetComponentList();
 
+
+/******************************************************************************/
+/*!
+  \fn GetComponent()
+
+  \brief Returns a Component* from the matching entity
+*/
+/******************************************************************************/
 	template <typename T>
 	T* GetComponent(EntityID id);
+
+/******************************************************************************/
+/*!
+  \fn GetComponentArray()
+
+  \brief Returns a CMap of type T
+*/
+/******************************************************************************/
 	template <typename T>
 	typename CMap<T>* GetComponentArray();
 
+/******************************************************************************/
+/*!
+  \fn AddComponent()
+
+  \brief Add a Component* to the coresponding CMap
+*/
+/******************************************************************************/
 	template <typename T>
 	void AddComponent(EntityID id, T* component);
+
+/******************************************************************************/
+/*!
+  \fn RemoveComponent()
+
+  \brief Remove a Component* from the coresponding CMap
+*/
+/******************************************************************************/
 	template <typename T>
 	void RemoveComponent(EntityID id);
 
+/******************************************************************************/
+/*!
+  \fn ~CManager()
+
+  \brief Destructor for CManager
+*/
+/******************************************************************************/
 	virtual ~CManager();
 
 private:
@@ -87,11 +217,15 @@ private:
 };
 
 
+
 // When creating a new component, add it to this "List"
 using ComponentManager = CManager<
 	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, 
 	TextRenderer, InputController, TextureRenderer, AnimationRenderer
 >;
+
+
+
 
 template <typename T>
 typename CMap<T>::MapTypeIt CMap<T>::begin() {
