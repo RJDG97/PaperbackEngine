@@ -1,21 +1,26 @@
 {
-  "Wall": [
-    {
-      "component": "Transform",
-      "position": "-15 -0.000000",
-      "rotation": "0.000000"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "RockThree",
-      "layer": "2",
-      "ui": "0"
-    },
+    "Wall": [
+        {
+            "component": "Transform",
+            "position": "-12.000000 1.000000",
+            "rotation": "0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "RockThree",
+            "layer": "2",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.300000 0.300000",
+            "layer": "1"
+        },
     {
       "component": "PointLight",
       "color": "0.5 1.0 1.0",
-      "radius": "20.0",
-      "intensity": "0.5"
+      "radius": "30.0",
+      "intensity": "0.3"
     }
-  ]
+    ]
 }

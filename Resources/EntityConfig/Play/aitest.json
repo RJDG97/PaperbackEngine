@@ -1,18 +1,37 @@
 {
-  "AITest": [
+"AITest": [
+    {
+      "component": "Name",
+      "name": "AITest"
+    },
     {
       "component": "AI",
       "AItype": "Stag_Beetle",
-      "range": "3.0",
-      "speed": "100.0",
+      "range": "10.0",
+      "speed": "200.0", 
       "dest": "2",
-      "destination1": "-14.40 -5.7", 
-      "destination2": "-15.40 5.3"
+      "destination1": "-11 7.0", 
+      "destination2": "-11 -7.0"
     },
     {
       "component": "Transform",
-      "position": "-15.40 -5.0 ",
-      "rotation": "0.0" 
+      "position": "-11.0 -7.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "100.0 100.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "2"
+    },
+    {
+      "component": "Motion",
+      "mass": "8.0",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
     }
   ]
 }
