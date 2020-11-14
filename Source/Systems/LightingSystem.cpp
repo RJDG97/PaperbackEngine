@@ -122,8 +122,10 @@ void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 	Transform* xform = transform_arr_->GetComponent(point_light->GetOwner()->GetID());
 	const float global_scale = CORE->GetGlobalScale();
 
-	if (!xform)
+	if (!xform) {
+
 		return;
+	}
 
 	Vector2D obj_pos_ = xform->position_;
 

@@ -54,8 +54,8 @@ FontManager::~FontManager()
 
 void FontManager::Init() {
 
-    if (FT_Init_FreeType(&ft))
-    {
+    if (FT_Init_FreeType(&ft)) {
+
         DEBUG_ASSERT(!(1), "Could not init FreeType Library!");
     }
 
@@ -86,16 +86,16 @@ void FontManager::LoadFont(std::string font_name)
 {
     auto it = fonts_.find(font_name);
 
-    if (it != fonts_.end())
-    {
+    if (it != fonts_.end()) {
+
         return;
     }
 
     std::string pathname = "Resources/Font/" + font_name + ".ttf";
 
     FT_Face face;
-    if (FT_New_Face(ft, pathname.c_str(), 0, &face))
-    {
+    if (FT_New_Face(ft, pathname.c_str(), 0, &face)) {
+
         DEBUG_ASSERT(!(1), "Failed to load font!");
     }
 
@@ -103,18 +103,18 @@ void FontManager::LoadFont(std::string font_name)
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-    if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
-    {
+    if (FT_Load_Char(face, 'X', FT_LOAD_RENDER)) {
+
         DEBUG_ASSERT(!(1), "Failed to load Glyph!");
     }
 
     std::map<char, Character> temp;
 
-    for (unsigned char c = 0; c < 128; c++)
-    {
+    for (unsigned char c = 0; c < 128; c++) {
+
         // load character glyph 
-        if (FT_Load_Char(face, c, FT_LOAD_RENDER))
-        {
+        if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
+
             DEBUG_ASSERT(!(1), "Failed to load Glyph!");
             continue;
         }

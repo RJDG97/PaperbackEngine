@@ -1,0 +1,25 @@
+{
+  "Floor": "Resources/EntityConfig/TestRoom/floor.json",
+  
+  "Player": "Resources/EntityConfig/TestRoom/player.json",
+  
+  "AITest": "Resources/EntityConfig/TestRoom/aitest.json",
+  
+  "InputController": "Resources/EntityConfig/TestRoom/input.json",
+  
+  "Wall": "Resources/EntityConfig/TestRoom/wall.json",
+  
+  "Hole": "Resources/EntityConfig/TestRoom/hole.json",
+  
+  "Boundary": "Resources/EntityConfig/TestRoom/boundary.json",
+  
+  "Watergauge": "Resources/EntityConfig/TestRoom/watergauge.json",
+  
+  "MovingWall": "Resources/EntityConfig/TestRoom/movingwall.json",
+  
+  "Enemy": "Resources/EntityConfig/TestRoom/normalenemy.json",
+  
+  "UIText": "Resources/EntityConfig/TestRoom/uitext.json",
+  
+  "WorldText": "Resources/EntityConfig/TestRoom/worldtext.json"
+}

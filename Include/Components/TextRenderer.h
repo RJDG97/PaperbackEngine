@@ -55,7 +55,7 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn Serialize()
+	\fn Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 
 	\brief Serialises a component into JSON format
 */

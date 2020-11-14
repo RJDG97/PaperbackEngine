@@ -48,7 +48,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuSettings",
+      "texture": "MenuHowToPlay",
       "layer": "2",
       "ui": "1"
     }

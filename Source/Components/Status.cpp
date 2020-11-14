@@ -102,7 +102,7 @@ float Status::GetCooldownTimer() {
 	return cooldown_timer_;
 }
 
-void Status::SetCoolDownTimer(float newTimer) {
+void Status::SetCoolDownTimer(float newtimer) {
 
-	cooldown_timer_ = newTimer;
+	cooldown_timer_ = newtimer;
 }

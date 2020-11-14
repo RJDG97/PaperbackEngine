@@ -62,8 +62,8 @@ void TextureRenderer::DeSerializeClone(std::stringstream& data) {
 
     data >> texture_name_ >> layer >> ui_;
 
-    if (layer != layer_)
-    {
+    if (layer != layer_) {
+
         M_DEBUG->WriteDebugMessage("Layer is keyed in wrongly!");
     }
 
@@ -73,6 +73,7 @@ void TextureRenderer::DeSerializeClone(std::stringstream& data) {
 }
 
 std::shared_ptr<Component> TextureRenderer::Clone() {
+
     M_DEBUG->WriteDebugMessage("Cloning TextureRenderer Component\n");
 
     std::shared_ptr<TextureRenderer> cloned = std::make_shared<TextureRenderer>();

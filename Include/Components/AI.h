@@ -223,17 +223,67 @@ public:
 	/******************************************************************************/
 	void SetCurrentDes(DestinationIt Cdes);
 
+	/******************************************************************************/
+	/*!
+	  \fn AIType GetType()
+
+	  \brief Get enemy type
+	*/
+	/******************************************************************************/
 	AIType GetType();
 
+	/******************************************************************************/
+	/*!
+	  \fn GetPlayerLastPos()
+
+	  \brief Get players last position
+	*/
+	/******************************************************************************/
 	Vector2D GetPlayerLastPos();
 
+	/******************************************************************************/
+	/*!
+	  \fn SetPlayerLastPos(Vector2D pos)
+
+	  \brief Set player last position
+	*/
+	/******************************************************************************/
 	void SetPlayerLastPos(Vector2D pos);
 
+	/******************************************************************************/
+	/*!
+	  \fn GetNewDestination()
+
+	  \brief Get new destinations
+	*/
+	/******************************************************************************/
 	Vector2D GetNewDestination();
+
+	/******************************************************************************/
+	/*!
+	  \fn SetNewDestination(Vector2D newnode)
+
+	  \brief Set new destinations
+	*/
+	/******************************************************************************/
 	void SetNewDestination(Vector2D newnode);
 
+	/******************************************************************************/
+	/*!
+	  \fn GetPath()
+
+	  \brief Get new path
+	*/
+	/******************************************************************************/
 	std::vector<Vector2D>& GetPath();
 
+	/******************************************************************************/
+	/*!
+	  \fn SetPath()
+
+	  \brief Set new path
+	*/
+	/******************************************************************************/
 	void SetPath(std::vector<Vector2D>& path);
 
 private:
@@ -246,8 +296,6 @@ private:
 	size_t num_destinations_;
 	Vector2D new_node_;
 	std::vector<Vector2D> destinations_;
-	//Vector2D current_destination_;
-	//std::list<Vector2D> current_destination_;
 	DestinationIt current_destination_;
 	Vector2D player_last_pos_;
 	std::vector<Vector2D> path_;

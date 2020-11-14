@@ -30,14 +30,76 @@ public:
 	using AMapTypeItX = AMapTypeX::iterator;
 	using AMapTypeItY = AMapTypeY::iterator;
 	
+	/******************************************************************************/
+	/*!
+	  \fn Init()
+
+	  \brief AMap Init
+	*/
+	/******************************************************************************/
 	void Init() override;
+
+	/******************************************************************************/
+	/*!
+	  \fn InitAMap(std::map<EntityID, Entity*> entity_map)
+
+	  \brief Init AMap 
+	*/
+	/******************************************************************************/
 	void InitAMap(std::map<EntityID, Entity*> entity_map);
+
+	/******************************************************************************/
+	/*!
+	  \fn UpdateAMap(std::pair<EntityID, Entity*> entity)
+
+	  \brief Update AMap on runtime
+	*/
+	/******************************************************************************/
 	void UpdateAMap(std::pair<EntityID, Entity*> entity);
+
+	/******************************************************************************/
+	/*!
+	  \fn GetNodeMap()
+
+	  \brief Return Node Map
+	*/
+	/******************************************************************************/
 	AMapTypeY GetNodeMap();
+
+	/******************************************************************************/
+	/*!
+	  \fn DrawMap()
+
+	  \brief Draw AMap in the console
+	*/
+	/******************************************************************************/
 	void DrawMap();
-	//void UpdatePath(Vector2D start, Vector2D des);
+	
+	/******************************************************************************/
+	/*!
+	  \fn Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des)
+
+	  \brief Finds viable paths from start to destination
+	*/
+	/******************************************************************************/
 	void Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des);
+
+	/******************************************************************************/
+	/*!
+	  \fn GetTopRight()
+
+	  \brief Return top right
+	*/
+	/******************************************************************************/
 	Vector2D GetTopRight();
+
+	/******************************************************************************/
+	/*!
+	  \fn GetBottomLeft()
+
+	  \brief Return bottom left
+	*/
+	/******************************************************************************/
 	Vector2D GetBottomLeft();
 
 private:

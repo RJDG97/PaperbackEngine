@@ -49,6 +49,11 @@ void AABB::DeSerializeClone(std::stringstream& data) {
 	DeSerialize(data);
 }
 
+void AABB::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	Serialize(writer);
+}
+
 std::shared_ptr<Component> AABB::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning AABB Component\n");
 	

@@ -9,6 +9,7 @@ namespace GeneralScripts
 	EntityID player_id;
 	Transform* player_rigidbody;
 	Transform* obj_rigidbody;
+	Status* player_status;
 	AMap* map_;
 	ForcesManager* forces_;
 
@@ -37,28 +38,33 @@ namespace GeneralScripts
 
 	bool DetectPlayer(AIIt obj)
 	{
-		obj->second->SetPlayerLastPos(player_rigidbody->GetPosition());
-
-		// Find current distance of player from obj
-		float distance = Vector2DDistance(player_rigidbody->GetPosition(), obj_rigidbody->GetPosition());
-		// If Player is very close, is detected
-		if (distance < 3.0f)
-			return true;
-		// Else check if player is in line of sight (May replace check after shadows)
-		else if(distance < obj->second->GetRange())
+		if (player_status->GetStatus() != StatusType::BURROW &&
+			player_status->GetStatus() != StatusType::INVISIBLE)
 		{
-			// Get current direction of object
-			Vector2D vector1 = *obj->second->GetCurrentDes() - obj_rigidbody->GetPosition();
-			// Get direction of player from object
-			Vector2D vector2 = player_rigidbody->GetPosition() - obj_rigidbody->GetPosition();
-			// Find the angle of player from current destination
-			float angle = std::atan2f(vector2.y, vector2.x) - std::atan2f(vector1.y, vector1.x);
-			// Change angle from rad to degrees
-			angle *= 180 / 3.14159f;
-			// If within view, return detected
-			if (angle > -45.0f && angle < 45.0f)
-				// Note: will have to check for object obstruction in the line of sight
+			obj->second->SetPlayerLastPos(player_rigidbody->GetPosition());
+
+			// Find current distance of player from obj
+			float distance = Vector2DDistance(player_rigidbody->GetPosition(), obj_rigidbody->GetPosition());
+			// If Player is very close, is detected
+			if (distance < 3.0f)
 				return true;
+			// Else check if player is in line of sight (May replace check after shadows)
+			else if (distance < obj->second->GetRange())
+			{
+				// Get current direction of object
+				Vector2D vector1 = *obj->second->GetCurrentDes() - obj_rigidbody->GetPosition();
+				// Get direction of player from object
+				Vector2D vector2 = player_rigidbody->GetPosition() - obj_rigidbody->GetPosition();
+				// Find the angle of player from current destination
+				float angle = std::atan2f(vector2.y, vector2.x) - std::atan2f(vector1.y, vector1.x);
+				// Change angle from rad to degrees
+				angle *= 180 / 3.14159f;
+				// If within view, return detected
+				if (angle > -45.0f && angle < 45.0f)
+					// Note: will have to check for object obstruction in the line of sight
+					return true;
+			}
+			return false;
 		}
 		return false;
 	}
@@ -73,6 +79,7 @@ namespace GeneralScripts
 		// Update obj rigid body
 		obj_rigidbody = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(obj->first);
 		DEBUG_ASSERT((obj_rigidbody), "AI does not have Transform component");
+		player_status = CORE->GetManager<ComponentManager>()->GetComponent<Status>(player_id);
 		// Assign type handler
 		switch (obj->second->GetType())
 		{

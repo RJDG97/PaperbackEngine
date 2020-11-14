@@ -6,6 +6,7 @@ namespace Mite
 {
 	bool Attack(AIIt obj)
 	{
+		UNREFERENCED_PARAMETER(obj);
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(GeneralScripts::player_rigidbody->GetPosition(), GeneralScripts::obj_rigidbody->GetPosition());
 		// Explsion animation

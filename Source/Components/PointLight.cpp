@@ -90,8 +90,8 @@ void PointLight::SetRadius(float new_radius){
 void PointLight::SetIntensity(float new_intensity){
 
 	intensity_ = new_intensity;
-}
 
+}
 void PointLight::SetColor(glm::vec3 new_color) {
 
 	color_ = new_color;
