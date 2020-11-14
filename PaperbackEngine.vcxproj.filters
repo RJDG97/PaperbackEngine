@@ -359,6 +359,9 @@
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Systems\AssetWindow.cpp">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -603,6 +606,9 @@
       <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\AssetWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
   </ItemGroup>

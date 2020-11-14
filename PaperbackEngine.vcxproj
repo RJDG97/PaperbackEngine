@@ -198,6 +198,7 @@
     <ClCompile Include="Source\Script\MiteScript.cpp" />
     <ClCompile Include="Source\Script\StagScript.cpp" />
     <ClCompile Include="Source\Source.cpp" />
+    <ClCompile Include="Source\Systems\AssetWindow.cpp" />
     <ClCompile Include="Source\Systems\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Collision.cpp" />
     <ClCompile Include="Source\Systems\Debug.cpp" />
@@ -278,6 +279,7 @@
     <ClInclude Include="Include\Script\MiteScript.h" />
     <ClInclude Include="Include\Script\ScriptList.h" />
     <ClInclude Include="Include\Script\StagScript.h" />
+    <ClInclude Include="Include\Systems\AssetWindow.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\Collision.h" />
     <ClInclude Include="Include\Systems\Debug.h" />

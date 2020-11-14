@@ -120,9 +120,9 @@
     },
     {
       "component": "PointLight",
-      "color": "0.0 0.0 0.0",
-      "radius": "0.0",
-      "intensity": "0.0"
+      "color": "1.0 1.0 0.6",
+      "radius": "50.0",
+      "intensity": "0.2"
     }
   ],
   "Enemy": [

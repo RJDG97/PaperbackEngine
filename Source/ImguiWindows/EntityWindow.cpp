@@ -99,6 +99,11 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 	if (entitycomponent.first) {
 
+		if (!entitycomponent.first->GetID())
+			ImGui::Text("Type: Archetype/Prefab");
+		else
+			ImGui::Text("Type: Entity");
+
 		for (auto componenttype : entitycomponent.second) {
 
 			switch (componenttype)
@@ -107,7 +112,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 			{
 				std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entitycomponent.first->GetComponent(ComponentTypes::NAME));
 
-				ImGui::Text("Entity:"); ImGui::SameLine(0, 2);
+				ImGui::Text("Name:"); ImGui::SameLine(0, 2);
 				ImGui::TextColored(AQUAMARINE, entityname->GetName().c_str());
 
 				break;
@@ -122,9 +127,10 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					ComponentInputFloat("Mass", "##mass", inputMass);
 					entitymotion->SetMass(inputMass);
 
-					if (ImGui::Button("Delete"))
-						ImGui::OpenPopup("Delete Motion Component");
-
+					if (!entitycomponent.first->GetID()) {
+						if (ImGui::Button("Delete"))
+							ImGui::OpenPopup("Delete Motion Component");
+					}
 					imgui_->DeletePopUp("Delete Motion Component", std::string("Motion Component"), entitycomponent.first, entitymotion);
 					ImGui::TreePop();
 				}
@@ -330,10 +336,10 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					}
 
 					ImGui::TreePop();
-
-					if (ImGui::Button("Delete"))
-						ImGui::OpenPopup("Delete AI Component");
-
+					if (!entitycomponent.first->GetID()) {
+						if (ImGui::Button("Delete"))
+							ImGui::OpenPopup("Delete AI Component");
+					}
 					imgui_->DeletePopUp("Delete AI Component", std::string("AI Component"), entitycomponent.first, entityAI);
 
 				}
@@ -372,11 +378,8 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 						for (int i = 0; i < IM_ARRAYSIZE(Playerstatus_); ++i) {
 
 							if (ImGui::Selectable(Playerstatus_[i]))
-							{
 								entitystatus->SetStatus(static_cast<StatusType>(i));
-							}
 						}
-
 						ImGui::EndCombo();
 					}
 
@@ -393,6 +396,12 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 						ImGui::TreePop();
 					}
 
+					if (!entitycomponent.first->GetID()) {
+						if (ImGui::Button("Delete"))
+							ImGui::OpenPopup("Delete Status Component");
+					}
+					imgui_->DeletePopUp("Delete Status Component", std::string("Status Component"), entitycomponent.first, entitystatus);
+
 					ImGui::TreePop();
 				}
 
@@ -404,6 +413,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 				float inputRadius = entitypointlight->GetRadius();
 				float inputIntensity = entitypointlight->GetIntensity();
+				ImVec4 inputcolor{ entitypointlight->GetColor().x, entitypointlight->GetColor().y, entitypointlight->GetColor().z, 1.0f };
 				if (ImGui::TreeNode("PointLight")) {
 
 					ComponentInputFloat("Light Radius", "##lightRad", inputRadius, 102.0f);
@@ -411,11 +421,18 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					
 					ComponentInputFloat("Light Intensity", "##lightinten", inputIntensity, 102.0f);
 					entitypointlight->SetIntensity(inputIntensity);
-					
-					if (ImGui::Button("Delete"))
-						ImGui::OpenPopup("Delete Point Light Component");
+					ImGui::Text("Light Color ");
+					ImGui::ColorEdit3("##color", (float*)&inputcolor);
 
-					imgui_->DeletePopUp("Delete Point Light Component", std::string("Point Light Component"), entitycomponent.first, entitypointlight);
+					glm::vec3 newColor{inputcolor.x, inputcolor.y, inputcolor.z};
+
+					entitypointlight->SetColor(newColor);
+
+					if (!entitycomponent.first->GetID()) {
+						if (ImGui::Button("Delete"))
+							ImGui::OpenPopup("Delete PointLight Component");
+					}
+					imgui_->DeletePopUp("Delete PointLight Component", std::string("PointLight Component"), entitycomponent.first, entitypointlight);
 
 					ImGui::TreePop();
 				}

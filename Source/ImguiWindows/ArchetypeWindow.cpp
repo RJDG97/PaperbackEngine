@@ -59,7 +59,7 @@ void ArchetypeWindow::Update() {
 
 		if (b_editcomp) {
 
-			if (imgui_->GetEntity()) {
+			if (imgui_->GetEntity() && !imgui_->GetEntity()->GetID()) {
 
 				ImGui::PushItemWidth(250.0f);
 
