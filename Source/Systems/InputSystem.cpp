@@ -124,6 +124,11 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
+		case GLFW_KEY_F:
+		{
+			CORE->GetSystem<WindowsSystem>()->ToggleFullScreen();
+			break;
+		}
 		case GLFW_KEY_U:
 		{
 			Message msg(MessageIDTypes::CHANGE_ANIMATION_1);
@@ -157,6 +162,43 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	}
 }
 
+/******************************************************************************/
+/*!
+  \fn CheckWindowInFocus(GLFWwindow* window, int focused)
+
+  \brief Callback updates whenever window is not in focus
+*/
+/******************************************************************************/
+void CheckWindowInFocus(GLFWwindow* window, int focus) {
+
+	UNREFERENCED_PARAMETER(window);
+
+	if (focus) {
+		//in focus
+
+		if (CORE->GetCorePauseStatus()) {
+
+			if (CORE->GetSystem<Game>()->GetStateName() == "Play")
+				return;
+
+			Message msg{ MessageIDTypes::BGM_PAUSE };
+			CORE->BroadcastMessage(&msg);
+
+			CORE->ResetCorePauseStatus();
+		}
+	}
+	else {
+		//not in focus
+		if (!CORE->GetCorePauseStatus()) {
+
+			CORE->ToggleCorePauseStatus();
+
+			Message msg{ MessageIDTypes::BGM_PAUSE };
+			CORE->BroadcastMessage(&msg);
+		}
+	}
+}
+
 // Initialise all the glfw callbacks relating to input
 void InputSystem::Init() {
 	M_DEBUG->WriteDebugMessage("Input System Init\n");
@@ -168,6 +210,7 @@ void InputSystem::Init() {
 	glfwSetCursorEnterCallback(ptr_window_, CursorEnterCallback);
 	glfwSetMouseButtonCallback(ptr_window_, MouseButtonCallback);
 	glfwSetScrollCallback(ptr_window_, ScrollCallback);
+	glfwSetWindowFocusCallback(ptr_window_, CheckWindowInFocus);
 }
 
 // Update for any input related controls
