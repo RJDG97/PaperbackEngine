@@ -10,8 +10,6 @@
 #include <string>
 #include "Systems/ISystem.h"
 
-LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam);
-
 class WindowsSystem : public ISystem{
 
 	static WindowsSystem* w_instance;
@@ -25,6 +23,7 @@ class WindowsSystem : public ISystem{
 	// Store windows dimensions
 	int width_, height_;
 	std::string windows_name_;
+	bool fullscreen_;
 
 public:
 
@@ -173,6 +172,15 @@ public:
 */
 /******************************************************************************/
 	void SetWinHeight(int _height);
+
+/******************************************************************************/
+/*!
+  \fn ToggleFullScreen()
+
+  \brief Toggles the screen of the window between fullscreen and windowed
+*/
+/******************************************************************************/
+	void ToggleFullScreen();
 };
 
 void CreateDebugWindow();

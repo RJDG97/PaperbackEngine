@@ -7,35 +7,14 @@
 FILE* file;
 WindowsSystem* WindowsSystem::w_instance = nullptr;
 
-LRESULT CALLBACK WindowProcessMessages(HWND hwnd, UINT msg, WPARAM param, LPARAM lparam) {
-	switch (msg) {
-	case WM_DESTROY:
-		FreeConsole();
-		PostQuitMessage(0);
-		return 0;
-	case WM_CLOSE:
-		if (MessageBox(hwnd, L"Really quit?", L"My application", MB_OKCANCEL) == IDOK)
-		{
-			DestroyWindow(hwnd);
-		}
-		return 0;
-	case WM_SIZE:
-		RECT rect;
-		GetClientRect(hwnd, &rect);
-		WindowsSystem::Instance()->SetWinWidth(rect.right - rect.left);
-		WindowsSystem::Instance()->SetWinHeight(rect.bottom - rect.top);
-	default:
-		return DefWindowProc(hwnd, msg, param, lparam);
-	}
-}
-
 // Default constructor for WindowsSystem Class
 WindowsSystem::WindowsSystem() : 
 	wcex{}, 
 	msg{}, 
 	hwnd{},
 	width_{}, 
-	height_{}
+	height_{},
+	fullscreen_{ true }
 {
 }
 
@@ -83,6 +62,8 @@ void WindowsSystem::Init() {
 		std::exit(EXIT_FAILURE);
 	}
 
+	glfwSetWindowMonitor(ptr_window, glfwGetPrimaryMonitor(), 0, 0, width_, height_, GLFW_DONT_CARE);
+
 	M_DEBUG->WriteDebugMessage("Window System Init\n");
 }
 
@@ -128,16 +109,6 @@ void WindowsSystem::DeSerialize() {
 void WindowsSystem::Update(float frametime)
 {
 	UNREFERENCED_PARAMETER(frametime);
-
-	if (glfwGetWindowAttrib(ptr_window, GLFW_VISIBLE))
-	{
-
-		M_DEBUG->WriteDebugMessage("in focus\n");
-	}
-	else {
-
-		M_DEBUG->WriteDebugMessage("minimized\n");
-	}
 }
 
 std::string WindowsSystem::GetName()
@@ -200,6 +171,13 @@ void WindowsSystem::SetWinWidth(int _width) {
 
 void WindowsSystem::SetWinHeight(int _height) {
 	height_ = _height;
+}
+
+void WindowsSystem::ToggleFullScreen() {
+
+	fullscreen_ = !fullscreen_;
+
+	glfwSetWindowMonitor(ptr_window, (fullscreen_) ? glfwGetPrimaryMonitor() : NULL, 0, 0, width_, height_, GLFW_DONT_CARE);
 }
 
 void CreateDebugWindow() {

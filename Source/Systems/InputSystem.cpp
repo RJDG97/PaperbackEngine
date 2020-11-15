@@ -124,6 +124,11 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
+		case GLFW_KEY_F:
+		{
+			CORE->GetSystem<WindowsSystem>()->ToggleFullScreen();
+			break;
+		}
 		case GLFW_KEY_U:
 		{
 			Message msg(MessageIDTypes::CHANGE_ANIMATION_1);
@@ -165,6 +170,8 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 */
 /******************************************************************************/
 void CheckWindowInFocus(GLFWwindow* window, int focus) {
+
+	UNREFERENCED_PARAMETER(window);
 
 	if (focus) {
 		//in focus
