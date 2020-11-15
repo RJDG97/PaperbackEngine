@@ -27,7 +27,6 @@
 #include "Imgui/IconsFontAwesome4.h"
 #include "ImguiWindows/AssetFileSystem.h"
 
-
 //colours for axis buttons
 #define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
 #define REDHOVERED ImVec4{ 0.965f, 0.075f, 0.118f, 1.0f }
@@ -40,17 +39,17 @@
 #define BLUEACTIVE  ImVec4{ 0.118f, 0.145f, 0.682f, 1.0f }
 #define AQUAMARINE ImVec4{ 0.498f, 1.0f, 0.831f, 1.0f }
 
-namespace filesys = std::filesystem;
+//namespace filesys = std::filesystem;
 class ImguiSystem : public ISystem
 {
 public:
 	ImFont* bold_font_, *img_font_;
 
-	using directory_entry = std::string;
-	using filepath_vector = std::vector<filesys::path>;
-	using directoryfile = std::unordered_map<directory_entry, filepath_vector>;
-	using directoryfileit = std::unordered_map<directory_entry, filepath_vector>::const_iterator;
-	directoryfile directory_map_;
+	//using directory_entry = std::string;
+	//using filepath_vector = std::vector<filesys::path>;
+	//using directoryfile = std::unordered_map<directory_entry, filepath_vector>;
+	//using directoryfileit = std::unordered_map<directory_entry, filepath_vector>::const_iterator;
+	//directoryfile directory_map_;
 
 	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset;
 

@@ -5,7 +5,7 @@
 #include "ImguiWindows/IWindow.h"
 #include "Systems/ImguiSystem.h"
 #include <filesystem>
-
+namespace fs = std::filesystem;
 class AssetWindow : public IWindow {
 
 public:
@@ -28,7 +28,7 @@ public:
 	/******************************************************************************/
 	void Update() override;
 
-
+	void FileDirectoryCheck(fs::path directory);
 private:
 	ImguiSystem* imgui_;
 

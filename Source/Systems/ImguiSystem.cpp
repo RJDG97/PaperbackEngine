@@ -86,7 +86,7 @@ void ImguiSystem::Init(){
     b_display = false;
     b_editpath = false;
     b_showpop = false;
-    b_asset = false;
+    b_asset = true;
 
     new_entity_ = nullptr;
 
@@ -99,14 +99,16 @@ void ImguiSystem::Init(){
     "(*.png) Spritesheets/Textures\0* .png\0"
     "(*.*) All Files\0* *.*\0";
 
-    std::vector<File::fs::directory_entry> tempList;
+    //std::vector<File::fs::directory_entry> tempList;
 
-    for (auto& directory : File::RecursiveDirectoryList("Resources"))
-        tempList.push_back(directory);
-
-    for (auto& directory : tempList)
-        for (auto& file : File::ListOfFiles(directory))
-            directory_map_[directory.path().generic_string()].push_back(file);
+    //for (auto& directory : File::RecursiveDirectoryList("Resources")) {
+    //    tempList.push_back(directory);
+    //    std::cout << directory.path().generic_string() << std::endl;
+    //}
+    //
+    //for (auto& directory : tempList)
+    //    for (auto& file : File::ListOfFiles(directory))
+    //        directory_map_[directory.path().generic_string()].push_back(file);
 
 }
 
