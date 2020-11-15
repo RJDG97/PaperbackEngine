@@ -128,6 +128,16 @@ void WindowsSystem::DeSerialize() {
 void WindowsSystem::Update(float frametime)
 {
 	UNREFERENCED_PARAMETER(frametime);
+
+	if (glfwGetWindowAttrib(ptr_window, GLFW_VISIBLE))
+	{
+
+		M_DEBUG->WriteDebugMessage("in focus\n");
+	}
+	else {
+
+		M_DEBUG->WriteDebugMessage("minimized\n");
+	}
 }
 
 std::string WindowsSystem::GetName()

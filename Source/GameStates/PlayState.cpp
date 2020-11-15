@@ -49,9 +49,6 @@ void PlayState::Init(std::string)
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
 
 	CORE->ResetCorePauseStatus();
-	//CORE->GetManager<TextureManager>()->TextureBatchLoad("Play");
-	//CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
-	//CORE->GetManager<FontManager>()->FontBatchLoad("Play");
 	FACTORY->LoadLevel("Play");
 	FACTORY->LoadLevel("Pause");
 	

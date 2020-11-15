@@ -52,8 +52,7 @@ void EditorState::Free()
 
 void EditorState::Update(Game* game, float frametime)
 {
-	if (!CORE->GetCorePauseStatus()) 
-		m_PlayState.Update(game, frametime);
+	m_PlayState.Update(game, frametime);
 }
 
 void EditorState::Draw(Game* game)

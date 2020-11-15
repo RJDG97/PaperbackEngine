@@ -99,7 +99,7 @@ void Game::Update(float frametime)
 {
 
 	// let the current state take control
-	if (!states_.empty()) {
+	if (!states_.empty() && CORE->GetCorePauseStatus()) {
 	
 		states_.back()->Update(this, frametime);
 	}
