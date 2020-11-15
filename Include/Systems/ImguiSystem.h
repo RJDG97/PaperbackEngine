@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <filesystem>
 
 #include "Entity/Entity.h"
 #include "Engine/Core.h"
@@ -24,6 +25,8 @@
 
 #include "Manager/EntityManager.h"
 #include "Imgui/IconsFontAwesome4.h"
+#include "ImguiWindows/AssetFileSystem.h"
+
 
 //colours for axis buttons
 #define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
@@ -37,12 +40,19 @@
 #define BLUEACTIVE  ImVec4{ 0.118f, 0.145f, 0.682f, 1.0f }
 #define AQUAMARINE ImVec4{ 0.498f, 1.0f, 0.831f, 1.0f }
 
+namespace filesys = std::filesystem;
 class ImguiSystem : public ISystem
 {
 public:
 	ImFont* bold_font_, *img_font_;
 
-	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath;
+	using directory_entry = std::string;
+	using filepath_vector = std::vector<filesys::path>;
+	using directoryfile = std::unordered_map<directory_entry, filepath_vector>;
+	using directoryfileit = std::unordered_map<directory_entry, filepath_vector>::const_iterator;
+	directoryfile directory_map_;
+
+	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset;
 
 	ImguiSystem() {};
 
@@ -313,7 +323,7 @@ public:
 	\brief Closes the current scene and runs Editor.json
 */
 /******************************************************************************/
-	void CloseCurrentScene();
+	void NewScene();
 
 /******************************************************************************/
 /*!
@@ -395,6 +405,7 @@ private:
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
+
 
 };
 

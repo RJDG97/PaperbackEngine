@@ -356,7 +356,10 @@
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Systems\AssetWindow.cpp">
+    <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\AssetFileSystem.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
   </ItemGroup>
@@ -604,7 +607,10 @@
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Systems\AssetWindow.h">
+    <ClInclude Include="Include\ImguiWindows\AssetWindow.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\AssetFileSystem.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
   </ItemGroup>

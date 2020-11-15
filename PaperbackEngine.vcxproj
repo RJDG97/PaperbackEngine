@@ -179,6 +179,8 @@
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
     <ClCompile Include="Source\GameStates\WinLoseState.cpp" />
     <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp" />
+    <ClCompile Include="Source\ImguiWindows\AssetFileSystem.cpp" />
+    <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
@@ -198,7 +200,6 @@
     <ClCompile Include="Source\Script\MiteScript.cpp" />
     <ClCompile Include="Source\Script\StagScript.cpp" />
     <ClCompile Include="Source\Source.cpp" />
-    <ClCompile Include="Source\Systems\AssetWindow.cpp" />
     <ClCompile Include="Source\Systems\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Collision.cpp" />
     <ClCompile Include="Source\Systems\Debug.cpp" />
@@ -247,6 +248,8 @@
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\GameStates\WinLoseState.h" />
     <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h" />
+    <ClInclude Include="Include\ImguiWindows\AssetFileSystem.h" />
+    <ClInclude Include="Include\ImguiWindows\AssetWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h" />
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
@@ -278,7 +281,6 @@
     <ClInclude Include="Include\Script\MiteScript.h" />
     <ClInclude Include="Include\Script\ScriptList.h" />
     <ClInclude Include="Include\Script\StagScript.h" />
-    <ClInclude Include="Include\Systems\AssetWindow.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\Collision.h" />
     <ClInclude Include="Include\Systems\Debug.h" />

@@ -6,10 +6,10 @@
 #include "Systems/ImguiSystem.h"
 #include <filesystem>
 
-
 class AssetWindow : public IWindow {
 
 public:
+	
 	/******************************************************************************/
 	/*!
 		\fn Init()
@@ -27,6 +27,10 @@ public:
 	*/
 	/******************************************************************************/
 	void Update() override;
+
+
+private:
+	ImguiSystem* imgui_;
 
 };
 #endif

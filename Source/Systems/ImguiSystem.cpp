@@ -1,10 +1,13 @@
 #include "Systems/ImguiSystem.h"
 #include "Manager/Amap.h"
+#include "ImguiWindows/AssetFileSystem.h"
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityWindow.h"
 #include "ImguiWindows/EntityPathWindow.h"
 #include "ImguiWindows/ArchetypeWindow.h"
 #include "ImguiWindows/SystemWindow.h"
+#include "ImguiWindows/AssetWindow.h"
+
 
 // Expose the Win32 API
 #include <commdlg.h>
@@ -15,6 +18,7 @@
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
     //AddWindow<ImguiViewport>();
+    AddWindow<AssetWindow>();
     AddWindow<EntityWindow>();
     AddWindow<ArchetypeWindow>();
     AddWindow<EntityPathWindow>();
@@ -75,12 +79,14 @@ void ImguiSystem::Init(){
     b_lock_entity = false;
     b_imguimode = false;
 
+    //Imgui Window Bools
     b_entitywin = true;
     b_archetypewin = true;
     b_component = true;
     b_display = false;
     b_editpath = false;
     b_showpop = false;
+    b_asset = false;
 
     new_entity_ = nullptr;
 
@@ -92,6 +98,16 @@ void ImguiSystem::Init(){
     "(*.jpg) JPG\0* .jpg\0"
     "(*.png) Spritesheets/Textures\0* .png\0"
     "(*.*) All Files\0* *.*\0";
+
+    std::vector<File::fs::directory_entry> tempList;
+
+    for (auto& directory : File::RecursiveDirectoryList("Resources"))
+        tempList.push_back(directory);
+
+    for (auto& directory : tempList)
+        for (auto& file : File::ListOfFiles(directory))
+            directory_map_[directory.path().generic_string()].push_back(file);
+
 }
 
 void ImguiSystem::Update(float frametime) {
@@ -120,16 +136,17 @@ void ImguiSystem::Update(float frametime) {
 
         	// menu bar
             ImguiMenuBar();
-            if (b_showpop) {
+
+            if (b_showpop)
                 ImGui::OpenPopup("Save Confirmation");
-            }
+
             PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
             b_showpop = false;
 
             // DockSpace
             if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
 
-                ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+                ImGuiID dockspace_id = ImGui::GetID("DockSpace");
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dock_space_flags_);
             }
         	
@@ -207,8 +224,8 @@ void ImguiSystem::ImguiMenuBar() {
                 b_showpop = true;
             }
 
-            if (ImGui::MenuItem(ICON_FA_TIMES " Close Current Scene"))
-                CloseCurrentScene();
+            if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene"))
+                NewScene();
 
             ImGui::Separator();
             if (ImGui::MenuItem(ICON_FA_REPLY " Return to Menu")){
@@ -240,6 +257,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Scene Hierachy", &b_entitywin);
             ImGui::Checkbox("Toggle Component Viewer", &b_component);
             ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
+            ImGui::Checkbox("Toggle Asset Browser", & b_asset);
             ImGui::Checkbox("See System Performance", &b_display);
 
             ImGui::EndMenu();
@@ -314,9 +332,8 @@ void ImguiSystem::ImguiInput() {
             OpenFile();
         if (shift && ImGui::IsKeyPressed(GLFW_KEY_S))
             SaveFile();
-		//if (ImGui::IsKeyPressed(GLFW_KEY_N)){
-		//	// to create new scene
-		//}	
+		if (ImGui::IsKeyPressed(GLFW_KEY_N))
+            NewScene();
 	}
 }
 
@@ -357,7 +374,7 @@ void ImguiSystem::SaveFile(){
     factory_->SerializeCurrentLevelEntities();
 }
 
-void ImguiSystem::CloseCurrentScene() {
+void ImguiSystem::NewScene() {
 
     factory_->DestroyAllEntities();
     factory_->DeSerializeLevelEntities("Resources\\EntityConfig\\editor.json");
