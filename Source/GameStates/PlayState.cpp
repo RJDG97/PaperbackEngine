@@ -138,8 +138,9 @@ void PlayState::SetStatus(std::string entity_name, StatusType status_type, float
 		else {
 			// Double check this condition
 			if (it->second->status_ == status_type &&
-				it->second->status_timer_ == 0.0f) {
+				it->second->status_timer_ <= 0.001f) {
 				
+				it->second->status_timer_ = 0.0f;
 				it->second->status_ = StatusType::NONE;
 			}
 		}
@@ -149,6 +150,11 @@ void PlayState::SetStatus(std::string entity_name, StatusType status_type, float
 std::string PlayState::GetStateName() {
 
 	return "Play";
+}
+
+bool VerifyStatusNoneOrAlt(StatusType player, StatusType to_check) {
+
+	return (player == StatusType::NONE || player == to_check);
 }
 
 void PlayState::StateInputHandler(Message* msg, Game* game) {
@@ -190,19 +196,18 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				// Skills
 				if (InputController->VerifyKey("burrow", m->input_)) {
 
-					if (CORE->GetSystem<Collision>()->BurrowReady()) {
+					if (CORE->GetSystem<Collision>()->BurrowReady() && VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::BURROW)) {
+
 						SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
 					}
 				}
 				else if (InputController->VerifyKey("invisible", m->input_)) {
 
-					Entity* player = CORE->GetManager<EntityManager>()->GetPlayerEntities()[0];
-					Status* status = CORE->GetManager<ComponentManager>()->GetComponent<Status>(player->GetID());
-					AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(player->GetID());
+					AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(player_id);
 
-					if (status->GetStatus() != StatusType::BURROW) {
+					if (VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::INVISIBLE)) {
 
-						if (status->GetStatus() == StatusType::INVISIBLE) {
+						if (player_status->GetStatus() == StatusType::INVISIBLE) {
 
 							CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Idle");
 						}
