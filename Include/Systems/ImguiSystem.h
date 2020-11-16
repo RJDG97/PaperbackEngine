@@ -25,7 +25,7 @@
 
 #include "Manager/EntityManager.h"
 #include "Imgui/IconsFontAwesome4.h"
-#include "ImguiWindows/AssetFileSystem.h"
+//#include "ImguiWindows/AssetFileSystem.h"
 
 //colours for axis buttons
 #define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
@@ -404,7 +404,6 @@ private:
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
-
 
 };
 

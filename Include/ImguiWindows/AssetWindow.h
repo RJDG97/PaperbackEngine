@@ -28,9 +28,13 @@ public:
 	/******************************************************************************/
 	void Update() override;
 
-	void FileDirectoryCheck(fs::path directory);
+	void FileDirectoryCheck(fs::path filedirectory);
+
+	void PrintFile(fs::directory_entry file);
 private:
 	ImguiSystem* imgui_;
+	fs::path path_selection_;
+	fs::directory_entry path_;
 
 };
 #endif

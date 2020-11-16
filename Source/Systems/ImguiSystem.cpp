@@ -91,7 +91,7 @@ void ImguiSystem::Init(){
     new_entity_ = nullptr;
 
     scene_filter_ =
-    "(*.json) Scenes/Archetypes\0*.json\0"
+    "(*.json) Paperback Engine Scene\0*.json\0"
     "(*.*) All Files\0* *.*\0";
 
     texture_filter_ =    
@@ -379,7 +379,7 @@ void ImguiSystem::SaveFile(){
 void ImguiSystem::NewScene() {
 
     factory_->DestroyAllEntities();
-    factory_->DeSerializeLevelEntities("Resources\\EntityConfig\\editor.json");
+    factory_->DeSerializeLevelEntities("Resources/EntityConfig/editor.json");
 }
 
 std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {
@@ -473,8 +473,8 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
                 entities_->DeleteArchetype(new_entity_); //delete archetype
             else if (new_entity_->GetID() && !entity)
                 entities_->DeleteEntity((new_entity_)); //delete entities
-            else // delete component
-                entity->RemoveComponent(component); // delete component from entity/archetype
+            else if (!new_entity_->GetID() && entity) // entity: to detect if deleting component & check if its an entity/archetype
+                entity->RemoveComponent(component); // delete component from archetype
 
             SetEntity(nullptr);
             ImGui::CloseCurrentPopup();
