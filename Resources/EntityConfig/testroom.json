@@ -11,8 +11,6 @@
   
   "Hole": "Resources/EntityConfig/TestRoom/hole.json",
   
-  "Boundary": "Resources/EntityConfig/TestRoom/boundary.json",
-  
   "Watergauge": "Resources/EntityConfig/TestRoom/watergauge.json",
   
   "MovingWall": "Resources/EntityConfig/TestRoom/movingwall.json",

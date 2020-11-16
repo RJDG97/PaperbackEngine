@@ -191,6 +191,7 @@
     <ClCompile Include="Source\Manager\ModelManager.cpp" />
     <ClCompile Include="Source\Manager\ShaderManager.cpp" />
     <ClCompile Include="Source\Manager\TextureManager.cpp" />
+    <ClCompile Include="Source\MathLib\MathHelper.cpp" />
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp" />
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
     <ClCompile Include="Source\Script\GeneralScripts.cpp" />
@@ -270,6 +271,7 @@
     <ClInclude Include="Include\Manager\ModelManager.h" />
     <ClInclude Include="Include\Manager\ShaderManager.h" />
     <ClInclude Include="Include\Manager\TextureManager.h" />
+    <ClInclude Include="Include\MathLib\MathHelper.h" />
     <ClInclude Include="Include\MathLib\Matrix3x3.h" />
     <ClInclude Include="Include\MathLib\Vector2D.h" />
     <ClInclude Include="Include\Script\GeneralScripts.h" />

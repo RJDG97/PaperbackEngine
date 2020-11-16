@@ -6,6 +6,7 @@
 #include <bitset>
 #include "Systems/ISystem.h"
 #include "Manager/ComponentManager.h"
+#include "MathLib/MathHelper.h"
 
 
 class PartitioningSystem : public ISystem

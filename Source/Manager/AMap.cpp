@@ -32,10 +32,8 @@ void AMap::InitAMap(std::map<EntityID, Entity*> entity_map) {
 		pos += abs_min;
 
 		AABB* aabb = component_manager_->GetComponent<AABB>(it->first);
-		if (aabb && (aabb->GetLayer() == static_cast<size_t>(CollisionLayer::TILES)
-			|| aabb->GetLayer() == static_cast<size_t>(CollisionLayer::BACKGROUND) 
-			|| aabb->GetLayer() == static_cast<size_t>(CollisionLayer::UI_ELEMENTS)))
-			InsertEntityNodes(pos);
+		if (aabb && (aabb->GetLayer() == static_cast<size_t>(CollisionLayer::TILES)))
+			InsertEntityNodes(pos, aabb->GetAABBScale());
 	}
 }
 
@@ -123,9 +121,13 @@ void AMap::SetNodeNeighbours() {
 			for (int y = -1; y < 2; ++y) {
 				for (int x = -1; x < 2; ++x) {
 
+					//if corners are hit then skip
+					//if ((y == -1 && (x == -1 || x == 1) || (y == 1 && (x == -1 || x == 1))))
+					//	continue;
+
 					int height = i + y;
 					int width = j + x;
-				
+
 					if ((height >= 0) && height < node_map_.size() &&
 						(width >= 0) && width < node_map_[0].size()) {
 						node_map_[i][j].neighbour_.push_back( &node_map_[height][width] );
@@ -137,20 +139,38 @@ void AMap::SetNodeNeighbours() {
 }
 
 // Initialize all entities positions to be occupied
-void AMap::InsertEntityNodes(const Vector2D& pos) {
+void AMap::InsertEntityNodes(const Vector2D& pos, const Vector2D& scale) {
 
 	if (pos.y >= node_map_.size() || pos.y < 0)
 		return;
 	if (pos.x >= node_map_[0].size() || pos.x < 0)
 		return;
+	
+	float min_x, min_y, max_x, max_y;
 
-	node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].obstacle_ = true;
-	// Set surrounding nodes as obstacles as well
-	for (int i = 0; i < node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_.size(); i++)
-	{
-		node_map_[static_cast<size_t>(pos.y)][static_cast<size_t>(pos.x)].neighbour_[i]->obstacle_ = true;
+	// Computing the min and max pos of the entity
+	min_x = (pos.x - scale.x);
+	RoundDown(min_x);
+	min_y = (pos.y - scale.y);
+	RoundDown(min_y);
+	max_x = (pos.x + scale.x);
+	RoundUp(max_x);
+	max_y = (pos.y + scale.y);
+	RoundUp(max_y);
+
+	// Setting the bits for the grid based on entity location
+	for (size_t j = static_cast<size_t>(min_x); j < max_x && j >= 0 && j < node_map_[0].size(); ++j) {
+
+		for (size_t i = static_cast<size_t>(min_y); i < max_y && i >= 0 && i < node_map_.size(); ++i) {
+		
+			node_map_[i][j].obstacle_ = true;
+
+			/*for (int neighbour_index = 0; neighbour_index < node_map_[i][j].neighbour_.size(); ++neighbour_index)
+			{
+				node_map_[i][j].neighbour_[neighbour_index]->obstacle_ = true;
+			}*/
+		}
 	}
-
 }
 
 AMap::AMapTypeY AMap::GetNodeMap()

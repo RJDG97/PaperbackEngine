@@ -177,7 +177,8 @@ void WindowsSystem::ToggleFullScreen() {
 
 	fullscreen_ = !fullscreen_;
 
-	glfwSetWindowMonitor(ptr_window, (fullscreen_) ? glfwGetPrimaryMonitor() : NULL, 0, 0, width_, height_, GLFW_DONT_CARE);
+	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	glfwSetWindowMonitor(ptr_window, (fullscreen_) ? glfwGetPrimaryMonitor() : NULL, mode->width/4, mode->height/4, width_, height_, GLFW_DONT_CARE);
 }
 
 void CreateDebugWindow() {
