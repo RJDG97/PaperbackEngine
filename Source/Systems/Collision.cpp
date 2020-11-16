@@ -95,11 +95,12 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 	Vector2D aab2_bot_left = aabb2.GetBottomLeft();
 	Vector2D aab2_top_right = aabb2.GetTopRight();
 	float tLast = dt; // g_dt does not exist yet
+	tFirst = {};
 
 	if (SeparatingAxisTheorem(aabb1, aabb2))
 	{
 		Vector2D Vb;
-		tFirst = 0;
+		float t_first_x{}, t_last_x = tLast;
 
 		Vb.x = vel2.x - vel1.x;
 		Vb.y = vel2.y - vel1.y;
@@ -115,25 +116,25 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 				return 0;
 			//case 4
 			if (aab1_top_right.x < aab2_bot_left.x)
-				tFirst = max(abs(aab1_top_right.x - aab2_bot_left.x) / Vb.x, tFirst);
+				t_first_x = max(abs((aab1_top_right.x - aab2_bot_left.x) / Vb.x), t_first_x);
 			if (aab1_bot_left.x < aab2_top_right.x)
-				tLast = min(abs(aab1_bot_left.x - aab2_top_right.x) / Vb.x, tLast);
+				t_last_x = min(abs((aab1_bot_left.x - aab2_top_right.x) / Vb.x), t_last_x);
 		}
 		if (Vb.x > EPSILON)
 		{
 			//case 2
 			if (aab1_bot_left.x > aab2_top_right.x)
-				tFirst = max(abs(aab1_bot_left.x - aab2_top_right.x) / Vb.x, tFirst);
+				t_first_x = max(abs((aab1_bot_left.x - aab2_top_right.x) / Vb.x), t_first_x);
 			if (aab1_top_right.x > aab2_bot_left.x)
-				tLast = min(abs(aab1_top_right.x - aab2_bot_left.x) / Vb.x, tLast);
+				t_last_x = min(abs((aab1_top_right.x - aab2_bot_left.x) / Vb.x), t_last_x);
 			//case3
 			if (aab1_top_right.x < aab2_bot_left.x)
 				return 0;
 		}
-		if (tFirst > tLast)
+		if (t_first_x > t_last_x)
 			return 0;
 
-		tFirst = 0, tLast = dt;
+		float t_first_y{}, t_last_y = tLast;
 
 		// Y-Axis check
 		if (Vb.y < -EPSILON)
@@ -143,23 +144,25 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 				return 0;
 			//case 4
 			if (aab1_top_right.y < aab2_bot_left.y)
-				tFirst = max(abs(aab1_top_right.y - aab2_bot_left.y) / Vb.y, tFirst);
+				t_first_y = max(abs((aab1_top_right.y - aab2_bot_left.y) / Vb.y), t_first_y);
 			if (aab1_bot_left.y < aab2_top_right.y)
-				tLast = min(abs(aab1_bot_left.y - aab2_top_right.y) / Vb.y, tLast);
+				t_last_y = min(abs((aab1_bot_left.y - aab2_top_right.y) / Vb.y), t_last_y);
 		}
 		if (Vb.y > EPSILON)
 		{
 			//case 2
 			if (aab1_bot_left.y > aab2_top_right.y)
-				tFirst = max(abs(aab1_bot_left.y - aab2_top_right.y) / Vb.y, tFirst);
+				t_first_y = max(abs((aab1_bot_left.y - aab2_top_right.y) / Vb.y), t_first_y);
 			if (aab1_top_right.y > aab2_bot_left.y)
-				tLast = min(abs(aab1_top_right.y - aab2_bot_left.y) / Vb.y, tLast);
+				t_last_y = min(abs((aab1_top_right.y - aab2_bot_left.y) / Vb.y), t_last_y);
 			//case3
 			if (aab1_top_right.y < aab2_bot_left.y)
 				return 0;
 		}
-		if (tFirst > tLast)
+		if (t_first_y > t_last_y)
 			return 0;
+
+		tFirst = (t_first_x > t_first_y) ? t_first_x : t_first_y;
 	}
 	return 1;
 }
