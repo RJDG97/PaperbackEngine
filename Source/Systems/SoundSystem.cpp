@@ -6,7 +6,8 @@
 SoundSystem::SoundSystem() : 
 	b_mute_{ false }, 
 	b_paused_{ false },
-	debug_{ false }
+	debug_{ false },
+	volume_{ 0.3f }
 {
 	// Create system
 	FMOD::System_Create(&f_system_);
@@ -33,6 +34,16 @@ bool SoundSystem::CheckError(FMOD_RESULT fResult) {
 		std::cout << "FMOD Error: " << fResult << std::endl;
 		return 0;
 	}
+}
+
+void SoundSystem::SetVolume(const float& vol) {
+	
+	volume_ = vol;
+}
+
+float SoundSystem::GetVolume() {
+	
+	return volume_;
 }
 
 void SoundSystem::LoadSound(std::string file_location, std::string file_id, bool loop_status) {
@@ -212,6 +223,7 @@ void SoundSystem::Update(float frametime) {
 		for (auto channel = channel_library_.begin(); channel != channel_library_.end(); ++channel) {
 			bool b_playing = false;
 			// Get channel's status (Playing / Completed)
+			channel->second->setVolume(volume_);
 			channel->second->isPlaying(&b_playing);
 			if (!b_playing) {
 				// Push back the completed channel after its completed

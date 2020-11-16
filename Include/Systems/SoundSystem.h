@@ -10,6 +10,28 @@
 #include <map>
 #include "Systems/ISystem.h"
 
+/*
+class SoundFile
+{
+public:
+	SoundFile();
+	SoundFile(std::string name, float vol, bool pause, bool mute);
+	void TogglePause();
+	void SetPause(bool status);
+	void ToggleMute();
+	void SetMute(bool status);
+	void Play();
+	void Stop();
+	~SoundFile();
+
+private:
+	FMOD::Sound* sound_;
+	float volume_;
+	bool pause_;
+	bool mute_;
+};
+*/
+
 class SoundSystem : public ISystem
 {
 	// Container to hold sound files
@@ -31,6 +53,7 @@ class SoundSystem : public ISystem
 	bool b_mute_;
 	bool b_paused_;
 	bool debug_;
+	float volume_;
 
 public:
 
@@ -52,6 +75,24 @@ public:
 */
 /******************************************************************************/
 	~SoundSystem();
+
+/******************************************************************************/
+/*!
+  \fn SetVolume()
+
+  \brief Set volume for all sound channels
+*/
+/******************************************************************************/
+	void SetVolume(const float& vol);
+
+/******************************************************************************/
+/*!
+  \fn GetVolume()
+
+  \brief Get volume for all sound channels
+*/
+/******************************************************************************/
+	float GetVolume();
 
 /******************************************************************************/
 /*!
