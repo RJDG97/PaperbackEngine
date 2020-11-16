@@ -42,7 +42,7 @@
   "wall": [
     {
       "component": "Transform",
-      "position": "-10.0 0.0",
+      "position": "-11.5 0.0",
       "rotation": "0.0"
     },
     {
@@ -50,6 +50,11 @@
       "texture": "Rock",
       "layer": "2",
       "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 1.5",
+      "layer": "1"
     }
   ]
 }

@@ -159,6 +159,12 @@ bool VerifyStatusNoneOrAlt(StatusType player, StatusType to_check) {
 
 void PlayState::StateInputHandler(Message* msg, Game* game) {
 
+	if (!entity_mgr_)
+		entity_mgr_ = &*CORE->GetManager<EntityManager>();
+
+	if (!component_mgr_)
+		component_mgr_ = &*CORE->GetManager<ComponentManager>();
+
 	if (game) {
 		for (Game::InputControllerIt it = game->input_controller_arr_->begin(); it != game->input_controller_arr_->end(); ++it) {
 			Message_Input* m = dynamic_cast<Message_Input*>(msg);

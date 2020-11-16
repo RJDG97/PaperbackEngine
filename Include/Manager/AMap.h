@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include "MathLib/Vector2D.h"
+#include "MathLib/MathHelper.h"
 #include "Entity/Entity.h"
 #include "Manager/IManager.h"
 
@@ -112,7 +113,7 @@ private:
 	void AMapInitialization(std::map<EntityID, Entity*> entity_map);
 	void SetAMapSize(Vector2D& size);
 	void SetNodeNeighbours();
-	void InsertEntityNodes(const Vector2D& pos);
+	void InsertEntityNodes(const Vector2D& pos, const Vector2D& scale);
 	void ClearMap();
 };
 

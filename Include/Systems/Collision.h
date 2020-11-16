@@ -3,6 +3,7 @@
 #define _COLLISION_H_
 
 #include <string>
+#include "MathLib/MathHelper.h"
 #include "Systems/Message.h"
 #include "Systems/Partitioning.h"
 #include "ISystem.h"

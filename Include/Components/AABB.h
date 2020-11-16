@@ -12,6 +12,7 @@ class AABB : public Component {
 	Vector2D scale_;
 	Vector2D top_right_;
     Vector2D bottom_left_;
+	Vector2D offset_;
 	bool collided;
 	size_t layer_;
 public:
