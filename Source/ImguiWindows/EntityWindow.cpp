@@ -200,13 +200,18 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				std::shared_ptr<AABB> entityAABB = std::dynamic_pointer_cast<AABB>(entitycomponent.first->GetComponent(ComponentTypes::AABB));
 
 				Vector2D inputAABB{ entityAABB->GetAABBScale() };
+				Vector2D inputOffset{ entityAABB->GetOffset() };
 
 				if (ImGui::TreeNode("Collider")) {
 
-					Vec2Input(inputAABB);
+					ImGui::Text("Collision Layer: %d", entityAABB->GetLayer());
 
+					Vec2Input(inputAABB);
 					entityAABB->SetAABBScale(inputAABB);
-					
+
+					Vec2Input(inputOffset);
+					entityAABB->SetOffset(inputOffset);
+
 					if (ImGui::Checkbox("Draw Bounding Box", &b_draw)) {
 
 						Message msg(MessageIDTypes::DEBUG_ALL);
