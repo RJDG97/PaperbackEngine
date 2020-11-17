@@ -535,6 +535,8 @@ void Collision::ToggleClickables() {
 void Collision::Init() {
 
 	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
+	windows_ = &*CORE->GetSystem<WindowsSystem>();
 	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
@@ -545,12 +547,7 @@ void Collision::Init() {
 	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
 	input_controller_arr_ = comp_mgr->GetComponentArray<InputController>();
 
-
-	shdr_pgm_ = CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
-	model_ = CORE->GetManager<ModelManager>()->AddLinesModel(1, 1, "LinesModel");
-	world_to_ndc_xform_ = &(CORE->GetSystem<CameraSystem>()->world_to_ndc_xform_);
 	cam_zoom_ = &(CORE->GetSystem<CameraSystem>()->cam_zoom_);
-	glLineWidth(2.0f);
 
 	// Defining collision map layering
 	/*
@@ -683,17 +680,30 @@ void Collision::Draw() {
 
 	if (debug_)
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 		const float scale = CORE->GetGlobalScale();
 
 		for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
 			for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
 
-				Vector2D top_right = (*aabb).second->top_right_;
-				Vector2D bottom_left = (*aabb).second->bottom_left_;
+				Vector2D top_right = scale * (*aabb).second->top_right_;
+				Vector2D bottom_left = scale * (*aabb).second->bottom_left_;
 
+				std::vector<glm::vec2> points{ {bottom_left.x, bottom_left.y},
+											   {bottom_left.x, top_right.y},
+											   {top_right.x, top_right.y},
+											   {top_right.x, bottom_left.y} };
+
+				if ((*aabb).second->collided)
+				{
+					graphics_->DrawDebugRectangle(points, {1.0f, 0.0f, 0.0f, 1.0f});
+				}
+
+				else
+				{
+					graphics_->DrawDebugRectangle(points, { 0.0f, 1.0f, 0.0f, 1.0f });
+				}
+
+				/*
 				Vector2D aabb_middle = bottom_left + (top_right - bottom_left) / 2;
 
 				glm::mat3 scaling = glm::mat3{ aabb->second->scale_.x * scale, 0.0f, 0.0f,
@@ -718,7 +728,7 @@ void Collision::Draw() {
 				// and the current shader program are no longer current
 				glBindVertexArray(0);
 
-				shdr_pgm_->UnUse();
+				shdr_pgm_->UnUse();*/
 			}
 		}
 	}
