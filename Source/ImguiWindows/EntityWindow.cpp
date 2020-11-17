@@ -18,7 +18,6 @@ void EntityWindow::Update() {
 
 		ImGui::Begin("Entity Inspector", &imgui_->b_entitywin);
 
-		//maybe move this somewhere else
 		if (ImGui::Button("Clear Selection"))
 			imgui_->SetEntity({});
 		ImGui::Separator();
@@ -99,10 +98,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 	if (entitycomponent.first) {
 
-		if (!entitycomponent.first->GetID())
-			ImGui::Text("Type: Archetype/Prefab");
-		else
-			ImGui::Text("Type: Entity");
+		!entitycomponent.first->GetID() ? ImGui::Text("Type: Archetype/Prefab") : ImGui::Text("Type: Entity");
 
 		for (auto componenttype : entitycomponent.second) {
 
@@ -114,6 +110,10 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 				ImGui::Text("Name:"); ImGui::SameLine(0, 2);
 				ImGui::TextColored(AQUAMARINE, entityname->GetName().c_str());
+				ImGui::SameLine(0, 2);
+				if (entitycomponent.first->GetID())
+					ImGui::Text(" .%d", entitycomponent.first->GetID());
+
 
 				break;
 			}
@@ -147,6 +147,8 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 					ImGui::Text("Rotation");
 					FloatInput(inputRot);
+
+					ImGui::DragFloat("", &inputPos.x, 0.01f, 0.0f, 0.0f, "%.2f");
 
 					entitytransform->SetRotation(inputRot);
 					ImGui::Separator();

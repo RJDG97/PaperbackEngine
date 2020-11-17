@@ -30,7 +30,10 @@ public:
 
 	void FileDirectoryCheck(fs::path filedirectory);
 
-	void PrintFile(fs::directory_entry file);
+	void PrintFileType();
+
+	std::string FileString(std::string icon, std::string file_name);
+	std::string DirectoryName(fs::directory_entry directory);
 private:
 	ImguiSystem* imgui_;
 	fs::path path_selection_;

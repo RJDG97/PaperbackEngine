@@ -88,7 +88,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 				imgui_->SetEntity(entityIT->second); // store the selected Entity to find its components
 			
 			if (opened) {
-				if (ImGui::Button(ICON_FA_CLONE " Spawn Entity"))
+				if (ImGui::Button(ICON_FA_PLUS_SQUARE_O " Spawn Entity"))
 					entities_->CloneArchetype(entityIT->first);
 
 				if (ImGui::Button(ICON_FA_TRASH_O " Delete Archetype")) {
