@@ -117,10 +117,31 @@ public:
 /******************************************************************************/
 	void ShowEntityList();
 
+/******************************************************************************/
+/*!
+	\fn GetAIState(int aiState)
+
+	\brief Get the name of the AI State base on the Enum
+*/
+/******************************************************************************/
 	const char* GetAIState(int aiState);
 
+/******************************************************************************/
+/*!
+	\fn GetAIType(int aiType)
+
+	\brief Get the name of the AI Type base on the Enum
+*/
+/******************************************************************************/
 	const char* GetAIType(int aiType);
 
+/******************************************************************************/
+/*!
+	\fn GetPlayerStatus(int playerState)
+
+	\brief Get the name of the AI State base on the Enum
+*/
+/******************************************************************************/
 	const char* GetPlayerStatus(int playerState);
 
 	void SetArrowButtons(int& componentVar);

@@ -65,7 +65,7 @@ private:
 	Levels levels_;
 	EntityFactory* factory_;
 
-	bool b_editcomp;
+	
 
 };
 

@@ -51,7 +51,7 @@ public:
 	//using directoryfileit = std::unordered_map<directory_entry, filepath_vector>::const_iterator;
 	//directoryfile directory_map_;
 
-	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset;
+	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset, b_editcomp;;
 
 	ImguiSystem() {};
 

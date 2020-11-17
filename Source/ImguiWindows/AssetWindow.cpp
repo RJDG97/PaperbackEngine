@@ -24,11 +24,12 @@ void AssetWindow::Update() {
 		ImGui::BeginChild("Files", { windowW / 3, windowH }, true, ImGuiWindowFlags_MenuBar);
 
 		ImGui::BeginMenuBar();
-		ImGui::Text((ICON_FA_FOLDER_OPEN + path_selection_.generic_string()).c_str());
+		ImGui::Text(FileString(ICON_FA_FOLDER_OPEN, path_selection_.generic_string()).c_str());
 		ImGui::SameLine(0, 3); ImGui::Text("Files:");
 		ImGui::EndMenuBar();
 
 		PrintFileType();
+
 		ImGui::EndChild();
 
 		ImGui::End();

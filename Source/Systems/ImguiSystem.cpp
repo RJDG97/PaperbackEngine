@@ -87,6 +87,7 @@ void ImguiSystem::Init(){
     b_editpath = false;
     b_showpop = false;
     b_asset = false;
+    b_editcomp = false;
 
     new_entity_ = nullptr;
 

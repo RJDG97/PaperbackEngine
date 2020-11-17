@@ -36,7 +36,7 @@ void EntityWindow::Update() {
 		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to select Entities directly");
 		imgui_->SetLockBool(lock);
 
-		if (imgui_->GetEntity()) {
+		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
 
@@ -110,9 +110,11 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 				ImGui::Text("Name:"); ImGui::SameLine(0, 2);
 				ImGui::TextColored(AQUAMARINE, entityname->GetName().c_str());
-				ImGui::SameLine(0, 2);
-				if (entitycomponent.first->GetID())
+				
+				if (entitycomponent.first->GetID()) {
+					ImGui::SameLine(0, 2);
 					ImGui::Text(" .%d", entitycomponent.first->GetID());
+				}
 
 
 				break;
@@ -147,9 +149,10 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 					ImGui::Text("Rotation");
 					FloatInput(inputRot);
-
+					ImGui::PushItemWidth(200.0f);
 					ImGui::DragFloat("", &inputPos.x, 0.01f, 0.0f, 0.0f, "%.2f");
-
+					ImGui::DragFloat("", &inputPos.y, 0.01f, 0.0f, 0.0f, "%.2f");
+					ImGui::PopItemWidth();
 					entitytransform->SetRotation(inputRot);
 					ImGui::Separator();
 

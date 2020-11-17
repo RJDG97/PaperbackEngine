@@ -8,7 +8,7 @@ void ArchetypeWindow::Init() {
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
 	comp_mgr_ = &*CORE->GetManager<ComponentManager>();
 	factory_ = &*CORE->GetSystem <EntityFactory>();
-	b_editcomp = false;
+	
 }
 
 void ArchetypeWindow::Update() {
@@ -57,7 +57,7 @@ void ArchetypeWindow::Update() {
 
 		ImGui::Separator();
 
-		if (b_editcomp) {
+		if (imgui_->b_editcomp) {
 
 			if (imgui_->GetEntity() && !imgui_->GetEntity()->GetID()) {
 
@@ -88,8 +88,11 @@ void ArchetypeWindow::AvaliableArchetypes() {
 				imgui_->SetEntity(entityIT->second); // store the selected Entity to find its components
 			
 			if (opened) {
-				if (ImGui::Button(ICON_FA_PLUS_SQUARE_O " Spawn Entity"))
+
+				if (ImGui::Button(ICON_FA_PLUS_SQUARE_O " Spawn Entity")) {
 					entities_->CloneArchetype(entityIT->first);
+					imgui_->SetEntity(nullptr);
+				}
 
 				if (ImGui::Button(ICON_FA_TRASH_O " Delete Archetype")) {
 
@@ -100,7 +103,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 				imgui_->DeletePopUp("Delete Confirmation", entityIT->first);
 
-				ImGui::Checkbox("Add Components", &b_editcomp);
+				ImGui::Checkbox("Add Components", &imgui_->b_editcomp);
 
 				imgui_->SetEntity(entityIT->second);
 
