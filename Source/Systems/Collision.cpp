@@ -95,11 +95,12 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 	Vector2D aab2_bot_left = aabb2.GetBottomLeft();
 	Vector2D aab2_top_right = aabb2.GetTopRight();
 	float tLast = dt; // g_dt does not exist yet
+	tFirst = {};
 
 	if (SeparatingAxisTheorem(aabb1, aabb2))
 	{
 		Vector2D Vb;
-		tFirst = 0;
+		float t_first_x{}, t_last_x = tLast;
 
 		Vb.x = vel2.x - vel1.x;
 		Vb.y = vel2.y - vel1.y;
@@ -115,25 +116,25 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 				return 0;
 			//case 4
 			if (aab1_top_right.x < aab2_bot_left.x)
-				tFirst = max(abs(aab1_top_right.x - aab2_bot_left.x) / Vb.x, tFirst);
+				t_first_x = max(abs((aab1_top_right.x - aab2_bot_left.x) / Vb.x), t_first_x);
 			if (aab1_bot_left.x < aab2_top_right.x)
-				tLast = min(abs(aab1_bot_left.x - aab2_top_right.x) / Vb.x, tLast);
+				t_last_x = min(abs((aab1_bot_left.x - aab2_top_right.x) / Vb.x), t_last_x);
 		}
 		if (Vb.x > EPSILON)
 		{
 			//case 2
 			if (aab1_bot_left.x > aab2_top_right.x)
-				tFirst = max(abs(aab1_bot_left.x - aab2_top_right.x) / Vb.x, tFirst);
+				t_first_x = max(abs((aab1_bot_left.x - aab2_top_right.x) / Vb.x), t_first_x);
 			if (aab1_top_right.x > aab2_bot_left.x)
-				tLast = min(abs(aab1_top_right.x - aab2_bot_left.x) / Vb.x, tLast);
+				t_last_x = min(abs((aab1_top_right.x - aab2_bot_left.x) / Vb.x), t_last_x);
 			//case3
 			if (aab1_top_right.x < aab2_bot_left.x)
 				return 0;
 		}
-		if (tFirst > tLast)
+		if (t_first_x > t_last_x)
 			return 0;
 
-		tFirst = 0, tLast = dt;
+		float t_first_y{}, t_last_y = tLast;
 
 		// Y-Axis check
 		if (Vb.y < -EPSILON)
@@ -143,23 +144,25 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 				return 0;
 			//case 4
 			if (aab1_top_right.y < aab2_bot_left.y)
-				tFirst = max(abs(aab1_top_right.y - aab2_bot_left.y) / Vb.y, tFirst);
+				t_first_y = max(abs((aab1_top_right.y - aab2_bot_left.y) / Vb.y), t_first_y);
 			if (aab1_bot_left.y < aab2_top_right.y)
-				tLast = min(abs(aab1_bot_left.y - aab2_top_right.y) / Vb.y, tLast);
+				t_last_y = min(abs((aab1_bot_left.y - aab2_top_right.y) / Vb.y), t_last_y);
 		}
 		if (Vb.y > EPSILON)
 		{
 			//case 2
 			if (aab1_bot_left.y > aab2_top_right.y)
-				tFirst = max(abs(aab1_bot_left.y - aab2_top_right.y) / Vb.y, tFirst);
+				t_first_y = max(abs((aab1_bot_left.y - aab2_top_right.y) / Vb.y), t_first_y);
 			if (aab1_top_right.y > aab2_bot_left.y)
-				tLast = min(abs(aab1_top_right.y - aab2_bot_left.y) / Vb.y, tLast);
+				t_last_y = min(abs((aab1_top_right.y - aab2_bot_left.y) / Vb.y), t_last_y);
 			//case3
 			if (aab1_top_right.y < aab2_bot_left.y)
 				return 0;
 		}
-		if (tFirst > tLast)
+		if (t_first_y > t_last_y)
 			return 0;
+
+		tFirst = (t_first_x > t_first_y) ? t_first_x : t_first_y;
 	}
 	return 1;
 }
@@ -532,6 +535,8 @@ void Collision::ToggleClickables() {
 void Collision::Init() {
 
 	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
+	windows_ = &*CORE->GetSystem<WindowsSystem>();
 	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
@@ -542,12 +547,7 @@ void Collision::Init() {
 	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
 	input_controller_arr_ = comp_mgr->GetComponentArray<InputController>();
 
-
-	shdr_pgm_ = CORE->GetManager<ShaderManager>()->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
-	model_ = CORE->GetManager<ModelManager>()->AddLinesModel(1, 1, "LinesModel");
-	world_to_ndc_xform_ = &(CORE->GetSystem<CameraSystem>()->world_to_ndc_xform_);
 	cam_zoom_ = &(CORE->GetSystem<CameraSystem>()->cam_zoom_);
-	glLineWidth(2.0f);
 
 	// Defining collision map layering
 	/*
@@ -680,17 +680,30 @@ void Collision::Draw() {
 
 	if (debug_)
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 		const float scale = CORE->GetGlobalScale();
 
 		for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
 			for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
 
-				Vector2D top_right = (*aabb).second->top_right_;
-				Vector2D bottom_left = (*aabb).second->bottom_left_;
+				Vector2D top_right = scale * (*aabb).second->top_right_;
+				Vector2D bottom_left = scale * (*aabb).second->bottom_left_;
 
+				std::vector<glm::vec2> points{ {bottom_left.x, bottom_left.y},
+											   {bottom_left.x, top_right.y},
+											   {top_right.x, top_right.y},
+											   {top_right.x, bottom_left.y} };
+
+				if ((*aabb).second->collided)
+				{
+					graphics_->DrawDebugRectangle(points, {1.0f, 0.0f, 0.0f, 1.0f});
+				}
+
+				else
+				{
+					graphics_->DrawDebugRectangle(points, { 0.0f, 1.0f, 0.0f, 1.0f });
+				}
+
+				/*
 				Vector2D aabb_middle = bottom_left + (top_right - bottom_left) / 2;
 
 				glm::mat3 scaling = glm::mat3{ aabb->second->scale_.x * scale, 0.0f, 0.0f,
@@ -715,7 +728,7 @@ void Collision::Draw() {
 				// and the current shader program are no longer current
 				glBindVertexArray(0);
 
-				shdr_pgm_->UnUse();
+				shdr_pgm_->UnUse();*/
 			}
 		}
 	}
