@@ -391,7 +391,7 @@ private:
 	EntityManager* entities_;
 	EntityFactory* factory_;
 
-	Level* editor;
+	Level* editor_;
 
 	const char* scene_filter_;
 	const char* texture_filter_; //might remove
