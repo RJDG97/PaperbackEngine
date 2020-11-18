@@ -14,10 +14,9 @@
 #include "Components/Transform.h"
 #include "Components/Scale.h"
 #include "Components/InputController.h"
-#include "Manager/ShaderManager.h"
-#include "Manager/ModelManager.h"
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
+#include "Systems/WindowsSystem.h"
 #include <unordered_map>
 #include <bitset>
 #include <string>
@@ -73,9 +72,6 @@ private:
 
 	//For debug drawing
 	bool debug_;
-	Model* model_;
-	Shader* shdr_pgm_;
-	glm::mat3* world_to_ndc_xform_;
 	float* cam_zoom_;
 
 	// Component arrays
@@ -92,6 +88,8 @@ private:
 	std::map<CollisionLayer, AABBType> collision_map_;
 
 	// System pointers
+	GraphicsSystem* graphics_;
+	WindowsSystem* windows_;
 	PartitioningSystem* partitioning_;
 	EntityManager* entity_mgr_;
 	ComponentManager* component_mgr_;

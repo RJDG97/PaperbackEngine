@@ -219,52 +219,45 @@ Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model
     return &models_[model_name];
 }
 
-Model* ModelManager::AddLinesModel(int slices, int stacks, std::string model_name) {
+Model* ModelManager::AddLinesModel(std::string model_name) {
 
     // Sets the position of the start and end of each line in a line model
 
-    int const count{ (slices + 1) * 2 + (stacks + 1) * 2 };
-    std::vector<glm::vec2> pos_vtx(count);
-    float const u{ 2.f / static_cast<float>(slices) };
-    float const v{ 2.f / static_cast<float>(stacks) };
+    std::vector<glm::vec2> pos_vtx { {-1.0f, -1.0f},
+                                     { 1.0f,  1.0f} };
 
-    int index = 0;
-
-    for (int col{ 0 }; col <= slices; ++col) {
-
-        float x{ u * static_cast<float>(col) - 1.0f };
-        pos_vtx[index++] = glm::vec2(x, -1.0f);
-        pos_vtx[index++] = glm::vec2(x, 1.0f);
-    }
-
-    for (int row{ 0 }; row <= stacks; ++row) {
-
-        float y{ u * static_cast<float>(row) - 1.0f };
-        pos_vtx[index++] = glm::vec2(-1.0f, y);
-        pos_vtx[index++] = glm::vec2(1.0f, y);
-    }
+    std::vector<GLushort> idx_vtx { 0, 1 };
 
     // Generate a VAO handle to encapsulate the VBO(s)
 
     GLuint vbo_hdl;
     glCreateBuffers(1, &vbo_hdl);
-    glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2)* pos_vtx.size(),
+    glNamedBufferStorage(vbo_hdl, sizeof(glm::vec2) * pos_vtx.size(),
         pos_vtx.data(), GL_DYNAMIC_STORAGE_BIT);
+
     GLuint vao_hdl;
     glCreateVertexArrays(1, &vao_hdl);
+
     glEnableVertexArrayAttrib(vao_hdl, 0);
     glVertexArrayVertexBuffer(vao_hdl, 0, vbo_hdl, 0, sizeof(glm::vec2));
     glVertexArrayAttribFormat(vao_hdl, 0, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_hdl, 0, 0);
-    glBindVertexArray(0);
 
-    // Return an appropriately initialized instance of GLApp::GLModel
+    GLuint ebo_hdl;
+    glCreateBuffers(1, &ebo_hdl);
+    glNamedBufferStorage(ebo_hdl,
+        sizeof(GLushort) * idx_vtx.size(),
+        reinterpret_cast<GLvoid*>(idx_vtx.data()),
+        GL_DYNAMIC_STORAGE_BIT);
+    glVertexArrayElementBuffer(vao_hdl, ebo_hdl);
+    glBindVertexArray(0);
 
     Model mdl;
     mdl.vaoid_ = vao_hdl;
+    mdl.vboid_ = vbo_hdl;
     mdl.primitive_type_ = GL_LINES;
-    mdl.draw_cnt_ = count;                                          // number of vertices
-    mdl.primitive_cnt_ = static_cast<GLint>(pos_vtx.size() / 2);    // number of GL_LINES
+    mdl.draw_cnt_ = 2;                              // number of vertices
+    mdl.primitive_cnt_ = 1;                         // number of GL_LINES
     models_[model_name] = mdl;
 
     return &models_[model_name];

@@ -67,7 +67,7 @@ public:
            Manager's map
 */
 /******************************************************************************/
-    Model* AddLinesModel(int slices, int stacks, std::string model_name);
+    Model* AddLinesModel(std::string model_name);
 
 /******************************************************************************/
 /*!

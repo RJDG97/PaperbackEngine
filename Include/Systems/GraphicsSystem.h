@@ -348,6 +348,9 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
     GLuint GetFramebuffer();
 
+    void DrawDebugRectangle(std::vector<glm::vec2> points, glm::vec4 color);
+    void DrawDebugLine(std::vector<glm::vec2> points, glm::vec4 color);
+
     using TextRendererType = CMap<TextRenderer>;
     using TextRendererIt = TextRendererType::MapTypeIt;
     TextRendererType* text_renderer_arr_;
