@@ -95,3 +95,8 @@ void TextureRenderer::InitTextures() {
     texture_handle_ = texture_.GetTilesetHandle();
     tex_vtx_ = *texture_.GetTexVtx();
 }
+
+std::string TextureRenderer::GetCurrentTextureName()
+{
+    return texture_name_;
+}

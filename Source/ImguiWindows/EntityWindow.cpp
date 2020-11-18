@@ -10,6 +10,9 @@ void EntityWindow::Init(){
 
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
 	entities_ = &*CORE->GetManager<EntityManager>();
+	texture_ = &*CORE->GetManager<TextureManager>();
+	animation_ = &*CORE->GetManager<AnimationManager>();
+	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
 }
 
 void EntityWindow::Update() {
@@ -113,9 +116,8 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				
 				if (entitycomponent.first->GetID()) {
 					ImGui::SameLine(0, 2);
-					ImGui::Text(" .%d", entitycomponent.first->GetID());
+					ImGui::Text(" %d", entitycomponent.first->GetID());
 				}
-
 
 				break;
 			}
@@ -190,11 +192,33 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				ImGui::Text("Controller Component");
 				break;
 			case ComponentTypes::TEXTURERENDERER:
-				ImGui::Text("Texture Renderer Component");
+			{
+				std::shared_ptr<TextureRenderer> entitytexture = std::dynamic_pointer_cast<TextureRenderer>(entitycomponent.first->GetComponent(ComponentTypes::TEXTURERENDERER));
+				if (ImGui::TreeNode("Texture Component")) {
+					if (ImGui::BeginCombo("##texture", entitytexture->GetCurrentTextureName().c_str())) {
+						for (auto it = texture_->GetTextureMap().begin(); it != texture_->GetTextureMap().end(); ++it)
+							if (ImGui::Selectable(it->first.c_str()))
+								graphics_->ChangeTexture(&(*entitytexture), it->first.c_str());
+						ImGui::EndCombo();
+					}
+
+					ImGui::TreePop();
+				}
+			}
 				break;
 			case ComponentTypes::ANIMATIONRENDERER:
-
-				ImGui::Text("Animation Renderer Component");
+			{
+				std::shared_ptr<AnimationRenderer> entityanim = std::dynamic_pointer_cast<AnimationRenderer>(entitycomponent.first->GetComponent(ComponentTypes::ANIMATIONRENDERER));
+				if (ImGui::TreeNode("Animation Component")) {
+					if (ImGui::BeginCombo("##Animation", entityanim->GetCurrentAnimation().c_str())) {
+						for (auto it = animation_->GetAnimationMap().begin(); it != animation_->GetAnimationMap().end(); ++it)
+							if (ImGui::Selectable(it->first.c_str()))
+								graphics_->ChangeAnimation(&(*entityanim), it->first.c_str());
+						ImGui::EndCombo();
+					}
+					ImGui::TreePop();
+				}
+			}
 				break;
 			case ComponentTypes::TEXTRENDERER:
 				ImGui::Text("Text Renderer Component");
@@ -229,7 +253,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 			}
 			case ComponentTypes::AI:
 			{
-				std::shared_ptr<AI>entityAI = std::dynamic_pointer_cast<AI>(entitycomponent.first->GetComponent(ComponentTypes::AI));
+				/*std::shared_ptr<AI>entityAI = std::dynamic_pointer_cast<AI>(entitycomponent.first->GetComponent(ComponentTypes::AI));
 				
 				const char* entityState = GetAIState(entityAI->GetState());
 				const char* entityType = GetAIType(entityAI->GetType());
@@ -352,7 +376,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					}
 					imgui_->DeletePopUp("Delete AI Component", std::string("AI Component"), entitycomponent.first, entityAI);
 
-				}
+				}*/
 				break;
 			}
 			case ComponentTypes::SCALE:
