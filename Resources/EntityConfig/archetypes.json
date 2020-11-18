@@ -382,7 +382,7 @@
     {
       "component": "ConeLight",
 	  "angle": "40.0",
-      "color": "1.0 0.7 0.7",
+      "color": "1.0 1.0 0.2",
       "radius": "500.0",
       "intensity": "1.0"
     }
