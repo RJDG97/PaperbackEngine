@@ -116,10 +116,8 @@ void GraphicsSystem::Init() {
     graphic_shaders_["DebugShader"] =
         shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
 
-    texture_manager_->LoadMiscTextures();
-
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
-    darkness_texture_ = texture_manager_->GetTexture("DarknessTexture")->GetTilesetHandle();
+    addition_texture_ = CORE->GetSystem<LightingSystem>()->GetAdditionTexture();
 
     //For UI and text
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
@@ -218,16 +216,15 @@ void GraphicsSystem::Draw() {
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
 
-    graphic_shaders_["FinalShader"]->Use();
-    glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
+    //glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], darkness_texture_);
+    DrawFinalTexture(lighting_texture_, 1.0f);
     glBlendFunc(GL_ONE, GL_ONE);
-    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
+    DrawFinalTexture(addition_texture_, 0.6f);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], &final_texture_);
+    DrawFinalTexture(&final_texture_, 1.0f);
 
     //draw all the UI textures
     graphic_shaders_["UIShader"]->Use();
@@ -272,14 +269,19 @@ void GraphicsSystem::Draw() {
     if (debug_) { debug_ = !debug_; }
 }
 
-void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, GLuint* texture) {
+void GraphicsSystem::DrawFinalTexture(GLuint* texture, float opacity) {
 
-    glBindTexture(GL_TEXTURE_2D, *texture);
+    graphic_shaders_["FinalShader"]->Use();
+    glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
+    glBindTexture(GL_TEXTURE_2D, graphic_models_["BoxModel"]->vaoid_);
     glBindTextureUnit(0, *texture);
   
-    shader->SetUniform("uTex2d", 0);
+    graphic_shaders_["FinalShader"]->SetUniform("uTex2d", 0);
+    graphic_shaders_["FinalShader"]->SetUniform("opacity", opacity);
 
-    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glDrawElements(GL_TRIANGLE_STRIP, graphic_models_["BoxModel"]->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    graphic_shaders_["FinalShader"]->UnUse();
+    glBindVertexArray(0);
 }
 
 /*  _________________________________________________________________________ */

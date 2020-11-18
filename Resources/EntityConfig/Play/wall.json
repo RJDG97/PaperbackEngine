@@ -14,7 +14,7 @@
     {
       "component": "PointLight",
       "color": "0.5 1.0 1.0",
-      "radius": "40.0",
+      "radius": "80.0",
       "intensity": "0.7"
     }
   ],
@@ -33,7 +33,7 @@
     {
       "component": "PointLight",
       "color": "0.5 1.0 1.0",
-      "radius": "40.0",
+      "radius": "80.0",
       "intensity": "0.7"
     }
   ]

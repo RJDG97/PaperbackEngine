@@ -26,9 +26,14 @@ void LightingSystem::Init() {
 
 	windows_system_ = &*CORE->GetSystem<WindowsSystem>();
 	camera_system_ = &*CORE->GetSystem<CameraSystem>();
+	graphics_system_ = &*CORE->GetSystem<GraphicsSystem>();
 
 	win_size_.x = static_cast<float>(windows_system_->GetWinWidth());
 	win_size_.y = static_cast<float>(windows_system_->GetWinHeight());
+
+	TextureManager* texture_manager_ = &*CORE->GetManager<TextureManager>();
+	texture_manager_->LoadMiscTextures();
+	darkness_texture = *texture_manager_->GetTexture("DarknessTexture")->GetTilesetHandle();
 
 	ShaderManager* shader_manager = &*CORE->GetManager<ShaderManager>();
 	lighting_shaders_["PointLightShader"] = shader_manager->AddShdrpgm("Shaders/point_light.vert",
@@ -58,7 +63,7 @@ void LightingSystem::Init() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-				 static_cast<GLsizei>(win_size_.x/2), static_cast<GLsizei>(win_size_.y/2),
+				 static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y),
 				 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, lighting_texture, 0);
@@ -66,12 +71,6 @@ void LightingSystem::Init() {
 	assert((glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE,
 		   "Lighting framebuffer is not complete!"));
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	//glClear(GL_COLOR_BUFFER_BIT);
-	//glClearColor(0.3f, 0.25f, 0.4f, 1.0f);
-
-	/*
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glGenFramebuffers(1, &addition_buffer);
@@ -84,13 +83,15 @@ void LightingSystem::Init() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-				 static_cast<GLsizei>(win_size_.x / 2), static_cast<GLsizei>(win_size_.y / 2),
+				 static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y),
 				 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, addition_texture, 0);
 
 	assert((glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE,
-		"Addition framebuffer is not complete!"));*/
+		"Addition framebuffer is not complete!"));
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	M_DEBUG->WriteDebugMessage("Lighting System Init\n");
 
@@ -121,15 +122,17 @@ void LightingSystem::Update(float frametime) {
 }
 
 void LightingSystem::Draw() {
-	
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	
+	glBindFramebuffer(GL_FRAMEBUFFER, addition_buffer);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glBlendFunc(GL_ONE, GL_ONE);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	Shader* point_light_shader = lighting_shaders_["PointLightShader"];
+	Shader* cone_light_shader = lighting_shaders_["ConeLightShader"];
+
 	glBindVertexArray(light_model_->vaoid_);
 	point_light_shader->Use();
 
@@ -143,7 +146,6 @@ void LightingSystem::Draw() {
 		DrawPointLight(point_light_shader, it->second);
 	}
 
-	Shader* cone_light_shader = lighting_shaders_["ConeLightShader"];
 	glBindVertexArray(light_model_->vaoid_);
 	cone_light_shader->Use();
 
@@ -156,6 +158,13 @@ void LightingSystem::Draw() {
 
 		DrawConeLight(cone_light_shader, it->second);
 	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	graphics_system_->DrawFinalTexture(&darkness_texture, 1.0f);
+	glBlendFunc(GL_ONE, GL_ONE);
+	graphics_system_->DrawFinalTexture(&addition_texture, 1.0f);
 }
 
 void LightingSystem::Cleanup() {
@@ -189,8 +198,7 @@ void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 	Vector2D obj_pos_ = transform->position_;
 
 	point_light->pos_ = glm::vec2(obj_pos_.x * global_scale, obj_pos_.y * global_scale) * *cam_zoom_ +
-							(*cam_pos_ * *cam_zoom_ + 0.5f * win_size_);
-	point_light->pos_ *= 0.5f;
+							(*cam_pos_ * *cam_zoom_ + 0.5f * win_size_);\
 }
 
 void LightingSystem::UpdateLightPosition(ConeLight* cone_light) {
@@ -209,7 +217,6 @@ void LightingSystem::UpdateLightPosition(ConeLight* cone_light) {
 
 	cone_light->pos_ = glm::vec2(obj_pos_.x * global_scale, obj_pos_.y * global_scale) * *cam_zoom_ +
 		(*cam_pos_ * *cam_zoom_ + 0.5f * win_size_);
-	cone_light->pos_ *= 0.5f;
 }
 
 void LightingSystem::DrawPointLight(Shader* shader, PointLight* point_light) {

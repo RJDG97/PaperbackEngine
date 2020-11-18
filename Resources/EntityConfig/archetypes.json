@@ -178,7 +178,7 @@
 	  "component": "PointLight",
 	  "angle": "30.0",
 	  "color": "1.0 1.0 0.0",
-      "radius": "200.0",
+      "radius": "400.0",
       "intensity": "1.0"
 	}
   ],
@@ -210,7 +210,7 @@
     {
       "component": "PointLight",
       "color": "0.5 1.0 1.0",
-      "radius": "100.0",
+      "radius": "200.0",
       "intensity": "2.0"
     }
   ],
@@ -378,9 +378,9 @@
     },
 	{
 	  "component": "ConeLight",
-	  "angle": "30.0",
+	  "angle": "40.0",
 	  "color": "1.0 1.0 0.0",
-      "radius": "200.0",
+      "radius": "520.0",
       "intensity": "1.0"
 	}
   ],
@@ -412,7 +412,7 @@
     {
       "component": "PointLight",
       "color": "1.0 1.0 0.7",
-      "radius": "550.0",
+      "radius": "1100.0",
       "intensity": "25.0"
     }
   ],
