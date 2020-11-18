@@ -28,6 +28,15 @@ public:
 /******************************************************************************/
 	void Update() override;
 
+	//int GetA();
+	//void SetA(int A);
+
+
+	//int GetB();
+	//void SetB(int B);
+
+
+
 private:
 
 	// vec2 to store the avaliable viewport size from imgui
@@ -35,6 +44,9 @@ private:
 
 	// pointer to the graphics system to get the framebuffer
 	GraphicsSystem* editor_viewport_;
+
+	//int a;
+	//int b;
 };
 
 #endif 

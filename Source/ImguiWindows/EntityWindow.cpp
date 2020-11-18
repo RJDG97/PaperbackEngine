@@ -10,15 +10,17 @@ void EntityWindow::Init(){
 
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
 	entities_ = &*CORE->GetManager<EntityManager>();
+	texture_ = &*CORE->GetManager<TextureManager>();
+	animation_ = &*CORE->GetManager<AnimationManager>();
+	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
 }
 
 void EntityWindow::Update() {
-
+	//ImGui::ShowDemoWindow();
 	if (imgui_->b_entitywin) {
 
 		ImGui::Begin("Entity Inspector", &imgui_->b_entitywin);
 
-		//maybe move this somewhere else
 		if (ImGui::Button("Clear Selection"))
 			imgui_->SetEntity({});
 		ImGui::Separator();
@@ -37,7 +39,7 @@ void EntityWindow::Update() {
 		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to select Entities directly");
 		imgui_->SetLockBool(lock);
 
-		if (imgui_->GetEntity()) {
+		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
 
@@ -99,6 +101,9 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 	if (entitycomponent.first) {
 
+		imgui_->ImguiHelp("1.  For all components with sliders Ctrl + Click to type manually.\n2. Click on the side buttons to reset the value to default");
+		ImGui::SameLine(0, 3); ImGui::Text("-> Hover here for help :)");
+		!entitycomponent.first->GetID() ? ImGui::TextColored(GOLDENORANGE, "Type: Archetype/Prefab") : ImGui::TextColored(SKYBLUE, "Type: Entity");
 		for (auto componenttype : entitycomponent.second) {
 
 			switch (componenttype)
@@ -107,8 +112,13 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 			{
 				std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entitycomponent.first->GetComponent(ComponentTypes::NAME));
 
-				ImGui::Text("Entity:"); ImGui::SameLine(0, 2);
+				ImGui::Text("Name:"); ImGui::SameLine(0, 2);
 				ImGui::TextColored(AQUAMARINE, entityname->GetName().c_str());
+				
+				if (entitycomponent.first->GetID()) {
+					ImGui::SameLine(0, 2);
+					ImGui::Text(" (%d)", entitycomponent.first->GetID());
+				}
 
 				break;
 			}
@@ -122,9 +132,10 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					ComponentInputFloat("Mass", "##mass", inputMass);
 					entitymotion->SetMass(inputMass);
 
-					if (ImGui::Button("Delete"))
-						ImGui::OpenPopup("Delete Motion Component");
-
+					if (!entitycomponent.first->GetID()) {
+						if (ImGui::Button("Delete"))
+							ImGui::OpenPopup("Delete Motion Component");
+					}
 					imgui_->DeletePopUp("Delete Motion Component", std::string("Motion Component"), entitycomponent.first, entitymotion);
 					ImGui::TreePop();
 				}
@@ -141,7 +152,6 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 					ImGui::Text("Rotation");
 					FloatInput(inputRot);
-
 					entitytransform->SetRotation(inputRot);
 					ImGui::Separator();
 
@@ -179,11 +189,33 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				ImGui::Text("Controller Component");
 				break;
 			case ComponentTypes::TEXTURERENDERER:
-				ImGui::Text("Texture Renderer Component");
+			{
+				std::shared_ptr<TextureRenderer> entitytexture = std::dynamic_pointer_cast<TextureRenderer>(entitycomponent.first->GetComponent(ComponentTypes::TEXTURERENDERER));
+				if (ImGui::TreeNode("Texture Component")) {
+					if (ImGui::BeginCombo("##texture", entitytexture->GetCurrentTextureName().c_str())) {
+						for (auto it = texture_->GetTextureMap().begin(); it != texture_->GetTextureMap().end(); ++it)
+							if (ImGui::Selectable(it->first.c_str()))
+								graphics_->ChangeTexture(&(*entitytexture), it->first.c_str());
+						ImGui::EndCombo();
+					}
+
+					ImGui::TreePop();
+				}
+			}
 				break;
 			case ComponentTypes::ANIMATIONRENDERER:
-
-				ImGui::Text("Animation Renderer Component");
+			{
+				std::shared_ptr<AnimationRenderer> entityanim = std::dynamic_pointer_cast<AnimationRenderer>(entitycomponent.first->GetComponent(ComponentTypes::ANIMATIONRENDERER));
+				if (ImGui::TreeNode("Animation Component")) {
+					if (ImGui::BeginCombo("##Animation", entityanim->GetCurrentAnimation().c_str())) {
+						for (auto it = animation_->GetAnimationMap().begin(); it != animation_->GetAnimationMap().end(); ++it)
+							if (ImGui::Selectable(it->first.c_str()))
+								graphics_->ChangeAnimation(&(*entityanim), it->first.c_str());
+						ImGui::EndCombo();
+					}
+					ImGui::TreePop();
+				}
+			}
 				break;
 			case ComponentTypes::TEXTRENDERER:
 				ImGui::Text("Text Renderer Component");
@@ -194,13 +226,18 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				std::shared_ptr<AABB> entityAABB = std::dynamic_pointer_cast<AABB>(entitycomponent.first->GetComponent(ComponentTypes::AABB));
 
 				Vector2D inputAABB{ entityAABB->GetAABBScale() };
+				Vector2D inputOffset{ entityAABB->GetOffset() };
 
 				if (ImGui::TreeNode("Collider")) {
 
-					Vec2Input(inputAABB);
+					ImGui::Text("Collision Layer: %d", entityAABB->GetLayer());
 
+					Vec2Input(inputAABB);
 					entityAABB->SetAABBScale(inputAABB);
-					
+
+					Vec2Input(inputOffset, 0.0f, "##Xoff", "##Yoff");
+					entityAABB->SetOffset(inputOffset);
+
 					if (ImGui::Checkbox("Draw Bounding Box", &b_draw)) {
 
 						Message msg(MessageIDTypes::DEBUG_ALL);
@@ -213,7 +250,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 			}
 			case ComponentTypes::AI:
 			{
-				std::shared_ptr<AI>entityAI = std::dynamic_pointer_cast<AI>(entitycomponent.first->GetComponent(ComponentTypes::AI));
+				/*std::shared_ptr<AI>entityAI = std::dynamic_pointer_cast<AI>(entitycomponent.first->GetComponent(ComponentTypes::AI));
 				
 				const char* entityState = GetAIState(entityAI->GetState());
 				const char* entityType = GetAIType(entityAI->GetType());
@@ -330,13 +367,13 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					}
 
 					ImGui::TreePop();
-
-					if (ImGui::Button("Delete"))
-						ImGui::OpenPopup("Delete AI Component");
-
+					if (!entitycomponent.first->GetID()) {
+						if (ImGui::Button("Delete"))
+							ImGui::OpenPopup("Delete AI Component");
+					}
 					imgui_->DeletePopUp("Delete AI Component", std::string("AI Component"), entitycomponent.first, entityAI);
 
-				}
+				}*/
 				break;
 			}
 			case ComponentTypes::SCALE:
@@ -372,11 +409,8 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 						for (int i = 0; i < IM_ARRAYSIZE(Playerstatus_); ++i) {
 
 							if (ImGui::Selectable(Playerstatus_[i]))
-							{
 								entitystatus->SetStatus(static_cast<StatusType>(i));
-							}
 						}
-
 						ImGui::EndCombo();
 					}
 
@@ -393,6 +427,12 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 						ImGui::TreePop();
 					}
 
+					if (!entitycomponent.first->GetID()) {
+						if (ImGui::Button("Delete"))
+							ImGui::OpenPopup("Delete Status Component");
+					}
+					imgui_->DeletePopUp("Delete Status Component", std::string("Status Component"), entitycomponent.first, entitystatus);
+
 					ImGui::TreePop();
 				}
 
@@ -404,6 +444,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 				float inputRadius = entitypointlight->GetRadius();
 				float inputIntensity = entitypointlight->GetIntensity();
+				ImVec4 inputcolor{ entitypointlight->GetColor().x, entitypointlight->GetColor().y, entitypointlight->GetColor().z, 1.0f };
 				if (ImGui::TreeNode("PointLight")) {
 
 					ComponentInputFloat("Light Radius", "##lightRad", inputRadius, 102.0f);
@@ -411,11 +452,18 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					
 					ComponentInputFloat("Light Intensity", "##lightinten", inputIntensity, 102.0f);
 					entitypointlight->SetIntensity(inputIntensity);
-					
-					if (ImGui::Button("Delete"))
-						ImGui::OpenPopup("Delete Point Light Component");
+					ImGui::Text("Light Color ");
+					ImGui::ColorEdit3("##color", (float*)&inputcolor);
 
-					imgui_->DeletePopUp("Delete Point Light Component", std::string("Point Light Component"), entitycomponent.first, entitypointlight);
+					glm::vec3 newColor{inputcolor.x, inputcolor.y, inputcolor.z};
+
+					entitypointlight->SetColor(newColor);
+
+					if (!entitycomponent.first->GetID()) {
+						if (ImGui::Button("Delete"))
+							ImGui::OpenPopup("Delete PointLight Component");
+					}
+					imgui_->DeletePopUp("Delete PointLight Component", std::string("PointLight Component"), entitycomponent.first, entitypointlight);
 
 					ImGui::TreePop();
 				}
@@ -483,7 +531,7 @@ ImVec2 EntityWindow::SetButtonSize() {
 	return buttonSize;
 }
 
-void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal) {
+void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal, const char* Xlabel , const char* Ylabel) {
 
 	SetButtonSize();
 	imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
@@ -497,7 +545,7 @@ void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal) {
 
 	ImGui::SameLine(0, 2);
 
-	ComponentInputFloat("", "##X", componentVar.x, 102.0f);
+	ComponentInputFloat("", Xlabel, componentVar.x, 102.0f);
 
 	ImGui::SameLine();
 
@@ -511,7 +559,7 @@ void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal) {
 
 	ImGui::SameLine(0, 2);
 
-	ComponentInputFloat("", "##Y", componentVar.y, 100.0f);
+	ComponentInputFloat("", Ylabel, componentVar.y, 100.0f);
 }
 
 void EntityWindow::FloatInput(float& componentVar, const char* label, float defaultVal) {
@@ -526,7 +574,7 @@ void EntityWindow::FloatInput(float& componentVar, const char* label, float defa
 
 	ImGui::SameLine(0, 2);
 
-	ComponentInputFloat("", "##rot", componentVar, 95.0f, 1.0f, 10.0f);
+	ComponentInputFloat("", "##rot", componentVar, 95.0f);
 }
 
 void EntityWindow::ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth, float startVal, float endVal) {
@@ -534,7 +582,8 @@ void EntityWindow::ComponentInputFloat(const char* componentLabel, const char* i
 
 	ImGui::Text(componentLabel);
 	ImGui::SameLine();
-	ImGui::InputFloat(inputLabel, &componentVar, startVal, endVal, "%.2f");
+	ImGui::DragFloat(inputLabel, &componentVar, 0.1f, startVal, endVal, "%.2f");
+	//ImGui::SliderFloat(inputLabel, &componentVar, startVal, endVal, "%.2f");
 	ImGui::PopItemWidth();
 }
 

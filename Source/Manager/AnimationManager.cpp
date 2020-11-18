@@ -191,3 +191,8 @@ void AnimationManager::ChangeAnimationFrameDuration(std::string animation_name, 
 	
 	animations_[animation_name].ChangeFrameDuration(new_frame_duration);
 }
+
+std::map<std::string, Animation>& AnimationManager::GetAnimationMap() {
+
+	return animations_;
+}

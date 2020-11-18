@@ -1,4 +1,4 @@
-#include "Components/PointLight.h"
+	#include "Components/PointLight.h"
 #include "Manager/ComponentManager.h"
 #include "Systems/LightingSystem.h"
 #include "Engine/Core.h"
@@ -77,6 +77,11 @@ float PointLight::GetIntensity(){
 	return intensity_;
 }
 
+glm::vec3 PointLight::GetColor() {
+
+	return color_;
+}
+
 void PointLight::SetRadius(float new_radius){
 
 	radius_ = new_radius;
@@ -85,4 +90,9 @@ void PointLight::SetRadius(float new_radius){
 void PointLight::SetIntensity(float new_intensity){
 
 	intensity_ = new_intensity;
+
+}
+void PointLight::SetColor(glm::vec3 new_color) {
+
+	color_ = new_color;
 }

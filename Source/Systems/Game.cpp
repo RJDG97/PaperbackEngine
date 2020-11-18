@@ -62,21 +62,6 @@ void Game::ChangeState(GameState* state, std::string level_name)
 
 	states_.push_back(state);
 	states_.back()->Init(level_name);
-	
-	// Backup copy
-	/*
-	if (!CheckExist(state)) {
-		// Remove current state
-		if (!states_.empty()) {
-		
-			states_.back()->Free();
-			states_.pop_back();
-		}
-
-		states_.push_back(state);
-		states_.back()->Init(level_name);
-	}
-	*/
 }
 
 // temporarily pushes a new state onto the stack
@@ -99,7 +84,7 @@ void Game::Update(float frametime)
 {
 
 	// let the current state take control
-	if (!states_.empty() && CORE->GetCorePauseStatus()) {
+	if (!states_.empty() && !CORE->GetCorePauseStatus() && !CORE->GetGamePauseStatus()) {
 	
 		states_.back()->Update(this, frametime);
 	}

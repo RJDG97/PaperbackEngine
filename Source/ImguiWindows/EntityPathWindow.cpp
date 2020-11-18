@@ -8,7 +8,9 @@ void EntityPathWindow::Init() {
 }
 
 void EntityPathWindow::Update() {
+
 	if (imgui_->b_editpath) {
+
 		ImGui::Begin("Add Archetype to Scene", &imgui_->b_editpath);
 
 		Level* editor = factory_->GetLevel("Editor");
@@ -37,7 +39,7 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 
 				if (ImGui::Button(ICON_FA_PENCIL" Update")) {
 
-					path = imgui_->OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
+					path = imgui_->OpenSaveDialog("(*.json) Scene Entities\0*.json\0", 1);
 
 					if (!path.empty())
 						it->second = imgui_->EditString(path);
@@ -74,6 +76,8 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 		if (ImGui::Button(ICON_FA_TIMES_CIRCLE " Clear All"))
 			editor->entity_paths_.clear();
 	}
+	else
+		ImGui::TextColored(REDACTIVE, "No Path Set");
 
 }
 

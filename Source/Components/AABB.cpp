@@ -83,5 +83,16 @@ void AABB::SetAABBScale(Vector2D newscale){
 }
 
 size_t AABB::GetLayer() const {
+
 	return layer_;
+}
+
+Vector2D AABB::GetOffset() {
+
+	return offset_;
+}
+
+void AABB::SetOffset(Vector2D new_offset) {
+
+	offset_ = new_offset;
 }

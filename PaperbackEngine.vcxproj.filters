@@ -356,6 +356,12 @@
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\AssetFileSystem.cpp">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+      </ClCompile>
     <ClCompile Include="Source\MathLib\MathHelper.cpp">
       <Filter>Systems\MathLibrary</Filter>
     </ClCompile>
@@ -605,6 +611,12 @@
       <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\AssetWindow.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\AssetFileSystem.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
     <ClInclude Include="Include\MathLib\MathHelper.h">

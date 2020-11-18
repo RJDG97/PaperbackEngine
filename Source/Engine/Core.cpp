@@ -10,6 +10,7 @@ std::unique_ptr<CoreEngine> CORE;
 CoreEngine::CoreEngine() :
 	debug_{ false },
 	pause_{ false },
+	game_pause_{ false },
 	b_game_active_{ true },
 	global_scale_{ 60.0f }
 {
@@ -119,6 +120,18 @@ void CoreEngine::ResetCorePauseStatus() {
 
 void CoreEngine::ToggleCorePauseStatus() {
 	pause_ = !pause_;
+}
+
+bool CoreEngine::GetGamePauseStatus() {
+	return game_pause_;
+}
+
+void CoreEngine::ResetGamePauseStatus() {
+	game_pause_ = false;
+}
+
+void CoreEngine::ToggleGamePauseStatus() {
+	game_pause_ = !game_pause_;
 }
 
 void CoreEngine::SetGameActiveStatus(bool status) {

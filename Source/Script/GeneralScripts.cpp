@@ -10,6 +10,7 @@ namespace GeneralScripts
 	Transform* player_rigidbody;
 	Transform* obj_rigidbody;
 	Status* player_status;
+	AnimationRenderer* obj_anim_renderer;
 	AMap* map_;
 	ForcesManager* forces_;
 
@@ -71,15 +72,21 @@ namespace GeneralScripts
 
 	void AIHandler(AIIt obj)
 	{
-		// Update player id
-		player_id = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
-		// Update player rigid body
-		player_rigidbody = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(player_id);
-		DEBUG_ASSERT((player_rigidbody), "Player does not have Transform component");
+		if (!player_id)
+		{
+			// Update player id
+			player_id = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
+			// Update player rigid body
+			player_rigidbody = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(player_id);
+			DEBUG_ASSERT((player_rigidbody), "Player does not have Transform component");
+			player_status = CORE->GetManager<ComponentManager>()->GetComponent<Status>(player_id);
+		}
 		// Update obj rigid body
 		obj_rigidbody = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(obj->first);
 		DEBUG_ASSERT((obj_rigidbody), "AI does not have Transform component");
-		player_status = CORE->GetManager<ComponentManager>()->GetComponent<Status>(player_id);
+		obj_anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(obj->first);
+
+		obj->second->GetTimer().TimerUpdate();
 		// Assign type handler
 		switch (obj->second->GetType())
 		{
@@ -87,6 +94,7 @@ namespace GeneralScripts
 			StagBeetle::Handler(obj);
 			break;
 		case AI::AIType::Mite:
+			Mite::Handler(obj);
 			break;
 		case AI::AIType::Hornet:
 			break;

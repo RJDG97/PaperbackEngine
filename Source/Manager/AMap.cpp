@@ -150,9 +150,9 @@ void AMap::InsertEntityNodes(const Vector2D& pos, const Vector2D& scale) {
 
 	// Computing the min and max pos of the entity
 	min_x = (pos.x - scale.x);
-	RoundDown(min_x);
+	RoundUp(min_x);
 	min_y = (pos.y - scale.y);
-	RoundDown(min_y);
+	RoundUp(min_y);
 	max_x = (pos.x + scale.x);
 	RoundUp(max_x);
 	max_y = (pos.y + scale.y);

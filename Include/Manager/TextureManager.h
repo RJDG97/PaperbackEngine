@@ -213,12 +213,14 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn UnloadAllTilesets()
+	\fn  GetTexture(std::string texture_name)
 
 	\brief Gets texture with given name from the Texture Manager's map
 */
 /******************************************************************************/
 	Texture* GetTexture(std::string texture_name);
+
+	std::map<std::string, Texture>& GetTextureMap();
 
 /******************************************************************************/
 /*!

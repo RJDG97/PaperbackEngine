@@ -178,7 +178,7 @@ void CheckWindowInFocus(GLFWwindow* window, int focus) {
 
 		if (CORE->GetCorePauseStatus()) {
 
-			if (CORE->GetSystem<Game>()->GetStateName() == "Play")
+			if (CORE->GetSystem<Game>()->GetStateName() == "Play" && CORE->GetGamePauseStatus())
 				return;
 
 			Message msg{ MessageIDTypes::BGM_PAUSE };
