@@ -25,10 +25,11 @@ void ImguiSystem::Init(){
     AddWindow<SystemWindow>();
 
     win_ = &*CORE->GetSystem<WindowsSystem>();
-    collision_system_ = &*CORE->GetSystem<Collision>();
-    input_sys_ = &*CORE->GetSystem<InputSystem>();
+    collision_ = &*CORE->GetSystem<Collision>();
+    input_ = &*CORE->GetSystem<InputSystem>();
     entities_ = &*CORE->GetManager<EntityManager>();
     factory_ = &*CORE->GetSystem <EntityFactory>();
+    sound_ = &*CORE->GetSystem<SoundSystem>();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -242,6 +243,7 @@ void ImguiSystem::ImguiMenuBar() {
                 CORE->SetGameActiveStatus(false);
             ImGui::EndMenu();
         }
+
         if (ImGui::BeginMenu("Archetypes")) {
 
             if (ImGui::MenuItem(ICON_FA_FLOPPY_O " Save Archetypes"))
@@ -265,6 +267,20 @@ void ImguiSystem::ImguiMenuBar() {
 
             ImGui::EndMenu();
         }
+        
+        if (ImGui::BeginMenu(ICON_FA_MUSIC " Audio Settings")) {
+
+            if (ImGui::Button("Play/Pause Sound"))
+                sound_->PauseSound();
+            if (ImGui::Button("Mute Sound"))
+                sound_->MuteSound();
+            float inputVol = sound_->GetVolume();
+            ImGui::Text("Volume"); ImGui::SameLine(0, 3);
+            ImGui::SliderFloat("", &inputVol, 0.0f, 1.0f, "%.2f");
+            sound_->SetVolume(inputVol);
+            ImGui::EndMenu();
+        }
+
         ImGui::PopFont();
     }
     ImGui::EndMenuBar();
@@ -333,7 +349,7 @@ void ImguiSystem::ImguiInput() {
 		
 		if (ImGui::IsKeyReleased(GLFW_KEY_O))
             OpenFile();
-        if (shift && ImGui::IsKeyPressed(GLFW_KEY_S))
+        if (ImGui::IsKeyPressed(GLFW_KEY_S))
             SaveFile();
 		if (ImGui::IsKeyPressed(GLFW_KEY_N))
             NewScene();
@@ -417,7 +433,7 @@ void ImguiSystem::SendMessageD(Message* m) {
     case MessageIDTypes::M_MOUSE_PRESS:
     {
         if (!b_lock_entity) {
-            selected_entity_ = collision_system_->SelectEntity();
+            selected_entity_ = collision_->SelectEntity();
             new_entity_ = entities_->GetEntity(selected_entity_);
             b_lock_entity = true;
         }

@@ -18,6 +18,7 @@
 #include "Systems/InputSystem.h"
 #include "Systems/Factory.h"
 #include "Systems/Game.h"
+#include "Systems/SoundSystem.h"
 
 #include "ImguiWindows/IWindow.h"
 #include "GameStates/GameState.h"
@@ -380,8 +381,9 @@ private:
 
 	// to access the window pointer in the window system
 	WindowsSystem* win_;
-	Collision* collision_system_;
-	InputSystem* input_sys_;
+	Collision* collision_;
+	InputSystem* input_;
+	SoundSystem* sound_;
 	
 	Entity* new_entity_; // entity* to store selected entity
 	EntityManager* entities_;
