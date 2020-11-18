@@ -169,12 +169,17 @@ public:
 	bool GetCorePauseStatus();
 	void ResetCorePauseStatus();
 	void ToggleCorePauseStatus();
+
+	bool GetGamePauseStatus();
+	void ResetGamePauseStatus();
+	void ToggleGamePauseStatus();
 	void SetGameActiveStatus(bool status);
 
 private:
 
 	bool debug_;
 	bool pause_;
+	bool game_pause_;
 
 	// Tracks all the systems the game uses
 	using SystemIt = std::vector< std::pair<std::string, std::shared_ptr<ISystem>> >::iterator;

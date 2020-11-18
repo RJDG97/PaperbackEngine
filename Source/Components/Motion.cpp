@@ -71,3 +71,7 @@ void Motion::SetMass(float newMass)
 {
 	mass_ = newMass;
 }
+
+Vector2D Motion::GetVelocity() {
+	return velocity_;
+}
