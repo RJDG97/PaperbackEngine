@@ -93,6 +93,7 @@ void PlayState::Update(Game* game, float frametime)
 			}
 			else {
 				std::cout << "Resetting status type to none" << std::endl;
+				status->second->status_timer_ = 0.0f;
 				status->second->status_ = StatusType::NONE;
 			}
 		}
@@ -138,10 +139,10 @@ void PlayState::SetStatus(std::string entity_name, StatusType status_type, float
 		else {
 			// Double check this condition
 			if (it->second->status_ == status_type &&
-				it->second->status_timer_ <= 0.001f) {
+				it->second->status_timer_ < 0.0f) {
 				
 				it->second->status_timer_ = 0.0f;
-				it->second->status_ = StatusType::NONE;
+				it->second->status_ = StatusType::NONE;				
 			}
 		}
 	}
@@ -175,8 +176,9 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			InputController* InputController = it->second;
 			float power = 120.0f;
 
-			if (InputController->VerifyKey("pause", m->input_)) {
-				CORE->ToggleCorePauseStatus(); // "ESC"
+			if (InputController->VerifyKey("pause", m->input_)) { // "Esc" key
+				CORE->ToggleCorePauseStatus(); // Disable physics update
+				CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
 				CORE->GetSystem<Collision>()->ToggleClickables();
 
 				Message pause{ MessageIDTypes::BGM_PAUSE };
