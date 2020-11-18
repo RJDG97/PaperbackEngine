@@ -161,6 +161,7 @@
     <ClCompile Include="Source\Components\BasicAI.cpp" />
     <ClCompile Include="Source\Components\Camera.cpp" />
     <ClCompile Include="Source\Components\Clickable.cpp" />
+    <ClCompile Include="Source\Components\ConeLight.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\InputController.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="Include\Components\BasicAI.h" />
     <ClInclude Include="Include\Components\Camera.h" />
     <ClInclude Include="Include\Components\Clickable.h" />
+    <ClInclude Include="Include\Components\ConeLight.h" />
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\InputController.h" />

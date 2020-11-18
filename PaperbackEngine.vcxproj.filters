@@ -359,6 +359,9 @@
     <ClCompile Include="Source\MathLib\MathHelper.cpp">
       <Filter>Systems\MathLibrary</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Components\ConeLight.cpp">
+      <Filter>Entity\Components\Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -606,6 +609,9 @@
     </ClInclude>
     <ClInclude Include="Include\MathLib\MathHelper.h">
       <Filter>Systems\MathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\ConeLight.h">
+      <Filter>Entity\Components\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

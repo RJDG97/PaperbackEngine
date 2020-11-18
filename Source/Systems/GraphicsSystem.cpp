@@ -116,7 +116,10 @@ void GraphicsSystem::Init() {
     graphic_shaders_["DebugShader"] =
         shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
 
+    texture_manager_->LoadMiscTextures();
+
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
+    darkness_texture_ = texture_manager_->GetTexture("DarknessTexture")->GetTilesetHandle();
 
     //For UI and text
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
@@ -218,6 +221,8 @@ void GraphicsSystem::Draw() {
     graphic_shaders_["FinalShader"]->Use();
     glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], darkness_texture_);
+    glBlendFunc(GL_ONE, GL_ONE);
     DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

@@ -42,6 +42,7 @@ class GraphicsSystem : public ISystem {
     GLuint render_buffer_;
     GLuint final_texture_;
     GLuint* lighting_texture_;
+    GLuint* darkness_texture_;
 
     //for UI
     glm::mat4 projection;
