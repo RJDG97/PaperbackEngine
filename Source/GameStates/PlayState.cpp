@@ -139,7 +139,7 @@ void PlayState::SetStatus(std::string entity_name, StatusType status_type, float
 		else {
 			// Double check this condition
 			if (it->second->status_ == status_type &&
-				it->second->status_timer_ < 0.0f) {
+				it->second->status_timer_ <= 0.0f) {
 				
 				it->second->status_timer_ = 0.0f;
 				it->second->status_ = StatusType::NONE;				
