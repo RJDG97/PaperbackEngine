@@ -8,6 +8,7 @@ void EntityPathWindow::Init() {
 }
 
 void EntityPathWindow::Update() {
+
 	if (imgui_->b_editpath) {
 
 		ImGui::Begin("Add Archetype to Scene", &imgui_->b_editpath);
@@ -75,6 +76,8 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 		if (ImGui::Button(ICON_FA_TIMES_CIRCLE " Clear All"))
 			editor->entity_paths_.clear();
 	}
+	else
+		ImGui::TextColored(REDACTIVE, "No Path Set");
 
 }
 

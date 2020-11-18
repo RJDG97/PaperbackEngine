@@ -101,8 +101,9 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 	if (entitycomponent.first) {
 
-		!entitycomponent.first->GetID() ? ImGui::Text("Type: Archetype/Prefab") : ImGui::Text("Type: Entity");
-
+		imgui_->ImguiHelp("1.  For all components with sliders Ctrl + Click to type manually.\n2. Click on the side buttons to reset the value to default");
+		ImGui::SameLine(0, 3); ImGui::Text("-> Hover here for help :)");
+		!entitycomponent.first->GetID() ? ImGui::TextColored(GOLDENORANGE, "Type: Archetype/Prefab") : ImGui::TextColored(SKYBLUE, "Type: Entity");
 		for (auto componenttype : entitycomponent.second) {
 
 			switch (componenttype)
@@ -116,7 +117,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				
 				if (entitycomponent.first->GetID()) {
 					ImGui::SameLine(0, 2);
-					ImGui::Text(" %d", entitycomponent.first->GetID());
+					ImGui::Text(" (%d)", entitycomponent.first->GetID());
 				}
 
 				break;
@@ -151,10 +152,6 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 					ImGui::Text("Rotation");
 					FloatInput(inputRot);
-					ImGui::PushItemWidth(200.0f);
-					ImGui::DragFloat("", &inputPos.x, 0.01f, 0.0f, 0.0f, "%.2f");
-					ImGui::DragFloat("", &inputPos.y, 0.01f, 0.0f, 0.0f, "%.2f");
-					ImGui::PopItemWidth();
 					entitytransform->SetRotation(inputRot);
 					ImGui::Separator();
 
@@ -238,7 +235,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					Vec2Input(inputAABB);
 					entityAABB->SetAABBScale(inputAABB);
 
-					Vec2Input(inputOffset);
+					Vec2Input(inputOffset, 0.0f, "##Xoff", "##Yoff");
 					entityAABB->SetOffset(inputOffset);
 
 					if (ImGui::Checkbox("Draw Bounding Box", &b_draw)) {
@@ -534,7 +531,7 @@ ImVec2 EntityWindow::SetButtonSize() {
 	return buttonSize;
 }
 
-void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal) {
+void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal, const char* Xlabel , const char* Ylabel) {
 
 	SetButtonSize();
 	imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
@@ -548,7 +545,7 @@ void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal) {
 
 	ImGui::SameLine(0, 2);
 
-	ComponentInputFloat("", "##X", componentVar.x, 102.0f);
+	ComponentInputFloat("", Xlabel, componentVar.x, 102.0f);
 
 	ImGui::SameLine();
 
@@ -562,7 +559,7 @@ void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal) {
 
 	ImGui::SameLine(0, 2);
 
-	ComponentInputFloat("", "##Y", componentVar.y, 100.0f);
+	ComponentInputFloat("", Ylabel, componentVar.y, 100.0f);
 }
 
 void EntityWindow::FloatInput(float& componentVar, const char* label, float defaultVal) {
@@ -577,7 +574,7 @@ void EntityWindow::FloatInput(float& componentVar, const char* label, float defa
 
 	ImGui::SameLine(0, 2);
 
-	ComponentInputFloat("", "##rot", componentVar, 95.0f, 1.0f, 10.0f);
+	ComponentInputFloat("", "##rot", componentVar, 95.0f);
 }
 
 void EntityWindow::ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth, float startVal, float endVal) {
@@ -585,7 +582,8 @@ void EntityWindow::ComponentInputFloat(const char* componentLabel, const char* i
 
 	ImGui::Text(componentLabel);
 	ImGui::SameLine();
-	ImGui::InputFloat(inputLabel, &componentVar, startVal, endVal, "%.2f");
+	ImGui::DragFloat(inputLabel, &componentVar, 0.1f, startVal, endVal, "%.2f");
+	//ImGui::SliderFloat(inputLabel, &componentVar, startVal, endVal, "%.2f");
 	ImGui::PopItemWidth();
 }
 

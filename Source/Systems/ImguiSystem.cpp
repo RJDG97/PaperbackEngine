@@ -31,6 +31,8 @@ void ImguiSystem::Init(){
     factory_ = &*CORE->GetSystem <EntityFactory>();
     sound_ = &*CORE->GetSystem<SoundSystem>();
 
+    editor_ = factory_->GetLevel("Editor");
+
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -224,8 +226,13 @@ void ImguiSystem::ImguiMenuBar() {
             if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene", "Ctrl+O"))
                 OpenFile();
             if (ImGui::MenuItem(ICON_FA_FLOPPY_O " Save", "Ctrl+S")) {
-                SaveFile();
-                b_showpop = true;
+                if (!editor_->entity_paths_.empty()) {
+                    SaveFile();
+                    b_showpop = true;
+                }
+                else {
+                    //TO:DO show pop up no paths set yet
+                }
             }
 
             if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene"))
@@ -267,10 +274,10 @@ void ImguiSystem::ImguiMenuBar() {
 
             ImGui::EndMenu();
         }
-        
+
         if (ImGui::BeginMenu(ICON_FA_MUSIC " Audio Settings")) {
 
-            if (ImGui::Button("Play/Pause Sound"))
+            if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
                 sound_->PauseSound();
             if (ImGui::Button("Mute Sound"))
                 sound_->MuteSound();

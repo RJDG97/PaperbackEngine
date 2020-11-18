@@ -58,7 +58,7 @@ public:
 */
 /******************************************************************************/
 	void ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, 
-    float inputWidth = 100.0f, float startVal = 0.1f, float endVal = 1.0f);
+    float inputWidth = 100.0f, float startVal = 0.0f, float endVal = 0.0f);
 
 /******************************************************************************/
 /*!
@@ -150,7 +150,7 @@ public:
 	void SetArrowButtons(int& componentVar);
 	ImVec2 SetButtonSize();
 
-	void Vec2Input(Vector2D& componentVar, float defaultVal = 0.0f);
+	void Vec2Input(Vector2D& componentVar, float defaultVal = 0.0f, const char* Xlabel = "##X", const char* Ylabel = "##Y");
 	void FloatInput(float& componentVar, const char* label = "X##float", float defaultVal = 0.0f);
 
 private:

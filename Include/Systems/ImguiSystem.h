@@ -39,6 +39,8 @@
 #define BLUEHOVERED ImVec4{ 0.318f, 0.345f, 0.882f, 1.0f }
 #define BLUEACTIVE  ImVec4{ 0.118f, 0.145f, 0.682f, 1.0f }
 #define AQUAMARINE ImVec4{ 0.498f, 1.0f, 0.831f, 1.0f }
+#define GOLDENORANGE ImVec4{ 1.0f, 0.843f, 0.0f, 1.0f }
+#define SKYBLUE ImVec4{ 0.0f, 0.749f, 1.0f, 1.0f }
 
 //namespace filesys = std::filesystem;
 class ImguiSystem : public ISystem
@@ -389,8 +391,10 @@ private:
 	EntityManager* entities_;
 	EntityFactory* factory_;
 
+	Level* editor;
+
 	const char* scene_filter_;
-	const char* texture_filter_;
+	const char* texture_filter_; //might remove
 
 	// bools for the docking space
 	bool b_dock_space_open;
@@ -406,6 +410,8 @@ private:
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
+
+	
 
 };
 
