@@ -11,6 +11,7 @@ namespace GeneralScripts
 	extern EntityID player_id;
 	extern Transform* player_rigidbody;
 	extern Transform* obj_rigidbody;
+	extern AnimationRenderer* obj_anim_renderer;
 	extern Status* player_status;
 	extern AMap* map_;
 	extern ForcesManager* forces_;

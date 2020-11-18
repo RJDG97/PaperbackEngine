@@ -53,7 +53,7 @@ void AI::DeSerializeClone(std::stringstream& data) {
 
 	type_ = GeneralScripts::GetType(type);
 
-	DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
+	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
 	destinations_.resize(num_destinations_);
 
@@ -196,4 +196,9 @@ std::vector<Vector2D>& AI::GetPath()
 void AI::SetPath(std::vector<Vector2D>& path)
 {
 	path_ = path;
+}
+
+Time_Channel& AI::GetTimer()
+{
+	return recovery_timer_;
 }

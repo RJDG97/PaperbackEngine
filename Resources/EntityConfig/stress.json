@@ -15,5 +15,5 @@
 
   "UIText": "Resources/EntityConfig/Stress/uitext.json",
 
-  "AITest": "Resources/EntityConfig/Stress/aitest.json"
+  "StagBeetle": "Resources/EntityConfig/TestRoom/stagbeetle.json"
 }

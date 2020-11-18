@@ -118,7 +118,7 @@ void Physics::TextureHandler(MotionIt motion) {
 
 							graphics_sys_->ChangeAnimation(renderer, "Player_Idle");
 						}
-						else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "AITest") {
+						else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "StagBeetle") {
 
 							// Renzo probably needs to add an extra check here to disable this setting if AI detects player
 							graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Idle");
@@ -131,7 +131,7 @@ void Physics::TextureHandler(MotionIt motion) {
 							graphics_sys_->ChangeAnimation(renderer, "Player_Walk");
 
 						}
-						else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "AITest") {
+						else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "StagBeetle") {
 
 							// Renzo probably needs to add an extra check here to disable this setting if AI detects player
 							graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Walk");

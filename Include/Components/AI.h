@@ -3,6 +3,7 @@
 
 #include "Entity/Entity.h" 
 #include "MathLib/Vector2D.h"
+#include "Systems/FrameRateController.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -286,6 +287,8 @@ public:
 	/******************************************************************************/
 	void SetPath(std::vector<Vector2D>& path);
 
+	Time_Channel& GetTimer();
+
 private:
 
 	AIType type_;
@@ -299,6 +302,7 @@ private:
 	DestinationIt current_destination_;
 	Vector2D player_last_pos_;
 	std::vector<Vector2D> path_;
+	Time_Channel recovery_timer_;
 };
 
 #endif

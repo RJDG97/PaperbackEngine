@@ -3,7 +3,9 @@
   
   "Player": "Resources/EntityConfig/Play/player.json",
   
-  "AITest": "Resources/EntityConfig/Play/aitest.json",
+  "StagBeetle": "Resources/EntityConfig/Play/stagbeetle.json",
+  
+  "Mite": "Resources/EntityConfig/Play/mite.json",
   
   "InputController": "Resources/EntityConfig/Play/input.json",
   
