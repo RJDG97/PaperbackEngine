@@ -223,6 +223,15 @@ void AnimationBatchLoad(std::string level_name);
 */
 /******************************************************************************/
 	void ChangeAnimationFrameDuration(std::string animation_name, GLfloat new_frame_duration);
+
+/******************************************************************************/
+/*!
+	\fn GetAnimationMap()
+
+	\brief Get the Map of all animations
+*/
+/******************************************************************************/
+	std::map<std::string, Animation>& GetAnimationMap();
 };
 
 #endif

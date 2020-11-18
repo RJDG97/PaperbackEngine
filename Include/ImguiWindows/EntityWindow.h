@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include "ImguiWindows/IWindow.h"
 #include "Systems/ImguiSystem.h"
+#include "Systems/GraphicsSystem.h"
 
 #include "Components/Transform.h"
 #include "Components/Scale.h"
@@ -13,6 +14,8 @@
 #include "Components/AI.h"
 
 #include "Manager/EntityManager.h"
+#include "Manager/TextureManager.h"
+#include "Manager/AnimationManager.h"
 #include "Engine/Core.h"
 
 class EntityWindow : public IWindow{
@@ -117,22 +120,45 @@ public:
 /******************************************************************************/
 	void ShowEntityList();
 
+/******************************************************************************/
+/*!
+	\fn GetAIState(int aiState)
+
+	\brief Get the name of the AI State base on the Enum
+*/
+/******************************************************************************/
 	const char* GetAIState(int aiState);
 
+/******************************************************************************/
+/*!
+	\fn GetAIType(int aiType)
+
+	\brief Get the name of the AI Type base on the Enum
+*/
+/******************************************************************************/
 	const char* GetAIType(int aiType);
 
+/******************************************************************************/
+/*!
+	\fn GetPlayerStatus(int playerState)
+
+	\brief Get the name of the AI State base on the Enum
+*/
+/******************************************************************************/
 	const char* GetPlayerStatus(int playerState);
 
 	void SetArrowButtons(int& componentVar);
 	ImVec2 SetButtonSize();
 
 	void Vec2Input(Vector2D& componentVar, float defaultVal = 0.0f);
-	void FloatInput(float& componentVar, const char* label = "X##hey", float defaultVal = 0.0f);
+	void FloatInput(float& componentVar, const char* label = "X##float", float defaultVal = 0.0f);
 
 private:
 	ImguiSystem* imgui_;
 	EntityManager* entities_;
-
+	TextureManager* texture_;
+	GraphicsSystem* graphics_;
+	AnimationManager* animation_;
 	EntityManager::EntityIdMapTypeIt entityIT;
 
 	const char* AIstates_[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };

@@ -18,7 +18,7 @@ void SystemWindow::Update(){
 		}
 
 		for (std::map<std::string, float>::iterator it = PE_FrameRate.GetSystemPerformance().begin(); it != PE_FrameRate.GetSystemPerformance().end(); ++it) {
-			ImGui::Text(it->first.c_str()); ImGui::SameLine(0, 2); ImGui::Text(": %.4f", (it->second / total_time_ * 100));
+			ImGui::Text(it->first.c_str()); ImGui::SameLine(0, 2); ImGui::Text(": %.4f", (it->second / total_time_ * 100.0f));
 		}
 		ImGui::End();
 	}

@@ -109,3 +109,8 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
 
 	return cloned;
 }
+
+std::string AnimationRenderer::GetCurrentAnimation() {
+
+    return current_animation_name_;
+}

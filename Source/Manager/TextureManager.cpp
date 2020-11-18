@@ -287,6 +287,11 @@ Texture* TextureManager::GetTexture(std::string texture_name) {
     return &textures_[texture_name];
 }
 
+std::map<std::string, Texture>& TextureManager::GetTextureMap() {
+
+    return textures_;
+}
+
 TextureManager::~TextureManager() {
 
     UnloadAllTilesets();

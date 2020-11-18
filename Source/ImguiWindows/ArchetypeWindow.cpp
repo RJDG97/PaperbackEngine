@@ -8,7 +8,7 @@ void ArchetypeWindow::Init() {
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
 	comp_mgr_ = &*CORE->GetManager<ComponentManager>();
 	factory_ = &*CORE->GetSystem <EntityFactory>();
-	b_editcomp = false;
+	
 }
 
 void ArchetypeWindow::Update() {
@@ -57,9 +57,9 @@ void ArchetypeWindow::Update() {
 
 		ImGui::Separator();
 
-		if (b_editcomp) {
+		if (imgui_->b_editcomp) {
 
-			if (imgui_->GetEntity()) {
+			if (imgui_->GetEntity() && !imgui_->GetEntity()->GetID()) {
 
 				ImGui::PushItemWidth(250.0f);
 
@@ -88,8 +88,11 @@ void ArchetypeWindow::AvaliableArchetypes() {
 				imgui_->SetEntity(entityIT->second); // store the selected Entity to find its components
 			
 			if (opened) {
-				if (ImGui::Button(ICON_FA_CLONE " Clone Archetype"))
+
+				if (ImGui::Button(ICON_FA_PLUS_SQUARE_O " Spawn Entity")) {
 					entities_->CloneArchetype(entityIT->first);
+					imgui_->SetEntity(nullptr);
+				}
 
 				if (ImGui::Button(ICON_FA_TRASH_O " Delete Archetype")) {
 
@@ -100,7 +103,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 				imgui_->DeletePopUp("Delete Confirmation", entityIT->first);
 
-				ImGui::Checkbox("Add/Edit Components", &b_editcomp);
+				ImGui::Checkbox("Add Components", &imgui_->b_editcomp);
 
 				imgui_->SetEntity(entityIT->second);
 
@@ -135,16 +138,16 @@ void ArchetypeWindow::AddComponent() {
 
 		for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it) {
 
-			ComponentTypes component = StringToComponentType(it->first.c_str());
+			ComponentTypes componenttype = StringToComponentType(it->first.c_str());
 
-			if (!imgui_->GetEntity()->HasComponent(component)) {
+			if (!imgui_->GetEntity()->HasComponent(componenttype)) {
 
 				if (ImGui::Selectable(it->first.c_str())) {
 
 					std::shared_ptr<Component> comp;
 					IComponentCreator* creator = comp_mgr_->GetComponentCreator(it->first.c_str());
 					comp = creator->Create();
-					imgui_->GetEntity()->AddComponent(component, comp);
+					imgui_->GetEntity()->AddComponent(componenttype, comp);
 					imgui_->GetEntity()->InitArchetype();
 				}
 			}
