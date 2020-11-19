@@ -17,5 +17,9 @@
   
   "Watergauge": "Resources/EntityConfig/Play/watergauge.json",
   
-  "Goal": "Resources/EntityConfig/Play/goal.json"
+  "Goal": "Resources/EntityConfig/Play/goal.json",
+  
+  "Gate": "Resources/EntityConfig/Play/gate.json",
+  
+  "Key": "Resources/EntityConfig/Play/keys.json"
 }

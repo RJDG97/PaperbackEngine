@@ -126,6 +126,7 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("AI", new ComponentCreator<AI>(ComponentTypes::AI));
 	comp_mgr_->AddComponentCreator("ParentChild", new ComponentCreator<ParentChild>(ComponentTypes::PARENTCHILD));
 	comp_mgr_->AddComponentCreator("LogicComponent", new ComponentCreator<LogicComponent>(ComponentTypes::LOGICCOMPONENT));
+	comp_mgr_->AddComponentCreator("Inventory", new ComponentCreator< Inventory>(ComponentTypes::INVENTORY));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");
