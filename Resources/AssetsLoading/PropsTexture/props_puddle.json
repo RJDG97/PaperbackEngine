@@ -1,0 +1,10 @@
+{
+  "Props/Props_Puddle.png": [
+  {
+	  "Tileset Name": "Puddle",
+	  "Columns": "1",
+	  "Rows": "1",
+    "Tile Name": "Puddle"
+  }
+  ]
+}

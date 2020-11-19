@@ -339,6 +339,3 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 Resources/Debug.txt
-/Resources/Sprites/Props/Puddle.png
-/Resources/EntityConfig/Play/puddle.json
-/Resources/AssetsLoading/PropsTexture/props_puddle.json
