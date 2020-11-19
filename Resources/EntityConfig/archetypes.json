@@ -541,12 +541,6 @@
       "component": "AABB",
       "scale": "0.5 0.5",
       "layer": "5"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Rock",
-      "layer": "2",
-      "ui": "0"
     }
   ],
   "Clouds": [
@@ -698,6 +692,12 @@
       "texture": "KeyOne",
       "layer": "1",
       "ui": "0"
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.6",
+      "radius": "50.0",
+      "intensity": "0.2"
     }
   ],
   "Puddle": [
