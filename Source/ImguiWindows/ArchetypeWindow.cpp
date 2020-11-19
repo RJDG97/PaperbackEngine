@@ -103,7 +103,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 				imgui_->DeletePopUp(ICON_FA_MINUS_SQUARE " Delete Confirmation", entityIT->first);
 
-				ImGui::Checkbox("Add Components", &imgui_->b_editcomp); ImGui::SameLine(0, 3);
+				ImGui::Checkbox("Add/Edit Components", &imgui_->b_editcomp); ImGui::SameLine(0, 3);
 				imgui_->ImguiHelp("Untick this whenever you are done");
 
 				imgui_->SetEntity(entityIT->second);
@@ -156,6 +156,4 @@ void ArchetypeWindow::AddComponent() {
 
 		ImGui::EndCombo();
 	}
-
-
 }

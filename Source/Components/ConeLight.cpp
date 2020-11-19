@@ -82,6 +82,15 @@ float ConeLight::GetIntensity() {
 	return intensity_;
 }
 
+glm::vec3 ConeLight::GetColor() {
+	return color_;
+}
+
+float ConeLight::GetAngle() {
+
+	return angle_;
+}
+
 void ConeLight::SetRadius(float new_radius) {
 
 	radius_ = new_radius;
@@ -90,4 +99,14 @@ void ConeLight::SetRadius(float new_radius) {
 void ConeLight::SetIntensity(float new_intensity) {
 
 	intensity_ = new_intensity;
+}
+
+void ConeLight::SetColor(glm::vec3 new_color) {
+
+	color_ = new_color;
+}
+
+void ConeLight::SetAngle(float new_angle) {
+
+	angle_ = new_angle;
 }
