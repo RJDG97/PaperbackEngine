@@ -3,10 +3,6 @@
   
   "Player": "Resources/EntityConfig/Play/player.json",
   
-  "StagBeetle": "Resources/EntityConfig/Play/stagbeetle.json",
-  
-  "Mite": "Resources/EntityConfig/Play/mite.json",
-  
   "InputController": "Resources/EntityConfig/Play/input.json",
   
   "Wall": "Resources/EntityConfig/Play/wall.json",
@@ -17,5 +13,9 @@
   
   "Watergauge": "Resources/EntityConfig/Play/watergauge.json",
   
-  "Goal": "Resources/EntityConfig/Play/goal.json"
+  "Goal": "Resources/EntityConfig/Play/goal.json",
+  
+  "Gate": "Resources/EntityConfig/Play/gate.json",
+  
+  "Key": "Resources/EntityConfig/Play/keys.json"
 }

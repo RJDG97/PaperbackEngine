@@ -25,8 +25,8 @@
 #include "GameStates/MenuState.h"
 
 #include "Manager/EntityManager.h"
-#include "Imgui/IconsFontAwesome4.h"
-//#include "ImguiWindows/AssetFileSystem.h"
+#include "Imgui/IconsFontAwesome5.h"
+
 
 //colours for axis buttons
 #define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
@@ -54,7 +54,7 @@ public:
 	//using directoryfileit = std::unordered_map<directory_entry, filepath_vector>::const_iterator;
 	//directoryfile directory_map_;
 
-	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset, b_editcomp;;
+	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset, b_editcomp;
 
 	ImguiSystem() {};
 
@@ -392,6 +392,8 @@ private:
 	EntityFactory* factory_;
 
 	Level* editor_;
+
+	std::string selected_file_;
 
 	const char* scene_filter_;
 	const char* texture_filter_; //might remove

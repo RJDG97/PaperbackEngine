@@ -2,12 +2,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "3.199999 4.399998",
-            "rotation": "0.000000"
+            "position": "1.900000 4.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "6.799996 0.500000",
+            "scale": "5.000000 0.400000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -15,12 +16,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "3.299999 -4.299998",
-            "rotation": "0.000000"
+            "position": "2.100000 -2.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "7.099996 0.500000",
+            "scale": "4.800000 0.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -28,12 +30,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "9.500000 0.000000",
-            "rotation": "0.000000"
+            "position": "6.400000 1.100000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 4.999998",
+            "scale": "0.500000 3.600000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -41,12 +44,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-3.299999 3.399999",
-            "rotation": "0.000000"
+            "position": "-3.000000 -1.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 1.600000",
+            "scale": "0.500000 1.100000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -54,12 +58,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-3.299999 -3.399999",
-            "rotation": "0.000000"
+            "position": "-3.000000 3.700000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 1.200000",
+            "scale": "0.500000 1.000000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -67,12 +72,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-7.599995 2.300000",
-            "rotation": "0.000000"
+            "position": "-6.100000 -0.700000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "4.799998 0.500000",
+            "scale": "3.600000 0.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -80,12 +86,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-7.599995 -2.700000",
-            "rotation": "0.000000"
+            "position": "-6.100000 3.200000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "4.799998 0.500000",
+            "scale": "3.600000 0.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -93,12 +100,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-11.900009 3.599999",
-            "rotation": "0.000000"
+            "position": "-9.200000 4.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 1.800000",
+            "scale": "-0.500000 1.300000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -106,12 +114,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-11.900009 -7.099996",
-            "rotation": "0.000000"
+            "position": "-7.500000 4.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 4.899998",
+            "scale": "2.200000 0.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -119,12 +128,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-19.200037 -3.399999",
-            "rotation": "0.000000"
+            "position": "-5.600000 10.400000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 8.399996",
+            "scale": "0.500000 6.100000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -132,12 +142,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-6.999996 9.199999",
-            "rotation": "0.000000"
+            "position": "-9.200000 16.200001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 4.799998",
+            "scale": "3.800000 0.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -145,8 +156,9 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-19.200037 7.599995",
-            "rotation": "0.000000"
+            "position": "-12.500000 18.299999",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
@@ -158,12 +170,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-7.599995 4.899998",
-            "rotation": "0.000000"
+            "position": "-17.299999 18.299999",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "4.799998 0.500000",
+            "scale": "0.500000 2.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -171,12 +184,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-10.800005 14.000017",
-            "rotation": "0.000000"
+            "position": "-20.799999 16.299999",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "4.299998 0.500000",
+            "scale": "4.000000 0.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -184,12 +198,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-15.500023 -11.500008",
-            "rotation": "43.000000"
+            "position": "-24.600000 10.400000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "3.899998 0.500000",
+            "scale": "0.500000 6.300000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -197,12 +212,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "30.000000 30.000000",
-            "rotation": "0.000000"
+            "position": "-19.500000 5.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "5.600000 0.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -210,12 +226,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-25.000000 -25.000000",
-            "rotation": "0.000000"
+            "position": "-14.400000 -2.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "0.500000 7.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -223,12 +240,13 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-15.100019 12.600010",
-            "rotation": "0.000000"
+            "position": "-9.200000 -6.400000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 1.400000",
+            "scale": "0.500000 6.200000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }
@@ -236,8 +254,331 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-16.300024 11.700006",
-            "rotation": "0.000000"
+            "position": "-19.700001 -9.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "5.800000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-25.000000 -14.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 4.900000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-17.100000 -18.700001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "8.400000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-6.100000 -12.100000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.600000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-9.200000 -16.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.800000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-6.100000 -15.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.600000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-3.000000 -10.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.700000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-3.000000 -16.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.800000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "4.300000 -9.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "7.800000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "8.700000 -18.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "12.300000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "20.700001 -13.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 4.900000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "17.900000 -9.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.200000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "11.600000 -5.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 4.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "15.200000 -5.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 4.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "17.700001 -1.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.000000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "10.100000 -1.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "8.400000 7.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 9.300000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "20.900000 7.200000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 9.100000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "10.300000 16.100000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "18.600000 16.100000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.800000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "12.300000 17.799999",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 2.200000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "16.299999 17.799999",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 2.200000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "17.400000 19.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.600000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "11.100000 19.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
@@ -249,12 +590,587 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "-18.000031 10.300001",
-            "rotation": "0.000000"
+            "position": "10.000000 21.799999",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.800000 1.700000",
+            "scale": "0.500000 2.800000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "18.299999 22.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 3.000000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "14.000000 24.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "4.900000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-15.300000 13.200000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.900000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-11.900000 11.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.800000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-15.300000 10.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.900000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-18.700001 11.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.800000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-17.100000 10.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.000000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-13.700000 10.200000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.200000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-15.400000 9.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.200000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-20.400000 -13.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.800000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-14.600000 -13.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.800000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-17.500000 -14.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.400000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-17.500000 -11.700000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.400000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "8.600000 -12.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "5.600000 -13.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "8.600000 -14.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "11.600000 -13.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "9.800000 6.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.900000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "11.200000 6.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "14.500000 2.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "11.500000 2.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "17.500000 2.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "16.400000 3.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.300000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "16.400000 4.100000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "14.600000 6.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "14.600000 6.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "12.300000 15.400000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.200000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "12.300000 14.700000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "11.200000 11.400000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.200000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "12.300000 10.700000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.600000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "11.200000 12.100000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "13.400000 10.700000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "16.400000 10.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 2.300000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "17.100000 9.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.200000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "17.799999 8.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "17.799999 7.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "16.400000 12.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "19.000000 13.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.200000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "17.299999 13.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "25.000000 30.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1",
+            "offset": "0.000000 0.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-30.000000 -25.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
             "layer": "1",
             "offset": "0.000000 0.000000"
         }

@@ -2,21 +2,29 @@
 #include "Engine/Core.h"
 #include "Manager/ForcesManager.h"
 #include "Systems/GraphicsSystem.h"
+#include "Manager/EntityManager.h"
+#include "Systems/Factory.h"
 
 namespace Mite
 {
-	bool Attack(AIIt obj)
+	void Attack(AIIt obj)
 	{
-		UNREFERENCED_PARAMETER(obj);
-		// Find current distance of player from obj
-		float distance = Vector2DDistance(GeneralScripts::player_rigidbody->GetPosition(), GeneralScripts::obj_rigidbody->GetPosition());
-		// Explsion animation
-		if (distance < 50.0f) // replace with attack radius
+		obj->second->GetTimer().TimerStart();
+		if (obj->second->GetTimer().TimeElapsed(s) > 0.7f)
 		{
-			// decrement player health
-			return true;
+			obj->second->GetTimer().TimerStop();
+			obj->second->GetTimer().TimerReset();
+
+			float distance = Vector2DDistance(GeneralScripts::player_rigidbody->GetPosition(), GeneralScripts::obj_rigidbody->GetPosition());
+			// Explsion animation
+			if (distance < 50.0f && !(GeneralScripts::player_status->GetStatus() == StatusType::BURROW ||
+				GeneralScripts::player_status->GetStatus() == StatusType::HIT)) // replace with attack radius
+			{
+				GeneralScripts::player_health->SetCurrentHealth(GeneralScripts::player_health->GetCurrentHealth() - 1);
+			}
+			CORE->GetSystem<EntityFactory>()->Destroy
+			(CORE->GetManager<EntityManager>()->GetEntity(obj->first));
 		}
-		return true;
 	}
 
 	void Handler(AIIt obj)
@@ -24,7 +32,13 @@ namespace Mite
 		switch (obj->second->GetState())
 		{
 		case AI::AIState::Patrol:
-			CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Idle");
+			if(obj->second->GetNumDes()==1)
+				CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Idle");
+			else
+			{
+				CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
+				GeneralScripts::Patrol(obj);
+			}
 			if (GeneralScripts::DetectPlayer(obj))
 				obj->second->SetState(AI::AIState::Detected);
 			break;
@@ -52,20 +66,7 @@ namespace Mite
 			break;
 		case AI::AIState::Attack:
 			CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Explode");
-			obj->second->GetTimer().TimerStart();
-			if (obj->second->GetTimer().TimeElapsed(s) > 1.0f)
-			{
-				obj->second->GetTimer().TimerStop();
-				obj->second->GetTimer().TimerReset();
-
-				float distance = Vector2DDistance(GeneralScripts::player_rigidbody->GetPosition(), GeneralScripts::obj_rigidbody->GetPosition());
-				// Explsion animation
-				if (distance < 50.0f) // replace with attack radius
-				{
-					obj->second->SetState(AI::AIState::Patrol);
-				}
-				obj->second->SetState(AI::AIState::Patrol);
-			}
+			Attack(obj);
 			break;
 		}
 	}

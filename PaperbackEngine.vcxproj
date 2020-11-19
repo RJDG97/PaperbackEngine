@@ -167,6 +167,7 @@
     <ClCompile Include="Source\Components\ConeLight.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\InputController.cpp" />
+    <ClCompile Include="Source\Components\Inventory.cpp" />
     <ClCompile Include="Source\Components\LogicComponent.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
     <ClCompile Include="Source\Components\Name.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\InputController.h" />
+    <ClInclude Include="Include\Components\Inventory.h" />
     <ClInclude Include="Include\Components\IRenderer.h" />
     <ClInclude Include="Include\Components\LogicComponent.h" />
     <ClInclude Include="Include\Components\Motion.h" />
@@ -265,7 +267,7 @@
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
     <ClInclude Include="Include\ImguiWindows\SystemWindow.h" />
-    <ClInclude Include="Include\Imgui\IconsFontAwesome4.h" />
+    <ClInclude Include="Include\Imgui\IconsFontAwesome5.h" />
     <ClInclude Include="Include\Imgui\imconfig.h" />
     <ClInclude Include="Include\Imgui\imgui.h" />
     <ClInclude Include="Include\Imgui\imgui_impl_glfw.h" />

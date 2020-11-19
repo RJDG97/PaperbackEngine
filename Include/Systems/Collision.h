@@ -29,7 +29,10 @@ enum class CollisionLayer
 	PLAYER,
 	HOLE,
 	GOAL,
-	UI_ELEMENTS     // Non-interactable
+	UI_ELEMENTS,     // Non-interactable
+	KEYS,
+	GATE,
+	COLLECTIBLE
 };
 
 class Collision : public ISystem {
@@ -140,6 +143,26 @@ private:
 */
 /******************************************************************************/
 	void GoalResponse();
+
+/******************************************************************************/
+/*!
+  \fn PlayerGateResponse()
+
+  \brief Helper function to handle response of a player colliding with a gate
+*/
+/******************************************************************************/
+	bool PlayerGateResponse(AABBIt aabb1, AABBIt aabb2);
+
+/******************************************************************************/
+/*!
+  \fn PlayerKeyResponse()
+
+  \brief Helper function to handle response of a player colliding with a key
+*/
+/******************************************************************************/
+	void PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2);
+
+	void PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2);
 
 /******************************************************************************/
 /*!

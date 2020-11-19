@@ -14,6 +14,7 @@
 #include "Components/Motion.h"
 #include "Components/Status.h"
 #include "Components/Scale.h"
+#include "Components/Inventory.h"
 #include <iostream>
 #include <assert.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -364,6 +365,45 @@ void Collision::GoalResponse() {
 	CORE->GetSystem<Game>()->ChangeState(&m_WinLoseState, "Win");
 }
 
+bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
+
+	Inventory* player_inven = component_mgr_->GetComponent<Inventory>(aabb1->first);
+
+	if (player_inven && player_inven->HasKey()) {
+
+		player_inven->SetHasKey(false);
+		FACTORY->Destroy(aabb2->second->GetOwner());
+
+		return false;
+	}
+
+	return true;
+}
+
+void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
+
+	Inventory* player_inven = component_mgr_->GetComponent<Inventory>(aabb1->first);
+
+	if (player_inven) {
+
+		player_inven->SetHasKey(true);
+		FACTORY->Destroy(aabb2->second->GetOwner());
+
+		return;
+	}
+}
+
+void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
+	
+	Health* player_health = component_mgr_->GetComponent<Health>(aabb1->first);
+	if (player_health->current_health_ != player_health->GetMaxHealth())
+	{
+		++(player_health->current_health_);
+		FACTORY->Destroy(aabb2->second->GetOwner());
+	}
+
+}
+
 void Collision::CollisionResponse(const CollisionLayer& layer_a, const CollisionLayer& layer_b,
 	AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2,
 	float frametime, float t_first) {
@@ -396,11 +436,31 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	{
 		switch (layer_b)
 		{
-		case CollisionLayer::GOAL:
-		{
-			GoalResponse();
-			break;
-		}
+			case CollisionLayer::GOAL:
+			{
+				GoalResponse();
+				break;
+			}
+			case CollisionLayer::KEYS: 
+			{
+
+				PlayerKeyResponse(aabb1, aabb2);
+				break;
+			}
+			case CollisionLayer::GATE:
+			{
+				if (PlayerGateResponse(aabb1, aabb2)) {
+					
+					//if fails to open gate then prevent player from going past
+					DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
+				}
+				break;
+			}
+			case CollisionLayer::COLLECTIBLE:
+			{
+				PlayerCollectibleResponse(aabb1, aabb2);
+				break;
+			}
 		}
 		break;
 	}
@@ -553,18 +613,17 @@ void Collision::ToggleClickables() {
 // Init function called to initialise a system
 void Collision::Init() {
 
-	ComponentManager* comp_mgr = &*CORE->GetManager<ComponentManager>();
+	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
 	windows_ = &*CORE->GetSystem<WindowsSystem>();
 	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
-	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
-	clickable_arr_ = comp_mgr->GetComponentArray<Clickable>();
-	motion_arr_ = comp_mgr->GetComponentArray<Motion>();
-	status_arr_ = comp_mgr->GetComponentArray<Status>();
-	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
-	input_controller_arr_ = comp_mgr->GetComponentArray<InputController>();
+	clickable_arr_ = component_mgr_->GetComponentArray<Clickable>();
+	motion_arr_ = component_mgr_->GetComponentArray<Motion>();
+	status_arr_ = component_mgr_->GetComponentArray<Status>();
+	transform_arr_ = component_mgr_->GetComponentArray<Transform>();
+	input_controller_arr_ = component_mgr_->GetComponentArray<InputController>();
 
 	cam_zoom_ = &(CORE->GetSystem<CameraSystem>()->cam_zoom_);
 
@@ -613,6 +672,24 @@ void Collision::Init() {
 		Parameter 2: Collidable with nothing, does not collide with similar layer
 	*/
 	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "00000000", false);
+
+	/*
+	Parameter 1: Collision layer 5
+	Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::KEYS, "00001000", false);
+
+	/*
+	Parameter 1: Collision layer 5
+	Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::COLLECTIBLE, "00001000", false);
+
+	/*
+	Parameter 1: Collision layer 5
+	Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::GATE, "00001000", false);
 
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }

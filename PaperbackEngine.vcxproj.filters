@@ -159,6 +159,9 @@
     <Filter Include="Entity\Components\Logic\Scripts">
       <UniqueIdentifier>{b1a64bfd-9e17-4593-b27c-730af3661f90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Inventory">
+      <UniqueIdentifier>{f4765795-dcf6-49d1-952c-078eb957ea63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -382,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\LogicComponent.cpp">
       <Filter>Entity\Components\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Inventory.cpp">
+      <Filter>Entity\Components\Inventory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -622,9 +628,6 @@
     <ClInclude Include="Include\Components\IRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Imgui\IconsFontAwesome4.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
@@ -640,6 +643,9 @@
     <ClInclude Include="Include\Components\ConeLight.h">
       <Filter>Entity\Components\Light</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Imgui\IconsFontAwesome5.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
     <ClInclude Include="Include\Components\LogicComponent.h">
       <Filter>Entity\Components\Logic</Filter>
     </ClInclude>
@@ -648,6 +654,9 @@
     </ClInclude>
     <ClInclude Include="Include\Script\Child_Script.h">
       <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Inventory.h">
+      <Filter>Entity\Components\Inventory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

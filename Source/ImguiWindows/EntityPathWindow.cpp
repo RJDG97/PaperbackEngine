@@ -11,7 +11,7 @@ void EntityPathWindow::Update() {
 
 	if (imgui_->b_editpath) {
 
-		ImGui::Begin("Add Archetype to Scene", &imgui_->b_editpath);
+		ImGui::Begin("Set Entity Save Path", &imgui_->b_editpath);
 
 		Level* editor = factory_->GetLevel("Editor");
 
@@ -27,17 +27,36 @@ void EntityPathWindow::Update() {
 }
 
 void EntityPathWindow::ManagePaths(Level* editor) {
-	std::string path;
+	std::string path, newPath;
 	size_t counter = 0;
 	if (!editor->entity_paths_.empty()) {
 
 		ImGui::Text("Current Set Path(s): ");
 		for (Level::EntityPathsIt it = editor->entity_paths_.begin(); it != editor->entity_paths_.end(); ++it) {
 			++counter;
+
 			if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, it->first.c_str())) {
+
 				ImGui::Text(it->second.c_str());
 
-				if (ImGui::Button(ICON_FA_PENCIL" Update")) {
+				if (ImGui::BeginDragDropTarget()) {
+
+					if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
+
+						if (payLoad->DataSize == sizeof(std::string)) {
+
+							newPath = *((std::string*)payLoad->Data);
+
+							if (newPath.find(".json") != newPath.npos)
+
+								it->second = newPath;
+						}
+					}
+
+					ImGui::EndDragDropTarget();
+				}
+
+				if (ImGui::Button(ICON_FA_EDIT" Update")) {
 
 					path = imgui_->OpenSaveDialog("(*.json) Scene Entities\0*.json\0", 1);
 
@@ -45,7 +64,7 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 						it->second = imgui_->EditString(path);
 				}
 
-				if (ImGui::Button(ICON_FA_TRASH_O " Delete"))
+				if (ImGui::Button(ICON_FA_TRASH" Delete"))
 					ImGui::OpenPopup("delete path check");
 
 				if (ImGui::BeginPopup("delete path check")) {
@@ -68,6 +87,7 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 					ImGui::EndPopup();
 				}
 
+
 				ImGui::TreePop();
 				break;
 			}
@@ -77,7 +97,7 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 			editor->entity_paths_.clear();
 	}
 	else
-		ImGui::TextColored(REDACTIVE, "No Path Set");
+		ImGui::TextColored(ImVec4{1.0f, 0.0f, 0.0f, 1.0f}, "No Path Set");
 
 }
 
@@ -92,11 +112,8 @@ void EntityPathWindow::AddPaths(Level* editor) {
 				if (ImGui::Selectable(entityIT->first.c_str())) {
 					path = imgui_->OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
 
-					if (!path.empty()) {
-						std::string file = imgui_->EditString(path);
-
-						editor->AddNewEntityPath(entityIT->first, file);
-					}
+					if (!path.empty()) 
+						editor->AddNewEntityPath(entityIT->first, imgui_->EditString(path));
 				}
 			}
 			ImGui::EndCombo();

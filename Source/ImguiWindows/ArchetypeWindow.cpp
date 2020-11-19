@@ -23,12 +23,12 @@ void ArchetypeWindow::Update() {
 
 			ImGui::Separator();
 			ImGui::PushFont(imgui_->img_font_);
-			if (ImGui::Button(ICON_FA_FLOPPY_O " Save List"))
+			if (ImGui::Button(ICON_FA_SAVE " Save List"))
 				imgui_->SaveArchetype();
 
 			ImGui::SameLine();
 
-			if (ImGui::Button(ICON_FA_UPLOAD " Load List"))
+			if (ImGui::Button(ICON_FA_FILE_IMPORT " Load List"))
 				imgui_->LoadArchetype();
 			ImGui::PopFont();
 
@@ -45,7 +45,7 @@ void ArchetypeWindow::Update() {
 				memset(buffer, 0, sizeof(buffer));
 				strcpy_s(buffer, sizeof(buffer), entityName.c_str());
 
-				ImGui::Text(ICON_FA_PENCIL " New Archetype Name:");
+				ImGui::Text(ICON_FA_EDIT " New Archetype Name:");
 				ImGui::PushItemWidth(250.0f);
 
 				if (ImGui::InputTextWithHint("##name", "Enter name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
@@ -89,21 +89,22 @@ void ArchetypeWindow::AvaliableArchetypes() {
 			
 			if (opened) {
 
-				if (ImGui::Button(ICON_FA_PLUS_SQUARE_O " Spawn Entity")) {
+				if (ImGui::Button(ICON_FA_PLUS_SQUARE " Spawn Entity")) {
 					entities_->CloneArchetype(entityIT->first);
 					imgui_->SetEntity(nullptr);
 				}
 
-				if (ImGui::Button(ICON_FA_TRASH_O " Delete Archetype")) {
+				if (ImGui::Button(ICON_FA_TRASH " Delete Archetype")) {
 
 					imgui_->SetEntity(entityIT->second);
 
 					ImGui::OpenPopup("Delete Confirmation");
 				}
 
-				imgui_->DeletePopUp("Delete Confirmation", entityIT->first);
+				imgui_->DeletePopUp(ICON_FA_MINUS_SQUARE " Delete Confirmation", entityIT->first);
 
-				ImGui::Checkbox("Add Components", &imgui_->b_editcomp);
+				ImGui::Checkbox("Add/Edit Components", &imgui_->b_editcomp); ImGui::SameLine(0, 3);
+				imgui_->ImguiHelp("Untick this whenever you are done");
 
 				imgui_->SetEntity(entityIT->second);
 
@@ -155,6 +156,4 @@ void ArchetypeWindow::AddComponent() {
 
 		ImGui::EndCombo();
 	}
-
-
 }

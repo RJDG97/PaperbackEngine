@@ -25,6 +25,7 @@ enum class ComponentTypes {
 	INPUTCONTROLLER,
 	PARENTCHILD,
 	LOGICCOMPONENT,
+	INVENTORY,
 	MAX
 };
 
