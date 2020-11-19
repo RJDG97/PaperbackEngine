@@ -2,8 +2,10 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Collision.h"
 #include "Systems/Factory.h"
+#include "Systems/Game.h"
 #include "Systems/Debug.h"
 #include "Systems/InputSystem.h"
+#include "GameStates/WinLoseState.h"
 #include "Manager/ForcesManager.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
@@ -357,6 +359,11 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 	return false;
 }
 
+void Collision::GoalResponse() {
+
+	CORE->GetSystem<Game>()->ChangeState(&m_WinLoseState, "Win");
+}
+
 void Collision::CollisionResponse(const CollisionLayer& layer_a, const CollisionLayer& layer_b,
 	AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2,
 	float frametime, float t_first) {
@@ -380,6 +387,18 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				// when colliding and status is set to "Hit" (Player invulnerable for a set time)
 				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
 			}
+			break;
+		}
+		}
+		break;
+	}
+	case CollisionLayer::PLAYER:
+	{
+		switch (layer_b)
+		{
+		case CollisionLayer::GOAL:
+		{
+			GoalResponse();
 			break;
 		}
 		}
@@ -555,31 +574,42 @@ void Collision::Init() {
 		Parameter 2: Collidable with nothing, does not collide with similar layer
 	*/
 	AddCollisionLayers(CollisionLayer::BACKGROUND, "00000000", false);
+
 	/*
 		Parameter 1: Collision layer 1
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER),
 					 does not collide with similar layer
 	*/
 	AddCollisionLayers(CollisionLayer::TILES, "00000010", false);
+
 	/*
 		Parameter 1: Collision layer 2
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER),
 					 does not collide with similar layer
 	*/
 	AddCollisionLayers(CollisionLayer::ENEMY, "00000110", false);
+
 	/*
 		Parameter 1: Collision layer 3
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER)
 	*/
 	AddCollisionLayers(CollisionLayer::PLAYER, "00001110");
+
 	/*
 		Parameter 1: Collision layer 4
 		Parameter 2: Collidable with Layer 3 (PLAYER)
 		"THIS HOLE WAS MADE FOR ME"
 	*/
 	AddCollisionLayers(CollisionLayer::HOLE, "00001000", false);
+
 	/*
 		Parameter 1: Collision layer 5
+		Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::GOAL, "00001000", false);
+
+	/*
+		Parameter 1: Collision layer 6
 		Parameter 2: Collidable with nothing, does not collide with similar layer
 	*/
 	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "00000000", false);
