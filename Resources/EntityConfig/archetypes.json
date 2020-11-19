@@ -460,6 +460,12 @@
       "color": "1.0 1.0 0.2",
       "radius": "500.0",
       "intensity": "1.0"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.5 1.0 1.0",
+      "radius": "200.0",
+      "intensity": "0.7"
     }
   ],
   "MenuBG": [
@@ -707,7 +713,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "80.0 50.0"
     },
     {
       "component": "AABB",
