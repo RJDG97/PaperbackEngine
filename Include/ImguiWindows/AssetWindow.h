@@ -37,7 +37,8 @@ public:
 private:
 	ImguiSystem* imgui_;
 	fs::path path_selection_;
-	fs::directory_entry path_;
+	
+	std::string selected_file_;
 
 };
 #endif

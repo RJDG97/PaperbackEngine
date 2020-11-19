@@ -622,9 +622,6 @@
     <ClInclude Include="Include\Components\IRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Imgui\IconsFontAwesome4.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>

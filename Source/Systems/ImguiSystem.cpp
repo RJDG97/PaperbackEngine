@@ -268,6 +268,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Scene Hierachy", &b_entitywin);
             ImGui::Checkbox("Toggle Component Viewer", &b_component);
             ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
+            ImGui::Checkbox("Toggle Entity Path Window", &b_editpath);
             ImGui::Checkbox("Toggle Asset Browser", & b_asset);
             ImGui::Checkbox("See System Performance", &b_display);
 
@@ -280,7 +281,10 @@ void ImguiSystem::ImguiMenuBar() {
                 sound_->PauseSound();
             if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
                 sound_->MuteSound();
+            ImGui::Separator();
+
             float inputVol = sound_->GetVolume();
+            ImGui::Text("Volume:");
             ImGui::Text(ICON_FA_VOLUME_DOWN); ImGui::SameLine(0, 3);
             ImGui::PushItemWidth(250.0f);
             ImGui::SliderFloat("", &inputVol, 0.0f, 1.0f, "%.2f");
@@ -352,7 +356,7 @@ void ImguiSystem::SetEntity(Entity* newentity) {
 void ImguiSystem::ImguiInput() {
 
 	bool control = ImGui::IsKeyPressed(GLFW_KEY_LEFT_CONTROL) || ImGui::IsKeyPressed(GLFW_KEY_RIGHT_CONTROL);
-	bool shift = ImGui::IsKeyPressed(GLFW_KEY_LEFT_SHIFT) || ImGui::IsKeyPressed(GLFW_KEY_RIGHT_SHIFT);
+	//bool shift = ImGui::IsKeyPressed(GLFW_KEY_LEFT_SHIFT) || ImGui::IsKeyPressed(GLFW_KEY_RIGHT_SHIFT);
 
 	if (control) {
 		

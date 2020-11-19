@@ -265,7 +265,6 @@
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
     <ClInclude Include="Include\ImguiWindows\SystemWindow.h" />
-    <ClInclude Include="Include\Imgui\IconsFontAwesome4.h" />
     <ClInclude Include="Include\Imgui\IconsFontAwesome5.h" />
     <ClInclude Include="Include\Imgui\imconfig.h" />
     <ClInclude Include="Include\Imgui\imgui.h" />
