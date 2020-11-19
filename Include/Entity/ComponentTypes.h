@@ -23,6 +23,8 @@ enum class ComponentTypes {
 	BASICAI,
 	CLICKABLE,
 	INPUTCONTROLLER,
+	PARENTCHILD,
+	LOGICCOMPONENT,
 	MAX
 };
 

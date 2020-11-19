@@ -9,12 +9,13 @@
       "AItype": "Mite",
       "range": "10.0",
       "speed": "200.0", 
-      "dest": "1",
-      "destination1": "3.0 3.0"
+      "dest": "2",
+      "destination1": "6.0 3.0",
+      "destination1": "0.0 3.0"
     },
     {
       "component": "Transform",
-      "position": "3.0 3.0",
+      "position": "0.0 3.0",
       "rotation": "0.0"
     }
     ]

@@ -1,0 +1,9 @@
+{
+    "goal": [
+    {
+      "component": "Transform",
+      "position": "6.0 0.0",
+      "rotation": "0.0"
+    }
+   ]
+}

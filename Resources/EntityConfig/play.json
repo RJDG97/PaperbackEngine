@@ -15,5 +15,7 @@
   
   "Boundary": "Resources/EntityConfig/Play/boundary.json",
   
-  "Watergauge": "Resources/EntityConfig/Play/watergauge.json"
+  "Watergauge": "Resources/EntityConfig/Play/watergauge.json",
+  
+  "Goal": "Resources/EntityConfig/Play/goal.json"
 }

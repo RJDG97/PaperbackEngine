@@ -150,6 +150,15 @@
     <Filter Include="Systems\Partitioning System">
       <UniqueIdentifier>{6157a7c2-606d-4780-bd59-f35b15eccae9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Logic">
+      <UniqueIdentifier>{58bade04-aa1a-4e3c-8428-cdc4c6f4d4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\ParentChild">
+      <UniqueIdentifier>{cec5a0a5-b5d6-43ad-890a-9f8c5e089274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Logic\Scripts">
+      <UniqueIdentifier>{b1a64bfd-9e17-4593-b27c-730af3661f90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -367,6 +376,12 @@
     </ClCompile>
     <ClCompile Include="Source\Components\ConeLight.cpp">
       <Filter>Entity\Components\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\ParentChild.cpp">
+      <Filter>Entity\Components\ParentChild</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\LogicComponent.cpp">
+      <Filter>Entity\Components\Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -627,6 +642,15 @@
     </ClInclude>
     <ClInclude Include="Include\Imgui\IconsFontAwesome5.h">
       <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\LogicComponent.h">
+      <Filter>Entity\Components\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\ParentChild.h">
+      <Filter>Entity\Components\ParentChild</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Child_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

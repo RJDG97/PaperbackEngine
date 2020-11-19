@@ -151,20 +151,14 @@ private:
 	// for the game loop
 	bool b_running_;
 
-	//using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
-	//std::unordered_map<EntityID, Status*> status_arr_;
 	using StatusMapType = CMap<Status>;
 	using StatusIt = StatusMapType::MapTypeIt;
 	StatusMapType* status_arr_;
 
-	//using BasicAIIt = std::unordered_map<EntityID, BasicAI*>::iterator;
-	//std::unordered_map<EntityID, BasicAI*> basicai_arr_;
 	using BasicAIType = CMap<BasicAI>;
 	using BasicAIIt = BasicAIType::MapTypeIt;
 	BasicAIType* basicai_arr_;
 
-	//using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
-	//std::unordered_map < EntityID, InputController*> input_controller_arr_;
 	using InputControllerType = CMap<InputController>;
 	using InputControllerIt = InputControllerType::MapTypeIt;
 	InputControllerType* input_controller_arr_;

@@ -10,6 +10,7 @@
 class Transform : public Component {
 	Vector2D position_;
 	float rotation_;
+	Vector2D offset_;
 public:
 	friend class Physics;
 	friend class GraphicsSystem;
@@ -117,6 +118,24 @@ public:
 */
 /******************************************************************************/
 	void SetPosition(const Vector2D& new_pos);
+
+/******************************************************************************/
+/*!
+  \fn GetPosition()
+
+  \brief Returns the rotation of the component
+*/
+/******************************************************************************/
+	Vector2D GetOffset() const;
+
+/******************************************************************************/
+/*!
+  \fn SetRotation()
+
+  \brief Sets the rotation of the component
+*/
+/******************************************************************************/
+	void SetOffset(const Vector2D& offset);
 
 /******************************************************************************/
 /*!

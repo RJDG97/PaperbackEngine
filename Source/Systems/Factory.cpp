@@ -24,6 +24,8 @@
 #include "Components/Name.h"
 #include "Components/Clickable.h"
 #include "Components/InputController.h"
+#include "Components/ParentChild.h"
+#include "Components/LogicComponent.h"
 
 #include "Components/AI.h"
 
@@ -122,6 +124,8 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("Clickable", new ComponentCreator<Clickable>(ComponentTypes::CLICKABLE));
 	comp_mgr_->AddComponentCreator("InputController", new ComponentCreator<InputController>(ComponentTypes::INPUTCONTROLLER));
 	comp_mgr_->AddComponentCreator("AI", new ComponentCreator<AI>(ComponentTypes::AI));
+	comp_mgr_->AddComponentCreator("ParentChild", new ComponentCreator<ParentChild>(ComponentTypes::PARENTCHILD));
+	comp_mgr_->AddComponentCreator("LogicComponent", new ComponentCreator<LogicComponent>(ComponentTypes::LOGICCOMPONENT));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");
