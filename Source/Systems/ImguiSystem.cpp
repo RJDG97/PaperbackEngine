@@ -445,11 +445,11 @@ void ImguiSystem::SendMessageD(Message* m) {
     switch (m->message_id_) {
     case MessageIDTypes::M_MOUSE_PRESS:
     {
-        if (!b_lock_entity) {
-            selected_entity_ = collision_->SelectEntity();
-            new_entity_ = entities_->GetEntity(selected_entity_);
-            b_lock_entity = true;
-        }
+        //if (!b_lock_entity) {
+        //    selected_entity_ = collision_->SelectEntity();
+        //    new_entity_ = entities_->GetEntity(selected_entity_);
+        //    b_lock_entity = true;
+        //}
         break;
     }
     default:

@@ -94,6 +94,7 @@ void AssetWindow::PrintFileType() {
 			}
 
 			if (fs::is_directory(file)) {
+
 				if (ImGui::Selectable(FileString(ICON_FA_FOLDER, DirectoryName(file)).c_str()))
 					path_selection_ = file;
 			}
