@@ -742,8 +742,8 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
 
     Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]->GetID());
 
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_ + 0.5f * Vector2D{ win_size_.x, win_size_.y };
-    Vector2D obj_scale = scale->scale_ * camera_system_->cam_zoom_;
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale();
+    Vector2D obj_scale = scale->scale_;
 
     std::vector<glm::vec2> gauge_vertices;
     std::vector<glm::vec2> water_vertices;
@@ -772,7 +772,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     }
     
     glNamedBufferSubData(model->GetVBOHandle(), 0,
-        sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
+                         sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
     glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeLeaves")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_DEPTH_TEST);
