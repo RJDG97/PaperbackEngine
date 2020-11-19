@@ -1,0 +1,10 @@
+{
+  "UI_Elements/Menu/UI_TitleScreen_Play.png": [
+  {
+	  "Tileset Name": "Menu_Start",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "MenuStart"
+    }
+  ]
+}

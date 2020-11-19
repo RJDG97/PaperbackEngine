@@ -1,0 +1,58 @@
+{
+  "button": [
+    {
+      "component": "Transform",
+      "position": "-7.2 -5.95",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "1",
+      "active": "1",
+      "scale": "1.0 1.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "90.0 90.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UIQuitYes",
+      "layer": "2",
+      "ui": "1"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "6.65 -5.95",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "2",
+      "active": "1",
+      "scale": "1.0 1.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "90.0 90.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "4"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UIQuitNo",
+      "layer": "2",
+      "ui": "1"
+    }
+  ]
+}

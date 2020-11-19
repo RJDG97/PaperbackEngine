@@ -1,0 +1,10 @@
+{
+  "UI_Elements/Quit/UI_QuitGame_Yes.png": [
+  {
+	  "Tileset Name": "UI_QuitYes",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "UIQuitYes"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "UI_Elements/Menu/UI_TitleScreen_Quit.png": [
+  {
+	  "Tileset Name": "Menu_Quit",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "MenuQuit"
+    }
+  ]
+}

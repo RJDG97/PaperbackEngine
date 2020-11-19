@@ -1,0 +1,10 @@
+{
+  "Props/Props_V1_PNGs/Props_Stump_01.png": [
+  {
+	  "Tileset Name": "Stump_One",
+	  "Columns": "1",
+	  "Rows": "1",
+    "Tile Name": "StumpOne"
+  }
+  ]
+}

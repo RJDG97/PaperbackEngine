@@ -1,0 +1,30 @@
+{
+  "tiles.png": [
+    {
+	  "Tileset Name": "Environment_Tiles",
+	  "Columns": "3",
+	  "Rows": "7",
+      "Tile Name": "Carpet_TopLeft",
+	  "Tile Name": "Carpet_TopMid",
+	  "Tile Name": "Carpet_TopRight",
+	  "Tile Name": "Carpet_Left",
+	  "Tile Name": "Carpet_Mid",
+	  "Tile Name": "Carpet_Right",
+	  "Tile Name": "Carpet_BtmLeft",
+	  "Tile Name": "Carpet_BtmMid",
+	  "Tile Name": "Carpet_BtmRight",
+	  "Tile Name": "Carpet_Brick_BtmLeft",
+	  "Tile Name": "Carpet_Brick_BtmMid",
+	  "Tile Name": "Carpet_Brick_BtmRight",
+	  "Tile Name": "Brick_Left",
+	  "Tile Name": "Brick_Mid",
+	  "Tile Name": "Brick_Right",
+	  "Tile Name": "Empty",
+	  "Tile Name": "Plank",
+      "Tile Name": "Stone",
+	  "Tile Name": "Empty",
+      "Tile Name": "Empty",
+	  "Tile Name": "Rock"
+    }
+  ]
+}

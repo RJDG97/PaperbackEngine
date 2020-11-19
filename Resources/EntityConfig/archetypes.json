@@ -1,0 +1,543 @@
+{
+  "Floor": [
+    {
+      "component": "Name",
+      "name": "Floor"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "2000.0 2000.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "27.33 13.33",
+      "layer": "0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Background",
+      "layer": "0",
+      "ui": "0"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.0 0.0 0.0",
+      "radius": "0.0",
+      "intensity": "0.0"
+    }
+   ],
+   "UIText": [
+    {
+      "component": "Name",
+      "name": "UIText"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "TextRenderer",
+      "font": "Grandstander-Medium",
+      "sentence length": "4",
+      "text": "This is UI text.",
+      "color": "1.0 0.5 1.0",
+      "scale": "1.0",
+      "layer": "10",
+      "ui": "1"
+    }
+   ],
+  "WorldText": [
+    {
+      "component": "Name",
+      "name": "WorldText"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "TextRenderer",
+      "font": "Grandstander-Medium",
+      "sentence length": "4",
+      "text": "This is World text.",
+      "color": "1.0 0.5 1.0",
+      "scale": "1.0",
+      "layer": "10",
+      "ui": "0"
+    }
+   ],
+  "Player": [
+    {
+      "component": "Name",
+      "name": "Player"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 2.0 ",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "Motion",
+      "mass": "5.0",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 60.0"
+    },
+    {
+      "component": "Health",
+      "health": "10.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "5",
+	  "add animation": "Player_Hiding",
+      "add animation": "Player_Burrow_Walk",
+      "add animation": "Player_Burrow_Idle",
+      "add animation": "Player_Idle",
+	    "add animation": "Player_Walk",
+      "set animation": "Player_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "2",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 1.0",
+      "layer": "3"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.6",
+      "radius": "50.0",
+      "intensity": "0.2"
+    }
+  ],
+  "Enemy": [
+    {
+      "component": "Name",
+      "name": "Enemy"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "Motion",
+      "mass": "10.0",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "100.0 100.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "7",
+      "add animation": "Stagbeetle_Charge",
+      "add animation": "Stagbeetle_Attack",
+      "add animation": "Stagbeetle_Run",
+      "add animation": "Stagbeetle_Alert",
+      "add animation": "Stagbeetle_Idle",
+      "add animation": "Stagbeetle_Confused",
+      "add animation": "Stagbeetle_Walk",
+      "set animation": "Stagbeetle_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "2",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "2"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "Health",
+      "maximum health": "5"
+    },
+	{
+	  "component": "PointLight",
+	  "angle": "30.0",
+	  "color": "1.0 1.0 0.0",
+      "radius": "400.0",
+      "intensity": "1.0"
+	}
+  ],
+  "Wall": [
+    {
+      "component": "Name",
+      "name": "Wall"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "45.0 45.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "RockThree",
+      "layer": "2",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.5 1.0 1.0",
+      "radius": "200.0",
+      "intensity": "2.0"
+    }
+  ],
+  "MovingWall": [
+    {
+      "component": "Name",
+      "name": "MovingWall"
+    },
+    {
+      "component": "BasicAI",
+      "speed": "80.0"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "90.0 90.0"
+    },
+    {
+      "component": "Motion",
+      "mass": "8.0",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "1",
+      "add animation": "Mite_Walk",
+      "set animation": "Mite_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "1",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "1"
+    }
+  ],
+  "Button": [
+    {
+      "component": "Name",
+      "name": "Button"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock",
+      "layer": "2",
+      "ui": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "5"
+    },
+    {
+      "component": "Clickable",
+      "scale": "1.0 1.0",
+      "active": "1"
+    }
+  ],
+  "Hole": [
+    {
+      "component": "Name",
+      "name": "Hole"
+    },
+    {
+      "component": "Transform",
+      "position": "5.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Hole",
+      "layer": "1",
+	    "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "4"
+    }
+  ],
+  "InputController": [
+    {
+      "component": "Name",
+      "name": "InputController"
+    },
+    {
+      "component": "InputController"
+    }
+  ],
+  "StagBeetle": [
+    {
+      "component": "Name",
+      "name": "AITest"
+    },
+    {
+      "component": "AI",
+      "AItype": "Stag_Beetle",
+      "range": "300.0",
+      "speed": "3000.0", 
+      "dest": "4",
+      "destination1": "-5.0 0.0", 
+      "destination2": "-5.0 -2.0",
+      "destination3": "-3.0 -2.0",
+      "destination4": "-3.0 0.0"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "100.0 100.0"
+    },
+    {
+      "component": "Health",
+      "health": "10.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "7",
+      "add animation": "Stagbeetle_Charge",
+      "add animation": "Stagbeetle_Attack",
+      "add animation": "Stagbeetle_Run",
+      "add animation": "Stagbeetle_Alert",
+      "add animation": "Stagbeetle_Idle",
+      "add animation": "Stagbeetle_Confused",
+      "add animation": "Stagbeetle_Walk",
+      "set animation": "Stagbeetle_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "2",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "2"
+    },
+    {
+      "component": "Motion",
+      "mass": "8.0",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "ConeLight",
+	  "angle": "40.0",
+      "color": "1.0 1.0 0.2",
+      "radius": "500.0",
+      "intensity": "1.0"
+    }
+  ],
+  "Mite": [
+    {
+      "component": "Name",
+      "name": "AITest"
+    },
+    {
+      "component": "AI",
+      "AItype": "Mite",
+      "range": "3.0",
+      "speed": "100.0", 
+      "dest": "1",
+      "destination1": "3.0 3.0"
+    },
+    {
+      "component": "Transform",
+      "position": "3.0 3.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "100.0 100.0"
+    },
+    {
+      "component": "Health",
+      "health": "10.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "4",
+      "add animation": "Mite_Alert",
+      "add animation": "Mite_Explode",
+      "add animation": "Mite_Idle",
+      "add animation": "Mite_Walk",
+      "set animation": "Mite_Idle",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "2",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "2"
+    },
+    {
+      "component": "Motion",
+      "mass": "8.0",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Status"
+    }
+  ],
+  "MenuBG": [
+    {
+      "component": "Name",
+      "name": "MenuBG"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "800.0 460.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "27.33 13.33",
+      "layer": "0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuBackground",
+      "layer": "0",
+      "ui": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.7",
+      "radius": "00.0",
+      "intensity": "1.0"
+    }
+  ],
+  "Boundary": [
+    {
+      "component": "Name",
+      "name": "Boundary"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "1"
+    }
+  ],
+  "Clouds": [
+    {
+      "component": "Name",
+      "name": "Clouds"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 5.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "800.0 150.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "27.33 4.33",
+      "layer": "0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "MenuCloudOne",
+      "layer": "0",
+      "ui": "0"
+    }
+  ],
+  "Watergauge": [
+    {
+      "component": "Name",
+      "name": "Watergauge"
+    },
+    {
+      "component": "Transform",
+      "position": "11.0 -5.2",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "100.0 100.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "WatergaugeDroplet",
+      "layer": "0",
+      "ui": "1"
+    }
+  ]
+}

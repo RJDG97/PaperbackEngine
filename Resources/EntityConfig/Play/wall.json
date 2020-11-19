@@ -1,0 +1,40 @@
+{
+  "Wall": [
+    {
+      "component": "Transform",
+      "position": "-17.0 0.000000",
+      "rotation": "0.000000"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "RockThree",
+      "layer": "2",
+      "ui": "0"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.5 1.0 1.0",
+      "radius": "80.0",
+      "intensity": "0.7"
+    }
+  ],
+  "Wall": [
+    {
+      "component": "Transform",
+      "position": "-14.0 -6.000000",
+      "rotation": "0.000000"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "RockThree",
+      "layer": "2",
+      "ui": "0"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.5 1.0 1.0",
+      "radius": "80.0",
+      "intensity": "0.7"
+    }
+  ]
+}

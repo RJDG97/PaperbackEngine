@@ -1,0 +1,58 @@
+{
+  "boundary": [
+    {
+      "component": "Transform",
+      "position": "-9.0 0.0",
+      "rotation": "0.0"
+    }
+  ],
+  "boundary": [
+    {
+      "component": "Transform",
+      "position": "-9.0 1.0",
+      "rotation": "0.0"
+    }
+  ],
+  "boundary": [
+    {
+      "component": "Transform",
+      "position": "-9.0 -1.0",
+      "rotation": "0.0"
+    }
+  ],
+  "boundary": [
+    {
+      "component": "Transform",
+      "position": "-10.0 1.0",
+      "rotation": "0.0"
+    }
+  ],
+  "boundary": [
+    {
+      "component": "Transform",
+      "position": "-10.0 -1.0",
+      "rotation": "0.0"
+    }
+  ],
+  "boundary": [
+    {
+      "component": "Transform",
+      "position": "-11.0 0.0",
+      "rotation": "0.0"
+    }
+  ],
+  "boundary": [
+    {
+      "component": "Transform",
+      "position": "-11.0 1.0",
+      "rotation": "0.0"
+    }
+  ],
+  "boundary": [
+    {
+      "component": "Transform",
+      "position": "-11.0 -1.0",
+      "rotation": "0.0"
+    }
+  ]
+}

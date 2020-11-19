@@ -1,0 +1,10 @@
+{
+  "UI_Elements/HowTo/UI_LeftButton.png": [
+  {
+	  "Tileset Name": "UI_LeftButton",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "UILeftButton"
+    }
+  ]
+}

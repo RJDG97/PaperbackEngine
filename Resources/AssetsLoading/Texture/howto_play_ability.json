@@ -1,0 +1,10 @@
+{
+  "UI_Elements/HowTo/UI_HowToPlay_Ability.png": [
+  {
+	  "Tileset Name": "HowTo_Ability",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "HowToAbility"
+    }
+  ]
+}

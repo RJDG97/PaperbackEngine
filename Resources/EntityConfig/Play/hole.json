@@ -1,0 +1,28 @@
+{
+    "Hole": [
+        {
+            "component": "Transform",
+            "position": "-1.899998 0.100000",
+            "rotation": "0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Hole",
+            "layer": "1",
+            "ui": "0"
+        }
+    ],
+    "Hole": [
+        {
+            "component": "Transform",
+            "position": "-10.000000 0.100000",
+            "rotation": "0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Hole",
+            "layer": "1",
+            "ui": "0"
+        }
+    ]
+}

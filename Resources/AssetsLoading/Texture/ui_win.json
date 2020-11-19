@@ -1,0 +1,10 @@
+{
+  "UI_Elements/Win/UI_Win.png": [
+  {
+	  "Tileset Name": "UI_Win",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "UIWin"
+    }
+  ]
+}

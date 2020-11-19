@@ -1,0 +1,247 @@
+{
+  "Floor": [
+    {
+      "component": "Name",
+      "name": "Floor"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "820.0 400.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Background",
+      "model": "TileModel",
+      "shader program": "ObjectShader",
+      "layer": "0"
+    }
+   ],
+  "Player": [
+    {
+      "component": "Name",
+      "name": "Player"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0 ",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "50.0 100.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "model": "TileModel",
+      "shader program": "ObjectShader",
+      "number of animations": "2",
+      "add animation": "Player_Walk",
+	  "add animation": "Player_Idle",
+      "set animation": "Player_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "40.0 40.0"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "Health",
+      "maximum health": "5"
+    },
+    {
+      "component": "PointLight",
+      "model": "TileModel",
+      "shader program": "LightShader",
+      "color": "1.0 1.0 0.7",
+      "radius": "150.0",
+      "intensity": "0.8"
+    }
+    
+  ],
+  "Enemy": [
+    {
+      "component": "Name",
+      "name": "Enemy"
+    },
+    {
+      "component": "Transform",
+      "position": "-150.0 100.0",
+      "rotation": "0.0" 
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Stone",
+      "model": "TileModel",
+      "shader program": "ObjectShader",
+      "layer": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "Health",
+      "maximum health": "5"
+    },
+    {
+      "component": "PointLight",
+      "model": "TileModel",
+      "shader program": "LightShader",
+      "color": "0.5 1.0 1.0",
+      "radius": "150.0",
+      "intensity": "1.0"
+    }
+  ],
+  "Wall": [
+    {
+      "component": "Name",
+      "name": "Wall"
+    },
+    {
+      "component": "Transform",
+      "position": "-150.0 -100.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock",
+      "model": "TileModel",
+      "shader program": "ObjectShader",
+      "layer": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "PointLight",
+      "model": "TileModel",
+      "shader program": "LightShader",
+      "color": "0.5 1.0 1.0",
+      "radius": "50.0",
+      "intensity": "1.0"
+    }
+  ],
+  "MovingWall": [
+    {
+      "component": "Name",
+      "name": "Wall"
+    },
+    {
+      "component": "BasicAI",
+      "speed": "70.0",
+      "size": "3",
+      "destination1": "80.0 200.0", 
+      "destination2": "200.0 000.0",
+      "destination3": "130.0 -200.0"
+    },
+    {
+      "component": "Transform",
+      "position": "80.0 200.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock",
+      "model": "TileModel",
+      "shader program": "ObjectShader",
+      "layer": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "PointLight",
+      "model": "TileModel",
+      "shader program": "LightShader",
+      "color": "0.5 1.0 1.0",
+      "radius": "50.0",
+      "intensity": "1.0"
+    }
+  ],
+  "ButtonCrash": [
+    {
+      "component": "Name",
+      "name": "Button"
+    },
+    {
+      "component": "Transform",
+      "position": "150.0 100.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "Motion",
+      "velocity": "0.0 0.0",
+      "acceleration": "0.0 0.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock",
+      "model": "TileModel",
+      "shader program": "ObjectShader",
+      "layer": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "PointLight",
+      "model": "TileModel",
+      "shader program": "LightShader",
+      "color": "0.5 1.0 1.0",
+      "radius": "50.0",
+      "intensity": "1.0"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "Floor": "Resources/EntityConfig/Stress/floor.json",
+  
+  "Player": "Resources/EntityConfig/Stress/player.json",
+
+  "Enemy": "Resources/EntityConfig/Stress/normalenemy.json",
+
+  "Wall": "Resources/EntityConfig/Stress/wall.json",
+
+  "MovingWall": "Resources/EntityConfig/Stress/movingwall.json",
+  
+  "InputController": "Resources/EntityConfig/Stress/input.json",
+  
+  "WorldText": "Resources/EntityConfig/Stress/worldtext.json",
+
+  "UIText": "Resources/EntityConfig/Stress/uitext.json",
+
+  "StagBeetle": "Resources/EntityConfig/TestRoom/stagbeetle.json"
+}

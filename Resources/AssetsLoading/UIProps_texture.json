@@ -1,0 +1,62 @@
+{ 
+
+  "Bush One": "Resources/AssetsLoading/PropsTexture/props_bush_one.json",
+  
+  "Bush Two": "Resources/AssetsLoading/PropsTexture/props_bush_two.json",
+  
+  "Chest One": "Resources/AssetsLoading/PropsTexture/props_chest_one.json",
+  
+  "Props Gate": "Resources/AssetsLoading/PropsTexture/props_gate.json",
+  
+  "Grass One": "Resources/AssetsLoading/PropsTexture/props_grass_one.json",
+  
+  "Grass Two": "Resources/AssetsLoading/PropsTexture/props_grass_two.json",
+  
+  "Props Greenhouse": "Resources/AssetsLoading/PropsTexture/props_greenhouse.json",
+  
+  "Key One": "Resources/AssetsLoading/PropsTexture/props_key_one.json",
+  
+  "Leaves One": "Resources/AssetsLoading/PropsTexture/props_leaves_one.json",
+  
+  "Leaves Two": "Resources/AssetsLoading/PropsTexture/props_leaves_two.json",
+  
+  "Log One": "Resources/AssetsLoading/PropsTexture/props_log_one.json",
+  
+  "Rock One": "Resources/AssetsLoading/PropsTexture/props_rock_one.json",
+  
+  "Rock Two": "Resources/AssetsLoading/PropsTexture/props_rock_two.json",
+  
+  "Rock Three": "Resources/AssetsLoading/PropsTexture/props_rock_three.json",
+  
+  "Stump One": "Resources/AssetsLoading/PropsTexture/props_stump_one.json",
+  
+  "Tree One": "Resources/AssetsLoading/PropsTexture/props_tree_one.json",
+  
+  "Tree Two": "Resources/AssetsLoading/PropsTexture/props_tree_two.json",
+  
+  "Tree Three": "Resources/AssetsLoading/PropsTexture/props_tree_three.json",
+  
+  "Tree Four": "Resources/AssetsLoading/PropsTexture/props_tree_four.json",
+  
+  "Tree Five": "Resources/AssetsLoading/PropsTexture/props_tree_five.json",
+  
+  "Tree Six": "Resources/AssetsLoading/PropsTexture/props_tree_six.json",
+  
+  "WaterRock One": "Resources/AssetsLoading/PropsTexture/props_waterrock_one.json",
+  
+  "WaterRock Two": "Resources/AssetsLoading/PropsTexture/props_waterrock_two.json",
+  
+  "WitheredGrass One": "Resources/AssetsLoading/PropsTexture/props_witheredgrass_one.json",
+  
+  "WitheredTree One": "Resources/AssetsLoading/PropsTexture/props_witheredtree_one.json",
+  
+  "WitheredTree Two": "Resources/AssetsLoading/PropsTexture/props_witheredtree_two.json",
+  
+  "WitheringTree One": "Resources/AssetsLoading/PropsTexture/props_witheringtree_one.json",
+  
+  "WitheringTree Two": "Resources/AssetsLoading/PropsTexture/props_witheringtree_two.json",
+  
+  "Empty Pot": "Resources/AssetsLoading/PropsTexture/props_emptypot.json",
+  
+  "Hole": "Resources/AssetsLoading/PropsTexture/props_hole.json"
+}

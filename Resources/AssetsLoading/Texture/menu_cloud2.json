@@ -1,0 +1,10 @@
+{
+  "UI_Elements/Menu/Clouds_02.png": [
+  {
+	  "Tileset Name": "Menu_CloudTwo",
+	  "Columns": "1",
+	  "Rows": "1",
+      "Tile Name": "MenuCloudTwo"
+    }
+  ]
+}
