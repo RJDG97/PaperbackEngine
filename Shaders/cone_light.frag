@@ -31,4 +31,9 @@ void main () {
 
 	fFragClr = alpha * intensity * attenuation * vec4(light_color, 1.0f);
   }
+
+  else
+  {
+	fFragClr = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+  }
 }
