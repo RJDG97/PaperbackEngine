@@ -256,14 +256,14 @@ void InputSystem::Update(float frametime) {
 		SendHoldMessage(GLFW_KEY_D);
 	}
 
-	if (IsKeyPressed(GLFW_KEY_W))
-		input_flag |= W_FLAG;
-	if (IsKeyPressed(GLFW_KEY_S))
-		input_flag |= S_FLAG;
-	if (IsKeyPressed(GLFW_KEY_A))
-		input_flag |= A_FLAG;
-	if (IsKeyPressed(GLFW_KEY_D))
-		input_flag |= D_FLAG;
+	if (IsKeyPressed(GLFW_KEY_UP))
+		input_flag |= UP_FLAG;
+	if (IsKeyPressed(GLFW_KEY_DOWN))
+		input_flag |= DOWN_FLAG;
+	if (IsKeyPressed(GLFW_KEY_LEFT))
+		input_flag |= LEFT_FLAG;
+	if (IsKeyPressed(GLFW_KEY_RIGHT))
+		input_flag |= RIGHT_FLAG;
 
 	/*
 	if (IsKeyPressed(GLFW_KEY_Z))

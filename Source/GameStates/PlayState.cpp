@@ -174,7 +174,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				continue;
 
 			InputController* InputController = it->second;
-			float power = 120.0f;
+			float power = 180.0f;
 
 			if (InputController->VerifyKey("pause", m->input_)) { // "Esc" key
 				CORE->ToggleCorePauseStatus(); // Disable physics update
@@ -330,24 +330,24 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 			// set up velocity based input flag value
 			Vec2 new_vel{};
-			float power = 5.0f;
+			float power = 10.0f;
 
-			if (key_val & W_FLAG) {
+			if (key_val & UP_FLAG) {
 
 				new_vel.y += power;
 			}
 
-			if (key_val & S_FLAG) {
+			if (key_val & DOWN_FLAG) {
 
 				new_vel.y -= power;
 			}
 
-			if (key_val & A_FLAG) {
+			if (key_val & LEFT_FLAG) {
 
 				new_vel.x -= power;
 			}
 
-			if (key_val & D_FLAG) {
+			if (key_val & RIGHT_FLAG) {
 
 				new_vel.x += power;
 			}

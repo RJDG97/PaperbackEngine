@@ -1,9 +1,22 @@
 {
-    "goal": [
-    {
-      "component": "Transform",
-      "position": "6.0 0.0",
-      "rotation": "0.0"
-    }
-   ]
+    "Goal": [
+        {
+            "component": "Transform",
+            "position": "-14.900000 21.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Rock",
+            "layer": "2",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.100000 2.100000",
+            "layer": "5",
+            "offset": "0.000000 0.000000"
+        }
+    ]
 }

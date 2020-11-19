@@ -2,27 +2,41 @@
     "Hole": [
         {
             "component": "Transform",
-            "position": "-1.899998 0.100000",
-            "rotation": "0.000000"
+            "position": "-1.899998 1.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "TextureRenderer",
             "texture": "Hole",
             "layer": "1",
             "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "4",
+            "offset": "0.000000 0.000000"
         }
     ],
     "Hole": [
         {
             "component": "Transform",
-            "position": "-10.000000 0.100000",
-            "rotation": "0.000000"
+            "position": "-8.200000 1.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
         },
         {
             "component": "TextureRenderer",
             "texture": "Hole",
             "layer": "1",
             "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "4",
+            "offset": "0.000000 0.000000"
         }
     ]
 }
