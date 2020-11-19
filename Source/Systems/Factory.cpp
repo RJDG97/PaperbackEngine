@@ -115,6 +115,7 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("Status", new ComponentCreator<Status>(ComponentTypes::STATUS));
 	comp_mgr_->AddComponentCreator("BasicAI", new ComponentCreator<BasicAI>(ComponentTypes::BASICAI));
 	comp_mgr_->AddComponentCreator("PointLight", new ComponentCreator<PointLight>(ComponentTypes::POINTLIGHT));
+	comp_mgr_->AddComponentCreator("ConeLight", new ComponentCreator<ConeLight>(ComponentTypes::CONELIGHT));
 	comp_mgr_->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
 	comp_mgr_->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 	comp_mgr_->AddComponentCreator("TextRenderer", new ComponentCreator<TextRenderer>(ComponentTypes::TEXTRENDERER));

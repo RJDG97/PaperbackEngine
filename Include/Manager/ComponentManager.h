@@ -16,6 +16,7 @@
 #include "Components/Status.h"
 #include "Components/Health.h"
 #include "Components/PointLight.h"
+#include "Components/ConeLight.h"
 #include "Components/AABB.h"
 #include "Components/Transform.h"
 #include "Components/Motion.h"
@@ -220,7 +221,7 @@ private:
 
 // When creating a new component, add it to this "List"
 using ComponentManager = CManager<
-	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, 
+	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight,
 	TextRenderer, InputController, TextureRenderer, AnimationRenderer
 >;
 

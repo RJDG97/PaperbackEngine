@@ -702,33 +702,6 @@ void Collision::Draw() {
 				{
 					graphics_->DrawDebugRectangle(points, { 0.0f, 1.0f, 0.0f, 1.0f });
 				}
-
-				/*
-				Vector2D aabb_middle = bottom_left + (top_right - bottom_left) / 2;
-
-				glm::mat3 scaling = glm::mat3{ aabb->second->scale_.x * scale, 0.0f, 0.0f,
-											   0.0f, aabb->second->scale_.y * scale, 0.0f,
-											   0.0f, 0.0f, 1.0f };
-
-				glm::mat3 translation{ 1.0f, 0.0f, 0.0f,
-									   0.0f, 1.0f, 0.0f,
-									   aabb_middle.x * scale, aabb_middle.y * scale, 1.0f };
-
-				glm::mat3 mdl_to_ndc_xform = *(world_to_ndc_xform_)*translation * scaling;
-
-				shdr_pgm_->Use();
-				glBindVertexArray(model_->vaoid_);
-
-				shdr_pgm_->SetUniform("uModel_to_NDC", mdl_to_ndc_xform);
-				shdr_pgm_->SetUniform("collided", (*aabb).second->collided);
-
-				glDrawArrays(GL_LINES, 0, model_->draw_cnt_);
-
-				// after completing the rendering, we tell the driver that the VAO vaoid
-				// and the current shader program are no longer current
-				glBindVertexArray(0);
-
-				shdr_pgm_->UnUse();*/
 			}
 		}
 	}

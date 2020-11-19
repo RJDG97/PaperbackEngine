@@ -173,7 +173,14 @@
     {
       "component": "Health",
       "maximum health": "5"
-    }
+    },
+	{
+	  "component": "PointLight",
+	  "angle": "30.0",
+	  "color": "1.0 1.0 0.0",
+      "radius": "400.0",
+      "intensity": "1.0"
+	}
   ],
   "Wall": [
     {
@@ -203,7 +210,7 @@
     {
       "component": "PointLight",
       "color": "0.5 1.0 1.0",
-      "radius": "50.0",
+      "radius": "200.0",
       "intensity": "2.0"
     }
   ],
@@ -371,6 +378,13 @@
     },
     {
       "component": "Status"
+    },
+    {
+      "component": "ConeLight",
+	  "angle": "40.0",
+      "color": "1.0 1.0 0.2",
+      "radius": "500.0",
+      "intensity": "1.0"
     }
   ],
   "Mite": [
@@ -455,8 +469,8 @@
     {
       "component": "PointLight",
       "color": "1.0 1.0 0.7",
-      "radius": "550.0",
-      "intensity": "25.0"
+      "radius": "00.0",
+      "intensity": "1.0"
     }
   ],
   "Boundary": [
@@ -512,7 +526,7 @@
     },
     {
       "component": "Transform",
-      "position": "11.0 -5.2",
+      "position": "19.7 2.0",
       "rotation": "0.0"
     },
     {

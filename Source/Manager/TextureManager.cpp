@@ -135,14 +135,14 @@ void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char r
                  0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
     //haven't decided on how to store these!
-    //textures_[texture_name] = texobj_hdl;
+    textures_[texture_name] = Texture{ texobj_hdl, { {-1.0f, -1.0f}, {-1.0f, 1.0f}, {1.0f, -1.0f}, {1.0f, 1.0f}} };
     delete[] pixels;
 }
 
 void TextureManager::LoadMiscTextures() {
 
-    CreateQuadTexture("BlackQuad", 0, 0, 0, 255);
-    CreateQuadTexture("WhiteQuad", 255, 255, 255, 255);
+    CreateQuadTexture("DarknessTexture", 100, 65, 80, 255);
+    //CreateQuadTexture("WhiteQuad", 255, 255, 255, 255);
 }
 
 GLuint TextureManager::LoadImageFile(const char* filename) {

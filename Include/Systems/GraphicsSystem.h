@@ -42,6 +42,7 @@ class GraphicsSystem : public ISystem {
     GLuint render_buffer_;
     GLuint final_texture_;
     GLuint* lighting_texture_;
+    GLuint* addition_texture_;
 
     //for UI
     glm::mat4 projection;
@@ -87,12 +88,12 @@ public:
 
 /******************************************************************************/
 /*!
-    \fn DrawFinalTexture(Model* model, Shader* shader, GLuint* texture)
+    \fn DrawFinalTexture(GLuint* texture, float opacity)
 
     \brief Draws texture that covers the entire viewport (for post-processing)
 */
 /******************************************************************************/
-    void DrawFinalTexture(Model* model, Shader* shader, GLuint* texture);
+    void DrawFinalTexture(GLuint* texture, float opacity);
 
 /******************************************************************************/
 /*!

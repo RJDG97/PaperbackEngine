@@ -117,6 +117,7 @@ void GraphicsSystem::Init() {
         shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
 
     lighting_texture_ = CORE->GetSystem<LightingSystem>()->GetLightingTexture();
+    addition_texture_ = CORE->GetSystem<LightingSystem>()->GetAdditionTexture();
 
     //For UI and text
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
@@ -215,14 +216,15 @@ void GraphicsSystem::Draw() {
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
 
-    graphic_shaders_["FinalShader"]->Use();
-    glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
+    //glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], lighting_texture_);
+    DrawFinalTexture(lighting_texture_, 1.0f);
+    glBlendFunc(GL_ONE, GL_ONE);
+    DrawFinalTexture(addition_texture_, 0.6f);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(graphic_models_["BoxModel"], graphic_shaders_["FinalShader"], &final_texture_);
+    DrawFinalTexture(&final_texture_, 1.0f);
 
     //draw all the UI textures
     graphic_shaders_["UIShader"]->Use();
@@ -267,14 +269,19 @@ void GraphicsSystem::Draw() {
     if (debug_) { debug_ = !debug_; }
 }
 
-void GraphicsSystem::DrawFinalTexture(Model* model, Shader* shader, GLuint* texture) {
+void GraphicsSystem::DrawFinalTexture(GLuint* texture, float opacity) {
 
-    glBindTexture(GL_TEXTURE_2D, *texture);
+    graphic_shaders_["FinalShader"]->Use();
+    glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
+    glBindTexture(GL_TEXTURE_2D, graphic_models_["BoxModel"]->vaoid_);
     glBindTextureUnit(0, *texture);
   
-    shader->SetUniform("uTex2d", 0);
+    graphic_shaders_["FinalShader"]->SetUniform("uTex2d", 0);
+    graphic_shaders_["FinalShader"]->SetUniform("opacity", opacity);
 
-    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glDrawElements(GL_TRIANGLE_STRIP, graphic_models_["BoxModel"]->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    graphic_shaders_["FinalShader"]->UnUse();
+    glBindVertexArray(0);
 }
 
 /*  _________________________________________________________________________ */
@@ -735,8 +742,8 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
 
     Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]->GetID());
 
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_ + 0.5f * Vector2D{ win_size_.x, win_size_.y };
-    Vector2D obj_scale = scale->scale_ * camera_system_->cam_zoom_;
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale();
+    Vector2D obj_scale = scale->scale_;
 
     std::vector<glm::vec2> gauge_vertices;
     std::vector<glm::vec2> water_vertices;
@@ -765,7 +772,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     }
     
     glNamedBufferSubData(model->GetVBOHandle(), 0,
-        sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
+                         sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
     glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeLeaves")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_DEPTH_TEST);
