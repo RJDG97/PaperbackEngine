@@ -223,6 +223,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::PARENTCHILD;
 	else if (str == "LogicComponent")
 		return ComponentTypes::LOGICCOMPONENT;
+	else if (str == "Inventory")
+		return ComponentTypes::INVENTORY;
 	else
 		return ComponentTypes::NONE;
 }

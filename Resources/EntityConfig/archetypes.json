@@ -16,7 +16,7 @@
     },
     {
       "component": "AABB",
-      "scale": "27.33 13.33",
+      "scale": "0.3 0.3",
       "layer": "0"
     },
     {
@@ -131,6 +131,9 @@
     },
     {
       "component": "ParentChild"
+    },
+    {
+      "component": "Inventory"
     }
   ],
   "Enemy": [
@@ -632,5 +635,86 @@
       "layer": "2",
       "ui": "0"
     }
-  ]
+  ],
+  "Gate": [
+    {
+      "component": "Name",
+      "name": "Gate"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "60.0 60.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 0.5",
+      "layer": "8"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "PropsGate",
+      "layer": "1",
+      "ui": "0"
+    }
+  ],
+  "Key": [
+    {
+      "component": "Name",
+      "name": "Key"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 0.5",
+      "layer": "7"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "KeyOne",
+      "layer": "1",
+      "ui": "0"
+    }
+  ],
+  "Puddle": [
+    {
+      "component": "Name",
+      "name": "Puddle"
+    },
+    {
+      "component": "Transform",
+      "position": "2.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 0.5",
+      "layer": "9"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Puddle",
+      "layer": "1",
+      "ui": "0"
+    }
+   ]
 }
