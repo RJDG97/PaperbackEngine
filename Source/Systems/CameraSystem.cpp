@@ -125,7 +125,10 @@ void CameraSystem::CameraUpdate(/*Camera* camera*/)
 
 void CameraSystem::CameraZoom(/*Camera* camera,*/ float zoom)
 {
-    /*camera->*/cam_size_ *= zoom;
+    cam_zoom_ /= (zoom);
+
+    cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
+                           windows_system_->GetWinHeight() } / cam_zoom_;
 }
 
 void CameraSystem::CameraMove(/*Camera* camera,*/ Vector2D displacement)
