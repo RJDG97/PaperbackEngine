@@ -89,7 +89,7 @@ void EntityWindow::ShowEntityList() {
 					imgui_->SetEntity(entityIT->second);
 					ImGui::OpenPopup("Delete Entity");
 				}
-				imgui_->DeletePopUp("Delete Entity", entityname->GetName());
+				imgui_->DeletePopUp(ICON_FA_TRASH " Delete Entity", entityname->GetName());
 
 				ImGui::TreePop();
 			}
@@ -133,7 +133,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					entitymotion->SetMass(inputMass);
 
 					if (!entitycomponent.first->GetID()) {
-						if (ImGui::Button("Delete"))
+						if (ImGui::Button(ICON_FA_MINUS_SQUARE " Delete"))
 							ImGui::OpenPopup("Delete Motion Component");
 					}
 					imgui_->DeletePopUp("Delete Motion Component", std::string("Motion Component"), entitycomponent.first, entitymotion);
@@ -460,7 +460,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					entitypointlight->SetColor(newColor);
 
 					if (!entitycomponent.first->GetID()) {
-						if (ImGui::Button("Delete"))
+						if (ImGui::Button(ICON_FA_MINUS_SQUARE " Delete"))
 							ImGui::OpenPopup("Delete PointLight Component");
 					}
 					imgui_->DeletePopUp("Delete PointLight Component", std::string("PointLight Component"), entitycomponent.first, entitypointlight);

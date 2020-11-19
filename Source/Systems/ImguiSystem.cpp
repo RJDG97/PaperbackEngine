@@ -8,7 +8,6 @@
 #include "ImguiWindows/SystemWindow.h"
 #include "ImguiWindows/AssetWindow.h"
 
-
 // Expose the Win32 API
 #include <commdlg.h>
 #include <GLFW/glfw3.h>
@@ -67,7 +66,7 @@ void ImguiSystem::Init(){
     io.FontDefault = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Medium.ttf", 16.0f);
     static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
     ImFontConfig icons_config; icons_config.MergeMode = true; icons_config.PixelSnapH = true;
-    img_font_ = io.Fonts->AddFontFromFileTTF(FONT_ICON_FILE_NAME_FA, 14.0f, &icons_config, icon_ranges);
+    img_font_ = io.Fonts->AddFontFromFileTTF(FONT_ICON_FILE_NAME_FAS, 14.0f, &icons_config, icon_ranges);
     bold_font_ = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Bold.ttf", 16.0f);
     // end of Imgui init
 
@@ -225,7 +224,7 @@ void ImguiSystem::ImguiMenuBar() {
         if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
             if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene", "Ctrl+O"))
                 OpenFile();
-            if (ImGui::MenuItem(ICON_FA_FLOPPY_O " Save", "Ctrl+S")) {
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save", "Ctrl+S")) {
                 if (!editor_->entity_paths_.empty()) {
                     SaveFile();
                     b_showpop = true;
@@ -253,12 +252,12 @@ void ImguiSystem::ImguiMenuBar() {
 
         if (ImGui::BeginMenu("Archetypes")) {
 
-            if (ImGui::MenuItem(ICON_FA_FLOPPY_O " Save Archetypes"))
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save Archetypes"))
                 SaveArchetype();
-            if (ImGui::MenuItem(ICON_FA_UPLOAD " Load Archetypes"))
+            if (ImGui::MenuItem(ICON_FA_FILE_IMPORT " Load Archetypes"))
                 LoadArchetype();
             ImGui::Separator();
-            if (ImGui::MenuItem(ICON_FA_PENCIL_SQUARE_O " Edit Archetype Path"))
+            if (ImGui::MenuItem(ICON_FA_EDIT " Edit Archetype Path"))
                 b_editpath = true;
 
             ImGui::EndMenu();
@@ -279,11 +278,14 @@ void ImguiSystem::ImguiMenuBar() {
 
             if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
                 sound_->PauseSound();
-            if (ImGui::Button("Mute Sound"))
+            if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
                 sound_->MuteSound();
             float inputVol = sound_->GetVolume();
-            ImGui::Text("Volume"); ImGui::SameLine(0, 3);
+            ImGui::Text(ICON_FA_VOLUME_DOWN); ImGui::SameLine(0, 3);
+            ImGui::PushItemWidth(250.0f);
             ImGui::SliderFloat("", &inputVol, 0.0f, 1.0f, "%.2f");
+            ImGui::PopItemWidth(); ImGui::SameLine(0, 3);
+            ImGui::Text(ICON_FA_VOLUME_UP);
             sound_->SetVolume(inputVol);
             ImGui::EndMenu();
         }
@@ -516,7 +518,7 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
 
 void ImguiSystem::ImguiHelp(const char* description) {
 
-    ImGui::TextDisabled("?");
+    ImGui::TextDisabled(ICON_FA_EXCLAMATION_CIRCLE);
     if (ImGui::IsItemHovered()) {
 
         ImGui::BeginTooltip();

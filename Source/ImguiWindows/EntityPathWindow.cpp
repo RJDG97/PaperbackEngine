@@ -37,7 +37,7 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 			if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, it->first.c_str())) {
 				ImGui::Text(it->second.c_str());
 
-				if (ImGui::Button(ICON_FA_PENCIL" Update")) {
+				if (ImGui::Button(ICON_FA_EDIT" Update")) {
 
 					path = imgui_->OpenSaveDialog("(*.json) Scene Entities\0*.json\0", 1);
 
@@ -45,7 +45,7 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 						it->second = imgui_->EditString(path);
 				}
 
-				if (ImGui::Button(ICON_FA_TRASH_O " Delete"))
+				if (ImGui::Button(ICON_FA_TRASH" Delete"))
 					ImGui::OpenPopup("delete path check");
 
 				if (ImGui::BeginPopup("delete path check")) {

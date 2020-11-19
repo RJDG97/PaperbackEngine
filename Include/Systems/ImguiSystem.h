@@ -25,8 +25,8 @@
 #include "GameStates/MenuState.h"
 
 #include "Manager/EntityManager.h"
-#include "Imgui/IconsFontAwesome4.h"
-//#include "ImguiWindows/AssetFileSystem.h"
+#include "Imgui/IconsFontAwesome5.h"
+
 
 //colours for axis buttons
 #define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }

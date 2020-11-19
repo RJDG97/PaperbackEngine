@@ -65,7 +65,7 @@ void AssetWindow::FileDirectoryCheck(fs::path filedirectory) {
 void AssetWindow::PrintFileType() {
 
 	static ImGuiTextFilter filter;
-	filter.Draw();
+	filter.Draw(ICON_FA_FILTER, 200.0f);
 	std::string fileName = {};
 	if (!path_selection_.empty()) {
 		for (auto& file : fs::directory_iterator(path_selection_)) {
@@ -77,15 +77,17 @@ void AssetWindow::PrintFileType() {
 				if (filter.PassFilter(fileName.c_str())) {
 
 					if (file.path().extension() == ".png")
-						ImGui::Text(FileString(ICON_FA_FILE_IMAGE_O, fileName).c_str());
+						ImGui::Text(FileString(ICON_FA_FILE_IMAGE, fileName).c_str());
 					if (file.path().extension() == ".json")
-						ImGui::Text(FileString(ICON_FA_FILE_CODE_O, fileName).c_str());
+						ImGui::Text(FileString(ICON_FA_FILE_CODE, fileName).c_str());
 					if (file.path().extension() == ".mp3" || file.path().extension() == ".wav")
-						ImGui::Text(FileString(ICON_FA_FILE_AUDIO_O, fileName).c_str());
+						ImGui::Text(FileString(ICON_FA_FILE_AUDIO, fileName).c_str());
 					if (file.path().extension() == ".txt")
-						ImGui::Text(FileString(ICON_FA_FILE_TEXT_O, fileName).c_str());
+						ImGui::Text(FileString(ICON_FA_FILE_WORD, fileName).c_str());
 					if (file.path().extension() == ".ttf")
-						ImGui::Text(FileString(ICON_FA_FONT, fileName).c_str());
+						ImGui::Text(FileString(ICON_FA_FILE_ALT, fileName).c_str());
+					else
+						ImGui::Text(FileString(ICON_FA_FILE, fileName).c_str()); // will update when needed
 				}
 					
 			}

@@ -361,7 +361,7 @@
     </ClCompile>
     <ClCompile Include="Source\ImguiWindows\AssetFileSystem.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\MathLib\MathHelper.cpp">
       <Filter>Systems\MathLibrary</Filter>
     </ClCompile>
@@ -624,6 +624,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\ConeLight.h">
       <Filter>Entity\Components\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Imgui\IconsFontAwesome5.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
