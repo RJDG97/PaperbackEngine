@@ -239,12 +239,22 @@ void LightingSystem::DrawConeLight(Shader* shader, ConeLight* cone_light) {
 		M_DEBUG->WriteDebugMessage("Cannot draw cone light as entity has no motion component");
 	}
 
+	else
+	{
+		Vector2D direction = motion->GetVelocity();
+
+		if (Vector2DLength(direction) > 0.0f)
+		{
+			cone_light->direction_ = glm::vec2{ direction.x, direction.y };
+		}
+	}
+
 	Vector2D direction = motion->GetVelocity();
 	shader->SetUniform("light_color", cone_light->color_);
 	shader->SetUniform("light_center", cone_light->pos_);
 	shader->SetUniform("intensity", cone_light->intensity_);
 	shader->SetUniform("radius", cone_light->radius_ * camera_system_->cam_zoom_);
-	shader->SetUniform("direction", { direction.x, direction.y });
+	shader->SetUniform("direction", cone_light->direction_);
 	shader->SetUniform("angle", static_cast<float>(cone_light->angle_ / 180 * M_PI));
 
 	glDrawElements(GL_TRIANGLE_STRIP, light_model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);

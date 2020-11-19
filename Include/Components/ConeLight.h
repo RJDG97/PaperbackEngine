@@ -20,6 +20,7 @@ class ConeLight : public Component {
 	float angle_;
 
 	glm::vec2 pos_;
+	glm::vec2 direction_;
 
 public:
 
