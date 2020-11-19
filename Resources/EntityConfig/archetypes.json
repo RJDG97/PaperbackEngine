@@ -130,9 +130,6 @@
       "intensity": "0.2"
     },
     {
-      "component": "ParentChild"
-    },
-    {
       "component": "Inventory"
     }
   ],
@@ -649,7 +646,7 @@
     },
     {
       "component": "Scale",
-      "scale": "60.0 60.0"
+      "scale": "130.0 90.0"
     },
     {
       "component": "AABB",

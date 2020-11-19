@@ -1,9 +1,22 @@
 {
-    "goal": [
-    {
-      "component": "Transform",
-      "position": "6.0 3.0",
-      "rotation": "0.0"
-    }
-   ]
+    "Gate": [
+        {
+            "component": "Transform",
+            "position": "-14.900000 16.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "PropsGate",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.700000 0.700000",
+            "layer": "8",
+            "offset": "0.000000 0.000000"
+        }
+    ]
 }

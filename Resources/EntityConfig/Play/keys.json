@@ -1,9 +1,22 @@
 {
-    "goal": [
-    {
-      "component": "Transform",
-      "position": "-3.0 3.0",
-      "rotation": "0.0"
-    }
-   ]
+    "Key": [
+        {
+            "component": "Transform",
+            "position": "14.100000 22.200001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "KeyOne",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.500000",
+            "layer": "7",
+            "offset": "0.000000 0.000000"
+        }
+    ]
 }
