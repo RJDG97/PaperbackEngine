@@ -58,5 +58,7 @@
   
   "Empty Pot": "Resources/AssetsLoading/PropsTexture/props_emptypot.json",
   
-  "Hole": "Resources/AssetsLoading/PropsTexture/props_hole.json"
+  "Hole": "Resources/AssetsLoading/PropsTexture/props_hole.json",
+  
+  "Puddle": "Resources/AssetsLoading/PropsTexture/Props_Puddle.json"
 }

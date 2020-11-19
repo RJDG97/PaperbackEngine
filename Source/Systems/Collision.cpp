@@ -393,6 +393,17 @@ void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
 	}
 }
 
+void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
+	
+	Health* player_health = component_mgr_->GetComponent<Health>(aabb1->first);
+	if (player_health->current_health_ != player_health->GetMaxHealth())
+	{
+		++(player_health->current_health_);
+		FACTORY->Destroy(aabb2->second->GetOwner());
+	}
+
+}
+
 void Collision::CollisionResponse(const CollisionLayer& layer_a, const CollisionLayer& layer_b,
 	AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2,
 	float frametime, float t_first) {
@@ -425,26 +436,31 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	{
 		switch (layer_b)
 		{
-		case CollisionLayer::GOAL:
-		{
-			GoalResponse();
-			break;
-		}
-		case CollisionLayer::KEYS: 
-		{
-
-			PlayerKeyResponse(aabb1, aabb2);
-			break;
-		}
-		case CollisionLayer::GATE:
-		{
-			if (PlayerGateResponse(aabb1, aabb2)) {
-				
-				//if fails to open gate then prevent player from going past
-				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
+			case CollisionLayer::GOAL:
+			{
+				GoalResponse();
+				break;
 			}
-			break;
-		}
+			case CollisionLayer::KEYS: 
+			{
+
+				PlayerKeyResponse(aabb1, aabb2);
+				break;
+			}
+			case CollisionLayer::GATE:
+			{
+				if (PlayerGateResponse(aabb1, aabb2)) {
+					
+					//if fails to open gate then prevent player from going past
+					DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
+				}
+				break;
+			}
+			case CollisionLayer::COLLECTIBLE:
+			{
+				PlayerCollectibleResponse(aabb1, aabb2);
+				break;
+			}
 		}
 		break;
 	}
@@ -662,6 +678,12 @@ void Collision::Init() {
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
 	AddCollisionLayers(CollisionLayer::KEYS, "00001000", false);
+
+	/*
+	Parameter 1: Collision layer 5
+	Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::COLLECTIBLE, "00001000", false);
 
 	/*
 	Parameter 1: Collision layer 5

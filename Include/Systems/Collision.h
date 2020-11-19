@@ -31,7 +31,8 @@ enum class CollisionLayer
 	GOAL,
 	UI_ELEMENTS,     // Non-interactable
 	KEYS,
-	GATE
+	GATE,
+	COLLECTIBLE
 };
 
 class Collision : public ISystem {
@@ -160,6 +161,8 @@ private:
 */
 /******************************************************************************/
 	void PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2);
+
+	void PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2);
 
 /******************************************************************************/
 /*!

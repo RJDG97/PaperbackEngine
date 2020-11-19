@@ -689,5 +689,32 @@
       "layer": "1",
       "ui": "0"
     }
-  ]
+  ],
+  "Puddle": [
+    {
+      "component": "Name",
+      "name": "Puddle"
+    },
+    {
+      "component": "Transform",
+      "position": "2.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 0.5",
+      "layer": "9"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Puddle",
+      "layer": "1",
+      "ui": "0"
+    }
+   ]
 }
