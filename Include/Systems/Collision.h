@@ -28,6 +28,7 @@ enum class CollisionLayer
 	ENEMY,
 	PLAYER,
 	HOLE,
+	GOAL,
 	UI_ELEMENTS     // Non-interactable
 };
 
@@ -130,6 +131,15 @@ private:
 */
 /******************************************************************************/
 	bool PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2);
+	
+/******************************************************************************/
+/*!
+  \fn GoalResponse()
+
+  \brief Helper function to handle response of a player colliding with a goal
+*/
+/******************************************************************************/
+	void GoalResponse();
 
 /******************************************************************************/
 /*!

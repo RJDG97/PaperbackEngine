@@ -219,9 +219,8 @@ void InputSystem::Update(float frametime) {
 	(void)frametime;
 
 	unsigned char input_flag = 0; //used for checking what directional buttons are held
-
-	//input.GetMouseCoord();
 	
+	/*
 	if (IsKeyPressed(GLFW_KEY_LEFT)) {
 		//input_flag |= LEFT_FLAG;
 		SendHoldMessage(GLFW_KEY_LEFT);
@@ -237,6 +236,24 @@ void InputSystem::Update(float frametime) {
 	if (IsKeyPressed(GLFW_KEY_DOWN)) {
 		//input_flag |= DOWN_FLAG;
 		SendHoldMessage(GLFW_KEY_DOWN);
+	}
+	*/
+
+	if (IsKeyPressed(GLFW_KEY_A)) {
+		//input_flag |= LEFT_FLAG;
+		SendHoldMessage(GLFW_KEY_A);
+	}
+	if (IsKeyPressed(GLFW_KEY_W)) {
+		//input_flag |= UP_FLAG;
+		SendHoldMessage(GLFW_KEY_W);
+	}
+	if (IsKeyPressed(GLFW_KEY_S)) {
+		//input_flag |= RIGHT_FLAG;
+		SendHoldMessage(GLFW_KEY_S);
+	}
+	if (IsKeyPressed(GLFW_KEY_D)) {
+		//input_flag |= DOWN_FLAG;
+		SendHoldMessage(GLFW_KEY_D);
 	}
 
 	if (IsKeyPressed(GLFW_KEY_W))

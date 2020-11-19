@@ -167,8 +167,10 @@
     <ClCompile Include="Source\Components\ConeLight.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\InputController.cpp" />
+    <ClCompile Include="Source\Components\LogicComponent.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
     <ClCompile Include="Source\Components\Name.cpp" />
+    <ClCompile Include="Source\Components\ParentChild.cpp" />
     <ClCompile Include="Source\Components\PointLight.cpp" />
     <ClCompile Include="Source\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Components\TextureRenderer.cpp" />
@@ -235,8 +237,10 @@
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\InputController.h" />
     <ClInclude Include="Include\Components\IRenderer.h" />
+    <ClInclude Include="Include\Components\LogicComponent.h" />
     <ClInclude Include="Include\Components\Motion.h" />
     <ClInclude Include="Include\Components\Name.h" />
+    <ClInclude Include="Include\Components\ParentChild.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
     <ClInclude Include="Include\Components\TextRenderer.h" />
     <ClInclude Include="Include\Components\TextureRenderer.h" />
@@ -288,6 +292,7 @@
     <ClInclude Include="Include\Script\MiteScript.h" />
     <ClInclude Include="Include\Script\ScriptList.h" />
     <ClInclude Include="Include\Script\StagScript.h" />
+    <ClInclude Include="Include\Script\Child_Script.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\Collision.h" />
     <ClInclude Include="Include\Systems\Debug.h" />

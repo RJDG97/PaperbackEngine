@@ -9,7 +9,8 @@
 
 Transform::Transform() : 
 	position_{ },
-	rotation_{ } 
+	rotation_{ },
+	offset_{ }
 {}
 
 Transform::~Transform() {
@@ -40,6 +41,9 @@ void Transform::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writ
 	writer->Key("rotation");
 	writer->String(std::to_string(rotation_).c_str());
 
+	writer->Key("offset");
+	writer->String((std::to_string(offset_.x) + " " + std::to_string(offset_.y)).c_str());
+
 	writer->EndObject();
 }
 
@@ -49,12 +53,8 @@ void Transform::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>*
 }
 
 void Transform::DeSerialize(std::stringstream& data) {
-
-	std::cout << "Entered Serialize Transform w/ stream" << std::endl;
 	
-	data >> position_.x >> position_.y >> rotation_;
-
-	std::cout << "Position read: " << position_.x << ", " << position_.y << std::endl;
+	data >> position_.x >> position_.y >> rotation_ >> offset_.x >> offset_.y;
 }
 
 void Transform::DeSerializeClone(std::stringstream& data) {
@@ -81,12 +81,23 @@ void Transform::SetPosition(const Vector2D& pos) {
 	position_ = pos;
 }
 
+Vector2D Transform::GetOffset() const {
+
+	return offset_;
+}
+
+void Transform::SetOffset(const Vector2D& offset) {
+
+	offset_ = offset;
+}
+
 std::shared_ptr<Component> Transform::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning Transform Component\n");
 	std::shared_ptr<Transform> cloned = std::make_shared<Transform>();
 
 	cloned->position_ = position_;
 	cloned->rotation_ = rotation_;
+	cloned->offset_ = offset_;
 
 	return cloned;
 }
