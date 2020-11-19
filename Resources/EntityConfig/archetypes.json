@@ -7,7 +7,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -39,7 +40,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "TextRenderer",
@@ -60,7 +62,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "TextRenderer",
@@ -81,7 +84,8 @@
     {
       "component": "Transform",
       "position": "0.0 2.0 ",
-      "rotation": "0.0" 
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Motion",
@@ -100,7 +104,7 @@
     {
       "component": "AnimationRenderer",
       "number of animations": "5",
-	  "add animation": "Player_Hiding",
+      "add animation": "Player_Hiding",
       "add animation": "Player_Burrow_Walk",
       "add animation": "Player_Burrow_Idle",
       "add animation": "Player_Idle",
@@ -124,6 +128,9 @@
       "color": "1.0 1.0 0.6",
       "radius": "50.0",
       "intensity": "0.2"
+    },
+    {
+      "component": "ParentChild"
     }
   ],
   "Enemy": [
@@ -134,7 +141,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0" 
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Motion",
@@ -190,7 +198,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -226,7 +235,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -262,7 +272,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -293,7 +304,8 @@
     {
       "component": "Transform",
       "position": "5.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -339,7 +351,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -403,7 +416,8 @@
     {
       "component": "Transform",
       "position": "3.0 3.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -449,7 +463,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -481,7 +496,8 @@
     {
       "component": "Transform",
       "position": "0.0 0.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -501,7 +517,8 @@
     {
       "component": "Transform",
       "position": "0.0 5.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -527,7 +544,8 @@
     {
       "component": "Transform",
       "position": "19.7 2.0",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
     },
     {
       "component": "Scale",
@@ -538,6 +556,54 @@
       "texture": "WatergaugeDroplet",
       "layer": "0",
       "ui": "1"
+    }
+  ],
+  "FakeWall": [
+    {
+      "component": "Name",
+      "name": "FakeWall"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 1.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "45.0 45.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "RockThree",
+      "layer": "2",
+      "ui": "0"
+    },
+    {
+      "component": "LogicComponent",
+      "function": "UpdateChildOffset"
+    }
+  ],
+  "FakeWallTwo": [
+    {
+      "component": "Name",
+      "name": "FakeWallTwo"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 2.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "15.0 15.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock",
+      "layer": "2",
+      "ui": "0"
     }
   ]
 }

@@ -219,6 +219,10 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::INPUTCONTROLLER;
 	else if (str == "AI")
 		return ComponentTypes::AI;
+	else if (str == "ParentChild")
+		return ComponentTypes::PARENTCHILD;
+	else if (str == "LogicComponent")
+		return ComponentTypes::LOGICCOMPONENT;
 	else
 		return ComponentTypes::NONE;
 }
