@@ -3,6 +3,10 @@
   
   "Player": "Resources/EntityConfig/Play/player.json",
   
+  "StagBeetle": "Resources/EntityConfig/Play/stagbeetle.json",
+  
+  "Mite": "Resources/EntityConfig/Play/mite.json",
+  
   "InputController": "Resources/EntityConfig/Play/input.json",
   
   "Wall": "Resources/EntityConfig/Play/wall.json",

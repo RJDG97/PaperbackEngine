@@ -394,7 +394,7 @@
     },
     {
       "component": "ConeLight",
-	  "angle": "40.0",
+      "angle": "40.0",
       "color": "1.0 1.0 0.2",
       "radius": "500.0",
       "intensity": "1.0"
@@ -453,6 +453,13 @@
     },
     {
       "component": "Status"
+    },
+    {
+      "component": "ConeLight",
+      "angle": "40.0",
+      "color": "1.0 1.0 0.2",
+      "radius": "500.0",
+      "intensity": "1.0"
     }
   ],
   "MenuBG": [
