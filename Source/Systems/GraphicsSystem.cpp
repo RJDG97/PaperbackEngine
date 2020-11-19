@@ -177,6 +177,8 @@ void GraphicsSystem::Draw() {
     glBindVertexArray(graphic_models_["BatchModel"]->vaoid_);
     GLuint vbo_hdl = graphic_models_["BatchModel"]->vboid_;
 
+    std::multimap<float, IRenderer*> y_sorted {};
+
     //draws all the world textures/animations
     for (IRenderOrderIt it = worldobj_renderers_in_order_.begin();
          it != worldobj_renderers_in_order_.end() ; ) {
@@ -187,7 +189,11 @@ void GraphicsSystem::Draw() {
                 std::to_string(it->first) + "\n");
 		}
 
-        BatchWorldObject(it->second);
+        float y_position =
+            component_manager_->GetComponent<Transform>(it->second->GetOwner()->GetID())->GetPosition().y * CORE->GetGlobalScale() -
+            component_manager_->GetComponent<Scale>(it->second->GetOwner()->GetID())->GetScale().y;
+
+        y_sorted.insert({ y_position, it->second });
         
         int current_layer = it->second->layer_;
         auto next_object = ++it;
@@ -196,7 +202,14 @@ void GraphicsSystem::Draw() {
             next_object == worldobj_renderers_in_order_.end() ||
             next_object->second->layer_ != current_layer) {
 
+            for (auto y_it = y_sorted.rbegin();
+                y_it != y_sorted.rend(); ++y_it ) {
+
+                BatchWorldObject(y_it->second);
+            }
+
             DrawBatch(vbo_hdl, world_to_ndc_xform);
+            y_sorted.clear();
         }
     
     }
