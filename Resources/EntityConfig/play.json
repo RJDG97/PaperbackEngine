@@ -9,8 +9,6 @@
   
   "InputController": "Resources/EntityConfig/Play/input.json",
   
-  "Wall": "Resources/EntityConfig/Play/wall.json",
-  
   "Hole": "Resources/EntityConfig/Play/hole.json",
   
   "Boundary": "Resources/EntityConfig/Play/boundary.json",
