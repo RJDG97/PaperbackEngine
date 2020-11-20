@@ -5,6 +5,12 @@
       "name": "Camera"
     },
 	{
+	  "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+	},
+	{
 	  "component": "Camera",
       "camera position": "0.0 0.0",
 	  "camera size": "1280.0 720.0",
