@@ -88,7 +88,7 @@ void EntityWindow::ShowEntityList() {
 
 				if (ImGui::Button("Delete Entity...")) {
 					imgui_->SetEntity(entityIT->second);
-					ImGui::OpenPopup("Delete Entity");
+					ImGui::OpenPopup(ICON_FA_TRASH " Delete Entity");
 				}
 				imgui_->DeletePopUp(ICON_FA_TRASH " Delete Entity", entityname->GetName());
 
