@@ -28,7 +28,7 @@ void AMap::InitAMap(std::map<EntityID, Entity*> entity_map) {
 		abs_min.x = bottom_left_.x < 0 ? -bottom_left_.x : bottom_left_.x;
 		abs_min.y = bottom_left_.y < 0 ? -bottom_left_.y : bottom_left_.y;
 
-		pos = transform->GetPosition();
+		pos = transform->GetOffsetAABBPos();
 		pos += abs_min;
 
 		AABB* aabb = component_manager_->GetComponent<AABB>(it->first);
@@ -71,7 +71,7 @@ void AMap::AMapInitialization(std::map<EntityID, Entity*> entity_map) {
 		if (!transform)
 			continue;
 
-		position = transform->GetPosition();
+		position = transform->GetOffsetAABBPos();
 
 
 		top_right_.x = position.x > top_right_.x ? position.x : top_right_.x;

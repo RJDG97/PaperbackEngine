@@ -7,10 +7,11 @@
 #include <iostream> 
 // originally sstream
 
-Transform::Transform() : 
+Transform::Transform() :
 	position_{ },
 	rotation_{ },
-	offset_{ }
+	offset_{ },
+	aabb_offset_{}
 {}
 
 Transform::~Transform() {
@@ -44,6 +45,9 @@ void Transform::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writ
 	writer->Key("offset");
 	writer->String((std::to_string(offset_.x) + " " + std::to_string(offset_.y)).c_str());
 
+	writer->Key("aabb offset");
+	writer->String((std::to_string(aabb_offset_.x) + " " + std::to_string(aabb_offset_.y)).c_str());
+
 	writer->EndObject();
 }
 
@@ -54,7 +58,7 @@ void Transform::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>*
 
 void Transform::DeSerialize(std::stringstream& data) {
 	
-	data >> position_.x >> position_.y >> rotation_ >> offset_.x >> offset_.y;
+	data >> position_.x >> position_.y >> rotation_ >> offset_.x >> offset_.y >> aabb_offset_.x >> aabb_offset_.y;
 }
 
 void Transform::DeSerializeClone(std::stringstream& data) {
@@ -89,6 +93,21 @@ Vector2D Transform::GetOffset() const {
 void Transform::SetOffset(const Vector2D& offset) {
 
 	offset_ = offset;
+}
+
+void Transform::SetAABBOffset(const Vector2D& new_offset) {
+	
+	aabb_offset_ = new_offset;
+}
+
+Vector2D Transform::GetAABBOffset() const {
+	
+	return aabb_offset_;
+}
+
+Vector2D Transform::GetOffsetAABBPos() const {
+
+	return position_ + aabb_offset_;
 }
 
 std::shared_ptr<Component> Transform::Clone() {

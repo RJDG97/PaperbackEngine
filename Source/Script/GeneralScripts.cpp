@@ -17,16 +17,16 @@ namespace GeneralScripts
 
 	bool Chase(AIIt obj)
 	{
-		obj->second->SetPlayerLastPos(player_rigidbody->GetPosition());
+		obj->second->SetPlayerLastPos(player_rigidbody->GetOffsetAABBPos());
 
 		// Find current distance of player from obj
-		float distance = Vector2DDistance(player_rigidbody->GetPosition(), obj_rigidbody->GetPosition());
+		float distance = Vector2DDistance(player_rigidbody->GetOffsetAABBPos(), obj_rigidbody->GetOffsetAABBPos());
 		// If obj is close enough, return true
 		if (distance < obj->second->GetRange()/5)
 			return true;
 
 		//get directional unit vector
-		Vector2D directional = player_rigidbody->GetPosition() - obj_rigidbody->GetPosition();
+		Vector2D directional = player_rigidbody->GetOffsetAABBPos() - obj_rigidbody->GetOffsetAABBPos();
 		directional /= Vector2DLength(directional);
 
 		//multiply by speed
@@ -43,10 +43,10 @@ namespace GeneralScripts
 		if (player_status->GetStatus() != StatusType::BURROW &&
 			player_status->GetStatus() != StatusType::INVISIBLE)
 		{
-			obj->second->SetPlayerLastPos(player_rigidbody->GetPosition());
+			obj->second->SetPlayerLastPos(player_rigidbody->GetOffsetAABBPos());
 
 			// Find current distance of player from obj
-			float distance = Vector2DDistance(player_rigidbody->GetPosition(), obj_rigidbody->GetPosition());
+			float distance = Vector2DDistance(player_rigidbody->GetOffsetAABBPos(), obj_rigidbody->GetOffsetAABBPos());
 			// If Player is very close, is detected
 			if (distance < 3.0f)
 				return true;
@@ -54,9 +54,9 @@ namespace GeneralScripts
 			else if (distance < obj->second->GetRange())
 			{
 				// Get current direction of object
-				Vector2D vector1 = *obj->second->GetCurrentDes() - obj_rigidbody->GetPosition();
+				Vector2D vector1 = *obj->second->GetCurrentDes() - obj_rigidbody->GetOffsetAABBPos();
 				// Get direction of player from object
-				Vector2D vector2 = player_rigidbody->GetPosition() - obj_rigidbody->GetPosition();
+				Vector2D vector2 = player_rigidbody->GetOffsetAABBPos() - obj_rigidbody->GetOffsetAABBPos();
 				// Find the angle of player from current destination
 				float angle = std::atan2f(vector2.y, vector2.x) - std::atan2f(vector1.y, vector1.x);
 				// Change angle from rad to degrees
@@ -120,12 +120,12 @@ namespace GeneralScripts
 		// If path is empty, set path
 		if (obj->second->GetPath().empty())
 		{
-			if (obj_rigidbody->GetPosition().x == obj->second->GetCurrentDes()->x &&
-				obj_rigidbody->GetPosition().y == obj->second->GetCurrentDes()->y)
+			if (obj_rigidbody->GetOffsetAABBPos().x == obj->second->GetCurrentDes()->x &&
+				obj_rigidbody->GetOffsetAABBPos().y == obj->second->GetCurrentDes()->y)
 				obj->second->SetCurrentDes(++obj->second->GetCurrentDes());
 			// Set new path
 			GeneralScripts::map_->Pathing
-			(obj->second->GetPath(), obj_rigidbody->GetPosition(), 
+			(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(),
 				*obj->second->GetCurrentDes());
 
 		}
@@ -134,7 +134,7 @@ namespace GeneralScripts
 			return;
 
 	// Calculate distance between ai and destination
-		float distance = Vector2DLength(obj->second->GetPath().back() - obj_rigidbody->GetPosition());
+		float distance = Vector2DLength(obj->second->GetPath().back() - obj_rigidbody->GetOffsetAABBPos());
 
 		// If object is at next path node
 		if (distance <= 0.1f) {
@@ -154,7 +154,7 @@ namespace GeneralScripts
 				obj->second->SetCurrentDes(next_it);
 				// Set new path
 				GeneralScripts::map_->Pathing
-				(obj->second->GetPath(), obj_rigidbody->GetPosition(),
+				(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(),
 					*obj->second->GetCurrentDes());
 			}
 		}
@@ -163,7 +163,7 @@ namespace GeneralScripts
 			return;
 
 		//get directional unit vector
-		Vector2D directional = obj->second->GetPath().back() - obj_rigidbody->GetPosition();
+		Vector2D directional = obj->second->GetPath().back() - obj_rigidbody->GetOffsetAABBPos();
 		directional /= Vector2DLength(directional);
 
 		//multiply by speed
