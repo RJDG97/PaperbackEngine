@@ -4,6 +4,12 @@
 
 void CameraSystem::Init()
 {
+    component_manager_ = &*CORE->GetManager<ComponentManager>();
+    camera_arr_ = component_manager_->GetComponentArray<Camera>();
+
+    windows_system_ = &*CORE->GetSystem<WindowsSystem>();
+
+    /*
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
 
     cam_zoom_ = 0.8f;
@@ -22,19 +28,17 @@ void CameraSystem::Init()
                                      0 , 2 / cam_size_.y , 0,
                                      0 , 0 , 1 };
 
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
+    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;*/
 }
 
 void CameraSystem::Update(float frametime)
 {
     (void)frametime;
 
-    //for (CameraIt camera = camera_arr_->begin(); camera != camera_arr_->end(); ++camera) {
+    for (CameraIt camera = camera_arr_->begin(); camera != camera_arr_->end(); ++camera) {
 
-        //CameraUpdate(camera->second);
-    //}
-
-    CameraUpdate();
+        CameraUpdate(camera->second);
+    }
 }
 
 void CameraSystem::Draw()
@@ -46,7 +50,6 @@ void CameraSystem::AddCameraComponent(EntityID id, Camera* camera)
     M_DEBUG->WriteDebugMessage("Adding Text Renderer Component to entity: "
         + std::to_string(id) + "\n");
 
-    //text_renderer_arr_[id] = text_renderer;
     camera_arr_->AddComponent(id, camera);
 }
 
@@ -62,15 +65,19 @@ std::string CameraSystem::GetName()
 
 void CameraSystem::SendMessageD(Message* m)
 {
+    if (camera_arr_->size() == 0)
+    {
+        return;
+    }
 
     switch (m->message_id_) {
 
     case MessageIDTypes::CAM_UPDATE_POS: {
 
-        if (!targeted_)
+        if (!GetMainCamera()->targeted_)
         {
             MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
-            CameraMove(/*current_camera,*/ msg->new_vec_);
+            CameraMove(GetMainCamera(), msg->new_vec_);
         }
 
         break;
@@ -81,8 +88,8 @@ void CameraSystem::SendMessageD(Message* m)
             //Temporary
             if (CORE->GetManager<EntityManager>()->GetPlayerEntities().size() > 0)
             {
-                SetTarget(/*current_camera,*/ CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
-                ToggleTargeted(/*current_camera*/);
+                SetTarget(GetMainCamera(), CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
+                ToggleTargeted(GetMainCamera());
             }
 
             break;
@@ -90,73 +97,83 @@ void CameraSystem::SendMessageD(Message* m)
 
         case MessageIDTypes::FLIP_SPRITE_X: {
 
-            CameraZoom(/*current_camera,*/ 0.9f);
+            CameraZoom(GetMainCamera(), 0.9f);
             break;
         }
 
         case MessageIDTypes::FLIP_SPRITE_Y: {
 
-            CameraZoom(/*current_camera,*/ 1.1f);
+            CameraZoom(GetMainCamera(), 1.1f);
             break;
         }
     }
 }
 
-void CameraSystem::CameraUpdate(/*Camera* camera*/)
+void CameraSystem::CameraUpdate(Camera* camera)
 {
-    if (/*camera->*/targeted_)
+    if (camera->targeted_)
     {
         const float global_scale = CORE->GetGlobalScale();
-        Vector2D target = /*camera->*/target_->GetPosition() * -1;
-        /*camera->*/cam_pos_ = glm::vec2{ target.x, target.y } * global_scale;
+        Vector2D target = camera->target_->GetPosition() * -1;
+        camera->cam_pos_ = glm::vec2{ target.x, target.y } * global_scale;
     }
 
     glm::mat3 view_xform_ { 1 , 0 , 0,
                             0 , 1 , 0,
-                            /*camera->*/cam_pos_.x , /*camera->*/cam_pos_.y , 1 };
+                            camera->cam_pos_.x , camera->cam_pos_.y , 1 };
 
     // compute other matrices ...
-    glm::mat3 camwin_to_ndc_xform_ { 2 / /*camera->*/cam_size_.x , 0 , 0,
-                                     0 , 2 / /*camera->*/cam_size_.y , 0,
+    glm::mat3 camwin_to_ndc_xform_ { 2 / camera->cam_size_.x , 0 , 0,
+                                     0 , 2 / camera->cam_size_.y , 0,
                                      0 , 0 , 1 };
 
-    /*camera->*/world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
+    camera->world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
 }
 
-void CameraSystem::CameraZoom(/*Camera* camera,*/ float zoom)
+void CameraSystem::CameraZoom(Camera* camera, float zoom)
 {
-    cam_zoom_ /= (zoom);
+    camera->cam_zoom_ /= (zoom);
 
-    cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
-                           windows_system_->GetWinHeight() } / cam_zoom_;
+    camera->cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
+                           windows_system_->GetWinHeight() } / camera->cam_zoom_;
 }
 
-void CameraSystem::CameraMove(/*Camera* camera,*/ Vector2D displacement)
+void CameraSystem::CameraMove(Camera* camera, Vector2D displacement)
 {
-    if (!/*camera->*/targeted_)
+    if (!camera->targeted_)
     {
-        /*camera->*/cam_pos_.x -= displacement.x;
-        /*camera->*/cam_pos_.y -= displacement.y;
+        camera->cam_pos_.x -= displacement.x;
+        camera->cam_pos_.y -= displacement.y;
     }
 }
 
-void CameraSystem::CameraSetPosition(/*Camera* camera,*/ Vector2D postion)
+void CameraSystem::CameraSetPosition(Camera* camera, Vector2D postion)
 {
-    cam_pos_ = glm::vec2{ postion.x, postion.y };
+    camera->cam_pos_ = glm::vec2{ postion.x, postion.y };
 }
 
-void CameraSystem::CameraUnTarget()
+void CameraSystem::CameraUnTarget(Camera* camera)
 {
-    target_ = nullptr;
-    targeted_ = false;
+    camera->target_ = nullptr;
+    camera->targeted_ = false;
 }
 
-void CameraSystem::SetTarget(/*Camera* camera,*/ Entity* target)
+void CameraSystem::SetTarget(Camera* camera, Entity* target)
 {
-    /*camera->*/target_ = &*std::dynamic_pointer_cast<Transform>(target->GetComponent(ComponentTypes::TRANSFORM));
+    camera->target_ = &*std::dynamic_pointer_cast<Transform>(target->GetComponent(ComponentTypes::TRANSFORM));
 }
 
-void CameraSystem::ToggleTargeted(/*Camera* camera*/)
+void CameraSystem::ToggleTargeted(Camera* camera)
 {
-    /*camera->*/targeted_ = !/*camera->*/targeted_;
+    camera->targeted_ = !camera->targeted_;
+}
+
+Camera* CameraSystem::GetMainCamera()
+{
+    if (camera_arr_->size() == 0)
+    {
+        return nullptr;
+    }
+
+    return camera_arr_->begin()->second;
 }

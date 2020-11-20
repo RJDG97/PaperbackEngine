@@ -58,8 +58,11 @@ void PlayState::Init(std::string)
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 
-	CORE->GetSystem<CameraSystem>()->SetTarget(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
-	CORE->GetSystem<CameraSystem>()->ToggleTargeted();
+	std::shared_ptr<CameraSystem> camera_system = CORE->GetSystem<CameraSystem>();
+	Camera* camera = camera_system->GetMainCamera();
+
+	camera_system->SetTarget(camera, CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
+	camera_system->ToggleTargeted(camera);
 }
 
 void PlayState::Free()

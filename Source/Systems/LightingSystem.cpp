@@ -50,9 +50,6 @@ void LightingSystem::Init() {
 	//Temporary before camera is component
 	std::shared_ptr<GraphicsSystem> graphics_system = CORE->GetSystem<GraphicsSystem>();
 
-	cam_pos_ = &camera_system_->cam_pos_;
-	cam_zoom_ = &camera_system_->cam_zoom_;
-
 	glGenFramebuffers(1, &lighting_buffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
 
@@ -99,7 +96,16 @@ void LightingSystem::Init() {
 
 void LightingSystem::Update(float frametime) {
 
+	if (camera_system_->GetMainCamera() == nullptr)
+	{
+		return;
+	}
+
 	UNREFERENCED_PARAMETER(frametime);
+
+	float cam_zoom = (*camera_system_->GetMainCamera()->GetCameraZoom());
+	glm::vec2 cam_pos = (*camera_system_->GetMainCamera()->GetCameraPosition());
+
 	for (PointLightIt it = point_light_arr_->begin(); it != point_light_arr_->end(); ++it) {
 
 		if (debug_) {
@@ -107,7 +113,7 @@ void LightingSystem::Update(float frametime) {
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Point light position updated)\n");
 		}
 
-		UpdateLightPosition(it->second);
+		UpdateLightPosition(it->second, cam_zoom, cam_pos);
 	}
 
 	for (ConeLightIt it = cone_light_arr_->begin(); it != cone_light_arr_->end(); ++it) {
@@ -117,18 +123,25 @@ void LightingSystem::Update(float frametime) {
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Point light position updated)\n");
 		}
 
-		UpdateLightPosition(it->second);
+		UpdateLightPosition(it->second, cam_zoom, cam_pos);
 	}
 }
 
 void LightingSystem::Draw() {
 
+	if (camera_system_->GetMainCamera() == nullptr)
+	{
+		return;
+	}
+	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, addition_buffer);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	float cam_zoom = (*camera_system_->GetMainCamera()->GetCameraZoom());
 	
 	Shader* point_light_shader = lighting_shaders_["PointLightShader"];
 	Shader* cone_light_shader = lighting_shaders_["ConeLightShader"];
@@ -143,7 +156,7 @@ void LightingSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing point light for entity: " + std::to_string(it->first) + "\n");
 		}
 
-		DrawPointLight(point_light_shader, it->second);
+		DrawPointLight(point_light_shader, it->second, cam_zoom);
 	}
 
 	glBindVertexArray(light_model_->vaoid_);
@@ -156,7 +169,7 @@ void LightingSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing cone light for entity: " + std::to_string(it->first) + "\n");
 		}
 
-		DrawConeLight(cone_light_shader, it->second);
+		DrawConeLight(cone_light_shader, it->second, cam_zoom);
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
@@ -183,7 +196,7 @@ GLuint* LightingSystem::GetAdditionTexture() {
 	return &addition_texture;
 }
 
-void LightingSystem::UpdateLightPosition(PointLight* point_light) {
+void LightingSystem::UpdateLightPosition(PointLight* point_light, float cam_zoom, glm::vec2 cam_pos) {
 
 	Transform* transform =
 		component_manager_->GetComponent<Transform>(point_light->GetOwner()->GetID());
@@ -197,11 +210,11 @@ void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 
 	Vector2D obj_pos_ = transform->position_;
 
-	point_light->pos_ = glm::vec2(obj_pos_.x * global_scale, obj_pos_.y * global_scale) * *cam_zoom_ +
-							(*cam_pos_ * *cam_zoom_ + 0.5f * win_size_);\
+	point_light->pos_ = glm::vec2(obj_pos_.x * global_scale, obj_pos_.y * global_scale) * cam_zoom +
+						(cam_pos * cam_zoom + 0.5f * win_size_);
 }
 
-void LightingSystem::UpdateLightPosition(ConeLight* cone_light) {
+void LightingSystem::UpdateLightPosition(ConeLight* cone_light, float cam_zoom, glm::vec2 cam_pos) {
 
 	Transform* transform =
 		component_manager_->GetComponent<Transform>(cone_light->GetOwner()->GetID());
@@ -215,21 +228,21 @@ void LightingSystem::UpdateLightPosition(ConeLight* cone_light) {
 
 	Vector2D obj_pos_ = transform->position_;
 
-	cone_light->pos_ = glm::vec2(obj_pos_.x * global_scale, obj_pos_.y * global_scale) * *cam_zoom_ +
-		(*cam_pos_ * *cam_zoom_ + 0.5f * win_size_);
+	cone_light->pos_ = glm::vec2(obj_pos_.x * global_scale, obj_pos_.y * global_scale) * cam_zoom +
+					   (cam_pos * cam_zoom + 0.5f * win_size_);
 }
 
-void LightingSystem::DrawPointLight(Shader* shader, PointLight* point_light) {
+void LightingSystem::DrawPointLight(Shader* shader, PointLight* point_light, float cam_zoom) {
 
 	shader->SetUniform("light_color", point_light->color_);
 	shader->SetUniform("light_center", point_light->pos_);
 	shader->SetUniform("intensity", point_light->intensity_);
-	shader->SetUniform("radius", point_light->radius_ * camera_system_->cam_zoom_);
+	shader->SetUniform("radius", point_light->radius_ * cam_zoom);
 
 	glDrawElements(GL_TRIANGLE_STRIP, light_model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 }
 
-void LightingSystem::DrawConeLight(Shader* shader, ConeLight* cone_light) {
+void LightingSystem::DrawConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom) {
 
 	Motion* motion =
 		component_manager_->GetComponent<Motion>(cone_light->GetOwner()->GetID());
@@ -253,7 +266,7 @@ void LightingSystem::DrawConeLight(Shader* shader, ConeLight* cone_light) {
 	shader->SetUniform("light_color", cone_light->color_);
 	shader->SetUniform("light_center", cone_light->pos_);
 	shader->SetUniform("intensity", cone_light->intensity_);
-	shader->SetUniform("radius", cone_light->radius_ * camera_system_->cam_zoom_);
+	shader->SetUniform("radius", cone_light->radius_ * cam_zoom);
 	shader->SetUniform("direction", cone_light->direction_);
 	shader->SetUniform("angle", static_cast<float>(cone_light->angle_ / 180 * M_PI));
 

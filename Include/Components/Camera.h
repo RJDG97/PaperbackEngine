@@ -88,6 +88,12 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	glm::vec2* GetCameraPosition();
+
+	float* GetCameraZoom();
+
+	glm::mat3* GetCameraWorldToNDCTransform();
 };
 
 #endif

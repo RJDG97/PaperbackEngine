@@ -138,6 +138,11 @@ void GraphicsSystem::Update(float frametime) {
     
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Update Debug Log:\n"); }
 
+    if (camera_system_->GetMainCamera() == nullptr)
+    {
+        return;
+    }
+
     for (AnimRendererIt it = anim_renderer_arr_->begin(); it != anim_renderer_arr_->end(); ++it) {
 
         if (debug_) {
@@ -163,16 +168,21 @@ Clears the buffer and then draws a rectangular model in the viewport.
 */
 void GraphicsSystem::Draw() {
 
-    if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
+    if (camera_system_->GetMainCamera() == nullptr)
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        return;
+    }
 
-    glm::vec2 cam_pos_ = camera_system_->cam_pos_;
-    glm::mat3 world_to_ndc_xform = camera_system_->world_to_ndc_xform_;
+    if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_);
     glClear(GL_COLOR_BUFFER_BIT);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    glm::mat3 world_to_ndc_xform = *camera_system_->GetMainCamera()->GetCameraWorldToNDCTransform();
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     graphic_shaders_["ObjectShader"]->Use();
     glBindVertexArray(graphic_models_["BatchModel"]->vaoid_);
     GLuint vbo_hdl = graphic_models_["BatchModel"]->vboid_;
@@ -229,7 +239,6 @@ void GraphicsSystem::Draw() {
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
 
-    //glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(lighting_texture_, 1.0f);
     glBlendFunc(GL_ONE, GL_ONE);
@@ -676,9 +685,12 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
 
     else {
 
-        glm::vec2 translation{ camera_system_->cam_pos_ * camera_system_->cam_zoom_ + 0.5f * win_size_ };
+        float cam_zoom = *camera_system_->GetMainCamera()->GetCameraZoom();
+        glm::vec2 cam_pos = *camera_system_->GetMainCamera()->GetCameraPosition();
+
+        glm::vec2 translation{ cam_pos * cam_zoom + 0.5f * win_size_ };
         pos = obj_pos_ + Vector2D{ translation.x, translation.y };
-        scale = text_renderer->scale_ * camera_system_->cam_zoom_;
+        scale = text_renderer->scale_ * cam_zoom;
     }
 
     std::string::const_iterator c;
@@ -723,8 +735,10 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_ren
     Transform* xform = component_manager_->GetComponent<Transform>(i_renderer->GetOwner()->GetID());
     Scale* scale = component_manager_->GetComponent<Scale>(i_renderer->GetOwner()->GetID());
 
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_ + 0.5f * Vector2D{ win_size_.x, win_size_.y };
-    Vector2D obj_scale = scale->scale_ * camera_system_->cam_zoom_;
+    float cam_zoom = *camera_system_->GetMainCamera()->GetCameraZoom();
+
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * cam_zoom + 0.5f * Vector2D{ win_size_.x, win_size_.y };
+    Vector2D obj_scale = scale->scale_ * cam_zoom;
 
     std::vector<glm::vec2> vertices;
     vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
@@ -970,7 +984,7 @@ void GraphicsSystem::DrawDebugLine(std::vector<glm::vec2> points, glm::vec4 colo
     glLineWidth(2.5f);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    shader->SetUniform("world_to_ndc_xform", camera_system_->world_to_ndc_xform_);
+    shader->SetUniform("world_to_ndc_xform", *camera_system_->GetMainCamera()->GetCameraWorldToNDCTransform());
     shader->SetUniform("color", color);
     
     glNamedBufferSubData(model->GetVBOHandle(), 0, sizeof(glm::vec2) * points.size(), points.data());

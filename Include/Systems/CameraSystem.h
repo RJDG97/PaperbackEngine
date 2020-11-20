@@ -18,18 +18,9 @@ class CameraSystem : public ISystem {
 	CameraType* camera_arr_;
 
 	WindowsSystem* windows_system_;
-
-	//Temporary, will make use of camera components next time
-	Transform* target_;
-	bool targeted_;
+	ComponentManager* component_manager_;
 
 public:
-
-	//Temporary, will make use of camera components next time
-	glm::vec2 cam_pos_;
-	glm::vec2 cam_size_;
-	glm::mat3 world_to_ndc_xform_;
-	float cam_zoom_;
 
 /******************************************************************************/
 /*!
@@ -111,7 +102,7 @@ public:
 	\brief Updates camera
 */
 /******************************************************************************/
-	void CameraUpdate(/*Camera* camera*/);
+	void CameraUpdate(Camera* camera);
 
 /******************************************************************************/
 /*!
@@ -120,7 +111,7 @@ public:
 	\brief Sets zoom data member of camera
 */
 /******************************************************************************/
-	void CameraZoom(/*Camera* camera,*/ float zoom);
+	void CameraZoom(Camera* camera, float zoom);
 
 /******************************************************************************/
 /*!
@@ -129,7 +120,7 @@ public:
 	\brief Moves the camera
 */
 /******************************************************************************/
-	void CameraMove(/*Camera* camera,*/ Vector2D displacement);
+	void CameraMove(Camera* camera, Vector2D displacement);
 
 /******************************************************************************/
 /*!
@@ -138,35 +129,44 @@ public:
 	\brief Sets postion of the camera
 */
 /******************************************************************************/
-	void CameraSetPosition(/*Camera* camera,*/ Vector2D postion);
+	void CameraSetPosition(Camera* camera, Vector2D postion);
 
 /******************************************************************************/
 /*!
-	\fn CameraUnTarget()
+	\fn CameraUnTarget(Camera* camera)
 
 	\brief Sets target of camera to nullptr and un-snaps camera from target
 */
 /******************************************************************************/
-	void CameraUnTarget(/*Camera* camera,*/);
+	void CameraUnTarget(Camera* camera);
 
 /******************************************************************************/
 /*!
-	\fn CameraUnTarget()
+	\fn SetTarget(Camera* camera, Entity* target)
 
 	\brief Sets target of camera to the entity
 */
 /******************************************************************************/
-	void SetTarget(/*Camera* camera,*/ Entity* target);
+	void SetTarget(Camera* camera, Entity* target);
 
 /******************************************************************************/
 /*!
-	\fn ToggleTargeted()
+	\fn ToggleTargeted(Camera* camera)
 
 	\brief Toggles whether camera follow target or moves independantly from
 		   the entity
 */
 /******************************************************************************/
-	void ToggleTargeted(/*Camera* camera*/);
+	void ToggleTargeted(Camera* camera);
+
+/******************************************************************************/
+/*!
+	\fn GetMainCamera()
+
+	\brief Gets the main camera
+*/
+/******************************************************************************/
+	Camera* GetMainCamera();
 };
 
 #endif

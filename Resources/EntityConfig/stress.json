@@ -1,4 +1,6 @@
 {
+  "Camera": "Resources/EntityConfig/Stress/camera.json",
+
   "Floor": "Resources/EntityConfig/Stress/floor.json",
   
   "Player": "Resources/EntityConfig/Stress/player.json",
