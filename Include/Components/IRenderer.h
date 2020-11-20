@@ -15,7 +15,7 @@ protected:
 	bool y_mirror_ = false;
 
 	std::string texture_name_;
-	GLuint* texture_handle_;
+	GLuint texture_handle_;
 	std::vector<glm::vec2> tex_vtx_;
 	
 	int layer_;

@@ -45,7 +45,7 @@ public:
 	\brief Gets the handle of the tileset texture
 */
 /******************************************************************************/
-	GLuint* GetTilesetHandle();
+	GLuint GetTilesetHandle();
 
 /******************************************************************************/
 /*!

@@ -9,9 +9,9 @@ Texture::Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx) :
 
 }
 
-GLuint* Texture::GetTilesetHandle() {
+GLuint Texture::GetTilesetHandle() {
 
-    return &tileset_handle_;
+    return tileset_handle_;
 }
 
 std::vector<glm::vec2>* Texture::GetTexVtx() {

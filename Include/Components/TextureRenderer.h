@@ -11,7 +11,7 @@
 
 class TextureRenderer : public IRenderer {
 
-	Texture texture_;
+	Texture* texture_;
 
 public:
 

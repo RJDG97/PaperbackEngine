@@ -33,7 +33,7 @@ void LightingSystem::Init() {
 
 	TextureManager* texture_manager_ = &*CORE->GetManager<TextureManager>();
 	texture_manager_->LoadMiscTextures();
-	darkness_texture = *texture_manager_->GetTexture("DarknessTexture")->GetTilesetHandle();
+	darkness_texture = texture_manager_->GetTexture("DarknessTexture")->GetTilesetHandle();
 
 	ShaderManager* shader_manager = &*CORE->GetManager<ShaderManager>();
 	lighting_shaders_["PointLightShader"] = shader_manager->AddShdrpgm("Shaders/point_light.vert",
