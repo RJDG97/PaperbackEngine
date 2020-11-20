@@ -289,12 +289,14 @@
     <ClInclude Include="Include\MathLib\MathHelper.h" />
     <ClInclude Include="Include\MathLib\Matrix3x3.h" />
     <ClInclude Include="Include\MathLib\Vector2D.h" />
+    <ClInclude Include="Include\Script\Stag_Script.h" />
     <ClInclude Include="Include\Script\GeneralScripts.h" />
     <ClInclude Include="Include\Script\HornetScript.h" />
     <ClInclude Include="Include\Script\MiteScript.h" />
+    <ClInclude Include="Include\Script\Mite_Script.h" />
     <ClInclude Include="Include\Script\ScriptList.h" />
     <ClInclude Include="Include\Script\StagScript.h" />
-    <ClInclude Include="Include\Script\Child_Script.h" />
+    <ClInclude Include="Include\Script\Player_Script.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\Collision.h" />
     <ClInclude Include="Include\Systems\Debug.h" />

@@ -14,7 +14,9 @@
     {
       "component": "Transform",
       "position": "-0.70 -10.3",
-      "rotation": "0.0" 
+      "rotation": "0.0",
+      "offset": "0.0 0.0",
+      "aabb offset": "0.0 -1.0"
     }
   ],
   "StagBeetle": [
@@ -30,7 +32,9 @@
     {
       "component": "Transform",
       "position": "10.5 1.0",
-      "rotation": "0.0" 
+      "rotation": "0.0",
+      "offset": "0.0 0.0",
+      "aabb offset": "0.0 -1.0"
     }
   ]
 }

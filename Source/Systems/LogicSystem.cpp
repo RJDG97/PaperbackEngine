@@ -10,7 +10,6 @@ void LogicSystem::Init()
 	comp_mgr = &*CORE->GetManager<ComponentManager>();
 
 	ai_arr_ = comp_mgr->GetComponentArray<AI>();
-	parentchild_arr_ = comp_mgr->GetComponentArray<ParentChild>();
 	
 	GeneralScripts::map_ = &*CORE->GetManager<AMap>();
 	GeneralScripts::forces_ = &*CORE->GetManager<ForcesManager>();
@@ -26,20 +25,6 @@ void LogicSystem::Update(float frametime)
 		GeneralScripts::AIHandler(ai);
 
 		// any code relevant for all AI
-	}
-
-	// Update loop for parent child component currently, update "MyUpdate" to include
-	// more functions in the future to handle all game logic updates
-	for (auto& [parent_id, parent] : *parentchild_arr_) {
-
-		for (size_t i = 0; i < parent->children_.size(); ++i) {
-			
-			EntityID child_id = parent->children_[i]->GetID();
-			LogicComponent* logic = comp_mgr->GetComponent<LogicComponent>(child_id);
-
-			if (logic)
-				logic->MyUpdate(child_id, parent_id);
-		}
 	}
 }
 

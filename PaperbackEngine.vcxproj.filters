@@ -652,11 +652,17 @@
     <ClInclude Include="Include\Components\ParentChild.h">
       <Filter>Entity\Components\ParentChild</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Script\Child_Script.h">
-      <Filter>Entity\Components\Logic\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Components\Inventory.h">
       <Filter>Entity\Components\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Player_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Mite_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Stag_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

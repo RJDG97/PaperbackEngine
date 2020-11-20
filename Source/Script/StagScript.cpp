@@ -7,7 +7,7 @@ namespace StagBeetle
 {
 	bool Attack(AIIt obj)
 	{
-		CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Attack");
+		//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Attack");
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(obj->second->GetPlayerLastPos(), GeneralScripts::obj_rigidbody->GetPosition());
 		// If obj is close enough, return true
@@ -35,7 +35,7 @@ namespace StagBeetle
 		switch (obj->second->GetState())
 		{
 		case AI::AIState::Patrol:
-			CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Walk");
+			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Walk");
 			GeneralScripts::Patrol(obj);
 			// Animation (maybe check vector direction to determine which 
 			//			  side enemy is facing)
@@ -43,7 +43,7 @@ namespace StagBeetle
 				obj->second->SetState(AI::AIState::Detected);
 			break;
 		case AI::AIState::Detected:
-			CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Alert");
+			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Alert");
 			obj->second->GetTimer().TimerStart();
 			// Player Detected anim
 			if (obj->second->GetTimer().TimeElapsed(s) > 1.0f)
@@ -58,7 +58,7 @@ namespace StagBeetle
 				obj->second->SetState(AI::AIState::Return);
 			break;
 		case AI::AIState::Return:
-			CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Confused");
+			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Confused");
 			obj->second->GetTimer().TimerStart();
 			// Player Detected anim
 			if (obj->second->GetTimer().TimeElapsed(s) > 1.0f)

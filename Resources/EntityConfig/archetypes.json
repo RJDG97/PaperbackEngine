@@ -130,7 +130,7 @@
     },
     {
       "component": "AABB",
-      "scale": "0.5 1.0",
+      "scale": "0.5 0.5",
       "layer": "3"
     },
     {
@@ -143,7 +143,19 @@
       "intensity": "0.2"
     },
     {
+      "component": "LogicComponent",
+      "entity": "Player",
+      "number_of_fns": "2",
+      "name": "UpdateChildOffset",
+      "function": "UpdateChildOffset",
+      "name": "UpdateTexture",
+      "function": "UpdateTexture"
+    },
+    {
       "component": "Inventory"
+    },
+    {
+      "component": "ParentChild"
     }
   ],
   "Enemy": [
@@ -195,13 +207,20 @@
       "component": "Health",
       "maximum health": "5"
     },
-	{
-	  "component": "PointLight",
-	  "angle": "30.0",
-	  "color": "1.0 1.0 0.0",
+    {
+      "component": "PointLight",
+      "angle": "30.0",
+      "color": "1.0 1.0 0.0",
       "radius": "400.0",
       "intensity": "1.0"
-	}
+    },
+    {
+      "component": "LogicComponent",
+      "entity": "Enemy",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "UpdateTexture"
+    }
   ],
   "Wall": [
     {
@@ -411,6 +430,13 @@
       "color": "1.0 1.0 0.2",
       "radius": "500.0",
       "intensity": "1.0"
+    },
+    {
+      "component": "LogicComponent",
+      "entity": "Enemy",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "UpdateTexture"
     }
   ],
   "Mite": [
@@ -468,17 +494,11 @@
       "component": "Status"
     },
     {
-      "component": "ConeLight",
-      "angle": "40.0",
-      "color": "1.0 1.0 0.2",
-      "radius": "500.0",
-      "intensity": "1.0"
-    },
-    {
-      "component": "PointLight",
-      "color": "0.5 1.0 1.0",
-      "radius": "200.0",
-      "intensity": "0.7"
+      "component": "LogicComponent",
+      "entity": "Mite",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "UpdateTexture"
     }
   ],
   "MenuBG": [
@@ -554,6 +574,12 @@
       "component": "AABB",
       "scale": "0.5 0.5",
       "layer": "5"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock",
+      "layer": "2",
+      "ui": "0"
     }
   ],
   "Clouds": [
@@ -625,10 +651,6 @@
       "texture": "RockThree",
       "layer": "2",
       "ui": "0"
-    },
-    {
-      "component": "LogicComponent",
-      "function": "UpdateChildOffset"
     }
   ],
   "FakeWallTwo": [
@@ -705,12 +727,6 @@
       "texture": "KeyOne",
       "layer": "1",
       "ui": "0"
-    },
-    {
-      "component": "PointLight",
-      "color": "1.0 1.0 0.6",
-      "radius": "50.0",
-      "intensity": "0.2"
     }
   ],
   "Puddle": [
@@ -726,7 +742,7 @@
     },
     {
       "component": "Scale",
-      "scale": "80.0 50.0"
+      "scale": "30.0 30.0"
     },
     {
       "component": "AABB",

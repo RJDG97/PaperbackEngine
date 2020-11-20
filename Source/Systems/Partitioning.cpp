@@ -58,8 +58,8 @@ void PartitioningSystem::Update(float frametime) {
 			continue;
 
 		// Computing the position of the entity
-		pos_x = xform->GetPosition().x + abs_bottom_left_.x;
-		pos_y = xform->GetPosition().y + abs_bottom_left_.y;
+		pos_x = xform->GetOffsetAABBPos().x + abs_bottom_left_.x;
+		pos_y = xform->GetOffsetAABBPos().y + abs_bottom_left_.y;
 
 		Vector2D aabb_scale_ = it->second->GetAABBScale();
 

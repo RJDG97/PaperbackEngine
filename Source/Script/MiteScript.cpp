@@ -36,7 +36,7 @@ namespace Mite
 				CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Idle");
 			else
 			{
-				CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
+				//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
 				GeneralScripts::Patrol(obj);
 			}
 			if (GeneralScripts::DetectPlayer(obj))
@@ -44,7 +44,7 @@ namespace Mite
 			break;
 		case AI::AIState::Detected:
 			// Player Detected anim
-			CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Alert");
+			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Alert");
 			obj->second->GetTimer().TimerStart();
 			if (obj->second->GetTimer().TimeElapsed(s) > 0.5f)
 			{
@@ -54,7 +54,7 @@ namespace Mite
 			}
 			break;
 		case AI::AIState::Chase:
-			CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
+			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
 			if (!GeneralScripts::DetectPlayer(obj)) // Player not in radius
 			{
 				obj->second->SetState(AI::AIState::Patrol);
@@ -65,7 +65,7 @@ namespace Mite
 			}
 			break;
 		case AI::AIState::Attack:
-			CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Explode");
+			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Explode");
 			Attack(obj);
 			break;
 		}

@@ -107,6 +107,12 @@ private:
 	TransformType* transform_arr_;
 	MotionType* motion_arr_;
 	StatusMapType* status_arr_;
+
+	using LogicComponentType = CMap<LogicComponent>;
+	using LogicIt = LogicComponentType::MapTypeIt;
+	LogicComponentType* logic_arr_;
 };
+
+bool VerifyZeroFloat(const float& val);
 
 #endif

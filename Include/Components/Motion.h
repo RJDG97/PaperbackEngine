@@ -84,6 +84,8 @@ public:
 
 	float GetMass();
 	void SetMass(float newMass);
+	bool GetIsLeft();
+	void SetIsLeft(bool status);
 
 	Vector2D GetVelocity();
 };
