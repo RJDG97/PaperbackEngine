@@ -403,7 +403,34 @@ void ImguiSystem::OpenFile() {
 
 void ImguiSystem::SaveFile(){
 
-    factory_->SerializeCurrentLevelEntities();
+    factory_->SerializeCurrentLevelEntities(); // save each entity to their respective path
+
+    rapidjson::StringBuffer sb;
+    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+
+    std::string path = OpenSaveDialog(scene_filter_, 1);
+
+    if (!path.empty()) {
+
+        std::ofstream filestream(path);
+
+        if (filestream.is_open()) {
+
+            writer.StartObject();
+
+            for (Level::EntityPathsIt it = editor_->entity_paths_.begin(); it != editor_->entity_paths_.end(); ++it) {
+
+                writer.Key(it->first.c_str());
+                writer.String(it->second.c_str());
+            }
+
+            writer.EndObject();
+
+            filestream << sb.GetString();
+        }
+
+        filestream.close();
+    }
 }
 
 void ImguiSystem::NewScene() {

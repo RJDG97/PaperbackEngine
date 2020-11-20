@@ -1,0 +1,52 @@
+{
+    "Button": [
+        {
+            "component": "Transform",
+            "position": "0.000000 -5.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Rock",
+            "layer": "2",
+            "ui": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "6",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "Clickable",
+            "index": "0",
+            "active": "1"
+        }
+    ],
+    "Button": [
+        {
+            "component": "Transform",
+            "position": "-3.100000 5.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Rock",
+            "layer": "2",
+            "ui": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "6",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "Clickable",
+            "index": "0",
+            "active": "1"
+        }
+    ]
+}

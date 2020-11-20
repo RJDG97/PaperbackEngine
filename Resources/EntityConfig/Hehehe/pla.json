@@ -1,0 +1,16 @@
+{
+    "Player": [
+        {
+            "component": "Transform",
+            "position": "0.000000 2.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.000000",
+            "layer": "3",
+            "offset": "0.000000 0.000000"
+        }
+    ]
+}
