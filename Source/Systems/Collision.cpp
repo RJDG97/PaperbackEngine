@@ -47,11 +47,11 @@ auto absVec = [](Vector2D vec) {
 };
 
 // Instead of scale* use aabb's custom scale
-Vector2D Normal(const Vector2D& s1, const Vector2D& s2,
+Vector2D Normal(const Collision::AABBIt& s1, const Collision::AABBIt& s2,
 	const Transform* t1, const Transform* t2) {
 
-	Vector2D scale_sum = s1 + s2;
-	Vector2D vec = absVec(t1->GetPosition() - t2->GetPosition());
+	Vector2D scale_sum = s1->second->GetAABBScale() + s2->second->GetAABBScale();
+	Vector2D vec = absVec(t1->GetOffsetAABBPos() - t2->GetOffsetAABBPos());
 
 	Vector2D minkowski;
 	minkowski.x = vec.y * scale_sum.x;
@@ -298,7 +298,7 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 	Transform* transform2 = transform_arr_->GetComponent(aabb2->second->GetOwner()->GetID());
 
 	// Get "normal" to colliding side
-	Vector2D normal = Normal(aabb1->second->scale_, aabb2->second->scale_, transform1, transform2);
+	Vector2D normal = Normal(aabb1, aabb2, transform1, transform2);
 
 	// Isolate relavent vector value based on normal value
 	inverse_vector_1.x *= normal.x;
@@ -536,8 +536,8 @@ void Collision::UpdateBoundingBox() {
 
 			Transform* entity_position = transform_arr_->GetComponent(entity->GetID());
 
-			aabb->second->bottom_left_ = entity_position->position_ - aabb->second->scale_;
-			aabb->second->top_right_ = entity_position->position_ + aabb->second->scale_;
+			aabb->second->bottom_left_ = entity_position->GetOffsetAABBPos() - aabb->second->scale_;
+			aabb->second->top_right_ = entity_position->GetOffsetAABBPos() + aabb->second->scale_;
 		}
 	}
 }

@@ -7,8 +7,7 @@
 AABB::AABB() : 
 	top_right_{},
 	bottom_left_{},
-	scale_{30.0f,30.0f},
-	offset_{}
+	scale_{ 30.0f,30.0f }
 {}
 
 AABB::~AABB() {
@@ -36,9 +35,6 @@ void AABB::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 	writer->Key("layer");
 	writer->String((std::to_string(layer_)).c_str());
 
-	writer->Key("offset");
-	writer->String((std::to_string(offset_.x) + " " + std::to_string(offset_.y)).c_str());
-
 	writer->EndObject();
 }
 
@@ -46,7 +42,7 @@ void AABB::DeSerialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing AABB Component" << std::endl;
 	
-	data >> scale_.x >> scale_.y >> layer_ >> offset_.x >> offset_.y;
+	data >> scale_.x >> scale_.y >> layer_;
 }
 
 void AABB::DeSerializeClone(std::stringstream& data) {
@@ -85,14 +81,4 @@ void AABB::SetAABBScale(Vector2D newscale){
 size_t AABB::GetLayer() const {
 
 	return layer_;
-}
-
-Vector2D AABB::GetOffset() {
-
-	return offset_;
-}
-
-void AABB::SetOffset(Vector2D new_offset) {
-
-	offset_ = new_offset;
 }

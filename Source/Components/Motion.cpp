@@ -72,6 +72,16 @@ void Motion::SetMass(float newMass)
 	mass_ = newMass;
 }
 
+bool Motion::GetIsLeft() {
+
+	return is_left_;
+}
+
+void Motion::SetIsLeft(bool status) {
+
+	is_left_ = status;
+}
+
 Vector2D Motion::GetVelocity() {
 	return velocity_;
 }

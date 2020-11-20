@@ -18,7 +18,9 @@
     {
       "component": "Transform",
       "position": "-8.50 7.3 ",
-      "rotation": "0.0" 
+      "rotation": "0.0",
+      "offset": "0.0 0.0",
+      "aabb offset": "0.0 -1.0"
     }
     ]
 }

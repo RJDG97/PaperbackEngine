@@ -12,7 +12,6 @@ class AABB : public Component {
 	Vector2D scale_;
 	Vector2D top_right_;
     Vector2D bottom_left_;
-	Vector2D offset_;
 	bool collided;
 	size_t layer_;
 public:
@@ -162,23 +161,6 @@ public:
 */
 /******************************************************************************/
 	size_t GetLayer() const;
-/******************************************************************************/
-/*!
-  \fn GetOffset()
-
-  \brief Get the entity AABB offset
-*/
-/******************************************************************************/
-	Vector2D GetOffset();
-	
-/******************************************************************************/
-/*!
-  \fn SetOffset(Vector2D new_offset)
-
-  \brief Set the entity AABB offset
-*/
-/******************************************************************************/
-	void SetOffset(Vector2D new_offset);
 };
 
 #endif

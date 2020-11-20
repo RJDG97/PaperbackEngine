@@ -144,6 +144,8 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 				float inputRot = entitytransform->GetRotation();
 				Vector2D inputPos = { entitytransform->GetPosition() };
+				Vector2D inputOffset{ entitytransform->GetOffset() };
+				Vector2D inputAABBOffset{ entitytransform->GetAABBOffset() };
 
 				if (ImGui::TreeNode("Transform Component")) {
 
@@ -153,9 +155,16 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					ImGui::Separator();
 
 					ImGui::Text("Position");
-
 					Vec2Input(inputPos);
 					entitytransform->SetPosition(inputPos);
+
+					ImGui::Text("Child Offset");
+					Vec2Input(inputOffset, 0.0f, "##Xoffslv", "##Yoffslv");
+					entitytransform->SetOffset(inputOffset);
+
+					ImGui::Text("AABB Offset");
+					Vec2Input(inputAABBOffset, 0.0f, "##X off", "##Y off");
+					entitytransform->SetAABBOffset(inputAABBOffset);
 
 					ImGui::TreePop();
 				}
@@ -237,7 +246,6 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				std::shared_ptr<AABB> entityAABB = std::dynamic_pointer_cast<AABB>(entitycomponent.first->GetComponent(ComponentTypes::AABB));
 
 				Vector2D inputAABB{ entityAABB->GetAABBScale() };
-				Vector2D inputOffset{ entityAABB->GetOffset() };
 
 				if (ImGui::TreeNode("Collider")) {
 
@@ -245,9 +253,6 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 					Vec2Input(inputAABB);
 					entityAABB->SetAABBScale(inputAABB);
-
-					Vec2Input(inputOffset, 0.0f, "##Xoff", "##Yoff");
-					entityAABB->SetOffset(inputOffset);
 
 					if (ImGui::Checkbox("Draw Bounding Box", &b_draw)) {
 

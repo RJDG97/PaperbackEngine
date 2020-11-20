@@ -11,6 +11,7 @@ class Transform : public Component {
 	Vector2D position_;
 	float rotation_;
 	Vector2D offset_;
+	Vector2D aabb_offset_;
 public:
 	friend class Physics;
 	friend class GraphicsSystem;
@@ -136,6 +137,33 @@ public:
 */
 /******************************************************************************/
 	void SetOffset(const Vector2D& offset);
+
+/******************************************************************************/
+/*!
+  \fn GetAABBOffset()
+
+  \brief Get the entity AABB offset
+*/
+/******************************************************************************/
+	Vector2D GetAABBOffset() const;
+
+/******************************************************************************/
+/*!
+  \fn SetAABBOffset(Vector2D new_offset)
+
+  \brief Set the entity AABB offset
+*/
+/******************************************************************************/
+	void SetAABBOffset(const Vector2D& new_offset);
+
+/******************************************************************************/
+/*!
+  \fn GetOffsetAABBPos()
+
+  \brief Returns the entity's position offset by the aabb offset
+*/
+/******************************************************************************/
+	Vector2D GetOffsetAABBPos() const;
 
 /******************************************************************************/
 /*!

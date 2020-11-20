@@ -40,6 +40,8 @@ void Physics::Init() {
 	motion_arr_ = comp_mgr->GetComponentArray<Motion>();
 	status_arr_ = comp_mgr->GetComponentArray<Status>();
 	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
+	//parentchild_arr_ = comp_mgr->GetComponentArray<ParentChild>();
+	logic_arr_ = comp_mgr->GetComponentArray<LogicComponent>();
 	force_mgr = &*CORE->GetManager<ForcesManager>();
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	graphics_sys_ = &*CORE->GetSystem<GraphicsSystem>();
@@ -65,8 +67,27 @@ void Physics::Update(float frametime) {
 		// If velocity is close to 0, reset to 0	
 		SnapZero(motion->second->velocity_);
 
+
+
+
 		// Handles the updating of textures for player and enemy sprites
-		TextureHandler(motion);
+		//TextureHandler(motion);
+
+		// Update textures and offset
+		for (auto& [parent_id, logic] : *logic_arr_) {
+
+			if (logic->my_logic_.find("UpdateTexture") != logic->my_logic_.end()) {
+
+				logic->my_logic_["UpdateTexture"](parent_id);
+			}
+
+			if (logic->my_logic_.find("UpdateChildOffset") != logic->my_logic_.end()) {
+
+				logic->my_logic_["UpdateChildOffset"](parent_id);
+			}
+		}
+
+
 
 		// Check whether the entity owns a transform component by checking entity ID
 		//TransformIt xform = transform_arr_.find(motion->first);

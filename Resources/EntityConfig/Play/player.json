@@ -3,7 +3,9 @@
     {
       "component": "Transform",
       "position": "-12.0 -13.0 ",
-      "rotation": "0.0"
+      "rotation": "0.0",
+      "offset": "0.0 0.0",
+      "aabb offset": "0.0 -1.0"
     },
     {
       "component": "PointLight",
@@ -12,9 +14,9 @@
       "intensity": "0.8"
     },
     {
-      "component": "AABB",
-      "scale": "0.5 0.5",
-      "layer": "3"
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "FakeWall"
     }
   ]
 }
