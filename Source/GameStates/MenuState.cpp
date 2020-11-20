@@ -48,8 +48,10 @@ void MenuState::Init(std::string)
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 
 	//Temporary
-	CORE->GetSystem<CameraSystem>()->CameraSetPosition({ 0, 0 });
-	CORE->GetSystem<CameraSystem>()->CameraUnTarget();
+	std::shared_ptr<CameraSystem> camera_system = CORE->GetSystem<CameraSystem>();
+	Camera* camera = camera_system->GetMainCamera();
+
+	CORE->GetSystem<CameraSystem>()->CameraSetPosition(camera, { 0, 0 });
 }
 
 void MenuState::Free()

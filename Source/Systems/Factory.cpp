@@ -14,6 +14,7 @@
 #include "Components/Status.h"
 #include "Components/Health.h"
 #include "Components/PointLight.h"
+#include "Components/ConeLight.h"
 #include "Components/AABB.h"
 #include "Components/Transform.h"
 #include "Components/Motion.h"
@@ -21,6 +22,7 @@
 #include "Components/TextureRenderer.h"
 #include "Components/AnimationRenderer.h"
 #include "Components/TextRenderer.h"
+#include "Components/Camera.h"
 #include "Components/Name.h"
 #include "Components/Clickable.h"
 #include "Components/InputController.h"
@@ -121,6 +123,7 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
 	comp_mgr_->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 	comp_mgr_->AddComponentCreator("TextRenderer", new ComponentCreator<TextRenderer>(ComponentTypes::TEXTRENDERER));
+	comp_mgr_->AddComponentCreator("Camera", new ComponentCreator<Camera>(ComponentTypes::CAMERA));
 	comp_mgr_->AddComponentCreator("Clickable", new ComponentCreator<Clickable>(ComponentTypes::CLICKABLE));
 	comp_mgr_->AddComponentCreator("InputController", new ComponentCreator<InputController>(ComponentTypes::INPUTCONTROLLER));
 	comp_mgr_->AddComponentCreator("AI", new ComponentCreator<AI>(ComponentTypes::AI));

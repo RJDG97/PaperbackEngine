@@ -24,6 +24,7 @@
 #include "Components/TextureRenderer.h"
 #include "Components/AnimationRenderer.h"
 #include "Components/TextRenderer.h"
+#include "Components/Camera.h"
 #include "Components/Clickable.h"
 #include "Components/InputController.h"
 #include "Components/AI.h"
@@ -55,6 +56,15 @@ public:
 */
 /******************************************************************************/
 	MapTypeIt end();
+
+/******************************************************************************/
+/*!
+	\fn size()
+
+	\brief Returns size of the Type component map
+*/
+/******************************************************************************/
+	size_t size();
 
 /******************************************************************************/
 /*!
@@ -224,7 +234,7 @@ private:
 
 // When creating a new component, add it to this "List"
 using ComponentManager = CManager<
-	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight,
+	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight, Camera,
 	TextRenderer, InputController, TextureRenderer, AnimationRenderer, ParentChild, LogicComponent, Inventory
 >;
 
@@ -241,6 +251,12 @@ template <typename T>
 typename CMap<T>::MapTypeIt CMap<T>::end() {
 
 	return component_map_.end();
+}
+
+template <typename T>
+size_t CMap<T>::size() {
+
+	return component_map_.size();
 }
 
 template <typename T>

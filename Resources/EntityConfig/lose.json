@@ -1,4 +1,6 @@
 {
+  "Camera": "Resources/EntityConfig/Lose/camera.json",
+
   "MenuBG": "Resources/EntityConfig/Lose/background.json",
 
   "Button": "Resources/EntityConfig/Lose/button.json"

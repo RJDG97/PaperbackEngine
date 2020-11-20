@@ -5,7 +5,6 @@
 #include "Systems/Game.h"
 #include "Systems/Debug.h"
 #include "Systems/InputSystem.h"
-#include "GameStates/WinLoseState.h"
 #include "Manager/ForcesManager.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
@@ -184,7 +183,7 @@ bool VerifyCursorCollision(const Vector2D& bottom_left, const Vector2D& top_righ
 
 bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button) {
 
-	Vec2 cursor_pos_scaled = (1 / *cam_zoom_) * cursor_pos;
+	Vec2 cursor_pos_scaled = (1 / *camera_->GetMainCamera()->GetCameraZoom()) * cursor_pos;
 
 	//convert button AABB to global
 	Vec2 bottom_left = CORE->GetGlobalScale() * button->bottom_left_;
@@ -196,7 +195,7 @@ bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* bu
 
 bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const AABB* box) {
 
-	Vec2 cursor_pos_scaled = (1 / *cam_zoom_) * cursor_pos;
+	Vec2 cursor_pos_scaled = (1 / *camera_->GetMainCamera()->GetCameraZoom()) * cursor_pos;
 	
 	//convert button AABB to global
 	Vec2 bottom_left = CORE->GetGlobalScale() * box->bottom_left_;
@@ -362,7 +361,8 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 
 void Collision::GoalResponse() {
 
-	CORE->GetSystem<Game>()->ChangeState(&m_WinLoseState, "Win");
+	Message msg{ MessageIDTypes::GSM_WIN };
+	CORE->BroadcastMessage(&msg);
 }
 
 bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
@@ -615,6 +615,7 @@ void Collision::Init() {
 
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
+	camera_ = &*CORE->GetSystem<CameraSystem>();
 	windows_ = &*CORE->GetSystem<WindowsSystem>();
 	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
@@ -624,8 +625,6 @@ void Collision::Init() {
 	status_arr_ = component_mgr_->GetComponentArray<Status>();
 	transform_arr_ = component_mgr_->GetComponentArray<Transform>();
 	input_controller_arr_ = component_mgr_->GetComponentArray<InputController>();
-
-	cam_zoom_ = &(CORE->GetSystem<CameraSystem>()->cam_zoom_);
 
 	// Defining collision map layering
 	/*

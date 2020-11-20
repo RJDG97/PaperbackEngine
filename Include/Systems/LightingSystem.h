@@ -25,9 +25,6 @@ class LightingSystem : public ISystem {
 	GLuint addition_texture;
 	GLuint darkness_texture;
 
-	glm::vec2* cam_pos_;
-	float* cam_zoom_;
-
 	WindowsSystem* windows_system_;
 	CameraSystem* camera_system_;
 	GraphicsSystem* graphics_system_;
@@ -122,30 +119,30 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn UpdateLightPosition(PointLight* point_light)
+	\fn UpdateLightPosition(PointLight* point_light, float cam_zoom, glm::vec2 cam_pos)
 
 	\brief Updates the light position of a Light component from the Lighting Component's map
 */
 /******************************************************************************/
-	void UpdateLightPosition(PointLight* point_light);
+	void UpdateLightPosition(PointLight* point_light, float cam_zoom, glm::vec2 cam_pos);
 
 /******************************************************************************/
 /*!
-	\fn UpdateLightPosition(ConeLight* cone_light)
+	\fn UpdateLightPosition(ConeLight* cone_light, float cam_zoom, glm::vec2 cam_pos)
 
 	\brief Updates the light position of a Light component from the Lighting Component's map
 */
 /******************************************************************************/
-	void UpdateLightPosition(ConeLight* cone_light);
+	void UpdateLightPosition(ConeLight* cone_light, float cam_zoom, glm::vec2 cam_pos);
 
 /******************************************************************************/
 /*!
-	\fn DrawPointLight(Shader* shader, PointLight* point_light)
+	\fn DrawPointLight(Shader* shader, PointLight* point_light, float cam_zoom)
 
 	\brief Draws the Point Light component
 */
 /******************************************************************************/
-	void DrawPointLight(Shader* shader, PointLight* point_light);
+	void DrawPointLight(Shader* shader, PointLight* point_light, float cam_zoom);
 
 /******************************************************************************/
 /*!
@@ -154,7 +151,7 @@ public:
 	\brief Draws the Cone Light component
 */
 /******************************************************************************/
-	void DrawConeLight(Shader* shader, ConeLight* cone_light);
+	void DrawConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom);
 
 /******************************************************************************/
 /*!

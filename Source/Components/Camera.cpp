@@ -8,19 +8,21 @@ Camera::Camera()
 
 Camera::~Camera() {
 
-    CORE->GetSystem<CameraSystem>()->RemoveCameraComponent(Component::GetOwner()->GetID());
+    CORE->GetManager<ComponentManager>()->RemoveComponent<Camera>(Component::GetOwner()->GetID());
 }
 
 void Camera::Init()
 {
-    CORE->GetSystem<CameraSystem>()->AddCameraComponent(Component::GetOwner()->GetID(), this);
+    targeted_ = false;
+
+    CORE->GetManager<ComponentManager>()->AddComponent<Camera>(Component::GetOwner()->GetID(), this);
 
     glm::mat3 view_xform_ = { 1 , 0 , 0,
                               0 , 1 , 0,
                               cam_pos_.x , cam_pos_.y , 1 };
 
-    glm::mat3 camwin_to_ndc_xform_ { 2 / cam_size_.x , 0 , 0,
-                                     0 , 2 / cam_size_.y , 0,
+    glm::mat3 camwin_to_ndc_xform_ { 2 / (cam_size_.x / cam_zoom_) , 0 , 0,
+                                     0 , 2 / (cam_size_.y / cam_zoom_) , 0,
                                      0 , 0 , 1 };
 
     world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
@@ -49,13 +51,16 @@ void Camera::DeSerialize(std::stringstream& data)
 {
     data >> cam_pos_.x >> cam_pos_.y
          >> cam_size_.x >> cam_size_.y
-         >> cam_zoom_;
+         >> cam_zoom_
+         >> targeted_;
 
 }
 
 void Camera::DeSerializeClone(std::stringstream& data)
 {
     DeSerialize(data);
+
+    cam_size_ /= cam_zoom_;
 
     glm::mat3 view_xform_ = { 1 , 0 , 0,
                               0 , 1 , 0,
@@ -91,7 +96,17 @@ std::shared_ptr<Component> Camera::Clone()
     return cloned;
 }
 
-glm::vec2 Camera::GetCamPos()
+glm::vec2* Camera::GetCameraPosition()
 {
-    return cam_pos_;
+    return &cam_pos_;
+}
+
+float* Camera::GetCameraZoom()
+{
+    return &cam_zoom_;
+}
+
+glm::mat3* Camera::GetCameraWorldToNDCTransform()
+{
+    return &world_to_ndc_xform_;
 }

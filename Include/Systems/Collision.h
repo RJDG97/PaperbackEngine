@@ -17,6 +17,7 @@
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
 #include "Systems/WindowsSystem.h"
+#include "Systems/CameraSystem.h"
 #include <unordered_map>
 #include <bitset>
 #include <string>
@@ -76,7 +77,6 @@ private:
 
 	//For debug drawing
 	bool debug_;
-	float* cam_zoom_;
 
 	// Component arrays
 	AABBType aabb_arr_;
@@ -94,6 +94,7 @@ private:
 	// System pointers
 	GraphicsSystem* graphics_;
 	WindowsSystem* windows_;
+	CameraSystem* camera_;
 	PartitioningSystem* partitioning_;
 	EntityManager* entity_mgr_;
 	ComponentManager* component_mgr_;
