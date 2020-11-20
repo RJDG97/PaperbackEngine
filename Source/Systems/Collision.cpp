@@ -5,7 +5,6 @@
 #include "Systems/Game.h"
 #include "Systems/Debug.h"
 #include "Systems/InputSystem.h"
-#include "GameStates/WinLoseState.h"
 #include "Manager/ForcesManager.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
@@ -362,7 +361,8 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 
 void Collision::GoalResponse() {
 
-	CORE->GetSystem<Game>()->ChangeState(&m_WinLoseState, "Win");
+	Message msg{ MessageIDTypes::GSM_WIN };
+	CORE->BroadcastMessage(&msg);
 }
 
 bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {

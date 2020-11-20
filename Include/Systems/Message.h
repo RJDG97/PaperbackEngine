@@ -37,7 +37,7 @@ enum class MessageIDTypes
 	GSM_CHANGESTATE,
 	GSM_PUSHSTATE,
 	GSM_POPSTATE,
-	GSM_PAUSESTATE, // TBC
+	GSM_WIN, // TBC
 
 	// Message to Game System
 	M_MOVEMENT,

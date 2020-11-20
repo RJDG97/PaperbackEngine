@@ -71,12 +71,17 @@ void PlayState::Free()
 
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
+
+	win_ = false;
 }
 
 void PlayState::Update(Game* game, float frametime)
 {
 	if (!entity_mgr_)
 		entity_mgr_ = &*CORE->GetManager<EntityManager>();
+
+	if (win_)
+		game->ChangeState(&m_WinLoseState, "Win");
 
 	entity_mgr_->GetEntities();
 
@@ -322,7 +327,10 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 	}
 	else {
 
-		if (msg->message_id_ == MessageIDTypes::C_MOVEMENT) {
+		switch (msg->message_id_)
+		{
+		case MessageIDTypes::C_MOVEMENT:
+		{
 
 			Message_PlayerInput* m = dynamic_cast<Message_PlayerInput*>(msg);
 			assert(m != nullptr && "Message is not a player input message");
@@ -356,6 +364,14 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 			MessagePhysics_Motion m2{ MessageIDTypes::CAM_UPDATE_POS, new_vel };
 			CORE->BroadcastMessage(&m2);
+			break;
+		}
+		case MessageIDTypes::GSM_WIN:
+		{
+
+			win_ = true;
+			break;
+		}
 		}
 	}
 }
