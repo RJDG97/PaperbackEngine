@@ -77,7 +77,6 @@ void ImguiSystem::Init(){
     dock_space_flags_ = ImGuiDockNodeFlags_PassthruCentralNode;
     window_flags_ = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
-    b_windows = true;
     b_lock_entity = false;
     b_imguimode = false;
 
@@ -97,9 +96,10 @@ void ImguiSystem::Init(){
     "(*.json) Paperback Engine Scene\0*.json\0"
     "(*.*) All Files\0* *.*\0";
 
-    texture_filter_ =    
+    asset_filter_ =    
     "(*.jpg) JPG\0* .jpg\0"
     "(*.png) Spritesheets/Textures\0* .png\0"
+    "(*.mp3) Audio Files\0* .mp3"
     "(*.*) All Files\0* *.*\0";
 
     //std::vector<File::fs::directory_entry> tempList;
@@ -157,10 +157,9 @@ void ImguiSystem::Update(float frametime) {
         	
             ImGuiCustomStyle();
 
-            if (b_windows) {
-                for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
-                    begin->second->Update();
-            }
+            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
+                begin->second->Update();
+
             ImGui::End(); // end of docking space
         }
         ImguiRender();
@@ -472,11 +471,11 @@ void ImguiSystem::SendMessageD(Message* m) {
     switch (m->message_id_) {
     case MessageIDTypes::M_MOUSE_PRESS:
     {
-        //if (!b_lock_entity) {
-        //    selected_entity_ = collision_->SelectEntity();
-        //    new_entity_ = entities_->GetEntity(selected_entity_);
-        //    b_lock_entity = true;
-        //}
+        if (!b_lock_entity) {
+            selected_entity_ = collision_->SelectEntity();
+            new_entity_ = entities_->GetEntity(selected_entity_);
+            b_lock_entity = true;
+        }
         break;
     }
     default:

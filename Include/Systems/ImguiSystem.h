@@ -255,6 +255,7 @@ public:
 /******************************************************************************/
 	void DeletePopUp(const char* windowName, std::string objName, Entity* entity = nullptr, std::shared_ptr<Component> component = nullptr);
 
+
 /******************************************************************************/
 /*!
 	\fn ImguiHelp(const char* description)
@@ -396,7 +397,8 @@ private:
 	std::string selected_file_;
 
 	const char* scene_filter_;
-	const char* texture_filter_; //might remove
+	const char* asset_filter_;
+	const char* filter_;
 
 	// bools for the docking space
 	bool b_dock_space_open;
@@ -404,7 +406,6 @@ private:
 	bool b_fullscreen;
 
 	bool b_imguimode;
-	bool b_windows;
 	bool b_lock_entity;
 
 	bool b_showpop;

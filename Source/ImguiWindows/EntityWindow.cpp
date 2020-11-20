@@ -13,6 +13,9 @@ void EntityWindow::Init(){
 	texture_ = &*CORE->GetManager<TextureManager>();
 	animation_ = &*CORE->GetManager<AnimationManager>();
 	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
+	component_ = &*CORE->GetManager<ComponentManager>();
+	win_ = &*CORE->GetSystem<WindowsSystem>();
+	input_ = &*CORE->GetSystem<InputSystem>();
 }
 
 void EntityWindow::Update() {
@@ -42,7 +45,21 @@ void EntityWindow::Update() {
 		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
+			Transform* entityTransform = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
+			//Camera* entityCamera = component_->GetComponent<Camera>(imgui_->GetEntity()->GetID());
 
+			//if (entityCamera && entityTransform) {
+			//	double xpos = 0, ypos = 0;
+			//	Vector2D entityOGpos = entityTransform->GetPosition();
+			//	Vector2D cameraPos = { entityCamera->GetCamPos().x, entityCamera->GetCamPos().y };
+			//	glfwGetCursorPos(win_->ptr_window, &xpos, &ypos);
+			//	Vector2D entitypos = (entityOGpos - Vector2D{ (float)xpos, (float)ypos }) + cameraPos + Vector2D{ (float)xpos, (float)ypos };
+			//	entityTransform->SetPosition(entitypos);
+
+			//}
+
+
+			//std::cout << input_->GetCursorPosition().x << " hehehe "  << input_->GetCursorPosition().y << std::endl;
 			CheckComponentType(entity);
 		}
 

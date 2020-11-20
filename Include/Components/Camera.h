@@ -88,6 +88,8 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	glm::vec2 GetCamPos();
 };
 
 #endif

@@ -39,6 +39,7 @@ private:
 	fs::path path_selection_;
 	
 	std::string selected_file_;
+	bool b_create, b_makefolder;
 
 };
 #endif

@@ -90,3 +90,8 @@ std::shared_ptr<Component> Camera::Clone()
 
     return cloned;
 }
+
+glm::vec2 Camera::GetCamPos()
+{
+    return cam_pos_;
+}
