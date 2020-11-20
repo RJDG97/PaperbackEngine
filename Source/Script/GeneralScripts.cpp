@@ -73,6 +73,9 @@ namespace GeneralScripts
 
 	void AIHandler(AIIt obj)
 	{
+		if (!(CORE->GetManager<EntityManager>()->GetPlayerEntities().size() >= 1))
+			return;
+
 		// Update player id
 		player_id = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
 		// Update player rigid body
@@ -127,6 +130,9 @@ namespace GeneralScripts
 
 		}
 
+		if (obj->second->GetPath().size() < 1)
+			return;
+
 	// Calculate distance between ai and destination
 		float distance = Vector2DLength(obj->second->GetPath().back() - obj_rigidbody->GetPosition());
 
@@ -152,6 +158,9 @@ namespace GeneralScripts
 					*obj->second->GetCurrentDes());
 			}
 		}
+
+		if (obj->second->GetPath().size() < 1)
+			return;
 
 		//get directional unit vector
 		Vector2D directional = obj->second->GetPath().back() - obj_rigidbody->GetPosition();

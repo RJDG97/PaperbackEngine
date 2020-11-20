@@ -15,6 +15,7 @@ private:
 
 public:
 	friend class LogicSystem;
+	friend class Physics; //temp
 
 /******************************************************************************/
 /*!
@@ -70,6 +71,15 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+/******************************************************************************/
+/*!
+  \fn GetChildren()
+
+  \brief Return a reference to a vector of children
+*/
+/******************************************************************************/
+	std::vector<Entity*>& GetChildren();
 
 	~ParentChild();
 };
