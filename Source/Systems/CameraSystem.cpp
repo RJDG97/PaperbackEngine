@@ -118,6 +118,13 @@ void CameraSystem::CameraUpdate(Camera* camera)
         camera->cam_pos_ = glm::vec2{ target.x, target.y } * global_scale;
     }
 
+    else
+    {
+        const float global_scale = CORE->GetGlobalScale();
+        Vector2D position = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->GetPosition() * -1 * global_scale;
+        camera->cam_pos_ = glm::vec2{ position.x, position.y };
+    }
+
     glm::mat3 view_xform_ { 1 , 0 , 0,
                             0 , 1 , 0,
                             camera->cam_pos_.x , camera->cam_pos_.y , 1 };
