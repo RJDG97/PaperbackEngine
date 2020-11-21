@@ -91,6 +91,8 @@ public:
 
 	glm::vec2* GetCameraPosition();
 
+	Vector2D GetVector2DCameraPosition();
+
 	float* GetCameraZoom();
 
 	glm::mat3* GetCameraWorldToNDCTransform();
