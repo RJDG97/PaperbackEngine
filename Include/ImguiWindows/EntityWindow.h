@@ -6,6 +6,8 @@
 #include "ImguiWindows/IWindow.h"
 #include "Systems/ImguiSystem.h"
 #include "Systems/GraphicsSystem.h"
+#include "Systems/WindowsSystem.h"
+#include "Systems/InputSystem.h"
 
 #include "Components/Transform.h"
 #include "Components/Scale.h"
@@ -16,6 +18,7 @@
 #include "Manager/EntityManager.h"
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
+#include "Manager/ComponentManager.h"
 #include "Engine/Core.h"
 
 class EntityWindow : public IWindow{
@@ -131,6 +134,9 @@ private:
 	TextureManager* texture_;
 	GraphicsSystem* graphics_;
 	AnimationManager* animation_;
+	ComponentManager* component_;
+	WindowsSystem* win_;
+	InputSystem* input_;
 	EntityManager::EntityIdMapTypeIt entityIT;
 
 	const char* AIstates_[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };

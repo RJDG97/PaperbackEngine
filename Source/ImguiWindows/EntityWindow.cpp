@@ -13,6 +13,9 @@ void EntityWindow::Init(){
 	texture_ = &*CORE->GetManager<TextureManager>();
 	animation_ = &*CORE->GetManager<AnimationManager>();
 	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
+	component_ = &*CORE->GetManager<ComponentManager>();
+	win_ = &*CORE->GetSystem<WindowsSystem>();
+	input_ = &*CORE->GetSystem<InputSystem>();
 }
 
 void EntityWindow::Update() {
@@ -42,7 +45,20 @@ void EntityWindow::Update() {
 		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
+			//Transform* entityTransform = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
+			//Camera* entityCamera = component_->GetComponent<Camera>(imgui_->GetEntity()->GetID());
 
+			//if (entityCamera && entityTransform) {
+			//	Vector2D entityOGpos = entityTransform->GetPosition();
+			//	Vector2D cameraPos = { entityCamera->GetCameraPosition()->x, entityCamera->GetCameraPosition()->y };
+			//	Vector2D cursorPos = input_->GetCursorPosition();
+			//	Vector2D entitypos = (entityOGpos - cursorPos) + cameraPos + cursorPos;
+			//	entityTransform->SetPosition(entitypos);
+
+			//}
+
+
+			//std::cout << input_->GetCursorPosition().x << " hehehe "  << input_->GetCursorPosition().y << std::endl;
 			CheckComponentType(entity);
 		}
 
@@ -88,7 +104,7 @@ void EntityWindow::ShowEntityList() {
 
 				if (ImGui::Button("Delete Entity...")) {
 					imgui_->SetEntity(entityIT->second);
-					ImGui::OpenPopup("Delete Entity");
+					ImGui::OpenPopup(ICON_FA_TRASH " Delete Entity");
 				}
 				imgui_->DeletePopUp(ICON_FA_TRASH " Delete Entity", entityname->GetName());
 
@@ -113,7 +129,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 			{
 				std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entitycomponent.first->GetComponent(ComponentTypes::NAME));
 
-				ImGui::Text("Name:"); ImGui::SameLine(0, 2);
+				ImGui::Text("Name:"); ImGui::SameLine(0, 4);
 				ImGui::TextColored(AQUAMARINE, entityname->GetName().c_str());
 				
 				if (entitycomponent.first->GetID()) {
@@ -199,9 +215,21 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				std::shared_ptr<TextureRenderer> entitytexture = std::dynamic_pointer_cast<TextureRenderer>(entitycomponent.first->GetComponent(ComponentTypes::TEXTURERENDERER));
 				if (ImGui::TreeNode("Texture Component")) {
 					if (ImGui::BeginCombo("##texture", entitytexture->GetCurrentTextureName().c_str())) {
-						for (auto it = texture_->GetTextureMap().begin(); it != texture_->GetTextureMap().end(); ++it)
+						for (auto it = texture_->GetTextureMap().begin(); it != texture_->GetTextureMap().end(); ++it) {
 							if (ImGui::Selectable(it->first.c_str()))
 								graphics_->ChangeTexture(&(*entitytexture), it->first.c_str());
+
+							if (ImGui::IsItemHovered()) {
+
+								Texture* texture = texture_->GetTexture(it->first.c_str());
+								std::vector<glm::vec2>* tex_vtx = texture->GetTexVtx();
+
+								ImTextureID textureID = (void*)(intptr_t)texture->GetTilesetHandle();
+								ImGui::BeginTooltip();
+								ImGui::Image(textureID, ImVec2{ 64, 64 }, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
+								ImGui::EndTooltip();
+							}
+						}
 						ImGui::EndCombo();
 					}
 					RemoveComponent("Delete Texture Renderer Component", std::string("Texture Renderer"), entitycomponent.first, entitytexture);

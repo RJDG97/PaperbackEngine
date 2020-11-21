@@ -2,39 +2,37 @@
 
 void AssetWindow::Init() {
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
-	path_selection_ = "";
+	path_selection_ = "Resources";
+	b_create = false;
+	b_makefolder = false;
+	folder_to_del = {};
 }
 
 void AssetWindow::Update() {
 	float windowW = ImGui::GetContentRegionAvailWidth(), windowH = ImGui::GetContentRegionAvail().y;
-
 	if (imgui_->b_asset) {
 		ImGui::PushFont(imgui_->img_font_);
 
 		ImGui::Begin("Asset Browser", &imgui_->b_asset);
-		// Print out all directories
-		ImGui::BeginChild("File Directories", {windowW /7, windowH}, true);
-		ImGui::Text("Directories:");
-		FileDirectoryCheck("Resources");
-		ImGui::EndChild();
+
+		DisplayFolders(windowW, windowH);
 
 		ImGui::SameLine();
 
-		//Print out all files in the directory
-		ImGui::BeginChild("Files", { windowW /5 , windowH }, true, ImGuiWindowFlags_MenuBar);
-
-		ImGui::BeginMenuBar();
-		ImGui::Text(FileString(ICON_FA_FOLDER_OPEN, path_selection_.generic_string()).c_str());
-		ImGui::SameLine(0, 3); ImGui::Text("Files:");
-		ImGui::EndMenuBar();
-
-		PrintFileType();
-
-		ImGui::EndChild();
+		DisplayFolderFiles(windowW, windowH);
 
 		ImGui::End();
 		ImGui::PopFont();
 	}
+
+	if (b_create)
+		MakeNewFolder();
+
+	if (b_deletefolder)
+		ImGui::OpenPopup("check");
+
+	DeleteWholeFolder();
+	
 }
 
 void AssetWindow::FileDirectoryCheck(fs::path filedirectory) {
@@ -62,15 +60,15 @@ void AssetWindow::FileDirectoryCheck(fs::path filedirectory) {
 	}
 }
 
-void AssetWindow::PrintFileType() {
+void AssetWindow::CheckFileType() {
+
+	std::string fileName = {};
 
 	static ImGuiTextFilter filter;
 	filter.Draw(ICON_FA_FILTER, 200.0f);
 
-	std::string fileName = {};
 	if (!path_selection_.empty()) {
 		for (auto& file : fs::directory_iterator(path_selection_)) {
-
 			if (fs::is_regular_file(file)) {
 
 				fileName = file.path().filename().generic_string();
@@ -106,9 +104,149 @@ void AssetWindow::PrintFileType() {
 				ImGui::Text(selected_file_.c_str());
 				ImGui::EndDragDropSource();
 			}
+
 		}
 	}
 
+
+}
+
+void AssetWindow::MakeNewFolder() {
+
+	ImGui::Begin("Add Folder/Files", &b_create);
+
+	if (b_makefolder) {
+
+		std::string folderName;
+		char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		strcpy_s(buffer, sizeof(buffer), folderName.c_str());
+		ImGui::Text(ICON_FA_FOLDER " Adding a New Folder to: "); ImGui::SameLine(0, 3);
+		ImGui::Text(path_selection_.generic_string().c_str());
+		if (ImGui::InputText("##newfile", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
+
+			if (!path_selection_.empty())
+				fs::create_directory(path_selection_ / buffer);
+			else
+				fs::create_directory((fs::path)"Resources" / buffer);
+
+			b_makefolder = false;
+			b_create = false;
+		}
+
+	}
+
+	ImGui::End();
+
+}
+
+void AssetWindow::FileMenuBar() {
+	std::string path{};
+	ImGui::BeginMenuBar();
+	if (ImGui::BeginMenu("File")) {
+
+		if (ImGui::MenuItem(ICON_FA_FOLDER_PLUS " New Folder")) {
+			b_create = true;
+			b_makefolder = true;
+		}
+
+		if (ImGui::MenuItem(ICON_FA_COPY " Copy File here...") && !path_selection_.empty()) {
+
+			std::string source_dir = imgui_->OpenSaveDialog("(*.*) All Files\0* *.*\0", 0);
+
+			if (!source_dir.empty()) {
+
+				std::string destination_dir = path_selection_.generic_string();
+				fs::copy(source_dir, destination_dir, fs::copy_options::skip_existing);
+			}
+		}
+		ImGui::EndMenu();
+	}
+
+
+	ImGui::Text(ICON_FA_TRASH);
+
+	if (ImGui::BeginDragDropTarget()) {
+
+		if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
+
+			if (payLoad->DataSize == sizeof(std::string)) {
+
+				path = *((std::string*)payLoad->Data);
+
+				if (fs::is_directory(path) && fs::is_empty(path) || fs::is_regular_file(path)) {
+					fs::remove(path);
+				}
+				else if (fs::is_directory(path) && !fs::is_empty(path))
+				{
+					b_deletefolder = true;
+					folder_to_del = path;
+				}				
+			}
+		}
+
+		ImGui::EndDragDropTarget();
+	}
+
+	ImGui::EndMenuBar();
+
+}
+
+void AssetWindow::DeleteWholeFolder() {
+
+	ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
+	ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+	if (ImGui::BeginPopupModal("check", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+		ImGui::Text("This folder contains alot of stuff\nYou sure?");
+
+		imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
+		if (ImGui::Button("Yes"))
+		{
+			fs::remove_all(folder_to_del);
+			ImGui::CloseCurrentPopup();
+			folder_to_del = {};
+			b_deletefolder = false;
+		}
+
+		ImGui::PopStyleColor(3);
+		ImGui::SameLine(0, 3);
+
+		if (ImGui::Button("Cancel")) {
+			ImGui::CloseCurrentPopup();
+			folder_to_del = {};
+			b_deletefolder = false;
+		}
+
+		ImGui::EndPopup();
+	}
+}
+
+void AssetWindow::DisplayFolders(float window_width, float window_height) {
+
+	// Print out all directories
+	ImGui::BeginChild("File Directories", { window_width / 7, window_height }, true);
+
+	ImGui::Text("Folders/Directories:");
+
+	if (ImGui::Selectable(ICON_FA_FOLDER " Resources"))
+		path_selection_ = "Resources";
+
+	FileDirectoryCheck("Resources");
+	ImGui::EndChild();
+
+}
+
+void AssetWindow::DisplayFolderFiles(float window_width, float window_height) {
+
+	ImGui::BeginChild("Files", { window_width / 3 , window_height }, true, ImGuiWindowFlags_MenuBar);
+	ImGui::Text("Current Path:"); ImGui::SameLine(0, 3);
+	ImGui::Text(FileString(ICON_FA_FOLDER_OPEN, path_selection_.generic_string()).c_str());
+
+	FileMenuBar();
+	CheckFileType();
+
+	ImGui::EndChild();
 
 }
 
@@ -123,8 +261,3 @@ std::string AssetWindow::DirectoryName(fs::directory_entry directory) {
 	return tempPath.substr(tempPath.find_last_of("/") + 1);
 
 }
-
-
-
-
-

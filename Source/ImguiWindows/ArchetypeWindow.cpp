@@ -94,14 +94,14 @@ void ArchetypeWindow::AvaliableArchetypes() {
 					imgui_->SetEntity(nullptr);
 				}
 
-				if (ImGui::Button(ICON_FA_TRASH " Delete Archetype")) {
+				if (ImGui::Button("Delete Archetype")) {
 
 					imgui_->SetEntity(entityIT->second);
 
-					ImGui::OpenPopup("Delete Confirmation");
+					ImGui::OpenPopup(ICON_FA_TRASH " Delete Confirmation");
 				}
 
-				imgui_->DeletePopUp(ICON_FA_MINUS_SQUARE " Delete Confirmation", entityIT->first);
+				imgui_->DeletePopUp(ICON_FA_TRASH " Delete Confirmation", entityIT->first);
 
 				ImGui::Checkbox("Add/Edit Components", &imgui_->b_editcomp); ImGui::SameLine(0, 3);
 				imgui_->ImguiHelp("Untick this whenever you are done");
