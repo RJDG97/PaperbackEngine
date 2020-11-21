@@ -101,6 +101,13 @@ glm::vec2* Camera::GetCameraPosition()
     return &cam_pos_;
 }
 
+Vector2D Camera::GetVector2DCameraPosition() {
+    
+    Vector2D position{ static_cast<float>(-cam_pos_.x), static_cast<float>(-cam_pos_.y) };
+
+    return position;
+}
+
 float* Camera::GetCameraZoom()
 {
     return &cam_zoom_;
