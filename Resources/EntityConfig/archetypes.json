@@ -164,7 +164,9 @@
       "component": "Inventory"
     },
     {
-      "component": "ParentChild"
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "Camera"
     }
   ],
   "Enemy": [
