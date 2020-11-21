@@ -46,12 +46,6 @@ void MenuState::Init(std::string)
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
-
-	//Temporary
-	std::shared_ptr<CameraSystem> camera_system = CORE->GetSystem<CameraSystem>();
-	Camera* camera = camera_system->GetMainCamera();
-
-	CORE->GetSystem<CameraSystem>()->CameraSetPosition(camera, { 0, 0 });
 }
 
 void MenuState::Free()

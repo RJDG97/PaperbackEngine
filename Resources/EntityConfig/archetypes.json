@@ -1,22 +1,22 @@
 {
-	"Camera": [
+    "Camera": [
     {
       "component": "Name",
       "name": "Camera"
     },
-	{
-	  "component": "Transform",
+    {
+      "component": "Transform",
       "position": "0.0 0.0",
       "rotation": "0.0",
       "offset": "0.0 0.0"
-	},
-	{
-	  "component": "Camera",
+    },
+    {
+      "component": "Camera",
       "camera position": "0.0 0.0",
-	  "camera size": "1280.0 720.0",
-	  "camera zoom": "0.8",
-	  "targeted": "0"
-	}
+      "camera size": "1280.0 720.0",
+      "camera zoom": "0.8",
+      "targeted": "0"
+    }
   ],
   "Floor": [
     {
@@ -49,6 +49,9 @@
       "color": "0.0 0.0 0.0",
       "radius": "0.0",
       "intensity": "0.0"
+    },
+    {
+      "component": "ParentChild"
     }
    ],
    "UIText": [
@@ -127,7 +130,7 @@
       "add animation": "Player_Burrow_Walk",
       "add animation": "Player_Burrow_Idle",
       "add animation": "Player_Idle",
-	    "add animation": "Player_Walk",
+      "add animation": "Player_Walk",
       "set animation": "Player_Walk",
       "play_animation": "1",
       "has_finished_animating": "0",
@@ -161,7 +164,9 @@
       "component": "Inventory"
     },
     {
-      "component": "ParentChild"
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "Camera"
     }
   ],
   "Enemy": [
@@ -538,6 +543,9 @@
       "color": "1.0 1.0 0.7",
       "radius": "00.0",
       "intensity": "1.0"
+    },
+    {
+      "component": "ParentChild"
     }
   ],
   "Boundary": [

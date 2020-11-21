@@ -10,6 +10,11 @@
       "color": "1.0 1.0 0.7",
       "radius": "150.0",
       "intensity": "0.8"
+    },
+    {
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "Camera"
     }
   ]
 }

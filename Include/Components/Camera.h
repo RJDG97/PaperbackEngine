@@ -12,13 +12,9 @@
 class Camera : public Component
 {
 	glm::vec2 cam_pos_;
-	glm::vec2 cam_size_;
 	float cam_zoom_;
-
+	glm::vec2 cam_size_;
 	glm::mat3 world_to_ndc_xform_;
-
-	Transform* target_;
-	bool targeted_;
 
 public:
 

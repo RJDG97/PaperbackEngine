@@ -6,29 +6,7 @@ void CameraSystem::Init()
 {
     component_manager_ = &*CORE->GetManager<ComponentManager>();
     camera_arr_ = component_manager_->GetComponentArray<Camera>();
-
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
-
-    /*
-    windows_system_ = &*CORE->GetSystem<WindowsSystem>();
-
-    cam_zoom_ = 0.8f;
-    targeted_ = false;
-
-    cam_pos_ = glm::vec2{ 0, 0 };
-    cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
-                           windows_system_->GetWinHeight() } / cam_zoom_;
-
-    glm::mat3 view_xform_{ 1 , 0 , 0,
-                            0 , 1 , 0,
-                            cam_pos_.x , cam_pos_.y , 1 };
-
-    // compute other matrices ...
-    glm::mat3 camwin_to_ndc_xform_{ 2 / cam_size_.x , 0 , 0,
-                                     0 , 2 / cam_size_.y , 0,
-                                     0 , 0 , 1 };
-
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;*/
 }
 
 void CameraSystem::Update(float frametime)
@@ -72,18 +50,15 @@ void CameraSystem::SendMessageD(Message* m)
 
     switch (m->message_id_) {
 
-    case MessageIDTypes::CAM_UPDATE_POS: {
+        case MessageIDTypes::CAM_UPDATE_POS: {
 
-        if (!GetMainCamera()->targeted_)
-        {
             MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
             CameraMove(GetMainCamera(), msg->new_vec_);
+            break;
         }
 
-        break;
-    }
-
-    case MessageIDTypes::CHANGE_ANIMATION_1: {
+        /*
+        case MessageIDTypes::CHANGE_ANIMATION_1: {
 
             //Temporary
             if (CORE->GetManager<EntityManager>()->GetPlayerEntities().size() > 0)
@@ -93,7 +68,7 @@ void CameraSystem::SendMessageD(Message* m)
             }
 
             break;
-        }
+        }*/
 
         case MessageIDTypes::FLIP_SPRITE_X: {
 
@@ -111,19 +86,9 @@ void CameraSystem::SendMessageD(Message* m)
 
 void CameraSystem::CameraUpdate(Camera* camera)
 {
-    if (camera->targeted_)
-    {
-        const float global_scale = CORE->GetGlobalScale();
-        Vector2D target = camera->target_->GetPosition() * -1;
-        camera->cam_pos_ = glm::vec2{ target.x, target.y } * global_scale;
-    }
-
-    else
-    {
-        const float global_scale = CORE->GetGlobalScale();
-        Vector2D position = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->GetPosition() * -1 * global_scale;
-        camera->cam_pos_ = glm::vec2{ position.x, position.y };
-    }
+    const float global_scale = CORE->GetGlobalScale();
+    Vector2D position = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->GetPosition() * -1 * global_scale;
+    camera->cam_pos_ = glm::vec2{ position.x, position.y };
 
     glm::mat3 view_xform_ { 1 , 0 , 0,
                             0 , 1 , 0,
@@ -147,34 +112,15 @@ void CameraSystem::CameraZoom(Camera* camera, float zoom)
 
 void CameraSystem::CameraMove(Camera* camera, Vector2D displacement)
 {
-    if (!camera->targeted_)
-    {
-        Transform* transform = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID());
-        Vector2D position = transform->GetPosition();
+    Transform* transform = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID());
+    Vector2D position = transform->GetPosition();
 
-        transform->SetPosition({ position.x + displacement.x * 0.05f, position.y + displacement.y * 0.05f });
-    }
+    transform->SetPosition({ position.x + displacement.x * 0.05f, position.y + displacement.y * 0.05f });
 }
 
 void CameraSystem::CameraSetPosition(Camera* camera, Vector2D postion)
 {
     camera->cam_pos_ = glm::vec2{ postion.x, postion.y };
-}
-
-void CameraSystem::CameraUnTarget(Camera* camera)
-{
-    camera->target_ = nullptr;
-    camera->targeted_ = false;
-}
-
-void CameraSystem::SetTarget(Camera* camera, Entity* target)
-{
-    camera->target_ = &*std::dynamic_pointer_cast<Transform>(target->GetComponent(ComponentTypes::TRANSFORM));
-}
-
-void CameraSystem::ToggleTargeted(Camera* camera)
-{
-    camera->targeted_ = !camera->targeted_;
 }
 
 Camera* CameraSystem::GetMainCamera()
