@@ -42,7 +42,7 @@ void EntityWindow::Update() {
 		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to select Entities directly");
 		imgui_->SetLockBool(lock);
 
-		if (/*(*/imgui_->GetEntity()/* && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))*/) {
+		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
 			//Transform* entityTransform = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
@@ -226,7 +226,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 								ImTextureID textureID = (void*)(intptr_t)texture->GetTilesetHandle();
 								ImGui::BeginTooltip();
-								ImGui::Image(textureID, ImVec2{ 64, 64 }, ImVec2{ (*tex_vtx)[3].x, (*tex_vtx)[3].y }, ImVec2{ (*tex_vtx)[0].x, (*tex_vtx)[0].y });
+								ImGui::Image(textureID, ImVec2{ 64, 64 }, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
 								ImGui::EndTooltip();
 							}
 						}
