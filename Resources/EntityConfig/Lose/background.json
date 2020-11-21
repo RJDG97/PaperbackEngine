@@ -10,6 +10,11 @@
       "texture": "MenuDefeat",
       "layer": "0",
       "ui": "1"
+    },
+    {
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "Camera"
     }
   ]
 }

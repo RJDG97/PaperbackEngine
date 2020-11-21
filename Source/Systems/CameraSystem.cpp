@@ -6,29 +6,7 @@ void CameraSystem::Init()
 {
     component_manager_ = &*CORE->GetManager<ComponentManager>();
     camera_arr_ = component_manager_->GetComponentArray<Camera>();
-
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
-
-    /*
-    windows_system_ = &*CORE->GetSystem<WindowsSystem>();
-
-    cam_zoom_ = 0.8f;
-    targeted_ = false;
-
-    cam_pos_ = glm::vec2{ 0, 0 };
-    cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
-                           windows_system_->GetWinHeight() } / cam_zoom_;
-
-    glm::mat3 view_xform_{ 1 , 0 , 0,
-                            0 , 1 , 0,
-                            cam_pos_.x , cam_pos_.y , 1 };
-
-    // compute other matrices ...
-    glm::mat3 camwin_to_ndc_xform_{ 2 / cam_size_.x , 0 , 0,
-                                     0 , 2 / cam_size_.y , 0,
-                                     0 , 0 , 1 };
-
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;*/
 }
 
 void CameraSystem::Update(float frametime)
