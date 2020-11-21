@@ -42,18 +42,17 @@ void EntityWindow::Update() {
 		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to select Entities directly");
 		imgui_->SetLockBool(lock);
 
-		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
+		if (/*(*/imgui_->GetEntity()/* && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))*/) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
-			Transform* entityTransform = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
+			//Transform* entityTransform = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
 			//Camera* entityCamera = component_->GetComponent<Camera>(imgui_->GetEntity()->GetID());
 
 			//if (entityCamera && entityTransform) {
-			//	double xpos = 0, ypos = 0;
 			//	Vector2D entityOGpos = entityTransform->GetPosition();
-			//	Vector2D cameraPos = { entityCamera->GetCamPos().x, entityCamera->GetCamPos().y };
-			//	glfwGetCursorPos(win_->ptr_window, &xpos, &ypos);
-			//	Vector2D entitypos = (entityOGpos - Vector2D{ (float)xpos, (float)ypos }) + cameraPos + Vector2D{ (float)xpos, (float)ypos };
+			//	Vector2D cameraPos = { entityCamera->GetCameraPosition()->x, entityCamera->GetCameraPosition()->y };
+			//	Vector2D cursorPos = input_->GetCursorPosition();
+			//	Vector2D entitypos = (entityOGpos - cursorPos) + cameraPos + cursorPos;
 			//	entityTransform->SetPosition(entitypos);
 
 			//}
@@ -219,12 +218,13 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 						for (auto it = texture_->GetTextureMap().begin(); it != texture_->GetTextureMap().end(); ++it) {
 							if (ImGui::Selectable(it->first.c_str()))
 								graphics_->ChangeTexture(&(*entitytexture), it->first.c_str());
+
 							if (ImGui::IsItemHovered()) {
 
 								Texture* texture = texture_->GetTexture(it->first.c_str());
 								std::vector<glm::vec2>* tex_vtx = texture->GetTexVtx();
 
-								ImTextureID textureID = (ImTextureID)*(texture->GetTilesetHandle());
+								ImTextureID textureID = (void*)(intptr_t)texture->GetTilesetHandle();
 								ImGui::BeginTooltip();
 								ImGui::Image(textureID, ImVec2{ 64, 64 }, ImVec2{ (*tex_vtx)[3].x, (*tex_vtx)[3].y }, ImVec2{ (*tex_vtx)[0].x, (*tex_vtx)[0].y });
 								ImGui::EndTooltip();

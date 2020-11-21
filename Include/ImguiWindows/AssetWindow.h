@@ -30,16 +30,28 @@ public:
 
 	void FileDirectoryCheck(fs::path filedirectory);
 
-	void PrintFileType();
+	void CheckFileType();
+
+	void MakeNewFolder();
+
+	void FileMenuBar();
+	
+	void DeleteWholeFolder();
+
+	void DisplayFolders(float window_width, float window_height);
+
+	void DisplayFolderFiles(float window_width, float window_height);
 
 	std::string FileString(std::string icon, std::string file_name);
 	std::string DirectoryName(fs::directory_entry directory);
+
 private:
 	ImguiSystem* imgui_;
 	fs::path path_selection_;
+	std::string folder_to_del;
 	
 	std::string selected_file_;
-	bool b_create, b_makefolder;
+	bool b_create, b_makefolder, b_deletefolder;
 
 };
 #endif

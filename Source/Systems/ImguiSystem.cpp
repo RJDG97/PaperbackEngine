@@ -29,6 +29,7 @@ void ImguiSystem::Init(){
     entities_ = &*CORE->GetManager<EntityManager>();
     factory_ = &*CORE->GetSystem <EntityFactory>();
     sound_ = &*CORE->GetSystem<SoundSystem>();
+    graphics_ = &* CORE->GetSystem<GraphicsSystem>();
 
     editor_ = factory_->GetLevel("Editor");
 
@@ -102,17 +103,6 @@ void ImguiSystem::Init(){
     "(*.mp3) Audio Files\0* .mp3"
     "(*.*) All Files\0* *.*\0";
 
-    //std::vector<File::fs::directory_entry> tempList;
-
-    //for (auto& directory : File::RecursiveDirectoryList("Resources")) {
-    //    tempList.push_back(directory);
-    //    std::cout << directory.path().generic_string() << std::endl;
-    //}
-    //
-    //for (auto& directory : tempList)
-    //    for (auto& file : File::ListOfFiles(directory))
-    //        directory_map_[directory.path().generic_string()].push_back(file);
-
 }
 
 void ImguiSystem::Update(float frametime) {
@@ -120,7 +110,7 @@ void ImguiSystem::Update(float frametime) {
     UNREFERENCED_PARAMETER(frametime);
 	
     if (b_imguimode) {
-
+        
         ImguiInput();
     	
         ImGui_ImplOpenGL3_NewFrame();
@@ -223,7 +213,7 @@ void ImguiSystem::ImguiMenuBar() {
         if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
             if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene", "Ctrl+O"))
                 OpenFile();
-            if (ImGui::MenuItem(ICON_FA_SAVE " Save", "Ctrl+S")) {
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save Scene As...", "Ctrl+S")) {
                 if (!editor_->entity_paths_.empty()) {
                     SaveFile();
                     b_showpop = true;
@@ -498,6 +488,21 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
     }
 }
 
+void ImguiSystem::DrawGrid() {
+
+    //for (int i = 0; i < win_->GetWinWidth(); i + 2.5f) {
+
+    //    for (int j = 0; j < win_->GetWinHeight(); j + 2.5f) {
+
+    //        glm::vec2 xAxis{ 0, i };
+    //        glm::vec2 yAxis{ 0, j };
+    //        std::vector<glm::vec2> lines = { xAxis, yAxis };
+
+    //        graphics_->DrawDebugLine(lines, { 1.0f, 1.0f, 1.0f, 1.0f });
+    //    }
+    //}
+}
+
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
 
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
@@ -525,7 +530,7 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
 
         if (ImGui::Button("OK")) {
-            if (!new_entity_->GetID() && !entity) //archetype id == 0
+            if (!new_entity_->GetID() && !entity) 
                 entities_->DeleteArchetype(new_entity_); //delete archetype
             else if (new_entity_->GetID() && !entity)
                 entities_->DeleteEntity((new_entity_)); //delete entities

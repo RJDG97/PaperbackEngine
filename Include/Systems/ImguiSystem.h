@@ -373,6 +373,8 @@ public:
 /******************************************************************************/
 	void PopUpMessage(const char* windowName, const char* message);
 
+	void DrawGrid();
+
 private:
 
 	// map to store all imgui windows added to the system
@@ -387,6 +389,7 @@ private:
 	Collision* collision_;
 	InputSystem* input_;
 	SoundSystem* sound_;
+	GraphicsSystem* graphics_;
 	
 	Entity* new_entity_; // entity* to store selected entity
 	EntityManager* entities_;

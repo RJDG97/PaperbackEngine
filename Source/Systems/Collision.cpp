@@ -270,19 +270,22 @@ void Collision::CheckClickableCollision() {
 }
 
 EntityID Collision::SelectEntity() {
+	/*if (camera_arr_->size()) {*/
+		//Vector2D camera_pos = { (*camera_arr_).begin()->second->GetCameraPosition()->x, (*camera_arr_).begin()->second->GetCameraPosition()->y };
+		Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();/* + camera_pos;*/
+		//std::cout << "Camera pos " << camera_pos.x << "   " << camera_pos.y << std::endl;
+		//std::cout << "Cursor pos " << cursor_pos.x << "   " << cursor_pos.y << std::endl;
+		// Iterate through the external layer map to access all AABB components on that "Layer"
+		for (CollisionMapReverseIt it1 = collision_map_.rbegin(); it1 != collision_map_.rend(); ++it1) {
+			// Iterate through the internal layer map to access each individual AABB component
+			for (AABBIt it2 = it1->second.begin(); it2 != it1->second.end(); ++it2) {
 
-	Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();
-
-	// Iterate through the external layer map to access all AABB components on that "Layer"
-	for (CollisionMapReverseIt it1 = collision_map_.rbegin(); it1 != collision_map_.rend(); ++it1) {
-		// Iterate through the internal layer map to access each individual AABB component
-		for (AABBIt it2 = it1->second.begin(); it2 != it1->second.end(); ++it2) {
-
-			if (CheckCursorCollision(cursor_pos, it2->second)) {
-				return it2->second->GetOwner()->GetID();
+				if (CheckCursorCollision(cursor_pos, it2->second)) {
+					return it2->second->GetOwner()->GetID();
+				}
 			}
 		}
-	}
+	//}
 	return 0;
 }
 
@@ -624,6 +627,7 @@ void Collision::Init() {
 	motion_arr_ = component_mgr_->GetComponentArray<Motion>();
 	status_arr_ = component_mgr_->GetComponentArray<Status>();
 	transform_arr_ = component_mgr_->GetComponentArray<Transform>();
+	camera_arr_ = component_mgr_->GetComponentArray<Camera>();
 	input_controller_arr_ = component_mgr_->GetComponentArray<InputController>();
 
 	// Defining collision map layering
