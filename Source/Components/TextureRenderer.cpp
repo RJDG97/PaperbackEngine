@@ -91,9 +91,9 @@ std::shared_ptr<Component> TextureRenderer::Clone() {
 
 void TextureRenderer::InitTextures() {
 
-    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
-    texture_handle_ = texture_.GetTilesetHandle();
-    tex_vtx_ = *texture_.GetTexVtx();
+    texture_ = CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
+    texture_handle_ = texture_->GetTilesetHandle();
+    tex_vtx_ = *texture_->GetTexVtx();
 }
 
 std::string TextureRenderer::GetCurrentTextureName()

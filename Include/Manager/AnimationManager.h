@@ -67,7 +67,7 @@ public:
 	\brief Gets the handle of the texture used to render the animation
 */
 /******************************************************************************/
-	GLuint* GetAnimationFramesHandle();
+	GLuint GetAnimationFramesHandle();
 
 /******************************************************************************/
 /*!

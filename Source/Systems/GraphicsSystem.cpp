@@ -588,12 +588,12 @@ void GraphicsSystem::BatchWorldObject(IRenderer* i_worldobj_renderer) {
     glm::vec2 rotation{ glm::cos(orientation), glm::sin(orientation) };
     glm::vec2 position{ pos.x, pos.y};
 
-    if (texture_handles.find(*i_worldobj_renderer->texture_handle_) == texture_handles.end()) {
+    if (texture_handles.find(i_worldobj_renderer->texture_handle_) == texture_handles.end()) {
 
-        texture_handles[*i_worldobj_renderer->texture_handle_] = static_cast<GLuint>(texture_handles.size());
+        texture_handles[i_worldobj_renderer->texture_handle_] = static_cast<GLuint>(texture_handles.size());
     }
 
-    GLuint tex_id = texture_handles[*i_worldobj_renderer->texture_handle_];
+    GLuint tex_id = texture_handles[i_worldobj_renderer->texture_handle_];
 
     for (int i = 0; i < 4; ++i) {
 
@@ -751,7 +751,7 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_ren
         vertices.push_back(i_renderer->tex_vtx_[i]);
     }
 
-    glBindTextureUnit(0, *i_renderer->texture_handle_);
+    glBindTextureUnit(0, i_renderer->texture_handle_);
     
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * vertices.size(), vertices.data());
@@ -800,7 +800,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeLeaves")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WatergaugeLeaves")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_DEPTH_TEST);
 
@@ -812,7 +812,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     glStencilMask(0xFF);
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeDroplet")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WatergaugeDroplet")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_DEPTH_TEST);
 
@@ -820,13 +820,13 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     glStencilMask(0x00);
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * water_vertices.size(), water_vertices.data());
-    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeWater")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WatergaugeWater")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_STENCIL_TEST);
 
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeShine")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WatergaugeShine")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
 }
@@ -861,8 +861,21 @@ void GraphicsSystem::ChangeTexture(TextureRenderer* renderer, std::string textur
 
     if (renderer->texture_name_ != texture_name) {
      
-        renderer->texture_ = *(texture_manager_->GetTexture(texture_name));
+        renderer->texture_ = (texture_manager_->GetTexture(texture_name));
         renderer->texture_name_ = texture_name;
+        renderer->tex_vtx_ = *renderer->texture_->GetTexVtx();
+
+        if (renderer->x_mirror_) {
+
+            std::swap(renderer->tex_vtx_[0], renderer->tex_vtx_[2]);
+            std::swap(renderer->tex_vtx_[1], renderer->tex_vtx_[3]);
+        }
+
+        if (renderer->y_mirror_) {
+
+            std::swap(renderer->tex_vtx_[0], renderer->tex_vtx_[1]);
+            std::swap(renderer->tex_vtx_[2], renderer->tex_vtx_[3]);
+        }
     }
 }
 

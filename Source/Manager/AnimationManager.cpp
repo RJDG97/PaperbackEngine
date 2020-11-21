@@ -31,9 +31,9 @@ int Animation::GetNumFrames() {
 	return num_frames_;
 }
 
-GLuint* Animation::GetAnimationFramesHandle() {
+GLuint Animation::GetAnimationFramesHandle() {
 
-	return &animation_frames_;
+	return animation_frames_;
 }
 
 float Animation::GetOffsetX() {
