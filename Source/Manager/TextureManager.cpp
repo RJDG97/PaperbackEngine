@@ -3,10 +3,22 @@
 #include <FreeImage.h>
 #include <iostream>
 
-Texture::Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx) :
-    tileset_handle_{ tileset_handle },
+Texture::Texture(size_t width, size_t height, GLuint tileset_handle, std::vector<glm::vec2> tex_vtx) :
+    width_ {width},
+    height_ {height},
+    tileset_handle_ { tileset_handle },
     tex_vtx_ { tex_vtx } {
 
+}
+
+size_t Texture::GetWidth()
+{
+    return width_;
+}
+
+size_t Texture::GetHeight()
+{
+    return height_;
 }
 
 GLuint Texture::GetTilesetHandle() {
@@ -72,34 +84,6 @@ void TextureManager::TextureBatchLoad(std::string level_name) {
         info >> texture_path >> columns >> rows;
 
         CreateTileset(texture_path.c_str(), columns, rows, tileset_name);
-
-        /*
-        std::string path_name{ file_it->value.GetString() };
-
-        rapidjson::Document texture_data;
-        DeSerializeJSON(path_name, texture_data);
-        
-        //Only one element in this array
-        const rapidjson::Value& texture_arr = texture_data;
-        DEBUG_ASSERT(texture_arr.IsObject(), "Level JSON does not exist in proper format");
-        std::string texture_pathname = std::string{"Resources/Sprites/"} + texture_arr.MemberBegin()->name.GetString();
-
-        const rapidjson::Value& texture_param = *texture_arr.MemberBegin()->value.Begin();
-        
-        rapidjson::Value::ConstMemberIterator texture_param_it = texture_param.MemberBegin();
-        
-        std::string tileset_name = (texture_param_it++)->value.GetString();
-        int columns = std::stoi((texture_param_it++)->value.GetString());
-        int rows = std::stoi((texture_param_it++)->value.GetString());
-
-        std::vector<std::string> tile_names;
-
-        for (; texture_param_it != texture_param.MemberEnd(); ++texture_param_it)
-        {
-            tile_names.push_back(texture_param_it->value.GetString());
-        }
-
-        CreateTileset(texture_pathname.c_str(), columns, rows, tile_names, tileset_name);*/
     }
 }
 
@@ -147,7 +131,7 @@ void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char r
                  0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
     //haven't decided on how to store these!
-    textures_[texture_name] = Texture{ texobj_hdl, { {-1.0f, -1.0f}, {-1.0f, 1.0f}, {1.0f, -1.0f}, {1.0f, 1.0f}} };
+    textures_[texture_name] = Texture{ 1, 1, texobj_hdl, { {-1.0f, -1.0f}, {-1.0f, 1.0f}, {1.0f, -1.0f}, {1.0f, 1.0f}} };
     delete[] pixels;
 }
 
@@ -157,7 +141,7 @@ void TextureManager::LoadMiscTextures() {
     //CreateQuadTexture("WhiteQuad", 255, 255, 255, 255);
 }
 
-GLuint TextureManager::LoadImageFile(const char* filename) {
+std::vector<GLuint> TextureManager::LoadImageFile(const char* filename) {
 
     std::cout << "Tileset is being loaded : " << filename << std::endl;
 
@@ -197,8 +181,8 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     //retrieve the image data
     BYTE* bits = FreeImage_GetBits(dib);
     //get the image width and height
-    int width = FreeImage_GetWidth(dib);
-    int height = FreeImage_GetHeight(dib);
+    unsigned int width = FreeImage_GetWidth(dib);
+    unsigned int height = FreeImage_GetHeight(dib);
 
     DEBUG_ASSERT(!(bits == 0) || (width == 0) || (height == 0),
         (std::string{ "Bits and/or Width and/or Height of image file is zero : " } += filename).c_str());
@@ -218,7 +202,7 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
 
     //return success
     std::cout << "Tileset successfully loaded : " << filename << std::endl;
-    return texobj_hdl;
+    return { width, height, texobj_hdl };
 }
 
 void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::string tileset_name)
@@ -238,7 +222,9 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
         tile_names.push_back(tileset_name + "_" + std::to_string(i));
     }
 
-    GLuint tileset_handle_ = LoadImageFile(filename);
+    //[0] -> width, [1] -> height, [2] -> handle
+    std::vector<GLuint> image_file_data = LoadImageFile(filename);
+    GLuint tileset_handle_ = image_file_data[2];
     tilesets_[tileset_name] = { tileset_handle_, &tile_names };
 
     glm::vec2 offset{ 1.0f / columns, 1.0f / rows };
@@ -250,9 +236,9 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
             glm::vec2 origin{ x / static_cast<float>(columns) ,
                                1 - y / static_cast<float>(rows) - offset.y };
 
-            // + 1 skips over the name of the tilset
             textures_[tile_names[y * columns + x]] =
-                Texture{ tileset_handle_,
+                Texture{ image_file_data[0], image_file_data[1],
+                         tileset_handle_,
                          { {origin.x, origin.y},
                            {origin.x + offset.x, origin.y},
                            {origin.x, origin.y + offset.y},

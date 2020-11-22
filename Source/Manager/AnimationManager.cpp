@@ -130,7 +130,7 @@ void AnimationManager::CreateAnimation(const char* filename,
 									   std::vector<std::pair<std::string, int>>* animation_names_frames,
 									   std::vector<GLfloat> frame_durations) {
 	
-	GLuint image_handle = texture_manager_->LoadImageFile(filename);
+	GLuint image_handle = texture_manager_->LoadImageFile(filename)[2];
 	float offset_x = 1.0f / columns;
 
 	for (int i = 0; i < rows; ++i) {
