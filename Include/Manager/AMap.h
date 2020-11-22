@@ -4,6 +4,7 @@
 
 #include <map>
 #include <vector>
+#include <list>
 #include "MathLib/Vector2D.h"
 #include "MathLib/MathHelper.h"
 #include "Entity/Entity.h"
@@ -20,6 +21,7 @@ class AMap : public IManager
 		bool des_;
 		bool obstacle_;
 		bool visited_;
+		bool path_;
 		node* parent_;
 		std::vector<node*> neighbour_;
 	};
@@ -76,6 +78,10 @@ public:
 	/******************************************************************************/
 	void DrawMap();
 	
+	void InitializeNodes();
+
+	bool inlist(std::list<node> L, node N);
+
 	/******************************************************************************/
 	/*!
 	  \fn Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des)

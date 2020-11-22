@@ -22,11 +22,28 @@ namespace GeneralScripts
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(player_rigidbody->GetOffsetAABBPos(), obj_rigidbody->GetOffsetAABBPos());
 		// If obj is close enough, return true
-		if (distance < obj->second->GetRange()/5)
+		if (distance < 1.0f)
 			return true;
 
+		if (obj->second->GetPath().empty())
+		{
+			// Set new path
+			GeneralScripts::map_->Pathing(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(), *obj->second->GetCurrentDes());
+		}
+
+		// Calculate distance between ai and destination
+		distance = Vector2DLength(obj->second->GetPath().back() - obj_rigidbody->GetOffsetAABBPos());
+
+		if (distance < 1.0f)
+		{
+			obj->second->GetPath().pop_back();
+
+			GeneralScripts::map_->Pathing(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(), player_rigidbody->GetOffsetAABBPos());
+			//GeneralScripts::map_->DrawMap();
+		}
+
 		//get directional unit vector
-		Vector2D directional = player_rigidbody->GetOffsetAABBPos() - obj_rigidbody->GetOffsetAABBPos();
+		Vector2D directional = obj->second->GetPath().back() - obj_rigidbody->GetOffsetAABBPos();
 		directional /= Vector2DLength(directional);
 
 		//multiply by speed
@@ -124,10 +141,7 @@ namespace GeneralScripts
 				obj_rigidbody->GetOffsetAABBPos().y == obj->second->GetCurrentDes()->y)
 				obj->second->SetCurrentDes(++obj->second->GetCurrentDes());
 			// Set new path
-			GeneralScripts::map_->Pathing
-			(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(),
-				*obj->second->GetCurrentDes());
-
+			GeneralScripts::map_->Pathing(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(),*obj->second->GetCurrentDes());
 		}
 
 		if (obj->second->GetPath().size() < 1)
@@ -153,9 +167,7 @@ namespace GeneralScripts
 				// continue to next destination
 				obj->second->SetCurrentDes(next_it);
 				// Set new path
-				GeneralScripts::map_->Pathing
-				(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(),
-					*obj->second->GetCurrentDes());
+				GeneralScripts::map_->Pathing(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(),*obj->second->GetCurrentDes());
 			}
 		}
 

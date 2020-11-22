@@ -127,6 +127,8 @@ private:
 /******************************************************************************/
 	void DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first);
 
+	void WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2);
+
 /******************************************************************************/
 /*!
   \fn PlayervEnemyResponse()

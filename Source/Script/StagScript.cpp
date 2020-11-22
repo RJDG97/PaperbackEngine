@@ -18,10 +18,10 @@ namespace StagBeetle
 		}
 		//get directional unit vector
 		Vector2D directional = obj->second->GetPlayerLastPos() - GeneralScripts::obj_rigidbody->GetPosition();
-		directional /= Vector2DLength(directional);
+		directional /= Vector2DLength(directional * 2.0f);
 
 		//multiply by speed
-		directional *= (obj->second->GetSpeed()*2.0f);
+		directional *= (obj->second->GetSpeed()*3.0f);
 
 		// Move AI
 		GeneralScripts::forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
@@ -71,6 +71,7 @@ namespace StagBeetle
 				} // Pursue player
 				else
 				{
+					GeneralScripts::map_->Pathing(obj->second->GetPath(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), *obj->second->GetCurrentDes());
 					obj->second->SetState(AI::AIState::Patrol);
 				}
 			}
