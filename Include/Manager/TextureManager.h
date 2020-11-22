@@ -180,7 +180,6 @@ public:
 /******************************************************************************/
 /*!
 	\fn CreateTileset(const char* filename, size_t columns, size_t rows,
-					  std::vector<std::string>& texture_names,
 					  std::string tileset_name)
 
 	\brief Creates a tileset using the path given and stores all the tiles
@@ -188,7 +187,6 @@ public:
 */
 /******************************************************************************/
 	void CreateTileset(const char* filename, size_t columns, size_t rows,
-					   std::vector<std::string>& texture_names,
 					   std::string tileset_name);
 
 /******************************************************************************/

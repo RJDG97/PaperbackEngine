@@ -7,7 +7,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "UIWin",
+      "texture": "UI_Win_0",
       "layer": "0",
       "ui": "1"
     },

@@ -22,7 +22,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuStart",
+      "texture": "Menu_Start_0",
       "layer": "2",
       "ui": "1"
     }
@@ -50,7 +50,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuHowToPlay",
+      "texture": "Menu_HowToPlay_0",
       "layer": "2",
       "ui": "1"
     }
@@ -78,7 +78,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuEditor",
+      "texture": "Menu_Editor_0",
       "layer": "2",
       "ui": "1"
     }
@@ -106,7 +106,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuQuit",
+      "texture": "Menu_Quit_0",
       "layer": "2",
       "ui": "1"
     }

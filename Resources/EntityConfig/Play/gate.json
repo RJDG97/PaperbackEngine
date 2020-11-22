@@ -8,7 +8,7 @@
         },
         {
             "component": "TextureRenderer",
-            "texture": "PropsGate",
+            "texture": "Props_Gate_0",
             "layer": "1",
             "ui": "0"
         },
