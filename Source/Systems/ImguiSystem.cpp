@@ -494,7 +494,7 @@ void ImguiSystem::SendMessageD(Message* m) {
     {
         if (!b_lock_entity && camera_) {
 
-            Vector2D new_pos = (input_->GetCursorPosition() + camera_->GetVector2DCameraPosition()) / CORE->GetGlobalScale();
+            Vector2D new_pos = (input_->GetCursorPosition() + camera_->GetVector2DCameraPosition());
             std::cout << "New Position: "
                 << new_pos.x
                 << "          "

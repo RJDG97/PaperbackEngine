@@ -205,7 +205,10 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				break;
 			}
 			case ComponentTypes::CAMERA:
-				ImGui::Text("Camera Component");
+			{
+				std::shared_ptr<Camera> entityCamera = std::dynamic_pointer_cast<Camera>(entitycomponent.first->GetComponent(ComponentTypes::CAMERA));
+				ImGui::Text("Camera Zoom: %f", *entityCamera->GetCameraZoom());
+			}
 				break;
 			case ComponentTypes::CONTROLLER:
 				ImGui::Text("Controller Component");
@@ -226,7 +229,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 								ImTextureID textureID = (void*)(intptr_t)texture->GetTilesetHandle();
 								ImGui::BeginTooltip();
-								ImGui::Image(textureID, ImVec2{ 64, 64 }, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
+								ImGui::Image(textureID, ImVec2{(float)texture->GetWidth(), (float)texture->GetHeight()}, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
 								ImGui::EndTooltip();
 							}
 						}
