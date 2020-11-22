@@ -541,6 +541,17 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 	}
 }
 
+void EntityWindow::RemoveComponent(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
+
+	if (!entity->GetID()) {
+		if (ImGui::Button(ICON_FA_MINUS_SQUARE " Delete"))
+			ImGui::OpenPopup(windowName);
+	}
+
+	imgui_->DeletePopUp(windowName, objName, entity, component);
+}
+
+
 const char* EntityWindow::GetAIState(int aiState)
 {
 	for (int i = 0; i < 5; ++i) {
@@ -630,16 +641,6 @@ void EntityWindow::FloatInput(float& componentVar, const char* label, float defa
 	ImGui::SameLine(0, 2);
 
 	ComponentInputFloat("", "##rot", componentVar, 95.0f);
-}
-
-void EntityWindow::RemoveComponent(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
-
-	if (!entity->GetID()) {
-		if (ImGui::Button(ICON_FA_MINUS_SQUARE " Delete"))
-			ImGui::OpenPopup(windowName);
-	}
-
-	imgui_->DeletePopUp(windowName, objName, entity, component);
 }
 
 void EntityWindow::ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth, float startVal, float endVal) {

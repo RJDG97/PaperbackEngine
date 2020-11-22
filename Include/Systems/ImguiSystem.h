@@ -263,7 +263,7 @@ public:
 	\brief to generate hints if needed
 */
 /******************************************************************************/	
-	void ImguiHelp(const char* description);
+	void ImguiHelp(const char* description, int symbol  = 1);
 
 /******************************************************************************/
 /*!
@@ -375,6 +375,10 @@ public:
 
 	void DrawGrid();
 
+	Camera* GetCamera();
+
+	void VolumeControl();
+
 private:
 
 	// map to store all imgui windows added to the system
@@ -394,6 +398,10 @@ private:
 	Entity* new_entity_; // entity* to store selected entity
 	EntityManager* entities_;
 	EntityFactory* factory_;
+
+	CMap<Camera>* cam_arr_;
+	Camera* camera_;
+
 
 	Level* editor_;
 

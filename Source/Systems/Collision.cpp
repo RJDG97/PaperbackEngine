@@ -254,33 +254,33 @@ bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const AABB* box) {
 	return VerifyCursorCollision(bottom_left, top_right, cursor_pos_scaled);
 }
 
-std::pair<Entity*, std::vector<ComponentTypes>> Collision::GetAttachedComponentIDs() {
-	std::vector<ComponentTypes> comp_arr;
-	Entity* entity;
-	EntityID selected_entity_id = SelectEntity();
-
-	if (selected_entity_id != 0) {
-		// Grab entity from factory and return the bitset
-		std::shared_ptr<EntityFactory> factory = CORE->GetSystem<EntityFactory>();
-		entity = factory->GetObjectWithID(selected_entity_id);
-
-		// If entity exists in factory
-		if (entity) {
-			// Grab component array from entity
-			ComponentArr arr = entity->GetComponentArr();
-			// Resize component array accordingly
-			comp_arr.reserve(arr.size());
-
-			// Iterate all components and save the enums
-			for (ComponentArrIt it = arr.begin(); it != arr.end(); ++it) {
-				comp_arr.push_back((*it)->GetComponentTypeID());
-			}
-		}
-	}
-
-	// Return compiled entity 
-	return std::make_pair(entity, comp_arr);
-}
+//std::pair<Entity*, std::vector<ComponentTypes>> Collision::GetAttachedComponentIDs() {
+//	std::vector<ComponentTypes> comp_arr;
+//	Entity* entity;
+//	EntityID selected_entity_id = SelectEntity();
+//
+//	if (selected_entity_id != 0) {
+//		// Grab entity from factory and return the bitset
+//		std::shared_ptr<EntityFactory> factory = CORE->GetSystem<EntityFactory>();
+//		entity = factory->GetObjectWithID(selected_entity_id);
+//
+//		// If entity exists in factory
+//		if (entity) {
+//			// Grab component array from entity
+//			ComponentArr arr = entity->GetComponentArr();
+//			// Resize component array accordingly
+//			comp_arr.reserve(arr.size());
+//
+//			// Iterate all components and save the enums
+//			for (ComponentArrIt it = arr.begin(); it != arr.end(); ++it) {
+//				comp_arr.push_back((*it)->GetComponentTypeID());
+//			}
+//		}
+//	}
+//
+//	// Return compiled entity 
+//	return std::make_pair(entity, comp_arr);
+//}
 
 bool Collision::SeparatingAxisTheorem(const AABB& a, const AABB& b) {
 	// AABB_1
@@ -319,12 +319,7 @@ void Collision::CheckClickableCollision() {
 	}
 }
 
-EntityID Collision::SelectEntity() {
-	/*if (camera_arr_->size()) {*/
-		//Vector2D camera_pos = { (*camera_arr_).begin()->second->GetCameraPosition()->x, (*camera_arr_).begin()->second->GetCameraPosition()->y };
-		Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();/* + camera_pos;*/
-		//std::cout << "Camera pos " << camera_pos.x << "   " << camera_pos.y << std::endl;
-		//std::cout << "Cursor pos " << cursor_pos.x << "   " << cursor_pos.y << std::endl;
+EntityID Collision::SelectEntity(Vector2D cursor_pos) {
 		// Iterate through the external layer map to access all AABB components on that "Layer"
 		for (CollisionMapReverseIt it1 = collision_map_.rbegin(); it1 != collision_map_.rend(); ++it1) {
 			// Iterate through the internal layer map to access each individual AABB component
@@ -335,7 +330,6 @@ EntityID Collision::SelectEntity() {
 				}
 			}
 		}
-	//}
 	return 0;
 }
 
@@ -904,9 +898,9 @@ void Collision::SendMessageD(Message* m) {
 		CheckClickableCollision();
 
 		// If in debug mode, allow for selecting of entities
-		if (debug_) {
-			std::pair<Entity*, std::vector<ComponentTypes>> fake_pair = GetAttachedComponentIDs();
-		}
+		//if (debug_) {
+		//	std::pair<Entity*, std::vector<ComponentTypes>> fake_pair = GetAttachedComponentIDs();
+		//}
 		break;
 	}
 	default:

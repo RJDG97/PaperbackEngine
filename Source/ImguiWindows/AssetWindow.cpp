@@ -29,7 +29,7 @@ void AssetWindow::Update() {
 		MakeNewFolder();
 
 	if (b_deletefolder)
-		ImGui::OpenPopup("check");
+		ImGui::OpenPopup(ICON_FA_TRASH "Are you Sure?");
 
 	DeleteWholeFolder();
 	
@@ -143,28 +143,28 @@ void AssetWindow::MakeNewFolder() {
 void AssetWindow::FileMenuBar() {
 	std::string path{};
 	ImGui::BeginMenuBar();
-	if (ImGui::BeginMenu("File")) {
-
-		if (ImGui::MenuItem(ICON_FA_FOLDER_PLUS " New Folder")) {
-			b_create = true;
-			b_makefolder = true;
-		}
-
-		if (ImGui::MenuItem(ICON_FA_COPY " Copy File here...") && !path_selection_.empty()) {
-
-			std::string source_dir = imgui_->OpenSaveDialog("(*.*) All Files\0* *.*\0", 0);
-
-			if (!source_dir.empty()) {
-
-				std::string destination_dir = path_selection_.generic_string();
-				fs::copy(source_dir, destination_dir, fs::copy_options::skip_existing);
-			}
-		}
-		ImGui::EndMenu();
+	if (ImGui::MenuItem(ICON_FA_FOLDER_PLUS)) {
+		b_create = true;
+		b_makefolder = true;
 	}
 
+	imgui_->ImguiHelp("Add New Folder", 0);
+
+	if (ImGui::MenuItem(ICON_FA_COPY) && !path_selection_.empty()) {
+
+		std::string source_dir = imgui_->OpenSaveDialog("(*.*) All Files\0* *.*\0", 0);
+
+		if (!source_dir.empty()) {
+
+			std::string destination_dir = path_selection_.generic_string();
+			fs::copy(source_dir, destination_dir, fs::copy_options::skip_existing);
+		}
+	}
+
+	imgui_->ImguiHelp("Copy File to Current Directory", 0);
 
 	ImGui::Text(ICON_FA_TRASH);
+	imgui_->ImguiHelp("Trash Bin. WARNING:\n CANNOT UNDO so be careful");
 
 	if (ImGui::BeginDragDropTarget()) {
 
@@ -188,6 +188,9 @@ void AssetWindow::FileMenuBar() {
 		ImGui::EndDragDropTarget();
 	}
 
+
+	ImGui::Text(FileString(ICON_FA_PLUS, ICON_FA_IMAGE).c_str());
+	imgui_->ImguiHelp("Add in New Texture", 0);
 	ImGui::EndMenuBar();
 
 }
@@ -197,8 +200,9 @@ void AssetWindow::DeleteWholeFolder() {
 	ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
 	ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
-	if (ImGui::BeginPopupModal("check", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-		ImGui::Text("This folder contains alot of stuff\nYou sure?");
+	if (ImGui::BeginPopupModal(ICON_FA_TRASH "Are you Sure?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+		ImGui::Text("Folder: "); ImGui::SameLine(0, 3); ImGui::TextColored(GOLDENORANGE, folder_to_del.c_str()); ImGui::SameLine(0, 3);
+		ImGui::Text("is NOT EMPTY!\nYou sure you want to delete?\nThis cannot be undone!!!");
 
 		imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
 		if (ImGui::Button("Yes"))
