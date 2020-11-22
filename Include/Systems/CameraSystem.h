@@ -133,34 +133,6 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn CameraUnTarget(Camera* camera)
-
-	\brief Sets target of camera to nullptr and un-snaps camera from target
-*/
-/******************************************************************************/
-	void CameraUnTarget(Camera* camera);
-
-/******************************************************************************/
-/*!
-	\fn SetTarget(Camera* camera, Entity* target)
-
-	\brief Sets target of camera to the entity
-*/
-/******************************************************************************/
-	void SetTarget(Camera* camera, Entity* target);
-
-/******************************************************************************/
-/*!
-	\fn ToggleTargeted(Camera* camera)
-
-	\brief Toggles whether camera follow target or moves independantly from
-		   the entity
-*/
-/******************************************************************************/
-	void ToggleTargeted(Camera* camera);
-
-/******************************************************************************/
-/*!
 	\fn GetMainCamera()
 
 	\brief Gets the main camera

@@ -113,6 +113,9 @@ void GraphicsSystem::Init() {
     graphic_shaders_["FinalShader"] =
         shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
 
+    graphic_shaders_["VignetteShader"] =
+        shader_manager_->AddShdrpgm("Shaders/vignette.vert", "Shaders/vignette.frag", "VignetteShader");
+
     graphic_shaders_["DebugShader"] =
         shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
 
@@ -121,6 +124,8 @@ void GraphicsSystem::Init() {
 
     //For UI and text
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
+
+    vignette_radius = 400.0f;
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
@@ -246,7 +251,7 @@ void GraphicsSystem::Draw() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(&final_texture_, 1.0f);
+    DrawFinalTextureWithVignette(&final_texture_, 1.0f);
 
     //draw all the UI textures
     graphic_shaders_["UIShader"]->Use();
@@ -303,6 +308,24 @@ void GraphicsSystem::DrawFinalTexture(GLuint* texture, float opacity) {
 
     glDrawElements(GL_TRIANGLE_STRIP, graphic_models_["BoxModel"]->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     graphic_shaders_["FinalShader"]->UnUse();
+    glBindVertexArray(0);
+}
+
+void GraphicsSystem::DrawFinalTextureWithVignette(GLuint* texture, float opacity) {
+
+    graphic_shaders_["VignetteShader"]->Use();
+    glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
+    glBindTexture(GL_TEXTURE_2D, graphic_models_["BoxModel"]->vaoid_);
+    glBindTextureUnit(0, *texture);
+
+    graphic_shaders_["VignetteShader"]->SetUniform("center", glm::vec2{ windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
+    graphic_shaders_["VignetteShader"]->SetUniform("clear_radius", vignette_radius);
+    graphic_shaders_["VignetteShader"]->SetUniform("max_radius", windows_system_->GetWinHeight() / 2);
+    graphic_shaders_["VignetteShader"]->SetUniform("uTex2d", 0);
+    graphic_shaders_["VignetteShader"]->SetUniform("opacity", opacity);
+
+    glDrawElements(GL_TRIANGLE_STRIP, graphic_models_["BoxModel"]->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    graphic_shaders_["VignetteShader"]->UnUse();
     glBindVertexArray(0);
 }
 
@@ -583,7 +606,6 @@ void GraphicsSystem::BatchWorldObject(IRenderer* i_worldobj_renderer) {
     float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
     Vector2D pos = transform->position_ * global_scale;
 
-    //glm::vec2 scaling{ scale->GetScale().x, scale->GetScale().y };
     glm::vec2 scaling{ scale.x, scale.y };
     glm::vec2 rotation{ glm::cos(orientation), glm::sin(orientation) };
     glm::vec2 position{ pos.x, pos.y};

@@ -13,16 +13,14 @@ Camera::~Camera() {
 
 void Camera::Init()
 {
-    targeted_ = false;
-
     CORE->GetManager<ComponentManager>()->AddComponent<Camera>(Component::GetOwner()->GetID(), this);
 
     glm::mat3 view_xform_ = { 1 , 0 , 0,
                               0 , 1 , 0,
                               cam_pos_.x , cam_pos_.y , 1 };
 
-    glm::mat3 camwin_to_ndc_xform_ { 2 / (cam_size_.x / cam_zoom_) , 0 , 0,
-                                     0 , 2 / (cam_size_.y / cam_zoom_) , 0,
+    glm::mat3 camwin_to_ndc_xform_ { 2 / cam_size_.x , 0 , 0,
+                                     0 , 2 / cam_size_.y , 0,
                                      0 , 0 , 1 };
 
     world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
@@ -50,9 +48,8 @@ void Camera::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 void Camera::DeSerialize(std::stringstream& data)
 {
     data >> cam_pos_.x >> cam_pos_.y
-         >> cam_size_.x >> cam_size_.y
-         >> cam_zoom_
-         >> targeted_;
+        >> cam_size_.x >> cam_size_.y
+        >> cam_zoom_;
 
 }
 
@@ -80,7 +77,8 @@ std::shared_ptr<Component> Camera::Clone()
     std::shared_ptr<Camera> cloned = std::make_shared<Camera>();
 
     cloned->cam_pos_ = cam_pos_;
-    cloned->cam_size_ = cam_size_;
+    cloned->cam_zoom_ = cam_zoom_;
+    cloned->cam_size_ = cam_size_ / cam_zoom_;
 
     glm::mat3 view_xform_ = { 1 , 0 , 0,
                               0 , 1 , 0,
@@ -91,7 +89,6 @@ std::shared_ptr<Component> Camera::Clone()
                                      0 , 0 , 1 };
 
     cloned->world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
-    cloned->cam_zoom_ = cam_zoom_;
 
     return cloned;
 }
@@ -103,9 +100,7 @@ glm::vec2* Camera::GetCameraPosition()
 
 Vector2D Camera::GetVector2DCameraPosition() {
     
-    Vector2D position{ static_cast<float>(-cam_pos_.x), static_cast<float>(-cam_pos_.y) };
-
-    return position;
+    return Vector2D{ -cam_pos_.x, -cam_pos_.y };
 }
 
 float* Camera::GetCameraZoom()

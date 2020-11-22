@@ -15,8 +15,9 @@
     },
     {
       "component": "ParentChild",
-      "counter": "1",
-      "child": "FakeWall"
+      "counter": "2",
+      "child": "FakeWall",
+      "child": "Camera"
     }
   ]
 }

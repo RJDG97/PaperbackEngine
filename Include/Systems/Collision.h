@@ -53,7 +53,10 @@ public:
 	using StatusIt = StatusMapType::MapTypeIt;
 
 	using TransformType = CMap<Transform>;
-	using TransformIt = TransformType::MapTypeIt;
+	using TransformIt = TransformType::MapTypeIt;	
+
+	using CameraType = CMap<Camera>;
+	using CameraIt = CameraType::MapTypeIt;
 
 	using ScaleType = CMap<Scale>;
 	using ScaleIt = ScaleType::MapTypeIt;
@@ -84,8 +87,11 @@ private:
 	MotionType* motion_arr_;
 	StatusMapType* status_arr_;
 	TransformType* transform_arr_;
+	CameraType* camera_arr_;
 	ScaleType* scale_arr_;
 	InputControllerType* input_controller_arr_;
+	
+	Camera* cam_;
 
 	// Collision maps
 	std::unordered_map<CollisionLayer, CollidableLayers> collision_layer_arr_;

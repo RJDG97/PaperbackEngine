@@ -21,6 +21,14 @@
 
 class GraphicsSystem : public ISystem {
 
+    class RenderLayer {
+
+        std::string name_;
+        bool y_sorted;
+        std::multimap<int, IRenderer*> renderers_;
+
+    };
+
     bool debug_;
 
     glm::vec2 win_size_;
@@ -55,6 +63,8 @@ class GraphicsSystem : public ISystem {
     std::vector<glm::vec2> position_sent;
     std::vector<float> texture_id_sent;
     std::map<GLuint, GLuint> texture_handles;
+
+    float vignette_radius;
 
 public:
 
@@ -94,6 +104,15 @@ public:
 */
 /******************************************************************************/
     void DrawFinalTexture(GLuint* texture, float opacity);
+
+/******************************************************************************/
+/*!
+    \fn DrawFinalTextureWithVignette(GLuint* texture, float opacity)
+
+    \brief Draws texture that covers the entire viewport (for post-processing)
+*/
+/******************************************************************************/
+    void DrawFinalTextureWithVignette(GLuint* texture, float opacity);
 
 /******************************************************************************/
 /*!
@@ -371,6 +390,7 @@ void RemoveTextRendererComponent(EntityID id);
     std::multimap<int, IRenderer*> uirenderers_in_order_;
     std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
 
+    std::map<int, RenderLayer> render_layers_;
 };
 
 #endif

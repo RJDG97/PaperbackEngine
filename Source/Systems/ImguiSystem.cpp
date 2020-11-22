@@ -29,6 +29,7 @@ void ImguiSystem::Init(){
     entities_ = &*CORE->GetManager<EntityManager>();
     factory_ = &*CORE->GetSystem <EntityFactory>();
     sound_ = &*CORE->GetSystem<SoundSystem>();
+    graphics_ = &* CORE->GetSystem<GraphicsSystem>();
 
     editor_ = factory_->GetLevel("Editor");
 
@@ -77,7 +78,6 @@ void ImguiSystem::Init(){
     dock_space_flags_ = ImGuiDockNodeFlags_PassthruCentralNode;
     window_flags_ = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
-    b_windows = true;
     b_lock_entity = false;
     b_imguimode = false;
 
@@ -97,21 +97,11 @@ void ImguiSystem::Init(){
     "(*.json) Paperback Engine Scene\0*.json\0"
     "(*.*) All Files\0* *.*\0";
 
-    texture_filter_ =    
+    asset_filter_ =    
     "(*.jpg) JPG\0* .jpg\0"
     "(*.png) Spritesheets/Textures\0* .png\0"
+    "(*.mp3) Audio Files\0* .mp3"
     "(*.*) All Files\0* *.*\0";
-
-    //std::vector<File::fs::directory_entry> tempList;
-
-    //for (auto& directory : File::RecursiveDirectoryList("Resources")) {
-    //    tempList.push_back(directory);
-    //    std::cout << directory.path().generic_string() << std::endl;
-    //}
-    //
-    //for (auto& directory : tempList)
-    //    for (auto& file : File::ListOfFiles(directory))
-    //        directory_map_[directory.path().generic_string()].push_back(file);
 
 }
 
@@ -120,7 +110,7 @@ void ImguiSystem::Update(float frametime) {
     UNREFERENCED_PARAMETER(frametime);
 	
     if (b_imguimode) {
-
+        
         ImguiInput();
     	
         ImGui_ImplOpenGL3_NewFrame();
@@ -157,10 +147,9 @@ void ImguiSystem::Update(float frametime) {
         	
             ImGuiCustomStyle();
 
-            if (b_windows) {
-                for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
-                    begin->second->Update();
-            }
+            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
+                begin->second->Update();
+
             ImGui::End(); // end of docking space
         }
         ImguiRender();
@@ -224,7 +213,7 @@ void ImguiSystem::ImguiMenuBar() {
         if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
             if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene", "Ctrl+O"))
                 OpenFile();
-            if (ImGui::MenuItem(ICON_FA_SAVE " Save", "Ctrl+S")) {
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save Scene As...", "Ctrl+S")) {
                 if (!editor_->entity_paths_.empty()) {
                     SaveFile();
                     b_showpop = true;
@@ -403,7 +392,34 @@ void ImguiSystem::OpenFile() {
 
 void ImguiSystem::SaveFile(){
 
-    factory_->SerializeCurrentLevelEntities();
+    factory_->SerializeCurrentLevelEntities(); // save each entity to their respective path
+
+    rapidjson::StringBuffer sb;
+    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+
+    std::string path = OpenSaveDialog(scene_filter_, 1);
+
+    if (!path.empty()) {
+
+        std::ofstream filestream(path);
+
+        if (filestream.is_open()) {
+
+            writer.StartObject();
+
+            for (Level::EntityPathsIt it = editor_->entity_paths_.begin(); it != editor_->entity_paths_.end(); ++it) {
+
+                writer.Key(it->first.c_str());
+                writer.String(it->second.c_str());
+            }
+
+            writer.EndObject();
+
+            filestream << sb.GetString();
+        }
+
+        filestream.close();
+    }
 }
 
 void ImguiSystem::NewScene() {
@@ -445,11 +461,11 @@ void ImguiSystem::SendMessageD(Message* m) {
     switch (m->message_id_) {
     case MessageIDTypes::M_MOUSE_PRESS:
     {
-        //if (!b_lock_entity) {
-        //    selected_entity_ = collision_->SelectEntity();
-        //    new_entity_ = entities_->GetEntity(selected_entity_);
-        //    b_lock_entity = true;
-        //}
+        if (!b_lock_entity) {
+            selected_entity_ = collision_->SelectEntity();
+            new_entity_ = entities_->GetEntity(selected_entity_);
+            b_lock_entity = true;
+        }
         break;
     }
     default:
@@ -470,6 +486,21 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
         ImGui::EndPopup();
     }
+}
+
+void ImguiSystem::DrawGrid() {
+
+    //for (int i = 0; i < win_->GetWinWidth(); i + 2.5f) {
+
+    //    for (int j = 0; j < win_->GetWinHeight(); j + 2.5f) {
+
+    //        glm::vec2 xAxis{ 0, i };
+    //        glm::vec2 yAxis{ 0, j };
+    //        std::vector<glm::vec2> lines = { xAxis, yAxis };
+
+    //        graphics_->DrawDebugLine(lines, { 1.0f, 1.0f, 1.0f, 1.0f });
+    //    }
+    //}
 }
 
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
@@ -499,7 +530,7 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
 
         if (ImGui::Button("OK")) {
-            if (!new_entity_->GetID() && !entity) //archetype id == 0
+            if (!new_entity_->GetID() && !entity) 
                 entities_->DeleteArchetype(new_entity_); //delete archetype
             else if (new_entity_->GetID() && !entity)
                 entities_->DeleteEntity((new_entity_)); //delete entities
