@@ -64,7 +64,7 @@ class GraphicsSystem : public ISystem {
     std::vector<float> texture_id_sent;
     std::map<GLuint, GLuint> texture_handles;
 
-    float vignette_radius;
+    glm::vec2 vignette_size;
 
 public:
 
@@ -367,6 +367,15 @@ void RemoveTextRendererComponent(EntityID id);
 */
 /******************************************************************************/
     GLuint GetFramebuffer();
+
+/******************************************************************************/
+/*!
+    \fn SetVignetteSize(glm::vec2 size)
+
+    \brief Set vignette's size
+*/
+/******************************************************************************/
+    void SetVignetteSize(glm::vec2 size);
 
     void DrawDebugRectangle(std::vector<glm::vec2> points, glm::vec4 color);
     void DrawDebugLine(std::vector<glm::vec2> points, glm::vec4 color);

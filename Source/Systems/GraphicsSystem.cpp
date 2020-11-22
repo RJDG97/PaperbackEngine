@@ -125,7 +125,7 @@ void GraphicsSystem::Init() {
     //For UI and text
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
 
-    vignette_radius = 400.0f;
+    vignette_size = { 600.0f, 320.0f};
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
@@ -319,8 +319,8 @@ void GraphicsSystem::DrawFinalTextureWithVignette(GLuint* texture, float opacity
     glBindTextureUnit(0, *texture);
 
     graphic_shaders_["VignetteShader"]->SetUniform("center", glm::vec2{ windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
-    graphic_shaders_["VignetteShader"]->SetUniform("clear_radius", vignette_radius);
-    graphic_shaders_["VignetteShader"]->SetUniform("max_radius", windows_system_->GetWinHeight() / 2);
+    graphic_shaders_["VignetteShader"]->SetUniform("clear_size", vignette_size);
+    graphic_shaders_["VignetteShader"]->SetUniform("max_size", glm::vec2{ windows_system_->GetWinWidth(),  windows_system_->GetWinHeight()});
     graphic_shaders_["VignetteShader"]->SetUniform("uTex2d", 0);
     graphic_shaders_["VignetteShader"]->SetUniform("opacity", opacity);
 
@@ -1026,4 +1026,9 @@ void GraphicsSystem::DrawDebugLine(std::vector<glm::vec2> points, glm::vec4 colo
     glDrawElements(GL_LINES, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
     shader->UnUse();
+}
+
+void GraphicsSystem::SetVignetteSize(glm::vec2 size)
+{
+    vignette_size = size;
 }
