@@ -79,6 +79,56 @@ Vector2D Normal(const Collision::AABBIt& s1, const Collision::AABBIt& s2,
 	}
 }
 
+Vector2D SATNormal(const Collision::AABBIt& s1, const Collision::AABBIt& s2,
+	const Transform* t1, const Transform* t2, float& penetration) {
+
+	Vector2D vec_ba = t2->GetOffsetAABBPos() - t1->GetOffsetAABBPos();
+
+	float x_over = abs(vec_ba.x) - (s1->second->GetAABBScale().x + s2->second->GetAABBScale().x);
+
+	float y_over = abs(vec_ba.y) - (s1->second->GetAABBScale().y + s2->second->GetAABBScale().y);
+
+	float diff = x_over - y_over;
+
+	if (diff > EPSILON) {
+
+		penetration = x_over;
+
+		if (vec_ba.x < 0.0f) {
+
+			return Vector2D{ -1.0f, 0.0f };
+		}
+		else {
+
+			return Vector2D{ 1.0f, 0.0f };
+		}
+	}
+	else if (diff < -EPSILON) {
+
+		penetration = y_over;
+
+		if (vec_ba.y < 0.0f) {
+
+			return Vector2D{ 0.0f, -1.0f };
+		}
+		else {
+
+			return Vector2D{ 0.0f, 1.0f };
+		}
+	}
+	else {
+
+		penetration = x_over;
+		Vector2D normal{};
+
+		normal.x = (vec_ba.x < 0.0f) ? -1.0f : 1.0f;
+
+		normal.y = (vec_ba.y < 0.0f) ? -1.0f : 1.0f;
+
+		return normal;
+	}
+}
+
 void Collision::AddCollisionLayers(CollisionLayer layer, const std::string& collidables, bool collide_self) {
 	CollidableLayers collider{ collidables, collide_self };
 
@@ -292,25 +342,28 @@ EntityID Collision::SelectEntity() {
 void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first) {
 
 	//std::shared_ptr<ForcesManager> force_mgr = CORE->GetManager<ForcesManager>();
-
+	UNREFERENCED_PARAMETER(vel2);
 	Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
-	Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
+	//Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
 
-	Transform* transform1 = transform_arr_->GetComponent(aabb1->second->GetOwner()->GetID());
-	Transform* transform2 = transform_arr_->GetComponent(aabb2->second->GetOwner()->GetID());
+	Transform* transform1 = transform_arr_->GetComponent(aabb1->first);
+	Transform* transform2 = transform_arr_->GetComponent(aabb2->first);
+
+	float penetration{};
 
 	// Get "normal" to colliding side
-	Vector2D normal = Normal(aabb1, aabb2, transform1, transform2);
+	Vector2D normal = SATNormal(aabb1, aabb2, transform1, transform2, penetration);
 
-	// Isolate relavent vector value based on normal value
-	inverse_vector_1.x *= normal.x;
-	inverse_vector_1.y *= normal.y;
-	inverse_vector_2.x *= normal.x;
-	inverse_vector_2.y *= normal.y;
+	inverse_vector_1.x *= abs(normal.x);
+	inverse_vector_1.y *= abs(normal.y);
+	//inverse_vector_2.x *= abs(normal.x);
+	//inverse_vector_2.y *= abs(normal.y);
+
+	normal *= abs(penetration) * 0.7f;
 
 	// Reposition entity's position
 	transform1->position_ += inverse_vector_1;
-	transform2->position_ += inverse_vector_2;
+	transform2->position_ += normal; //inverse_vector_2;
 
 	// Toggle collision status (For debug boxes)
 	aabb1->second->collided = true;
