@@ -14,6 +14,8 @@
 
 class Texture {
 
+	size_t width_;
+	size_t height_;
 	GLuint tileset_handle_;
 	std::vector<glm::vec2> tex_vtx_;
 
@@ -30,13 +32,31 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx)
+	\fn Texture(size_t width, size_t height, GLuint tileset_handle, std::vector<glm::vec2> tex_vtx)
 
 	\brief Constructor for Texture that initializes all its data members
 		   according to the respective values
 */
 /******************************************************************************/
-	Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx);
+	Texture(size_t width, size_t height, GLuint tileset_handle, std::vector<glm::vec2> tex_vtx);
+
+/******************************************************************************/
+/*!
+	\fn GetWidth()
+
+	\brief Gets width of texture.
+*/
+/******************************************************************************/
+	size_t GetWidth();
+
+/******************************************************************************/
+/*!
+	\fn GetHeight()
+
+	\brief Gets height of texture.
+*/
+/******************************************************************************/
+	size_t GetHeight();
 
 /******************************************************************************/
 /*!
@@ -172,10 +192,10 @@ public:
 /*!
 	\fn LoadImageFile(const char* filename)
 
-	\brief Loads an image file and returns the handle to the texture file
+	\brief Loads an image file and returns the width, height and handle to the texture file
 */
 /******************************************************************************/
-	GLuint LoadImageFile(const char* filename);
+	std::vector<GLuint> LoadImageFile(const char* filename);
 
 /******************************************************************************/
 /*!
