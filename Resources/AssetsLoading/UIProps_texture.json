@@ -1,64 +1,64 @@
 { 
 
-  "Bush One": "Resources/AssetsLoading/PropsTexture/props_bush_one.json",
+  "Bush_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_Bush_01.png 1 1",
   
-  "Bush Two": "Resources/AssetsLoading/PropsTexture/props_bush_two.json",
+  "Bush_Two": "Resources/Sprites/Props/Props_V1_PNGs/Props_Bush_02.png 1 1",
   
-  "Chest One": "Resources/AssetsLoading/PropsTexture/props_chest_one.json",
+  "Chest_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_Chest_01.png 1 1",
   
-  "Props Gate": "Resources/AssetsLoading/PropsTexture/props_gate.json",
+  "Props_Gate": "Resources/Sprites/Props/Props_V1_PNGs/Props_Gate.png 1 1",
   
-  "Grass One": "Resources/AssetsLoading/PropsTexture/props_grass_one.json",
+  "Grass_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_Grass_01.png 1 1",
   
-  "Grass Two": "Resources/AssetsLoading/PropsTexture/props_grass_two.json",
+  "Grass_Two": "Resources/Sprites/Props/Props_V1_PNGs/Props_Grass_02.png 1 1",
   
-  "Props Greenhouse": "Resources/AssetsLoading/PropsTexture/props_greenhouse.json",
+  "Props_Greenhouse": "Resources/Sprites/Props/Props_V1_PNGs/Props_Greenhouse.png 1 1",
   
-  "Key One": "Resources/AssetsLoading/PropsTexture/props_key_one.json",
+  "Key_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_Key_01.png 1 1",
   
-  "Leaves One": "Resources/AssetsLoading/PropsTexture/props_leaves_one.json",
+  "Leaves_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_Leaves_01.png 1 1",
   
-  "Leaves Two": "Resources/AssetsLoading/PropsTexture/props_leaves_two.json",
+  "Leaves_Two": "Resources/Sprites/Props/Props_V1_PNGs/Props_Leaves_02.png 1 1",
   
-  "Log One": "Resources/AssetsLoading/PropsTexture/props_log_one.json",
+  "Log_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_Log_01.png 1 1",
   
-  "Rock One": "Resources/AssetsLoading/PropsTexture/props_rock_one.json",
+  "Rock_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_Rock_01.png 1 1",
   
-  "Rock Two": "Resources/AssetsLoading/PropsTexture/props_rock_two.json",
+  "Rock_Two": "Resources/Sprites/Props/Props_V1_PNGs/Props_Rock_02.png 1 1",
   
-  "Rock Three": "Resources/AssetsLoading/PropsTexture/props_rock_three.json",
+  "Rock_Three": "Resources/Sprites/Props/Props_V1_PNGs/Props_Rock_03.png 1 1",
   
-  "Stump One": "Resources/AssetsLoading/PropsTexture/props_stump_one.json",
+  "Stump_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_Stump_01.png 1 1",
   
-  "Tree One": "Resources/AssetsLoading/PropsTexture/props_tree_one.json",
+  "Tree_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_Tree_01.png 1 1",
   
-  "Tree Two": "Resources/AssetsLoading/PropsTexture/props_tree_two.json",
+  "Tree_Two": "Resources/Sprites/Props/Props_V1_PNGs/Props_Tree_02.png 1 1",
   
-  "Tree Three": "Resources/AssetsLoading/PropsTexture/props_tree_three.json",
+  "Tree_Three": "Resources/Sprites/Props/Props_V1_PNGs/Props_Tree_03.png 1 1",
   
-  "Tree Four": "Resources/AssetsLoading/PropsTexture/props_tree_four.json",
+  "Tree_Four": "Resources/Sprites/Props/Props_V1_PNGs/Props_Tree_04.png 1 1",
   
-  "Tree Five": "Resources/AssetsLoading/PropsTexture/props_tree_five.json",
+  "Tree_Five": "Resources/Sprites/Props/Props_V1_PNGs/Props_Tree_05.png 1 1",
   
-  "Tree Six": "Resources/AssetsLoading/PropsTexture/props_tree_six.json",
+  "Tree_Six": "Resources/Sprites/Props/Props_V1_PNGs/Props_Tree_06.png 1 1",
   
-  "WaterRock One": "Resources/AssetsLoading/PropsTexture/props_waterrock_one.json",
+  "WaterRock_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_WaterRock_01.png 1 1",
   
-  "WaterRock Two": "Resources/AssetsLoading/PropsTexture/props_waterrock_two.json",
+  "WaterRock_Two": "Resources/Sprites/Props/Props_V1_PNGs/Props_WaterRock_02.png 1 1",
   
-  "WitheredGrass One": "Resources/AssetsLoading/PropsTexture/props_witheredgrass_one.json",
+  "WitheredGrass_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_WitheredGrass_01.png 1 1",
   
-  "WitheredTree One": "Resources/AssetsLoading/PropsTexture/props_witheredtree_one.json",
+  "WitheredTree_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_WitheredTree_01.png 1 1",
   
-  "WitheredTree Two": "Resources/AssetsLoading/PropsTexture/props_witheredtree_two.json",
+  "WitheredTree_Two": "Resources/Sprites/Props/Props_V1_PNGs/Props_WitheredTree_02.png 1 1",
   
-  "WitheringTree One": "Resources/AssetsLoading/PropsTexture/props_witheringtree_one.json",
+  "WitheringTree_One": "Resources/Sprites/Props/Props_V1_PNGs/Props_WitheringTree_01.png 1 1",
   
-  "WitheringTree Two": "Resources/AssetsLoading/PropsTexture/props_witheringtree_two.json",
+  "WitheringTree_Two": "Resources/Sprites/Props/Props_V1_PNGs/Props_WitheringTree_02.png 1 1",
   
-  "Empty Pot": "Resources/AssetsLoading/PropsTexture/props_emptypot.json",
+  "Empty_Pot": "Resources/Sprites/Props/Empty_pot.png 1 1",
   
-  "Hole": "Resources/AssetsLoading/PropsTexture/props_hole.json",
+  "Hole": "Resources/Sprites/Props/Hole.png 1 1",
   
-  "Puddle": "Resources/AssetsLoading/PropsTexture/props_puddle.json"
+  "Puddle": "Resources/Sprites/Props/Props_Puddle.png 1 1"
 }

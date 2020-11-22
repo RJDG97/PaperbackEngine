@@ -822,7 +822,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, texture_manager_->GetTexture("WatergaugeLeaves")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Leaves_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_DEPTH_TEST);
 
@@ -834,7 +834,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     glStencilMask(0xFF);
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, texture_manager_->GetTexture("WatergaugeDroplet")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Droplet_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_DEPTH_TEST);
 
@@ -842,13 +842,13 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     glStencilMask(0x00);
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * water_vertices.size(), water_vertices.data());
-    glBindTextureUnit(0, texture_manager_->GetTexture("WatergaugeWater")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Water_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_STENCIL_TEST);
 
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, texture_manager_->GetTexture("WatergaugeShine")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Shine_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
 }

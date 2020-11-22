@@ -62,6 +62,18 @@ void TextureManager::TextureBatchLoad(std::string level_name) {
     //handle sorting of information into the map
     for (rapidjson::Value::ConstMemberIterator file_it = files_arr.MemberBegin(); file_it != files_arr.MemberEnd(); ++file_it) {
 
+        std::string tileset_name{ file_it->name.GetString() };
+        std::stringstream info;
+        info << file_it->value.GetString();
+
+        std::string texture_path;
+        int columns;
+        int rows;
+        info >> texture_path >> columns >> rows;
+
+        CreateTileset(texture_path.c_str(), columns, rows, tileset_name);
+
+        /*
         std::string path_name{ file_it->value.GetString() };
 
         rapidjson::Document texture_data;
@@ -87,7 +99,7 @@ void TextureManager::TextureBatchLoad(std::string level_name) {
             tile_names.push_back(texture_param_it->value.GetString());
         }
 
-        CreateTileset(texture_pathname.c_str(), columns, rows, tile_names, tileset_name);
+        CreateTileset(texture_pathname.c_str(), columns, rows, tile_names, tileset_name);*/
     }
 }
 
@@ -209,7 +221,7 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     return texobj_hdl;
 }
 
-void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string>& texture_names, std::string tileset_name)
+void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::string tileset_name)
 {
     auto it = tilesets_.find(tileset_name);
 
@@ -219,8 +231,15 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
         return;
     }
 
+    std::vector<std::string> tile_names;
+
+    for (int i = 0; i < columns * rows; ++i)
+    {
+        tile_names.push_back(tileset_name + "_" + std::to_string(i));
+    }
+
     GLuint tileset_handle_ = LoadImageFile(filename);
-    tilesets_[tileset_name] = { tileset_handle_, &texture_names };
+    tilesets_[tileset_name] = { tileset_handle_, &tile_names };
 
     glm::vec2 offset{ 1.0f / columns, 1.0f / rows };
 
@@ -228,16 +247,11 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
 
         for (int x = 0; x < columns; ++x) {
 
-            if (texture_names[y * columns + x] == "Empty") {
-
-                continue;
-            }
-
             glm::vec2 origin{ x / static_cast<float>(columns) ,
                                1 - y / static_cast<float>(rows) - offset.y };
 
             // + 1 skips over the name of the tilset
-            textures_[texture_names[y * columns + x]] =
+            textures_[tile_names[y * columns + x]] =
                 Texture{ tileset_handle_,
                          { {origin.x, origin.y},
                            {origin.x + offset.x, origin.y},

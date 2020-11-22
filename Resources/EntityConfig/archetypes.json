@@ -40,7 +40,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Background",
+      "texture": "Temp_Background_0",
       "layer": "0",
       "ui": "0"
     },
@@ -250,7 +250,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "RockThree",
+      "texture": "Rock_Three_0",
       "layer": "2",
       "ui": "0"
     },
@@ -324,7 +324,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Rock",
+      "texture": "Environment_Tiles_20",
       "layer": "2",
       "ui": "1"
     },
@@ -356,9 +356,9 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Hole",
+      "texture": "Hole_0",
       "layer": "1",
-	    "ui": "0"
+      "ui": "0"
     },
     {
       "component": "AABB",
@@ -534,7 +534,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuBackground",
+      "texture": "Menu_Background_0",
       "layer": "0",
       "ui": "1"
     },
@@ -591,7 +591,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Rock",
+      "texture": "Environment_Tiles_20",
       "layer": "2",
       "ui": "0"
     }
@@ -618,7 +618,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuCloudOne",
+      "texture": "Menu_CloudOne_0",
       "layer": "0",
       "ui": "0"
     }
@@ -640,7 +640,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "WatergaugeDroplet",
+      "texture": "WaterGauge_Droplet_0",
       "layer": "0",
       "ui": "1"
     }
@@ -662,7 +662,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "RockThree",
+      "texture": "Rock_Three_0",
       "layer": "2",
       "ui": "0"
     }
@@ -684,7 +684,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Rock",
+      "texture": "Environment_Tiles_20",
       "layer": "2",
       "ui": "0"
     }
@@ -711,7 +711,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "PropsGate",
+      "texture": "Props_Gate_0",
       "layer": "1",
       "ui": "0"
     }
@@ -738,7 +738,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "KeyOne",
+      "texture": "Key_One_0",
       "layer": "1",
       "ui": "0"
     }
@@ -765,7 +765,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Puddle",
+      "texture": "Puddle_0",
       "layer": "1",
       "ui": "0"
     }

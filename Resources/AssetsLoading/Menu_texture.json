@@ -1,55 +1,49 @@
 { 
-  "Environment Tiles": "Resources/AssetsLoading/Texture/environment_tiles.json",
+  "Environment_Tiles": "Resources/Sprites/tiles.png 3 7",
   
-  "Temp Background": "Resources/AssetsLoading/Texture/temp_background.json",
+  "Temp_Background": "Resources/Sprites/Background.png 1 1",
 
-  "Menu Background": "Resources/AssetsLoading/Texture/menu_background.json",
+  "Menu_Background": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen.png 1 1",
   
-  "Menu Start": "Resources/AssetsLoading/Texture/menu_start_button.json",
+  "Menu_Start": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play.png 1 1",
   
-  "Menu HowToPlay": "Resources/AssetsLoading/Texture/menu_howtoplay_button.json",
+  "Menu_HowToPlay": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay.png 1 1",
   
-  "Menu Editor": "Resources/AssetsLoading/Texture/menu_editor.json",
+  "Menu_Editor": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor.png 1 1",
   
-  "Menu Quit": "Resources/AssetsLoading/Texture/menu_quit_button.json",
+  "Menu_Quit": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit.png 1 1",
   
-  "Menu Settings": "Resources/AssetsLoading/Texture/menu_settings_button.json",
+  "Lose_Background": "Resources/Sprites/UI_Elements/Lose/UI_Defeat.png 1 1",
   
-  "Menu TryAgain": "Resources/AssetsLoading/Texture/menu_tryagain_button.json",
+  "Menu_CloudOne": "Resources/Sprites/UI_Elements/Menu/Clouds_01.png 1 1",
   
-  "Lose Background": "Resources/AssetsLoading/Texture/lose_background.json",
+  "Menu_CloudTwo": "Resources/Sprites/UI_Elements/Menu/Clouds_02.png 1 1",
   
-  "Menu CloudOne": "Resources/AssetsLoading/Texture/menu_cloud1.json",
+  "HowTo_Ability": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Ability.png 1 1",
   
-  "Menu CloudTwo": "Resources/AssetsLoading/Texture/menu_cloud2.json",
+  "HowTo_Movement": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Movement.png 1 1",
   
-  "Menu Defeat": "Resources/AssetsLoading/Texture/defeat_menu.json",
+  "HowTo_Pause": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Pause.png 1 1",
   
-  "HowTo Ability": "Resources/AssetsLoading/Texture/howto_play_ability.json",
+  "HowTo_WaterGauge": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_WaterGauge.png 1 1",
   
-  "HowTo Movement": "Resources/AssetsLoading/Texture/howto_play_movement.json",
+  "UI_LeftButton": "Resources/Sprites/UI_Elements/HowTo/UI_LeftButton.png 1 1",
   
-  "HowTo Pause": "Resources/AssetsLoading/Texture/howto_play_pause.json",
+  "UI_RightButton": "Resources/Sprites/UI_Elements/HowTo/UI_RightButton.png 1 1",
   
-  "HowTo WaterGauge": "Resources/AssetsLoading/Texture/howto_play_watergauge.json",
+  "UI_QuitGame": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame.png 1 1",
   
-  "UI LeftButton": "Resources/AssetsLoading/Texture/ui_leftbutton.json",
+  "UI_QuitNo": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_No.png 1 1",
   
-  "UI RightButton": "Resources/AssetsLoading/Texture/ui_rightbutton.json",
+  "UI_QuitYes": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes.png 1 1",
   
-  "UI QuitGame": "Resources/AssetsLoading/Texture/ui_quitgame.json",
+  "UI_Win": "Resources/Sprites/UI_Elements/Win/UI_Win.png 1 1",
   
-  "UI QuitNo": "Resources/AssetsLoading/Texture/ui_quitgame_no.json",
+  "WaterGauge_Leaves": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Leaves.png 1 1",
   
-  "UI QuitYes": "Resources/AssetsLoading/Texture/ui_quitgame_yes.json",
+  "WaterGauge_Droplet": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Droplet.png 1 1",
   
-  "UI Win": "Resources/AssetsLoading/Texture/ui_win.json",
+  "WaterGauge_Shine": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Shine.png 1 1",
   
-  "WaterGauge Leaves": "Resources/AssetsLoading/Texture/watergauge_leaves.json",
-  
-  "WaterGauge Droplet": "Resources/AssetsLoading/Texture/watergauge_droplet.json",
-  
-  "WaterGauge Shine": "Resources/AssetsLoading/Texture/watergauge_shine.json",
-  
-  "WaterGauge Water": "Resources/AssetsLoading/Texture/watergauge_water.json"
+  "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1"
 }
