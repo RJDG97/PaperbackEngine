@@ -122,21 +122,30 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn GetPosition()
+  \fn GetOffset()
 
-  \brief Returns the rotation of the component
+  \brief Returns the offset value
 */
 /******************************************************************************/
 	Vector2D GetOffset() const;
 
 /******************************************************************************/
 /*!
-  \fn SetRotation()
+  \fn SetOffset()
 
-  \brief Sets the rotation of the component
+  \brief Sets the offset
 */
 /******************************************************************************/
 	void SetOffset(const Vector2D& offset);
+
+/******************************************************************************/
+/*!
+  \fn AddOffset()
+
+  \brief Adds the offset value
+*/
+/******************************************************************************/
+	void AddOffset(const Vector2D& offset);
 
 /******************************************************************************/
 /*!
