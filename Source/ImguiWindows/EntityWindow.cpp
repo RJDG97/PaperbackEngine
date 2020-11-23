@@ -42,11 +42,11 @@ void EntityWindow::Update() {
 		ImGui::Begin("Component Inspector", &imgui_->b_component);
 
 		bool lock = imgui_->GetLockBool();
-		ImGui::Checkbox("Select Entity", &lock);
-		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to select Entities directly");
+		ImGui::Checkbox("Drag Entity", &lock);
+		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to Drag Entities around");
 		imgui_->SetLockBool(lock);
 
-		if (imgui_->EditorMode() && (imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
+		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
 
@@ -61,7 +61,7 @@ void EntityWindow::Update() {
 			EntityID checkselect = collision_->SelectEntity(mousepos);
 			imgui_->SetEntity(entities_->GetEntity(checkselect));
 
-			if (imgui_->GetEntity()) {
+			if (imgui_->GetEntity() && imgui_->GetLockBool()) {
 				Transform* entitytrans = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
 
 				Vector2D entAABB_centre = (component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetTopRight() - component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft()) / 2;

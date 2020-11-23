@@ -158,7 +158,6 @@ void ImguiSystem::Update(float frametime) {
 
                     selected_entity_ = collision_->SelectEntity(new_pos);
                     new_entity_ = entities_->GetEntity(selected_entity_);
-                    b_lock_entity = true;
                 }
             }
             
@@ -511,12 +510,7 @@ std::string ImguiSystem::EditString(std::string filepath, const char* startpos) 
     return filepath.substr(filepath.find(startpos));
 }
 
-void ImguiSystem::SendMessageD(Message* m) {
-    switch (m->message_id_) {
-    default:
-        break;
-    }
-}
+void ImguiSystem::SendMessageD(Message* m) { (void)m; }
 
 void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
@@ -535,9 +529,9 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
 void ImguiSystem::DrawGrid() {
 
-   for (int i = 0; i < win_->GetWinWidth(); i += 60.0f) {
+   for (float i = 0.0f; i < win_->GetWinWidth(); i += 60.0f) {
 
-       for (int j = 0; j < win_->GetWinHeight(); j += 60.0f) {
+       for (float j = 0.0f; j < win_->GetWinHeight(); j += 60.0f) {
 
            glm::vec2 xAxis{ i + camera_->GetVector2DCameraPosition().x, -win_->GetWinWidth() };
            glm::vec2 yAxis{ i + camera_->GetVector2DCameraPosition().x, win_->GetWinWidth() };

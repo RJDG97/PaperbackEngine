@@ -157,10 +157,10 @@ void AssetWindow::Update() {
 
 						writer.StartObject();
 
-						for (auto it = tex_info_.begin(); it != tex_info_.end(); ++it) {
+						for (auto fileit = tex_info_.begin(); fileit != tex_info_.end(); ++fileit) {
 
-							writer.Key(it->first.c_str());
-							writer.String((it->second.path + " " + std::to_string(it->second.column) + " " + std::to_string(it->second.row)).c_str());
+							writer.Key(fileit->first.c_str());
+							writer.String((fileit->second.path + " " + std::to_string(fileit->second.column) + " " + std::to_string(fileit->second.row)).c_str());
 						}
 
 						writer.EndObject();
