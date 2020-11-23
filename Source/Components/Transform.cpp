@@ -95,6 +95,11 @@ void Transform::SetOffset(const Vector2D& offset) {
 	offset_ = offset;
 }
 
+void Transform::AddOffset(const Vector2D& offset) {
+	
+	offset_ += offset;
+}
+
 void Transform::SetAABBOffset(const Vector2D& new_offset) {
 	
 	aabb_offset_ = new_offset;
