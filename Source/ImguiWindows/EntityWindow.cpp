@@ -5,8 +5,6 @@
 #include <tuple>
 #include "Entity/Entity.h"
 
-
-
 void EntityWindow::Init(){
 
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
@@ -30,6 +28,7 @@ void EntityWindow::Update() {
 
 		if (ImGui::Button("Clear Selection"))
 			imgui_->SetEntity({});
+
 		ImGui::Separator();
 
 		ShowEntityList();
@@ -43,50 +42,18 @@ void EntityWindow::Update() {
 
 		bool lock = imgui_->GetLockBool();
 		ImGui::Checkbox("Drag Entity", &lock);
-		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to Drag Entities around");
+		ImGui::SameLine(); imgui_->ImguiHelp("Check this box,\nto Drag Entities around");
 		imgui_->SetLockBool(lock);
 
+		// to see the components
 		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
 
-			//std::cout << input_->GetCursorPosition().x << " hehehe "  << input_->GetCursorPosition().y << std::endl;
 			CheckComponentType(entity);
 		}
 
-		if (imgui_->GetEntity() && imgui_->GetEntity()->GetID() && input_->IsMousePressed(0) && !imgui_->EditorMode()) {
-			Vector2D original = { 0,0 };
-			Vector2D mousepos = input_->GetUpdatedCoords();
-
-			EntityID checkselect = collision_->SelectEntity(mousepos);
-			imgui_->SetEntity(entities_->GetEntity(checkselect));
-
-			if (imgui_->GetEntity() && imgui_->GetLockBool()) {
-				Transform* entitytrans = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
-
-				Vector2D entAABB_centre = (component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetTopRight() - component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft()) / 2;
-				Vector2D centre = { component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft() + entAABB_centre };
-				if (input_->IsMouseTriggered(0)) {
-					originalVec_ = (centre - mousepos);
-				}
-
-				if (input_->IsMousePressed(0)) {
-					
-					std::cout << "Vector " << (mousepos - centre).x << "   " << (mousepos - centre).y << std::endl;
-					std::cout << "Centre " << (centre).x << "   " << (centre).y << std::endl;
-					std::cout << "Mousepos " << (mousepos).x << "   " << (mousepos).y << std::endl;
-
-					Vector2D entpos = mousepos + (originalVec_ + (-entitytrans->GetAABBOffset()));
-
-					entitytrans->SetPosition(entpos);
-
-				}
-
-				if (!input_->IsMousePressed(0) && !input_->IsMouseTriggered(0))
-					originalVec_ = { 0,0 };
-
-			}
-		}
+		DraggingEntities();
 
 		ImGui::End();
 	}
@@ -237,7 +204,6 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 			}
 				break;
 			case ComponentTypes::CONTROLLER:
-				ImGui::Text("Controller Component");
 				break;
 			case ComponentTypes::TEXTURERENDERER:
 			{
@@ -553,7 +519,6 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 					ImGui::TreePop();
 				}
-				
 			}
 				break;
 			case ComponentTypes::BASICAI:
@@ -578,6 +543,40 @@ void EntityWindow::RemoveComponent(const char* windowName, std::string objName, 
 	}
 
 	imgui_->DeletePopUp(windowName, objName, entity, component);
+}
+
+void EntityWindow::DraggingEntities() {
+
+	if (imgui_->GetEntity() && imgui_->GetEntity()->GetID() && input_->IsMousePressed(0) && !imgui_->EditorMode()) {
+
+		Vector2D mousepos = input_->GetUpdatedCoords();
+		EntityID checkselect = collision_->SelectEntity(mousepos);
+
+		imgui_->SetEntity(entities_->GetEntity(checkselect));
+
+		if (imgui_->GetEntity() && imgui_->GetLockBool()) {
+
+			Transform* entitytrans = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
+
+			Vector2D TopR = component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetTopRight();
+			Vector2D BottomL = component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft();
+
+			Vector2D halfpt = (TopR - BottomL) / 2;
+			Vector2D centre = { BottomL + halfpt };
+
+			if (input_->IsMouseTriggered(0))
+				originalVec_ = (centre - mousepos);
+
+			if (input_->IsMousePressed(0)) {
+
+				Vector2D entpos = mousepos + (originalVec_ -entitytrans->GetAABBOffset());
+				entitytrans->SetPosition(entpos);
+			}
+
+			if (!input_->IsMousePressed(0) && !input_->IsMouseTriggered(0))
+				originalVec_ = {};
+		}
+	}
 }
 
 
@@ -622,13 +621,11 @@ void EntityWindow::SetArrowButtons(int& componentVar) {
 ImVec2 EntityWindow::SetButtonSize() {
 
 	float lineHeight = ImGui::GetIO().FontDefault->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
-	ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
-	return buttonSize;
+	return { lineHeight + 3.0f, lineHeight };
 }
 
 void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal, const char* Xlabel , const char* Ylabel) {
 
-	SetButtonSize();
 	imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
 
 	ImGui::PushFont(imgui_->bold_font_);

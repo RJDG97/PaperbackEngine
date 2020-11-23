@@ -7,8 +7,8 @@
 #include <filesystem>
 #include "Systems/Debug.h"
 #include "Manager/TextureManager.h"
-namespace fs = std::filesystem;
 
+namespace fs = std::filesystem;
 
 struct TextureInfo {
 
@@ -54,14 +54,21 @@ public:
 
 	void DisplayFolderFiles(float window_width, float window_height);
 
-	void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
+	void DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc);
 
 	void LoadTextureJson(std::string level_name);
+
 	void LoadAnimationJson(std::string level_name);
+
+	void AddTextureAnimation();
+
+	void SelectTextureJson();
+
+	void DisplayJson();
+	void AddNewTexture();
 
 	std::string FileString(std::string icon, std::string file_name);
 	std::string DirectoryName(fs::directory_entry directory);
-
 
 private:
 

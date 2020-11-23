@@ -78,6 +78,25 @@ public:
 
 /******************************************************************************/
 /*!
+	\fn  Vec2Input(Vector2D& componentVar, float defaultVal = 0.0f, 
+	const char* Xlabel = "##X", const char* Ylabel = "##Y")
+
+	\brief Displays and handles the user input for vec2 variables
+*/
+/******************************************************************************/
+	void Vec2Input(Vector2D& componentVar, float defaultVal = 0.0f, const char* Xlabel = "##X", const char* Ylabel = "##Y");
+
+/******************************************************************************/
+/*!
+	\fn FloatInput(float& componentVar, const char* label = "X##float", float defaultVal = 0.0f)
+
+	\brief Displays and handles the user input for float variables
+*/
+/******************************************************************************/
+	void FloatInput(float& componentVar, const char* label = "X##float", float defaultVal = 0.0f);
+
+/******************************************************************************/
+/*!
 	\fn GetEntityComponents(Entity* entity)
 
 	\brief Retrieves the components that the entity owns
@@ -122,12 +141,12 @@ public:
 	const char* GetPlayerStatus(int playerState);
 
 	void SetArrowButtons(int& componentVar);
+
 	ImVec2 SetButtonSize();
 
-	void Vec2Input(Vector2D& componentVar, float defaultVal = 0.0f, const char* Xlabel = "##X", const char* Ylabel = "##Y");
-	void FloatInput(float& componentVar, const char* label = "X##float", float defaultVal = 0.0f);
-
 	void RemoveComponent(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component);
+
+	void DraggingEntities();
 
 private:
 	ImguiSystem* imgui_;

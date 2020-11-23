@@ -144,24 +144,17 @@ void ImguiSystem::Update(float frametime) {
             //if (camera_)
             //  DrawGrid();
 
+            // for the selection of entity
             if (!EditorMode() && camera_) {
 
                 if (input_->IsMousePressed(0)) {
 
-                    Vector2D cursor_ = input_->GetCursorPosition();
-                    Vector2D cameraPos_ = camera_->GetVector2DCameraPosition();
-
-                    float zoom_ = *camera_->GetCameraZoom();
-                    float Gscale = CORE->GetGlobalScale();
-
-                    Vector2D new_pos = ((cursor_ / (zoom_)) + cameraPos_) / Gscale;
+                    Vector2D new_pos = input_->GetUpdatedCoords();
 
                     selected_entity_ = collision_->SelectEntity(new_pos);
                     new_entity_ = entities_->GetEntity(selected_entity_);
                 }
             }
-            
-
 
             // DockSpace
             if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
