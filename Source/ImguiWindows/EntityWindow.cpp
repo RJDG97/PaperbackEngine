@@ -46,7 +46,7 @@ void EntityWindow::Update() {
 		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to select Entities directly");
 		imgui_->SetLockBool(lock);
 
-		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
+		if (imgui_->EditorMode() && (imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
 
@@ -54,27 +54,7 @@ void EntityWindow::Update() {
 			CheckComponentType(entity);
 		}
 
-		//if (imgui_->GetEntity() && imgui_->GetEntity()->GetID()) {
-
-		//	Camera* entityCamera = component_->GetComponent<Camera>(imgui_->GetEntity()->GetID());
-		//	EntityID tmp = CORE->GetSystem<Collision>()->SelectEntity(CORE->GetSystem<InputSystem>()->GetUpdatedCoords());
-
-		//	imgui_->SetEntity(CORE->GetManager<EntityManager>()->GetEntity(tmp));
-		//	Transform* entityTransform = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
-
-		//	if (entityCamera && entityTransform) {
-		//		Vector2D entityOGpos = entityTransform->GetPosition();
-		//		Vector2D cameraPos = { entityCamera->GetCameraPosition()->x, entityCamera->GetCameraPosition()->y };
-		//		Vector2D cursorPos = input_->GetCursorPosition();
-		//		Vector2D entitypos = (entityOGpos - cursorPos) + cameraPos + cursorPos;
-		//		entityTransform->SetPosition(entitypos);
-
-		//	}
-
-
-		//}
-
-		if (imgui_->GetEntity() && imgui_->GetEntity()->GetID() && input_->IsMousePressed(0)) {
+		if (imgui_->GetEntity() && imgui_->GetEntity()->GetID() && input_->IsMousePressed(0) && !imgui_->EditorMode()) {
 			Vector2D original = { 0,0 };
 			Vector2D mousepos = input_->GetUpdatedCoords();
 
@@ -83,9 +63,6 @@ void EntityWindow::Update() {
 
 			if (imgui_->GetEntity()) {
 				Transform* entitytrans = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
-				//Camera* entitycam = component_->GetComponent<Camera>(imgui_->GetEntity()->GetID());
-
-				//Vector2D campos = entitycam->GetVector2DCameraPosition();
 
 				Vector2D entAABB_centre = (component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetTopRight() - component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft()) / 2;
 				Vector2D centre = { component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft() + entAABB_centre };

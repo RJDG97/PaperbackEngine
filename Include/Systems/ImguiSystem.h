@@ -379,6 +379,8 @@ public:
 
 	void VolumeControl();
 
+	bool EditorMode();
+
 private:
 
 	// map to store all imgui windows added to the system

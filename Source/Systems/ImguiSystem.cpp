@@ -141,26 +141,26 @@ void ImguiSystem::Update(float frametime) {
             PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
             b_showpop = false;
 
+            //if (camera_)
+            //  DrawGrid();
 
+            if (!EditorMode() && camera_) {
 
+                if (input_->IsMousePressed(0)) {
 
-                if (!b_lock_entity && camera_) {
+                    Vector2D cursor_ = input_->GetCursorPosition();
+                    Vector2D cameraPos_ = camera_->GetVector2DCameraPosition();
 
-                    if (input_->IsMousePressed(0)) {
+                    float zoom_ = *camera_->GetCameraZoom();
+                    float Gscale = CORE->GetGlobalScale();
 
-                        Vector2D cursor_ = input_->GetCursorPosition();
-                        Vector2D cameraPos_ = camera_->GetVector2DCameraPosition();
+                    Vector2D new_pos = ((cursor_ / (zoom_)) + cameraPos_) / Gscale;
 
-                        float zoom_ = *camera_->GetCameraZoom();
-                        float Gscale = CORE->GetGlobalScale();
-
-                        Vector2D new_pos = ((cursor_ / (zoom_)) + cameraPos_) / Gscale;
-
-                        selected_entity_ = collision_->SelectEntity(new_pos);
-                        new_entity_ = entities_->GetEntity(selected_entity_);
-                        b_lock_entity = true;
-                    }
+                    selected_entity_ = collision_->SelectEntity(new_pos);
+                    new_entity_ = entities_->GetEntity(selected_entity_);
+                    b_lock_entity = true;
                 }
+            }
             
 
 
@@ -535,17 +535,18 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
 void ImguiSystem::DrawGrid() {
 
-    //for (int i = 0; i < win_->GetWinWidth(); i + 2.5f) {
+   for (int i = 0; i < win_->GetWinWidth(); i += 60.0f) {
 
-    //    for (int j = 0; j < win_->GetWinHeight(); j + 2.5f) {
+       for (int j = 0; j < win_->GetWinHeight(); j += 60.0f) {
 
-    //        glm::vec2 xAxis{ 0, i };
-    //        glm::vec2 yAxis{ 0, j };
-    //        std::vector<glm::vec2> lines = { xAxis, yAxis };
+           glm::vec2 xAxis{ i + camera_->GetVector2DCameraPosition().x, -win_->GetWinWidth() };
+           glm::vec2 yAxis{ i + camera_->GetVector2DCameraPosition().x, win_->GetWinWidth() };
+           std::vector<glm::vec2> lines = { xAxis, yAxis };
 
-    //        graphics_->DrawDebugLine(lines, { 1.0f, 1.0f, 1.0f, 1.0f });
-    //    }
-    //}
+           //graphics_->DrawDebugLine(xAxis, { 1.0f, 1.0f, 1.0f, 1.0f });
+           graphics_->DrawDebugLine(lines, { 1.0f, 1.0f, 1.0f, 1.0f });
+       }
+   }
 }
 
 Camera* ImguiSystem::GetCamera() {
@@ -576,6 +577,11 @@ void ImguiSystem::VolumeControl() {
     ImGui::Text(ICON_FA_VOLUME_UP);
     sound_->SetVolume(inputVol);
 
+}
+
+bool ImguiSystem::EditorMode()
+{
+    return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow);
 }
 
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
