@@ -10,6 +10,8 @@ void AssetWindow::Init() {
 	b_create = false;
 	b_makefolder = false;
 	b_addtexture = false;
+	b_tex = false;
+	b_anim = false;
 
 }
 
@@ -39,34 +41,42 @@ void AssetWindow::Update() {
 	DeleteWholeFolder();
 
 	if (b_addtexture) {
+
+		std::string filename = {};
+		std::string file = {};
+
 		ImGui::Begin("Add New Texture", &b_addtexture);
 
+		ImGui::Checkbox("Add Texture", &b_tex);
+		ImGui::Checkbox("Add Animation", &b_anim);
+
 		// choose the json file to change to add to
-		if (ImGui::BeginCombo("##json", "Texture Json Files")) {
-			for (auto& texjson : fs::directory_iterator("Resources/AssetsLoading")) {
+		if (b_tex) {
+			ImGui::Text("Choose File to modify");
+			if (ImGui::BeginCombo("##json", (chosen_json_.empty() ? "Choose File" : chosen_json_.c_str()))) {
 
-				if (fs::is_regular_file(texjson) && texjson.path().extension() == ".json") {
+				for (auto& texjson : fs::directory_iterator("Resources/AssetsLoading")) {
 
-					std::string filename = texjson.path().filename().generic_string().c_str();
-					std::string file = {};
+					if (fs::is_regular_file(texjson) && texjson.path().extension() == ".json" && texjson.path().filename().generic_string().find("texture") != texjson.path().filename().generic_string().npos) {
 
-					if (ImGui::Selectable(filename.c_str())) {
+						filename = texjson.path().filename().generic_string().c_str();
 
-						if (filename.find("_") != filename.npos)
-							file = filename.substr(0, filename.find("_"));
-						else
-							file = filename.substr(0, filename.find(texjson.path().extension().generic_string().c_str()));
+						if (ImGui::Selectable(filename.c_str())) {
 
-						tex_info_.clear(); // clear the map before changing over to another json
-						LoadJson(file);
-						chosen_json_ = texjson.path().generic_string().c_str();
+							if (filename.find("_") != filename.npos)
+								file = filename.substr(0, filename.find("_"));
+							else
+								file = filename.substr(0, filename.find(texjson.path().extension().generic_string().c_str()));
+
+							tex_info_.clear(); // clear the map before changing over to another json
+							LoadTextureJson(file);
+							chosen_json_ = texjson.path().generic_string().c_str();
+						}
 					}
-
 				}
+				ImGui::EndCombo();
 			}
-			ImGui::EndCombo();
 		}
-
 		// display json file info
 		for (auto it = tex_info_.begin(); it != tex_info_.end(); ++it) {
 
@@ -74,50 +84,62 @@ void AssetWindow::Update() {
 
 				if (ImGui::TreeNode("Current Path:  %s", it->second.path.c_str())) {
 
-					if (ImGui::Button("Update"))
-						it->second.path = imgui_->OpenSaveDialog("(*.png) Spritesheets/Textures\0* .png\0", 1);
+					if (ImGui::Button("Update")) {
 
+						std::string selectedpath = imgui_->OpenSaveDialog("(*.png) Spritesheets/Textures\0* .png\0", 1);
+
+						if (!selectedpath.empty())
+							it->second.path = selectedpath;
+					}
 					ImGui::TreePop();
 				}
-				if (ImGui::TreeNode("Row & Columns")) {
+				if (ImGui::TreeNodeEx("Row & Columns")) {
 
 					static char bufferR[256];
 					static char bufferC[256];
 
 					ImGui::Text("Number of Columns: %d, Number of Rows: %d", it->second.column, it->second.row);
 
-					if (ImGui::InputText("##newTexturename", bufferR, sizeof(bufferR), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank))
-						it->second.row = (int)bufferR;
+					ImGui::PushItemWidth(150.0f);
+					ImGui::Text("Columns: "); ImGui::SameLine(0, 3);
+					if (ImGui::InputText("##col", bufferC, sizeof(bufferC), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+						std::string colinput = bufferC;
+						it->second.column = std::stoi(colinput);
+					}
+					ImGui::Text("Rows: "); ImGui::SameLine(0, 3);
+					if (ImGui::InputText("##row", bufferR, sizeof(bufferR), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+						std::string rowinput = bufferR;
+						it->second.row = std::stoi(rowinput);
+					}
 
-					if (ImGui::InputText("##newTexture", bufferC, sizeof(bufferC), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank))
-						it->second.column = (int)bufferC;
-
+					ImGui::PopItemWidth();
 					ImGui::TreePop();
 				}
 
 				if (ImGui::Button("Delete")) {
-					ImGui::OpenPopup("delete texture check");
+					ImGui::OpenPopup("delete texture check");					
+				}
 
-					if (ImGui::BeginPopup("delete texture check")) {
-						//ImGui::Text(("Deleting: " + it->first + " path: \n" + it->second).c_str());
-						if (ImGui::Button("OK")) {
+				if (ImGui::BeginPopup("delete texture check")) {
 
-							if (it == tex_info_.begin())
-								it = tex_info_.erase(it);
-							else {
-
-								it = tex_info_.erase(it);
-								--it;
-							}
-							ImGui::CloseCurrentPopup();
-						}
-
-						if (ImGui::Button("Cancel"))
-							ImGui::CloseCurrentPopup();
-
-						ImGui::EndPopup();
-					}
+					ImGui::Text("Removing Texture: %s\nAre You Sure?", it->first.c_str());
 					
+					if (ImGui::Button("YES")) {
+
+						if (it == tex_info_.begin())
+							it = tex_info_.erase(it);
+						else {
+
+							it = tex_info_.erase(it);
+							--it;
+						}
+						ImGui::CloseCurrentPopup();
+					}
+					ImGui::SameLine(0, 3);
+					if (ImGui::Button("Cancel"))
+						ImGui::CloseCurrentPopup();
+
+					ImGui::EndPopup();
 				}
 
 				if (ImGui::Button("Load In"))
@@ -138,8 +160,7 @@ void AssetWindow::Update() {
 						for (auto it = tex_info_.begin(); it != tex_info_.end(); ++it) {
 
 							writer.Key(it->first.c_str());
-							writer.String(it->second.path.c_str());
-							// ask how to load the others in
+							writer.String((it->second.path + " " + std::to_string(it->second.column) + " " + std::to_string(it->second.row)).c_str());
 						}
 
 						writer.EndObject();
@@ -148,18 +169,17 @@ void AssetWindow::Update() {
 
 					filestream.close();
 				}
-
-
 				ImGui::TreePop();
+				break;
 			}
-
 		}
 
 		if (!chosen_json_.empty()) {
 			if (ImGui::CollapsingHeader("Add New Texture")) {
 				TextureInfo newtex;
 				std::string folderName = {};
-
+				ImGui::Text("When a new texture is added in, Rows & Columns will be added in with default value of 1\nUpdate it if needed");
+				ImGui::Text("Adding Texture Path: %s", img_to_add_.c_str());
 				static char buffer[256];
 				memset(buffer, 0, sizeof(buffer));
 				strcpy_s(buffer, sizeof(buffer), folderName.c_str());
@@ -251,8 +271,6 @@ void AssetWindow::CheckFileType() {
 
 		}
 	}
-
-
 }
 
 void AssetWindow::MakeNewFolder() {
@@ -434,7 +452,7 @@ void AssetWindow::DeSerializeJSON(const std::string& filename, rapidjson::Docume
 	doc.Parse(json_doc_buffer.str().c_str());
 }
 
-void AssetWindow::LoadJson(std::string level_name) {
+void AssetWindow::LoadTextureJson(std::string level_name) {
 
 	rapidjson::Document textures;
 	std::string path = "Resources/AssetsLoading/" + level_name + "_texture.json";

@@ -141,6 +141,29 @@ void ImguiSystem::Update(float frametime) {
             PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
             b_showpop = false;
 
+
+
+
+                if (!b_lock_entity && camera_) {
+
+                    if (input_->IsMousePressed(0)) {
+
+                        Vector2D cursor_ = input_->GetCursorPosition();
+                        Vector2D cameraPos_ = camera_->GetVector2DCameraPosition();
+
+                        float zoom_ = *camera_->GetCameraZoom();
+                        float Gscale = CORE->GetGlobalScale();
+
+                        Vector2D new_pos = ((cursor_ / (zoom_)) + cameraPos_) / Gscale;
+
+                        selected_entity_ = collision_->SelectEntity(new_pos);
+                        new_entity_ = entities_->GetEntity(selected_entity_);
+                        b_lock_entity = true;
+                    }
+                }
+            
+
+
             // DockSpace
             if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
 
@@ -490,23 +513,6 @@ std::string ImguiSystem::EditString(std::string filepath, const char* startpos) 
 
 void ImguiSystem::SendMessageD(Message* m) {
     switch (m->message_id_) {
-    case MessageIDTypes::M_MOUSE_PRESS:
-    {
-        if (!b_lock_entity && camera_) {
-
-            Vector2D new_pos = (input_->GetCursorPosition() + camera_->GetVector2DCameraPosition());
-            std::cout << "New Position: "
-                << new_pos.x
-                << "          "
-                << new_pos.y
-                << std::endl;
-
-            selected_entity_ = collision_->SelectEntity(new_pos);
-            new_entity_ = entities_->GetEntity(selected_entity_);
-            b_lock_entity = true;
-        }
-        break;
-    }
     default:
         break;
     }

@@ -355,6 +355,18 @@ void InputSystem::SendMessageD(Message* m) {
 	(void)m;
 }
 
+Vector2D InputSystem::GetUpdatedCoords()
+{
+	Vector2D cursor_ = GetCursorPosition();
+	Vector2D cameraPos_ = CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetVector2DCameraPosition();
+
+	float zoom_ = *CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetCameraZoom();
+	float Gscale = CORE->GetGlobalScale();
+
+	return ((cursor_ / (zoom_)) + cameraPos_) / Gscale;
+
+}
+
 // Set the param key state as the action param
 void InputSystem::SetKeyState(int keycode, int action)
 {

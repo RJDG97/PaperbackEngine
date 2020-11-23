@@ -56,12 +56,12 @@ public:
 
 	void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
 
-	void LoadJson(std::string level_name);
+	void LoadTextureJson(std::string level_name);
+	void LoadAnimationJson(std::string level_name);
 
 	std::string FileString(std::string icon, std::string file_name);
 	std::string DirectoryName(fs::directory_entry directory);
 
-	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
 
 private:
 
@@ -75,7 +75,7 @@ private:
 	std::string selected_file_;
 	std::string chosen_json_;
 
-	bool b_create, b_makefolder, b_deletefolder, b_addtexture;
+	bool b_create, b_makefolder, b_deletefolder, b_addtexture, b_tex, b_anim;
 
 	std::map<std::string, TextureInfo> tex_info_;
 

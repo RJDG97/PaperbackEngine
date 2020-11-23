@@ -245,13 +245,13 @@ bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* bu
 
 bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const AABB* box) {
 
-	Vec2 cursor_pos_scaled = (1 / *camera_->GetMainCamera()->GetCameraZoom()) * cursor_pos;
+	//Vec2 cursor_pos_scaled = (1 / *camera_->GetMainCamera()->GetCameraZoom()) * cursor_pos;
 	
 	//convert button AABB to global
-	Vec2 bottom_left = CORE->GetGlobalScale() * box->bottom_left_;
-	Vec2 top_right = CORE->GetGlobalScale() * box->top_right_;
+	Vec2 bottom_left = box->bottom_left_;
+	Vec2 top_right = box->top_right_;
 
-	return VerifyCursorCollision(bottom_left, top_right, cursor_pos_scaled);
+	return VerifyCursorCollision(bottom_left, top_right, cursor_pos);
 }
 
 //std::pair<Entity*, std::vector<ComponentTypes>> Collision::GetAttachedComponentIDs() {

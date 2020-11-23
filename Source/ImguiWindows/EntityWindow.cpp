@@ -6,6 +6,7 @@
 #include "Entity/Entity.h"
 
 
+
 void EntityWindow::Init(){
 
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
@@ -16,6 +17,9 @@ void EntityWindow::Init(){
 	component_ = &*CORE->GetManager<ComponentManager>();
 	win_ = &*CORE->GetSystem<WindowsSystem>();
 	input_ = &*CORE->GetSystem<InputSystem>();
+	collision_ = &*CORE->GetSystem<Collision>();
+
+	originalVec_ = { 0,0 };
 }
 
 void EntityWindow::Update() {
@@ -45,21 +49,66 @@ void EntityWindow::Update() {
 		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
-			//Transform* entityTransform = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
-			//Camera* entityCamera = component_->GetComponent<Camera>(imgui_->GetEntity()->GetID());
-
-			//if (entityCamera && entityTransform) {
-			//	Vector2D entityOGpos = entityTransform->GetPosition();
-			//	Vector2D cameraPos = { entityCamera->GetCameraPosition()->x, entityCamera->GetCameraPosition()->y };
-			//	Vector2D cursorPos = input_->GetCursorPosition();
-			//	Vector2D entitypos = (entityOGpos - cursorPos) + cameraPos + cursorPos;
-			//	entityTransform->SetPosition(entitypos);
-
-			//}
-
 
 			//std::cout << input_->GetCursorPosition().x << " hehehe "  << input_->GetCursorPosition().y << std::endl;
 			CheckComponentType(entity);
+		}
+
+		//if (imgui_->GetEntity() && imgui_->GetEntity()->GetID()) {
+
+		//	Camera* entityCamera = component_->GetComponent<Camera>(imgui_->GetEntity()->GetID());
+		//	EntityID tmp = CORE->GetSystem<Collision>()->SelectEntity(CORE->GetSystem<InputSystem>()->GetUpdatedCoords());
+
+		//	imgui_->SetEntity(CORE->GetManager<EntityManager>()->GetEntity(tmp));
+		//	Transform* entityTransform = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
+
+		//	if (entityCamera && entityTransform) {
+		//		Vector2D entityOGpos = entityTransform->GetPosition();
+		//		Vector2D cameraPos = { entityCamera->GetCameraPosition()->x, entityCamera->GetCameraPosition()->y };
+		//		Vector2D cursorPos = input_->GetCursorPosition();
+		//		Vector2D entitypos = (entityOGpos - cursorPos) + cameraPos + cursorPos;
+		//		entityTransform->SetPosition(entitypos);
+
+		//	}
+
+
+		//}
+
+		if (imgui_->GetEntity() && imgui_->GetEntity()->GetID() && input_->IsMousePressed(0)) {
+			Vector2D original = { 0,0 };
+			Vector2D mousepos = input_->GetUpdatedCoords();
+
+			EntityID checkselect = collision_->SelectEntity(mousepos);
+			imgui_->SetEntity(entities_->GetEntity(checkselect));
+
+			if (imgui_->GetEntity()) {
+				Transform* entitytrans = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
+				//Camera* entitycam = component_->GetComponent<Camera>(imgui_->GetEntity()->GetID());
+
+				//Vector2D campos = entitycam->GetVector2DCameraPosition();
+
+				Vector2D entAABB_centre = (component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetTopRight() - component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft()) / 2;
+				Vector2D centre = { component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft() + entAABB_centre };
+				if (input_->IsMouseTriggered(0)) {
+					originalVec_ = (centre - mousepos);
+				}
+
+				if (input_->IsMousePressed(0)) {
+					
+					std::cout << "Vector " << (mousepos - centre).x << "   " << (mousepos - centre).y << std::endl;
+					std::cout << "Centre " << (centre).x << "   " << (centre).y << std::endl;
+					std::cout << "Mousepos " << (mousepos).x << "   " << (mousepos).y << std::endl;
+
+					Vector2D entpos = mousepos + (originalVec_ + (-entitytrans->GetAABBOffset()));
+
+					entitytrans->SetPosition(entpos);
+
+				}
+
+				if (!input_->IsMousePressed(0) && !input_->IsMouseTriggered(0))
+					originalVec_ = { 0,0 };
+
+			}
 		}
 
 		ImGui::End();
