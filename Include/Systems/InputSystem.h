@@ -133,6 +133,8 @@ public:
 */
 /******************************************************************************/
 	void SendMessageD(Message* m) override;
+
+	Vector2D GetUpdatedCoords();
 };
 
 #endif

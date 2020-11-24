@@ -6,6 +6,7 @@
 #include "Entity/Entity.h"
 
 
+
 void EntityWindow::Init(){
 
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
@@ -16,6 +17,9 @@ void EntityWindow::Init(){
 	component_ = &*CORE->GetManager<ComponentManager>();
 	win_ = &*CORE->GetSystem<WindowsSystem>();
 	input_ = &*CORE->GetSystem<InputSystem>();
+	collision_ = &*CORE->GetSystem<Collision>();
+
+	originalVec_ = { 0,0 };
 }
 
 void EntityWindow::Update() {
@@ -38,28 +42,50 @@ void EntityWindow::Update() {
 		ImGui::Begin("Component Inspector", &imgui_->b_component);
 
 		bool lock = imgui_->GetLockBool();
-		ImGui::Checkbox("Select Entity", &lock);
-		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to select Entities directly");
+		ImGui::Checkbox("Drag Entity", &lock);
+		ImGui::SameLine(); imgui_->ImguiHelp("Uncheck this box,\n to Drag Entities around");
 		imgui_->SetLockBool(lock);
 
 		if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
 
 			std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
-			//Transform* entityTransform = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
-			//Camera* entityCamera = component_->GetComponent<Camera>(imgui_->GetEntity()->GetID());
-
-			//if (entityCamera && entityTransform) {
-			//	Vector2D entityOGpos = entityTransform->GetPosition();
-			//	Vector2D cameraPos = { entityCamera->GetCameraPosition()->x, entityCamera->GetCameraPosition()->y };
-			//	Vector2D cursorPos = input_->GetCursorPosition();
-			//	Vector2D entitypos = (entityOGpos - cursorPos) + cameraPos + cursorPos;
-			//	entityTransform->SetPosition(entitypos);
-
-			//}
-
 
 			//std::cout << input_->GetCursorPosition().x << " hehehe "  << input_->GetCursorPosition().y << std::endl;
 			CheckComponentType(entity);
+		}
+
+		if (imgui_->GetEntity() && imgui_->GetEntity()->GetID() && input_->IsMousePressed(0) && !imgui_->EditorMode()) {
+			Vector2D original = { 0,0 };
+			Vector2D mousepos = input_->GetUpdatedCoords();
+
+			EntityID checkselect = collision_->SelectEntity(mousepos);
+			imgui_->SetEntity(entities_->GetEntity(checkselect));
+
+			if (imgui_->GetEntity() && imgui_->GetLockBool()) {
+				Transform* entitytrans = component_->GetComponent<Transform>(imgui_->GetEntity()->GetID());
+
+				Vector2D entAABB_centre = (component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetTopRight() - component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft()) / 2;
+				Vector2D centre = { component_->GetComponent<AABB>(imgui_->GetEntity()->GetID())->GetBottomLeft() + entAABB_centre };
+				if (input_->IsMouseTriggered(0)) {
+					originalVec_ = (centre - mousepos);
+				}
+
+				if (input_->IsMousePressed(0)) {
+					
+					std::cout << "Vector " << (mousepos - centre).x << "   " << (mousepos - centre).y << std::endl;
+					std::cout << "Centre " << (centre).x << "   " << (centre).y << std::endl;
+					std::cout << "Mousepos " << (mousepos).x << "   " << (mousepos).y << std::endl;
+
+					Vector2D entpos = mousepos + (originalVec_ + (-entitytrans->GetAABBOffset()));
+
+					entitytrans->SetPosition(entpos);
+
+				}
+
+				if (!input_->IsMousePressed(0) && !input_->IsMouseTriggered(0))
+					originalVec_ = { 0,0 };
+
+			}
 		}
 
 		ImGui::End();
@@ -205,7 +231,10 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				break;
 			}
 			case ComponentTypes::CAMERA:
-				ImGui::Text("Camera Component");
+			{
+				std::shared_ptr<Camera> entityCamera = std::dynamic_pointer_cast<Camera>(entitycomponent.first->GetComponent(ComponentTypes::CAMERA));
+				ImGui::Text("Camera Zoom: %f", *entityCamera->GetCameraZoom());
+			}
 				break;
 			case ComponentTypes::CONTROLLER:
 				ImGui::Text("Controller Component");
@@ -226,7 +255,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 								ImTextureID textureID = (void*)(intptr_t)texture->GetTilesetHandle();
 								ImGui::BeginTooltip();
-								ImGui::Image(textureID, ImVec2{ 64, 64 }, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
+								ImGui::Image(textureID, ImVec2{(float)texture->GetWidth(), (float)texture->GetHeight()}, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
 								ImGui::EndTooltip();
 							}
 						}
@@ -541,6 +570,17 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 	}
 }
 
+void EntityWindow::RemoveComponent(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
+
+	if (!entity->GetID()) {
+		if (ImGui::Button(ICON_FA_MINUS_SQUARE " Delete"))
+			ImGui::OpenPopup(windowName);
+	}
+
+	imgui_->DeletePopUp(windowName, objName, entity, component);
+}
+
+
 const char* EntityWindow::GetAIState(int aiState)
 {
 	for (int i = 0; i < 5; ++i) {
@@ -630,16 +670,6 @@ void EntityWindow::FloatInput(float& componentVar, const char* label, float defa
 	ImGui::SameLine(0, 2);
 
 	ComponentInputFloat("", "##rot", componentVar, 95.0f);
-}
-
-void EntityWindow::RemoveComponent(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
-
-	if (!entity->GetID()) {
-		if (ImGui::Button(ICON_FA_MINUS_SQUARE " Delete"))
-			ImGui::OpenPopup(windowName);
-	}
-
-	imgui_->DeletePopUp(windowName, objName, entity, component);
 }
 
 void EntityWindow::ComponentInputFloat(const char* componentLabel, const char* inputLabel, float& componentVar, float inputWidth, float startVal, float endVal) {

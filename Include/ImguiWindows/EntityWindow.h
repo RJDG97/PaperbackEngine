@@ -8,6 +8,7 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/WindowsSystem.h"
 #include "Systems/InputSystem.h"
+#include "Systems/Collision.h"
 
 #include "Components/Transform.h"
 #include "Components/Scale.h"
@@ -137,7 +138,10 @@ private:
 	ComponentManager* component_;
 	WindowsSystem* win_;
 	InputSystem* input_;
+	Collision* collision_;
 	EntityManager::EntityIdMapTypeIt entityIT;
+
+	Vector2D originalVec_;
 
 	const char* AIstates_[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
 	const char* AItype_[3]{ "StagBeetle", "Mite", "Hornet"};

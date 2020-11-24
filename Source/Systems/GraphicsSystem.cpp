@@ -1033,3 +1033,8 @@ void GraphicsSystem::SetVignetteSize(glm::vec2 size)
 {
     vignette_size = size;
 }
+
+glm::vec2 GraphicsSystem::GetVignetteSize() {
+   
+    return vignette_size;
+}

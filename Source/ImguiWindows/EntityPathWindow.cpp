@@ -81,6 +81,8 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 						ImGui::CloseCurrentPopup();
 					}
 
+					ImGui::SameLine(0, 3);
+
 					if (ImGui::Button("Cancel"))
 						ImGui::CloseCurrentPopup();
 

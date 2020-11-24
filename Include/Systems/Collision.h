@@ -271,7 +271,7 @@ public:
   \brief Returns the EntityID of an object that has been selected by the cursor
 */
 /******************************************************************************/
-	EntityID SelectEntity();
+	EntityID SelectEntity(Vector2D cursor_pos);
 
 /******************************************************************************/
 /*!

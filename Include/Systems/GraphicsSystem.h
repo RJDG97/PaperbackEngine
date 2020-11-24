@@ -377,6 +377,8 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
     void SetVignetteSize(glm::vec2 size);
 
+    glm::vec2 GetVignetteSize();
+
     void DrawDebugRectangle(std::vector<glm::vec2> points, glm::vec4 color);
     void DrawDebugLine(std::vector<glm::vec2> points, glm::vec4 color);
 

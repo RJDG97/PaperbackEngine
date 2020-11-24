@@ -1,6 +1,5 @@
 #include "Systems/ImguiSystem.h"
 #include "Manager/Amap.h"
-#include "ImguiWindows/AssetFileSystem.h"
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityWindow.h"
 #include "ImguiWindows/EntityPathWindow.h"
@@ -31,6 +30,8 @@ void ImguiSystem::Init(){
     sound_ = &*CORE->GetSystem<SoundSystem>();
     graphics_ = &* CORE->GetSystem<GraphicsSystem>();
 
+    cam_arr_ = CORE->GetManager<ComponentManager>()->GetComponentArray<Camera>();
+    camera_ = nullptr;
     editor_ = factory_->GetLevel("Editor");
 
     // Setup Dear ImGui context
@@ -117,6 +118,8 @@ void ImguiSystem::Update(float frametime) {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+        camera_ = GetCamera();
+
         ImGuiIO& io = ImGui::GetIO();
         if (b_dock_space_open) {
             DockSpaceFlagSet();
@@ -138,6 +141,28 @@ void ImguiSystem::Update(float frametime) {
             PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
             b_showpop = false;
 
+            //if (camera_)
+            //  DrawGrid();
+
+            if (!EditorMode() && camera_) {
+
+                if (input_->IsMousePressed(0)) {
+
+                    Vector2D cursor_ = input_->GetCursorPosition();
+                    Vector2D cameraPos_ = camera_->GetVector2DCameraPosition();
+
+                    float zoom_ = *camera_->GetCameraZoom();
+                    float Gscale = CORE->GetGlobalScale();
+
+                    Vector2D new_pos = ((cursor_ / (zoom_)) + cameraPos_) / Gscale;
+
+                    selected_entity_ = collision_->SelectEntity(new_pos);
+                    new_entity_ = entities_->GetEntity(selected_entity_);
+                }
+            }
+            
+
+
             // DockSpace
             if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
 
@@ -151,6 +176,7 @@ void ImguiSystem::Update(float frametime) {
                 begin->second->Update();
 
             ImGui::End(); // end of docking space
+
         }
         ImguiRender();
     }
@@ -264,22 +290,49 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::EndMenu();
         }
 
-        if (ImGui::BeginMenu(ICON_FA_MUSIC " Audio Settings")) {
+        if (ImGui::BeginMenu(ICON_FA_COGS " Control Panel")) {
 
-            if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
-                sound_->PauseSound();
-            if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
-                sound_->MuteSound();
-            ImGui::Separator();
+            if (ImGui::TreeNode(ICON_FA_MUSIC " Audio Settings")) {
 
-            float inputVol = sound_->GetVolume();
-            ImGui::Text("Volume:");
-            ImGui::Text(ICON_FA_VOLUME_DOWN); ImGui::SameLine(0, 3);
-            ImGui::PushItemWidth(250.0f);
-            ImGui::SliderFloat("", &inputVol, 0.0f, 1.0f, "%.2f");
-            ImGui::PopItemWidth(); ImGui::SameLine(0, 3);
-            ImGui::Text(ICON_FA_VOLUME_UP);
-            sound_->SetVolume(inputVol);
+                VolumeControl();
+
+                ImGui::TreePop();
+            }
+
+            if (ImGui::TreeNode("Vignette Size Settings")) {
+
+                ImVec2 inputsize = { graphics_->GetVignetteSize().x, graphics_->GetVignetteSize().y };
+
+                float lineHeight = bold_font_->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
+                ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+
+                CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
+                ImGui::PushFont(bold_font_);
+                if (ImGui::Button("X", buttonSize))
+                    inputsize.x = 600.0f;
+
+                ImGui::PopStyleColor(3);
+                ImGui::PushItemWidth(150.0f);
+                ImGui::DragFloat("##Xsize", &inputsize.x, 0.1f, 0.0f, 0.0f);
+                ImGui::PopItemWidth();
+                ImGui::SameLine(0, 3);
+
+                CustomImGuiButton(GREENDEFAULT, GREENHOVERED, GREENACTIVE);
+                if (ImGui::Button("Y", buttonSize))
+                    inputsize.y = 320.0f;
+
+                ImGui::PopStyleColor(3);
+                ImGui::PushItemWidth(150.0f);
+                ImGui::DragFloat("##Ysize", &inputsize.y, 0.1f, 0.0f, 0.0f);
+
+                ImGui::PopItemWidth();
+                ImGui::PopFont();
+                
+                graphics_->SetVignetteSize({ inputsize.x, inputsize.y });
+
+                ImGui::TreePop();
+            }
+
             ImGui::EndMenu();
         }
 
@@ -457,21 +510,7 @@ std::string ImguiSystem::EditString(std::string filepath, const char* startpos) 
     return filepath.substr(filepath.find(startpos));
 }
 
-void ImguiSystem::SendMessageD(Message* m) {
-    switch (m->message_id_) {
-    case MessageIDTypes::M_MOUSE_PRESS:
-    {
-        if (!b_lock_entity) {
-            selected_entity_ = collision_->SelectEntity();
-            new_entity_ = entities_->GetEntity(selected_entity_);
-            b_lock_entity = true;
-        }
-        break;
-    }
-    default:
-        break;
-    }
-}
+void ImguiSystem::SendMessageD(Message* m) { (void)m; }
 
 void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
@@ -490,17 +529,53 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
 void ImguiSystem::DrawGrid() {
 
-    //for (int i = 0; i < win_->GetWinWidth(); i + 2.5f) {
+   for (float i = 0.0f; i < win_->GetWinWidth(); i += 60.0f) {
 
-    //    for (int j = 0; j < win_->GetWinHeight(); j + 2.5f) {
+       for (float j = 0.0f; j < win_->GetWinHeight(); j += 60.0f) {
 
-    //        glm::vec2 xAxis{ 0, i };
-    //        glm::vec2 yAxis{ 0, j };
-    //        std::vector<glm::vec2> lines = { xAxis, yAxis };
+           glm::vec2 xAxis{ i + camera_->GetVector2DCameraPosition().x, -win_->GetWinWidth() };
+           glm::vec2 yAxis{ i + camera_->GetVector2DCameraPosition().x, win_->GetWinWidth() };
+           std::vector<glm::vec2> lines = { xAxis, yAxis };
 
-    //        graphics_->DrawDebugLine(lines, { 1.0f, 1.0f, 1.0f, 1.0f });
-    //    }
-    //}
+           //graphics_->DrawDebugLine(xAxis, { 1.0f, 1.0f, 1.0f, 1.0f });
+           graphics_->DrawDebugLine(lines, { 1.0f, 1.0f, 1.0f, 1.0f });
+       }
+   }
+}
+
+Camera* ImguiSystem::GetCamera() {
+
+    auto it = cam_arr_->begin();
+    if (it != cam_arr_->end())
+        return it->second;
+    else
+        return nullptr;
+
+}
+
+void ImguiSystem::VolumeControl() {
+
+    if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
+        sound_->PauseSound();
+    if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
+        sound_->MuteSound();
+
+    ImGui::Separator();
+
+    float inputVol = sound_->GetVolume();
+    ImGui::Text("Volume:");
+    ImGui::Text(ICON_FA_VOLUME_DOWN); ImGui::SameLine(0, 3);
+    ImGui::PushItemWidth(250.0f);
+    ImGui::SliderFloat("", &inputVol, 0.0f, 1.0f, "%.2f");
+    ImGui::PopItemWidth(); ImGui::SameLine(0, 3);
+    ImGui::Text(ICON_FA_VOLUME_UP);
+    sound_->SetVolume(inputVol);
+
+}
+
+bool ImguiSystem::EditorMode()
+{
+    return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow);
 }
 
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
@@ -551,9 +626,11 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
     }
 }
 
-void ImguiSystem::ImguiHelp(const char* description) {
+void ImguiSystem::ImguiHelp(const char* description, int symbol) {
 
-    ImGui::TextDisabled(ICON_FA_EXCLAMATION_CIRCLE);
+    if (symbol)
+        ImGui::TextDisabled(ICON_FA_EXCLAMATION_CIRCLE);
+
     if (ImGui::IsItemHovered()) {
 
         ImGui::BeginTooltip();

@@ -114,8 +114,9 @@ void CameraSystem::CameraMove(Camera* camera, Vector2D displacement)
 {
     Transform* transform = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID());
     Vector2D position = transform->GetPosition();
+    transform->AddOffset({ displacement.x * 0.01f, displacement.y * 0.01f });
 
-    transform->SetPosition({ position.x + displacement.x * 0.05f, position.y + displacement.y * 0.05f });
+    //transform->SetPosition({ position.x + displacement.x * 0.05f, position.y + displacement.y * 0.05f });
 }
 
 void CameraSystem::CameraSetPosition(Camera* camera, Vector2D postion)
