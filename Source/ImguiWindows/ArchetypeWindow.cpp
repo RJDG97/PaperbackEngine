@@ -80,54 +80,6 @@ void ArchetypeWindow::Update() {
 	ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
 	NoCameraPopUp();
-
-	//int counter = 0;
-
-	//float windowW = ImGui::GetContentRegionAvailWidth(), windowH = ImGui::GetContentRegionAvail().y;
-
-	//ImGui::Begin("Tiles");
-	//ImGui::BeginChild("tiles", {windowW, windowH}, true, ImGuiWindowFlags_MenuBar);
-	//ImGui::BeginMenuBar();
-	//static ImGuiTextFilter filter;
-	//filter.Draw(ICON_FA_FILTER, 200.0f);
-	//ImGui::EndMenuBar();
-
-
-	//for (auto it = CORE->GetManager<TextureManager>()->GetTextureMap().begin(); it != CORE->GetManager<TextureManager>()->GetTextureMap().end(); ++it) {
-	//	++counter;
-	//	if (filter.PassFilter(it->first.c_str())) {
-
-	//		Texture* texture = CORE->GetManager<TextureManager>()->GetTexture(it->first.c_str());
-	//		std::vector<glm::vec2>* tex_vtx = texture->GetTexVtx();
-
-	//		ImTextureID texID = (void*)(intptr_t)texture->GetTilesetHandle();
-
-	//		if (counter % 8 != 0)
-	//			ImGui::SameLine();
-
-	//		ImGui::PushID(it->first.c_str());
-
-
-	//		ImGui::BeginGroup();
-
-
-	//		if (ImGui::ImageButton(texID, ImVec2{ 64, 64 }, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y })) {
-	//		}
-
-
-	//		if (ImGui::IsItemHovered())
-	//			imgui_->ImguiHelp(it->first.c_str(), 0);
-
-	//		ImGui::EndGroup();
-
-	//		ImGui::PopID();
-	//	}
-	//}
-	//ImGui::EndChild();
-
-
-	//ImGui::End();
-
 }
 
 void ArchetypeWindow::AvaliableArchetypes() {

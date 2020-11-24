@@ -6,6 +6,7 @@
 #include "ImguiWindows/ArchetypeWindow.h"
 #include "ImguiWindows/SystemWindow.h"
 #include "ImguiWindows/AssetWindow.h"
+#include "ImguiWindows/TextureTilesWindow.h"
 
 // Expose the Win32 API
 #include <commdlg.h>
@@ -20,6 +21,7 @@ void ImguiSystem::Init(){
     AddWindow<EntityWindow>();
     AddWindow<EntityPathWindow>();
     AddWindow<AssetWindow>();
+    AddWindow<TextureTilesWindow>();
     AddWindow<SystemWindow>();
 
     win_ = &*CORE->GetSystem<WindowsSystem>();
@@ -93,6 +95,7 @@ void ImguiSystem::Init(){
     b_asset = false;
     b_editcomp = false;
     b_addtexture = false;
+    b_showtex = false;
 
     new_entity_ = nullptr;
 
@@ -271,9 +274,11 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Scene Hierachy", &b_entitywin);
             ImGui::Checkbox("Toggle Component Viewer", &b_component);
             ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
-            ImGui::Checkbox("Toggle Entity Path Window", &b_editpath);
+            ImGui::Separator();
             ImGui::Checkbox("Toggle Asset Browser", & b_asset);
-            ImGui::Checkbox("Toggle Texture/Animation", &b_addtexture);
+            ImGui::Checkbox("Toggle Asset Json Window", &b_addtexture);
+            ImGui::Checkbox("Toggle Texture Window", &b_showtex);
+            ImGui::Separator();
             ImGui::Checkbox("See System Performance", &b_display);
 
             ImGui::EndMenu();

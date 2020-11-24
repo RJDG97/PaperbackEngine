@@ -58,28 +58,6 @@ void EntityWindow::Update() {
 
 		ImGui::End();
 	}
-
-	//if (ImGui::BeginCombo("##texture", entitytexture->GetCurrentTextureName().c_str())) {
-//	for (auto it = texture_->GetTextureMap().begin(); it != texture_->GetTextureMap().end(); ++it) {
-//		if (ImGui::Selectable(it->first.c_str()))
-//			graphics_->ChangeTexture(&(*entitytexture), it->first.c_str());
-
-//		if (ImGui::IsItemHovered()) {
-
-//			Texture* texture = texture_->GetTexture(it->first.c_str());
-//			std::vector<glm::vec2>* tex_vtx = texture->GetTexVtx();
-
-//			ImTextureID textureID = (void*)(intptr_t)texture->GetTilesetHandle();
-//			ImGui::BeginTooltip();
-//			ImGui::Image(textureID, ImVec2{(float)texture->GetWidth(), (float)texture->GetHeight()}, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
-//			ImGui::EndTooltip();
-//		}
-//	}
-//	ImGui::EndCombo();
-//}
-
-
-
 }
 
 std::pair<Entity*, std::vector<ComponentTypes>> EntityWindow::GetEntityComponents(Entity* entity) {
@@ -254,10 +232,9 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 						ImGui::EndDragDropTarget();
 					}
 
-
 					if (!entitytexture->GetCurrentTextureName().empty()) {
 
-						Texture* texture = CORE->GetManager<TextureManager>()->GetTexture(entitytexture->GetCurrentTextureName());
+						Texture* texture = texture_->GetTexture(entitytexture->GetCurrentTextureName());
 						std::vector<glm::vec2>* tex_vtx = texture->GetTexVtx();
 						ImTextureID texID = (void*)(intptr_t)texture->GetTilesetHandle();
 

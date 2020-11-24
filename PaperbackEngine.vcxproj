@@ -193,6 +193,7 @@
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
     <ClCompile Include="Source\ImguiWindows\SystemWindow.cpp" />
+    <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp" />
     <ClCompile Include="Source\Manager\AMap.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
@@ -271,6 +272,7 @@
     <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
     <ClInclude Include="Include\ImguiWindows\SystemWindow.h" />
+    <ClInclude Include="Include\ImguiWindows\TextureTilesWindow.h" />
     <ClInclude Include="Include\Imgui\IconsFontAwesome5.h" />
     <ClInclude Include="Include\Imgui\imconfig.h" />
     <ClInclude Include="Include\Imgui\imgui.h" />
