@@ -16,10 +16,10 @@
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
     //AddWindow<ImguiViewport>();
-    AddWindow<AssetWindow>();
-    AddWindow<EntityWindow>();
     AddWindow<ArchetypeWindow>();
+    AddWindow<EntityWindow>();
     AddWindow<EntityPathWindow>();
+    AddWindow<AssetWindow>();
     AddWindow<SystemWindow>();
 
     win_ = &*CORE->GetSystem<WindowsSystem>();
@@ -29,6 +29,7 @@ void ImguiSystem::Init(){
     factory_ = &*CORE->GetSystem <EntityFactory>();
     sound_ = &*CORE->GetSystem<SoundSystem>();
     graphics_ = &* CORE->GetSystem<GraphicsSystem>();
+    amap_ = &*CORE->GetManager<AMap>();
 
     cam_arr_ = CORE->GetManager<ComponentManager>()->GetComponentArray<Camera>();
     camera_ = nullptr;
@@ -91,19 +92,13 @@ void ImguiSystem::Init(){
     b_showpop = false;
     b_asset = false;
     b_editcomp = false;
+    b_addtexture = false;
 
     new_entity_ = nullptr;
 
     scene_filter_ =
     "(*.json) Paperback Engine Scene\0*.json\0"
     "(*.*) All Files\0* *.*\0";
-
-    asset_filter_ =    
-    "(*.jpg) JPG\0* .jpg\0"
-    "(*.png) Spritesheets/Textures\0* .png\0"
-    "(*.mp3) Audio Files\0* .mp3"
-    "(*.*) All Files\0* *.*\0";
-
 }
 
 void ImguiSystem::Update(float frametime) {
@@ -278,6 +273,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
             ImGui::Checkbox("Toggle Entity Path Window", &b_editpath);
             ImGui::Checkbox("Toggle Asset Browser", & b_asset);
+            ImGui::Checkbox("Toggle Texture/Animation", &b_addtexture);
             ImGui::Checkbox("See System Performance", &b_display);
 
             ImGui::EndMenu();
@@ -503,8 +499,6 @@ std::string ImguiSystem::EditString(std::string filepath, const char* startpos) 
     return filepath.substr(filepath.find(startpos));
 }
 
-void ImguiSystem::SendMessageD(Message* m) { (void)m; }
-
 void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
 
@@ -522,16 +516,33 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
 void ImguiSystem::DrawGrid() {
 
-   for (float i = 0.0f; i < win_->GetWinWidth(); i += 60.0f) {
+    Vector2D topR = CORE->GetManager<AMap>()->GetTopRight() * CORE->GetGlobalScale();
+    Vector2D botL = CORE->GetManager<AMap>()->GetBottomLeft() * CORE->GetGlobalScale();
 
-       for (float j = 0.0f; j < win_->GetWinHeight(); j += 60.0f) {
+    Vector2D topWR = CORE->GetManager<AMap>()->GetTopRight();
+    Vector2D botWL = CORE->GetManager<AMap>()->GetBottomLeft();
 
-           glm::vec2 xAxis{ i + camera_->GetVector2DCameraPosition().x, -win_->GetWinWidth() };
-           glm::vec2 yAxis{ i + camera_->GetVector2DCameraPosition().x, win_->GetWinWidth() };
-           std::vector<glm::vec2> lines = { xAxis, yAxis };
+    float width = topWR.x - botWL.x;
+    float height = topWR.y - botWL.y;
 
-           //graphics_->DrawDebugLine(xAxis, { 1.0f, 1.0f, 1.0f, 1.0f });
-           graphics_->DrawDebugLine(lines, { 1.0f, 1.0f, 1.0f, 1.0f });
+    float calW =((topR.x - botL.x)/2)/ (*camera_->GetCameraZoom());
+    float calH =((topR.y - botL.y)/2)/ (*camera_->GetCameraZoom());
+
+   for (float i = -calW; i < calW; i += 60.0f) {
+
+       for (float j = -calH; j < calH; j += 60.0f) {
+
+          glm::vec2 xAxis{ i * (*camera_->GetCameraZoom()), -win_->GetWinWidth() };
+          glm::vec2 yAxis{ i * (*camera_->GetCameraZoom()), win_->GetWinWidth() };
+          std::vector<glm::vec2> lines = { xAxis, yAxis };
+
+          glm::vec2 xAxisH{ -win_->GetWinHeight(), j * (*camera_->GetCameraZoom()) };
+          glm::vec2 yAxisH{ win_->GetWinHeight(), j * (*camera_->GetCameraZoom()) };
+          std::vector<glm::vec2> vertlines = { xAxisH, yAxisH };
+
+          graphics_->DrawDebugLine(lines, { 1.0f, 1.0f, 1.0f, 0.5f });
+          graphics_->DrawDebugLine(vertlines, { 1.0f, 1.0f, 1.0f, 0.5f });
+
        }
    }
 }
@@ -569,6 +580,11 @@ void ImguiSystem::VolumeControl() {
 bool ImguiSystem::EditorMode()
 {
     return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow);
+}
+
+Camera* ImguiSystem::GetExistingSceneCamera() {
+
+    return camera_;
 }
 
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
@@ -642,3 +658,4 @@ ImguiSystem::~ImguiSystem() {
 }
 
 void ImguiSystem::Draw() {}
+void ImguiSystem::SendMessageD(Message* m) { (void)m; }

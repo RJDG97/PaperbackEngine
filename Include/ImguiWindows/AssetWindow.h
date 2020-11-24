@@ -82,9 +82,11 @@ private:
 	std::string selected_file_;
 	std::string chosen_json_;
 
-	bool b_create, b_makefolder, b_deletefolder, b_addtexture, b_tex, b_anim;
+	bool b_create, b_makefolder, b_deletefolder, b_tex, b_anim;
 
 	std::map<std::string, TextureInfo> tex_info_;
+	std::vector<std::string> filesdel_;
+	std::vector<std::string> jsonfiles_;
 
 
 };

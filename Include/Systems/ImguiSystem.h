@@ -25,6 +25,7 @@
 #include "GameStates/MenuState.h"
 
 #include "Manager/EntityManager.h"
+#include "Manager/AMap.h"
 #include "Imgui/IconsFontAwesome5.h"
 
 
@@ -48,13 +49,7 @@ class ImguiSystem : public ISystem
 public:
 	ImFont* bold_font_, *img_font_;
 
-	//using directory_entry = std::string;
-	//using filepath_vector = std::vector<filesys::path>;
-	//using directoryfile = std::unordered_map<directory_entry, filepath_vector>;
-	//using directoryfileit = std::unordered_map<directory_entry, filepath_vector>::const_iterator;
-	//directoryfile directory_map_;
-
-	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset, b_editcomp;
+	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset, b_editcomp, b_addtexture;
 
 	ImguiSystem() {};
 
@@ -381,6 +376,8 @@ public:
 
 	bool EditorMode();
 
+	Camera* GetExistingSceneCamera();
+
 private:
 
 	// map to store all imgui windows added to the system
@@ -403,9 +400,9 @@ private:
 
 	CMap<Camera>* cam_arr_;
 	Camera* camera_;
-
-
 	Level* editor_;
+
+	AMap* amap_;
 
 	std::string selected_file_;
 
@@ -422,6 +419,8 @@ private:
 	bool b_lock_entity;
 
 	bool b_showpop;
+
+	
 
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;

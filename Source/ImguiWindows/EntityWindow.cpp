@@ -18,6 +18,7 @@ void EntityWindow::Init(){
 	collision_ = &*CORE->GetSystem<Collision>();
 
 	originalVec_ = { 0,0 };
+	b_addtex = false;
 }
 
 void EntityWindow::Update() {
@@ -57,6 +58,28 @@ void EntityWindow::Update() {
 
 		ImGui::End();
 	}
+
+	//if (ImGui::BeginCombo("##texture", entitytexture->GetCurrentTextureName().c_str())) {
+//	for (auto it = texture_->GetTextureMap().begin(); it != texture_->GetTextureMap().end(); ++it) {
+//		if (ImGui::Selectable(it->first.c_str()))
+//			graphics_->ChangeTexture(&(*entitytexture), it->first.c_str());
+
+//		if (ImGui::IsItemHovered()) {
+
+//			Texture* texture = texture_->GetTexture(it->first.c_str());
+//			std::vector<glm::vec2>* tex_vtx = texture->GetTexVtx();
+
+//			ImTextureID textureID = (void*)(intptr_t)texture->GetTilesetHandle();
+//			ImGui::BeginTooltip();
+//			ImGui::Image(textureID, ImVec2{(float)texture->GetWidth(), (float)texture->GetHeight()}, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
+//			ImGui::EndTooltip();
+//		}
+//	}
+//	ImGui::EndCombo();
+//}
+
+
+
 }
 
 std::pair<Entity*, std::vector<ComponentTypes>> EntityWindow::GetEntityComponents(Entity* entity) {
@@ -200,33 +223,47 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 			case ComponentTypes::CAMERA:
 			{
 				std::shared_ptr<Camera> entityCamera = std::dynamic_pointer_cast<Camera>(entitycomponent.first->GetComponent(ComponentTypes::CAMERA));
-				ImGui::Text("Camera Zoom: %f", *entityCamera->GetCameraZoom());
+
+				if (ImGui::TreeNode("Camera Component")) {
+					ImGui::Text("Camera Zoom: %f", *entityCamera->GetCameraZoom());
+				}
 			}
 				break;
+
 			case ComponentTypes::CONTROLLER:
 				break;
 			case ComponentTypes::TEXTURERENDERER:
 			{
 				std::shared_ptr<TextureRenderer> entitytexture = std::dynamic_pointer_cast<TextureRenderer>(entitycomponent.first->GetComponent(ComponentTypes::TEXTURERENDERER));
 				if (ImGui::TreeNode("Texture Component")) {
-					if (ImGui::BeginCombo("##texture", entitytexture->GetCurrentTextureName().c_str())) {
-						for (auto it = texture_->GetTextureMap().begin(); it != texture_->GetTextureMap().end(); ++it) {
-							if (ImGui::Selectable(it->first.c_str()))
-								graphics_->ChangeTexture(&(*entitytexture), it->first.c_str());
+					std::string path = {};
+					entitytexture->GetCurrentTextureName().empty() ? ImGui::Text("Drag a Texture here") : ImGui::Text(entitytexture->GetCurrentTextureName().c_str());
 
-							if (ImGui::IsItemHovered()) {
+					if (ImGui::BeginDragDropTarget()) {
 
-								Texture* texture = texture_->GetTexture(it->first.c_str());
-								std::vector<glm::vec2>* tex_vtx = texture->GetTexVtx();
+						if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
 
-								ImTextureID textureID = (void*)(intptr_t)texture->GetTilesetHandle();
-								ImGui::BeginTooltip();
-								ImGui::Image(textureID, ImVec2{(float)texture->GetWidth(), (float)texture->GetHeight()}, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
-								ImGui::EndTooltip();
+							if (payLoad->DataSize == sizeof(std::string)) {
+
+								path = *((std::string*)payLoad->Data);
+
+								graphics_->ChangeTexture(&(*entitytexture), path);
 							}
 						}
-						ImGui::EndCombo();
+
+						ImGui::EndDragDropTarget();
 					}
+
+
+					if (!entitytexture->GetCurrentTextureName().empty()) {
+
+						Texture* texture = CORE->GetManager<TextureManager>()->GetTexture(entitytexture->GetCurrentTextureName());
+						std::vector<glm::vec2>* tex_vtx = texture->GetTexVtx();
+						ImTextureID texID = (void*)(intptr_t)texture->GetTilesetHandle();
+
+						ImGui::Image(texID, ImVec2{ 64, 64 }, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
+					}
+
 					RemoveComponent("Delete Texture Renderer Component", std::string("Texture Renderer"), entitycomponent.first, entitytexture);
 					ImGui::TreePop();
 				}
@@ -457,7 +494,6 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 					RemoveComponent("Delete Status Component", std::string("Status Component"), entitycomponent.first, entitystatus);
 					ImGui::TreePop();
-
 					
 				}
 
@@ -470,6 +506,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				float inputRadius = entitypointlight->GetRadius();
 				float inputIntensity = entitypointlight->GetIntensity();
 				ImVec4 inputColor{ entitypointlight->GetColor().x, entitypointlight->GetColor().y, entitypointlight->GetColor().z, 1.0f };
+
 				if (ImGui::TreeNode("PointLight")) {
 
 					ComponentInputFloat("Light Radius", "##lightRad", inputRadius, 102.0f);

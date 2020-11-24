@@ -89,7 +89,7 @@ public:
 class Tileset {
 
 	GLuint tileset_handle_;
-	std::vector<std::string>* tile_names_;
+	std::vector<std::string> tile_names_;
 
 public:
 
@@ -110,7 +110,7 @@ public:
 		   according to the respective values
 */
 /******************************************************************************/
-	Tileset(GLuint tileset_handle, std::vector<std::string>* tileset_name);
+	Tileset(GLuint tileset_handle, std::vector<std::string> tileset_name);
 
 /******************************************************************************/
 /*!
@@ -119,7 +119,7 @@ public:
 	\brief Gets the name of all the tiles that is contained in the tileset
 */
 /******************************************************************************/
-	std::vector<std::string>* GetTileNames();
+	std::vector<std::string> GetTileNames();
 
 /******************************************************************************/
 /*!

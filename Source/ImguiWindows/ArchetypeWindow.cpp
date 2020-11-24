@@ -8,7 +8,8 @@ void ArchetypeWindow::Init() {
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
 	comp_mgr_ = &*CORE->GetManager<ComponentManager>();
 	factory_ = &*CORE->GetSystem <EntityFactory>();
-	
+
+	b_nocam = false;
 }
 
 void ArchetypeWindow::Update() {
@@ -71,6 +72,62 @@ void ArchetypeWindow::Update() {
 
 		ImGui::End();
 	}
+
+	if (b_nocam)
+		ImGui::OpenPopup("No Camera");
+
+	ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
+	ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+	NoCameraPopUp();
+
+	//int counter = 0;
+
+	//float windowW = ImGui::GetContentRegionAvailWidth(), windowH = ImGui::GetContentRegionAvail().y;
+
+	//ImGui::Begin("Tiles");
+	//ImGui::BeginChild("tiles", {windowW, windowH}, true, ImGuiWindowFlags_MenuBar);
+	//ImGui::BeginMenuBar();
+	//static ImGuiTextFilter filter;
+	//filter.Draw(ICON_FA_FILTER, 200.0f);
+	//ImGui::EndMenuBar();
+
+
+	//for (auto it = CORE->GetManager<TextureManager>()->GetTextureMap().begin(); it != CORE->GetManager<TextureManager>()->GetTextureMap().end(); ++it) {
+	//	++counter;
+	//	if (filter.PassFilter(it->first.c_str())) {
+
+	//		Texture* texture = CORE->GetManager<TextureManager>()->GetTexture(it->first.c_str());
+	//		std::vector<glm::vec2>* tex_vtx = texture->GetTexVtx();
+
+	//		ImTextureID texID = (void*)(intptr_t)texture->GetTilesetHandle();
+
+	//		if (counter % 8 != 0)
+	//			ImGui::SameLine();
+
+	//		ImGui::PushID(it->first.c_str());
+
+
+	//		ImGui::BeginGroup();
+
+
+	//		if (ImGui::ImageButton(texID, ImVec2{ 64, 64 }, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y })) {
+	//		}
+
+
+	//		if (ImGui::IsItemHovered())
+	//			imgui_->ImguiHelp(it->first.c_str(), 0);
+
+	//		ImGui::EndGroup();
+
+	//		ImGui::PopID();
+	//	}
+	//}
+	//ImGui::EndChild();
+
+
+	//ImGui::End();
+
 }
 
 void ArchetypeWindow::AvaliableArchetypes() {
@@ -79,6 +136,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 	if (entities_) {
 
 		for (EntityManager::EntityArchetypeMapTypeIt entityIT = entities_->GetArchetypes().begin(); entityIT != entities_->GetArchetypes().end(); ++entityIT) {
+
 
 			ImGuiTreeNodeFlags flags = ((imgui_->GetEntity() == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
 
@@ -90,8 +148,21 @@ void ArchetypeWindow::AvaliableArchetypes() {
 			if (opened) {
 
 				if (ImGui::Button(ICON_FA_PLUS_SQUARE " Spawn Entity")) {
-					entities_->CloneArchetype(entityIT->first);
-					imgui_->SetEntity(nullptr);
+					if (imgui_->GetExistingSceneCamera()) {
+						entities_->CloneArchetype(entityIT->first);
+						imgui_->SetEntity(nullptr);
+					}
+					else
+					{
+						if (entityIT->first == "Camera") {
+
+							entities_->CloneArchetype(entityIT->first);
+							imgui_->SetEntity(nullptr);
+						}
+						else if (entityIT->first != "Camera")
+							b_nocam = true;
+
+					}
 				}
 
 				if (ImGui::Button("Delete Archetype")) {
@@ -110,8 +181,42 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 				ImGui::TreePop();
 			}
+
+
 		}
 	}
+}
+
+void ArchetypeWindow::NoCameraPopUp() {
+
+	if (ImGui::BeginPopup("No Camera")) {
+
+		ImGui::Text("There is no Active Camera in the scene");
+		ImGui::Text("Do you want to spawn one in?");
+
+		imgui_->CustomImGuiButton(BLUEDEFAULT, BLUEHOVERED, BLUEACTIVE);
+
+		if (ImGui::Button("Yes")) {
+
+			entities_->CloneArchetype("Camera");
+			imgui_->SetEntity(nullptr);
+
+			b_nocam = false;
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine(0, 4);
+
+		if (ImGui::Button("No")) {
+			b_nocam = false;
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
+	}
+
 }
 
 void ArchetypeWindow::AddArchetype(std::string archetypeName)

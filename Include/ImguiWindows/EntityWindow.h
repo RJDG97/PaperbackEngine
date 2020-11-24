@@ -166,7 +166,7 @@ private:
 	const char* AItype_[3]{ "StagBeetle", "Mite", "Hornet"};
 	const char* Playerstatus_[4]{ "None", "Invisible", "Hit", "Burrow"};
 
-	bool b_draw = false;
+	bool b_draw = false, b_addtex;
 
 };
 #endif

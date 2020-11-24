@@ -36,13 +36,13 @@ void Texture::SetTexVtx(std::vector<glm::vec2> new_vertex) {
 	tex_vtx_ = new_vertex;
 }
 
-Tileset::Tileset(GLuint tileset_handle, std::vector<std::string>* tileset_name) :
+Tileset::Tileset(GLuint tileset_handle, std::vector<std::string> tileset_name) :
     tileset_handle_ { tileset_handle },
     tile_names_ { tileset_name } {
     
 }
 
-std::vector<std::string>* Tileset::GetTileNames() {
+std::vector<std::string> Tileset::GetTileNames() {
 
     return tile_names_;
 }
@@ -225,7 +225,7 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
     //[0] -> width, [1] -> height, [2] -> handle
     std::vector<GLuint> image_file_data = LoadImageFile(filename);
     GLuint tileset_handle_ = image_file_data[2];
-    tilesets_[tileset_name] = { tileset_handle_, &tile_names };
+    tilesets_[tileset_name] = { tileset_handle_, tile_names };
 
     glm::vec2 offset{ 1.0f / columns, 1.0f / rows };
 
@@ -255,11 +255,11 @@ bool TextureManager::UnloadTileset(std::string tileset_name) {
     if (it != tilesets_.end()) {
 
         it->second.UnloadTileset();
-        std::vector<std::string>* tile_name = it->second.GetTileNames();
+        std::vector<std::string> tile_name = it->second.GetTileNames();
 
-        for (int i = 0; i < tile_name->size(); ++i) {
+        for (int i = 0; i < tile_name.size(); ++i) {
 
-            textures_.erase((*tile_name)[i]);
+            textures_.erase(tile_name[i]);
         }
 
         tilesets_.erase(tileset_name);

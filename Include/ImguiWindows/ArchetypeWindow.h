@@ -58,6 +58,15 @@ public:
 /******************************************************************************/
 	void AvaliableArchetypes();
 
+/******************************************************************************/
+/*!
+	\fn NoCameraPopUp()
+
+	\brief Pop to prevent users from spawning entities without an active camera
+*/
+/******************************************************************************/
+	void NoCameraPopUp();
+
 private:
 	EntityManager* entities_;
 	ImguiSystem* imgui_;
@@ -65,8 +74,7 @@ private:
 	Levels levels_;
 	EntityFactory* factory_;
 
-	
-
+	bool b_nocam;
 };
 
 #endif 
