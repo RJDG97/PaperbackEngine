@@ -58,9 +58,12 @@ void Physics::Update(float frametime) {
 	// Updating entity's velocity
 	for (MotionIt motion = motion_arr_->begin(); motion != motion_arr_->end(); ++motion) {
 
+		if (!motion->second->alive_)
+			continue;
+
 		// Perform update of entity's motion component
 		//motion->second->velocity_ += motion->second->acceleration_ * frametime;
-		motion->second->acceleration_ = force_mgr->GetForce(motion->second->GetOwner()->GetID()) / motion->second->mass_;
+		motion->second->acceleration_ = force_mgr->GetForce(motion->second->GetOwner()->GetID()) * motion->second->inv_mass_;
 		motion->second->velocity_ += motion->second->acceleration_ * frametime;
 		motion->second->velocity_ *= 0.80f;
 

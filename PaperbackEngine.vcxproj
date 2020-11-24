@@ -165,6 +165,7 @@
     <ClCompile Include="Source\Components\Camera.cpp" />
     <ClCompile Include="Source\Components\Clickable.cpp" />
     <ClCompile Include="Source\Components\ConeLight.cpp" />
+    <ClCompile Include="Source\Components\Emitter.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\InputController.cpp" />
     <ClCompile Include="Source\Components\Inventory.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Source\Components\Motion.cpp" />
     <ClCompile Include="Source\Components\Name.cpp" />
     <ClCompile Include="Source\Components\ParentChild.cpp" />
+    <ClCompile Include="Source\Components\Particle.cpp" />
     <ClCompile Include="Source\Components\PointLight.cpp" />
     <ClCompile Include="Source\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Components\TextureRenderer.cpp" />
@@ -197,6 +199,7 @@
     <ClCompile Include="Source\Manager\FontManager.cpp" />
     <ClCompile Include="Source\Manager\ForcesManager.cpp" />
     <ClCompile Include="Source\Manager\ModelManager.cpp" />
+    <ClCompile Include="Source\Manager\ParticleManager.cpp" />
     <ClCompile Include="Source\Manager\ShaderManager.cpp" />
     <ClCompile Include="Source\Manager\TextureManager.cpp" />
     <ClCompile Include="Source\MathLib\MathHelper.cpp" />
@@ -219,6 +222,7 @@
     <ClCompile Include="Source\Systems\LightingSystem.cpp" />
     <ClCompile Include="Source\Systems\LogicSystem.cpp" />
     <ClCompile Include="Source\Systems\Message.cpp" />
+    <ClCompile Include="Source\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Source\Systems\Partitioning.cpp" />
     <ClCompile Include="Source\Systems\Physics.cpp" />
     <ClCompile Include="Source\Systems\SoundSystem.cpp" />
@@ -233,6 +237,7 @@
     <ClInclude Include="Include\Components\Camera.h" />
     <ClInclude Include="Include\Components\Clickable.h" />
     <ClInclude Include="Include\Components\ConeLight.h" />
+    <ClInclude Include="Include\Components\Emitter.h" />
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\InputController.h" />
@@ -242,6 +247,7 @@
     <ClInclude Include="Include\Components\Motion.h" />
     <ClInclude Include="Include\Components\Name.h" />
     <ClInclude Include="Include\Components\ParentChild.h" />
+    <ClInclude Include="Include\Components\Particle.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
     <ClInclude Include="Include\Components\TextRenderer.h" />
     <ClInclude Include="Include\Components\TextureRenderer.h" />
@@ -282,6 +288,7 @@
     <ClInclude Include="Include\Manager\ForcesManager.h" />
     <ClInclude Include="Include\Manager\IManager.h" />
     <ClInclude Include="Include\Manager\ModelManager.h" />
+    <ClInclude Include="Include\Manager\ParticleManager.h" />
     <ClInclude Include="Include\Manager\ShaderManager.h" />
     <ClInclude Include="Include\Manager\TextureManager.h" />
     <ClInclude Include="Include\MathLib\MathHelper.h" />
@@ -308,6 +315,7 @@
     <ClInclude Include="Include\Systems\LightingSystem.h" />
     <ClInclude Include="Include\Systems\LogicSystem.h" />
     <ClInclude Include="Include\Systems\Message.h" />
+    <ClInclude Include="Include\Systems\ParticleSystem.h" />
     <ClInclude Include="Include\Systems\Partitioning.h" />
     <ClInclude Include="Include\Systems\Physics.h" />
     <ClInclude Include="Include\Systems\SoundSystem.h" />

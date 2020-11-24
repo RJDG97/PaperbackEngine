@@ -50,7 +50,7 @@ void TextureRenderer::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBu
 
 void TextureRenderer::DeSerialize(std::stringstream& data) {
     
-    data >> texture_name_ >> layer_ >> ui_;
+    data >> texture_name_ >> layer_ >> ui_ >> alive_;
 }
 
 void TextureRenderer::DeSerializeClone(std::stringstream& data) {
@@ -81,6 +81,7 @@ std::shared_ptr<Component> TextureRenderer::Clone() {
     // IRenderer
     cloned->layer_ = layer_;
     cloned->ui_ = ui_;
+    cloned->alive_ = alive_;
 
     // TextureRenderer
     cloned->texture_name_ = texture_name_;

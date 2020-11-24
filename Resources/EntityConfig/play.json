@@ -21,5 +21,9 @@
   
   "Key": "Resources/EntityConfig/Play/keys.json",
   
-  "Puddle": "Resources/EntityConfig/Play/puddle.json"
+  "Puddle": "Resources/EntityConfig/Play/puddle.json",
+  
+  "TestEmitter": "Resources/EntityConfig/Play/testemitter.json",
+  
+  "MyParticle": "Resources/EntityConfig/Play/myparticles.json"
 }

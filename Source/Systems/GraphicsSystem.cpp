@@ -198,6 +198,11 @@ void GraphicsSystem::Draw() {
     for (IRenderOrderIt it = worldobj_renderers_in_order_.begin();
          it != worldobj_renderers_in_order_.end() ; ) {
 
+        if (!it->second->alive_) {
+            ++it;
+            continue;
+        }
+
         if (debug_) {
 			// Log id of entity and its updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Drawing entity: " +

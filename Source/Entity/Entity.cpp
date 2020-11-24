@@ -225,6 +225,10 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::LOGICCOMPONENT;
 	else if (str == "Inventory")
 		return ComponentTypes::INVENTORY;
+	else if (str == "Particle")
+		return ComponentTypes::PARTICLE;
+	else if (str == "Emitter")
+		return ComponentTypes::EMITTER;
 	else
 		return ComponentTypes::NONE;
 }

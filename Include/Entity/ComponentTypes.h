@@ -26,6 +26,8 @@ enum class ComponentTypes {
 	PARENTCHILD,
 	LOGICCOMPONENT,
 	INVENTORY,
+	PARTICLE,
+	EMITTER,
 	MAX
 };
 

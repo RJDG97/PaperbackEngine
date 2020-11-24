@@ -19,6 +19,7 @@
 #include "Manager/ForcesManager.h"
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
+#include "Manager/ParticleManager.h"
 #include "Manager/AMap.h"
 
 #include "Engine/Core.h"
@@ -27,6 +28,7 @@
 #include "Systems/Game.h"
 #include "Systems/Collision.h"
 #include "Systems/Partitioning.h"
+#include "Systems/ParticleSystem.h"
 #include "Systems/Debug.h"
 #include <sstream>
 
@@ -61,6 +63,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<Physics>();
 		CORE->AddSystem<PartitioningSystem>();
 		CORE->AddSystem<Collision>();
+		CORE->AddSystem<ParticleSystem>();
 		CORE->AddSystem<ImguiSystem>();
 		CORE->AddSystem<SoundSystem>();
 		CORE->AddSystem<Game>();
@@ -76,6 +79,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddManager<FontManager>();
 		CORE->AddManager<AnimationManager>();
 		CORE->AddManager<ForcesManager>();
+		CORE->AddManager<ParticleManager>();
 
 		// Initialize all Systems & Managers that
 		// were added to the Core Engine

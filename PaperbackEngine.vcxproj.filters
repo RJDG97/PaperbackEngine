@@ -162,6 +162,15 @@
     <Filter Include="Entity\Components\Inventory">
       <UniqueIdentifier>{f4765795-dcf6-49d1-952c-078eb957ea63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Particle System">
+      <UniqueIdentifier>{77f5d275-1666-4c1d-b450-a9a145412156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Particle">
+      <UniqueIdentifier>{96ccd475-1721-4dc5-a114-229da5d20a0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Emitter">
+      <UniqueIdentifier>{654cb997-b4fa-404b-8fe6-f5cf8548e2e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -385,6 +394,18 @@
     </ClCompile>
     <ClCompile Include="Source\Components\Inventory.cpp">
       <Filter>Entity\Components\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ParticleManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\ParticleSystem.cpp">
+      <Filter>Systems\Particle System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Particle.cpp">
+      <Filter>Entity\Components\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Emitter.cpp">
+      <Filter>Entity\Components\Emitter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -656,6 +677,21 @@
       <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Include\Script\Stag_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\ParticleManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\ParticleSystem.h">
+      <Filter>Systems\Particle System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Particle.h">
+      <Filter>Entity\Components\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Emitter.h">
+      <Filter>Entity\Components\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Sample_Particle_Script.h">
       <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
   </ItemGroup>

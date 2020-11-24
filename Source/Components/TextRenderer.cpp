@@ -74,7 +74,8 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
      data >> color_.x >> color_.y >> color_.z
           >> scale_
           >> layer_
-          >> ui_;
+          >> ui_
+          >> alive_;
 }
 
 
@@ -95,6 +96,7 @@ std::shared_ptr<Component> TextRenderer::Clone() {
     cloned->scale_ = scale_;
     cloned->layer_ = layer_;
     cloned->ui_ = ui_;
+    cloned->alive_ = alive_;
 
     return cloned;
 }

@@ -9,7 +9,8 @@ Motion::Motion() :
 	velocity_{},
 	acceleration_{},
 	mass_{},
-	is_left_{ false }
+	is_left_{ false },
+	alive_{ true }
 {}
 
 Motion::~Motion() {
@@ -33,9 +34,8 @@ void Motion::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 	writer->Key("mass");
 	writer->String(std::to_string(mass_).c_str());
 
-	/*writer->Key("acceleration");
-	writer->String((std::to_string(acceleration_.x) + " " + std::to_string(acceleration_.y)).c_str());
-	*/
+	writer->Key("alive");
+	writer->String(std::to_string(alive_).c_str());
 
 	writer->EndObject();
 }
@@ -43,8 +43,7 @@ void Motion::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 void Motion::DeSerialize(std::stringstream& data) {
 	std::cout << "Entered DeSerialize Motion w/ stream" << std::endl;
 	
-	data >> mass_ >> velocity_.x >> velocity_.y >> 
-			acceleration_.x >> acceleration_.y;
+	data >> mass_ >> alive_;
 
 	inv_mass_ = mass_ == 0.0f ? 0.0f : 1 / mass_;
 }
@@ -58,6 +57,8 @@ std::shared_ptr<Component> Motion::Clone() {
 	cloned->acceleration_ = acceleration_;
 	cloned->velocity_ = velocity_;
 	cloned->mass_ = mass_;
+	cloned->inv_mass_ = inv_mass_;
+	cloned->alive_ = alive_;
 
 	return cloned;
 }
