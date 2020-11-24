@@ -885,6 +885,7 @@ void GraphicsSystem::ChangeTexture(TextureRenderer* renderer, std::string textur
      
         renderer->texture_ = (texture_manager_->GetTexture(texture_name));
         renderer->texture_name_ = texture_name;
+        renderer->texture_handle_ = renderer->texture_->GetTilesetHandle();
         renderer->tex_vtx_ = *renderer->texture_->GetTexVtx();
 
         if (renderer->x_mirror_) {
