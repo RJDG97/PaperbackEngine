@@ -58,7 +58,7 @@ void TextureTilesWindow::Update() {
 			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID | ImGuiDragDropFlags_SourceNoDisableHover)) {
 
 				selectedtex_.assign(it->first.c_str());
-				ImGui::SetDragDropPayload("UPDATED_PATH", &selectedtex_, sizeof(std::string));
+				ImGui::SetDragDropPayload("TEXTURE", &selectedtex_, sizeof(std::string));
 				ImGui::Text(selectedtex_.c_str());
 				ImGui::EndDragDropSource();
 			}

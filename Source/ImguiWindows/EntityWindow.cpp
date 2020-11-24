@@ -219,7 +219,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 					if (ImGui::BeginDragDropTarget()) {
 
-						if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
+						if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("TEXTURE")) {
 
 							if (payLoad->DataSize == sizeof(std::string)) {
 

@@ -329,9 +329,15 @@ void AssetWindow::AddTextureAnimation() {
 		ImGui::Text("Choose File to modify");
 		SelectTextureJson();
 
-		ImGui::PushItemWidth(120.0f);
+		// display json file info
+		DisplayJson();
+
 		if (ImGui::CollapsingHeader("Add Blank Json File")) {
-			static char filebuffer[256];
+			std::string folderName;
+			char filebuffer[256];
+			memset(filebuffer, 0, sizeof(filebuffer));
+			strcpy_s(filebuffer, sizeof(filebuffer), folderName.c_str());
+
 			ImGui::Text("New Files will be reflected in the dropdown above and in the asset browser");
 			if (ImGui::InputTextWithHint("##row", "Enter FileName & press ENTER", filebuffer, sizeof(filebuffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
 
@@ -340,18 +346,16 @@ void AssetWindow::AddTextureAnimation() {
 					std::string pathtext = filebuffer;
 					fs::path filepath = std::string("Resources/AssetsLoading/" + pathtext + "_texture.json").c_str();
 					std::ofstream destfile(filepath, std::ios::binary | std::ios::app);
+
+					destfile << "{\n\n}";
 					destfile.close();
 				}
 			}
 		}
-		ImGui::PopItemWidth();
 
+		if (!chosen_json_.empty())
+			AddNewTexture();
 	}
-	// display json file info
-	DisplayJson();
-
-	if (!chosen_json_.empty())
-		AddNewTexture();
 
 	ImGui::End();
 
@@ -392,98 +396,106 @@ void AssetWindow::SelectTextureJson() {
 }
 
 void AssetWindow::DisplayJson() {
+	if (!chosen_json_.empty()) {
+		if (ImGui::TreeNodeEx((chosen_json_ + " details:").c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
 
-	for (auto it = tex_info_.begin(); it != tex_info_.end(); ++it) {
+			for (auto it = tex_info_.begin(); it != tex_info_.end(); ++it) {
 
-		if (ImGui::TreeNodeEx(it->first.c_str())) {
+				if (ImGui::TreeNodeEx(it->first.c_str())) {
 
-			if (ImGui::TreeNode("Current Path of Texture:  %s", it->second.path.c_str())) {
+					if (ImGui::TreeNode("Current Path of Texture:  %s", it->second.path.c_str())) {
 
-				if (ImGui::Button("Update")) {
+						if (ImGui::Button("Update")) {
 
-					std::string selectedpath = imgui_->OpenSaveDialog("(*.png) Spritesheets/Textures\0* .png\0", 1);
+							std::string selectedpath = imgui_->OpenSaveDialog("(*.png) Spritesheets/Textures\0* .png\0", 1);
 
-					if (!selectedpath.empty())
-						it->second.path = selectedpath;
-				}
-				ImGui::TreePop();
-			}
-
-			if (ImGui::BeginDragDropTarget()) {
-
-				if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
-
-					if (payLoad->DataSize == sizeof(std::string)) {
-
-						std::string updatedpath = *((std::string*)payLoad->Data);
-
-						it->second.path = updatedpath;
-					}
-				}
-				ImGui::EndDragDropTarget();
-			}
-
-			if (ImGui::TreeNodeEx("Row & Columns")) {
-
-				static char bufferR[256];
-				static char bufferC[256];
-
-				ImGui::Text("Number of Columns: %d, Number of Rows: %d", it->second.column, it->second.row);
-
-				ImGui::PushItemWidth(150.0f);
-				ImGui::Text("Columns: "); ImGui::SameLine(0, 3);
-				if (ImGui::InputText("##col", bufferC, sizeof(bufferC), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
-					std::string colinput = bufferC;
-					it->second.column = std::stoi(colinput);
-				}
-
-				ImGui::Text("Rows: "); ImGui::SameLine(0, 3);
-				if (ImGui::InputText("##row", bufferR, sizeof(bufferR), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
-					std::string rowinput = bufferR;
-					it->second.row = std::stoi(rowinput);
-				}
-
-				ImGui::PopItemWidth();
-				ImGui::TreePop();
-			}
-
-			if (ImGui::Button("Remove"))
-				ImGui::OpenPopup("Sure?");
-
-			if (ImGui::BeginPopup("Sure?")) {
-				std::string del = it->first;
-				ImGui::Text("Removing Texture: %s\nAre You Sure?", it->first.c_str());
-
-				imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
-				if (ImGui::Button("YES")) {
-
-					if (it == tex_info_.begin())
-						it = tex_info_.erase(it);
-					else {
-
-						it = tex_info_.erase(it);
-						--it;
+							if (!selectedpath.empty())
+								it->second.path = selectedpath;
+						}
+						ImGui::TreePop();
 					}
 
-					filesdel_.push_back(del);
-					ImGui::CloseCurrentPopup();
+					if (ImGui::BeginDragDropTarget()) {
+
+						if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
+
+							if (payLoad->DataSize == sizeof(std::string)) {
+
+								std::string updatedpath = *((std::string*)payLoad->Data);
+
+								it->second.path = updatedpath;
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
+
+					if (ImGui::TreeNodeEx("Row & Columns")) {
+
+						static char bufferR[256];
+						static char bufferC[256];
+
+						ImGui::Text("Number of Columns: %d, Number of Rows: %d", it->second.column, it->second.row);
+
+						ImGui::PushItemWidth(150.0f);
+						ImGui::Text("Columns: "); ImGui::SameLine(0, 3);
+						if (ImGui::InputText("##col", bufferC, sizeof(bufferC), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+							std::string colinput = bufferC;
+							it->second.column = std::stoi(colinput);
+						}
+
+						ImGui::Text("Rows: "); ImGui::SameLine(0, 3);
+						if (ImGui::InputText("##row", bufferR, sizeof(bufferR), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+							std::string rowinput = bufferR;
+							it->second.row = std::stoi(rowinput);
+						}
+
+						ImGui::PopItemWidth();
+						ImGui::TreePop();
+					}
+
+					if (ImGui::Button("Remove"))
+						ImGui::OpenPopup("Sure?");
+
+					if (ImGui::BeginPopup("Sure?")) {
+						std::string del = it->first;
+						ImGui::Text("Removing Texture: %s\nAre You Sure?", it->first.c_str());
+
+						imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
+						if (ImGui::Button("YES")) {
+
+							if (it == tex_info_.begin())
+								it = tex_info_.erase(it);
+							else {
+
+								it = tex_info_.erase(it);
+								--it;
+							}
+
+							filesdel_.push_back(del);
+							ImGui::CloseCurrentPopup();
+						}
+
+						ImGui::PopStyleColor(3);
+						ImGui::SameLine(0, 3);
+						if (ImGui::Button("Cancel"))
+							ImGui::CloseCurrentPopup();
+
+						ImGui::EndPopup();
+					}
+
+					if (ImGui::Button("Load into Editor"))
+						texture_->CreateTileset(it->second.path.c_str(), it->second.column, it->second.row, it->first.c_str());
+
+					ImGui::TreePop();
+					break;
 				}
-
-				ImGui::PopStyleColor(3);
-				ImGui::SameLine(0, 3);
-				if (ImGui::Button("Cancel"))
-					ImGui::CloseCurrentPopup();
-
-				ImGui::EndPopup();
 			}
-
-			if (ImGui::Button("Load into Editor"))
-				texture_->CreateTileset(it->second.path.c_str(), it->second.column, it->second.row, it->first.c_str());
 
 			ImGui::TreePop();
-			break;
 		}
 	}
+
+	ImGui::Separator();
 
 	if (ImGui::Button("Save & Reload Texture")) {
 
@@ -520,10 +532,10 @@ void AssetWindow::DisplayJson() {
 }
 
 void AssetWindow::AddNewTexture() {
-	if (ImGui::CollapsingHeader("Texture/Animation Management")) {
+	if (ImGui::CollapsingHeader("Add New Texture")) {
 		TextureInfo newtex;
 		std::string folderName = {};
-		ImGui::Text("When a new texture is added in, Rows & Columns will be added in with default value of 1\nUpdate it if needed");
+		ImGui::Text("When a new texture is added in, Rows & Columns will be added with default value of 1\nUpdate it if needed");
 		ImGui::Text("Adding Texture Path: %s", img_to_add_.c_str());
 		static char buffer[256];
 		memset(buffer, 0, sizeof(buffer));
