@@ -31,6 +31,8 @@
 #include "Components/ParentChild.h"
 #include "Components/LogicComponent.h"
 #include "Components/Inventory.h"
+#include "Components/Particle.h"
+#include "Components/Emitter.h"
 
 template <typename T>
 class CMap
@@ -235,7 +237,8 @@ private:
 // When creating a new component, add it to this "List"
 using ComponentManager = CManager<
 	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight, Camera,
-	TextRenderer, InputController, TextureRenderer, AnimationRenderer, ParentChild, LogicComponent, Inventory
+	TextRenderer, InputController, TextureRenderer, AnimationRenderer, ParentChild, LogicComponent, Inventory,
+	Emitter, Particle
 >;
 
 

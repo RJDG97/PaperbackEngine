@@ -1,50 +1,46 @@
-#ifndef _MOTION_H_
-#define _MOTION_H_
+#pragma once
+#ifndef _PARTICLE_H_
+#define _PARTICLE_H_
 
-#include "Entity/Entity.h" 
-#include "MathLib/Vector2D.h"
+#include "Entity/Entity.h"
+#include "Components/IComponent.h"
 #include <sstream>
+#include <memory>
 
-class Motion : public Component {
-	Vector2D velocity_;
-    Vector2D acceleration_;
-	float mass_;
-	float inv_mass_;
-	bool is_left_;
+class Particle : public Component {
+
 	bool alive_;
+	float lifetime_;
+	EntityID spawner_;
 
 public:
-	friend class Physics;
-	friend class Collision;
-	friend class PlayState;
 	friend class Emitter;
 	friend class ParticleSystem;
+	friend class ParticleManager;
 
 /******************************************************************************/
 /*!
-  \fn Motion()
+  \fn Particle()
 
-  \brief Constructor for Motion that defaults the data members of the
-		 component
+  \brief Constructor for Particle
 */
 /******************************************************************************/
-	Motion();
+	Particle();
 
 /******************************************************************************/
 /*!
-  \fn ~Motion()
+  \fn ~Particle()
 
-  \brief Destructor for Motion that removes the component from the
-		 Physics system motion map
+  \brief Destructor for Particle
 */
 /******************************************************************************/
-	~Motion();
+	~Particle();
 
 /******************************************************************************/
 /*!
   \fn Init()
 
-  \brief Adds the component itself to the Physics system motion map
+  \brief
 */
 /******************************************************************************/
 	void Init();
@@ -69,15 +65,6 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn DeSerializeClone()
-
-  \brief DeSerializes data members within the Component
-*/
-/******************************************************************************/
-	//void DeSerializeClone(std::stringstream& data) override;
-
-/******************************************************************************/
-/*!
   \fn Clone()
 
   \brief Clones the existing component
@@ -85,12 +72,13 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
-	float GetMass();
-	void SetMass(float newMass);
-	bool GetIsLeft();
-	void SetIsLeft(bool status);
+/******************************************************************************/
+/*!
+  \fn IsAlive()
 
-	Vector2D GetVelocity();
+  \brief Retrieve the not dead status
+*/
+/******************************************************************************/
+	bool IsAlive() const;
 };
-
 #endif

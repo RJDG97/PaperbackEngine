@@ -21,10 +21,13 @@ protected:
 	int layer_;
 	bool ui_; //if object is on UI or in the world
 
+	bool alive_;
+
 public:
 
 	friend class GraphicsSystem;
-
+	friend class ParticleSystem;
+	friend class Emitter;
 };
 
 #endif

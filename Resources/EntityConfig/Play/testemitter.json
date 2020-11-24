@@ -1,0 +1,42 @@
+{
+  "TestEmitter": [
+    {
+      "component": "Transform",
+      "position": "0.0 -12.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Emitter",
+      "lifetime": "1000",
+      "request": "5",
+      "interval": "0.2",
+      "default interval": "0.05",
+      "lifetime range": "0.2 1.0",
+      "min pos": "-0.25 0.25",
+      "max pos": "-0.25 0.25",
+      "force range": "200.0 1000.0",
+      "direction range": "0.0 6.27",
+      "maximum spawn": "50"
+    }
+  ],
+  "TestEmitter": [
+    {
+      "component": "Transform",
+      "position": "-5.0 -12.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Emitter",
+      "lifetime": "1000",
+      "request": "5",
+      "interval": "0.2",
+      "default interval": "0.05",
+      "lifetime range": "0.2 1.0",
+      "min pos": "-0.25 0.25",
+      "max pos": "-0.25 0.25",
+      "force range": "200.0 1000.0",
+      "direction range": "0.0 6.27",
+      "maximum spawn": "50"
+    }
+  ]
+}

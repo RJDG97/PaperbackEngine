@@ -82,7 +82,7 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     data >> current_animation_name_;
 
-    data >> play_animation_ >> has_finished_animating_ >> layer_ >> ui_;
+    data >> play_animation_ >> has_finished_animating_ >> layer_ >> ui_ >> alive_;
 }
 
 void AnimationRenderer::DeSerializeClone(std::stringstream& data)
@@ -106,6 +106,7 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
 	cloned->play_animation_ = play_animation_;
     cloned->has_finished_animating_ = has_finished_animating_;
     cloned->ui_ = ui_;
+    cloned->alive_ = alive_;
 
 	return cloned;
 }

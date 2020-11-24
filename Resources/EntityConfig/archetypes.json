@@ -42,7 +42,8 @@
       "component": "TextureRenderer",
       "texture": "Temp_Background_0",
       "layer": "0",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     },
     {
       "component": "PointLight",
@@ -73,7 +74,8 @@
       "color": "1.0 0.5 1.0",
       "scale": "1.0",
       "layer": "10",
-      "ui": "1"
+      "ui": "1",
+      "alive": "1"
     }
    ],
   "WorldText": [
@@ -95,7 +97,8 @@
       "color": "1.0 0.5 1.0",
       "scale": "1.0",
       "layer": "10",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     }
    ],
   "Player": [
@@ -111,9 +114,7 @@
     },
     {
       "component": "Motion",
-      "mass": "5.0",
-      "velocity": "0.0 0.0",
-      "acceleration": "0.0 0.0"
+      "mass": "5.0"
     },
     {
       "component": "Scale",
@@ -135,7 +136,8 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     },
     {
       "component": "AABB",
@@ -182,9 +184,7 @@
     },
     {
       "component": "Motion",
-      "mass": "10.0",
-      "velocity": "0.0 0.0",
-      "acceleration": "0.0 0.0"
+      "mass": "10.0"
     },
     {
       "component": "Scale",
@@ -204,7 +204,8 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     },
     {
       "component": "AABB",
@@ -252,7 +253,8 @@
       "component": "TextureRenderer",
       "texture": "Rock_Three_0",
       "layer": "2",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     },
     {
       "component": "AABB",
@@ -287,9 +289,7 @@
     },
     {
       "component": "Motion",
-      "mass": "8.0",
-      "velocity": "0.0 0.0",
-      "acceleration": "0.0 0.0"
+      "mass": "8.0"
     },
     {
       "component": "AnimationRenderer",
@@ -299,7 +299,8 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "1",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     },
     {
       "component": "AABB",
@@ -326,7 +327,8 @@
       "component": "TextureRenderer",
       "texture": "Environment_Tiles_20",
       "layer": "2",
-      "ui": "1"
+      "ui": "1",
+      "alive": "1"
     },
     {
       "component": "AABB",
@@ -358,7 +360,8 @@
       "component": "TextureRenderer",
       "texture": "Hole_0",
       "layer": "1",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     },
     {
       "component": "AABB",
@@ -419,7 +422,8 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     },
     {
       "component": "AABB",
@@ -428,9 +432,7 @@
     },
     {
       "component": "Motion",
-      "mass": "8.0",
-      "velocity": "0.0 0.0",
-      "acceleration": "0.0 0.0"
+      "mass": "8.0"
     },
     {
       "component": "Status"
@@ -488,7 +490,8 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     },
     {
       "component": "AABB",
@@ -497,9 +500,7 @@
     },
     {
       "component": "Motion",
-      "mass": "8.0",
-      "velocity": "0.0 0.0",
-      "acceleration": "0.0 0.0"
+      "mass": "8.0"
     },
     {
       "component": "Status"
@@ -536,7 +537,8 @@
       "component": "TextureRenderer",
       "texture": "Menu_Background_0",
       "layer": "0",
-      "ui": "1"
+      "ui": "1",
+      "alive": "1"
     },
     {
       "component": "PointLight",
@@ -593,7 +595,8 @@
       "component": "TextureRenderer",
       "texture": "Environment_Tiles_20",
       "layer": "2",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     }
   ],
   "Clouds": [
@@ -620,7 +623,8 @@
       "component": "TextureRenderer",
       "texture": "Menu_CloudOne_0",
       "layer": "0",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     }
   ],
   "Watergauge": [
@@ -642,7 +646,8 @@
       "component": "TextureRenderer",
       "texture": "WaterGauge_Droplet_0",
       "layer": "0",
-      "ui": "1"
+      "ui": "1",
+      "alive": "1"
     }
   ],
   "FakeWall": [
@@ -664,7 +669,8 @@
       "component": "TextureRenderer",
       "texture": "Rock_Three_0",
       "layer": "2",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     }
   ],
   "FakeWallTwo": [
@@ -686,7 +692,8 @@
       "component": "TextureRenderer",
       "texture": "Environment_Tiles_20",
       "layer": "2",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     }
   ],
   "Gate": [
@@ -713,7 +720,8 @@
       "component": "TextureRenderer",
       "texture": "Props_Gate_0",
       "layer": "1",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     }
   ],
   "Key": [
@@ -740,7 +748,8 @@
       "component": "TextureRenderer",
       "texture": "Key_One_0",
       "layer": "1",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
     }
   ],
   "Puddle": [
@@ -767,7 +776,59 @@
       "component": "TextureRenderer",
       "texture": "Puddle_0",
       "layer": "1",
-      "ui": "0"
+      "ui": "0",
+      "alive": "1"
+    }
+   ],
+  "TestEmitter": [
+    {
+      "component": "Name",
+      "name": "TestEmitter"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "0"
+    },
+    {
+      "component": "Emitter"
+    }
+   ],
+  "MyParticle": [
+    {
+      "component": "Name",
+      "name": "MyParticle"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Motion",
+      "mass": "1.0",
+      "alive": "0.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Key_One_0",
+      "layer": "1",
+      "ui": "0",
+      "alive": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "30.0 30.0"
+    },
+    {
+      "component": "Particle"
     }
    ]
 }
