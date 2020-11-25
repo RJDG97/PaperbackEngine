@@ -329,44 +329,23 @@ void AssetWindow::LoadTextureJson(std::string level_name) {
 void AssetWindow::AddTextureAnimation() {
 
 	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_addtexture);
+	ImGui::Text("Select which files you want to update.");
 
 	ImGui::Checkbox("Texture", &b_tex);
 	ImGui::Checkbox("Animation", &b_anim);
 
-	// choose the json file to change to add to
 	if (b_tex) {
 		ImGui::Text("Choose File to modify");
 		SelectTextureJson();
-
 		// display json file info
 		DisplayJson();
+		AddBlankJson();
 
-		if (ImGui::CollapsingHeader("Add Blank Json File")) {
-			std::string folderName;
-			char filebuffer[256];
-			memset(filebuffer, 0, sizeof(filebuffer));
-			strcpy_s(filebuffer, sizeof(filebuffer), folderName.c_str());
-
-			ImGui::Text("New Files will be reflected in the dropdown above and in the asset browser");
-			if (ImGui::InputTextWithHint("##row", "Enter FileName & press ENTER", filebuffer, sizeof(filebuffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
-
-				if (!std::string(filebuffer).empty()) {
-
-					std::string pathtext = filebuffer;
-					fs::path filepath = std::string("Resources/AssetsLoading/" + pathtext + "_texture.json").c_str();
-					std::ofstream destfile(filepath, std::ios::binary | std::ios::app);
-
-					destfile << "{\n\n}"; // prepare as a blank json
-					destfile.close();
-				}
-			}
-		}
 		if (!chosen_json_.empty())
 			AddNewTexture();
 	}
 
 	ImGui::End();
-
 }
 
 void AssetWindow::SelectTextureJson() {
@@ -533,6 +512,8 @@ void AssetWindow::DisplayJson() {
 
 		for (int j = 0; j < jsonfiles_.size(); j++)
 			texture_->TextureBatchLoad(jsonfiles_[j]);
+
+		jsonfiles_.clear();
 	}
 }
 
@@ -582,6 +563,30 @@ std::vector<std::string> AssetWindow::MultiFileSelection(std::string appended_fi
 	}
 
 	return selectedfiles;
+}
+
+void AssetWindow::AddBlankJson() {
+
+	if (ImGui::CollapsingHeader("Add Blank Json File")) {
+		std::string folderName;
+		char filebuffer[256];
+		memset(filebuffer, 0, sizeof(filebuffer));
+		strcpy_s(filebuffer, sizeof(filebuffer), folderName.c_str());
+
+		ImGui::Text("New Files will be reflected in the dropdown above and in the asset browser");
+		if (ImGui::InputTextWithHint("##row", "Enter FileName & press ENTER", filebuffer, sizeof(filebuffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+
+			if (!std::string(filebuffer).empty()) {
+
+				std::string pathtext = filebuffer;
+				fs::path filepath = std::string("Resources/AssetsLoading/" + pathtext + "_texture.json").c_str();
+				std::ofstream destfile(filepath, std::ios::binary | std::ios::app);
+
+				destfile << "{\n\n}"; // prepare the file as a blank json
+				destfile.close();
+			}
+		}
+	}
 }
 
 std::string AssetWindow::FileString(std::string icon, std::string file_name) {

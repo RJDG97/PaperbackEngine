@@ -413,8 +413,6 @@ private:
 	bool b_showpop;
 	bool b_addpath;
 
-	
-
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;

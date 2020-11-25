@@ -168,6 +168,7 @@ public:
 	std::string FindUnderscore(std::string filename);
 
 	std::vector<std::string> MultiFileSelection(std::string appended_files);
+	void AddBlankJson();
 
 private:
 
