@@ -370,6 +370,9 @@ public:
 
 	Camera* GetExistingSceneCamera();
 
+	std::string GetImageAdd();
+	void SetImageAdd(std::string image);
+
 private:
 
 	// map to store all imgui windows added to the system
@@ -396,11 +399,9 @@ private:
 
 	AMap* amap_;
 
-	std::string selected_file_;
+	std::string img_to_add_;
 
 	const char* scene_filter_;
-	const char* asset_filter_;
-	const char* filter_;
 
 	// bools for the docking space
 	bool b_dock_space_open;

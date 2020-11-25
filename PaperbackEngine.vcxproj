@@ -188,6 +188,7 @@
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
     <ClCompile Include="Source\GameStates\WinLoseState.cpp" />
     <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp" />
+    <ClCompile Include="Source\ImguiWindows\AssetConsoleWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
@@ -266,6 +267,7 @@
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\GameStates\WinLoseState.h" />
     <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h" />
+    <ClInclude Include="Include\ImguiWindows\AssetConsoleWindow.h" />
     <ClInclude Include="Include\ImguiWindows\AssetWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h" />

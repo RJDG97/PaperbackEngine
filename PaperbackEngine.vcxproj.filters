@@ -410,6 +410,9 @@
     <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\AssetConsoleWindow.cpp">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -695,6 +698,9 @@
       <Filter>Entity\Components\Emitter</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\TextureTilesWindow.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\AssetConsoleWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
   </ItemGroup>

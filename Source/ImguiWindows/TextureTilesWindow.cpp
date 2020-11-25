@@ -60,7 +60,6 @@ void TextureTilesWindow::Update() {
 				ImGui::Text(selectedtex_.c_str());
 				ImGui::EndDragDropSource();
 			}
-
 		}
 		ImGui::End();
 	}

@@ -1,11 +1,13 @@
 #include "Systems/ImguiSystem.h"
 #include "Manager/Amap.h"
+
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityWindow.h"
 #include "ImguiWindows/EntityPathWindow.h"
 #include "ImguiWindows/ArchetypeWindow.h"
 #include "ImguiWindows/SystemWindow.h"
 #include "ImguiWindows/AssetWindow.h"
+#include "ImguiWindows/AssetConsoleWindow.h"
 #include "ImguiWindows/TextureTilesWindow.h"
 
 // Expose the Win32 API
@@ -21,6 +23,7 @@ void ImguiSystem::Init(){
     AddWindow<EntityWindow>();
     AddWindow<EntityPathWindow>();
     AddWindow<AssetWindow>();
+    AddWindow<AssetConsoleWindow>();
     AddWindow<TextureTilesWindow>();
     AddWindow<SystemWindow>();
 
@@ -37,7 +40,33 @@ void ImguiSystem::Init(){
     camera_ = nullptr;
     editor_ = factory_->GetLevel("Editor");
 
-    // Setup Dear ImGui context
+    //Imgui Window Bools
+    b_entitywin = true;
+    b_archetypewin = true;
+    b_component = true;
+    b_display = false;
+    b_editpath = false;
+    b_showpop = false;
+    b_asset = false;
+    b_editcomp = false;
+    b_addtexture = false;
+    b_showtex = false;
+    b_addpath = false;
+
+    b_lock_entity = false;
+    b_imguimode = false;
+
+
+    new_entity_ = nullptr;
+
+    img_to_add_ = {};
+
+    scene_filter_ =
+        "(*.json) Paperback Engine Scene\0*.json\0"
+        "(*.*) All Files\0* *.*\0";
+
+//////////// Setup Dear ImGui context///////////////////////////
+
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
@@ -82,27 +111,6 @@ void ImguiSystem::Init(){
     dock_space_flags_ = ImGuiDockNodeFlags_PassthruCentralNode;
     window_flags_ = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
-    b_lock_entity = false;
-    b_imguimode = false;
-
-    //Imgui Window Bools
-    b_entitywin = true;
-    b_archetypewin = true;
-    b_component = true;
-    b_display = false;
-    b_editpath = false;
-    b_showpop = false;
-    b_asset = false;
-    b_editcomp = false;
-    b_addtexture = false;
-    b_showtex = false;
-    b_addpath = false;
-
-    new_entity_ = nullptr;
-
-    scene_filter_ =
-    "(*.json) Paperback Engine Scene\0*.json\0"
-    "(*.*) All Files\0* *.*\0";
 }
 
 void ImguiSystem::Update(float frametime) {
@@ -389,6 +397,16 @@ void ImguiSystem::SetEntity(Entity* newentity) {
 Camera* ImguiSystem::GetExistingSceneCamera() {
 
     return camera_;
+}
+
+std::string ImguiSystem::GetImageAdd() {
+
+    return img_to_add_;
+}
+
+void ImguiSystem::SetImageAdd(std::string image) {
+
+    img_to_add_ = image;
 }
 
 void ImguiSystem::SaveArchetype() {
