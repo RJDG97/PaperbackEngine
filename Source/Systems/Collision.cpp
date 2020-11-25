@@ -665,11 +665,12 @@ bool Collision::BurrowReady() {
 	return false;
 }
 
-void Collision::ToggleClickables() {
+void Collision::ToggleClickables(size_t group) {
 
 	for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
 
-		clickable->second->active_ = !clickable->second->active_;
+		if (clickable->second->group_ == group)
+			clickable->second->active_ = !clickable->second->active_;
 	}
 }
 

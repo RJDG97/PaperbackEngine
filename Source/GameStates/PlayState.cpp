@@ -181,7 +181,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			if (InputController->VerifyKey("pause", m->input_)) { // "Esc" key
 				CORE->ToggleCorePauseStatus(); // Disable physics update
 				CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
-				CORE->GetSystem<Collision>()->ToggleClickables();
+				CORE->GetSystem<Collision>()->ToggleClickables(1);
 
 				Message pause{ MessageIDTypes::BGM_PAUSE };
 				CORE->BroadcastMessage(&pause);
