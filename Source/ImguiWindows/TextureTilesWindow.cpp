@@ -13,9 +13,7 @@ void TextureTilesWindow::Init() {
 
 void TextureTilesWindow::Update() {
 
-	size_t counter = 0;
-
-	float windowW = ImGui::GetContentRegionAvailWidth(), windowH = ImGui::GetContentRegionAvail().y;
+	int counter = 0;
 
 	if (imgui_->b_showtex) {
 		ImGui::Begin("Texture Tiles", &imgui_->b_showtex, ImGuiWindowFlags_MenuBar);

@@ -1,4 +1,5 @@
 #include "ImguiWindows\AssetWindow.h"
+#include <cstring>
 
 void AssetWindow::Init() {
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
@@ -11,6 +12,7 @@ void AssetWindow::Init() {
 
 	filesdel_ = {};
 	jsonfiles_ = {};
+	multifiles_ = {};
 
 	b_create = false;
 	b_makefolder = false;
@@ -158,12 +160,19 @@ void AssetWindow::FileMenuBar() {
 
 	if (ImGui::MenuItem(ICON_FA_COPY) && !path_selection_.empty()) {
 
-		std::string source_dir = imgui_->OpenSaveDialog("(*.*) All Files\0* *.*\0", 0);
+		std::string source_dir = imgui_->OpenSaveDialog("(*.*) All Files\0* *.*\0", 0, 1);
+		std::string destination_dir = path_selection_.generic_string();
 
 		if (!source_dir.empty()) {
 
-			std::string destination_dir = path_selection_.generic_string();
-			fs::copy(source_dir, destination_dir, fs::copy_options::skip_existing);
+			if (source_dir.find("|") != source_dir.npos) {
+
+				multifiles_ = MultiFileSelection(source_dir);
+				for (int i = 0; i < multifiles_.size(); i++)
+						fs::copy(multifiles_[i], destination_dir, fs::copy_options::skip_existing);
+			}
+			else
+				fs::copy(source_dir, destination_dir, fs::copy_options::skip_existing); // only 1 file selected
 		}
 	}
 
@@ -347,12 +356,11 @@ void AssetWindow::AddTextureAnimation() {
 					fs::path filepath = std::string("Resources/AssetsLoading/" + pathtext + "_texture.json").c_str();
 					std::ofstream destfile(filepath, std::ios::binary | std::ios::app);
 
-					destfile << "{\n\n}";
+					destfile << "{\n\n}"; // prepare as a blank json
 					destfile.close();
 				}
 			}
 		}
-
 		if (!chosen_json_.empty())
 			AddNewTexture();
 	}
@@ -375,20 +383,17 @@ void AssetWindow::SelectTextureJson() {
 
 				if (ImGui::Selectable(filename.c_str())) {
 
-					if (filename.find("_") != filename.npos)
-						file = filename.substr(0, filename.find("_"));
-					else
-						file = filename.substr(0, filename.find(texjson.path().extension().generic_string().c_str()));
+					file = FindUnderscore(filename);
 
 					tex_info_.clear(); // clear the map before changing over to another json
+
 					LoadTextureJson(file);
 					chosen_json_ = texjson.path().generic_string().c_str();
 				}
 
-				if (filename.find("_") != filename.npos) {
-					file = filename.substr(0, filename.find("_"));
-					jsonfiles_.push_back(file);
-				}
+				file = FindUnderscore(filename);					
+				jsonfiles_.push_back(file);
+
 			}
 		}
 		ImGui::EndCombo();
@@ -550,7 +555,33 @@ void AssetWindow::AddNewTexture() {
 			newtex = {};
 		}
 	}
+}
 
+std::vector<std::string> AssetWindow::MultiFileSelection(std::string appended_files) {
+
+	std::vector<std::string> selectedfiles = {};
+	char* nexttoken = {}; // to store the remaining words (for strtok_s use)
+
+	char files[2048];
+	memset(files, 0, sizeof(files));
+	strcpy_s(files, sizeof(files), appended_files.c_str());
+
+	char* token = strtok_s(files, "|", &nexttoken); // get the directory
+
+	std::string directory = token, tempdir = token;
+
+	while (token != NULL) {
+
+		if (directory != token) {
+			tempdir += "\\" + std::string(token);
+			selectedfiles.push_back(tempdir);
+			tempdir = directory;
+		}
+
+		token = strtok_s(NULL, "|", &nexttoken);
+	}
+
+	return selectedfiles;
 }
 
 std::string AssetWindow::FileString(std::string icon, std::string file_name) {
@@ -564,4 +595,12 @@ std::string AssetWindow::DirectoryName(fs::directory_entry directory) {
 	return tempPath.substr(tempPath.find_last_of("/") + 1);
 
 }
+
+std::string AssetWindow::FindUnderscore(std::string filename) {
+	if (filename.find("_") != filename.npos)
+		return (filename.substr(0, filename.find("_")));
+	else
+		return std::string();
+}
+
 

@@ -96,6 +96,7 @@ void ImguiSystem::Init(){
     b_editcomp = false;
     b_addtexture = false;
     b_showtex = false;
+    b_addpath = false;
 
     new_entity_ = nullptr;
 
@@ -110,8 +111,8 @@ void ImguiSystem::Update(float frametime) {
 	
     if (b_imguimode) {
         
-        ImguiInput();
-    	
+    	// if want to add shortcut, call fn here
+
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
@@ -138,6 +139,11 @@ void ImguiSystem::Update(float frametime) {
 
             PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
             b_showpop = false;
+
+            if (b_addpath)
+                ImGui::OpenPopup("No Path Set");
+            PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
+            b_addpath = false;
 
             //if (camera_)
             //  DrawGrid();
@@ -235,9 +241,8 @@ void ImguiSystem::ImguiMenuBar() {
                     SaveFile();
                     b_showpop = true;
                 }
-                else {
-                    //TO:DO show pop up no paths set yet
-                }
+                else
+                    b_addpath = true;
             }
 
             if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene"))
@@ -335,14 +340,6 @@ void ImguiSystem::ImguiMenuBar() {
     ImGui::EndMenuBar();
 }
 
-
-void ImguiSystem::CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol) {
-
-    ImGui::PushStyleColor(ImGuiCol_Button, ButtonCol);
-    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, HoveredCol);
-    ImGui::PushStyleColor(ImGuiCol_ButtonActive, SelectCol);
-}
-
 bool ImguiSystem::GetImguiBool() {
 
     return b_imguimode;
@@ -389,20 +386,9 @@ void ImguiSystem::SetEntity(Entity* newentity) {
     new_entity_ = newentity;
 }
 
-void ImguiSystem::ImguiInput() {
+Camera* ImguiSystem::GetExistingSceneCamera() {
 
-	bool control = ImGui::IsKeyPressed(GLFW_KEY_LEFT_CONTROL) || ImGui::IsKeyPressed(GLFW_KEY_RIGHT_CONTROL);
-	//bool shift = ImGui::IsKeyPressed(GLFW_KEY_LEFT_SHIFT) || ImGui::IsKeyPressed(GLFW_KEY_RIGHT_SHIFT);
-
-	if (control) {
-		
-		if (ImGui::IsKeyReleased(GLFW_KEY_O))
-            OpenFile();
-        if (ImGui::IsKeyPressed(GLFW_KEY_S))
-            SaveFile();
-		if (ImGui::IsKeyPressed(GLFW_KEY_N))
-            NewScene();
-	}
+    return camera_;
 }
 
 void ImguiSystem::SaveArchetype() {
@@ -475,10 +461,10 @@ void ImguiSystem::NewScene() {
     factory_->DeSerializeLevelEntities("Resources/EntityConfig/editor.json");
 }
 
-std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {
+std::string ImguiSystem::OpenSaveDialog(const char* filter, int save, int multiselect) {
     OPENFILENAMEA ofn;
-    CHAR szFile[260] = { 0 };
-
+    CHAR szFile[2048] = { 0 };
+    std::string data = {};
     // init OPENFILENAME
     ZeroMemory(&ofn, sizeof(OPENFILENAME));
     ofn.lStructSize = sizeof(OPENFILENAME);
@@ -487,12 +473,39 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {
     ofn.nMaxFile = sizeof(szFile);
     ofn.lpstrFilter = filter;
     ofn.nFilterIndex = 1;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+    if (save)
+        ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_EXPLORER | OFN_NOCHANGEDIR;
+    if (!save && !multiselect)
+        ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_EXPLORER | OFN_NOCHANGEDIR;
+    if (!save && multiselect)
+        ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_EXPLORER | OFN_ALLOWMULTISELECT | OFN_NOCHANGEDIR;
+
     if (!save) {
-        if (GetOpenFileNameA(&ofn) == TRUE)
-            return ofn.lpstrFile;
+
+        if (GetOpenFileNameA(&ofn) == TRUE) {
+
+            size_t len = strlen(ofn.lpstrFile);
+
+            if (ofn.lpstrFile[len + 1] == 0)
+                return ofn.lpstrFile;
+            else
+            {
+                data = ofn.lpstrFile;
+                ofn.lpstrFile += len + 1;
+
+                while (ofn.lpstrFile[0]) {
+                    data = data + "|" + ofn.lpstrFile;
+
+                    len = strlen(ofn.lpstrFile);
+                    ofn.lpstrFile += len + 1;
+                }
+                return data;
+            }
+        }
     }
     else {
+
         if (GetSaveFileNameA(&ofn) == TRUE)
             return ofn.lpstrFile;
     }
@@ -500,15 +513,11 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {
     return std::string(); // returns an empty string if user cancels/didnt select anything
 }
 
-std::string ImguiSystem::EditString(std::string filepath, const char* startpos) {
-    return filepath.substr(filepath.find(startpos));
-}
-
 void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
 
     ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-    if (ImGui::BeginPopup(windowName)) {
+    if (ImGui::BeginPopupModal(windowName, NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
         ImGui::Text(message);
 
@@ -527,8 +536,8 @@ void ImguiSystem::DrawGrid() {
     Vector2D topWR = CORE->GetManager<AMap>()->GetTopRight();
     Vector2D botWL = CORE->GetManager<AMap>()->GetBottomLeft();
 
-    float width = topWR.x - botWL.x;
-    float height = topWR.y - botWL.y;
+    //float width = topWR.x - botWL.x;
+    //float height = topWR.y - botWL.y;
 
     float calW =((topR.x - botL.x)/2)/ (*camera_->GetCameraZoom());
     float calH =((topR.y - botL.y)/2)/ (*camera_->GetCameraZoom());
@@ -559,7 +568,6 @@ Camera* ImguiSystem::GetCamera() {
         return it->second;
     else
         return nullptr;
-
 }
 
 void ImguiSystem::VolumeControl() {
@@ -579,23 +587,12 @@ void ImguiSystem::VolumeControl() {
     ImGui::PopItemWidth(); ImGui::SameLine(0, 3);
     ImGui::Text(ICON_FA_VOLUME_UP);
     sound_->SetVolume(inputVol);
-
-}
-
-bool ImguiSystem::EditorMode()
-{
-    return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow);
-}
-
-Camera* ImguiSystem::GetExistingSceneCamera() {
-
-    return camera_;
 }
 
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
 
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-    std::string warning;
+    std::string warning = {};
 
     if (entity) {
         std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entity->GetComponent(ComponentTypes::NAME));
@@ -623,7 +620,7 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
                 entities_->DeleteArchetype(new_entity_); //delete archetype
             else if (new_entity_->GetID() && !entity)
                 entities_->DeleteEntity((new_entity_)); //delete entities
-            else if (!new_entity_->GetID() && entity) // entity: to detect if deleting component & check if its an entity/archetype
+            else if (!new_entity_->GetID() && entity)
                 entity->RemoveComponent(component); // delete component from archetype
 
             SetEntity(nullptr);
@@ -638,6 +635,22 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
 
         ImGui::EndPopup();
     }
+}
+
+std::string ImguiSystem::EditString(std::string filepath, const char* startpos) {
+    return filepath.substr(filepath.find(startpos));
+}
+
+bool ImguiSystem::EditorMode() {
+
+    return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow);
+}
+
+void ImguiSystem::CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol) {
+
+    ImGui::PushStyleColor(ImGuiCol_Button, ButtonCol);
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, HoveredCol);
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive, SelectCol);
 }
 
 void ImguiSystem::ImguiHelp(const char* description, int symbol) {

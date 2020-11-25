@@ -263,21 +263,12 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn ImguiInput()
-
-	\brief Manages the input used in the imgui system
-*/
-/******************************************************************************/
-	void ImguiInput();
-
-/******************************************************************************/
-/*!
 	\fn OpenSaveDialog(const char* filter, int save)
 
 	\brief Runs the win32 API for the file dialog
 */
 /******************************************************************************/
-	std::string OpenSaveDialog(const char* filter, int save);
+	std::string OpenSaveDialog(const char* filter, int save, int multiselect = 0);
 
 /******************************************************************************/
 /*!
@@ -420,6 +411,7 @@ private:
 	bool b_lock_entity;
 
 	bool b_showpop;
+	bool b_addpath;
 
 	
 
