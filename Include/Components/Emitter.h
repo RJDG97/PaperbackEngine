@@ -8,20 +8,71 @@
 #include <sstream>
 #include <memory>
 
+class Transform;
+class Particle;
+class TextureRenderer;
+class ForcesManager;
+class GraphicsSystem;
+
+// Particle customizations
+struct GenerateLifetime
+{
+	// Range for lifetime of particles
+	Vector2D lifetime_range_;
+	void Generate(Particle* particle);
+};
+
+struct GeneratePosition
+{
+	// Range for spawning 
+	Vector2D min_pos_, max_pos_;
+	void Generate(Transform* particle_transform, Transform* emitter_transform);
+};
+
+struct GenerateForce
+{
+	// Range for magnitude of vector
+	Vector2D force_range_;
+	// Range for direction of vector (-1 to 1)
+	Vector2D direction_range_;
+	void Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id);
+};
+
+struct GenerateRotation
+{
+	// Range for rotation speed of texture
+	Vector2D rotation_speed_;
+	// Range for rotation of texture
+	Vector2D min_rotation_range_, max_rotation_range_;
+	void Generate(Transform* transform);
+};
+
+struct GenerateTexture
+{
+	// Different available textures
+	size_t number_of_textures_;
+	std::vector<std::string> texture_names_;
+	void Generate(std::shared_ptr<GraphicsSystem> graphics_system, TextureRenderer* texture);
+};
+
+
+
 class Emitter : public Component {
 
-	bool alive_;				// Status of emitter
-	float lifetime_;			// Lifetime of emitter
-	size_t request_;			// Number of particles to request per interval
-	float interval_;			// Interval that counts down every frame, spawns once it hits < 0
-	float default_interval_;	// Fixed interval to spawn
-	size_t current_spawn_;		// Current number of particles the emitter has spawned
-	size_t max_spawn_;			// Maximum number of particles the emitter can spawn at any time
+	bool alive_;						// Status of emitter
+	float lifetime_;					// Lifetime of emitter
+	float interval_;					// Interval that counts down every frame, spawns once it hits < 0
+	float spawn_interval_;				// Fixed interval to spawn
+	size_t request_;					// Number of particles to request per interval
+	size_t current_spawn_;				// Current number of particles the emitter has spawned
+	size_t max_spawn_;					// Maximum number of particles the emitter can spawn at any time
 
-	Vector2D lifetime_range_;	 // Range for lifetime of particles
-	Vector2D min_pos_, max_pos_; // Range for spawning 
-    Vector2D force_range_;		 // Range for magnitude of vector
-    Vector2D direction_range_;	 // Range for direction of vector (-1 to 1)
+	GenerateLifetime particle_lifetime_;
+	GeneratePosition particle_position_;
+	GenerateForce particle_force_;
+	GenerateRotation particle_rotation_;
+	GenerateTexture particle_texture_;
+
 
 /******************************************************************************/
 /*!
@@ -73,6 +124,15 @@ public:
 */
 /******************************************************************************/
 	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+	
+/******************************************************************************/
+/*!
+  \fn SerializeClone()
+
+  \brief Serialises a component into JSON format
+*/
+/******************************************************************************/
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
 
 /******************************************************************************/
 /*!
@@ -128,5 +188,6 @@ public:
 /******************************************************************************/
 	size_t GetRequest() const;
 };
+
 
 #endif

@@ -7,36 +7,21 @@
     },
     {
       "component": "Emitter",
-      "lifetime": "1000",
-      "request": "5",
-      "interval": "0.2",
-      "default interval": "0.05",
-      "lifetime range": "0.2 1.0",
-      "min pos": "-0.25 0.25",
-      "max pos": "-0.25 0.25",
-      "force range": "200.0 1000.0",
-      "direction range": "0.0 6.27",
-      "maximum spawn": "50"
-    }
-  ],
-  "TestEmitter": [
-    {
-      "component": "Transform",
-      "position": "-5.0 -12.0",
-      "rotation": "0.0"
-    },
-    {
-      "component": "Emitter",
-      "lifetime": "1000",
-      "request": "5",
-      "interval": "0.2",
-      "default interval": "0.05",
-      "lifetime range": "0.2 1.0",
-      "min pos": "-0.25 0.25",
-      "max pos": "-0.25 0.25",
-      "force range": "200.0 1000.0",
-      "direction range": "0.0 6.27",
-      "maximum spawn": "50"
+      "emitter lifetime": "1000",
+      "emitter spawn interval": "0.2",
+      "emitter request": "5",
+      "emitter maximum spawn": "50",
+      "particle lifetime range": "2.0 5.0",
+      "particle min pos": "-0.25 -0.25",
+      "particle max pos": "0.25 0.25",
+      "particle force range": "25.0 100.0",
+      "particle direction range": "0.0 360.0",
+      "particle rotation speed": "1.0 5.0",
+      "min rotation angle range": "45.0 90.0",
+      "max rotation angle range": "180.0 225.0",
+      "number of textures": "2",
+      "texture": "Key_One_0",
+      "texture": "Puddle_0"
     }
   ]
 }

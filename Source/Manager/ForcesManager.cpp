@@ -33,7 +33,7 @@ bool ForcesManager::EntityForces::VerifyForce(const std::string& name) {
 
 ForcesManager::Force::Force(const std::string& name, const float& lifespan, const Vector2D& force) :
 	name_{ name },
-	age_{ lifespan },
+	age_{ },
 	lifespan_{ lifespan },
 	force_{ force }
 {

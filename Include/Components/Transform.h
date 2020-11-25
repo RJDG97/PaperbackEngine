@@ -10,6 +10,8 @@
 class Transform : public Component {
 	Vector2D position_;
 	float rotation_;
+	float rotation_speed_;
+	Vector2D rotation_range_;
 	Vector2D offset_;
 	Vector2D aabb_offset_;
 public:
@@ -101,6 +103,42 @@ public:
 */
 /******************************************************************************/
 	void SetRotation(const float& new_rot);
+
+/******************************************************************************/
+/*!
+  \fn GetRotationSpeed()
+
+  \brief Returns the rotation of the component
+*/
+/******************************************************************************/
+	float GetRotationSpeed() const;
+
+/******************************************************************************/
+/*!
+  \fn SetRotationSpeed()
+
+  \brief Sets the rotation of the component
+*/
+/******************************************************************************/
+	void SetRotationSpeed(const float& new_speed);
+
+/******************************************************************************/
+/*!
+  \fn GetRotationRange()
+
+  \brief Returns the rotation of the component
+*/
+/******************************************************************************/
+	Vector2D GetRotationRange() const;
+
+/******************************************************************************/
+/*!
+  \fn SetRotationRange()
+
+  \brief Sets the rotation of the component
+*/
+/******************************************************************************/
+	void SetRotationRange(const Vector2D& new_range);
 
 /******************************************************************************/
 /*!
