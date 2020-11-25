@@ -4,8 +4,9 @@
 
 
 Particle::Particle() :
-	lifetime_{},
 	alive_{ false },
+	lifetime_{ },
+	initial_lifetime_{ },
 	spawner_{}
 {  }
 
@@ -48,4 +49,14 @@ std::shared_ptr<Component> Particle::Clone() {
 bool Particle::IsAlive() const {
 
 	return alive_;
+}
+
+float Particle::GetLifetime() {
+
+	return lifetime_;
+}
+
+void Particle::SetLifetime(float lifetime) {
+	
+	lifetime_ = lifetime;
 }

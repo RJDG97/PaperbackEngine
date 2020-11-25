@@ -25,13 +25,25 @@ void ParticleSystem::Update(float frametime) {
 
 		emitter->lifetime_ -= frametime;
 
+		// Deactivate emitter if expired
 		if (emitter->lifetime_ < 0.0f) {
 
 			emitter->alive_ = false;
-			return;
+			emitter->lifetime_ = 0.0f;
+			continue;
 		}
+		// If spawn interval is not reached, continue
+		if (emitter->interval_ > 0.0f) {
+			
+			emitter->interval_ -= frametime;
+			continue;
+		}
+		// Otherwise reset spawn interval and spawn
+		else {
 
-		emitter->Spawn(frametime);
+			emitter->interval_ = emitter->spawn_interval_;
+			emitter->Spawn(frametime);
+		}
 	}
 
 
