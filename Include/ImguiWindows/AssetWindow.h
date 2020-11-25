@@ -5,7 +5,6 @@
 #include "ImguiWindows/IWindow.h"
 #include "Systems/ImguiSystem.h"
 #include <filesystem>
-#include "Systems/Debug.h"
 #include "Manager/TextureManager.h"
 
 namespace fs = std::filesystem;

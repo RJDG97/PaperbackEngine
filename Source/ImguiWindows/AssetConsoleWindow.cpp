@@ -1,7 +1,7 @@
 #include "ImguiWindows/AssetConsoleWindow.h"
 
-void AssetConsoleWindow::Init()
-{
+void AssetConsoleWindow::Init() {
+
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
 	texture_ = &*CORE->GetManager<TextureManager>();
 	chosen_json_ = {};
@@ -12,11 +12,34 @@ void AssetConsoleWindow::Init()
 	b_anim = false;
 }
 
-void AssetConsoleWindow::Update()
-{
+void AssetConsoleWindow::Update() {
+
 	if (imgui_->b_addtexture)
 		AddTextureAnimation();
+}
 
+void AssetConsoleWindow::AddTextureAnimation() {
+
+	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_addtexture);
+	ImGui::Text("Select which files you want to update.");
+
+	ImGui::Checkbox("Texture", &b_tex);
+	ImGui::Checkbox("Animation", &b_anim);
+
+	ImGui::Separator();
+
+	if (b_tex) {
+		ImGui::Text("Choose File to modify");
+
+		SelectTextureJson();
+		DisplayJson();
+		AddBlankJson();
+
+		if (!chosen_json_.empty())
+			AddNewTexture();
+	}
+
+	ImGui::End();
 }
 
 void AssetConsoleWindow::DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc) {
@@ -62,28 +85,6 @@ void AssetConsoleWindow::LoadTextureJson(std::string level_name) {
 	}
 }
 
-void AssetConsoleWindow::AddTextureAnimation() {
-
-	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_addtexture);
-	ImGui::Text("Select which files you want to update.");
-
-	ImGui::Checkbox("Texture", &b_tex);
-	ImGui::Checkbox("Animation", &b_anim);
-
-	if (b_tex) {
-		ImGui::Text("Choose File to modify");
-		SelectTextureJson();
-		// display json file info
-		DisplayJson();
-		AddBlankJson();
-
-		if (!chosen_json_.empty())
-			AddNewTexture();
-	}
-
-	ImGui::End();
-}
-
 void AssetConsoleWindow::SelectTextureJson() {
 	std::string filename = {};
 	std::string file = {};
@@ -116,12 +117,14 @@ void AssetConsoleWindow::SelectTextureJson() {
 }
 
 void AssetConsoleWindow::DisplayJson() {
+
 	if (!chosen_json_.empty()) {
+
 		if (ImGui::TreeNodeEx((chosen_json_ + " details:").c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
 
 			for (auto it = tex_info_.begin(); it != tex_info_.end(); ++it) {
 
-				if (ImGui::TreeNodeEx(it->first.c_str())) {
+				if (ImGui::TreeNode(it->first.c_str())) {
 
 					if (ImGui::TreeNode("Current Path of Texture:  %s", it->second.path.c_str())) {
 
@@ -158,13 +161,13 @@ void AssetConsoleWindow::DisplayJson() {
 
 						ImGui::PushItemWidth(150.0f);
 						ImGui::Text("Columns: "); ImGui::SameLine(0, 3);
-						if (ImGui::InputText("##col", bufferC, sizeof(bufferC), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+						if (ImGui::InputText("##col", bufferC, sizeof(bufferC), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsDecimal)) {
 							std::string colinput = bufferC;
 							it->second.column = std::stoi(colinput);
 						}
 
 						ImGui::Text("Rows: "); ImGui::SameLine(0, 3);
-						if (ImGui::InputText("##row", bufferR, sizeof(bufferR), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+						if (ImGui::InputText("##row", bufferR, sizeof(bufferR), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsDecimal)) {
 							std::string rowinput = bufferR;
 							it->second.row = std::stoi(rowinput);
 						}
@@ -231,7 +234,7 @@ void AssetConsoleWindow::DisplayJson() {
 			for (auto fileit = tex_info_.begin(); fileit != tex_info_.end(); ++fileit) {
 
 				writer.Key(fileit->first.c_str());
-				writer.String((fileit->second.path + " " + std::to_string(fileit->second.column) + " " + std::to_string(fileit->second.row)).c_str());
+				writer.String((fileit->second.path + " " + std::to_string(fileit->second.column) + " " + std::to_string(fileit->second.row) + "\n" ).c_str());
 			}
 
 			writer.EndObject();
@@ -253,6 +256,7 @@ void AssetConsoleWindow::DisplayJson() {
 }
 
 void AssetConsoleWindow::AddNewTexture() {
+
 	if (ImGui::CollapsingHeader("Add New Texture")) {
 		TextureInfo newtex;
 		std::string folderName = {};
@@ -297,12 +301,9 @@ void AssetConsoleWindow::AddBlankJson() {
 	}
 }
 
-
 std::string AssetConsoleWindow::FindUnderscore(std::string filename) {
 	if (filename.find("_") != filename.npos)
 		return (filename.substr(0, filename.find("_")));
 	else
 		return std::string();
 }
-
-

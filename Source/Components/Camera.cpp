@@ -112,3 +112,12 @@ glm::mat3* Camera::GetCameraWorldToNDCTransform()
 {
     return &world_to_ndc_xform_;
 }
+
+void Camera::SetCameraZoom(Camera* camera, float zoom) {
+
+    camera->cam_zoom_ /= (zoom);
+
+    camera->cam_size_ = glm::vec2{ CORE->GetSystem<WindowsSystem>()->GetWinWidth(),
+                            CORE->GetSystem<WindowsSystem>()->GetWinHeight() } / camera->cam_zoom_;
+
+}

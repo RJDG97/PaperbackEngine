@@ -212,6 +212,66 @@ size_t Emitter::GetRequest() const {
 	return request_;
 }
 
+float Emitter::GetLifeTime() {
+
+	return lifetime_;
+}
+
+float Emitter::GetInterval() {
+
+	return interval_;
+}
+
+float Emitter::GetSpawnInterval() {
+
+	return spawn_interval_;
+}
+
+size_t Emitter::GetCurrentNumberSpawned() {
+
+	return current_spawn_;
+}
+
+size_t Emitter::GetMaxNumberParticles() {
+
+	return max_spawn_;
+}
+
+void Emitter::SetMaxNumberParticles(size_t particle_limit) {
+
+	max_spawn_ = particle_limit;
+}
+
+void Emitter::SetRequest(size_t new_request) {
+
+	request_ = new_request;
+}
+
+GenerateLifetime Emitter::GetLifeTimeStruct() {
+
+	return particle_lifetime_;
+}
+
+GeneratePosition Emitter::GetPositionStruct() {
+
+	return particle_position_;
+}
+
+GenerateForce Emitter::GetForceStruct() {
+
+	return particle_force_;
+}
+
+GenerateRotation Emitter::GetRotationStruct() {
+
+	return particle_rotation_;
+}
+
+GenerateTexture Emitter::GetTextureStruct() {
+
+	return particle_texture_;
+}
+
 
 
 
@@ -276,3 +336,4 @@ void GenerateTexture::Generate(std::shared_ptr<GraphicsSystem> graphics_system, 
 	size_t index = glm::linearRand(0, static_cast<int>(number_of_textures_ - 1));
 	graphics_system->ChangeTexture(texture, texture_names_[index]);
 }
+

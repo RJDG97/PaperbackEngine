@@ -92,6 +92,8 @@ public:
 	float* GetCameraZoom();
 
 	glm::mat3* GetCameraWorldToNDCTransform();
+
+	void SetCameraZoom(Camera* camera, float zoom);
 };
 
 #endif

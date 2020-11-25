@@ -10,6 +10,8 @@
 #include "ImguiWindows/AssetConsoleWindow.h"
 #include "ImguiWindows/TextureTilesWindow.h"
 
+#include "GameStates/MenuState.h"
+
 // Expose the Win32 API
 #include <commdlg.h>
 #include <GLFW/glfw3.h>
@@ -57,7 +59,7 @@ void ImguiSystem::Init(){
     b_imguimode = false;
 
 
-    new_entity_ = nullptr;
+    selected_entity_ = nullptr;
 
     img_to_add_ = {};
 
@@ -163,8 +165,8 @@ void ImguiSystem::Update(float frametime) {
 
                     Vector2D new_pos = input_->GetUpdatedCoords();
 
-                    selected_entity_ = collision_->SelectEntity(new_pos);
-                    new_entity_ = entities_->GetEntity(selected_entity_);
+                    selected_entity_id_ = collision_->SelectEntity(new_pos);
+                    selected_entity_ = entities_->GetEntity(selected_entity_id_);
                 }
             }
 
@@ -242,9 +244,12 @@ void ImguiSystem::ImguiMenuBar() {
         ImGui::PushFont(img_font_);
 
         if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
-            if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene", "Ctrl+O"))
+            if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene")) {
+                selected_entity_ = {};
                 OpenFile();
-            if (ImGui::MenuItem(ICON_FA_SAVE " Save Scene As...", "Ctrl+S")) {
+            }
+
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save Scene As...")) {
                 if (!editor_->entity_paths_.empty()) {
                     SaveFile();
                     b_showpop = true;
@@ -253,17 +258,21 @@ void ImguiSystem::ImguiMenuBar() {
                     b_addpath = true;
             }
 
-            if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene"))
+            if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene")) {
+                selected_entity_ = {};
                 NewScene();
+            }
 
             ImGui::Separator();
+
             if (ImGui::MenuItem(ICON_FA_REPLY " Return to Menu")){
 
                 b_imguimode = false;
                 FACTORY->DestroyAllEntities();
-                new_entity_ = {};
+                selected_entity_ = {};
                 CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
             }
+
             if (ImGui::MenuItem(ICON_FA_POWER_OFF " Exit"))
                 CORE->SetGameActiveStatus(false);
             ImGui::EndMenu();
@@ -289,7 +298,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
             ImGui::Separator();
             ImGui::Checkbox("Toggle Asset Browser", & b_asset);
-            ImGui::Checkbox("Toggle Asset Json Window", &b_addtexture);
+            ImGui::Checkbox("Toggle Asset Console Window", &b_addtexture);
             ImGui::Checkbox("Toggle Texture Window", &b_showtex);
             ImGui::Separator();
             ImGui::Checkbox("See System Performance", &b_display);
@@ -365,12 +374,12 @@ std::string ImguiSystem::GetName() {
 
 EntityID ImguiSystem::GetSelectedEntity() {
 
-    return selected_entity_;
+    return selected_entity_id_;
 }
 
 void ImguiSystem::ResetSelectedEntity() {
 
-    new_entity_ = {};
+    selected_entity_ = {};
     b_lock_entity = false;
 }
 
@@ -386,12 +395,12 @@ void ImguiSystem::SetLockBool(bool debug) {
 
 Entity* ImguiSystem::GetEntity() {
 
-    return new_entity_;
+    return selected_entity_;
 }
 
 void ImguiSystem::SetEntity(Entity* newentity) {
 	
-    new_entity_ = newentity;
+    selected_entity_ = newentity;
 }
 
 Camera* ImguiSystem::GetExistingSceneCamera() {
@@ -634,11 +643,11 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
 
         if (ImGui::Button("OK")) {
-            if (!new_entity_->GetID() && !entity) 
-                entities_->DeleteArchetype(new_entity_); //delete archetype
-            else if (new_entity_->GetID() && !entity)
-                entities_->DeleteEntity((new_entity_)); //delete entities
-            else if (!new_entity_->GetID() && entity)
+            if (!selected_entity_->GetID() && !entity) 
+                entities_->DeleteArchetype(selected_entity_); //delete archetype
+            else if (selected_entity_->GetID() && !entity)
+                entities_->DeleteEntity((selected_entity_)); //delete entities
+            else if (!selected_entity_->GetID() && entity)
                 entity->RemoveComponent(component); // delete component from archetype
 
             SetEntity(nullptr);

@@ -146,18 +146,24 @@ public:
 
 	void RemoveComponent(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component);
 
-	void DraggingEntities();
+	void DragEntity();
+
+	void DragEntityCheckBox();
+
+	void SelectEntityComponent();
 
 private:
+
+	WindowsSystem* win_;
+	InputSystem* input_;
 	ImguiSystem* imgui_;
+	Collision* collision_;
+	CameraSystem* camera_;
 	EntityManager* entities_;
 	TextureManager* texture_;
 	GraphicsSystem* graphics_;
 	AnimationManager* animation_;
 	ComponentManager* component_;
-	WindowsSystem* win_;
-	InputSystem* input_;
-	Collision* collision_;
 	EntityManager::EntityIdMapTypeIt entityIT;
 
 	Vector2D originalVec_;

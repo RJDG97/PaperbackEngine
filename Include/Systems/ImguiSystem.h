@@ -17,12 +17,9 @@
 #include "Systems/WindowsSystem.h"
 #include "Systems/InputSystem.h"
 #include "Systems/Factory.h"
-#include "Systems/Game.h"
 #include "Systems/SoundSystem.h"
 
 #include "ImguiWindows/IWindow.h"
-#include "GameStates/GameState.h"
-#include "GameStates/MenuState.h"
 
 #include "Manager/EntityManager.h"
 #include "Manager/AMap.h"
@@ -360,17 +357,46 @@ public:
 /******************************************************************************/
 	void PopUpMessage(const char* windowName, const char* message);
 
+/******************************************************************************/
+/*!
+	\fn DrawGrid()
+
+	\brief Draws the world grid (wip)
+*/
+/******************************************************************************/
 	void DrawGrid();
 
+/******************************************************************************/
+/*!
+	\fn GetCamera()
+
+	\brief Get the current active camera in the scene
+*/
+/******************************************************************************/
 	Camera* GetCamera();
 
+/******************************************************************************/
+/*!
+	\fn VolumeControl()
+
+	\brief Able to control the audio
+*/
+/******************************************************************************/
 	void VolumeControl();
 
+/******************************************************************************/
+/*!
+	\fn EditorMode()
+
+	\brief Checks if the window is in focus or hovered
+*/
+/******************************************************************************/	
 	bool EditorMode();
 
 	Camera* GetExistingSceneCamera();
 
 	std::string GetImageAdd();
+
 	void SetImageAdd(std::string image);
 
 private:
@@ -380,7 +406,7 @@ private:
 	std::map<std::string, std::shared_ptr<IWindow>> imgui_window_arr_;
 
 	// get the selected entity ID
-	EntityID selected_entity_;
+	EntityID selected_entity_id_;
 
 	// to access the window pointer in the window system
 	WindowsSystem* win_;
@@ -389,7 +415,7 @@ private:
 	SoundSystem* sound_;
 	GraphicsSystem* graphics_;
 	
-	Entity* new_entity_; // entity* to store selected entity
+	Entity* selected_entity_; // entity* to store selected entity
 	EntityManager* entities_;
 	EntityFactory* factory_;
 
@@ -418,9 +444,6 @@ private:
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
 
-	
-
 };
-
 
 #endif

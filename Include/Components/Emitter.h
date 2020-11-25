@@ -20,6 +20,7 @@ struct GenerateLifetime
 	// Range for lifetime of particles
 	Vector2D lifetime_range_;
 	void Generate(Particle* particle);
+
 };
 
 struct GeneratePosition
@@ -45,6 +46,7 @@ struct GenerateRotation
 	// Range for rotation of texture
 	Vector2D min_rotation_range_, max_rotation_range_;
 	void Generate(Transform* transform);
+
 };
 
 struct GenerateTexture
@@ -187,6 +189,26 @@ public:
 */
 /******************************************************************************/
 	size_t GetRequest() const;
+
+	float GetLifeTime();
+
+	float GetInterval();
+
+	float GetSpawnInterval();
+	
+	size_t GetCurrentNumberSpawned();
+
+	size_t GetMaxNumberParticles();
+
+	void SetMaxNumberParticles(size_t particle_limit);
+
+	void SetRequest(size_t new_request);
+
+	GenerateLifetime GetLifeTimeStruct();
+	GeneratePosition GetPositionStruct();
+	GenerateForce	 GetForceStruct();
+	GenerateRotation GetRotationStruct();
+	GenerateTexture  GetTextureStruct();
 };
 
 

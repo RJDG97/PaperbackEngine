@@ -13,7 +13,6 @@ void AssetWindow::Init() {
 	b_create = false;
 	b_makefolder = false;
 
-
 }
 
 void AssetWindow::Update() {
@@ -116,9 +115,10 @@ void AssetWindow::CheckFileType() {
 
 void AssetWindow::MakeNewFolder() {
 
-	ImGui::Begin("Add Folder", &b_create);
+	if (b_makefolder) 
+		ImGui::OpenPopup("Add Folder");
 
-	if (b_makefolder) {
+	if (ImGui::BeginPopup("Add Folder")) {
 
 		std::string folderName;
 		char buffer[256];
@@ -135,9 +135,12 @@ void AssetWindow::MakeNewFolder() {
 
 			b_makefolder = false;
 			b_create = false;
+
+			ImGui::CloseCurrentPopup();
 		}
+
+		ImGui::EndPopup();
 	}
-	ImGui::End();
 }
 
 void AssetWindow::FileMenuBar() {
@@ -168,9 +171,9 @@ void AssetWindow::FileMenuBar() {
 		}
 	}
 
-	imgui_->ImguiHelp("Copy File to Current Directory", 0);
+	imgui_->ImguiHelp("Copy File(s) to Current Directory", 0);
 
-	ImGui::Text(ICON_FA_TRASH);
+	ImGui::MenuItem(ICON_FA_TRASH);
 	imgui_->ImguiHelp("Trash Bin. WARNING:\n CANNOT UNDO so be careful", 0);
 
 	if (ImGui::BeginDragDropTarget()) {
@@ -195,7 +198,7 @@ void AssetWindow::FileMenuBar() {
 		ImGui::EndDragDropTarget();
 	}
 
-	ImGui::MenuItem(FileString(ICON_FA_PLUS, ICON_FA_IMAGE).c_str());
+	ImGui::MenuItem(ICON_FA_PLUS ICON_FA_IMAGE);
 	imgui_->ImguiHelp("Add in New Texture", 0);
 	if (ImGui::BeginDragDropTarget()) {
 		if (const ImGuiPayload* payLoadtex = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
@@ -228,7 +231,6 @@ void AssetWindow::DisplayFolders(float window_width, float window_height) {
 
 	FileDirectoryCheck("Resources");
 	ImGui::EndChild();
-
 }
 
 void AssetWindow::DisplayFolderFiles(float window_width, float window_height) {
@@ -241,7 +243,6 @@ void AssetWindow::DisplayFolderFiles(float window_width, float window_height) {
 	CheckFileType();
 
 	ImGui::EndChild();
-
 }
 
 void AssetWindow::DeleteWholeFolder() {

@@ -21,6 +21,7 @@ void TextureTilesWindow::Update() {
 		ImGui::BeginMenuBar();
 		static ImGuiTextFilter filter;
 		filter.Draw(ICON_FA_FILTER, 250.0f);
+
 		if (ImGui::Selectable(ICON_FA_PLUS ICON_FA_IMAGE))
 			imgui_->b_addtexture = true;
 		if (ImGui::IsItemHovered())
@@ -39,6 +40,7 @@ void TextureTilesWindow::Update() {
 				ImGuiStyle& style = ImGui::GetStyle();
 				float win_vis = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
 				ImVec2 buttonsize = ImVec2{ 64, 64 };
+
 				ImGui::PushID(counter);
 				ImGui::ImageButton(texID, buttonsize, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
 
