@@ -152,6 +152,8 @@ public:
 
 	void SelectEntityComponent();
 
+	void EmitterInput(float& emitter_var, float default_val, std::string input_label, float start_val, float end_val, std::string button_label = ICON_FA_UNDO);
+
 private:
 
 	WindowsSystem* win_;
@@ -171,8 +173,9 @@ private:
 	const char* AIstates_[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
 	const char* AItype_[3]{ "StagBeetle", "Mite", "Hornet"};
 	const char* Playerstatus_[4]{ "None", "Invisible", "Hit", "Burrow"};
+	const char* emiiterstatus_[2] = {"Dead", "Alive" };
 
-	bool b_draw = false, b_addtex;
+	bool b_draw = false;
 
 };
 #endif
