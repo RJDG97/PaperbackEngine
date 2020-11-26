@@ -11,7 +11,8 @@ Clickable::Clickable() :
 	bottom_left_{},
 	collided_{ false },
 	active_{ true },
-	index_{}
+	index_{},
+	group_{}
 {}
 
 bool Clickable::GetActive() {
@@ -56,18 +57,21 @@ void Clickable::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>*
 	writer->Key("active");
 	writer->String(std::to_string(active_).c_str());
 
+	writer->Key("group");
+	writer->String(std::to_string(group_).c_str());
+
 	writer->EndObject();
 }
 
 void Clickable::DeSerialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing Clickable Component" << std::endl;
-	data >> scale_.x >> scale_.y >> active_;
+	data >> scale_.x >> scale_.y >> active_ >> group_;
 }
 
 void Clickable::DeSerializeClone(std::stringstream& data) {
 	
-	data >> index_ >> active_ >> scale_.x >> scale_.y;
+	data >> index_ >> active_ >> scale_.x >> scale_.y >> group_;
 }
 
 std::shared_ptr<Component> Clickable::Clone() {
@@ -79,6 +83,7 @@ std::shared_ptr<Component> Clickable::Clone() {
 	cloned->top_right_ = top_right_;
 	cloned->active_ = active_;
 	cloned->scale_ = scale_;
+	cloned->group_ = group_;
 
 	return cloned;
 }

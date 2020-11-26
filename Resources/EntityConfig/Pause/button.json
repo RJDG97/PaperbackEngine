@@ -8,7 +8,9 @@
     {
       "component": "Clickable",
       "index": "1",
-      "active": "0"
+      "active": "0",
+      "scale": "2.0 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
@@ -35,7 +37,9 @@
     {
       "component": "Clickable",
       "index": "2",
-      "active": "0"
+      "active": "0",
+      "scale": "2.0 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
@@ -62,7 +66,9 @@
     {
       "component": "Clickable",
       "index": "3",
-      "active": "0"
+      "active": "0",
+      "scale": "2.0 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",

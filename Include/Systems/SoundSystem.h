@@ -8,41 +8,61 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "Systems/ISystem.h"
 
-/*
+#include "Systems/ISystem.h"
+#include "prettywriter.h"
+#include <memory>
+
+
 class SoundFile
 {
+	friend class SoundSystem;
+
 public:
 	SoundFile();
-	SoundFile(std::string name, float vol, bool pause, bool mute);
-	void TogglePause();
-	void SetPause(bool status);
-	void ToggleMute();
-	void SetMute(bool status);
-	void Play();
-	void Stop();
+	SoundFile(std::string path, float vol, float min_distance, float volume_falloff, bool loop);
+	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
 	~SoundFile();
 
 private:
 	FMOD::Sound* sound_;
+	std::string path_;
 	float volume_;
+	float min_distance_;
+	float volume_falloff_;
+	bool loop_;
+};
+
+class SoundChannel
+{
+	friend class SoundSystem;
+
+public:
+	SoundChannel();
+	SoundChannel(float volume, float min_distance, float volume_falloff);
+	~SoundChannel();
+
+private:
+	FMOD::Channel* channel_;
+	float volume_;
+	float min_distance_;
+	float volume_falloff_;
 	bool pause_;
 	bool mute_;
 };
-*/
+
 
 class SoundSystem : public ISystem
 {
-	// Container to hold sound files
-	std::map<std::string, FMOD::Sound*> sound_library_;		// Format: <name, soundFile>
-	// Sound library iterator
-	using SoundIt = std::map<std::string, FMOD::Sound*>::iterator;
+	// Sound map
+	using SoundMap = std::map<std::string, std::shared_ptr<SoundFile>>;
+	using SoundIt = SoundMap::iterator;
+	SoundMap sound_library_;
 
-	// Container to hold fmod channels (Max 32)
-	std::map<std::string, FMOD::Channel*> channel_library_;	// Format: <name, channelName>
-	// Channel library iterator
-	using ChannelIt = std::map<std::string, FMOD::Channel*>::iterator;
+	// Channel map
+	using ChannelMap = std::map<std::string, std::shared_ptr<SoundChannel>>;
+	using ChannelIt = ChannelMap::iterator;
+	ChannelMap channel_library_;
 
 	// Container to hold completed channels to be deleted
 	std::vector<ChannelIt> completed_channel_;
@@ -80,6 +100,33 @@ public:
 /*!
   \fn SetVolume()
 
+  \brief Set volume for a sound channel
+*/
+/******************************************************************************/
+	void SetVolume(std::string fileID, const float& vol);
+
+/******************************************************************************/
+/*!
+  \fn GetSoundLibrary()
+
+  \brief Return reference to sound library
+*/
+/******************************************************************************/
+	SoundMap& GetSoundLibrary();
+
+/******************************************************************************/
+/*!
+  \fn GetChannelLibrary()
+
+  \brief Return reference to channel library
+*/
+/******************************************************************************/
+	ChannelMap& GetChannelLibrary();
+
+/******************************************************************************/
+/*!
+  \fn SetVolume()    ->   To be removed
+
   \brief Set volume for all sound channels
 */
 /******************************************************************************/
@@ -87,7 +134,7 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn GetVolume()
+  \fn GetVolume()   ->   To be removed
 
   \brief Get volume for all sound channels
 */
@@ -112,7 +159,7 @@ public:
 		 API to load the sound file
 */
 /******************************************************************************/
-	void LoadSound(std::string file_location, std::string file_id, bool loop_status = 0);
+	void LoadSound(std::string name, std::stringstream& data);
 
 /******************************************************************************/
 /*!
@@ -140,7 +187,7 @@ public:
   \brief Mutes all sound channels that are currently active
 */
 /******************************************************************************/
-	void MuteSound();
+	void MuteSound(std::string file_id, bool status, bool all = 0);
 
 /******************************************************************************/
 /*!
@@ -149,7 +196,7 @@ public:
   \brief Pauses all sound channels that are currently active
 */
 /******************************************************************************/
-	void PauseSound();
+	void PauseSound(std::string file_id, bool status, bool all = 0);
 
 /******************************************************************************/
 /*!
@@ -206,6 +253,16 @@ public:
 */
 /******************************************************************************/
 	void DeSerialize(const std::string& filepath);
+
+/******************************************************************************/
+/*!
+  \fn Serialize()
+
+  \brief Saves all sound files that have been loaded into the sound system
+*/
+/******************************************************************************/
+	void Serialize(const std::string& filepath);
 };
+
 
 #endif

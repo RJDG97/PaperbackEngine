@@ -78,4 +78,5 @@ void ParticleSystem::Draw() {
 
 void ParticleSystem::SendMessageD(Message* m) {
 	
+	(void)m;
 }

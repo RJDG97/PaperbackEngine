@@ -115,28 +115,25 @@ void Physics::Update(float frametime) {
 				M_DEBUG->WriteDebugMessage(ss.str());
 			}
 		}
+	}
 
+	// Update textures and child entity offset
+	for (auto& [parent_id, logic] : *logic_arr_) {
 
-		// Update textures and child entity offset
-		for (auto& [parent_id, logic] : *logic_arr_) {
+		if (logic->my_logic_.find("UpdateTexture") != logic->my_logic_.end()) {
 
-			if (logic->my_logic_.find("UpdateTexture") != logic->my_logic_.end()) {
+			logic->my_logic_["UpdateTexture"](parent_id);
+		}
 
-				logic->my_logic_["UpdateTexture"](parent_id);
-			}
+		if (logic->my_logic_.find("UpdateChildOffset") != logic->my_logic_.end()) {
 
-			if (logic->my_logic_.find("UpdateChildOffset") != logic->my_logic_.end()) {
-
-				logic->my_logic_["UpdateChildOffset"](parent_id);
-			}
+			logic->my_logic_["UpdateChildOffset"](parent_id);
 		}
 	}
 }
 
 
 void Physics::ChangeVelocity(Message* m) {
-	// If there are multiple players the results will be duplicated
-	// because there is no specific entity id at the moment
 
 	//dynamic cast from message base class to derived message class
 	MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
@@ -155,10 +152,9 @@ void Physics::ChangeVelocity(Message* m) {
 
 				//update the acceleration data member of that component with the message's
 				motion->second->velocity_ = msg->new_vec_;
-
-				//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
 			}
 			else {
+
 				motion->second->velocity_ = {};
 			}
 		}
@@ -170,7 +166,6 @@ void Physics::SendMessageD(Message* msg) {
 	{
 		case MessageIDTypes::PHY_UPDATE_VEL:
 		{
-			//std::cout << "Physics System: Updating velocity of player" << std::endl;
 			ChangeVelocity(msg);
 			break;
 		}
