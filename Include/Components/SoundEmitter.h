@@ -150,6 +150,7 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+	void SetSoundLine(std::vector<SoundLine> updated_vec);
 };
 
 #endif

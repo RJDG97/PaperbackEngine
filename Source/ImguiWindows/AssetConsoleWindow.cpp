@@ -219,7 +219,7 @@ void AssetConsoleWindow::DisplayJson() {
 
 	ImGui::Separator();
 
-	if (ImGui::Button("Save & Reload Texture")) {
+	if (ImGui::Button("Save & Reload Textures")) {
 
 		rapidjson::StringBuffer sb;
 		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);

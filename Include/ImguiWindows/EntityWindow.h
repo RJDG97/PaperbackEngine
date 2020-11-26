@@ -8,6 +8,7 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/WindowsSystem.h"
 #include "Systems/InputSystem.h"
+#include "Systems/SoundSystem.h"
 #include "Systems/Collision.h"
 
 #include "Components/Transform.h"
@@ -161,6 +162,7 @@ private:
 	ImguiSystem* imgui_;
 	Collision* collision_;
 	CameraSystem* camera_;
+	SoundSystem* sound_;
 	EntityManager* entities_;
 	TextureManager* texture_;
 	GraphicsSystem* graphics_;

@@ -2,7 +2,7 @@
 #include "Manager/ComponentManager.h"
 #include "Engine/Core.h"
 
-// MAT140 basic dot product (Trivial computation)
+// MAT140 basic dot product ("Trivial" computation)
 // Imagine slicewise
 float SoundEmitter::GetMinDist(const Vector2D& pos) {
 
@@ -144,4 +144,10 @@ void SoundEmitter::DeSerializeClone(std::stringstream& data) {
 std::shared_ptr<Component> SoundEmitter::Clone() {
 	
 	return std::make_shared<SoundEmitter>();
+}
+
+void SoundEmitter::SetSoundLine(std::vector<SoundLine> updated_vec) {
+
+	sound_lines_.clear();
+	sound_lines_ = updated_vec;
 }
