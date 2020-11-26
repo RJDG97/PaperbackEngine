@@ -374,7 +374,7 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 
 void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 	AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
-	Transform* ai_rb = component_mgr_->GetComponent<Transform>(aabb2->first);
+
 	if (ai_state->GetState() == AI::AIState::Attack)
 	{
 		ai_state->SetState(AI::AIState::Return);
@@ -665,11 +665,12 @@ bool Collision::BurrowReady() {
 	return false;
 }
 
-void Collision::ToggleClickables() {
+void Collision::ToggleClickables(size_t group) {
 
 	for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
 
-		clickable->second->active_ = !clickable->second->active_;
+		if (clickable->second->group_ == group)
+			clickable->second->active_ = !clickable->second->active_;
 	}
 }
 

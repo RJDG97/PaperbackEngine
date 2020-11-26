@@ -36,7 +36,7 @@ void Particle::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* write
 
 void Particle::DeSerialize(std::stringstream& data) {
 	
-	
+	(void)data;
 }
 
 

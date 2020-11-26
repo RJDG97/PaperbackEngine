@@ -600,9 +600,9 @@ Camera* ImguiSystem::GetCamera() {
 void ImguiSystem::VolumeControl() {
 
     if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
-        sound_->PauseSound();
+        sound_->PauseSound("all", true, true);
     if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
-        sound_->MuteSound();
+        sound_->MuteSound("all", true, true);
 
     ImGui::Separator();
 

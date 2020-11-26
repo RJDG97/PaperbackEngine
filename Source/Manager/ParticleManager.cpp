@@ -11,7 +11,7 @@ void ParticleManager::Init() {
 
 void ParticleManager::Update(float frametime) {
 
-
+	(void)frametime;
 }
 
 

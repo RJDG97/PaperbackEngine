@@ -183,6 +183,8 @@ void Emitter::SetParticle(const EntityID& id) {
 
 void Emitter::Spawn(float frametime) {
 
+	(void)frametime;
+
 	// Count number of particles that can be requested
 	size_t rand_val = rand() % request_;
 	size_t count_to_request_ = max_spawn_ > current_spawn_ + rand_val ? 

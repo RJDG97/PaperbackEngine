@@ -13,6 +13,7 @@ class Clickable : public Component {
     Vector2D bottom_left_;
 	bool collided_, active_; // double check if needed
 	size_t index_;
+	size_t group_;
 
 public:
 	friend class Collision;

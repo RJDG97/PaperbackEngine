@@ -30,8 +30,6 @@ enum class MessageIDTypes
 	BGM_STOP,
 	BGM_PAUSE,
 	BGM_MUTE,
-	BGM_COMPLETED,
-	BGM_RELOAD,
 
 	// Game State System
 	GSM_CHANGESTATE,
