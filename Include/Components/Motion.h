@@ -10,6 +10,7 @@ class Motion : public Component {
     Vector2D acceleration_;
 	float mass_;
 	float inv_mass_;
+	float force_;
 	bool is_left_;
 	bool alive_;
 

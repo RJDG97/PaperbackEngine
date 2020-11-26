@@ -34,7 +34,12 @@ void Emitter::Init() {
 
 void Emitter::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 
-	(void)writer;
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Emitter");
+
+	writer->EndObject();
 }
 
 

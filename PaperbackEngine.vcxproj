@@ -175,6 +175,7 @@
     <ClCompile Include="Source\Components\ParentChild.cpp" />
     <ClCompile Include="Source\Components\Particle.cpp" />
     <ClCompile Include="Source\Components\PointLight.cpp" />
+    <ClCompile Include="Source\Components\SoundEmitter.cpp" />
     <ClCompile Include="Source\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Components\TextureRenderer.cpp" />
     <ClCompile Include="Source\Components\Scale.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="Include\Components\ParentChild.h" />
     <ClInclude Include="Include\Components\Particle.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
+    <ClInclude Include="Include\Components\SoundEmitter.h" />
     <ClInclude Include="Include\Components\TextRenderer.h" />
     <ClInclude Include="Include\Components\TextureRenderer.h" />
     <ClInclude Include="Include\Components\Scale.h" />

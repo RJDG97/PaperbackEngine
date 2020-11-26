@@ -1,5 +1,5 @@
 {
-  "TestEmitter": [
+  "ParticleEmitter": [
     {
       "component": "Transform",
       "position": "0.0 -12.0",

@@ -171,6 +171,9 @@
     <Filter Include="Entity\Components\Emitter">
       <UniqueIdentifier>{654cb997-b4fa-404b-8fe6-f5cf8548e2e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\SoundEmitter">
+      <UniqueIdentifier>{3fad4c78-1ea5-489b-a7ec-1d7d028fa212}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -412,6 +415,9 @@
     </ClCompile>
     <ClCompile Include="Source\ImguiWindows\AssetConsoleWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\SoundEmitter.cpp">
+      <Filter>Entity\Components\SoundEmitter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -702,6 +708,9 @@
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\AssetConsoleWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\SoundEmitter.h">
+      <Filter>Entity\Components\SoundEmitter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
