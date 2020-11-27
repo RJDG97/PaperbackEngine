@@ -9,7 +9,10 @@
 #include <vector>
 #include <map>
 
+#include "Manager/ComponentManager.h"
+#include "Components/SoundEmitter.h"
 #include "Systems/ISystem.h"
+#include "Systems/GraphicsSystem.h"
 #include "prettywriter.h"
 #include <memory>
 
@@ -28,6 +31,7 @@ private:
 	FMOD::Sound* sound_;
 	std::string path_;
 	float volume_;
+	float original_volume_;
 	float min_distance_;
 	float volume_falloff_;
 	bool loop_;
@@ -45,7 +49,9 @@ public:
 private:
 	FMOD::Channel* channel_;
 	float volume_;
+	float original_volume_;
 	float min_distance_;
+	float sqr_min_distance_;
 	float volume_falloff_;
 	bool pause_;
 	bool mute_;
@@ -63,6 +69,16 @@ class SoundSystem : public ISystem
 	using ChannelMap = std::map<std::string, std::shared_ptr<SoundChannel>>;
 	using ChannelIt = ChannelMap::iterator;
 	ChannelMap channel_library_;
+
+	using SoundEmitterType = CMap<SoundEmitter>;
+	using SoundEmitterTypeIt = SoundEmitterType::MapTypeIt;
+	SoundEmitterType* sound_emitter_arr_;
+
+	using PlayerArr = std::vector<Entity*>;
+	PlayerArr* players_;
+
+	std::shared_ptr<ComponentManager> component_manager_;
+	std::shared_ptr<GraphicsSystem> graphics_system_;
 
 	// Container to hold completed channels to be deleted
 	std::vector<ChannelIt> completed_channel_;
@@ -215,7 +231,7 @@ public:
   \brief Initializes all sound files that are to be loaded into the game
 */
 /******************************************************************************/
-	virtual void Init() override;
+	void Init() override;
 
 /******************************************************************************/
 /*!
@@ -225,7 +241,16 @@ public:
          their sound files
 */
 /******************************************************************************/
-	virtual void Update(float frametime) override;
+	void Update(float frametime) override;
+
+/******************************************************************************/
+/*!
+  \fn Draw()
+
+  \brief Draws sound lines
+*/
+/******************************************************************************/
+	void Draw() override;
 
 /******************************************************************************/
 /*!

@@ -8,6 +8,7 @@
 void LogicSystem::Init()
 {
 	comp_mgr = &*CORE->GetManager<ComponentManager>();
+	GeneralScripts::comp_mgr = &*CORE->GetManager<ComponentManager>();
 
 	ai_arr_ = comp_mgr->GetComponentArray<AI>();
 	

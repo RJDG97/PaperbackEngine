@@ -229,6 +229,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::PARTICLE;
 	else if (str == "Emitter")
 		return ComponentTypes::EMITTER;
+	else if (str == "SoundEmitter")
+		return ComponentTypes::SOUNDEMITTER;
 	else
 		return ComponentTypes::NONE;
 }

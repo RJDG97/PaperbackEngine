@@ -27,6 +27,7 @@ public:
 		Detected,
 		Chase,
 		Attack,
+		Withdraw,
 		Return
 	};
 
@@ -289,6 +290,10 @@ public:
 
 	Time_Channel& GetTimer();
 
+	bool GetLife();
+
+	void SetLife(bool life);
+
 private:
 
 	AIType type_;
@@ -303,6 +308,7 @@ private:
 	Vector2D player_last_pos_;
 	std::vector<Vector2D> path_;
 	Time_Channel recovery_timer_;
+	bool alive_;
 };
 
 #endif

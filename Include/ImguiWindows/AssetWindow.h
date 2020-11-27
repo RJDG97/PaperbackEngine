@@ -5,18 +5,9 @@
 #include "ImguiWindows/IWindow.h"
 #include "Systems/ImguiSystem.h"
 #include <filesystem>
-#include "Systems/Debug.h"
 #include "Manager/TextureManager.h"
 
 namespace fs = std::filesystem;
-
-struct TextureInfo { // struct to store the infomation of the textures
-
-	std::string path;
-	int column;
-	int row;
-
-};
 
 class AssetWindow : public IWindow {
 
@@ -105,70 +96,9 @@ public:
 
 	void DisplayFolderFiles(float window_width, float window_height);
 
-	/******************************************************************************/
-	/*!
-		\fn DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc)
-
-		\brief Deserialise the texture json
-	*/
-	/******************************************************************************/
-
-	void DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc);
-
-	/******************************************************************************/
-	/*!
-		\fn LoadTextureJson(std::string level_name);
-
-		\brief Load the json into a map
-	*/
-	/******************************************************************************/
-	void LoadTextureJson(std::string level_name);
-
-	void LoadAnimationJson(std::string level_name);
-
-	/******************************************************************************/
-	/*!
-		\fn AddTextureAnimation()
-
-		\brief Handles the adding/removing of textures (the overall window)
-	*/
-	/******************************************************************************/
-	void AddTextureAnimation();
-
-	/******************************************************************************/
-	/*!
-		\fn SelectTextureJson()
-
-		\brief Allows users to select which json they want to amend
-	*/
-	/******************************************************************************/
-	void SelectTextureJson();
-
-	/******************************************************************************/
-	/*!
-		\fn DisplayJson()
-
-		\brief Displays the infomation of the chosen json
-	*/
-	/******************************************************************************/
-	void DisplayJson();
-
-	/******************************************************************************/
-	/*!
-		\fn AddNewTexture()
-
-		\brief Adds a new texture to the map
-	*/
-	/******************************************************************************/
-	void AddNewTexture();
-
+	std::vector<std::string> MultiFileSelection(std::string appended_files);
 	std::string FileString(std::string icon, std::string file_name);
 	std::string DirectoryName(fs::directory_entry directory);
-
-	std::string FindUnderscore(std::string filename);
-
-	std::vector<std::string> MultiFileSelection(std::string appended_files);
-	void AddBlankJson();
 
 private:
 
@@ -178,17 +108,11 @@ private:
 	fs::path path_selection_;
 
 	std::string folder_to_del_;
-	std::string img_to_add_;
 	std::string selected_file_;
-	std::string chosen_json_;
 
-	bool b_create, b_makefolder, b_deletefolder, b_tex, b_anim;
+	bool b_create, b_makefolder, b_deletefolder;
 
-	std::map<std::string, TextureInfo> tex_info_;
 	std::vector<std::string> multifiles_;
-	std::vector<std::string> filesdel_;
-	std::vector<std::string> jsonfiles_;
-
 
 };
 #endif

@@ -1,6 +1,8 @@
+#include "Manager/EntityManager.h"
 #include "Systems/SoundSystem.h"
 #include "Engine/Core.h"
 #include "Systems/InputSystem.h"
+#include "MathLib/MathHelper.h"
 #include "Systems/Debug.h"
 
 SoundSystem::SoundSystem() : 
@@ -18,14 +20,6 @@ SoundSystem::SoundSystem() :
 SoundSystem::~SoundSystem() {
 
 	//Serialize("Resources/AssetsLoading/sounds.json");
-
-	//for (auto& [name, sf] : sound_library_) {
-	//	delete sf;
-	//}
-
-	//for (auto& [name, sc] : channel_library_) {
-	//	delete sc;
-	//}
 
 	// Terminate system
 	f_system_->close();
@@ -91,6 +85,8 @@ void SoundSystem::LoadSound(std::string name, std::stringstream& data) {
 	data >> sf->volume_ >> sf->min_distance_ 
 		 >> sf->volume_falloff_ >> sf->loop_;
 
+	sf->original_volume_ = sf->volume_;
+
 	// Determine whether sound file already exists within sound library
 	SoundIt it = sound_library_.find(name);
 
@@ -137,7 +133,9 @@ void SoundSystem::PlaySounds(std::string fileID) {
 				if (channel != nullptr) {
 
 					channel->volume_ = it->second->volume_;
+					channel->original_volume_ = it->second->original_volume_;
 					channel->min_distance_ = it->second->min_distance_;
+					channel->sqr_min_distance_ = it->second->min_distance_ * it->second->min_distance_;
 					channel->volume_falloff_ = it->second->volume_falloff_;
 
 					channel_library_[fileID] = channel;
@@ -310,6 +308,10 @@ void SoundSystem::Init() {
 
 	// Load all sound files
 	DeSerialize("Resources/AssetsLoading/sounds.json");
+	component_manager_ = CORE->GetManager<ComponentManager>();
+	graphics_system_ = CORE->GetSystem<GraphicsSystem>();
+	sound_emitter_arr_ = component_manager_->GetComponentArray<SoundEmitter>();
+	players_ = &CORE->GetManager<EntityManager>()->GetPlayerEntities();
 
 	M_DEBUG->WriteDebugMessage("Sound System Init\n");
 }
@@ -318,6 +320,33 @@ void SoundSystem::Update(float frametime) {
 
 	(void)frametime;	
 	
+	if (!players_->empty()) {
+
+		EntityID player_id = players_->back()->GetID();
+		Transform* player_transform = component_manager_->GetComponent<Transform>(player_id);
+
+		DEBUG_ASSERT(player_transform, "Player does not have a transform component!");
+
+		for (auto& [id, sound_emitter] : *sound_emitter_arr_) {
+
+			ChannelIt it = channel_library_.find(sound_emitter->sound_name_);
+			if (it == channel_library_.end() || !sound_emitter->num_sound_lines_)
+				continue;
+
+			float dist = sound_emitter->GetMinDist(player_transform->GetOffsetAABBPos());
+
+			if (dist > it->second->min_distance_) {
+
+				float diff = dist - it->second->min_distance_;
+
+				// Set volume
+				it->second->volume_ = it->second->original_volume_ - (diff * it->second->volume_falloff_);
+				// If volume lower than 0.0f, set to 0.0f
+				it->second->volume_ = it->second->volume_ < 0.0f ? 0.0f : it->second->volume_;
+			}
+		}
+	}
+
 	for (auto channel = channel_library_.begin(); channel != channel_library_.end(); ++channel) {
 		
 		bool b_playing = false;
@@ -339,6 +368,23 @@ void SoundSystem::Update(float frametime) {
 	
 }
 
+void SoundSystem::Draw() {
+
+	if (debug_) {
+		
+		for (auto& [id, sound_emitter] : *sound_emitter_arr_) {
+
+			for (size_t i = 0; i < sound_emitter->GetSoundLines().size(); ++i) {
+				
+				std::vector<glm::vec2> line{};
+				SoundLineToGLM(sound_emitter->GetSoundLines()[i], line);
+
+				graphics_system_->DrawDebugLine(line, {0.0f, 0.5f, 1.0f, 1.0f});
+			}
+		}
+	}
+}
+
 std::string SoundSystem::GetName() {
 	
 	return { "SoundSystem" };
@@ -348,6 +394,11 @@ std::string SoundSystem::GetName() {
 void SoundSystem::SendMessageD(Message* m) {
 
 	switch (m->message_id_) {
+	case MessageIDTypes::DEBUG_ALL:
+	{
+		debug_ = !debug_;
+		break;
+	}
 	case MessageIDTypes::BGM_PLAY:
 	{
 		//plays a fileID as included in the message
@@ -391,6 +442,7 @@ SoundFile::SoundFile() :
 	sound_{ nullptr },
 	path_{ },
 	volume_{ 1.0f },
+	original_volume_{ 1.0f },
 	min_distance_{ },
 	volume_falloff_{ },
 	loop_{ false }
@@ -400,6 +452,7 @@ SoundFile::SoundFile(std::string path, float vol, float min_distance, float volu
 	sound_{ nullptr },
 	path_{ path },
 	volume_{ vol },
+	original_volume_{ vol },
 	min_distance_{ min_distance },
 	volume_falloff_{ volume_falloff },
 	loop_{ loop }
@@ -436,7 +489,9 @@ SoundFile::~SoundFile() {
 SoundChannel::SoundChannel() :
 	channel_{ nullptr },
 	volume_{ 1.0f },
+	original_volume_{ 1.0f },
 	min_distance_{ 0.0f },
+	sqr_min_distance_{ 0.0f },
 	volume_falloff_{ 0.0f },
 	pause_{ false },
 	mute_{ false }
@@ -445,7 +500,9 @@ SoundChannel::SoundChannel() :
 SoundChannel::SoundChannel(float volume, float min_distance, float volume_falloff) :
 	channel_{ nullptr },
 	volume_{ volume },
+	original_volume_{ volume },
 	min_distance_{ min_distance },
+	sqr_min_distance_{ min_distance * min_distance },
 	volume_falloff_{ volume_falloff },
 	pause_{ false },
 	mute_{ false }

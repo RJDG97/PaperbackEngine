@@ -68,53 +68,6 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 	switch (button)
 	{
 	case GLFW_MOUSE_BUTTON_LEFT:
-	{
-		///******************************************************************/
-		///*!   Some illegal shit to print mouse coords for picking tests
-		///******************************************************************/
-		//// Delete the couts after done with testing
-
-		//std::cout << "Cursor: "
-		//		  << CORE->GetSystem<InputSystem>()->GetCursorPosition().x 
-		//		  << "          " 
-		//		  << CORE->GetSystem<InputSystem>()->GetCursorPosition().y 
-		//		  << std::endl;
-
-		//// Change implementation of this potentially, dont grab it constantly
-		//CMap<Camera>* cam_arr = CORE->GetManager<ComponentManager>()->GetComponentArray<Camera>();
-		//Camera* cam = nullptr;
-
-		//// Gotta check if it exists, especially in level
-		//// editor before loading scene
-		//auto iter = cam_arr->begin();
-		//if (iter != cam_arr->end())
-		//	cam = iter->second;
-		//else
-		//	return;
-
-		//std::cout << "Camera Pos: "
-		//		  << cam->GetVector2DCameraPosition().x
-		//		  << "          " 
-		//		  << cam->GetVector2DCameraPosition().y
-		//		  << std::endl;
-
-		//// Get cursor position based on (0, 0) coords
-		//// Add camera position that has been inversed
-		//// Divide by game scale to normalize
-		//Vector2D new_pos = (CORE->GetSystem<InputSystem>()->GetCursorPosition() + cam->GetVector2DCameraPosition()) / (CORE->GetGlobalScale());
-
-		//// Newly computed pos based on normalized coords to debug positions
-		//// Might want to double check collider to see if it's spot on (Offsets)
-		//std::cout << "New Position: "
-		//		  << new_pos.x
-		//		  << "          " 
-		//		  << new_pos.y
-		//		  << std::endl;
-
-		///******************************************************************/
-		///*!								  END
-		///******************************************************************/
-	}
 		break;
 	case GLFW_MOUSE_BUTTON_RIGHT:
 		break;
@@ -203,7 +156,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_KEY_T:
 		{
 			//GeneralScripts::map_->Pathing({-5, 0}, {0, 0});
-			//GeneralScripts::map_->DrawMap();
+			GeneralScripts::map_->DrawMap();
 		}
 		}
 	}

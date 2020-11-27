@@ -45,6 +45,7 @@ struct GenerateRotation
 	// Range for rotation of texture
 	Vector2D min_rotation_range_, max_rotation_range_;
 	void Generate(Transform* transform);
+
 };
 
 struct GenerateTexture
@@ -187,6 +188,36 @@ public:
 */
 /******************************************************************************/
 	size_t GetRequest() const;
+
+	void SetAlive(bool status);
+
+	float GetLifeTime();
+	void SetLifeTime(float new_lifetime);
+
+	float GetInterval();
+
+	float GetSpawnInterval();
+	void SetSpawnInterval(float new_spawn_interval);
+	
+	size_t GetCurrentNumberSpawned();
+
+	size_t GetMaxNumberParticles();
+
+	void SetMaxNumberParticles(size_t particle_limit);
+
+	void SetRequest(size_t new_request);
+
+	GenerateLifetime GetLifeTimeStruct();
+	GeneratePosition GetPositionStruct();
+	GenerateForce	 GetForceStruct();
+	GenerateRotation GetRotationStruct();
+	GenerateTexture  GetTextureStruct();
+
+	void SetLifeTimeStruct(Vector2D lifetime);;
+	void SetPositionStruct(Vector2D min_pos, Vector2D max_pos);
+	void SetForceStruct(Vector2D force_rng, Vector2D direction_rng);
+	void SetRotationStruct(Vector2D rot_speed, Vector2D min_rot, Vector2D max_rot);
+	void SetTextureStruct(size_t tex_num, std::vector<std::string> textures_);
 };
 
 

@@ -18,7 +18,7 @@ void ArchetypeWindow::Update() {
 
 		ImGui::Begin("Archetypes", &imgui_->b_archetypewin);
 
-		if (ImGui::CollapsingHeader("Available Archetypes")) {
+		if (ImGui::CollapsingHeader("Available Archetypes", ImGuiTreeNodeFlags_DefaultOpen)) {
 
 			AvaliableArchetypes();
 

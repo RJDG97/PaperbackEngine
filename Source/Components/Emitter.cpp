@@ -34,7 +34,12 @@ void Emitter::Init() {
 
 void Emitter::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 
-	(void)writer;
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("Emitter");
+
+	writer->EndObject();
 }
 
 
@@ -186,6 +191,9 @@ void Emitter::Spawn(float frametime) {
 	(void)frametime;
 
 	// Count number of particles that can be requested
+	if (!request_)
+		return;
+
 	size_t rand_val = rand() % request_;
 	size_t count_to_request_ = max_spawn_ > current_spawn_ + rand_val ? 
 		rand_val : 0;
@@ -212,6 +220,112 @@ bool Emitter::IsAlive() const {
 size_t Emitter::GetRequest() const {
 	
 	return request_;
+}
+
+void Emitter::SetAlive(bool status) {
+
+	alive_ = status;
+}
+
+void Emitter::SetRequest(size_t new_request) {
+
+	request_ = new_request;
+}
+
+float Emitter::GetLifeTime() {
+
+	return lifetime_;
+}
+
+void Emitter::SetLifeTime(float new_lifetime) {
+
+	lifetime_ = new_lifetime;
+}
+
+float Emitter::GetInterval() {
+
+	return interval_;
+}
+
+float Emitter::GetSpawnInterval() {
+
+	return spawn_interval_;
+}
+
+void Emitter::SetSpawnInterval(float new_spawn_interval) {
+
+	spawn_interval_ = new_spawn_interval;
+}
+
+size_t Emitter::GetCurrentNumberSpawned() {
+
+	return current_spawn_;
+}
+
+size_t Emitter::GetMaxNumberParticles() {
+
+	return max_spawn_;
+}
+
+void Emitter::SetMaxNumberParticles(size_t particle_limit) {
+
+	max_spawn_ = particle_limit;
+}
+
+GenerateLifetime Emitter::GetLifeTimeStruct() {
+
+	return particle_lifetime_;
+}
+
+GeneratePosition Emitter::GetPositionStruct() {
+
+	return particle_position_;
+}
+
+GenerateForce Emitter::GetForceStruct() {
+
+	return particle_force_;
+}
+
+GenerateRotation Emitter::GetRotationStruct() {
+
+	return particle_rotation_;
+}
+
+GenerateTexture Emitter::GetTextureStruct() {
+
+	return particle_texture_;
+}
+
+void Emitter::SetLifeTimeStruct(Vector2D lifetime) {
+
+	particle_lifetime_.lifetime_range_ = lifetime;
+}
+
+void Emitter::SetPositionStruct(Vector2D min_pos, Vector2D max_pos) {
+
+	particle_position_.min_pos_ = min_pos;
+	particle_position_.max_pos_ = max_pos;
+}
+
+void Emitter::SetForceStruct(Vector2D force_rng, Vector2D direction_rng) {
+
+	particle_force_.force_range_ = force_rng;
+	particle_force_.direction_range_ = direction_rng;
+}
+
+void Emitter::SetRotationStruct(Vector2D rot_speed, Vector2D min_rot, Vector2D max_rot) {
+
+	particle_rotation_.rotation_speed_ = rot_speed;
+	particle_rotation_.min_rotation_range_ = min_rot;
+	particle_rotation_.max_rotation_range_ = max_rot;
+}
+
+void Emitter::SetTextureStruct(size_t tex_num, std::vector<std::string> textures_) {
+
+	particle_texture_.number_of_textures_ = tex_num;
+	particle_texture_.texture_names_.clear();
+	particle_texture_.texture_names_ = textures_;
 }
 
 
@@ -275,6 +389,9 @@ void GenerateRotation::Generate(Transform* transform) {
 void GenerateTexture::Generate(std::shared_ptr<GraphicsSystem> graphics_system, TextureRenderer* texture) {
 
 	// Rand texture choice
-	size_t index = glm::linearRand(0, static_cast<int>(number_of_textures_ - 1));
-	graphics_system->ChangeTexture(texture, texture_names_[index]);
+	if (!number_of_textures_)
+		return;
+
+	size_t index = number_of_textures_ == 1 ? 0 : glm::linearRand(0, static_cast<int>(number_of_textures_ - 1));	graphics_system->ChangeTexture(texture, texture_names_[index]);
 }
+

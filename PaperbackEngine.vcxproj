@@ -175,6 +175,7 @@
     <ClCompile Include="Source\Components\ParentChild.cpp" />
     <ClCompile Include="Source\Components\Particle.cpp" />
     <ClCompile Include="Source\Components\PointLight.cpp" />
+    <ClCompile Include="Source\Components\SoundEmitter.cpp" />
     <ClCompile Include="Source\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Components\TextureRenderer.cpp" />
     <ClCompile Include="Source\Components\Scale.cpp" />
@@ -188,6 +189,7 @@
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
     <ClCompile Include="Source\GameStates\WinLoseState.cpp" />
     <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp" />
+    <ClCompile Include="Source\ImguiWindows\AssetConsoleWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
@@ -250,6 +252,7 @@
     <ClInclude Include="Include\Components\ParentChild.h" />
     <ClInclude Include="Include\Components\Particle.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
+    <ClInclude Include="Include\Components\SoundEmitter.h" />
     <ClInclude Include="Include\Components\TextRenderer.h" />
     <ClInclude Include="Include\Components\TextureRenderer.h" />
     <ClInclude Include="Include\Components\Scale.h" />
@@ -266,6 +269,7 @@
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\GameStates\WinLoseState.h" />
     <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h" />
+    <ClInclude Include="Include\ImguiWindows\AssetConsoleWindow.h" />
     <ClInclude Include="Include\ImguiWindows\AssetWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h" />

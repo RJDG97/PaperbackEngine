@@ -23,7 +23,9 @@
   
   "Puddle": "Resources/EntityConfig/Play/puddle.json",
   
-  "TestEmitter": "Resources/EntityConfig/Play/testemitter.json",
+  "ParticleEmitter": "Resources/EntityConfig/Play/particleemitter.json",
   
-  "MyParticle": "Resources/EntityConfig/Play/myparticles.json"
+  "MyParticle": "Resources/EntityConfig/Play/myparticles.json",
+  
+  "SoundEmitter": "Resources/EntityConfig/Play/soundemitter.json"
 }
