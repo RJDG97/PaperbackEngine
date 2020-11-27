@@ -198,8 +198,8 @@ void AssetWindow::FileMenuBar() {
 		ImGui::EndDragDropTarget();
 	}
 
-	ImGui::MenuItem(ICON_FA_PLUS ICON_FA_IMAGE);
-	imgui_->ImguiHelp("Add in New Texture", 0);
+	ImGui::MenuItem(ICON_FA_PLUS);
+	imgui_->ImguiHelp("Add in New Assets", 0);
 	if (ImGui::BeginDragDropTarget()) {
 		if (const ImGuiPayload* payLoadtex = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
 
@@ -207,7 +207,7 @@ void AssetWindow::FileMenuBar() {
 
 				path = *((std::string*)payLoadtex->Data);
 
-				if (path.find(".png") != path.npos) {
+				if (path.find(".png") != path.npos || path.find(".mp3") != path.npos ) {
 
 					imgui_->b_addtexture = true;
 					imgui_->SetImageAdd(path);

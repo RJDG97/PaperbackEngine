@@ -1,4 +1,5 @@
 #include "ImguiWindows/EntityWindow.h"
+#include "Components/SoundEmitter.h"
 #include "Entity/ComponentTypes.h"
 #include "MathLib/Vector2D.h"
 #include "Entity/Entity.h"
@@ -537,9 +538,6 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 				}
 					break;
 				case ComponentTypes::LOGICCOMPONENT:
-				{
-					std::shared_ptr<LogicComponent> entitylogic = std::dynamic_pointer_cast<LogicComponent>(entitycomponent.first->GetComponent(ComponentTypes::LOGICCOMPONENT));
-				}
 					break;
 				case ComponentTypes::INVENTORY:
 					break;
@@ -784,8 +782,11 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					std::string input_sound_name = entitySound->GetSoundName();
 					size_t input_num_sound = entitySound->GetSoundLines().size();
 					std::vector<SoundLine> input_sound_lines = entitySound->GetSoundLines();
-					std::string path = {};
+					SoundLine newline = entitySound->GetNewSoundLine();
 
+
+					std::string path = {};
+					size_t counter = 0;
 					ImGui::Text("Current Audio:");
 					if (ImGui::BeginCombo("##sounds", input_sound_name.c_str())) {
 
@@ -801,22 +802,21 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					ImGui::Text("Number of Sound Lines: %d", input_num_sound);
 
 					for (std::vector<SoundLine>::iterator begin = input_sound_lines.begin(); begin != input_sound_lines.end(); ++begin) {
+						++counter;						
 
-						std::stringstream ss_start_x; 
-						ss_start_x << std::setprecision(4) << begin->start_.x;
-						std::stringstream ss_start_y; 
-						ss_start_y << std::setprecision(4) << begin->start_.y;
+						if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, "Start Point X: %.2f Y: %.2f\nEnd Point: X: %.2f Y: %.2f", begin->start_.x, begin->start_.y, begin->end_.x, begin->end_.y )) {
 
-						std::stringstream ss_end_x; 
-						ss_end_x << std::setprecision(4) << begin->end_.x;
-						std::stringstream ss_end_y; 
-						ss_end_y << std::setprecision(4) << begin->end_.y;
+							if (ImGui::TreeNode("Update Line Segment")) {
 
+								ImGui::Text("Start Point:");
+								Vec2Input(begin->start_, 1.0f, "##startx", "##starty");
+								ImGui::Text("End Point:");
+								Vec2Input(begin->end_, 1.0f);
 
-						std::string startlabel = "Start Point: X: " + ss_start_x.str() + " Y: " + ss_start_y.str();
-						std::string endlabel = "End Point: X: " + ss_end_x.str() + " Y: " + ss_end_y.str();
+								entitySound->SetSoundLine(input_sound_lines);
 
-						if (ImGui::TreeNodeEx((startlabel + "\n" + endlabel).c_str())) {
+								ImGui::TreePop();
+							}
 
 							if (ImGui::Button("Delete")) {
 
@@ -830,22 +830,25 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 								entitySound->SetSoundLine(input_sound_lines);
 							}
 
-							if (ImGui::TreeNode("Update")) {
-
-								Vec2Input(begin->start_);
-								Vec2Input(begin->end_);
-
-
-								entitySound->SetSoundLine(input_sound_lines);
-
-								ImGui::TreePop();
-							}
 							ImGui::TreePop();
-							break;
 						}
 					}
 
 					if (ImGui::TreeNode("Add Line Segment")) {
+						
+						ImGui::Text("Start Point:");
+						Vec2Input(newline.start_, 1.0f, "##newlineX", "##newlineY");
+						ImGui::Text("End Point");
+						Vec2Input(newline.end_);
+
+						entitySound->SetNewSoundLine(newline);
+
+						if (ImGui::Button("Add")) {
+
+							input_sound_lines.push_back(newline);
+							entitySound->SetSoundLine(input_sound_lines);
+							entitySound->SetNewSoundLine({});
+						}
 
 						ImGui::TreePop();
 					}
@@ -948,8 +951,10 @@ void EntityWindow::Vec2Input(Vector2D& componentVar, float defaultVal, const cha
 	imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
 
 	ImGui::PushFont(imgui_->bold_font_);
+
 	if (ImGui::Button("X", SetButtonSize()))
 		componentVar.x = defaultVal;
+
 	ImGui::PopFont();
 
 	ImGui::PopStyleColor(3);

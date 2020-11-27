@@ -109,7 +109,7 @@ private:
 	std::vector<std::string> jsonfiles_;
 	std::string chosen_json_;
 
-	bool b_tex, b_anim;
+	bool b_tex, b_anim, b_audio;
 
 };
 #endif 

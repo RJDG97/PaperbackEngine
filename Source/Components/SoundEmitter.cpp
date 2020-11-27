@@ -151,3 +151,13 @@ void SoundEmitter::SetSoundLine(std::vector<SoundLine> updated_vec) {
 	sound_lines_.clear();
 	sound_lines_ = updated_vec;
 }
+
+SoundLine SoundEmitter::GetNewSoundLine() {
+
+	return new_line_;
+}
+
+void SoundEmitter::SetNewSoundLine(SoundLine newline) {
+
+	new_line_ = newline;
+}
