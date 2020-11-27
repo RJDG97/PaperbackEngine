@@ -3,6 +3,7 @@
 
 #include "Systems/LogicSystem.h"
 #include "Script/ScriptList.h"
+#include "Components/TextureRenderer.h"
 
 namespace Mite
 {

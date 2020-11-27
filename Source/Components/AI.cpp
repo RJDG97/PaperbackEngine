@@ -41,7 +41,7 @@ void AI::DeSerialize(std::stringstream& data) {
 
 	data >> type >> range_ >> speed_;
 	type_ = GeneralScripts::GetType(type);
-	
+	alive_ = true;
 }
 
 void AI::DeSerializeClone(std::stringstream& data) {
@@ -52,7 +52,7 @@ void AI::DeSerializeClone(std::stringstream& data) {
 	data >> type >> range_ >> speed_ >> num_destinations_;
 
 	type_ = GeneralScripts::GetType(type);
-
+	alive_ = true;
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
 	destinations_.resize(num_destinations_);
@@ -71,6 +71,7 @@ std::shared_ptr<Component> AI::Clone() {
 
 	std::shared_ptr<AI> cloned = std::make_shared<AI>();
 
+	cloned->alive_ = alive_;
 	cloned->type_ = type_;
 	cloned->range_ = range_;
 	cloned->attackpower_ = attackpower_;
@@ -201,4 +202,14 @@ void AI::SetPath(std::vector<Vector2D>& path)
 Time_Channel& AI::GetTimer()
 {
 	return recovery_timer_;
+}
+
+bool AI::GetLife()
+{
+	return alive_;
+}
+
+void AI::SetLife(bool life)
+{
+	alive_ = life;
 }

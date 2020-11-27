@@ -374,10 +374,9 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 
 void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 	AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
-	Transform* ai_rb = component_mgr_->GetComponent<Transform>(aabb2->first);
 	if (ai_state->GetState() == AI::AIState::Attack)
 	{
-		ai_state->SetState(AI::AIState::Return);
+		ai_state->SetState(AI::AIState::Withdraw);
 	}
 }
 
@@ -484,6 +483,10 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	}
 	case CollisionLayer::ENEMY:
 	{
+		AI* ai_state = component_mgr_->GetComponent<AI>(aabb1->first);
+		if (!ai_state->GetLife())
+			break;
+
 		switch (layer_b)
 		{
 		case CollisionLayer::PLAYER:
@@ -495,6 +498,11 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
 			}
 			break;
+		}
+		case CollisionLayer::TILES:
+		{
+
+			DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
 		}
 		}
 		break;

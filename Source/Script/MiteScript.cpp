@@ -7,6 +7,7 @@
 
 namespace Mite
 {
+
 	void Attack(AIIt obj)
 	{
 		obj->second->GetTimer().TimerStart();
@@ -22,52 +23,72 @@ namespace Mite
 			{
 				GeneralScripts::player_health->SetCurrentHealth(GeneralScripts::player_health->GetCurrentHealth() - 1);
 			}
-			CORE->GetSystem<EntityFactory>()->Destroy
-			(CORE->GetManager<EntityManager>()->GetEntity(obj->first));
+			GeneralScripts::obj_rigidbody->SetPosition
+			(*obj->second->GetDestinations().begin());
+			obj->second->SetLife(false);
+			// CORE->GetManager<ComponentManager>()->GetComponent<TextureRenderer>(obj->first)->SetLife(false);
 		}
 	}
 
 	void Handler(AIIt obj)
 	{
-		switch (obj->second->GetState())
-		{
-		case AI::AIState::Patrol:
-			if(obj->second->GetNumDes()==1)
-				CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Idle");
-			else
+
+		if (obj->second->GetLife()) {
+			switch (obj->second->GetState())
 			{
+			case AI::AIState::Patrol:
+				if (obj->second->GetNumDes() == 1)
+					CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Idle");
+				else
+				{
+					//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
+					GeneralScripts::Patrol(obj);
+				}
+				if (GeneralScripts::DetectPlayer(obj))
+					obj->second->SetState(AI::AIState::Detected);
+				break;
+			case AI::AIState::Detected:
+				// Player Detected anim
+				//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Alert");
+				obj->second->GetTimer().TimerStart();
+				if (obj->second->GetTimer().TimeElapsed(s) > 0.5f)
+				{
+					obj->second->GetTimer().TimerStop();
+					obj->second->GetTimer().TimerReset();
+					obj->second->SetState(AI::AIState::Chase);
+				}
+				break;
+			case AI::AIState::Chase:
 				//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
-				GeneralScripts::Patrol(obj);
+				if (!GeneralScripts::DetectPlayer(obj)) // Player not in radius
+				{
+					obj->second->SetState(AI::AIState::Patrol);
+				}
+				else if (GeneralScripts::Chase(obj))
+				{
+					obj->second->SetState(AI::AIState::Attack);
+				}
+				break;
+			case AI::AIState::Withdraw:
+				GeneralScripts::map_->Pathing(obj->second->GetPath(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
+				obj->second->SetState(AI::AIState::Chase);
+				break;
+			case AI::AIState::Attack:
+				//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Explode");
+				Attack(obj);
+				break;
 			}
-			if (GeneralScripts::DetectPlayer(obj))
-				obj->second->SetState(AI::AIState::Detected);
-			break;
-		case AI::AIState::Detected:
-			// Player Detected anim
-			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Alert");
+		}
+		else {
 			obj->second->GetTimer().TimerStart();
-			if (obj->second->GetTimer().TimeElapsed(s) > 0.5f)
+			if (obj->second->GetTimer().TimeElapsed(s) > 5.0f)
 			{
 				obj->second->GetTimer().TimerStop();
 				obj->second->GetTimer().TimerReset();
-				obj->second->SetState(AI::AIState::Chase);
-			}
-			break;
-		case AI::AIState::Chase:
-			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
-			if (!GeneralScripts::DetectPlayer(obj)) // Player not in radius
-			{
 				obj->second->SetState(AI::AIState::Patrol);
+				obj->second->SetLife(true);
+				//CORE->GetManager<ComponentManager>()->GetComponent<TextureRenderer>(obj->first)->SetLife(true);
 			}
-			else if (GeneralScripts::Chase(obj))
-			{
-				obj->second->SetState(AI::AIState::Attack);
-			}
-			break;
-		case AI::AIState::Attack:
-			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Explode");
-			Attack(obj);
-			break;
 		}
 	}
 

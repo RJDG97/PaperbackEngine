@@ -28,6 +28,7 @@ public:
 	friend class GraphicsSystem;
 	friend class ParticleSystem;
 	friend class Emitter;
+
 };
 
 #endif
