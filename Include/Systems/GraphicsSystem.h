@@ -66,7 +66,18 @@ class GraphicsSystem : public ISystem {
 
     glm::vec2 vignette_size;
 
+    using Points = std::vector<std::pair<glm::vec2, glm::vec2>>;
+
 public:
+
+/******************************************************************************/
+/*!
+    \fn GetBatchSize()
+
+    \brief Returns batch size
+*/
+/******************************************************************************/
+    int GetBatchSize();
 
 /******************************************************************************/
 /*!
@@ -378,9 +389,7 @@ void RemoveTextRendererComponent(EntityID id);
     void SetVignetteSize(glm::vec2 size);
 
     glm::vec2 GetVignetteSize();
-
-    void DrawDebugRectangle(std::vector<glm::vec2> points, glm::vec4 color);
-    void DrawDebugLine(std::vector<glm::vec2> points, glm::vec4 color);
+    void DrawDebugLines(Points points, glm::vec4 color, float width);
 
     using TextRendererType = CMap<TextRenderer>;
     using TextRendererIt = TextRendererType::MapTypeIt;
