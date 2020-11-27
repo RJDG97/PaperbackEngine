@@ -155,9 +155,6 @@ void ImguiSystem::Update(float frametime) {
             PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
             b_addpath = false;
 
-            if (camera_)
-              DrawGrid();
-
             // for the selection of entity
             if (!EditorMode() && camera_) {
 
@@ -584,7 +581,7 @@ void ImguiSystem::DrawGrid() {
 
             if (points.size() == graphics_->GetBatchSize())
             {
-                graphics_->DrawDebugLines(points, { 1.0f, 1.0f, 1.0f, 0.5f }, 1.0f);
+                graphics_->DrawDebugLines(points, { 0.8f, 0.8f, 0.8f, 0.5f }, 1.0f);
                 points.clear();
             }
        }

@@ -30,7 +30,7 @@ void AssetConsoleWindow::AddTextureAnimation() {
 
 	ImGui::Separator();
 
-	if (b_tex) {
+	if (b_tex && imgui_->GetImageAdd().find(".png") != imgui_->GetImageAdd().npos) {
 		ImGui::Text("Choose File to modify");
 
 		SelectTextureJson();

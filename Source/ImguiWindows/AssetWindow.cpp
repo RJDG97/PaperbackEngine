@@ -12,7 +12,6 @@ void AssetWindow::Init() {
 
 	b_create = false;
 	b_makefolder = false;
-
 }
 
 void AssetWindow::Update() {
