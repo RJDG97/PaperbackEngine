@@ -8,6 +8,8 @@
 
 namespace GeneralScripts
 {
+	extern ComponentManager* comp_mgr;
+
 	extern EntityID player_id;
 	extern Transform* player_rigidbody;
 	extern Transform* obj_rigidbody;

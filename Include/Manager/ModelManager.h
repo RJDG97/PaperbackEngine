@@ -60,14 +60,13 @@ public:
 
 /******************************************************************************/
 /*!
-    \fn AddLinesModel(int slices, int stacks, std::string model_name)
+    \fn AddLinesModel(std::string model_name, size_t size)
 
-    \brief Adds a lines model (with slices being the number of rows and stacks
-           being the number of columns) and adds the model to the Model
-           Manager's map
+    \brief Adds a lines model, with size being number of lines drawn, and adds
+           the model to the Model Manager's map
 */
 /******************************************************************************/
-    Model* AddLinesModel(std::string model_name);
+    Model* AddLinesModel(std::string model_name, size_t size);
 
 /******************************************************************************/
 /*!

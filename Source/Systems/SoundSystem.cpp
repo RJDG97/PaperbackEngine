@@ -372,15 +372,27 @@ void SoundSystem::Draw() {
 
 	if (debug_) {
 		
+		std::vector<std::pair<glm::vec2, glm::vec2>> points;
+
 		for (auto& [id, sound_emitter] : *sound_emitter_arr_) {
 
 			for (size_t i = 0; i < sound_emitter->GetSoundLines().size(); ++i) {
 				
 				std::vector<glm::vec2> line{};
 				SoundLineToGLM(sound_emitter->GetSoundLines()[i], line);
+				points.push_back({line[0], line[1]});
 
-				graphics_system_->DrawDebugLine(line, {0.0f, 0.5f, 1.0f, 1.0f});
+				if (points.size() == graphics_system_->GetBatchSize())
+				{
+					graphics_system_->DrawDebugLines(points, { 0.0f, 0.5f, 1.0f, 0.5f }, 1.0f);
+					points.clear();
+				}
 			}
+		}
+
+		if (points.size() > 0)
+		{
+			graphics_system_->DrawDebugLines(points, { 0.0f, 0.5f, 1.0f, 0.5f }, 1.0f);
 		}
 	}
 }

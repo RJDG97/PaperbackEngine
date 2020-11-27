@@ -374,10 +374,9 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 
 void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 	AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
-
 	if (ai_state->GetState() == AI::AIState::Attack)
 	{
-		ai_state->SetState(AI::AIState::Return);
+		ai_state->SetState(AI::AIState::Withdraw);
 	}
 }
 
@@ -484,6 +483,10 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	}
 	case CollisionLayer::ENEMY:
 	{
+		AI* ai_state = component_mgr_->GetComponent<AI>(aabb1->first);
+		if (!ai_state->GetLife())
+			break;
+
 		switch (layer_b)
 		{
 		case CollisionLayer::PLAYER:
@@ -495,6 +498,11 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
 			}
 			break;
+		}
+		case CollisionLayer::TILES:
+		{
+
+			DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
 		}
 		}
 		break;
@@ -856,28 +864,54 @@ void Collision::Draw() {
 	if (debug_)
 	{
 		const float scale = CORE->GetGlobalScale();
+		std::vector<std::pair<glm::vec2, glm::vec2>> collided_points;
+		std::vector<std::pair<glm::vec2, glm::vec2>> non_collided_points;
 
 		for (CollisionMapIt it = collision_map_.begin(); it != collision_map_.end(); ++it) {
 			for (AABBIt aabb = it->second.begin(); aabb != it->second.end(); ++aabb) {
 
 				Vector2D top_right = scale * (*aabb).second->top_right_;
 				Vector2D bottom_left = scale * (*aabb).second->bottom_left_;
-
-				std::vector<glm::vec2> points{ {bottom_left.x, bottom_left.y},
-											   {bottom_left.x, top_right.y},
-											   {top_right.x, top_right.y},
-											   {top_right.x, bottom_left.y} };
+				
 
 				if ((*aabb).second->collided)
 				{
-					graphics_->DrawDebugRectangle(points, {1.0f, 0.0f, 0.0f, 1.0f});
+					collided_points.push_back({ {bottom_left.x, bottom_left.y}, {bottom_left.x, top_right.y} });
+					collided_points.push_back({ {bottom_left.x, top_right.y}, {top_right.x, top_right.y} });
+					collided_points.push_back({ {top_right.x, top_right.y}, {top_right.x, bottom_left.y} });
+					collided_points.push_back({ {top_right.x, bottom_left.y}, {bottom_left.x, bottom_left.y} });
+
+					if (collided_points.size() == graphics_->GetBatchSize())
+					{
+						graphics_->DrawDebugLines(collided_points, { 1.0f, 0.0f, 0.0f, 1.0f }, 2.5f);
+						collided_points.clear();
+					}
 				}
 
 				else
 				{
-					graphics_->DrawDebugRectangle(points, { 0.0f, 1.0f, 0.0f, 1.0f });
+					non_collided_points.push_back({ {bottom_left.x, bottom_left.y}, {bottom_left.x, top_right.y} });
+					non_collided_points.push_back({ {bottom_left.x, top_right.y}, {top_right.x, top_right.y} });
+					non_collided_points.push_back({ {top_right.x, top_right.y}, {top_right.x, bottom_left.y} });
+					non_collided_points.push_back({ {top_right.x, bottom_left.y}, {bottom_left.x, bottom_left.y} });
+
+					if (non_collided_points.size() == graphics_->GetBatchSize())
+					{
+						graphics_->DrawDebugLines(non_collided_points, { 0.0f, 1.0f, 0.0f, 1.0f }, 2.5f);
+						non_collided_points.clear();
+					}
 				}
 			}
+		}
+
+		if (collided_points.size() > 0)
+		{
+			graphics_->DrawDebugLines(collided_points, { 1.0f, 0.0f, 0.0f, 1.0f }, 2.5f);
+		}
+
+		if (non_collided_points.size() > 0)
+		{
+			graphics_->DrawDebugLines(non_collided_points, { 0.0f, 1.0f, 0.0f, 1.0f }, 2.5f);
 		}
 	}
 

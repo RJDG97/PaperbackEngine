@@ -38,10 +38,17 @@ void AI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;
+	float x;
+	data >> type >> range_ >> speed_ >> num_destinations_;
 
-	data >> type >> range_ >> speed_;
-	type_ = GeneralScripts::GetType(type);
+	destinations_.resize(num_destinations_);
+
+	for (size_t i = 0; i < num_destinations_; i++) {
+		data >> destinations_[i].x >> destinations_[i].y;
+	}
 	
+	type_ = GeneralScripts::GetType(type);
+	alive_ = true;
 }
 
 void AI::DeSerializeClone(std::stringstream& data) {
@@ -52,7 +59,7 @@ void AI::DeSerializeClone(std::stringstream& data) {
 	data >> type >> range_ >> speed_ >> num_destinations_;
 
 	type_ = GeneralScripts::GetType(type);
-
+	alive_ = true;
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
 	destinations_.resize(num_destinations_);
@@ -71,6 +78,7 @@ std::shared_ptr<Component> AI::Clone() {
 
 	std::shared_ptr<AI> cloned = std::make_shared<AI>();
 
+	cloned->alive_ = alive_;
 	cloned->type_ = type_;
 	cloned->range_ = range_;
 	cloned->attackpower_ = attackpower_;
@@ -79,6 +87,7 @@ std::shared_ptr<Component> AI::Clone() {
 	cloned->num_destinations_ = num_destinations_;
 	cloned->destinations_.reserve(destinations_.size());
 	std::copy(std::begin(destinations_), std::end(destinations_), std::back_inserter(cloned->destinations_));
+	std::copy(std::begin(path_), std::end(path_), std::back_inserter(cloned->path_));
 	cloned->current_destination_ = cloned->destinations_.begin();
 
 	return cloned;
@@ -201,4 +210,14 @@ void AI::SetPath(std::vector<Vector2D>& path)
 Time_Channel& AI::GetTimer()
 {
 	return recovery_timer_;
+}
+
+bool AI::GetLife()
+{
+	return alive_;
+}
+
+void AI::SetLife(bool life)
+{
+	alive_ = life;
 }
