@@ -31,7 +31,7 @@
     },
     {
       "component": "Scale",
-      "scale": "2000.0 2000.0"
+      "scale": "3520.0 3520.0"
     },
     {
       "component": "AABB",
@@ -120,7 +120,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 60.0"
+      "scale": "32.0 64.0"
     },
     {
       "component": "Health",
@@ -190,7 +190,7 @@
     },
     {
       "component": "Scale",
-      "scale": "100.0 100.0"
+      "scale": "128.0 128.0"
     },
     {
       "component": "AnimationRenderer",
@@ -211,7 +211,7 @@
     },
     {
       "component": "AABB",
-      "scale": "1.0 1.0",
+      "scale": "0.5 0.5",
       "layer": "2"
     },
     {
@@ -249,7 +249,7 @@
     },
     {
       "component": "Scale",
-      "scale": "45.0 45.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "TextureRenderer",
@@ -287,7 +287,7 @@
     },
     {
       "component": "Scale",
-      "scale": "90.0 90.0"
+      "scale": "128.0 128.0"
     },
     {
       "component": "Motion",
@@ -323,7 +323,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "TextureRenderer",
@@ -356,7 +356,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "TextureRenderer",
@@ -404,7 +404,7 @@
     },
     {
       "component": "Scale",
-      "scale": "100.0 100.0"
+      "scale": "128.0 128.0"
     },
     {
       "component": "Health",
@@ -475,7 +475,7 @@
     },
     {
       "component": "Scale",
-      "scale": "100.0 100.0"
+      "scale": "128.0 128.0"
     },
     {
       "component": "Health",
@@ -565,7 +565,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "AABB",
@@ -586,7 +586,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "AABB",
@@ -642,7 +642,7 @@
     },
     {
       "component": "Scale",
-      "scale": "100.0 100.0"
+      "scale": "128.0 128.0"
     },
     {
       "component": "TextureRenderer",
@@ -665,7 +665,7 @@
     },
     {
       "component": "Scale",
-      "scale": "45.0 45.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "TextureRenderer",
@@ -688,7 +688,7 @@
     },
     {
       "component": "Scale",
-      "scale": "15.0 15.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "TextureRenderer",
@@ -739,7 +739,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "AABB",
@@ -767,11 +767,11 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "AABB",
-      "scale": "1.0 0.5",
+      "scale": "0.5 0.5",
       "layer": "9"
     },
     {
@@ -828,7 +828,7 @@
     },
     {
       "component": "Scale",
-      "scale": "30.0 30.0"
+      "scale": "32.0 32.0"
     },
     {
       "component": "Particle"
