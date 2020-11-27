@@ -38,8 +38,15 @@ void AI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;
+	float x;
+	data >> type >> range_ >> speed_ >> num_destinations_;
 
-	data >> type >> range_ >> speed_;
+	destinations_.resize(num_destinations_);
+
+	for (size_t i = 0; i < num_destinations_; i++) {
+		data >> destinations_[i].x >> destinations_[i].y;
+	}
+	
 	type_ = GeneralScripts::GetType(type);
 	alive_ = true;
 }
@@ -80,6 +87,7 @@ std::shared_ptr<Component> AI::Clone() {
 	cloned->num_destinations_ = num_destinations_;
 	cloned->destinations_.reserve(destinations_.size());
 	std::copy(std::begin(destinations_), std::end(destinations_), std::back_inserter(cloned->destinations_));
+	std::copy(std::begin(path_), std::end(path_), std::back_inserter(cloned->path_));
 	cloned->current_destination_ = cloned->destinations_.begin();
 
 	return cloned;

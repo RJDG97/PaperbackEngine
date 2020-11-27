@@ -58,7 +58,8 @@ namespace StagBeetle
 		{
 		case AI::AIState::Patrol:
 			//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Walk");
-			GeneralScripts::Patrol(obj);
+			if(obj->second->GetNumDes() > 1)
+				GeneralScripts::Patrol(obj);
 			// Animation (maybe check vector direction to determine which 
 			//			  side enemy is facing)
 			if (GeneralScripts::DetectPlayer(obj))
