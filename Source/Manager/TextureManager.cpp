@@ -264,7 +264,7 @@ bool TextureManager::UnloadTileset(std::string tileset_name) {
 
         tilesets_.erase(tileset_name);
 
-        std::cout << "Tileset " << tileset_name << "is unloaded" << std::endl;
+        std::cout << "Tileset " << tileset_name << " is unloaded" << std::endl;
         return true;
     }
 

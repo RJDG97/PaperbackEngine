@@ -58,6 +58,8 @@ void ImguiSystem::Init(){
     b_lock_entity = false;
     b_imguimode = false;
 
+    b_tex = b_audio = b_anim = false;
+
 
     selected_entity_ = nullptr;
 
@@ -147,13 +149,11 @@ void ImguiSystem::Update(float frametime) {
             if (b_showpop)
                 ImGui::OpenPopup("Save Confirmation");
 
-            PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
-            b_showpop = false;
+            PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files", b_showpop);
 
             if (b_addpath)
                 ImGui::OpenPopup("No Path Set");
-            PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
-            b_addpath = false;
+            PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'", b_addpath);
 
             // for the selection of entity
             if (!EditorMode() && camera_) {
@@ -303,6 +303,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::EndMenu();
         }
 
+        // placeholder
         if (ImGui::BeginMenu(ICON_FA_COGS " Control Panel")) {
 
             if (ImGui::TreeNode(ICON_FA_MUSIC " Audio Settings")) {
@@ -405,12 +406,12 @@ Camera* ImguiSystem::GetExistingSceneCamera() {
     return camera_;
 }
 
-std::string ImguiSystem::GetImageAdd() {
+std::string ImguiSystem::GetAssetAdd() {
 
     return img_to_add_;
 }
 
-void ImguiSystem::SetImageAdd(std::string image) {
+void ImguiSystem::SetAssetAdd(std::string image) {
 
     img_to_add_ = image;
 }
@@ -537,7 +538,7 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save, int multis
     return std::string(); // returns an empty string if user cancels/didnt select anything
 }
 
-void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
+void ImguiSystem::PopUpMessage(const char* windowName, const char* message, bool pop_up) {
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
 
     ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
@@ -550,6 +551,8 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
         ImGui::EndPopup();
     }
+
+    pop_up = false;
 }
 
 void ImguiSystem::DrawGrid() {
@@ -699,6 +702,34 @@ void ImguiSystem::ImguiHelp(const char* description, int symbol) {
         ImGui::EndTooltip();
     }
 }
+
+void ImguiSystem::DeSerializeJSON(const std::string& filename, rapidjson::Document& doc) {
+
+    std::ifstream input_file(filename.c_str());
+    DEBUG_ASSERT(input_file.is_open(), "File does not exist");
+
+    // Read each line separated by a '\n' into a stringstream
+    std::stringstream json_doc_buffer;
+    std::string input;
+
+    while (std::getline(input_file, input))
+        json_doc_buffer << input << "\n";
+
+    // Close the file (.json) after
+    input_file.close();
+
+    // Parse the stringstream into document (DOM) format
+    doc.Parse(json_doc_buffer.str().c_str());
+}
+
+bool ImguiSystem::CheckString(std::string path, const char* key) {
+
+    if (path.find(key) != path.npos)
+        return true;
+    return false;
+   
+}
+
 
 ImguiSystem::~ImguiSystem() {
 	

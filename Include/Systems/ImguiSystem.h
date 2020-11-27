@@ -47,7 +47,7 @@ public:
 	ImFont* bold_font_, *img_font_;
 
 	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset, b_editcomp, b_addtexture;
-	bool b_showtex;
+	bool b_showtex, b_tex, b_audio, b_anim;
 
 	ImguiSystem() {};
 
@@ -355,7 +355,7 @@ public:
 	\brief Shows a pop message with a simple confirmation from the user
 */
 /******************************************************************************/
-	void PopUpMessage(const char* windowName, const char* message);
+	void PopUpMessage(const char* windowName, const char* message, bool pop_up);
 
 /******************************************************************************/
 /*!
@@ -395,9 +395,13 @@ public:
 
 	Camera* GetExistingSceneCamera();
 
-	std::string GetImageAdd();
+	std::string GetAssetAdd();
 
-	void SetImageAdd(std::string image);
+	void SetAssetAdd(std::string image);
+
+	void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
+
+	bool CheckString(std::string path, const char* key);
 
 private:
 

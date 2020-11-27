@@ -40,16 +40,6 @@ public:
 	void Update() override;
 
 	/******************************************************************************/
-/*!
-	\fn DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc)
-
-	\brief Deserialise the texture json
-*/
-/******************************************************************************/
-
-	void DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc);
-
-	/******************************************************************************/
 	/*!
 		\fn LoadTextureJson(std::string level_name);
 
@@ -59,6 +49,8 @@ public:
 	void LoadTextureJson(std::string level_name);
 
 	void LoadAnimationJson(std::string level_name);
+
+	void LoadSoundJson(std::string level_name);
 
 	/******************************************************************************/
 	/*!
@@ -109,7 +101,7 @@ private:
 	std::vector<std::string> jsonfiles_;
 	std::string chosen_json_;
 
-	bool b_tex, b_anim, b_audio;
+	bool b_unload;
 
 };
 #endif 

@@ -8,15 +8,18 @@ void AssetConsoleWindow::Init() {
 	filesdel_ = {};
 	jsonfiles_ = {};
 
-	b_tex = false;
-	b_anim = false;
-	b_audio = false;
+	b_unload = false;
 }
 
 void AssetConsoleWindow::Update() {
 
 	if (imgui_->b_addtexture)
 		AddTextureAnimation();
+
+	if (b_unload)
+		ImGui::OpenPopup("Texture Unloaded");
+
+	imgui_->PopUpMessage("Texture Unloaded", "Texture has been unloaded from the engine", b_unload);
 }
 
 void AssetConsoleWindow::AddTextureAnimation() {
@@ -24,13 +27,13 @@ void AssetConsoleWindow::AddTextureAnimation() {
 	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_addtexture);
 	ImGui::Text("Select which files you want to update.");
 
-	ImGui::Checkbox("Texture", &b_tex);
-	ImGui::Checkbox("Audio", &b_audio);
-	ImGui::Checkbox("Animation", &b_anim);
+	ImGui::RadioButton("Texture", &imgui_->b_tex);
+	ImGui::RadioButton("Audio", &imgui_->b_audio);
+	ImGui::RadioButton("Animation", &imgui_->b_anim);
 
 	ImGui::Separator();
 
-	if (b_tex && imgui_->GetImageAdd().find(".png") != imgui_->GetImageAdd().npos) {
+	if (imgui_->b_tex) {
 		ImGui::Text("Choose File to modify");
 
 		SelectTextureJson();
@@ -44,31 +47,12 @@ void AssetConsoleWindow::AddTextureAnimation() {
 	ImGui::End();
 }
 
-void AssetConsoleWindow::DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc) {
-
-	std::ifstream input_file(filename.c_str());
-	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
-
-	// Read each line separated by a '\n' into a stringstream
-	std::stringstream json_doc_buffer;
-	std::string input;
-
-	while (std::getline(input_file, input))
-		json_doc_buffer << input << "\n";
-
-	// Close the file (.json) after
-	input_file.close();
-
-	// Parse the stringstream into document (DOM) format
-	doc.Parse(json_doc_buffer.str().c_str());
-}
-
 void AssetConsoleWindow::LoadTextureJson(std::string level_name) {
 
 	rapidjson::Document textures;
 	std::string path = "Resources/AssetsLoading/" + level_name + "_texture.json";
 
-	DeSerializeTextureJSON(path, textures);
+	imgui_->DeSerializeJSON(path, textures);
 
 	const rapidjson::Value& files_arr = textures;
 	DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
@@ -76,7 +60,7 @@ void AssetConsoleWindow::LoadTextureJson(std::string level_name) {
 
 	for (rapidjson::Value::ConstMemberIterator it = files_arr.MemberBegin(); it != files_arr.MemberEnd(); ++it) {
 
-		std::string tilename{ it->name.GetString() };
+		std::string tilename{ it->name.GetString()};
 		std::stringstream fileinfo;
 		fileinfo << it->value.GetString();
 
@@ -91,7 +75,11 @@ void AssetConsoleWindow::SelectTextureJson() {
 	std::string filename = {};
 	std::string file = {};
 
+	
+
 	if (ImGui::BeginCombo("##json", (chosen_json_.empty() ? "Choose File" : chosen_json_.c_str()))) {
+
+		jsonfiles_.clear();
 
 		for (auto& texjson : fs::directory_iterator("Resources/AssetsLoading")) {
 
@@ -106,6 +94,7 @@ void AssetConsoleWindow::SelectTextureJson() {
 					tex_info_.clear(); // clear the map before changing over to another json
 
 					LoadTextureJson(file);
+
 					chosen_json_ = texjson.path().generic_string().c_str();
 				}
 
@@ -114,6 +103,7 @@ void AssetConsoleWindow::SelectTextureJson() {
 
 			}
 		}
+
 		ImGui::EndCombo();
 	}
 }
@@ -130,9 +120,20 @@ void AssetConsoleWindow::DisplayJson() {
 
 					if (ImGui::TreeNode("Current Path of Texture:  %s", it->second.path.c_str())) {
 
+						if (ImGui::BeginDragDropTarget()) {
+
+							if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
+
+								if (payLoad->DataSize == sizeof(std::string))
+
+									it->second.path = *((std::string*)payLoad->Data);
+							}
+							ImGui::EndDragDropTarget();
+						}
+
 						if (ImGui::Button("Update")) {
 
-							std::string selectedpath = imgui_->OpenSaveDialog("(*.png) Spritesheets/Textures\0* .png\0", 1);
+							std::string selectedpath = imgui_->OpenSaveDialog("(*.png) Spritesheets/Textures\0* .png\0", 0);
 
 							if (!selectedpath.empty())
 								it->second.path = selectedpath;
@@ -140,19 +141,6 @@ void AssetConsoleWindow::DisplayJson() {
 						ImGui::TreePop();
 					}
 
-					if (ImGui::BeginDragDropTarget()) {
-
-						if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
-
-							if (payLoad->DataSize == sizeof(std::string)) {
-
-								std::string updatedpath = *((std::string*)payLoad->Data);
-
-								it->second.path = updatedpath;
-							}
-						}
-						ImGui::EndDragDropTarget();
-					}
 
 					if (ImGui::TreeNodeEx("Row & Columns")) {
 
@@ -183,7 +171,7 @@ void AssetConsoleWindow::DisplayJson() {
 
 					if (ImGui::BeginPopup("Sure?")) {
 						std::string del = it->first;
-						ImGui::Text("Removing Texture: %s\nAre You Sure?", it->first.c_str());
+						ImGui::Text("Removing Texture: %s\nMake Sure no object is using this texturer?", it->first.c_str());
 
 						imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
 						if (ImGui::Button("YES")) {
@@ -196,7 +184,17 @@ void AssetConsoleWindow::DisplayJson() {
 								--it;
 							}
 
-							filesdel_.push_back(del);
+							if (texture_->GetTextureMap().find(del) != texture_->GetTextureMap().end()) {
+								filesdel_.push_back(del);
+
+								for (int i = 0; i < filesdel_.size(); i++)
+									texture_->UnloadTileset(filesdel_[i]);
+
+								filesdel_.clear();
+
+								ImGui::OpenPopup("Texture has been unloaded");
+							}
+
 							ImGui::CloseCurrentPopup();
 						}
 
@@ -245,15 +243,8 @@ void AssetConsoleWindow::DisplayJson() {
 
 		filestream.close();
 
-		for (int i = 0; i < filesdel_.size(); i++)
-			texture_->UnloadTileset(filesdel_[i]);
-
-		filesdel_.clear();
-
 		for (int j = 0; j < jsonfiles_.size(); j++)
 			texture_->TextureBatchLoad(jsonfiles_[j]);
-
-		jsonfiles_.clear();
 	}
 }
 
@@ -263,20 +254,43 @@ void AssetConsoleWindow::AddNewTexture() {
 		TextureInfo newtex;
 		std::string folderName = {};
 		ImGui::Text("When a new texture is added in, Rows & Columns will be added with default value of 1\nUpdate it if needed");
-		ImGui::Text("Adding Texture Path: %s", imgui_->GetImageAdd().c_str());
+		ImGui::Text("Adding Texture Path: %s", imgui_->GetAssetAdd().c_str());
 		static char buffer[256];
 		memset(buffer, 0, sizeof(buffer));
 		strcpy_s(buffer, sizeof(buffer), folderName.c_str());
 
-		if (ImGui::InputTextWithHint("##newTexturename", "Enter a Name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
-			newtex.path = imgui_->GetImageAdd();
-			newtex.column = newtex.row = 1;
-			tex_info_[std::string(buffer)] = newtex;
+		if (!imgui_->GetAssetAdd().empty()) {
 
-			imgui_->SetImageAdd({});
-			newtex = {};
+			if (ImGui::InputTextWithHint("##newTexturename", "Enter a Name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+
+				if (!std::string(buffer).empty()) {
+
+					newtex.path = imgui_->GetAssetAdd();
+					newtex.column = newtex.row = 1;
+					tex_info_[std::string(buffer)] = newtex;
+
+					imgui_->SetAssetAdd({});
+					newtex = {};
+				}
+			}
+		}
+		else {
+			ImGui::Text("No Texture Set, Drag One here or to the add icon in the asset browser");
+
+			if (ImGui::BeginDragDropTarget()) {
+
+				if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
+
+					if (payLoad->DataSize == sizeof(std::string)) 
+
+						imgui_->SetAssetAdd(*((std::string*)payLoad->Data));
+				}
+				ImGui::EndDragDropTarget();
+			}
+
 		}
 	}
+
 }
 
 void AssetConsoleWindow::AddBlankJson() {

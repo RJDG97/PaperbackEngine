@@ -163,10 +163,10 @@ void AssetWindow::FileMenuBar() {
 
 				multifiles_ = MultiFileSelection(source_dir);
 				for (int i = 0; i < multifiles_.size(); i++)
-						fs::copy(multifiles_[i], destination_dir, fs::copy_options::skip_existing);
+					fs::copy(multifiles_[i], destination_dir, fs::copy_options::overwrite_existing);
 			}
 			else
-				fs::copy(source_dir, destination_dir, fs::copy_options::skip_existing); // only 1 file selected
+				fs::copy(source_dir, destination_dir, fs::copy_options::overwrite_existing); // only 1 file selected
 		}
 	}
 
@@ -174,6 +174,7 @@ void AssetWindow::FileMenuBar() {
 
 	ImGui::MenuItem(ICON_FA_TRASH);
 	imgui_->ImguiHelp("Trash Bin. WARNING:\n CANNOT UNDO so be careful", 0);
+	std::string file_del = {};
 
 	if (ImGui::BeginDragDropTarget()) {
 
@@ -183,14 +184,33 @@ void AssetWindow::FileMenuBar() {
 
 				path = *((std::string*)payLoad->Data);
 
-				if (fs::is_directory(path) && fs::is_empty(path) || fs::is_regular_file(path)) {
+				if (fs::is_directory(path) && fs::is_empty(path)) {
 					fs::remove(path);
 				}
 				else if (fs::is_directory(path) && !fs::is_empty(path))
 				{
 					b_deletefolder = true;
 					folder_to_del_ = path;
-				}				
+				}
+				else if (fs::is_regular_file(path) && imgui_->CheckString(path, "texture") && imgui_->CheckString(path, ".json") && !fs::is_empty(path)) {
+
+					rapidjson::Document file;
+
+					imgui_->DeSerializeJSON(path, file);
+
+					const rapidjson::Value& files_arr = file;
+					DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
+
+					for (rapidjson::Value::ConstMemberIterator it = files_arr.MemberBegin(); it != files_arr.MemberEnd(); ++it) {
+
+						file_del = it->name.GetString();
+
+						texture_->UnloadTileset(file_del);
+					}
+
+				}
+				else
+					fs::remove(path);
 			}
 		}
 
@@ -206,10 +226,18 @@ void AssetWindow::FileMenuBar() {
 
 				path = *((std::string*)payLoadtex->Data);
 
-				if (path.find(".png") != path.npos || path.find(".mp3") != path.npos ) {
+				if (imgui_->CheckString(path, ".png")) {
 
 					imgui_->b_addtexture = true;
-					imgui_->SetImageAdd(path);
+					imgui_->b_tex = true;
+					imgui_->SetAssetAdd(path);
+				}				
+				
+				if (imgui_->CheckString(path, ".mp3")) {
+
+					imgui_->b_addtexture = true;
+					imgui_->b_audio = true;
+					imgui_->SetAssetAdd(path);
 				}
 			}
 		}
@@ -250,7 +278,7 @@ void AssetWindow::DeleteWholeFolder() {
 	ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
 	if (ImGui::BeginPopupModal(ICON_FA_TRASH "Are you Sure?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-		ImGui::Text("Folder: "); ImGui::SameLine(0, 3); ImGui::TextColored(GOLDENORANGE, folder_to_del_.c_str()); ImGui::SameLine(0, 3);
+		ImGui::Text("Folder: "); ImGui::SameLine(0, 3); ImGui::TextColored(GOLDENORANGE, folder_to_del_.c_str());
 		ImGui::Text("is NOT EMPTY!\nYou sure you want to delete?\nThis cannot be undone!!!");
 
 		imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
