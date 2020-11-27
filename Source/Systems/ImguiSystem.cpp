@@ -155,8 +155,8 @@ void ImguiSystem::Update(float frametime) {
             PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
             b_addpath = false;
 
-            //if (camera_)
-            //  DrawGrid();
+            if (camera_)
+              DrawGrid();
 
             // for the selection of entity
             if (!EditorMode() && camera_) {
@@ -557,34 +557,42 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
 void ImguiSystem::DrawGrid() {
 
-    Vector2D topR = CORE->GetManager<AMap>()->GetTopRight() * CORE->GetGlobalScale();
-    Vector2D botL = CORE->GetManager<AMap>()->GetBottomLeft() * CORE->GetGlobalScale();
+    float global_scale = CORE->GetGlobalScale();
+    float cam_zoom = *camera_->GetCameraZoom();
 
-    Vector2D topWR = CORE->GetManager<AMap>()->GetTopRight();
-    Vector2D botWL = CORE->GetManager<AMap>()->GetBottomLeft();
+    float grid_spacing = global_scale * std::max( 1, 4 * static_cast<int>( 0.5f / cam_zoom));
 
-    //float width = topWR.x - botWL.x;
-    //float height = topWR.y - botWL.y;
+    std::vector<std::pair<glm::vec2, glm::vec2>> points;
 
-    float calW =((topR.x - botL.x)/2)/ (*camera_->GetCameraZoom());
-    float calH =((topR.y - botL.y)/2)/ (*camera_->GetCameraZoom());
+   for (float i = -global_scale * 100; i < global_scale * 100; i += grid_spacing) {
 
-   for (float i = -calW; i < calW; i += 60.0f) {
+       for (float j = -global_scale * 100; j < global_scale * 100; j += grid_spacing) {
 
-       for (float j = -calH; j < calH; j += 60.0f) {
+            Vector2D scaled_window_size{ win_->GetWinWidth() / cam_zoom, win_->GetWinHeight() / cam_zoom };
 
-          glm::vec2 xAxis{ i * (*camera_->GetCameraZoom()), -win_->GetWinWidth() };
-          glm::vec2 yAxis{ i * (*camera_->GetCameraZoom()), win_->GetWinWidth() };
-          std::vector<glm::vec2> lines = { xAxis, yAxis };
+            Vector2D bottom_left_edge = camera_->GetVector2DCameraPosition() - scaled_window_size;
+            Vector2D top_right_edge = camera_->GetVector2DCameraPosition() + scaled_window_size;
 
-          glm::vec2 xAxisH{ -win_->GetWinHeight(), j * (*camera_->GetCameraZoom()) };
-          glm::vec2 yAxisH{ win_->GetWinHeight(), j * (*camera_->GetCameraZoom()) };
-          std::vector<glm::vec2> vertlines = { xAxisH, yAxisH };
+            if (i < bottom_left_edge.x || i > top_right_edge.x ||
+                j < bottom_left_edge.y || j > top_right_edge.y)
+            {
+                continue;
+            }
 
-          graphics_->DrawDebugLine(lines, { 1.0f, 1.0f, 1.0f, 0.5f });
-          graphics_->DrawDebugLine(vertlines, { 1.0f, 1.0f, 1.0f, 0.5f });
+            points.push_back({ { i, -global_scale * 100 }, { i, global_scale * 100 } });
+            points.push_back({ { -global_scale * 100, j }, { global_scale * 100, j } });
 
+            if (points.size() == graphics_->GetBatchSize())
+            {
+                graphics_->DrawDebugLines(points, { 1.0f, 1.0f, 1.0f, 0.5f }, 1.0f);
+                points.clear();
+            }
        }
+   }
+
+   if (points.size() > 0)
+   {
+       graphics_->DrawDebugLines(points, { 1.0f, 1.0f, 1.0f, 0.5f }, 1.0f);
    }
 }
 

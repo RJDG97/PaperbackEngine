@@ -12,7 +12,7 @@ CoreEngine::CoreEngine() :
 	pause_{ false },
 	game_pause_{ false },
 	b_game_active_{ true },
-	global_scale_{ 60.0f }
+	global_scale_{ 64.0f }
 {
 }
 

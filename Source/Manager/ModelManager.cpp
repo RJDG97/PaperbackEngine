@@ -219,14 +219,19 @@ Model* ModelManager::AddTristripsModel(int slices, int stacks, std::string model
     return &models_[model_name];
 }
 
-Model* ModelManager::AddLinesModel(std::string model_name) {
+Model* ModelManager::AddLinesModel(std::string model_name, size_t size) {
 
     // Sets the position of the start and end of each line in a line model
 
-    std::vector<glm::vec2> pos_vtx { {-1.0f, -1.0f},
-                                     { 1.0f,  1.0f} };
+    std::vector<glm::vec2> pos_vtx;
+    std::vector<GLushort> idx_vtx;
 
-    std::vector<GLushort> idx_vtx { 0, 1 };
+    for (size_t i = 0; i < size * 2; ++i)
+    {
+        idx_vtx.push_back(i);
+        pos_vtx.push_back({ i, i });    //pos_vtx stuff doesn't matter since it will be data will be changed later on
+        pos_vtx.push_back({ i, i });
+    }
 
     // Generate a VAO handle to encapsulate the VBO(s)
 
@@ -256,8 +261,8 @@ Model* ModelManager::AddLinesModel(std::string model_name) {
     mdl.vaoid_ = vao_hdl;
     mdl.vboid_ = vbo_hdl;
     mdl.primitive_type_ = GL_LINES;
-    mdl.draw_cnt_ = 2;                              // number of vertices
-    mdl.primitive_cnt_ = 1;                         // number of GL_LINES
+    mdl.draw_cnt_ = static_cast<GLuint>(idx_vtx.size());    // number of vertices
+    mdl.primitive_cnt_ = idx_vtx.size() / 2;                // number of GL_LINES
     models_[model_name] = mdl;
 
     return &models_[model_name];

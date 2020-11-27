@@ -30,6 +30,11 @@ bool HasClickableAndActive(ComponentManager& mgr, EntityID id) {
     return true;
 }
 
+int GraphicsSystem::GetBatchSize()
+{
+    return batch_size_;
+}
+
 /*  _________________________________________________________________________ */
 /*! GraphicsSystem::Init
 
@@ -95,7 +100,7 @@ void GraphicsSystem::Init() {
 
     batch_size_ = 500;
 
-    graphic_models_["DebugModel"] = model_manager_->AddLinesModel("DebugModel");
+    graphic_models_["DebugModel"] = model_manager_->AddLinesModel("DebugModel", batch_size_);
     graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel");
     graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel");
     graphic_models_["UIModel"] = model_manager_->AddTristripsModel(1, 1, "UIModel");
@@ -993,43 +998,23 @@ GLuint GraphicsSystem::GetFramebuffer()
     return final_texture_;
 }
 
-void GraphicsSystem::DrawDebugRectangle(std::vector<glm::vec2> points, glm::vec4 color)
+void GraphicsSystem::DrawDebugLines(Points points, glm::vec4 color, float width)
 {
-    if (points.size() != 4)
-    {
-        M_DEBUG->WriteDebugMessage("Number of points passed into DebugSquare is not 4.\n");
-        return;
-    }
-
-    DrawDebugLine({ points[0], points[1] }, color);
-    DrawDebugLine({ points[1], points[2] }, color);
-    DrawDebugLine({ points[2], points[3] }, color);
-    DrawDebugLine({ points[3], points[0] }, color);
-}
-
-void GraphicsSystem::DrawDebugLine(std::vector<glm::vec2> points, glm::vec4 color)
-{
-    if (points.size() != 2)
-    {
-        M_DEBUG->WriteDebugMessage("Number of points passed into DebugLine is not 2.\n");
-        return;
-    }
-
     Shader* shader = graphic_shaders_["DebugShader"];
     Model* model = graphic_models_["DebugModel"];
 
     shader->Use();
     glBindVertexArray(model->vaoid_);
 
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glLineWidth(2.5f);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glLineWidth(width);
 
     shader->SetUniform("world_to_ndc_xform", *camera_system_->GetMainCamera()->GetCameraWorldToNDCTransform());
     shader->SetUniform("color", color);
     
-    glNamedBufferSubData(model->GetVBOHandle(), 0, sizeof(glm::vec2) * points.size(), points.data());
-    glDrawElements(GL_LINES, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glNamedBufferSubData(model->GetVBOHandle(), 0, sizeof(glm::vec2) * points.size() * 2, points.data());
+    glDrawElements(GL_LINES, static_cast<GLsizei>(points.size() * 2), GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
     shader->UnUse();
 }
