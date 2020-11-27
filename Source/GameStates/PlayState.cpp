@@ -17,6 +17,7 @@
 #include "Components/Motion.h"
 #include "Components/Name.h"
 #include "Components/AnimationRenderer.h"
+#include "Components/Motion.h"
 
 #include "Entity/ComponentTypes.h"
 
@@ -176,12 +177,11 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				continue;
 
 			InputController* InputController = it->second;
-			float power = 180.0f;
 
 			if (InputController->VerifyKey("pause", m->input_)) { // "Esc" key
 				CORE->ToggleCorePauseStatus(); // Disable physics update
 				CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
-				CORE->GetSystem<Collision>()->ToggleClickables();
+				CORE->GetSystem<Collision>()->ToggleClickables(1);
 
 				Message pause{ MessageIDTypes::BGM_PAUSE };
 				CORE->BroadcastMessage(&pause);
@@ -233,6 +233,8 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 				if (player_status && player_status->status_ != StatusType::INVISIBLE) {
 					//input group
+					float power = component_mgr_->GetComponent<Motion>(player_id)->force_;
+
 					if (InputController->VerifyKey("move_left", m->input_)) {
 
 						CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });

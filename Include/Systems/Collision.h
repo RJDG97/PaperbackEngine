@@ -382,7 +382,7 @@ public:
   \brief Helper function to set UI elements to be clickable
 */
 /******************************************************************************/
-	void ToggleClickables();
+	void ToggleClickables(size_t group);
 
 /******************************************************************************/
 /*!

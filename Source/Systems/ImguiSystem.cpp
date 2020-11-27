@@ -1,12 +1,16 @@
 #include "Systems/ImguiSystem.h"
 #include "Manager/Amap.h"
+
 #include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityWindow.h"
 #include "ImguiWindows/EntityPathWindow.h"
 #include "ImguiWindows/ArchetypeWindow.h"
 #include "ImguiWindows/SystemWindow.h"
 #include "ImguiWindows/AssetWindow.h"
+#include "ImguiWindows/AssetConsoleWindow.h"
 #include "ImguiWindows/TextureTilesWindow.h"
+
+#include "GameStates/MenuState.h"
 
 // Expose the Win32 API
 #include <commdlg.h>
@@ -21,6 +25,7 @@ void ImguiSystem::Init(){
     AddWindow<EntityWindow>();
     AddWindow<EntityPathWindow>();
     AddWindow<AssetWindow>();
+    AddWindow<AssetConsoleWindow>();
     AddWindow<TextureTilesWindow>();
     AddWindow<SystemWindow>();
 
@@ -37,7 +42,33 @@ void ImguiSystem::Init(){
     camera_ = nullptr;
     editor_ = factory_->GetLevel("Editor");
 
-    // Setup Dear ImGui context
+    //Imgui Window Bools
+    b_entitywin = true;
+    b_archetypewin = true;
+    b_component = true;
+    b_display = false;
+    b_editpath = false;
+    b_showpop = false;
+    b_asset = false;
+    b_editcomp = false;
+    b_addtexture = false;
+    b_showtex = false;
+    b_addpath = false;
+
+    b_lock_entity = false;
+    b_imguimode = false;
+
+
+    selected_entity_ = nullptr;
+
+    img_to_add_ = {};
+
+    scene_filter_ =
+        "(*.json) Paperback Engine Scene\0*.json\0"
+        "(*.*) All Files\0* *.*\0";
+
+//////////// Setup Dear ImGui context///////////////////////////
+
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
@@ -82,26 +113,6 @@ void ImguiSystem::Init(){
     dock_space_flags_ = ImGuiDockNodeFlags_PassthruCentralNode;
     window_flags_ = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
-    b_lock_entity = false;
-    b_imguimode = false;
-
-    //Imgui Window Bools
-    b_entitywin = true;
-    b_archetypewin = true;
-    b_component = true;
-    b_display = false;
-    b_editpath = false;
-    b_showpop = false;
-    b_asset = false;
-    b_editcomp = false;
-    b_addtexture = false;
-    b_showtex = false;
-
-    new_entity_ = nullptr;
-
-    scene_filter_ =
-    "(*.json) Paperback Engine Scene\0*.json\0"
-    "(*.*) All Files\0* *.*\0";
 }
 
 void ImguiSystem::Update(float frametime) {
@@ -110,8 +121,8 @@ void ImguiSystem::Update(float frametime) {
 	
     if (b_imguimode) {
         
-        ImguiInput();
-    	
+    	// if want to add shortcut, call fn here
+
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
@@ -139,6 +150,11 @@ void ImguiSystem::Update(float frametime) {
             PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
             b_showpop = false;
 
+            if (b_addpath)
+                ImGui::OpenPopup("No Path Set");
+            PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
+            b_addpath = false;
+
             //if (camera_)
             //  DrawGrid();
 
@@ -149,8 +165,8 @@ void ImguiSystem::Update(float frametime) {
 
                     Vector2D new_pos = input_->GetUpdatedCoords();
 
-                    selected_entity_ = collision_->SelectEntity(new_pos);
-                    new_entity_ = entities_->GetEntity(selected_entity_);
+                    selected_entity_id_ = collision_->SelectEntity(new_pos);
+                    selected_entity_ = entities_->GetEntity(selected_entity_id_);
                 }
             }
 
@@ -228,29 +244,35 @@ void ImguiSystem::ImguiMenuBar() {
         ImGui::PushFont(img_font_);
 
         if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
-            if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene", "Ctrl+O"))
+            if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene")) {
+                selected_entity_ = {};
                 OpenFile();
-            if (ImGui::MenuItem(ICON_FA_SAVE " Save Scene As...", "Ctrl+S")) {
+            }
+
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save Scene As...")) {
                 if (!editor_->entity_paths_.empty()) {
                     SaveFile();
                     b_showpop = true;
                 }
-                else {
-                    //TO:DO show pop up no paths set yet
-                }
+                else
+                    b_addpath = true;
             }
 
-            if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene"))
+            if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene")) {
+                selected_entity_ = {};
                 NewScene();
+            }
 
             ImGui::Separator();
+
             if (ImGui::MenuItem(ICON_FA_REPLY " Return to Menu")){
 
                 b_imguimode = false;
                 FACTORY->DestroyAllEntities();
-                new_entity_ = {};
+                selected_entity_ = {};
                 CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
             }
+
             if (ImGui::MenuItem(ICON_FA_POWER_OFF " Exit"))
                 CORE->SetGameActiveStatus(false);
             ImGui::EndMenu();
@@ -276,7 +298,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
             ImGui::Separator();
             ImGui::Checkbox("Toggle Asset Browser", & b_asset);
-            ImGui::Checkbox("Toggle Asset Json Window", &b_addtexture);
+            ImGui::Checkbox("Toggle Asset Console Window", &b_addtexture);
             ImGui::Checkbox("Toggle Texture Window", &b_showtex);
             ImGui::Separator();
             ImGui::Checkbox("See System Performance", &b_display);
@@ -335,14 +357,6 @@ void ImguiSystem::ImguiMenuBar() {
     ImGui::EndMenuBar();
 }
 
-
-void ImguiSystem::CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol) {
-
-    ImGui::PushStyleColor(ImGuiCol_Button, ButtonCol);
-    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, HoveredCol);
-    ImGui::PushStyleColor(ImGuiCol_ButtonActive, SelectCol);
-}
-
 bool ImguiSystem::GetImguiBool() {
 
     return b_imguimode;
@@ -360,12 +374,12 @@ std::string ImguiSystem::GetName() {
 
 EntityID ImguiSystem::GetSelectedEntity() {
 
-    return selected_entity_;
+    return selected_entity_id_;
 }
 
 void ImguiSystem::ResetSelectedEntity() {
 
-    new_entity_ = {};
+    selected_entity_ = {};
     b_lock_entity = false;
 }
 
@@ -381,28 +395,27 @@ void ImguiSystem::SetLockBool(bool debug) {
 
 Entity* ImguiSystem::GetEntity() {
 
-    return new_entity_;
+    return selected_entity_;
 }
 
 void ImguiSystem::SetEntity(Entity* newentity) {
 	
-    new_entity_ = newentity;
+    selected_entity_ = newentity;
 }
 
-void ImguiSystem::ImguiInput() {
+Camera* ImguiSystem::GetExistingSceneCamera() {
 
-	bool control = ImGui::IsKeyPressed(GLFW_KEY_LEFT_CONTROL) || ImGui::IsKeyPressed(GLFW_KEY_RIGHT_CONTROL);
-	//bool shift = ImGui::IsKeyPressed(GLFW_KEY_LEFT_SHIFT) || ImGui::IsKeyPressed(GLFW_KEY_RIGHT_SHIFT);
+    return camera_;
+}
 
-	if (control) {
-		
-		if (ImGui::IsKeyReleased(GLFW_KEY_O))
-            OpenFile();
-        if (ImGui::IsKeyPressed(GLFW_KEY_S))
-            SaveFile();
-		if (ImGui::IsKeyPressed(GLFW_KEY_N))
-            NewScene();
-	}
+std::string ImguiSystem::GetImageAdd() {
+
+    return img_to_add_;
+}
+
+void ImguiSystem::SetImageAdd(std::string image) {
+
+    img_to_add_ = image;
 }
 
 void ImguiSystem::SaveArchetype() {
@@ -475,10 +488,10 @@ void ImguiSystem::NewScene() {
     factory_->DeSerializeLevelEntities("Resources/EntityConfig/editor.json");
 }
 
-std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {
+std::string ImguiSystem::OpenSaveDialog(const char* filter, int save, int multiselect) {
     OPENFILENAMEA ofn;
-    CHAR szFile[260] = { 0 };
-
+    CHAR szFile[2048] = { 0 };
+    std::string data = {};
     // init OPENFILENAME
     ZeroMemory(&ofn, sizeof(OPENFILENAME));
     ofn.lStructSize = sizeof(OPENFILENAME);
@@ -487,12 +500,39 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {
     ofn.nMaxFile = sizeof(szFile);
     ofn.lpstrFilter = filter;
     ofn.nFilterIndex = 1;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+    if (save)
+        ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_EXPLORER | OFN_NOCHANGEDIR;
+    if (!save && !multiselect)
+        ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_EXPLORER | OFN_NOCHANGEDIR;
+    if (!save && multiselect)
+        ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_EXPLORER | OFN_ALLOWMULTISELECT | OFN_NOCHANGEDIR;
+
     if (!save) {
-        if (GetOpenFileNameA(&ofn) == TRUE)
-            return ofn.lpstrFile;
+
+        if (GetOpenFileNameA(&ofn) == TRUE) {
+
+            size_t len = strlen(ofn.lpstrFile);
+
+            if (ofn.lpstrFile[len + 1] == 0)
+                return ofn.lpstrFile;
+            else
+            {
+                data = ofn.lpstrFile;
+                ofn.lpstrFile += len + 1;
+
+                while (ofn.lpstrFile[0]) {
+                    data = data + "|" + ofn.lpstrFile;
+
+                    len = strlen(ofn.lpstrFile);
+                    ofn.lpstrFile += len + 1;
+                }
+                return data;
+            }
+        }
     }
     else {
+
         if (GetSaveFileNameA(&ofn) == TRUE)
             return ofn.lpstrFile;
     }
@@ -500,15 +540,11 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save) {
     return std::string(); // returns an empty string if user cancels/didnt select anything
 }
 
-std::string ImguiSystem::EditString(std::string filepath, const char* startpos) {
-    return filepath.substr(filepath.find(startpos));
-}
-
 void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
 
     ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-    if (ImGui::BeginPopup(windowName)) {
+    if (ImGui::BeginPopupModal(windowName, NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
         ImGui::Text(message);
 
@@ -527,8 +563,8 @@ void ImguiSystem::DrawGrid() {
     Vector2D topWR = CORE->GetManager<AMap>()->GetTopRight();
     Vector2D botWL = CORE->GetManager<AMap>()->GetBottomLeft();
 
-    float width = topWR.x - botWL.x;
-    float height = topWR.y - botWL.y;
+    //float width = topWR.x - botWL.x;
+    //float height = topWR.y - botWL.y;
 
     float calW =((topR.x - botL.x)/2)/ (*camera_->GetCameraZoom());
     float calH =((topR.y - botL.y)/2)/ (*camera_->GetCameraZoom());
@@ -559,15 +595,14 @@ Camera* ImguiSystem::GetCamera() {
         return it->second;
     else
         return nullptr;
-
 }
 
 void ImguiSystem::VolumeControl() {
 
     if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
-        sound_->PauseSound();
+        sound_->PauseSound("all", true, true);
     if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
-        sound_->MuteSound();
+        sound_->MuteSound("all", true, true);
 
     ImGui::Separator();
 
@@ -579,23 +614,12 @@ void ImguiSystem::VolumeControl() {
     ImGui::PopItemWidth(); ImGui::SameLine(0, 3);
     ImGui::Text(ICON_FA_VOLUME_UP);
     sound_->SetVolume(inputVol);
-
-}
-
-bool ImguiSystem::EditorMode()
-{
-    return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow);
-}
-
-Camera* ImguiSystem::GetExistingSceneCamera() {
-
-    return camera_;
 }
 
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
 
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-    std::string warning;
+    std::string warning = {};
 
     if (entity) {
         std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entity->GetComponent(ComponentTypes::NAME));
@@ -619,11 +643,11 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
 
         if (ImGui::Button("OK")) {
-            if (!new_entity_->GetID() && !entity) 
-                entities_->DeleteArchetype(new_entity_); //delete archetype
-            else if (new_entity_->GetID() && !entity)
-                entities_->DeleteEntity((new_entity_)); //delete entities
-            else if (!new_entity_->GetID() && entity) // entity: to detect if deleting component & check if its an entity/archetype
+            if (!selected_entity_->GetID() && !entity) 
+                entities_->DeleteArchetype(selected_entity_); //delete archetype
+            else if (selected_entity_->GetID() && !entity)
+                entities_->DeleteEntity((selected_entity_)); //delete entities
+            else if (!selected_entity_->GetID() && entity)
                 entity->RemoveComponent(component); // delete component from archetype
 
             SetEntity(nullptr);
@@ -638,6 +662,22 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
 
         ImGui::EndPopup();
     }
+}
+
+std::string ImguiSystem::EditString(std::string filepath, const char* startpos) {
+    return filepath.substr(filepath.find(startpos));
+}
+
+bool ImguiSystem::EditorMode() {
+
+    return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow);
+}
+
+void ImguiSystem::CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol) {
+
+    ImGui::PushStyleColor(ImGuiCol_Button, ButtonCol);
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, HoveredCol);
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive, SelectCol);
 }
 
 void ImguiSystem::ImguiHelp(const char* description, int symbol) {

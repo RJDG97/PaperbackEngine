@@ -30,6 +30,7 @@
 #include "Components/LogicComponent.h"
 #include "Components/Emitter.h"
 #include "Components/Particle.h"
+#include "Components/SoundEmitter.h"
 
 #include "Components/AI.h"
 
@@ -134,6 +135,7 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("Inventory", new ComponentCreator<Inventory>(ComponentTypes::INVENTORY));
 	comp_mgr_->AddComponentCreator("Particle", new ComponentCreator<Particle>(ComponentTypes::PARTICLE));
 	comp_mgr_->AddComponentCreator("Emitter", new ComponentCreator<Emitter>(ComponentTypes::EMITTER));
+	comp_mgr_->AddComponentCreator("SoundEmitter", new ComponentCreator<SoundEmitter>(ComponentTypes::SOUNDEMITTER));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");

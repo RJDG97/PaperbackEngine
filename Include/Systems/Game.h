@@ -9,6 +9,9 @@
 #include "Components/BasicAI.h"
 #include "Components/InputController.h"
 #include "Manager/ComponentManager.h"
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 class GameState;
 
@@ -142,12 +145,14 @@ public:
 /******************************************************************************/
 	virtual void SendMessageD(Message* m) override;
 
+	std::vector<std::string> LoadAllTextureJson();
+
 private:
 	bool debug_;
 
 	// stack to hold the states
 	std::vector<GameState*> states_;
-
+	std::vector<std::string> files_to_load_;
 	// for the game loop
 	bool b_running_;
 
@@ -162,6 +167,7 @@ private:
 	using InputControllerType = CMap<InputController>;
 	using InputControllerIt = InputControllerType::MapTypeIt;
 	InputControllerType* input_controller_arr_;
+
 
 /******************************************************************************/
 /*!

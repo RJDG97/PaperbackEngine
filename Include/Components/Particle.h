@@ -11,6 +11,7 @@ class Particle : public Component {
 
 	bool alive_;
 	float lifetime_;
+	float initial_lifetime_;
 	EntityID spawner_;
 
 public:
@@ -80,5 +81,23 @@ public:
 */
 /******************************************************************************/
 	bool IsAlive() const;
+
+/******************************************************************************/
+/*!
+  \fn GetLifetime()
+
+  \brief Gets the lifetime of the particle
+*/
+/******************************************************************************/
+	float GetLifetime();
+
+/******************************************************************************/
+/*!
+  \fn SetLifetime()
+
+  \brief Sets the new lifetime of the particle
+*/
+/******************************************************************************/
+	void SetLifetime(float lifetime);
 };
 #endif

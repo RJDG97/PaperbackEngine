@@ -114,7 +114,9 @@
     },
     {
       "component": "Motion",
-      "mass": "5.0"
+      "mass": "5.0",
+      "force": "200.0",
+      "alive": "1.0"
     },
     {
       "component": "Scale",
@@ -780,10 +782,10 @@
       "alive": "1"
     }
    ],
-  "TestEmitter": [
+  "ParticleEmitter": [
     {
       "component": "Name",
-      "name": "TestEmitter"
+      "name": "ParticleEmitter"
     },
     {
       "component": "Transform",
@@ -814,6 +816,7 @@
     {
       "component": "Motion",
       "mass": "1.0",
+      "force": "0.0",
       "alive": "0.0"
     },
     {
@@ -829,6 +832,15 @@
     },
     {
       "component": "Particle"
+    }
+   ],
+   "SoundEmitter": [
+    {
+      "component": "Name",
+      "name": "SoundEmitter"
+    },
+    {
+      "component": "SoundEmitter"
     }
    ]
 }

@@ -13,9 +13,7 @@ void TextureTilesWindow::Init() {
 
 void TextureTilesWindow::Update() {
 
-	size_t counter = 0;
-
-	float windowW = ImGui::GetContentRegionAvailWidth(), windowH = ImGui::GetContentRegionAvail().y;
+	int counter = 0;
 
 	if (imgui_->b_showtex) {
 		ImGui::Begin("Texture Tiles", &imgui_->b_showtex, ImGuiWindowFlags_MenuBar);
@@ -23,6 +21,7 @@ void TextureTilesWindow::Update() {
 		ImGui::BeginMenuBar();
 		static ImGuiTextFilter filter;
 		filter.Draw(ICON_FA_FILTER, 250.0f);
+
 		if (ImGui::Selectable(ICON_FA_PLUS ICON_FA_IMAGE))
 			imgui_->b_addtexture = true;
 		if (ImGui::IsItemHovered())
@@ -41,6 +40,7 @@ void TextureTilesWindow::Update() {
 				ImGuiStyle& style = ImGui::GetStyle();
 				float win_vis = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
 				ImVec2 buttonsize = ImVec2{ 64, 64 };
+
 				ImGui::PushID(counter);
 				ImGui::ImageButton(texID, buttonsize, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
 
@@ -62,7 +62,6 @@ void TextureTilesWindow::Update() {
 				ImGui::Text(selectedtex_.c_str());
 				ImGui::EndDragDropSource();
 			}
-
 		}
 		ImGui::End();
 	}

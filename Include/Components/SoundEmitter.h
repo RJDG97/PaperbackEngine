@@ -1,104 +1,109 @@
-#ifndef _CLICKABLE_H_
-#define _CLICKABLE_H_
+#pragma once
+#ifndef _SOUND_EMITTER_H_
+#define _SOUND_EMITTER_H_
 
-#include "Entity/Entity.h" 
+#include "Entity/Entity.h"
+#include "Components/IComponent.h"
 #include "MathLib/Vector2D.h"
-#include "IComponent.h"
 #include <sstream>
-#include <memory>
 
-class Clickable : public Component {
-	Vector2D scale_; // double check if needed
-	Vector2D top_right_;
-    Vector2D bottom_left_;
-	bool collided_, active_; // double check if needed
-	size_t index_;
-	size_t group_;
+// Defines a single line that emits sound 
+struct SoundLine {
+
+	Vector2D start_, end_;
+};
+
+class SoundEmitter : public Component {
+
+	friend class SoundSystem;
+
+	std::string sound_name_;
+	size_t num_sound_lines_;
+	std::vector<SoundLine> sound_lines_;
 
 public:
-	friend class Collision;
+
 
 /******************************************************************************/
 /*!
-  \fn Clickable()
+  \fn Emitter()
 
-  \brief Constructor for Clickable that defaults the data members of the
-		 component
+  \brief Constructor for Emitter
 */
 /******************************************************************************/
-	Clickable();
+	SoundEmitter();
 
 /******************************************************************************/
 /*!
-  \fn ~Clickable()
+  \fn ~Emitter()
 
-  \brief Destructor for Clickable that removes the component from the
-		 Collision system aabb map
+  \brief Destructor for Emitter
 */
 /******************************************************************************/
-	~Clickable();
-
-/******************************************************************************/
-/*!
-  \fn GetBottomLeft()
-
-  \brief Returns the bottom left coordinates of the component
-*/
-/******************************************************************************/
-	Vector2D GetBottomLeft() const { 
-		return bottom_left_;
-	}
-
-/******************************************************************************/
-/*!
-  \fn GetTopRight()
-
-  \brief Returns the top right coordinates of the component
-*/
-/******************************************************************************/
-	Vector2D GetTopRight() const {
-		return top_right_;
-	}
-
-/******************************************************************************/
-/*!
-  \fn SetBottomLeft()
-
-  \brief Sets the bottom left coordinates of the component
-*/
-/******************************************************************************/
-	void SetBottomLeft(const Vector2D bottom_left) { 
-		bottom_left_ = bottom_left;
-	}
-
-/******************************************************************************/
-/*!
-  \fn SetTopRight()
-
-  \brief Sets the top right coordinates of the component
-*/
-/******************************************************************************/
-	void SetTopRight(const Vector2D& top_right) {
-		top_right_ = top_right;
-	}
-
-/******************************************************************************/
-/*!
-  \fn GetActive()
-
-  \brief Get active status
-*/
-/******************************************************************************/
-	bool GetActive();
+	~SoundEmitter();
 
 /******************************************************************************/
 /*!
   \fn Init()
 
-  \brief Adds the component itself to the Collision System Clickable map
+  \brief
 */
 /******************************************************************************/
 	void Init();
+
+/******************************************************************************/
+/*!
+  \fn GetMinDist()
+
+  \brief Returns the minimum distance to one of the sound lines
+*/
+/******************************************************************************/
+	float GetMinDist(const Vector2D& pos);
+
+/******************************************************************************/
+/*!
+  \fn GetSoundName()
+
+  \brief Returns the name of the sound file
+*/
+/******************************************************************************/
+	std::string GetSoundName() const;
+
+/******************************************************************************/
+/*!
+  \fn SetSoundName()
+
+  \brief Returns the name of the sound file
+*/
+/******************************************************************************/
+	void SetSoundName(const std::string& name);
+
+/******************************************************************************/
+/*!
+  \fn AddSoundLine()
+
+  \brief Adds a sound line
+*/
+/******************************************************************************/
+	void AddSoundLine(const Vector2D& start, const Vector2D& end);
+
+/******************************************************************************/
+/*!
+  \fn RemoveBackSoundLine()
+
+  \brief Removes the last sound line in the vector
+*/
+/******************************************************************************/
+	void RemoveBackSoundLine();
+
+/******************************************************************************/
+/*!
+  \fn GetSoundLines()
+
+  \brief Returns reference to vector of sound lines
+*/
+/******************************************************************************/
+	std::vector<SoundLine>& GetSoundLines();
 
 /******************************************************************************/
 /*!
@@ -113,7 +118,7 @@ public:
 /*!
   \fn SerializeClone()
 
-  \brief Serialises a component as a clone into JSON format
+  \brief Serialises a component into JSON format
 */
 /******************************************************************************/
 	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
@@ -132,7 +137,6 @@ public:
   \fn DeSerializeClone()
 
   \brief Reads data from a stringstream and stores them into the data members
-		 of cloned component
 */
 /******************************************************************************/
 	void DeSerializeClone(std::stringstream& data) override;
@@ -145,6 +149,7 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
 };
 
 #endif

@@ -69,6 +69,7 @@ void LogicComponent::DeSerialize(std::stringstream& data) {
 void LogicComponent::DeSerializeClone(std::stringstream& data) {
 	
 	// should just clone from archetype
+	(void)data;
 }
 
 

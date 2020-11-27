@@ -33,6 +33,7 @@
 #include "Components/Inventory.h"
 #include "Components/Particle.h"
 #include "Components/Emitter.h"
+#include "Components/SoundEmitter.h"
 
 template <typename T>
 class CMap
@@ -238,7 +239,7 @@ private:
 using ComponentManager = CManager<
 	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight, Camera,
 	TextRenderer, InputController, TextureRenderer, AnimationRenderer, ParentChild, LogicComponent, Inventory,
-	Emitter, Particle
+	Emitter, Particle, SoundEmitter
 >;
 
 

@@ -1,4 +1,5 @@
 #include "ImguiWindows\AssetWindow.h"
+#include <cstring>
 
 void AssetWindow::Init() {
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
@@ -6,16 +7,11 @@ void AssetWindow::Init() {
 	path_selection_ = "Resources";
 
 	folder_to_del_ = {};
-	img_to_add_ = {};
-	chosen_json_ = {};
 
-	filesdel_ = {};
-	jsonfiles_ = {};
+	multifiles_ = {};
 
 	b_create = false;
 	b_makefolder = false;
-	b_tex = false;
-	b_anim = false;
 
 }
 
@@ -43,9 +39,6 @@ void AssetWindow::Update() {
 	if (b_deletefolder)
 		ImGui::OpenPopup(ICON_FA_TRASH "Are you Sure?");
 	DeleteWholeFolder();
-
-	if (imgui_->b_addtexture)
-		AddTextureAnimation();
 }
 
 void AssetWindow::FileDirectoryCheck(fs::path filedirectory) {
@@ -122,9 +115,10 @@ void AssetWindow::CheckFileType() {
 
 void AssetWindow::MakeNewFolder() {
 
-	ImGui::Begin("Add Folder", &b_create);
+	if (b_makefolder) 
+		ImGui::OpenPopup("Add Folder");
 
-	if (b_makefolder) {
+	if (ImGui::BeginPopup("Add Folder")) {
 
 		std::string folderName;
 		char buffer[256];
@@ -141,9 +135,12 @@ void AssetWindow::MakeNewFolder() {
 
 			b_makefolder = false;
 			b_create = false;
+
+			ImGui::CloseCurrentPopup();
 		}
+
+		ImGui::EndPopup();
 	}
-	ImGui::End();
 }
 
 void AssetWindow::FileMenuBar() {
@@ -158,18 +155,25 @@ void AssetWindow::FileMenuBar() {
 
 	if (ImGui::MenuItem(ICON_FA_COPY) && !path_selection_.empty()) {
 
-		std::string source_dir = imgui_->OpenSaveDialog("(*.*) All Files\0* *.*\0", 0);
+		std::string source_dir = imgui_->OpenSaveDialog("(*.*) All Files\0* *.*\0", 0, 1);
+		std::string destination_dir = path_selection_.generic_string();
 
 		if (!source_dir.empty()) {
 
-			std::string destination_dir = path_selection_.generic_string();
-			fs::copy(source_dir, destination_dir, fs::copy_options::skip_existing);
+			if (source_dir.find("|") != source_dir.npos) {
+
+				multifiles_ = MultiFileSelection(source_dir);
+				for (int i = 0; i < multifiles_.size(); i++)
+						fs::copy(multifiles_[i], destination_dir, fs::copy_options::skip_existing);
+			}
+			else
+				fs::copy(source_dir, destination_dir, fs::copy_options::skip_existing); // only 1 file selected
 		}
 	}
 
-	imgui_->ImguiHelp("Copy File to Current Directory", 0);
+	imgui_->ImguiHelp("Copy File(s) to Current Directory", 0);
 
-	ImGui::Text(ICON_FA_TRASH);
+	ImGui::MenuItem(ICON_FA_TRASH);
 	imgui_->ImguiHelp("Trash Bin. WARNING:\n CANNOT UNDO so be careful", 0);
 
 	if (ImGui::BeginDragDropTarget()) {
@@ -194,7 +198,7 @@ void AssetWindow::FileMenuBar() {
 		ImGui::EndDragDropTarget();
 	}
 
-	ImGui::MenuItem(FileString(ICON_FA_PLUS, ICON_FA_IMAGE).c_str());
+	ImGui::MenuItem(ICON_FA_PLUS ICON_FA_IMAGE);
 	imgui_->ImguiHelp("Add in New Texture", 0);
 	if (ImGui::BeginDragDropTarget()) {
 		if (const ImGuiPayload* payLoadtex = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
@@ -206,7 +210,7 @@ void AssetWindow::FileMenuBar() {
 				if (path.find(".png") != path.npos) {
 
 					imgui_->b_addtexture = true;
-					img_to_add_ = path;
+					imgui_->SetImageAdd(path);
 				}
 			}
 		}
@@ -227,7 +231,6 @@ void AssetWindow::DisplayFolders(float window_width, float window_height) {
 
 	FileDirectoryCheck("Resources");
 	ImGui::EndChild();
-
 }
 
 void AssetWindow::DisplayFolderFiles(float window_width, float window_height) {
@@ -240,7 +243,6 @@ void AssetWindow::DisplayFolderFiles(float window_width, float window_height) {
 	CheckFileType();
 
 	ImGui::EndChild();
-
 }
 
 void AssetWindow::DeleteWholeFolder() {
@@ -274,283 +276,31 @@ void AssetWindow::DeleteWholeFolder() {
 	}
 }
 
-void AssetWindow::DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc) {
+std::vector<std::string> AssetWindow::MultiFileSelection(std::string appended_files) {
 
-	std::ifstream input_file(filename.c_str());
-	DEBUG_ASSERT(input_file.is_open(), "File does not exist");
+	std::vector<std::string> selectedfiles = {};
+	char* nexttoken = {}; // to store the remaining words (for strtok_s use)
 
-	// Read each line separated by a '\n' into a stringstream
-	std::stringstream json_doc_buffer;
-	std::string input;
+	char files[2048];
+	memset(files, 0, sizeof(files));
+	strcpy_s(files, sizeof(files), appended_files.c_str());
 
-	while (std::getline(input_file, input))
-		json_doc_buffer << input << "\n";
+	char* token = strtok_s(files, "|", &nexttoken); // get the directory
 
-	// Close the file (.json) after
-	input_file.close();
+	std::string directory = token, tempdir = token;
 
-	// Parse the stringstream into document (DOM) format
-	doc.Parse(json_doc_buffer.str().c_str());
-}
+	while (token != NULL) {
 
-void AssetWindow::LoadTextureJson(std::string level_name) {
-
-	rapidjson::Document textures;
-	std::string path = "Resources/AssetsLoading/" + level_name + "_texture.json";
-
-	DeSerializeTextureJSON(path, textures);
-
-	const rapidjson::Value& files_arr = textures;
-	DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
-
-
-	for (rapidjson::Value::ConstMemberIterator it = files_arr.MemberBegin(); it != files_arr.MemberEnd(); ++it) {
-
-		std::string tilename{ it->name.GetString() };
-		std::stringstream fileinfo;
-		fileinfo << it->value.GetString();
-		
-		TextureInfo tex;
-		fileinfo >> tex.path >> tex.column >> tex.row;
-
-		tex_info_[tilename] = tex;
-	}
-}
-
-void AssetWindow::AddTextureAnimation() {
-
-	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_addtexture);
-
-	ImGui::Checkbox("Texture", &b_tex);
-	ImGui::Checkbox("Animation", &b_anim);
-
-	// choose the json file to change to add to
-	if (b_tex) {
-		ImGui::Text("Choose File to modify");
-		SelectTextureJson();
-
-		// display json file info
-		DisplayJson();
-
-		if (ImGui::CollapsingHeader("Add Blank Json File")) {
-			std::string folderName;
-			char filebuffer[256];
-			memset(filebuffer, 0, sizeof(filebuffer));
-			strcpy_s(filebuffer, sizeof(filebuffer), folderName.c_str());
-
-			ImGui::Text("New Files will be reflected in the dropdown above and in the asset browser");
-			if (ImGui::InputTextWithHint("##row", "Enter FileName & press ENTER", filebuffer, sizeof(filebuffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
-
-				if (!std::string(filebuffer).empty()) {
-
-					std::string pathtext = filebuffer;
-					fs::path filepath = std::string("Resources/AssetsLoading/" + pathtext + "_texture.json").c_str();
-					std::ofstream destfile(filepath, std::ios::binary | std::ios::app);
-
-					destfile << "{\n\n}";
-					destfile.close();
-				}
-			}
+		if (directory != token) {
+			tempdir += "\\" + std::string(token);
+			selectedfiles.push_back(tempdir);
+			tempdir = directory;
 		}
 
-		if (!chosen_json_.empty())
-			AddNewTexture();
+		token = strtok_s(NULL, "|", &nexttoken);
 	}
 
-	ImGui::End();
-
-}
-
-void AssetWindow::SelectTextureJson() {
-	std::string filename = {};
-	std::string file = {};
-
-	if (ImGui::BeginCombo("##json", (chosen_json_.empty() ? "Choose File" : chosen_json_.c_str()))) {
-
-		for (auto& texjson : fs::directory_iterator("Resources/AssetsLoading")) {
-
-			if (fs::is_regular_file(texjson) && texjson.path().extension() == ".json" && texjson.path().filename().generic_string().find("texture") != texjson.path().filename().generic_string().npos) {
-
-				filename = texjson.path().filename().generic_string().c_str();
-
-				if (ImGui::Selectable(filename.c_str())) {
-
-					if (filename.find("_") != filename.npos)
-						file = filename.substr(0, filename.find("_"));
-					else
-						file = filename.substr(0, filename.find(texjson.path().extension().generic_string().c_str()));
-
-					tex_info_.clear(); // clear the map before changing over to another json
-					LoadTextureJson(file);
-					chosen_json_ = texjson.path().generic_string().c_str();
-				}
-
-				if (filename.find("_") != filename.npos) {
-					file = filename.substr(0, filename.find("_"));
-					jsonfiles_.push_back(file);
-				}
-			}
-		}
-		ImGui::EndCombo();
-	}
-}
-
-void AssetWindow::DisplayJson() {
-	if (!chosen_json_.empty()) {
-		if (ImGui::TreeNodeEx((chosen_json_ + " details:").c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
-
-			for (auto it = tex_info_.begin(); it != tex_info_.end(); ++it) {
-
-				if (ImGui::TreeNodeEx(it->first.c_str())) {
-
-					if (ImGui::TreeNode("Current Path of Texture:  %s", it->second.path.c_str())) {
-
-						if (ImGui::Button("Update")) {
-
-							std::string selectedpath = imgui_->OpenSaveDialog("(*.png) Spritesheets/Textures\0* .png\0", 1);
-
-							if (!selectedpath.empty())
-								it->second.path = selectedpath;
-						}
-						ImGui::TreePop();
-					}
-
-					if (ImGui::BeginDragDropTarget()) {
-
-						if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
-
-							if (payLoad->DataSize == sizeof(std::string)) {
-
-								std::string updatedpath = *((std::string*)payLoad->Data);
-
-								it->second.path = updatedpath;
-							}
-						}
-						ImGui::EndDragDropTarget();
-					}
-
-					if (ImGui::TreeNodeEx("Row & Columns")) {
-
-						static char bufferR[256];
-						static char bufferC[256];
-
-						ImGui::Text("Number of Columns: %d, Number of Rows: %d", it->second.column, it->second.row);
-
-						ImGui::PushItemWidth(150.0f);
-						ImGui::Text("Columns: "); ImGui::SameLine(0, 3);
-						if (ImGui::InputText("##col", bufferC, sizeof(bufferC), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
-							std::string colinput = bufferC;
-							it->second.column = std::stoi(colinput);
-						}
-
-						ImGui::Text("Rows: "); ImGui::SameLine(0, 3);
-						if (ImGui::InputText("##row", bufferR, sizeof(bufferR), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
-							std::string rowinput = bufferR;
-							it->second.row = std::stoi(rowinput);
-						}
-
-						ImGui::PopItemWidth();
-						ImGui::TreePop();
-					}
-
-					if (ImGui::Button("Remove"))
-						ImGui::OpenPopup("Sure?");
-
-					if (ImGui::BeginPopup("Sure?")) {
-						std::string del = it->first;
-						ImGui::Text("Removing Texture: %s\nAre You Sure?", it->first.c_str());
-
-						imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
-						if (ImGui::Button("YES")) {
-
-							if (it == tex_info_.begin())
-								it = tex_info_.erase(it);
-							else {
-
-								it = tex_info_.erase(it);
-								--it;
-							}
-
-							filesdel_.push_back(del);
-							ImGui::CloseCurrentPopup();
-						}
-
-						ImGui::PopStyleColor(3);
-						ImGui::SameLine(0, 3);
-						if (ImGui::Button("Cancel"))
-							ImGui::CloseCurrentPopup();
-
-						ImGui::EndPopup();
-					}
-
-					if (ImGui::Button("Load into Editor"))
-						texture_->CreateTileset(it->second.path.c_str(), it->second.column, it->second.row, it->first.c_str());
-
-					ImGui::TreePop();
-					break;
-				}
-			}
-
-			ImGui::TreePop();
-		}
-	}
-
-	ImGui::Separator();
-
-	if (ImGui::Button("Save & Reload Texture")) {
-
-		rapidjson::StringBuffer sb;
-		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
-
-		std::string despath = chosen_json_;
-
-		std::ofstream filestream(despath);
-		if (filestream.is_open()) {
-
-			writer.StartObject();
-
-			for (auto fileit = tex_info_.begin(); fileit != tex_info_.end(); ++fileit) {
-
-				writer.Key(fileit->first.c_str());
-				writer.String((fileit->second.path + " " + std::to_string(fileit->second.column) + " " + std::to_string(fileit->second.row)).c_str());
-			}
-
-			writer.EndObject();
-			filestream << sb.GetString();
-		}
-
-		filestream.close();
-
-		for (int i = 0; i < filesdel_.size(); i++) 
-			texture_->UnloadTileset(filesdel_[i]);
-
-		filesdel_.clear();
-
-		for (int j = 0; j < jsonfiles_.size(); j++)
-			texture_->TextureBatchLoad(jsonfiles_[j]);
-	}
-}
-
-void AssetWindow::AddNewTexture() {
-	if (ImGui::CollapsingHeader("Add New Texture")) {
-		TextureInfo newtex;
-		std::string folderName = {};
-		ImGui::Text("When a new texture is added in, Rows & Columns will be added with default value of 1\nUpdate it if needed");
-		ImGui::Text("Adding Texture Path: %s", img_to_add_.c_str());
-		static char buffer[256];
-		memset(buffer, 0, sizeof(buffer));
-		strcpy_s(buffer, sizeof(buffer), folderName.c_str());
-
-		if (ImGui::InputTextWithHint("##newTexturename", "Enter a Name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
-			newtex.path = img_to_add_;
-			newtex.column = newtex.row = 1;
-			tex_info_[std::string(buffer)] = newtex;
-
-			img_to_add_ = {};
-			newtex = {};
-		}
-	}
-
+	return selectedfiles;
 }
 
 std::string AssetWindow::FileString(std::string icon, std::string file_name) {
@@ -562,6 +312,5 @@ std::string AssetWindow::DirectoryName(fs::directory_entry directory) {
 
 	std::string tempPath = directory.path().generic_string();
 	return tempPath.substr(tempPath.find_last_of("/") + 1);
-
 }
 

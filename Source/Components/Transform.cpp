@@ -10,6 +10,8 @@
 Transform::Transform() :
 	position_{ },
 	rotation_{ },
+	rotation_speed_{ },
+	rotation_range_{ },
 	offset_{ },
 	aabb_offset_{}
 {}
@@ -114,6 +116,31 @@ Vector2D Transform::GetOffsetAABBPos() const {
 
 	return position_ + aabb_offset_;
 }
+
+
+float Transform::GetRotationSpeed() const {
+	
+	return rotation_speed_;
+}
+
+
+void Transform::SetRotationSpeed(const float& new_speed) {
+	
+	rotation_speed_ = new_speed;
+}
+
+
+Vector2D Transform::GetRotationRange() const {
+	
+	return rotation_range_;
+}
+
+
+void Transform::SetRotationRange(const Vector2D& new_range) {
+
+	rotation_range_ = new_range;
+}
+
 
 std::shared_ptr<Component> Transform::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning Transform Component\n");

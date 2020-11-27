@@ -18,7 +18,7 @@ void ArchetypeWindow::Update() {
 
 		ImGui::Begin("Archetypes", &imgui_->b_archetypewin);
 
-		if (ImGui::CollapsingHeader("Available Archetypes")) {
+		if (ImGui::CollapsingHeader("Available Archetypes", ImGuiTreeNodeFlags_DefaultOpen)) {
 
 			AvaliableArchetypes();
 
@@ -141,7 +141,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 void ArchetypeWindow::NoCameraPopUp() {
 
-	if (ImGui::BeginPopup("No Camera")) {
+	if (ImGui::BeginPopupModal("No Camera", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
 		ImGui::Text("There is no Active Camera in the scene");
 		ImGui::Text("Do you want to spawn one in?");

@@ -29,6 +29,9 @@ public:
 	using StatusMapType = CMap<Status>;
 	using StatusIt = StatusMapType::MapTypeIt;
 
+	using ParticleType = CMap<Particle>;
+	using ParticleIt = ParticleType::MapTypeIt;
+
 /******************************************************************************/
 /*!
   \fn ChangeVelocity()
@@ -38,15 +41,6 @@ public:
 */
 /******************************************************************************/
 	void ChangeVelocity(Message* m);
-
-/******************************************************************************/
-/*!
-  \fn TextureHandler()
-
-  \brief Handles the change of textures depending on conditions
-*/
-/******************************************************************************/
-	void TextureHandler(MotionIt motion);
 
 /******************************************************************************/
 /*!
@@ -107,6 +101,7 @@ private:
 	TransformType* transform_arr_;
 	MotionType* motion_arr_;
 	StatusMapType* status_arr_;
+	ParticleType* particle_arr_;
 
 	using LogicComponentType = CMap<LogicComponent>;
 	using LogicIt = LogicComponentType::MapTypeIt;

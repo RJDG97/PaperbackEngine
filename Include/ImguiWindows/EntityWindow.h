@@ -146,18 +146,26 @@ public:
 
 	void RemoveComponent(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component);
 
-	void DraggingEntities();
+	void DragEntity();
+
+	void DragEntityCheckBox();
+
+	void SelectEntityComponent();
+
+	void EmitterInput(float& emitter_var, float default_val, std::string input_label, float start_val, float end_val, std::string button_label = ICON_FA_UNDO);
 
 private:
+
+	WindowsSystem* win_;
+	InputSystem* input_;
 	ImguiSystem* imgui_;
+	Collision* collision_;
+	CameraSystem* camera_;
 	EntityManager* entities_;
 	TextureManager* texture_;
 	GraphicsSystem* graphics_;
 	AnimationManager* animation_;
 	ComponentManager* component_;
-	WindowsSystem* win_;
-	InputSystem* input_;
-	Collision* collision_;
 	EntityManager::EntityIdMapTypeIt entityIT;
 
 	Vector2D originalVec_;
@@ -165,8 +173,9 @@ private:
 	const char* AIstates_[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
 	const char* AItype_[3]{ "StagBeetle", "Mite", "Hornet"};
 	const char* Playerstatus_[4]{ "None", "Invisible", "Hit", "Burrow"};
+	const char* emiiterstatus_[2] = {"Dead", "Alive" };
 
-	bool b_draw = false, b_addtex;
+	bool b_draw = false;
 
 };
 #endif
