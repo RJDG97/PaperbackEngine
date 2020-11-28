@@ -226,6 +226,21 @@ void SoundSystem::PauseSound(std::string file_id, bool status, bool all) {
 	}
 }
 
+void SoundSystem::RemoveSound(std::string name) {
+
+	auto channel_it = channel_library_.find(name);
+	auto sound_it = sound_library_.find(name);
+
+	if (channel_it != channel_library_.end()) {
+		
+		channel_library_.erase(channel_it);
+	}
+	if (sound_it != sound_library_.end()) {
+		
+		sound_library_.erase(sound_it);
+	}
+}
+
 void SoundSystem::RemoveCompletedChannel() {
 
 	// Iterate through all completed channels
