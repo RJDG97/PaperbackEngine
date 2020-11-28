@@ -12,6 +12,7 @@
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
 #include "Manager/AMap.h"
+#include "Manager/TransitionManager.h"
 
 #include "Engine/Core.h" //FOR TESTING
 
@@ -37,9 +38,8 @@ void MenuState::Init(std::string)
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
 	CORE->ResetCorePauseStatus();
-	// Entities created within cannot be checked against directly (No * to entity)
-
 	FACTORY->LoadLevel("Menu");
+	CORE->GetSystem<GraphicsSystem>()->EnableLighting(false);
 
 	MessageBGM_Play msg{ "MenuDefault" };
 	CORE->BroadcastMessage(&msg);
