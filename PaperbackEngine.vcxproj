@@ -198,6 +198,7 @@
     <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp" />
     <ClCompile Include="Source\Manager\AMap.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
+    <ClCompile Include="Source\Manager\DialogueManager.cpp" />
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
     <ClCompile Include="Source\Manager\ForcesManager.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="Include\Manager\AMap.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\ComponentManager.h" />
+    <ClInclude Include="Include\Manager\DialogueManager.h" />
     <ClInclude Include="Include\Manager\EntityManager.h" />
     <ClInclude Include="Include\Manager\FontManager.h" />
     <ClInclude Include="Include\Manager\ForcesManager.h" />

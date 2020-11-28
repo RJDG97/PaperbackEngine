@@ -68,6 +68,8 @@ class GraphicsSystem : public ISystem {
 
     using Points = std::vector<std::pair<glm::vec2, glm::vec2>>;
 
+    bool lighting_enabled_;
+
 public:
 
 /******************************************************************************/
@@ -390,6 +392,7 @@ void RemoveTextRendererComponent(EntityID id);
 
     glm::vec2 GetVignetteSize();
     void DrawDebugLines(Points points, glm::vec4 color, float width);
+    void EnableLighting(bool value);
 
     using TextRendererType = CMap<TextRenderer>;
     using TextRendererIt = TextRendererType::MapTypeIt;

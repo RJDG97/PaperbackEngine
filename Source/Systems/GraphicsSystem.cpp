@@ -254,10 +254,14 @@ void GraphicsSystem::Draw() {
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
 
-    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(lighting_texture_, 1.0f);
-    glBlendFunc(GL_ONE, GL_ONE);
-    DrawFinalTexture(addition_texture_, 0.6f);
+    if (lighting_enabled_)
+    {
+        glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+        DrawFinalTexture(lighting_texture_, 1.0f);
+        glBlendFunc(GL_ONE, GL_ONE);
+        DrawFinalTexture(addition_texture_, 0.6f);
+    }
+
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -1027,4 +1031,9 @@ void GraphicsSystem::SetVignetteSize(glm::vec2 size)
 glm::vec2 GraphicsSystem::GetVignetteSize() {
    
     return vignette_size;
+}
+
+void GraphicsSystem::EnableLighting(bool value)
+{
+    lighting_enabled_ = value;
 }

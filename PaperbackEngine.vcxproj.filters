@@ -419,6 +419,9 @@
     <ClCompile Include="Source\Components\SoundEmitter.cpp">
       <Filter>Entity\Components\SoundEmitter</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\DialogueManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -711,6 +714,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\SoundEmitter.h">
       <Filter>Entity\Components\SoundEmitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\DialogueManager.h">
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
