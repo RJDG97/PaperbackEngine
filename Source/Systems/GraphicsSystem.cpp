@@ -806,7 +806,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]->GetID());
 
     Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale();
-    Vector2D obj_scale = scale->scale_;
+    Vector2D obj_scale = scale->scale_ * 0.7f;
 
     std::vector<glm::vec2> gauge_vertices;
     std::vector<glm::vec2> water_vertices;
@@ -865,6 +865,56 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Shine_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
+}
+
+void GraphicsSystem::ChangeLayer(AnimationRenderer* anim_renderer, int layer) {
+
+    anim_renderer->layer_ = layer;
+
+    for (auto it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ++it)
+    {
+        if (it->second == anim_renderer)
+        {
+            worldobj_renderers_in_order_.erase(it);
+            worldobj_renderers_in_order_.insert({ layer, anim_renderer });
+            return;
+        }
+    }
+
+    for (auto it = uirenderers_in_order_.begin(); it != uirenderers_in_order_.end(); ++it)
+    {
+        if (it->second == anim_renderer)
+        {
+            uirenderers_in_order_.erase(it);
+            uirenderers_in_order_.insert({ layer, anim_renderer });
+            return;
+        }
+    }
+}
+
+void GraphicsSystem::ChangeLayer(TextureRenderer* tex_renderer, int layer) {
+
+    tex_renderer->layer_ = layer;
+
+    for (auto it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ++it)
+    {
+        if (it->second == tex_renderer)
+        {
+            worldobj_renderers_in_order_.erase(it);
+            worldobj_renderers_in_order_.insert({ layer, tex_renderer });
+            return;
+        }
+    }
+
+    for (auto it = uirenderers_in_order_.begin(); it != uirenderers_in_order_.end(); ++it)
+    {
+        if (it->second == tex_renderer)
+        {
+            uirenderers_in_order_.erase(it);
+            uirenderers_in_order_.insert({ layer, tex_renderer });
+            return;
+        }
+    }
 }
 
 void GraphicsSystem::FlipTextureX(IRenderer* i_renderer) {
@@ -1036,4 +1086,27 @@ glm::vec2 GraphicsSystem::GetVignetteSize() {
 void GraphicsSystem::EnableLighting(bool value)
 {
     lighting_enabled_ = value;
+}
+
+std::vector<EntityID> GraphicsSystem::EntitiesWithThisTexture(GLuint handle)
+{
+    std::vector<EntityID> entities;
+
+    for (auto it = texture_renderer_arr_->begin(); it != texture_renderer_arr_->end(); ++it)
+    {
+        if (it->second->texture_handle_ == handle)
+        {
+            entities.push_back(it->first);
+        }
+    }
+
+    for (auto it = anim_renderer_arr_->begin(); it != anim_renderer_arr_->end(); ++it)
+    {
+        if (it->second->texture_handle_ == handle)
+        {
+            entities.push_back(it->first);
+        }
+    }
+    
+    return entities;
 }

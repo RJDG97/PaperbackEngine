@@ -120,7 +120,7 @@
     },
     {
       "component": "Scale",
-      "scale": "32.0 64.0"
+      "scale": "64.0 128.0"
     },
     {
       "component": "Health",
@@ -190,7 +190,7 @@
     },
     {
       "component": "Scale",
-      "scale": "128.0 128.0"
+      "scale": "256.0 256.0"
     },
     {
       "component": "AnimationRenderer",
@@ -401,7 +401,7 @@
     },
     {
       "component": "Scale",
-      "scale": "128.0 128.0"
+      "scale": "256.0 256.0"
     },
     {
       "component": "Health",
@@ -472,7 +472,7 @@
     },
     {
       "component": "Scale",
-      "scale": "128.0 128.0"
+      "scale": "256.0 256.0"
     },
     {
       "component": "Health",

@@ -269,6 +269,24 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
+    \fn ChangeLayer(AnimationRenderer* anim_renderer, int layer)
+
+    \brief Change layer of animation renderer
+*/
+/******************************************************************************/
+    void ChangeLayer(AnimationRenderer* anim_renderer, int layer);
+
+/******************************************************************************/
+/*!
+    \fn ChangeLayer(TextureRenderer* tex_renderer, int layer)
+
+    \brief Change layer of texture renderer
+*/
+/******************************************************************************/
+    void ChangeLayer(TextureRenderer* tex_renderer, int layer);
+
+/******************************************************************************/
+/*!
     \fn FlipTextureX(IRenderer* i_renderer)
 
     \brief Flips the texture renderered in the x axis
@@ -393,6 +411,7 @@ void RemoveTextRendererComponent(EntityID id);
     glm::vec2 GetVignetteSize();
     void DrawDebugLines(Points points, glm::vec4 color, float width);
     void EnableLighting(bool value);
+    std::vector<EntityID> EntitiesWithThisTexture(GLuint handle);
 
     using TextRendererType = CMap<TextRenderer>;
     using TextRendererIt = TextRendererType::MapTypeIt;
