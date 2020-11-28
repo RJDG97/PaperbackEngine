@@ -65,6 +65,7 @@ class GraphicsSystem : public ISystem {
     std::map<GLuint, GLuint> texture_handles;
 
     glm::vec2 vignette_size;
+    glm::vec2 max_vignette_size;
 
     using Points = std::vector<std::pair<glm::vec2, glm::vec2>>;
 
@@ -409,6 +410,11 @@ void RemoveTextRendererComponent(EntityID id);
     void SetVignetteSize(glm::vec2 size);
 
     glm::vec2 GetVignetteSize();
+
+    void SetMaxVignetteSize(glm::vec2 size);
+
+    glm::vec2 GetMaxVignetteSize();
+
     void DrawDebugLines(Points points, glm::vec4 color, float width);
     void EnableLighting(bool value);
     std::vector<EntityID> EntitiesWithThisTexture(GLuint handle);

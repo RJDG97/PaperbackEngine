@@ -24,7 +24,7 @@
       "component": "TextureRenderer",
       "texture": "Menu_Start_0",
       "layer": "2",
-      "ui": "1"
+      "ui": "0"
     }
   ],
   "button": [
@@ -52,7 +52,7 @@
       "component": "TextureRenderer",
       "texture": "Menu_HowToPlay_0",
       "layer": "2",
-      "ui": "1"
+      "ui": "0"
     }
   ],
   "button": [
@@ -80,7 +80,7 @@
       "component": "TextureRenderer",
       "texture": "Menu_Editor_0",
       "layer": "2",
-      "ui": "1"
+      "ui": "0"
     }
   ],
   "button": [
@@ -108,7 +108,7 @@
       "component": "TextureRenderer",
       "texture": "Menu_Quit_0",
       "layer": "2",
-      "ui": "1"
+      "ui": "0"
     }
   ]
 }

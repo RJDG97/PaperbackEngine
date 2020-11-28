@@ -5,13 +5,16 @@
 
 TransitionManager::TransitionManager() : 
 	transition_speed_{ },
-	max_size_{ 640.0f, 360.0f },
+	max_size_{ 1280.0f, 720.0f },
+	max_clear_size_{ 640.0f, 360.0f },
 	current_size_{ },
 	current_transition_{ nullptr },
 	next_state_{ nullptr },
 	begin_{ false },
 	end_{ false }
-{ }
+{ 
+
+}
 
 
 void TransitionManager::Init() {
@@ -37,7 +40,9 @@ void TransitionManager::ResetTransition(const std::string& id, GameState* next_s
 	if (it != transition_map_.end()) {
 	
 		current_size_ = {};
-		graphics_system_->SetVignetteSize(current_size_);
+		clear_current_size_ = {};
+		graphics_system_->SetVignetteSize(clear_current_size_);
+		graphics_system_->SetMaxVignetteSize(current_size_);
 		current_transition_ = &*it->second;
 		transition_speed_ = max_size_ / current_transition_->default_transition_timer_;
 		current_transition_->current_texture_ = current_transition_->texture_sequence_.begin();
@@ -72,11 +77,18 @@ bool TransitionManager::DelayTransition(const float& frametime) {
 void TransitionManager::OpenTransition(const float& frametime) {
 
 	current_size_ += transition_speed_ * frametime;
+	clear_current_size_ = { std::max(0.0f, current_size_.x - 320.0f), std::max(0.0f, current_size_.y - 180.0f) };
+
+	if (clear_current_size_.x > max_clear_size_.x && clear_current_size_.y > max_clear_size_.y) {
+
+		clear_current_size_ = max_clear_size_;
+	}
 
 	if (current_size_.x > max_size_.x && current_size_.y > max_size_.y) {
 
 		begin_ = false;
 		current_size_ = max_size_;
+		clear_current_size_ = max_clear_size_;
 
 		// If the current transition is null, reset
 		if (current_transition_->current_texture_ == current_transition_->texture_sequence_.end()) {
@@ -86,24 +98,33 @@ void TransitionManager::OpenTransition(const float& frametime) {
 		}
 	}
 
-	graphics_system_->SetVignetteSize(current_size_);
+	graphics_system_->SetMaxVignetteSize(current_size_);
+	graphics_system_->SetVignetteSize(clear_current_size_);
 }
 
 
 void TransitionManager::CloseTransition(const float& frametime) {
 
 	current_size_ -= transition_speed_ * frametime;
+	clear_current_size_ = { std::max(0.0f, current_size_.x - 320.0f), std::max(0.0f, current_size_.y - 180.0f) };
+
+	if (clear_current_size_.x > max_clear_size_.x && clear_current_size_.y > max_clear_size_.y) {
+
+		clear_current_size_ = max_clear_size_;
+	}
 
 	if (current_size_.x < 0.0f && current_size_.y < 0.0f) {
 
 		end_ = false;
 		current_size_ = { 0.0f, 0.0f };
+		clear_current_size_ = { 0.0f, 0.0f };
 
 		if (++current_transition_->current_texture_ != current_transition_->texture_sequence_.end()) {
 			
 			graphics_system_->ChangeTexture(texture_arr_->GetComponent(1), *current_transition_->current_texture_);
 			current_transition_->dark_timer_ = current_transition_->default_dark_timer_;
 		}
+
 		else {
 			
 			// change state
@@ -116,7 +137,8 @@ void TransitionManager::CloseTransition(const float& frametime) {
 		}
 	}
 
-	graphics_system_->SetVignetteSize(current_size_);
+	graphics_system_->SetMaxVignetteSize(current_size_);
+	graphics_system_->SetVignetteSize(clear_current_size_);
 }
 
 

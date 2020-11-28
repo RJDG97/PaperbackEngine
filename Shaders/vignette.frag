@@ -32,6 +32,11 @@ void main () {
 		fFragClr = texture(uTex2d, vTexCoord) * opacity;
 	}
 	
+	else if (dist > max_dist)
+	{
+		fFragClr = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	}
+
 	else
 	{
 		float intensity = 1 - (dist - clear_dist) / (max_dist - clear_dist);

@@ -118,7 +118,9 @@ private:
 
 	glm::vec2 transition_speed_;
 	glm::vec2 max_size_;
+	glm::vec2 max_clear_size_;
 	glm::vec2 current_size_;
+	glm::vec2 clear_current_size_;
 	std::shared_ptr<GraphicsSystem> graphics_system_;
 	std::shared_ptr<ComponentManager> component_manager_;
 	SceneTransitions transition_map_;

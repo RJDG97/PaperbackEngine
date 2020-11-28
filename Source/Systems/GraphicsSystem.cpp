@@ -130,8 +130,6 @@ void GraphicsSystem::Init() {
     //For UI and text
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
 
-    vignette_size = { 600.0f, 320.0f};
-
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
 
@@ -332,9 +330,9 @@ void GraphicsSystem::DrawFinalTextureWithVignette(GLuint* texture, float opacity
     glBindTexture(GL_TEXTURE_2D, graphic_models_["BoxModel"]->vaoid_);
     glBindTextureUnit(0, *texture);
 
-    graphic_shaders_["VignetteShader"]->SetUniform("center", glm::vec2{ windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
+    graphic_shaders_["VignetteShader"]->SetUniform("center", { windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
     graphic_shaders_["VignetteShader"]->SetUniform("clear_size", vignette_size);
-    graphic_shaders_["VignetteShader"]->SetUniform("max_size", glm::vec2{ windows_system_->GetWinWidth(),  windows_system_->GetWinHeight()});
+    graphic_shaders_["VignetteShader"]->SetUniform("max_size", max_vignette_size);// glm::vec2{ windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
     graphic_shaders_["VignetteShader"]->SetUniform("uTex2d", 0);
     graphic_shaders_["VignetteShader"]->SetUniform("opacity", opacity);
 
@@ -1081,6 +1079,16 @@ void GraphicsSystem::SetVignetteSize(glm::vec2 size)
 glm::vec2 GraphicsSystem::GetVignetteSize() {
    
     return vignette_size;
+}
+
+void GraphicsSystem::SetMaxVignetteSize(glm::vec2 size)
+{
+    max_vignette_size = size;
+}
+
+glm::vec2 GraphicsSystem::GetMaxVignetteSize() {
+
+    return max_vignette_size;
 }
 
 void GraphicsSystem::EnableLighting(bool value)
