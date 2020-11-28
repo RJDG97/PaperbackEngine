@@ -10,6 +10,7 @@ void AssetConsoleWindow::Init() {
 
 	b_tex = false;
 	b_anim = false;
+	b_audio = false;
 }
 
 void AssetConsoleWindow::Update() {
@@ -24,6 +25,7 @@ void AssetConsoleWindow::AddTextureAnimation() {
 	ImGui::Text("Select which files you want to update.");
 
 	ImGui::Checkbox("Texture", &b_tex);
+	ImGui::Checkbox("Audio", &b_audio);
 	ImGui::Checkbox("Animation", &b_anim);
 
 	ImGui::Separator();
@@ -219,7 +221,7 @@ void AssetConsoleWindow::DisplayJson() {
 
 	ImGui::Separator();
 
-	if (ImGui::Button("Save & Reload Texture")) {
+	if (ImGui::Button("Save & Reload Textures")) {
 
 		rapidjson::StringBuffer sb;
 		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
@@ -234,7 +236,7 @@ void AssetConsoleWindow::DisplayJson() {
 			for (auto fileit = tex_info_.begin(); fileit != tex_info_.end(); ++fileit) {
 
 				writer.Key(fileit->first.c_str());
-				writer.String((fileit->second.path + " " + std::to_string(fileit->second.column) + " " + std::to_string(fileit->second.row) + "\n" ).c_str());
+				writer.String((fileit->second.path + " " + std::to_string(fileit->second.column) + " " + std::to_string(fileit->second.row)).c_str());
 			}
 
 			writer.EndObject();

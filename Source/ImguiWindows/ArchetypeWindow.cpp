@@ -100,7 +100,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 			if (opened) {
 
 				if (ImGui::Button(ICON_FA_PLUS_SQUARE " Spawn Entity")) {
-					if (imgui_->GetExistingSceneCamera()) {
+					if (imgui_->GetExistingSceneCamera()) {  
 						entities_->CloneArchetype(entityIT->first);
 						imgui_->SetEntity(nullptr);
 					}
