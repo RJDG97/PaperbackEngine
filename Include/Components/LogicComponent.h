@@ -10,7 +10,6 @@ class LogicComponent : public Component
 {
 public:
 	// Function pointer called "LogicUpdate" that takes an entity id (of parent)
-	// and a pointer to the component manager to avoid dynamic_pointer_cast
 	using LogicUpdate = void(*)(const EntityID& parent_id);
 	using LogicMap = std::map<std::string, LogicUpdate>;
 

@@ -3,6 +3,7 @@
 #include "GameStates/GameState.h"
 #include "Systems/InputSystem.h"
 #include "Engine/Core.h"
+#include "GameStates/SplashState.h"
 #include "GameStates/MenuState.h"
 #include "GameStates/PlayState.h"
 #include "Systems/Debug.h"
@@ -50,7 +51,7 @@ void Game::Init()
 	for (int i = 0; i < files_to_load_.size(); ++i)
 		CORE->GetManager<TextureManager>()->TextureBatchLoad(files_to_load_[i]);
 
-	ChangeState(&m_MenuState);
+	ChangeState(&m_SplashState);
 
 	M_DEBUG->WriteDebugMessage("Game System Init\n");
 }

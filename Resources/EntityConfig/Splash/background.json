@@ -1,5 +1,5 @@
 {
-  "LoseBackground": [
+  "background": [
     {
       "component": "Transform",
       "position": "0.0 0.0",
@@ -7,7 +7,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Lose_Background_0",
+      "texture": "Splash_DigipenLogo",
       "layer": "0",
       "ui": "0"
     },
@@ -15,6 +15,10 @@
       "component": "ParentChild",
       "counter": "1",
       "child": "Camera"
+    },
+    {
+      "component": "Scale",
+      "scale": "350.0 200.0"
     }
   ]
 }

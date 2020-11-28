@@ -52,6 +52,9 @@ void PlayState::Init(std::string)
 	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel("Play");
 	FACTORY->LoadLevel("Pause");
+
+	// Not sure...
+	CORE->GetSystem<GraphicsSystem>()->EnableLighting(true);
 	
 	MessageBGM_Play msg{ "GameBGM" };
 	CORE->BroadcastMessage(&msg);
