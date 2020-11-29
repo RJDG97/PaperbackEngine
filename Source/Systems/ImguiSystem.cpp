@@ -245,7 +245,9 @@ void ImguiSystem::ImguiMenuBar() {
         if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
             if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene")) {
                 selected_entity_ = {};
+                editor_->entity_paths_.clear();
                 OpenFile();
+                LoadJsonPaths(current_loaded_path_);
             }
 
             if (ImGui::MenuItem(ICON_FA_SAVE " Save")) {
@@ -257,6 +259,8 @@ void ImguiSystem::ImguiMenuBar() {
                 else
                     b_add_path = true;
             }
+            if (ImGui::IsItemHovered())
+                ImguiHelp(("Current Set Path " + current_loaded_path_).c_str(), 0);
 
             if (ImGui::MenuItem("Save Scene As...")) {
                 if (!editor_->entity_paths_.empty()) {
@@ -447,6 +451,24 @@ void ImguiSystem::SetAssetAdd(std::string image) {
     img_to_add_ = image;
 }
 
+void ImguiSystem::LoadJsonPaths(std::string path) {
+
+    rapidjson::Document doc;
+    DeSerializeJSON(path, doc);
+
+    const rapidjson::Value& files_arr = doc;
+    DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
+    
+    for (rapidjson::Value::ConstMemberIterator it = files_arr.MemberBegin(); it != files_arr.MemberEnd(); ++it) {
+
+        std::string archetype_name{ it->name.GetString() };
+        std::string filepath{ it->value.GetString() };
+
+        editor_->AddNewEntityPath(archetype_name, filepath);
+    }
+
+}
+
 void ImguiSystem::SaveArchetype() {
     std::string path = OpenSaveDialog(scene_filter_, 1);
     if (!path.empty())
@@ -588,16 +610,14 @@ void ImguiSystem::DrawGrid() {
             Vector2D top_right_edge = camera_->GetVector2DCameraPosition() + scaled_window_size;
 
             if (i < bottom_left_edge.x || i > top_right_edge.x ||
-                j < bottom_left_edge.y || j > top_right_edge.y)
-            {
+                j < bottom_left_edge.y || j > top_right_edge.y) {
                 continue;
             }
 
             points.push_back({ { i, -global_scale * 100 }, { i, global_scale * 100 } });
             points.push_back({ { -global_scale * 100, j }, { global_scale * 100, j } });
 
-            if (points.size() == graphics_->GetBatchSize())
-            {
+            if (points.size() == graphics_->GetBatchSize()) {
                 graphics_->DrawDebugLines(points, { 0.8f, 0.8f, 0.8f, 0.5f }, 1.0f);
                 points.clear();
             }

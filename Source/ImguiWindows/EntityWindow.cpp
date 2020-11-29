@@ -236,7 +236,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					if (ImGui::CollapsingHeader("Texture Component")) {
 						std::string path = {};
 
-						entitytexture->GetCurrentTextureName().empty() ? ImGui::Text("Drag a texture here to add") : ImGui::Text(entitytexture->GetCurrentTextureName().c_str());
+						entitytexture->GetCurrentTextureName().empty() ? ImGui::Text("No Texture has been set") : ImGui::Text(entitytexture->GetCurrentTextureName().c_str());
 
 						if (ImGui::BeginDragDropTarget()) {
 
@@ -545,6 +545,9 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 								ImGui::TreePop();
 							}
 						}
+
+						RemoveComponent("Delete Parent Child Component", std::string("Parent Child Component"), entitycomponent.first, entityparentchild);
+
 					}
 				}
 					break;
@@ -564,6 +567,8 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 							ImGui::TextColored(REDHOVERED, "Dead");
 
 						ImGui::Text("Particle Lifespan: %.2f", entityparticle->GetLifetime());
+
+						RemoveComponent("Delete Particle Component", std::string("Particle Component"), entitycomponent.first, entityparticle);
 					}
 				}
 					break;
@@ -783,6 +788,8 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 								ImGui::TreePop();
 							}
 						}
+
+						RemoveComponent("Delete Emitter Component", std::string("Emitter Component"), entitycomponent.first, entityemitter);
 					}
 				}
 					break;
@@ -795,75 +802,78 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					std::vector<SoundLine> input_sound_lines = entitySound->GetSoundLines();
 					SoundLine newline = entitySound->GetNewSoundLine();
 
-
 					std::string path = {};
 					size_t counter = 0;
-					ImGui::Text("Current Audio:");
-					if (ImGui::BeginCombo("##sounds", input_sound_name.c_str())) {
 
-						for (auto it = sound_->GetSoundLibrary().begin(); it != sound_->GetSoundLibrary().end(); ++it) {
-							
-							if (ImGui::Selectable(it->first.c_str()))
-								entitySound->SetSoundName(it->first.c_str());
+					if (ImGui::CollapsingHeader("Sound Emitter Component")) {
+						ImGui::Text("Current Audio:");
+						if (ImGui::BeginCombo("##sounds", input_sound_name.c_str())) {
+
+							for (auto it = sound_->GetSoundLibrary().begin(); it != sound_->GetSoundLibrary().end(); ++it) {
+
+								if (ImGui::Selectable(it->first.c_str()))
+									entitySound->SetSoundName(it->first.c_str());
+							}
+
+							ImGui::EndCombo();
 						}
 
-						ImGui::EndCombo();
-					}
+						ImGui::Text("Number of Sound Lines: %d", input_num_sound);
 
-					ImGui::Text("Number of Sound Lines: %d", input_num_sound);
+						for (std::vector<SoundLine>::iterator begin = input_sound_lines.begin(); begin != input_sound_lines.end(); ++begin) {
+							++counter;
 
-					for (std::vector<SoundLine>::iterator begin = input_sound_lines.begin(); begin != input_sound_lines.end(); ++begin) {
-						++counter;						
+							if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, "Start Point X: %.2f Y: %.2f\nEnd Point: X: %.2f Y: %.2f", begin->start_.x, begin->start_.y, begin->end_.x, begin->end_.y)) {
 
-						if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, "Start Point X: %.2f Y: %.2f\nEnd Point: X: %.2f Y: %.2f", begin->start_.x, begin->start_.y, begin->end_.x, begin->end_.y )) {
+								if (ImGui::TreeNode("Update Line Segment")) {
 
-							if (ImGui::TreeNode("Update Line Segment")) {
+									ImGui::Text("Start Point:");
+									Vec2Input(begin->start_, 1.0f, "##startx", "##starty");
+									ImGui::Text("End Point:");
+									Vec2Input(begin->end_, 1.0f);
 
-								ImGui::Text("Start Point:");
-								Vec2Input(begin->start_, 1.0f, "##startx", "##starty");
-								ImGui::Text("End Point:");
-								Vec2Input(begin->end_, 1.0f);
+									entitySound->SetSoundLine(input_sound_lines);
 
-								entitySound->SetSoundLine(input_sound_lines);
+									ImGui::TreePop();
+								}
+
+								if (ImGui::Button("Delete")) {
+
+									if (begin == input_sound_lines.begin())
+										begin = input_sound_lines.erase(begin);
+									else {
+										begin = input_sound_lines.erase(begin);
+										--begin;
+									}
+
+									entitySound->SetSoundLine(input_sound_lines);
+								}
 
 								ImGui::TreePop();
 							}
+						}
 
-							if (ImGui::Button("Delete")) {
+						if (ImGui::TreeNode("Add Line Segment")) {
 
-								if (begin == input_sound_lines.begin())
-									begin = input_sound_lines.erase(begin);
-								else {
-									begin = input_sound_lines.erase(begin);
-									--begin;
-								}
+							ImGui::Text("Start Point:");
+							Vec2Input(newline.start_, 1.0f, "##newlineX", "##newlineY");
+							ImGui::Text("End Point");
+							Vec2Input(newline.end_);
 
+							entitySound->SetNewSoundLine(newline);
+
+							if (ImGui::Button("Add")) {
+
+								input_sound_lines.push_back(newline);
 								entitySound->SetSoundLine(input_sound_lines);
+								entitySound->SetNewSoundLine({});
 							}
 
 							ImGui::TreePop();
 						}
+
+						RemoveComponent("Delete Sound Emitter Component", std::string("Sound Emitter Component"), entitycomponent.first, entitySound);
 					}
-
-					if (ImGui::TreeNode("Add Line Segment")) {
-						
-						ImGui::Text("Start Point:");
-						Vec2Input(newline.start_, 1.0f, "##newlineX", "##newlineY");
-						ImGui::Text("End Point");
-						Vec2Input(newline.end_);
-
-						entitySound->SetNewSoundLine(newline);
-
-						if (ImGui::Button("Add")) {
-
-							input_sound_lines.push_back(newline);
-							entitySound->SetSoundLine(input_sound_lines);
-							entitySound->SetNewSoundLine({});
-						}
-
-						ImGui::TreePop();
-					}
-
 				}
 					break;
 			}
