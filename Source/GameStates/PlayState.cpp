@@ -294,34 +294,39 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 				Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
-				if (m->button_index_ == 1) {
+				switch (m->button_index_)
+				{
+				case 9:
+				case 1:
+				{
+					CORE->ToggleCorePauseStatus(); // Disable physics update
+					CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+					CORE->GetSystem<Collision>()->ToggleClickables(1);
 
-					MessageBGM_Play button{ "ButtonPress" };
-					CORE->BroadcastMessage(&button);
-
-					//true returned, trigger scene change
-					game->ChangeState(&m_MenuState);
-					return;
+					Message pause{ MessageIDTypes::BGM_PAUSE };
+					CORE->BroadcastMessage(&pause);
+					break;
 				}
-
-				if (m->button_index_ == 2) {
-
+				case 2:
+				{
 					MessageBGM_Play button{ "ButtonPress" };
 					CORE->BroadcastMessage(&button);
 
 					game->ChangeState(&m_MenuState);
 					//CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
 					return;
+					break;
 				}
-
-				if (m->button_index_ == 3) {
-
+				case 3:
+				{
 					MessageBGM_Play button{ "ButtonPress" };
 					CORE->BroadcastMessage(&button);
 
 					game->ChangeState(&m_MenuState);
 					//CORE->SetGameActiveStatus(false);
 					return;
+					break;
+				}
 				}
 			}
 			}
