@@ -48,6 +48,8 @@ void MenuState::Init(std::string)
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
+
+	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.8f);
 }
 
 void MenuState::Free()
