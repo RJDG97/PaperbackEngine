@@ -19,35 +19,34 @@ namespace GeneralScripts
 
 	bool Chase(AIIt obj)
 	{
-		obj->second->SetPlayerLastPos(player_rigidbody->GetOffsetAABBPos());
+		float distance = Vector2DLength(player_rigidbody->GetOffsetAABBPos() - obj_rigidbody->GetOffsetAABBPos());
 
-		// Find current distance of player from obj
-		float distance = Vector2DDistance(player_rigidbody->GetOffsetAABBPos(), obj_rigidbody->GetOffsetAABBPos());
-		// If obj is close enough, return true
 		if (distance < 1.0f)
 			return true;
 
+		// If path is empty, set path
 		if (obj->second->GetPath().empty())
 		{
+			if (obj_rigidbody->GetOffsetAABBPos().x == obj->second->GetCurrentDes()->x &&
+				obj_rigidbody->GetOffsetAABBPos().y == obj->second->GetCurrentDes()->y)
+				obj->second->SetCurrentDes(++obj->second->GetCurrentDes());
 			// Set new path
-			GeneralScripts::map_->Pathing(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(), *obj->second->GetCurrentDes());
+			GeneralScripts::map_->Pathing(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(), player_rigidbody->GetOffsetAABBPos());
 		}
 
 		// Calculate distance between ai and destination
 		distance = Vector2DLength(obj->second->GetPath().back() - obj_rigidbody->GetOffsetAABBPos());
 
-		if (distance < 1.0f)
-		{
+		// If object is at next path node
+		if (distance < 1.0f) {
+			// Remove node destination
 			obj->second->GetPath().pop_back();
-
-			GeneralScripts::map_->Pathing(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(), player_rigidbody->GetOffsetAABBPos());
-			//GeneralScripts::map_->DrawMap();
-		}
-
-		if (obj->second->GetPath().empty())
-		{
-			// Set new path
-			GeneralScripts::map_->Pathing(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(), *obj->second->GetCurrentDes());
+			// If path is empty, destination is reached
+			if (obj->second->GetPath().empty())
+			{	
+					// Set new path
+					GeneralScripts::map_->Pathing(obj->second->GetPath(), obj_rigidbody->GetOffsetAABBPos(), player_rigidbody->GetOffsetAABBPos());
+			}
 		}
 
 		//get directional unit vector
@@ -55,11 +54,10 @@ namespace GeneralScripts
 		directional /= Vector2DLength(directional);
 
 		//multiply by speed
-		directional *= (obj->second->GetSpeed());
+		directional *= (obj->second->GetSpeed() * 5.0f);
 
 		// Move AI
 		forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
-
 		return false;
 	}
 
@@ -89,6 +87,7 @@ namespace GeneralScripts
 				// If within view, return detected
 				if (angle > -45.0f && angle < 45.0f)
 					// Note: will have to check for object obstruction in the line of sight
+					obj->second->GetPath().clear();
 					return true;
 			}
 			return false;
@@ -159,7 +158,7 @@ namespace GeneralScripts
 		float distance = Vector2DLength(obj->second->GetPath().back() - obj_rigidbody->GetOffsetAABBPos());
 
 		// If object is at next path node
-		if (distance <= 0.1f) {
+		if (distance < 1.0f) {
 			// Remove node destination
 			obj->second->GetPath().pop_back();
 			// If path is empty, destination is reached

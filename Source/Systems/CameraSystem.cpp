@@ -72,13 +72,15 @@ void CameraSystem::SendMessageD(Message* m)
 
         case MessageIDTypes::FLIP_SPRITE_X: {
 
-            CameraZoom(GetMainCamera(), 0.9f);
+            Camera* camera = GetMainCamera();
+            CameraZoom(camera, camera->cam_zoom_ + 0.1f);
             break;
         }
 
         case MessageIDTypes::FLIP_SPRITE_Y: {
 
-            CameraZoom(GetMainCamera(), 1.1f);
+            Camera* camera = GetMainCamera();
+            CameraZoom(camera, camera->cam_zoom_ - 0.1f);
             break;
         }
     }
@@ -104,7 +106,7 @@ void CameraSystem::CameraUpdate(Camera* camera)
 
 void CameraSystem::CameraZoom(Camera* camera, float zoom)
 {
-    camera->cam_zoom_ /= (zoom);
+    camera->cam_zoom_ = zoom;
 
     camera->cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
                            windows_system_->GetWinHeight() } / camera->cam_zoom_;

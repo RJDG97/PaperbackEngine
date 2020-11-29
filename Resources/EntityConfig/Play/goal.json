@@ -2,15 +2,21 @@
     "Goal": [
         {
             "component": "Transform",
-            "position": "-14.900000 21.000000",
+            "position": "-23.000000 28.500000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Environment_Tiles_20",
+            "layer": "2",
+            "ui": "0"
         },
         {
             "component": "AABB",
-            "scale": "2.100000 2.100000",
-            "layer": "5",
-            "offset": "0.000000 0.000000"
+            "scale": "3.000000 2.100000",
+            "layer": "5"
         }
     ]
 }

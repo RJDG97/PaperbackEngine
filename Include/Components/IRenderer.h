@@ -29,6 +29,9 @@ public:
 	friend class ParticleSystem;
 	friend class Emitter;
 
+	bool IsAlive() { return alive_; }
+	void SetAlive(bool life) { alive_ = life; }
+
 };
 
 #endif

@@ -46,6 +46,8 @@ void PlayState::Init(std::string)
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
+	help_ = false;
+
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
 
@@ -61,6 +63,8 @@ void PlayState::Init(std::string)
 
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
+
+	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.5f);
 }
 
 void PlayState::Free()
@@ -74,6 +78,7 @@ void PlayState::Free()
 	FACTORY->DestroyAllEntities();
 
 	win_ = false;
+	help_ = false;
 }
 
 void PlayState::Update(Game* game, float frametime)
@@ -185,6 +190,15 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				CORE->ToggleCorePauseStatus(); // Disable physics update
 				CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
 				CORE->GetSystem<Collision>()->ToggleClickables(1);
+				CORE->GetSystem<Collision>()->ToggleClickables(3);
+
+				if (help_) {
+
+					help_ = false;
+
+					CORE->GetSystem<Collision>()->ToggleClickables(1);
+					CORE->GetSystem<Collision>()->ToggleClickables(2);
+				}
 
 				Message pause{ MessageIDTypes::BGM_PAUSE };
 				CORE->BroadcastMessage(&pause);
@@ -194,11 +208,11 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 				// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
 				// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
-				if (CORE->GetCorePauseStatus() && InputController->VerifyKey("confirm", m->input_)) {
-					//CORE->SetGameActiveStatus(false);
-					game->ChangeState(&m_MenuState);
-					return;
-				}
+				//if (CORE->GetCorePauseStatus() && InputController->VerifyKey("confirm", m->input_)) {
+				//	//CORE->SetGameActiveStatus(false);
+				//	game->ChangeState(&m_MenuState);
+				//	return;
+				//}
 			}
 
 			if (!entity_mgr_->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {
@@ -282,6 +296,10 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 							ScaleEntityBig(player_scale, true);
 						}
 					}
+					else if (InputController->VerifyKey("advance_text", m->input_)) {
+
+						
+					}
 				}
 			}
 		}
@@ -299,26 +317,35 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				case 9:
 				case 1:
 				{
+					if (help_)
+						break;
+
 					CORE->ToggleCorePauseStatus(); // Disable physics update
 					CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
 					CORE->GetSystem<Collision>()->ToggleClickables(1);
+					CORE->GetSystem<Collision>()->ToggleClickables(3);
 
 					Message pause{ MessageIDTypes::BGM_PAUSE };
 					CORE->BroadcastMessage(&pause);
 					break;
 				}
+				case 7:
 				case 2:
 				{
+					
 					MessageBGM_Play button{ "ButtonPress" };
 					CORE->BroadcastMessage(&button);
 
-					game->ChangeState(&m_MenuState);
-					//CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
-					return;
+					CORE->GetSystem<Collision>()->ToggleClickables(2);
+					CORE->GetSystem<Collision>()->ToggleClickables(1);
+					help_ = !help_;
 					break;
 				}
 				case 3:
 				{
+					if (help_)
+						break;
+
 					MessageBGM_Play button{ "ButtonPress" };
 					CORE->BroadcastMessage(&button);
 

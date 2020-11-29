@@ -153,6 +153,9 @@ void GraphicsSystem::Update(float frametime) {
 
     for (AnimRendererIt it = anim_renderer_arr_->begin(); it != anim_renderer_arr_->end(); ++it) {
 
+        if (!it->second->alive_)
+            continue;
+
         if (debug_) {
             // Log id of entity and it's updated components that are being updated
             M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) +
@@ -244,6 +247,11 @@ void GraphicsSystem::Draw() {
     for (TextRenderOrderIt it = worldtext_renderers_in_order_.begin();
          it != worldtext_renderers_in_order_.end(); ++it) {
 
+        if (!it->second->alive_) {
+
+            continue;
+        }
+
         if (debug_) {
             // Log id of entity and its updated components that are being updated
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
@@ -272,6 +280,11 @@ void GraphicsSystem::Draw() {
     for (IRenderOrderIt it = uirenderers_in_order_.begin();
         it != uirenderers_in_order_.end(); ++it) {
 
+        if (!it->second->alive_) {
+
+            continue;
+        }
+
         if (debug_) {
             // Log id of entity and its updated components that are being updated
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
@@ -296,6 +309,11 @@ void GraphicsSystem::Draw() {
 
     for (TextRenderOrderIt it = uitext_renderers_in_order_.begin();
          it != uitext_renderers_in_order_.end(); ++it) {
+
+        if (!it->second->alive_) {
+
+            continue;
+        }
 
         if (debug_) {
             // Log id of entity and its updated components that are being updated
@@ -771,8 +789,8 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_ren
 
     float cam_zoom = *camera_system_->GetMainCamera()->GetCameraZoom();
 
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * cam_zoom + 0.5f * Vector2D{ win_size_.x, win_size_.y };
-    Vector2D obj_scale = scale->scale_ * cam_zoom;
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() + 0.5f * Vector2D{ win_size_.x, win_size_.y };
+    Vector2D obj_scale = scale->scale_;
 
     std::vector<glm::vec2> vertices;
     vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
@@ -803,7 +821,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
 
     Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]->GetID());
 
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale();
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() + 0.5f * Vector2D{ win_size_.x, win_size_.y };
     Vector2D obj_scale = scale->scale_ * 0.7f;
 
     std::vector<glm::vec2> gauge_vertices;

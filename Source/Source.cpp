@@ -11,6 +11,7 @@
 #include "Systems/LightingSystem.h"
 #include "Systems/ImguiSystem.h"
 #include "Systems/LogicSystem.h"
+#include "Systems/DialogueSystem.h"
 
 #include "Manager/ModelManager.h"
 #include "Manager/TextureManager.h"
@@ -22,6 +23,7 @@
 #include "Manager/ParticleManager.h"
 #include "Manager/AMap.h"
 #include "Manager/TransitionManager.h"
+#include "Manager/DialogueManager.h"
 
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
@@ -71,6 +73,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<Game>();
 		CORE->AddSystem<LogicSystem>();
 		CORE->AddSystem<TransitionSystem>();
+		CORE->AddSystem<DialogueSystem>();
 
 		// Add Managers to the Core Engine
 		CORE->AddManager<ComponentManager>();
@@ -84,6 +87,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddManager<ForcesManager>();
 		CORE->AddManager<ParticleManager>();
 		CORE->AddManager<TransitionManager>();
+		CORE->AddManager<DialogueManager>();
 
 		// Initialize all Systems & Managers that
 		// were added to the Core Engine

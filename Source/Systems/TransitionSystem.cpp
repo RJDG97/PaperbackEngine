@@ -16,6 +16,8 @@ void TransitionSystem::Update(float frametime) {
 
 	SceneTransition* transition = transition_manager_->current_transition_;
 
+	UNREFERENCED_PARAMETER(transition);
+
 	// If currently changing textures, keep the screen black for a while more
 	if (transition_manager_->DelayTransition(frametime))
 		return;

@@ -12,6 +12,7 @@ class PlayState : public GameState
 	ComponentManager* component_mgr_;
 	EntityManager* entity_mgr_;
 	bool win_{ false };
+	bool help_{ false };
 
 public:
 	friend class Game;

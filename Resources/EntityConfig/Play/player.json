@@ -1,23 +1,31 @@
 {
-  "player": [
-    {
-      "component": "Transform",
-      "position": "-12.0 -13.0 ",
-      "rotation": "0.0",
-      "offset": "0.0 0.0",
-      "aabb offset": "0.0 -1.0"
-    },
-    {
-      "component": "PointLight",
-      "color": "1.0 1.0 0.7",
-      "radius": "300.0",
-      "intensity": "0.8"
-    },
-    {
-      "component": "ParentChild",
-      "counter": "2",
-      "child": "FakeWall",
-      "child": "Camera"
-    }
-  ]
+    "Player": [
+        {
+            "component": "Transform",
+            "position": "-18.000000 -25.070000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "3"
+        },
+        {
+            "component": "ParentChild",
+            "elements": "2",
+            "to_clone": "FakeWall ",
+            "to_clone": "Camera "
+        },
+        {
+            "component": "LogicComponent",
+            "entity": "",
+            "number_of_fns": "2",
+            "name": "UpdateChildOffset",
+            "function": "UpdateChildOffset",
+            "name": "UpdateTexture",
+            "function": "UpdateTexture"
+        }
+    ]
 }

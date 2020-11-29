@@ -6,6 +6,8 @@
 // Menu State Test
 class MenuState : public GameState
 {
+
+	bool help_{ false };
 public:
 	friend class Game;
 

@@ -27,5 +27,7 @@
   
   "MyParticle": "Resources/EntityConfig/Play/myparticles.json",
   
-  "SoundEmitter": "Resources/EntityConfig/Play/soundemitter.json"
+  "SoundEmitter": "Resources/EntityConfig/Play/soundemitter.json",
+
+  "Objectives": "Resources/EntityConfig/Play/objectives.json"
 }
