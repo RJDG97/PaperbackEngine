@@ -130,8 +130,6 @@ void GraphicsSystem::Init() {
     //For UI and text
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
 
-    vignette_size = { 600.0f, 320.0f};
-
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
 
@@ -257,10 +255,14 @@ void GraphicsSystem::Draw() {
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
 
-    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(lighting_texture_, 1.0f);
-    glBlendFunc(GL_ONE, GL_ONE);
-    DrawFinalTexture(addition_texture_, 0.6f);
+    if (lighting_enabled_)
+    {
+        glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+        DrawFinalTexture(lighting_texture_, 1.0f);
+        glBlendFunc(GL_ONE, GL_ONE);
+        DrawFinalTexture(addition_texture_, 0.6f);
+    }
+
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -331,9 +333,9 @@ void GraphicsSystem::DrawFinalTextureWithVignette(GLuint* texture, float opacity
     glBindTexture(GL_TEXTURE_2D, graphic_models_["BoxModel"]->vaoid_);
     glBindTextureUnit(0, *texture);
 
-    graphic_shaders_["VignetteShader"]->SetUniform("center", glm::vec2{ windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
+    graphic_shaders_["VignetteShader"]->SetUniform("center", { windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
     graphic_shaders_["VignetteShader"]->SetUniform("clear_size", vignette_size);
-    graphic_shaders_["VignetteShader"]->SetUniform("max_size", glm::vec2{ windows_system_->GetWinWidth(),  windows_system_->GetWinHeight()});
+    graphic_shaders_["VignetteShader"]->SetUniform("max_size", max_vignette_size);// glm::vec2{ windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
     graphic_shaders_["VignetteShader"]->SetUniform("uTex2d", 0);
     graphic_shaders_["VignetteShader"]->SetUniform("opacity", opacity);
 
@@ -805,7 +807,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]->GetID());
 
     Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale();
-    Vector2D obj_scale = scale->scale_;
+    Vector2D obj_scale = scale->scale_ * 0.7f;
 
     std::vector<glm::vec2> gauge_vertices;
     std::vector<glm::vec2> water_vertices;
@@ -864,6 +866,56 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Shine_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
+}
+
+void GraphicsSystem::ChangeLayer(AnimationRenderer* anim_renderer, int layer) {
+
+    anim_renderer->layer_ = layer;
+
+    for (auto it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ++it)
+    {
+        if (it->second == anim_renderer)
+        {
+            worldobj_renderers_in_order_.erase(it);
+            worldobj_renderers_in_order_.insert({ layer, anim_renderer });
+            return;
+        }
+    }
+
+    for (auto it = uirenderers_in_order_.begin(); it != uirenderers_in_order_.end(); ++it)
+    {
+        if (it->second == anim_renderer)
+        {
+            uirenderers_in_order_.erase(it);
+            uirenderers_in_order_.insert({ layer, anim_renderer });
+            return;
+        }
+    }
+}
+
+void GraphicsSystem::ChangeLayer(TextureRenderer* tex_renderer, int layer) {
+
+    tex_renderer->layer_ = layer;
+
+    for (auto it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ++it)
+    {
+        if (it->second == tex_renderer)
+        {
+            worldobj_renderers_in_order_.erase(it);
+            worldobj_renderers_in_order_.insert({ layer, tex_renderer });
+            return;
+        }
+    }
+
+    for (auto it = uirenderers_in_order_.begin(); it != uirenderers_in_order_.end(); ++it)
+    {
+        if (it->second == tex_renderer)
+        {
+            uirenderers_in_order_.erase(it);
+            uirenderers_in_order_.insert({ layer, tex_renderer });
+            return;
+        }
+    }
 }
 
 void GraphicsSystem::FlipTextureX(IRenderer* i_renderer) {
@@ -1030,4 +1082,42 @@ void GraphicsSystem::SetVignetteSize(glm::vec2 size)
 glm::vec2 GraphicsSystem::GetVignetteSize() {
    
     return vignette_size;
+}
+
+void GraphicsSystem::SetMaxVignetteSize(glm::vec2 size)
+{
+    max_vignette_size = size;
+}
+
+glm::vec2 GraphicsSystem::GetMaxVignetteSize() {
+
+    return max_vignette_size;
+}
+
+void GraphicsSystem::EnableLighting(bool value)
+{
+    lighting_enabled_ = value;
+}
+
+std::vector<EntityID> GraphicsSystem::EntitiesWithThisTexture(GLuint handle)
+{
+    std::vector<EntityID> entities;
+
+    for (auto it = texture_renderer_arr_->begin(); it != texture_renderer_arr_->end(); ++it)
+    {
+        if (it->second->texture_handle_ == handle)
+        {
+            entities.push_back(it->first);
+        }
+    }
+
+    for (auto it = anim_renderer_arr_->begin(); it != anim_renderer_arr_->end(); ++it)
+    {
+        if (it->second->texture_handle_ == handle)
+        {
+            entities.push_back(it->first);
+        }
+    }
+    
+    return entities;
 }

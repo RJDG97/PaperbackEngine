@@ -192,11 +192,13 @@ public:
 	void SetAlive(bool status);
 
 	float GetLifeTime();
+
 	void SetLifeTime(float new_lifetime);
 
 	float GetInterval();
 
 	float GetSpawnInterval();
+
 	void SetSpawnInterval(float new_spawn_interval);
 	
 	size_t GetCurrentNumberSpawned();

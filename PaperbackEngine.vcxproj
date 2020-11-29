@@ -183,10 +183,12 @@
     <ClCompile Include="Source\Components\Transform.cpp" />
     <ClCompile Include="Source\Engine\Core.cpp" />
     <ClCompile Include="Source\Entity\Entity.cpp" />
+    <ClCompile Include="Source\GameStates\CreditsState.cpp" />
     <ClCompile Include="Source\GameStates\EditorState.cpp" />
     <ClCompile Include="Source\GameStates\Levels.cpp" />
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
+    <ClCompile Include="Source\GameStates\SplashState.cpp" />
     <ClCompile Include="Source\GameStates\WinLoseState.cpp" />
     <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\AssetConsoleWindow.cpp" />
@@ -198,6 +200,7 @@
     <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp" />
     <ClCompile Include="Source\Manager\AMap.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
+    <ClCompile Include="Source\Manager\DialogueManager.cpp" />
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
     <ClCompile Include="Source\Manager\ForcesManager.cpp" />
@@ -205,6 +208,7 @@
     <ClCompile Include="Source\Manager\ParticleManager.cpp" />
     <ClCompile Include="Source\Manager\ShaderManager.cpp" />
     <ClCompile Include="Source\Manager\TextureManager.cpp" />
+    <ClCompile Include="Source\Manager\TransitionManager.cpp" />
     <ClCompile Include="Source\MathLib\MathHelper.cpp" />
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp" />
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
@@ -229,6 +233,7 @@
     <ClCompile Include="Source\Systems\Partitioning.cpp" />
     <ClCompile Include="Source\Systems\Physics.cpp" />
     <ClCompile Include="Source\Systems\SoundSystem.cpp" />
+    <ClCompile Include="Source\Systems\TransitionSystem.cpp" />
     <ClCompile Include="Source\Systems\WindowsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -262,11 +267,13 @@
     <ClInclude Include="Include\Entity\ComponentCreator.h" />
     <ClInclude Include="Include\Entity\ComponentTypes.h" />
     <ClInclude Include="Include\Entity\Entity.h" />
+    <ClInclude Include="Include\GameStates\CreditsState.h" />
     <ClInclude Include="Include\GameStates\EditorState.h" />
     <ClInclude Include="Include\GameStates\GameState.h" />
     <ClInclude Include="Include\GameStates\Levels.h" />
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
+    <ClInclude Include="Include\GameStates\SplashState.h" />
     <ClInclude Include="Include\GameStates\WinLoseState.h" />
     <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h" />
     <ClInclude Include="Include\ImguiWindows\AssetConsoleWindow.h" />
@@ -289,6 +296,7 @@
     <ClInclude Include="Include\Manager\AMap.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\ComponentManager.h" />
+    <ClInclude Include="Include\Manager\DialogueManager.h" />
     <ClInclude Include="Include\Manager\EntityManager.h" />
     <ClInclude Include="Include\Manager\FontManager.h" />
     <ClInclude Include="Include\Manager\ForcesManager.h" />
@@ -297,6 +305,7 @@
     <ClInclude Include="Include\Manager\ParticleManager.h" />
     <ClInclude Include="Include\Manager\ShaderManager.h" />
     <ClInclude Include="Include\Manager\TextureManager.h" />
+    <ClInclude Include="Include\Manager\TransitionManager.h" />
     <ClInclude Include="Include\MathLib\MathHelper.h" />
     <ClInclude Include="Include\MathLib\Matrix3x3.h" />
     <ClInclude Include="Include\MathLib\Vector2D.h" />
@@ -325,6 +334,7 @@
     <ClInclude Include="Include\Systems\Partitioning.h" />
     <ClInclude Include="Include\Systems\Physics.h" />
     <ClInclude Include="Include\Systems\SoundSystem.h" />
+    <ClInclude Include="Include\Systems\TransitionSystem.h" />
     <ClInclude Include="Include\Systems\WindowsSystem.h" />
     <ClInclude Include="Source\Source.h" />
   </ItemGroup>

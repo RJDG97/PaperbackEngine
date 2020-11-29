@@ -174,6 +174,9 @@
     <Filter Include="Entity\Components\SoundEmitter">
       <UniqueIdentifier>{3fad4c78-1ea5-489b-a7ec-1d7d028fa212}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Transition System">
+      <UniqueIdentifier>{552aadbe-c30d-49db-94fd-a206b2e3adc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -418,6 +421,21 @@
     </ClCompile>
     <ClCompile Include="Source\Components\SoundEmitter.cpp">
       <Filter>Entity\Components\SoundEmitter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\DialogueManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\SplashState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\CreditsState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\TransitionManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\TransitionSystem.cpp">
+      <Filter>Systems\Transition System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -711,6 +729,21 @@
     </ClInclude>
     <ClInclude Include="Include\Components\SoundEmitter.h">
       <Filter>Entity\Components\SoundEmitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\DialogueManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\CreditsState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\SplashState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\TransitionManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\TransitionSystem.h">
+      <Filter>Systems\Transition System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

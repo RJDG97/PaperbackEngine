@@ -20,6 +20,7 @@ class SoundEmitter : public Component {
 	std::string sound_name_;
 	size_t num_sound_lines_;
 	std::vector<SoundLine> sound_lines_;
+	SoundLine new_line_;
 
 public:
 
@@ -150,6 +151,11 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+	void SetSoundLine(std::vector<SoundLine> updated_vec);
+
+	SoundLine GetNewSoundLine();
+
+	void SetNewSoundLine(SoundLine newline);
 };
 
 #endif

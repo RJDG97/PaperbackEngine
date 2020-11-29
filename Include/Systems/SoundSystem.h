@@ -216,6 +216,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn RemoveSound()
+
+  \brief Removes a sound file that is currently loaded
+*/
+/******************************************************************************/
+	void RemoveSound(std::string name);
+
+/******************************************************************************/
+/*!
   \fn RemoveCompletedChannel()
 
   \brief Helper function that checks for channels that are completed and removes

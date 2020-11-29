@@ -17,6 +17,23 @@ struct TextureInfo { // struct to store the infomation of the textures
 
 };
 
+struct AudioInfo {
+	
+	std::string path;
+	float volume;
+	float min_distance;
+	float vol_falloff;
+	int loop;
+};
+
+enum AddFile {
+
+	ADDTexture = 0,
+	ADDAudio,
+	ADDAnimation,
+	ADDNothing
+};
+
 class AssetConsoleWindow : public IWindow {
 
 public:
@@ -40,25 +57,24 @@ public:
 	void Update() override;
 
 	/******************************************************************************/
-/*!
-	\fn DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc)
-
-	\brief Deserialise the texture json
-*/
-/******************************************************************************/
-
-	void DeSerializeTextureJSON(const std::string& filename, rapidjson::Document& doc);
-
-	/******************************************************************************/
 	/*!
-		\fn LoadTextureJson(std::string level_name);
+		\fn LoadTextureJson(std::string level_name)
 
 		\brief Load the json into a map
 	*/
 	/******************************************************************************/
 	void LoadTextureJson(std::string level_name);
 
-	void LoadAnimationJson(std::string level_name);
+	//void LoadAnimationJson(std::string level_name);
+
+	/******************************************************************************/
+	/*!
+		\fn LoadSoundJson(std::string level_name)
+
+		\brief Load the json into a map
+	*/
+	/******************************************************************************/	
+	void LoadSoundJson(std::string level_name);
 
 	/******************************************************************************/
 	/*!
@@ -85,7 +101,7 @@ public:
 		\brief Displays the infomation of the chosen json
 	*/
 	/******************************************************************************/
-	void DisplayJson();
+	void DisplayTextureJson();
 
 	/******************************************************************************/
 	/*!
@@ -96,20 +112,36 @@ public:
 	/******************************************************************************/
 	void AddNewTexture();
 
+	/******************************************************************************/
+	/*!
+		\fn AddBlankJson()
+
+		\brief Adds a blank json file
+	*/
+	/******************************************************************************/
 	void AddBlankJson();
 
+	void SelectSoundJson();
+
 	std::string FindUnderscore(std::string filename);
+
+	void DisplayAudioJson();
 
 private:
 	ImguiSystem* imgui_;
 	TextureManager* texture_;
 
 	std::map<std::string, TextureInfo> tex_info_;
+	std::map<std::string, AudioInfo> audio_info;
+
 	std::vector<std::string> filesdel_;
 	std::vector<std::string> jsonfiles_;
 	std::string chosen_json_;
 
-	bool b_tex, b_anim;
+	std::string json_to_load_; 
+	bool b_unload, b_wrong_type;
+
+	AddFile type;
 
 };
 #endif 

@@ -120,7 +120,7 @@
     },
     {
       "component": "Scale",
-      "scale": "32.0 64.0"
+      "scale": "64.0 128.0"
     },
     {
       "component": "Health",
@@ -190,7 +190,7 @@
     },
     {
       "component": "Scale",
-      "scale": "128.0 128.0"
+      "scale": "256.0 256.0"
     },
     {
       "component": "AnimationRenderer",
@@ -401,7 +401,7 @@
     },
     {
       "component": "Scale",
-      "scale": "128.0 128.0"
+      "scale": "256.0 256.0"
     },
     {
       "component": "Health",
@@ -472,7 +472,7 @@
     },
     {
       "component": "Scale",
-      "scale": "128.0 128.0"
+      "scale": "256.0 256.0"
     },
     {
       "component": "Health",
@@ -536,13 +536,13 @@
       "component": "TextureRenderer",
       "texture": "Menu_Background_0",
       "layer": "0",
-      "ui": "1",
+      "ui": "0",
       "alive": "1"
     },
     {
       "component": "PointLight",
       "color": "1.0 1.0 0.7",
-      "radius": "00.0",
+      "radius": "0.0",
       "intensity": "1.0"
     },
     {

@@ -106,7 +106,9 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 	// if Triggered
 	CORE->GetSystem<InputSystem>()->SetKeyState(key, action);
-	if (action == GLFW_PRESS)
+	bool imgui_ = CORE->GetSystem<ImguiSystem>()->EditorMode();
+
+	if (action == GLFW_PRESS && !imgui_)
 	{
 		// When a button is touched, dispatch a message with the key that's touched
 		SendTouchMessage(key);
@@ -114,7 +116,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 	// All these are categorized under pressed as well
 	// but since they are temporary, not converting
-	if (action == GLFW_PRESS) {
+	if (action == GLFW_PRESS && !imgui_) {
 		switch (key) {
 
 		case GLFW_KEY_B: 	//'B'

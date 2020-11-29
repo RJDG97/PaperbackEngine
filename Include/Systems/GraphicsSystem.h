@@ -65,8 +65,11 @@ class GraphicsSystem : public ISystem {
     std::map<GLuint, GLuint> texture_handles;
 
     glm::vec2 vignette_size;
+    glm::vec2 max_vignette_size;
 
     using Points = std::vector<std::pair<glm::vec2, glm::vec2>>;
+
+    bool lighting_enabled_;
 
 public:
 
@@ -267,6 +270,24 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
+    \fn ChangeLayer(AnimationRenderer* anim_renderer, int layer)
+
+    \brief Change layer of animation renderer
+*/
+/******************************************************************************/
+    void ChangeLayer(AnimationRenderer* anim_renderer, int layer);
+
+/******************************************************************************/
+/*!
+    \fn ChangeLayer(TextureRenderer* tex_renderer, int layer)
+
+    \brief Change layer of texture renderer
+*/
+/******************************************************************************/
+    void ChangeLayer(TextureRenderer* tex_renderer, int layer);
+
+/******************************************************************************/
+/*!
     \fn FlipTextureX(IRenderer* i_renderer)
 
     \brief Flips the texture renderered in the x axis
@@ -389,7 +410,14 @@ void RemoveTextRendererComponent(EntityID id);
     void SetVignetteSize(glm::vec2 size);
 
     glm::vec2 GetVignetteSize();
+
+    void SetMaxVignetteSize(glm::vec2 size);
+
+    glm::vec2 GetMaxVignetteSize();
+
     void DrawDebugLines(Points points, glm::vec4 color, float width);
+    void EnableLighting(bool value);
+    std::vector<EntityID> EntitiesWithThisTexture(GLuint handle);
 
     using TextRendererType = CMap<TextRenderer>;
     using TextRendererIt = TextRendererType::MapTypeIt;

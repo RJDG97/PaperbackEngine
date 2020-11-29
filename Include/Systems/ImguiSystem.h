@@ -5,7 +5,6 @@
 #include <map>
 #include <string>
 #include <memory>
-#include <filesystem>
 
 #include "Entity/Entity.h"
 #include "Engine/Core.h"
@@ -25,7 +24,6 @@
 #include "Manager/AMap.h"
 #include "Imgui/IconsFontAwesome5.h"
 
-
 //colours for axis buttons
 #define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
 #define REDHOVERED ImVec4{ 0.965f, 0.075f, 0.118f, 1.0f }
@@ -40,7 +38,6 @@
 #define GOLDENORANGE ImVec4{ 1.0f, 0.843f, 0.0f, 1.0f }
 #define SKYBLUE ImVec4{ 0.0f, 0.749f, 1.0f, 1.0f }
 
-//namespace filesys = std::filesystem;
 class ImguiSystem : public ISystem
 {
 public:
@@ -301,7 +298,7 @@ public:
 	\brief Saves the entities into their corresponding json files
 */
 /******************************************************************************/
-	void SaveFile();
+	void SaveFile(std::string dest_path);
 
 /******************************************************************************/
 /*!
@@ -395,9 +392,13 @@ public:
 
 	Camera* GetExistingSceneCamera();
 
-	std::string GetImageAdd();
+	std::string GetAssetAdd();
 
-	void SetImageAdd(std::string image);
+	void SetAssetAdd(std::string image);
+
+	void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
+
+	bool CheckString(std::string path, const char* key);
 
 private:
 
@@ -427,18 +428,14 @@ private:
 
 	std::string img_to_add_;
 
+	std::string current_loaded_path_;
+
 	const char* scene_filter_;
 
 	// bools for the docking space
-	bool b_dock_space_open;
-	bool b_fullscreen_persistant;
-	bool b_fullscreen;
+	bool b_dock_space_open, b_fullscreen_persistant, b_fullscreen;
 
-	bool b_imguimode;
-	bool b_lock_entity;
-
-	bool b_showpop;
-	bool b_addpath;
+	bool b_imgui_mode, b_lock_entity, b_show_pop, b_add_path, b_save_check, b_close_confirm;
 
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;

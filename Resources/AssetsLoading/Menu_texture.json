@@ -45,5 +45,27 @@
   
   "WaterGauge_Shine": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Shine.png 1 1",
   
-  "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1"
+  "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1",
+  
+  "UI_PauseButton": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton.png 1 1",
+  
+  "UI_PauseButton_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton_Clicked.png 1 1",
+  
+  "UI_PauseButton_Hover": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton_Hover.png 1 1",
+  
+  "UI_Paused_HowTo": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo.png 1 1",
+  
+  "UI_Paused_Quit": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit.png 1 1",
+  
+  "UI_Paused_Restart": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart.png 1 1",
+  
+  "UI_Paused_Resume": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume.png 1 1",
+  
+  "UI_Paused_Settings": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Settings.png 1 1",
+  
+  "UI_PauseMenu": "Resources/Sprites/UI_Elements/Pause/UI_PauseMenu.png 1 1",
+  
+  "UI_HowToPlay": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay.png 1 1",
+  
+  "UI_Objectives": "Resources/Sprites/UI_Elements/HowTo/UI_Objectives.png 1 1"
 }

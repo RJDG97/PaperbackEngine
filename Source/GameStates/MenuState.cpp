@@ -12,6 +12,7 @@
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
 #include "Manager/AMap.h"
+#include "Manager/TransitionManager.h"
 
 #include "Engine/Core.h" //FOR TESTING
 
@@ -36,10 +37,11 @@ void MenuState::Init(std::string)
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	CORE->ResetCorePauseStatus();
-	// Entities created within cannot be checked against directly (No * to entity)
+	help_ = false;
 
+	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel("Menu");
+	CORE->GetSystem<GraphicsSystem>()->EnableLighting(false);
 
 	MessageBGM_Play msg{ "MenuDefault" };
 	CORE->BroadcastMessage(&msg);
@@ -58,6 +60,8 @@ void MenuState::Free()
 	FACTORY->DestroyAllEntities();
 
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
+
+	help_ = false;
 }
 
 void MenuState::Update(Game* game, float frametime)
@@ -87,49 +91,81 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
-			MessageBGM_Play button{ "ButtonPress" };
-			CORE->BroadcastMessage(&button);
+			switch (m->button_index_)
+			{
+			case 1:
+			{
 
-			if (m->button_index_ == 1) {
+				if (help_)
+					break;
+
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
 
 				// Enter play state
 				game->ChangeState(&m_PlayState);
 				return;
+				break;
 			}
+			case 2:
+			{
 
-			if (m->button_index_ == 2) {
+				if (help_)
+					break;
+
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
 
 				// "How to play"
+				CORE->GetSystem<Collision>()->ToggleClickables(2);
+				CORE->GetSystem<Collision>()->ToggleClickables(0);
+				help_ = true;
 				return;
+				break;
 			}
+			case 3: 
+			{
 
-			if (m->button_index_ == 3) {
+				if (help_)
+					break;
+
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
 
 				// Editor mode
 				CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
 				game->ChangeState(&m_EditorState);
 				return;
+				break;
 			}
+			case 4: 
+			{
 
-			if (m->button_index_ == 4) {
+				if (help_)
+					break;
+
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
 
 				// Toggle off game
 				CORE->SetGameActiveStatus(false);
 				return;
+				break;
 			}
+			case 7: 
+			{
 
-			if (m->button_index_ == 5) {
+				if (!help_)
+					break;
 
-				// Enter "Win" state
-				game->ChangeState(&m_WinLoseState, "Win"); // convert to quit game
-				return;
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
+
+				CORE->GetSystem<Collision>()->ToggleClickables(2);
+				CORE->GetSystem<Collision>()->ToggleClickables(0);
+				help_ = false;
+				break;
 			}
-
-			if (m->button_index_ == 6) {
-
-				// Enter "Lose" state
-				game->ChangeState(&m_WinLoseState, "Lose"); // convert to quit game
-				return;
 			}
 			break;
 		}

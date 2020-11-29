@@ -46,12 +46,17 @@ void PlayState::Init(std::string)
 	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
+	help_ = false;
+
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
 
 	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel("Play");
 	FACTORY->LoadLevel("Pause");
+
+	// Not sure...
+	CORE->GetSystem<GraphicsSystem>()->EnableLighting(true);
 	
 	MessageBGM_Play msg{ "GameBGM" };
 	CORE->BroadcastMessage(&msg);
@@ -71,6 +76,7 @@ void PlayState::Free()
 	FACTORY->DestroyAllEntities();
 
 	win_ = false;
+	help_ = false;
 }
 
 void PlayState::Update(Game* game, float frametime)
@@ -182,6 +188,15 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				CORE->ToggleCorePauseStatus(); // Disable physics update
 				CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
 				CORE->GetSystem<Collision>()->ToggleClickables(1);
+				CORE->GetSystem<Collision>()->ToggleClickables(3);
+
+				if (help_) {
+
+					help_ = false;
+
+					CORE->GetSystem<Collision>()->ToggleClickables(1);
+					CORE->GetSystem<Collision>()->ToggleClickables(2);
+				}
 
 				Message pause{ MessageIDTypes::BGM_PAUSE };
 				CORE->BroadcastMessage(&pause);
@@ -291,27 +306,39 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 				Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
-				if (m->button_index_ == 1) {
+				switch (m->button_index_)
+				{
+				case 9:
+				case 1:
+				{
+					if (help_)
+						break;
 
+					CORE->ToggleCorePauseStatus(); // Disable physics update
+					CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+					CORE->GetSystem<Collision>()->ToggleClickables(1);
+					CORE->GetSystem<Collision>()->ToggleClickables(3);
+
+					Message pause{ MessageIDTypes::BGM_PAUSE };
+					CORE->BroadcastMessage(&pause);
+					break;
+				}
+				case 7:
+				case 2:
+				{
+					
 					MessageBGM_Play button{ "ButtonPress" };
 					CORE->BroadcastMessage(&button);
 
-					//true returned, trigger scene change
-					game->ChangeState(&m_MenuState);
-					return;
+					CORE->GetSystem<Collision>()->ToggleClickables(2);
+					CORE->GetSystem<Collision>()->ToggleClickables(1);
+					help_ = !help_;
+					break;
 				}
-
-				if (m->button_index_ == 2) {
-
-					MessageBGM_Play button{ "ButtonPress" };
-					CORE->BroadcastMessage(&button);
-
-					game->ChangeState(&m_MenuState);
-					//CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
-					return;
-				}
-
-				if (m->button_index_ == 3) {
+				case 3:
+				{
+					if (help_)
+						break;
 
 					MessageBGM_Play button{ "ButtonPress" };
 					CORE->BroadcastMessage(&button);
@@ -319,6 +346,8 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 					game->ChangeState(&m_MenuState);
 					//CORE->SetGameActiveStatus(false);
 					return;
+					break;
+				}
 				}
 			}
 			}
