@@ -39,33 +39,36 @@ void ImguiSystem::Init(){
     amap_ = &*CORE->GetManager<AMap>();
 
     cam_arr_ = CORE->GetManager<ComponentManager>()->GetComponentArray<Camera>();
+
     camera_ = nullptr;
     editor_ = factory_->GetLevel("Editor");
 
     //Imgui Window Bools
-    b_entitywin = true;
     b_archetypewin = true;
+    b_entitywin = true;
     b_component = true;
     b_display = false;
     b_editpath = false;
-    b_showpop = false;
+    b_show_pop = false;
     b_asset = false;
     b_editcomp = false;
     b_addtexture = false;
     b_showtex = false;
-    b_addpath = false;
+    b_add_path = false;
 
     b_lock_entity = false;
-    b_imguimode = false;
-
+    b_imgui_mode = false;
+    b_save_check = false;
 
     selected_entity_ = nullptr;
 
     img_to_add_ = {};
 
+    current_loaded_path_ = {};
+
     scene_filter_ =
-        "(*.json) Paperback Engine Scene\0*.json\0"
-        "(*.*) All Files\0* *.*\0";
+        "(*.json) Paperback Engine Scene\0*.json\0";
+       // "(*.*) All Files\0* *.*\0";
 
 //////////// Setup Dear ImGui context///////////////////////////
 
@@ -119,7 +122,7 @@ void ImguiSystem::Update(float frametime) {
 
     UNREFERENCED_PARAMETER(frametime);
 	
-    if (b_imguimode) {
+    if (b_imgui_mode) {
         
     	// if want to add shortcut, call fn here
 
@@ -144,20 +147,16 @@ void ImguiSystem::Update(float frametime) {
         	// menu bar
             ImguiMenuBar();
 
-            if (b_showpop)
+            if (b_show_pop)
                 ImGui::OpenPopup("Save Confirmation");
 
             PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
-            b_showpop = false;
+            b_show_pop = false;
 
-            if (b_addpath)
+            if (b_add_path)
                 ImGui::OpenPopup("No Path Set");
             PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
-            b_addpath = false;
-
-            if (camera_)
-              DrawGrid();
-
+            b_add_path = false;
             // for the selection of entity
             if (!EditorMode() && camera_) {
 
@@ -249,13 +248,26 @@ void ImguiSystem::ImguiMenuBar() {
                 OpenFile();
             }
 
-            if (ImGui::MenuItem(ICON_FA_SAVE " Save Scene As...")) {
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save")) {
+
                 if (!editor_->entity_paths_.empty()) {
-                    SaveFile();
-                    b_showpop = true;
+                    SaveFile(current_loaded_path_);
+                    b_show_pop = true;
                 }
                 else
-                    b_addpath = true;
+                    b_add_path = true;
+            }
+
+            if (ImGui::MenuItem("Save Scene As...")) {
+                if (!editor_->entity_paths_.empty()) {
+
+                    std::string path = OpenSaveDialog(scene_filter_, 1);
+                    SaveFile(path);
+
+                    b_show_pop = true;
+                }
+                else
+                    b_add_path = true;
             }
 
             if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene")) {
@@ -267,14 +279,21 @@ void ImguiSystem::ImguiMenuBar() {
 
             if (ImGui::MenuItem(ICON_FA_REPLY " Return to Menu")){
 
-                b_imguimode = false;
+                b_imgui_mode = false;
                 FACTORY->DestroyAllEntities();
                 selected_entity_ = {};
                 CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
+
             }
+            if (ImGui::IsItemHovered())
+                ImguiHelp("Have you save the current\nworking scene. There is no auto recovery", 0);
 
             if (ImGui::MenuItem(ICON_FA_POWER_OFF " Exit"))
                 CORE->SetGameActiveStatus(false);
+
+            if (ImGui::IsItemHovered())
+                ImguiHelp("Have you save the current\nworking scene. There is no auto recovery", 0);
+
             ImGui::EndMenu();
         }
 
@@ -306,6 +325,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::EndMenu();
         }
 
+        // placeholder
         if (ImGui::BeginMenu(ICON_FA_COGS " Control Panel")) {
 
             if (ImGui::TreeNode(ICON_FA_MUSIC " Audio Settings")) {
@@ -359,12 +379,12 @@ void ImguiSystem::ImguiMenuBar() {
 
 bool ImguiSystem::GetImguiBool() {
 
-    return b_imguimode;
+    return b_imgui_mode;
 }
 
 void ImguiSystem::SetImguiBool(bool mode) {
 
-    b_imguimode = mode;
+    b_imgui_mode = mode;
 }
 
 std::string ImguiSystem::GetName() {
@@ -393,6 +413,15 @@ void ImguiSystem::SetLockBool(bool debug) {
     b_lock_entity = debug;
 }
 
+Camera* ImguiSystem::GetCamera() {
+
+    auto it = cam_arr_->begin();
+    if (it != cam_arr_->end())
+        return it->second;
+    else
+        return nullptr;
+}
+
 Entity* ImguiSystem::GetEntity() {
 
     return selected_entity_;
@@ -408,12 +437,12 @@ Camera* ImguiSystem::GetExistingSceneCamera() {
     return camera_;
 }
 
-std::string ImguiSystem::GetImageAdd() {
+std::string ImguiSystem::GetAssetAdd() {
 
     return img_to_add_;
 }
 
-void ImguiSystem::SetImageAdd(std::string image) {
+void ImguiSystem::SetAssetAdd(std::string image) {
 
     img_to_add_ = image;
 }
@@ -447,21 +476,21 @@ void ImguiSystem::OpenFile() {
         factory_->DeSerializeLevelEntities(file);
         CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
         CORE->GetSystem<PartitioningSystem>()->InitPartition();
+
+        current_loaded_path_ = path;
     }
 }
 
-void ImguiSystem::SaveFile(){
+void ImguiSystem::SaveFile(std::string dest_path){
 
     factory_->SerializeCurrentLevelEntities(); // save each entity to their respective path
 
     rapidjson::StringBuffer sb;
     rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
 
-    std::string path = OpenSaveDialog(scene_filter_, 1);
+    if (!dest_path.empty()) {
 
-    if (!path.empty()) {
-
-        std::ofstream filestream(path);
+        std::ofstream filestream(dest_path);
 
         if (filestream.is_open()) {
 
@@ -540,21 +569,6 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save, int multis
     return std::string(); // returns an empty string if user cancels/didnt select anything
 }
 
-void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
-    ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-
-    ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-    if (ImGui::BeginPopupModal(windowName, NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-
-        ImGui::Text(message);
-
-        if (ImGui::Button("OK"))
-            ImGui::CloseCurrentPopup();
-
-        ImGui::EndPopup();
-    }
-}
-
 void ImguiSystem::DrawGrid() {
 
     float global_scale = CORE->GetGlobalScale();
@@ -584,7 +598,7 @@ void ImguiSystem::DrawGrid() {
 
             if (points.size() == graphics_->GetBatchSize())
             {
-                graphics_->DrawDebugLines(points, { 1.0f, 1.0f, 1.0f, 0.5f }, 1.0f);
+                graphics_->DrawDebugLines(points, { 0.8f, 0.8f, 0.8f, 0.5f }, 1.0f);
                 points.clear();
             }
        }
@@ -596,32 +610,21 @@ void ImguiSystem::DrawGrid() {
    }
 }
 
-Camera* ImguiSystem::GetCamera() {
+void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
-    auto it = cam_arr_->begin();
-    if (it != cam_arr_->end())
-        return it->second;
-    else
-        return nullptr;
-}
+    ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
+    ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+    if (ImGui::BeginPopupModal(windowName, NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
-void ImguiSystem::VolumeControl() {
+        ImGui::Text(message);
 
-    if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
-        sound_->PauseSound("all", true, true);
-    if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
-        sound_->MuteSound("all", true, true);
+        if (ImGui::Button("OK")) {
 
-    ImGui::Separator();
+            ImGui::CloseCurrentPopup();
+        }
 
-    float inputVol = sound_->GetVolume();
-    ImGui::Text("Volume:");
-    ImGui::Text(ICON_FA_VOLUME_DOWN); ImGui::SameLine(0, 3);
-    ImGui::PushItemWidth(250.0f);
-    ImGui::SliderFloat("", &inputVol, 0.0f, 1.0f, "%.2f");
-    ImGui::PopItemWidth(); ImGui::SameLine(0, 3);
-    ImGui::Text(ICON_FA_VOLUME_UP);
-    sound_->SetVolume(inputVol);
+        ImGui::EndPopup();
+    }
 }
 
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
@@ -646,9 +649,8 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
         ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "This cannot be undone");
 
         ImGui::Separator();
-        ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0 / 7.0f, 0.6f, 0.6f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0 / 7.0f, 0.7f, 0.7f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
+
+        CustomImGuiButton((ImVec4)ImColor::HSV(0 / 7.0f, 0.6f, 0.6f), (ImVec4)ImColor::HSV(0 / 7.0f, 0.7f, 0.7f), (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
 
         if (ImGui::Button("OK")) {
             if (!selected_entity_->GetID() && !entity) 
@@ -678,7 +680,10 @@ std::string ImguiSystem::EditString(std::string filepath, const char* startpos) 
 
 bool ImguiSystem::EditorMode() {
 
-    return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow);
+    if (CORE->GetSystem<Game>()->GetStateName() == "Editor")
+        return ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow);
+    else
+        return false;
 }
 
 void ImguiSystem::CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol) {
@@ -701,6 +706,33 @@ void ImguiSystem::ImguiHelp(const char* description, int symbol) {
         ImGui::PopTextWrapPos();
         ImGui::EndTooltip();
     }
+}
+
+bool ImguiSystem::CheckString(std::string path, const char* key) {
+
+    if (path.find(key) != path.npos)
+        return true;
+    return false;
+   
+}
+
+void ImguiSystem::VolumeControl() {
+
+    if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
+        sound_->PauseSound("all", true, true);
+    if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
+        sound_->MuteSound("all", true, true);
+
+    ImGui::Separator();
+
+    float inputVol = sound_->GetVolume();
+    ImGui::Text("Volume:");
+    ImGui::Text(ICON_FA_VOLUME_DOWN); ImGui::SameLine(0, 3);
+    ImGui::PushItemWidth(250.0f);
+    ImGui::SliderFloat("", &inputVol, 0.0f, 1.0f, "%.2f");
+    ImGui::PopItemWidth(); ImGui::SameLine(0, 3);
+    ImGui::Text(ICON_FA_VOLUME_UP);
+    sound_->SetVolume(inputVol);
 }
 
 ImguiSystem::~ImguiSystem() {

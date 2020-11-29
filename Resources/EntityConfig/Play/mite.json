@@ -7,17 +7,17 @@
     {
       "component": "AI",
       "AItype": "Mite",
-      "range": "10.0",
-      "speed": "200.0",
+      "range": "6.0",
+      "speed": "140.0",
       "dest": "4",
-      "destination1": "-8.50 7.3", 
-      "destination2": "-8.40 15.5",
-      "destination3": "-22.0 15.5",
-      "destination4": "-22.0 7.5"
+      "destination1": "-12.0 9.0", 
+      "destination2": "-12.0 21.5",
+      "destination3": "-35.0 21.5",
+      "destination4": "-35.0 9.0"
     },
     {
       "component": "Transform",
-      "position": "-8.50 7.3 ",
+      "position": "-12.0 21.5 ",
       "rotation": "0.0",
       "offset": "0.0 0.0",
       "aabb offset": "0.0 -1.0"

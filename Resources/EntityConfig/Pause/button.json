@@ -2,7 +2,65 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 1.1",
+      "position": "10.0 5.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "9",
+      "active": "1",
+      "scale": "1.0 1.0",
+      "group": "3"
+    },
+    {
+      "component": "Scale",
+      "scale": "64.0 64.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.1 0.1",
+      "layer": "6"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_PauseButton_0",
+      "layer": "2",
+      "ui": "1"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "99",
+      "active": "0",
+      "scale": "0.0001 0.0001",
+      "group": "1"
+    },
+    {
+      "component": "Scale",
+      "scale": "340.0 340.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "4.0 4.0",
+      "layer": "6"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_PauseMenu_0",
+      "layer": "2",
+      "ui": "1"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.0 1.1",
       "rotation": "0.0"
     },
     {
@@ -14,7 +72,7 @@
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "160.0 40.0"
     },
     {
       "component": "AABB",
@@ -23,7 +81,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Menu_Start_0",
+      "texture": "UI_Paused_Resume_0",
       "layer": "2",
       "ui": "1"
     }
@@ -31,7 +89,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 -0.6",
+      "position": "0.0 -0.6",
       "rotation": "0.0"
     },
     {
@@ -43,7 +101,7 @@
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "160.0 40.0"
     },
     {
       "component": "AABB",
@@ -52,7 +110,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Menu_HowToPlay_0",
+      "texture": "UI_Paused_HowTo_0",
       "layer": "2",
       "ui": "1"
     }
@@ -60,7 +118,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 -2.4",
+      "position": "0.0 -2.4",
       "rotation": "0.0"
     },
     {
@@ -72,7 +130,7 @@
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "160.0 40.0"
     },
     {
       "component": "AABB",
@@ -81,7 +139,36 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Menu_Quit_0",
+      "texture": "UI_Paused_Quit_0",
+      "layer": "2",
+      "ui": "1"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.0 1.25",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "7",
+      "active": "0",
+      "scale": "100.0 100.0",
+      "group": "2"
+    },
+    {
+      "component": "Scale",
+      "scale": "512.0 600.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.1 0.1",
+      "layer": "6"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_HowToPlay_0",
       "layer": "2",
       "ui": "1"
     }

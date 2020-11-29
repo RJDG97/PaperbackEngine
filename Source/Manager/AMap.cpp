@@ -167,6 +167,9 @@ void AMap::InsertEntityNodes(const Vector2D& pos, const Vector2D& scale) {
 		for (size_t i = static_cast<size_t>(min_y); i < max_y && i >= 0 && i < node_map_.size(); ++i) {
 		
 			node_map_[i][j].obstacle_ = true;
+
+			//for(auto n : node_map_[i][j].neighbour_)
+			//	node_map_[i][j].obstacle_ = true;
 		}
 	}
 }
@@ -258,10 +261,10 @@ void AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 			if (nnode->obstacle_ || inlist(closedlist, *nnode))
 				continue;
 
-			int newNeighbourCost = currentnode->G + 
-				static_cast<int>(Vector2DDistance(currentnode->nodepos_, nnode->nodepos_));
+			int newNeighbourCost = static_cast<int>(currentnode->G +
+				Vector2DDistance(currentnode->nodepos_, nnode->nodepos_));
 			if (newNeighbourCost < nnode->G || !inlist(openlist, *nnode)) {
-				nnode->G = newNeighbourCost;
+				nnode->G = static_cast<float>(newNeighbourCost);
 				nnode->H = Vector2DDistance(nnode->nodepos_, desnode->nodepos_);
 				nnode->F = nnode->G + nnode->H;
 				nnode->parent_ = currentnode;

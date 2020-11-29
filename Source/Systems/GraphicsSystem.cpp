@@ -153,6 +153,9 @@ void GraphicsSystem::Update(float frametime) {
 
     for (AnimRendererIt it = anim_renderer_arr_->begin(); it != anim_renderer_arr_->end(); ++it) {
 
+        if (!it->second->alive_)
+            continue;
+
         if (debug_) {
             // Log id of entity and it's updated components that are being updated
             M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) +

@@ -373,6 +373,8 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 }
 
 void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
+
+	UNREFERENCED_PARAMETER(aabb1);
 	AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
 	if (ai_state->GetState() == AI::AIState::Attack)
 	{

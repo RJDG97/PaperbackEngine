@@ -97,7 +97,7 @@ namespace StagBeetle
 			{
 				obj->second->GetTimer().TimerStop();
 				obj->second->GetTimer().TimerReset();
-				float distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetPosition(), GeneralScripts::obj_rigidbody->GetPosition());
+				float distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetPosition(), GeneralScripts::player_rigidbody->GetPosition());
 				if (distance < 5.0f && tries != 1) // Player in radius
 				{
 					obj->second->SetPlayerLastPos(GeneralScripts::player_rigidbody->GetOffsetAABBPos());
