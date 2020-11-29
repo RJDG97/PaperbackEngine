@@ -34,7 +34,7 @@ void ArchetypeWindow::Update() {
 			ImGui::PopFont();
 
 			ImGui::SameLine(0, 4);
-			imgui_->ImguiHelp("Close Archetype Node before \nmaking other selections");
+			imgui_->ImguiHelp("Close Archetype Tab before\nmaking other selections");
 		}
 
 		if (ImGui::CollapsingHeader("Create New Archetypes")) {
@@ -89,7 +89,6 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 		for (EntityManager::EntityArchetypeMapTypeIt entityIT = entities_->GetArchetypes().begin(); entityIT != entities_->GetArchetypes().end(); ++entityIT) {
 
-
 			ImGuiTreeNodeFlags flags = ((imgui_->GetEntity() == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
 
 			opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, entityIT->first.c_str()));
@@ -134,7 +133,6 @@ void ArchetypeWindow::AvaliableArchetypes() {
 				ImGui::TreePop();
 			}
 
-
 		}
 	}
 }
@@ -159,7 +157,7 @@ void ArchetypeWindow::NoCameraPopUp() {
 
 		ImGui::PopStyleColor(3);
 
-		ImGui::SameLine(0, 4);
+		ImGui::SameLine(0, 10);
 
 		if (ImGui::Button("No")) {
 			b_nocam = false;

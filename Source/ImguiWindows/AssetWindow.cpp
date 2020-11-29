@@ -196,7 +196,7 @@ void AssetWindow::FileMenuBar() {
 
 					rapidjson::Document file;
 
-					imgui_->DeSerializeJSON(path, file);
+					DeSerializeJSON(path, file);
 
 					const rapidjson::Value& files_arr = file;
 					DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
@@ -226,19 +226,8 @@ void AssetWindow::FileMenuBar() {
 
 				path = *((std::string*)payLoadtex->Data);
 
-				if (imgui_->CheckString(path, ".png")) {
-
 					imgui_->b_addtexture = true;
-					imgui_->b_tex = true;
-					imgui_->SetAssetAdd(path);
-				}				
-				
-				if (imgui_->CheckString(path, ".mp3")) {
-
-					imgui_->b_addtexture = true;
-					imgui_->b_audio = true;
-					imgui_->SetAssetAdd(path);
-				}
+					imgui_->SetAssetAdd(path);			
 			}
 		}
 		ImGui::EndDragDropTarget();
