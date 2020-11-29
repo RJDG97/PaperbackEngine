@@ -45,5 +45,7 @@
   
   "WaterGauge_Shine": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Shine.png 1 1",
   
-  "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1"
+  "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1",
+  
+  "UI_Objectives": "Resources/Sprites/UI_Elements/Objectives/UI_Objectives.png 1 1"
 }

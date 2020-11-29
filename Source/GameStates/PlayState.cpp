@@ -194,11 +194,11 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 				// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
 				// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
-				if (CORE->GetCorePauseStatus() && InputController->VerifyKey("confirm", m->input_)) {
-					//CORE->SetGameActiveStatus(false);
-					game->ChangeState(&m_MenuState);
-					return;
-				}
+				//if (CORE->GetCorePauseStatus() && InputController->VerifyKey("confirm", m->input_)) {
+				//	//CORE->SetGameActiveStatus(false);
+				//	game->ChangeState(&m_MenuState);
+				//	return;
+				//}
 			}
 
 			if (!entity_mgr_->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {
@@ -281,6 +281,10 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 						if (player_scale) {
 							ScaleEntityBig(player_scale, true);
 						}
+					}
+					else if (InputController->VerifyKey("advance_text", m->input_)) {
+
+						
 					}
 				}
 			}

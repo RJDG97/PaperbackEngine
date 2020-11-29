@@ -15,7 +15,7 @@
       "shrink": "shrink 59",
       "expand": "expand 39",
       "pause" : "pause 256",
-      "confirm" : "confirm 257"
+      "advance_text" : "advance_text 257"
     }
   ]
 }
