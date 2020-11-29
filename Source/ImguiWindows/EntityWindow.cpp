@@ -19,6 +19,8 @@ void EntityWindow::Init(){
 	sound_ = &*CORE->GetSystem<SoundSystem>();
 
 	originalVec_ = { 0,0 };	
+	b_draw = false;
+	b_grid = false;
 }
 
 void EntityWindow::Update() {
@@ -27,8 +29,6 @@ void EntityWindow::Update() {
 	if (imgui_->b_entitywin) {
 
 		ImGui::Begin("Entity Inspector", &imgui_->b_entitywin);
-
-		DragEntityCheckBox();
 
 		ImGui::Separator();
 
@@ -40,6 +40,17 @@ void EntityWindow::Update() {
 	if (imgui_->b_component) {
 
 		ImGui::Begin("Component Inspector", &imgui_->b_component);
+
+		DragEntityCheckBox();
+
+		ImGui::SameLine(0, 3);
+
+		if (imgui_->GetCamera())
+			ImGui::Checkbox("Draw Grid", &b_grid);
+
+		if (b_grid)
+			imgui_->DrawGrid();
+
 		SelectEntityComponent();// to see the components
 		ImGui::End();
 	}

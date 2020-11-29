@@ -177,7 +177,7 @@ private:
 	const char* Playerstatus_[4]{ "None", "Invisible", "Hit", "Burrow"};
 	const char* emiiterstatus_[2] = {"Dead", "Alive" };
 
-	bool b_draw = false;
+	bool b_draw, b_grid;
 
 };
 #endif
