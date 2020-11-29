@@ -62,7 +62,6 @@ void ParticleSystem::Update(float frametime) {
 			particle->lifetime_ = 0.0f;
 			component_manager_->GetComponent<Motion>(id)->alive_ = false;
 			component_manager_->GetComponent<TextureRenderer>(id)->alive_ = false;
-
 			// restore quota to emitter
 			Emitter* spawner = component_manager_->GetComponent<Emitter>(particle->spawner_);
 			--spawner->current_spawn_;

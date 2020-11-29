@@ -2,73 +2,181 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "2.0 -13.0",
+            "position": "3.500000 -26.000000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "9"
         }
     ],
     "Puddle": [
         {
             "component": "Transform",
-            "position": "16.0 -13.0",
+            "position": "24.000000 -26.000000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "9"
         }
     ],
     "Puddle": [
         {
             "component": "Transform",
-            "position": "17.0 1.0",
+            "position": "31.500000 -1.500000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "9"
         }
     ],
     "Puddle": [
         {
             "component": "Transform",
-            "position": "10.0 14.0",
+            "position": "23.000000 10.000000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "9"
         }
     ],
     "Puddle": [
         {
             "component": "Transform",
-            "position": "4.0 0.0",
+            "position": "7.500000 -3.000000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "9"
         }
     ],
     "Puddle": [
         {
             "component": "Transform",
-            "position": "0.0 2.0",
+            "position": "0.000000 0.500000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "9"
         }
     ],
     "Puddle": [
         {
             "component": "Transform",
-            "position": "19.0 12.0",
+            "position": "18.000000 19.500000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "9"
         }
     ],
     "Puddle": [
         {
             "component": "Transform",
-            "position": "-9.0 15.0",
+            "position": "-12.500000 19.500000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "9"
         }
     ],
     "Puddle": [
         {
             "component": "Transform",
-            "position": "-22.0 8.0",
+            "position": "-35.000000 8.000000",
             "rotation": "0.000000",
-            "offset": "0.000000 0.000000"
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "9"
         }
     ]
 }

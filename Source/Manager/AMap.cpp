@@ -167,6 +167,9 @@ void AMap::InsertEntityNodes(const Vector2D& pos, const Vector2D& scale) {
 		for (size_t i = static_cast<size_t>(min_y); i < max_y && i >= 0 && i < node_map_.size(); ++i) {
 		
 			node_map_[i][j].obstacle_ = true;
+
+			//for(auto n : node_map_[i][j].neighbour_)
+			//	node_map_[i][j].obstacle_ = true;
 		}
 	}
 }
