@@ -29,5 +29,7 @@
   
   "SoundEmitter": "Resources/EntityConfig/Play/soundemitter.json",
 
-  "Objectives": "Resources/EntityConfig/Play/objectives.json"
+  "Objectives": "Resources/EntityConfig/Play/objectives.json",
+  
+  "Burrowable": "Resources/EntityConfig/Play/burrowable.json"
 }

@@ -538,6 +538,15 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				PlayerCollectibleResponse(aabb1, aabb2);
 				break;
 			}
+			case CollisionLayer::BURROWABLE:
+			{
+				Status* player_status = status_arr_->GetComponent(aabb1->first);
+				if (player_status && player_status->GetStatus() != StatusType::BURROW) {
+
+					DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
+				}
+				break;
+			}
 		}
 		break;
 	}
@@ -768,6 +777,12 @@ void Collision::Init() {
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
 	AddCollisionLayers(CollisionLayer::GATE, "00001000", false);
+
+	/*
+	Parameter 1: Collision layer 5
+	Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::BURROWABLE, "00001000", false);
 
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }

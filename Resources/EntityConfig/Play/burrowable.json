@@ -1,0 +1,14 @@
+{
+  "burrowable": [
+    {
+      "component": "Transform",
+      "position": "-6.62 -1.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.9 2.2",
+      "layer": "10"
+    }
+  ]
+}
