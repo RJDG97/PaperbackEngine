@@ -89,7 +89,6 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 					ImGui::EndPopup();
 				}
 
-
 				ImGui::TreePop();
 				break;
 			}
@@ -111,11 +110,16 @@ void EntityPathWindow::AddPaths(Level* editor) {
 
 			for (EntityManager::EntityArchetypeMapTypeIt entityIT = entities_->GetArchetypes().begin(); entityIT != entities_->GetArchetypes().end(); ++entityIT) {
 				
-				if (ImGui::Selectable(entityIT->first.c_str())) {
-					path = imgui_->OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
+				auto it = editor->entity_paths_.find(entityIT->first);
 
-					if (!path.empty()) 
-						editor->AddNewEntityPath(entityIT->first, imgui_->EditString(path));
+				if (it == editor->entity_paths_.end()) {
+
+					if (ImGui::Selectable(entityIT->first.c_str())) {
+						path = imgui_->OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
+
+						if (!path.empty())
+							editor->AddNewEntityPath(entityIT->first, imgui_->EditString(path));
+					}
 				}
 			}
 			ImGui::EndCombo();

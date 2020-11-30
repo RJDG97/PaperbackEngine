@@ -58,11 +58,20 @@ public:
 
 	/******************************************************************************/
 	/*!
-		\fn LoadTextureJson(std::string level_name)
+		\fn AddTextureAnimation()
 
-		\brief Load the json into a map
+		\brief Handles the adding/removing of textures (the overall window)
 	*/
 	/******************************************************************************/
+	void AddTextureAnimation();
+
+	/******************************************************************************/
+/*!
+	\fn LoadTextureJson(std::string level_name)
+
+	\brief Load the json into a map
+*/
+/******************************************************************************/
 	void LoadTextureJson(std::string level_name);
 
 	//void LoadAnimationJson(std::string level_name);
@@ -73,17 +82,8 @@ public:
 
 		\brief Load the json into a map
 	*/
-	/******************************************************************************/	
+	/******************************************************************************/
 	void LoadSoundJson(std::string level_name);
-
-	/******************************************************************************/
-	/*!
-		\fn AddTextureAnimation()
-
-		\brief Handles the adding/removing of textures (the overall window)
-	*/
-	/******************************************************************************/
-	void AddTextureAnimation();
 
 	/******************************************************************************/
 	/*!
@@ -92,7 +92,7 @@ public:
 		\brief Allows users to select which json they want to amend
 	*/
 	/******************************************************************************/
-	void SelectTextureJson();
+	void SelectAssetJson();
 
 	/******************************************************************************/
 	/*!
@@ -112,6 +112,16 @@ public:
 	/******************************************************************************/
 	void AddNewTexture();
 
+	void DisplayAudioJson();
+
+	void AddNewAudio();
+
+	std::string FindUnderscore(std::string filename);
+
+	void WrongTypePopup();
+
+	void UnloadPopup();
+
 	/******************************************************************************/
 	/*!
 		\fn AddBlankJson()
@@ -121,15 +131,10 @@ public:
 	/******************************************************************************/
 	void AddBlankJson();
 
-	void SelectSoundJson();
-
-	std::string FindUnderscore(std::string filename);
-
-	void DisplayAudioJson();
-
 private:
 	ImguiSystem* imgui_;
 	TextureManager* texture_;
+	SoundSystem* sound_;
 
 	std::map<std::string, TextureInfo> tex_info_;
 	std::map<std::string, AudioInfo> audio_info;

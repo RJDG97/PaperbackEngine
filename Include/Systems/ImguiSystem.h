@@ -396,7 +396,7 @@ public:
 
 	void SetAssetAdd(std::string image);
 
-	void DeSerializeJSON(const std::string& filename, rapidjson::Document& doc);
+	void LoadJsonPaths(std::string path);
 
 	bool CheckString(std::string path, const char* key);
 

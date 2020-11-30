@@ -1,74 +1,74 @@
 {
-  "MenuDefault": [
-    {
-      "path": "Resources/SoundCache/States/MM_BGM.mp3",
-      "volume": "0.3",
-      "min distance": "0.0",
-      "volume falloff": "0.0",
-      "loop": "1"
-    }
-  ],
-  "GameBGM": [
-    {
-      "path": "Resources/SoundCache/States/Game_Mode_BGM_V3.mp3",
-      "volume": "0.3",
-      "min distance": "4.0",
-      "volume falloff": "0.1",
-      "loop": "1"
-    }
-  ],
-  "ButtonPress": [
-    {
-      "path": "Resources/SoundCache/States/Press_Button.mp3",
-      "volume": "1.0",
-      "min distance": "0.0",
-      "volume falloff": "0.0",
-      "loop": "0"
-    }
-  ],
-  "PlayerJump":  [
-    {
-      "path": "Resources/SoundCache/Player/Player_Jump.mp3",
-      "volume": "1.0",
-      "min distance": "0.0",
-      "volume falloff": "0.0",
-      "loop": "0"
-    }
-  ],
-  "PlayerDrink":  [
-    {
-      "path": "Resources/SoundCache/Player/Player_Drink.mp3",
-      "volume": "1.0",
-      "min distance": "0.0",
-      "volume falloff": "0.0",
-      "loop": "0"
-    }
-  ],
-  "PlayerHurt":  [
-    {
-      "path": "Resources/SoundCache/Player/Player_Hurt.mp3",
-      "volume": "1.0",
-      "min distance": "0.0",
-      "volume falloff": "0.0",
-      "loop": "0"
-    }
-  ],
-  "PlayerDies":  [
-    {
-      "path": "Resources/SoundCache/Player/Player_Dies.mp3",
-      "volume": "1.0",
-      "min distance": "0.0",
-      "volume falloff": "0.0",
-      "loop": "0"
-    }
-  ],
-  "EnemyWalk":  [
-    {
-      "path": "Resources/SoundCache/Player/Enemy_Walk.mp3",
-      "volume": "1.0",
-      "min distance": "0.0",
-      "volume falloff": "0.0",
-      "loop": "0"
-    }
-  ]
+    "ButtonPress": [
+        {
+            "path": "Resources/SoundCache/States/Press_Button.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "EnemyWalk": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Walk.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "GameBGM": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode_BGM_V3.mp3",
+            "volume": "0.300000",
+            "min distance": "4.000000",
+            "volume falloff": "0.100000",
+            "loop": "1"
+        }
+    ],
+    "MenuDefault": [
+        {
+            "path": "Resources/SoundCache/States/MM_BGM.mp3",
+            "volume": "0.300000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1"
+        }
+    ],
+    "PlayerDies": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Dies.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerDrink": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Drink.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerHurt": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Hurt.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerJump": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ]
 }

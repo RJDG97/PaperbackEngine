@@ -33,7 +33,9 @@ enum class CollisionLayer
 	UI_ELEMENTS,     // Non-interactable
 	KEYS,
 	GATE,
-	COLLECTIBLE
+	COLLECTIBLE,
+	BURROWABLE,
+	MAX
 };
 
 class Collision : public ISystem {
@@ -64,10 +66,10 @@ public:
 	using InputControllerType = CMap<InputController>;
 	using InputControllerIt = InputControllerType::MapTypeIt;
 
-	// Placeholder stuff, testing Collision Layering
-	typedef std::pair<std::bitset<10>, bool> CollidableLayers;
+	using CollidableLayer = std::bitset<static_cast<size_t>(CollisionLayer::MAX)>;
 
-	using CollidableLayer = std::bitset<10>;
+	// Placeholder stuff, testing Collision Layering
+	using CollidableLayers = std::pair<CollidableLayer, bool>;
 
 	using CollisionLayerIt = std::unordered_map<CollisionLayer, CollidableLayers>::iterator;
 
