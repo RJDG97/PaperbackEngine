@@ -271,7 +271,7 @@ void GraphicsSystem::Draw() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTextureWithVignette(&final_texture_, 1.0f);
+    DrawFinalTexture(&final_texture_, 1.0f);
 
     //draw all the UI textures
     graphic_shaders_["UIShader"]->Use();
@@ -323,6 +323,8 @@ void GraphicsSystem::Draw() {
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
 
+    DrawVignette(1.0f);
+
     if (debug_) { debug_ = !debug_; }
 }
 
@@ -341,17 +343,15 @@ void GraphicsSystem::DrawFinalTexture(GLuint* texture, float opacity) {
     glBindVertexArray(0);
 }
 
-void GraphicsSystem::DrawFinalTextureWithVignette(GLuint* texture, float opacity) {
+void GraphicsSystem::DrawVignette(float opacity) {
 
     graphic_shaders_["VignetteShader"]->Use();
     glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
     glBindTexture(GL_TEXTURE_2D, graphic_models_["BoxModel"]->vaoid_);
-    glBindTextureUnit(0, *texture);
 
     graphic_shaders_["VignetteShader"]->SetUniform("center", { windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
     graphic_shaders_["VignetteShader"]->SetUniform("clear_size", vignette_size);
-    graphic_shaders_["VignetteShader"]->SetUniform("max_size", max_vignette_size);// glm::vec2{ windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
-    graphic_shaders_["VignetteShader"]->SetUniform("uTex2d", 0);
+    graphic_shaders_["VignetteShader"]->SetUniform("max_size", max_vignette_size);
     graphic_shaders_["VignetteShader"]->SetUniform("opacity", opacity);
 
     glDrawElements(GL_TRIANGLE_STRIP, graphic_models_["BoxModel"]->draw_cnt_, GL_UNSIGNED_SHORT, NULL);

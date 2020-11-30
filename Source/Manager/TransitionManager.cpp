@@ -5,8 +5,8 @@
 
 TransitionManager::TransitionManager() : 
 	transition_speed_{ },
-	max_size_{ 1280.0f, 720.0f },
-	max_clear_size_{ 560.0f, 315.0f },
+	max_size_{ 720.0f, 405.0f },
+	max_clear_size_{ 480.0f, 270.0f },
 	current_size_{ },
 	current_transition_{ nullptr },
 	next_state_{ nullptr },
