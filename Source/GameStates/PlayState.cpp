@@ -50,6 +50,9 @@ void PlayState::Init(std::string)
 
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
+	logic_mgr_ = &*CORE->GetManager<LogicManager>();
+	logic_arr_ = component_mgr_->GetComponentArray<LogicComponent>();
+	input_arr_ = component_mgr_->GetComponentArray<InputController>();
 
 	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel("Play");
@@ -164,6 +167,16 @@ std::string PlayState::GetStateName() {
 	return "Play";
 }
 
+bool PlayState::GetHelp() {
+	
+	return help_;
+}
+
+void PlayState::SetHelp(const bool& status) {
+	
+	help_ = status;
+}
+
 bool VerifyStatusNoneOrAlt(StatusType player, StatusType to_check) {
 
 	return (player == StatusType::NONE || player == to_check);
@@ -178,6 +191,20 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 		component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
 	if (game) {
+		
+		// Logic component update for input controller (Currently only for player)
+		for (auto& [id, controller] : *input_arr_) {
+			
+			LogicComponent* logic = component_mgr_->GetComponent<LogicComponent>(id);
+
+			if (logic) {
+				// If the logic is valid, run update loop
+				std::string update = logic->GetLogic("UpdateInput");
+				logic_mgr_->Exec(update, id, *msg);
+			}
+		}
+
+		/*
 		for (Game::InputControllerIt it = game->input_controller_arr_->begin(); it != game->input_controller_arr_->end(); ++it) {
 			Message_Input* m = dynamic_cast<Message_Input*>(msg);
 			
@@ -303,7 +330,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				}
 			}
 		}
-
+		*/
 		if (!game->debug_ && game->GetStateName() == "Play") {
 
 			switch (msg->message_id_) {

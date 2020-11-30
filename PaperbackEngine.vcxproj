@@ -204,6 +204,7 @@
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
     <ClCompile Include="Source\Manager\ForcesManager.cpp" />
+    <ClCompile Include="Source\Manager\LogicManager.cpp" />
     <ClCompile Include="Source\Manager\ModelManager.cpp" />
     <ClCompile Include="Source\Manager\ParticleManager.cpp" />
     <ClCompile Include="Source\Manager\ShaderManager.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="Include\Manager\FontManager.h" />
     <ClInclude Include="Include\Manager\ForcesManager.h" />
     <ClInclude Include="Include\Manager\IManager.h" />
+    <ClInclude Include="Include\Manager\LogicManager.h" />
     <ClInclude Include="Include\Manager\ModelManager.h" />
     <ClInclude Include="Include\Manager\ParticleManager.h" />
     <ClInclude Include="Include\Manager\ShaderManager.h" />

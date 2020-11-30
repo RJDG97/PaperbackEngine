@@ -24,6 +24,7 @@
 #include "Manager/AMap.h"
 #include "Manager/TransitionManager.h"
 #include "Manager/DialogueManager.h"
+#include "Manager/LogicManager.h"
 
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
@@ -88,6 +89,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddManager<ParticleManager>();
 		CORE->AddManager<TransitionManager>();
 		CORE->AddManager<DialogueManager>();
+		CORE->AddManager<LogicManager>();
 
 		// Initialize all Systems & Managers that
 		// were added to the Core Engine

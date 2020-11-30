@@ -154,12 +154,13 @@
     },
     {
       "component": "LogicComponent",
-      "entity": "Player",
-      "number_of_fns": "2",
+      "number_of_fns": "3",
       "name": "UpdateChildOffset",
-      "function": "UpdateChildOffset",
+      "function": "Player_UpdateChildOffset",
       "name": "UpdateTexture",
-      "function": "UpdateTexture"
+      "function": "Player_UpdateTexture",
+      "name": "UpdateInput",
+      "function": "Player_UpdateInput"
     },
     {
       "component": "Inventory"
@@ -168,6 +169,9 @@
       "component": "ParentChild",
       "counter": "1",
       "child": "Camera"
+    },
+    {
+      "component": "InputController"
     }
   ],
   "Enemy": [
@@ -227,10 +231,9 @@
     },
     {
       "component": "LogicComponent",
-      "entity": "Enemy",
       "number_of_fns": "1",
       "name": "UpdateTexture",
-      "function": "UpdateTexture"
+      "function": "Stag_UpdateTexture"
     }
   ],
   "Wall": [
@@ -442,10 +445,9 @@
     },
     {
       "component": "LogicComponent",
-      "entity": "Enemy",
       "number_of_fns": "1",
       "name": "UpdateTexture",
-      "function": "UpdateTexture"
+      "function": "Stag_UpdateTexture"
     }
   ],
   "Mite": [
@@ -503,10 +505,9 @@
     },
     {
       "component": "LogicComponent",
-      "entity": "Mite",
       "number_of_fns": "1",
       "name": "UpdateTexture",
-      "function": "UpdateTexture"
+      "function": "Mite_UpdateTexture"
     }
   ],
   "MenuBG": [

@@ -6,12 +6,17 @@
 #include "Entity/Entity.h"
 #include "Components/IComponent.h"
 
+
 class LogicComponent : public Component
 {
 public:
-	// Function pointer called "LogicUpdate" that takes an entity id (of parent)
-	using LogicUpdate = void(*)(const EntityID& parent_id);
-	using LogicMap = std::map<std::string, LogicUpdate>;
+	//// Function pointer called "LogicUpdate" that takes an entity id (of parent)
+	//using LogicUpdate = void(*)(const EntityID& parent_id);
+	//using LogicMap = std::map<std::string, LogicUpdate>;
+
+	// Test
+	using LogicMap = std::map<std::string, std::string>;
+
 
 /******************************************************************************/
 /*!
@@ -20,7 +25,7 @@ public:
   \brief Initialize the component attached to the entity during compile time
 */
 /******************************************************************************/
-void Init();
+	void Init();
 
 /******************************************************************************/
 /*!
@@ -29,7 +34,7 @@ void Init();
   \brief Serialises a component into JSON format
 */
 /******************************************************************************/
-void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
+	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
 
 /******************************************************************************/
 /*!
@@ -38,7 +43,7 @@ void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
   \brief Serialises a component as a clone into JSON format
 */
 /******************************************************************************/
-void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
 
 /******************************************************************************/
 /*!
@@ -47,7 +52,7 @@ void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
   \brief Loads a component from JSON format
 */
 /******************************************************************************/
-void DeSerialize(std::stringstream& data);
+	void DeSerialize(std::stringstream& data);
 
 /******************************************************************************/
 /*!
@@ -57,7 +62,16 @@ void DeSerialize(std::stringstream& data);
 		 components
 */
 /******************************************************************************/
-void DeSerializeClone(std::stringstream& data);
+	void DeSerializeClone(std::stringstream& data);
+
+/******************************************************************************/
+/*!
+  \fn GetLogic()
+
+  \brief Retrieves the relevant string for update fn
+*/
+/******************************************************************************/
+	const std::string& GetLogic(const std::string& fn);
 
 /******************************************************************************/
 /*!
@@ -66,7 +80,7 @@ void DeSerializeClone(std::stringstream& data);
   \brief Clones the existing component
 */
 /******************************************************************************/
-std::shared_ptr<Component> Clone();
+	std::shared_ptr<Component> Clone();
 
 /***************************************************************************/
 /*!
@@ -75,13 +89,14 @@ std::shared_ptr<Component> Clone();
   \brief Removes the component from the component map
 */
 /***************************************************************************/
-~LogicComponent();
+	~LogicComponent();
 
 private:
 
 	size_t size_;
-	std::string entity_;
+	//std::string entity_;
 	LogicMap my_logic_;
+
 	friend class Physics; //temp
 };
 

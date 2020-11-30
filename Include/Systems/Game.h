@@ -22,6 +22,15 @@ public:
 	friend class PlayState;
 	friend class EditorState;
 
+
+	using StatusMapType = CMap<Status>;
+	using StatusIt = StatusMapType::MapTypeIt;
+	using BasicAIType = CMap<BasicAI>;
+	using BasicAIIt = BasicAIType::MapTypeIt;
+	using InputControllerType = CMap<InputController>;
+	using InputControllerIt = InputControllerType::MapTypeIt;
+
+
 /******************************************************************************/
 /*!
   \fn Game()
@@ -156,16 +165,16 @@ private:
 	// for the game loop
 	bool b_running_;
 
-	using StatusMapType = CMap<Status>;
-	using StatusIt = StatusMapType::MapTypeIt;
+	//using StatusMapType = CMap<Status>;
+	//using StatusIt = StatusMapType::MapTypeIt;
 	StatusMapType* status_arr_;
 
-	using BasicAIType = CMap<BasicAI>;
-	using BasicAIIt = BasicAIType::MapTypeIt;
+	//using BasicAIType = CMap<BasicAI>;
+	//using BasicAIIt = BasicAIType::MapTypeIt;
 	BasicAIType* basicai_arr_;
 
-	using InputControllerType = CMap<InputController>;
-	using InputControllerIt = InputControllerType::MapTypeIt;
+	//using InputControllerType = CMap<InputController>;
+	//using InputControllerIt = InputControllerType::MapTypeIt;
 	InputControllerType* input_controller_arr_;
 
 

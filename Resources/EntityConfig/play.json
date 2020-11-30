@@ -7,8 +7,6 @@
   
   "Mite": "Resources/EntityConfig/Play/mite.json",
   
-  "InputController": "Resources/EntityConfig/Play/input.json",
-  
   "Hole": "Resources/EntityConfig/Play/hole.json",
   
   "Boundary": "Resources/EntityConfig/Play/boundary.json",
