@@ -70,6 +70,7 @@ void DialogueSystem::Update(float frametime)
 
 void DialogueSystem::SendMessageD(Message* m)
 {
+	(void) m;
 }
 
 void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)

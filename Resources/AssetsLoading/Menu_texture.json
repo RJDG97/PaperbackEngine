@@ -67,5 +67,7 @@
   
   "UI_HowToPlay": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay.png 1 1",
   
-  "UI_Objectives": "Resources/Sprites/UI_Elements/HowTo/UI_Objectives.png 1 1"
+  "UI_Objectives": "Resources/Sprites/UI_Elements/HowTo/UI_Objectives.png 1 1",
+
+  "UI_DialogueBox": "Resources/Sprites/UI_Elements/Dialogue/UI_DialogueBox.png 1 1"
 }

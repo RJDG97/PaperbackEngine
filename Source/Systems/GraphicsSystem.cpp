@@ -787,8 +787,6 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_ren
     Transform* xform = component_manager_->GetComponent<Transform>(i_renderer->GetOwner()->GetID());
     Scale* scale = component_manager_->GetComponent<Scale>(i_renderer->GetOwner()->GetID());
 
-    float cam_zoom = *camera_system_->GetMainCamera()->GetCameraZoom();
-
     Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() + 0.5f * Vector2D{ win_size_.x, win_size_.y };
     Vector2D obj_scale = scale->scale_;
 
