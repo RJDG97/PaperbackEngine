@@ -6,17 +6,17 @@
       "range": "3.0",
       "speed": "140.0",
       "dest": "4",
-      "destination1": "-0.70 -10.3", 
-      "destination2": "-0.70 -16.5",
-      "destination3": "17.3 -16.0",
-      "destination4": "17.6 -10.3"
+      "destination1": "2.50 -20.6", 
+      "destination2": "2.50 -31.4",
+      "destination3": "27.8 -30.0",
+      "destination4": "31.5 -20.1"
     },
     {
       "component": "Transform",
-      "position": "-0.70 -10.3",
+      "position": "2.50 -22.6",
       "rotation": "0.0",
       "offset": "0.0 0.0",
-      "aabb offset": "0.0 -1.0"
+      "aabb offset": "0.0 -3.0"
     }
   ],
   "StagBeetle": [
@@ -25,16 +25,19 @@
       "AItype": "Stag_Beetle",
       "range": "3.0",
       "speed": "140.0",
-      "dest": "2",
-      "destination1": "10.5 1.0", 
-      "destination2": "18.18 1.0"
+      "dest": "5",
+      "destination1": "17.87 -1.84", 
+      "destination2": "17.87 5.46", 
+      "destination3": "33.11 5.51", 
+      "destination4": "33.11 16.01", 
+      "destination5": "33.11 -2.09"
     },
     {
       "component": "Transform",
-      "position": "10.5 1.0",
+      "position": "17.87 -1.84",
       "rotation": "0.0",
       "offset": "0.0 0.0",
-      "aabb offset": "0.0 -1.0"
+      "aabb offset": "0.0 -3.0"
     }
   ]
 }
