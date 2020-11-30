@@ -39,16 +39,7 @@ void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;
 	float x;
-	data >> type >> range_ >> speed_ >> num_destinations_;
-
-	destinations_.resize(num_destinations_);
-
-	for (size_t i = 0; i < num_destinations_; i++) {
-		data >> destinations_[i].x >> destinations_[i].y;
-	}
-	
-	type_ = GeneralScripts::GetType(type);
-	alive_ = true;
+	data >> type >> range_ >> speed_;
 }
 
 void AI::DeSerializeClone(std::stringstream& data) {

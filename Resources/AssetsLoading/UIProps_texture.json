@@ -60,5 +60,9 @@
   
   "Hole": "Resources/Sprites/Props/Hole.png 1 1",
   
-  "Puddle": "Resources/Sprites/Props/Props_Puddle.png 1 1"
+  "Puddle": "Resources/Sprites/Props/Props_Puddle.png 1 1",
+  
+  "Leaf": "Resources/Sprites/Props/Props_V1_PNGs/Leaf.png 1 1",
+  
+  "Fog": "Resources/Sprites/Props/Props_V1_PNGs/Props_Cloud_Translucent.png 1 1"
 }
