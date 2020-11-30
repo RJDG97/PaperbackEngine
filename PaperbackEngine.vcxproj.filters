@@ -443,6 +443,9 @@
     <ClCompile Include="Source\Systems\DialogueSystem.cpp">
       <Filter>Systems\Dialogue System</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\LogicManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -753,6 +756,9 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\DialogueSystem.h">
       <Filter>Systems\Dialogue System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\LogicManager.h">
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

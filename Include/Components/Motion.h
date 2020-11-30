@@ -87,7 +87,9 @@ public:
 	std::shared_ptr<Component> Clone() override;
 
 	float GetMass();
-	void SetMass(float newMass);
+	void SetMass(float new_mass);
+	float GetForce();
+	void SetForce(float new_force);
 	bool GetIsLeft();
 	void SetIsLeft(bool status);
 

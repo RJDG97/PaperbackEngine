@@ -5,11 +5,12 @@
 #include "Entity/Entity.h"
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
+#include "Systems/Collision.h"
+#include "Systems/Game.h"
 #include "Manager/ComponentManager.h"
 #include "Components/LogicComponent.h"
-
-#include "Script/Stag_Script.h"
-#include "Script/Mite_Script.h"
+#include "GameStates/PlayState.h"
+#include "GameStates/MenuState.h"
 
 
 namespace Player_Scripts
@@ -38,7 +39,7 @@ namespace Player_Scripts
 	void TextureUpdateScript(const EntityID& parent_id) {
 		
 		std::shared_ptr<GraphicsSystem> graphics = CORE->GetSystem<GraphicsSystem>();
-		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 
 		AnimationRenderer* renderer = component_mgr->GetComponent<AnimationRenderer>(parent_id);
 		Status* status = component_mgr->GetComponent<Status>(parent_id);
@@ -96,42 +97,135 @@ namespace Player_Scripts
 		}
 	}
 
-	void PlayerControllerScript(const EntityID& id) {
+	void PlayerControllerScript(const EntityID& id, Message& message) {
+
+		Message_Input* m = dynamic_cast<Message_Input*>(&message);
+
+		std::shared_ptr<EntityManager> entity_mgr = CORE->GetManager<EntityManager>();
+		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
+		std::shared_ptr<Game> game = CORE->GetSystem<Game>();
+
+		InputController* controller = component_mgr->GetComponent<InputController>(id);
 		
-		(void)id;
+		if (!m || !component_mgr || !entity_mgr || !game || !controller)
+			return;
+
+		
+
+		if (controller->VerifyKey("pause", m->input_)) { // "Esc" key
+			CORE->ToggleCorePauseStatus(); // Disable physics update
+			CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+			CORE->GetSystem<Collision>()->ToggleClickables(1);
+			CORE->GetSystem<Collision>()->ToggleClickables(3);
+
+			if (m_PlayState.GetHelp()) {
+
+				m_PlayState.SetHelp(false);
+
+				CORE->GetSystem<Collision>()->ToggleClickables(1);
+				CORE->GetSystem<Collision>()->ToggleClickables(2);
+			}
+
+			Message pause{ MessageIDTypes::BGM_PAUSE };
+			CORE->BroadcastMessage(&pause);
+		}
+
+		if (game->GetStateName() == "Play") {
+
+			// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
+			// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
+			if (CORE->GetCorePauseStatus() && controller->VerifyKey("confirm", m->input_)) {
+				//CORE->SetGameActiveStatus(false);
+				game->ChangeState(&m_MenuState);
+				return;
+			}
+		}
+
+
+		if (!entity_mgr->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {
+
+			EntityID player_id = entity_mgr->GetPlayerEntities().back()->GetID();
+			Status* player_status = component_mgr->GetComponent<Status>(player_id);
+			// Skills
+			if (controller->VerifyKey("burrow", m->input_)) {
+
+				if (CORE->GetSystem<Collision>()->BurrowReady() && VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::BURROW)) {
+
+					m_PlayState.SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
+				}
+			}
+			else if (controller->VerifyKey("invisible", m->input_)) {
+
+				AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(id);
+
+				if (VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::INVISIBLE)) {
+
+					if (player_status->GetStatus() == StatusType::INVISIBLE) {
+
+						CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Idle");
+					}
+
+					else {
+
+						CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Hiding");
+					}
+
+					m_PlayState.SetStatus("Player", StatusType::INVISIBLE, 0.0f, &*CORE->GetSystem<Game>()); // "M"
+				}
+			}
+
+			if (player_status && player_status->GetStatus() != StatusType::INVISIBLE) {
+				//input group
+				float power = component_mgr->GetComponent<Motion>(id)->GetForce();
+
+				if (controller->VerifyKey("move_left", m->input_)) {
+
+					CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
+				}
+				else if (controller->VerifyKey("move_right", m->input_)) {
+
+					CORE->GetManager<ForcesManager>()->AddForce(player_id, "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
+				}
+				else if (controller->VerifyKey("move_up", m->input_)) {
+
+					CORE->GetManager<ForcesManager>()->AddForce(player_id, "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
+				}
+				else if (controller->VerifyKey("move_down", m->input_)) {
+
+					CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
+				}
+				else if (controller->VerifyKey("spin_left", m->input_)) {
+
+					Transform* player_xform = component_mgr->GetComponent<Transform>(id);
+					if (player_xform) {
+						RotateLeft(player_xform, true);
+					}
+				}
+				else if (controller->VerifyKey("spin_right", m->input_)) {
+
+					Transform* player_xform = component_mgr->GetComponent<Transform>(id);
+					if (player_xform) {
+						RotateLeft(player_xform, false);
+					}
+				}
+				else if (controller->VerifyKey("shrink", m->input_)) {
+
+					Scale* player_scale = component_mgr->GetComponent<Scale>(id);
+					if (player_scale) {
+						ScaleEntityBig(player_scale, false);
+					}
+				}
+				else if (controller->VerifyKey("expand", m->input_)) {
+
+					Scale* player_scale = component_mgr->GetComponent<Scale>(id);
+					if (player_scale) {
+						ScaleEntityBig(player_scale, true);
+					}
+				}
+			}
+		}
 	}
 }
 
-void SetLogicFn(LogicComponent::LogicUpdate& update, std::string fn_name, std::string entity_name) {
-
-	if (entity_name == "Player") {
-
-		if (fn_name == "UpdateChildOffset")
-			update = Player_Scripts::UpdateChildOffset;
-
-		else if (fn_name == "UpdateTexture")
-			update = Player_Scripts::TextureUpdateScript;
-
-		//else if (fn_name == "PlayerControllerScript")
-		//	update = Player_Scripts::PlayerControllerScript;
-	}
-	if (entity_name == "Enemy" ||
-		entity_name == "Stagbeetle") {
-		
-		//if (fn_name == "UpdateChildOffset")
-		//	update = Stag_Script::UpdateChildOffset;
-
-		if (fn_name == "UpdateTexture")
-			update = Stag_Script::TextureUpdateScript;
-	}
-	if (entity_name == "Mite") {
-		
-		//if (fn_name == "UpdateChildOffset")
-		//	update = Mite_Script::UpdateChildOffset;
-
-		if (fn_name == "UpdateTexture")
-			update = Mite_Script::TextureUpdateScript;
-	}
-}
 
 #endif // !_PLAYER_SCRIPT_H_
