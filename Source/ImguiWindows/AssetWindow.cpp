@@ -12,6 +12,8 @@ void AssetWindow::Init() {
 
 	b_create = false;
 	b_makefolder = false;
+
+	asset_ = &*imgui_->GetWindow<AssetConsoleWindow>();
 }
 
 void AssetWindow::Update() {
@@ -149,73 +151,16 @@ void AssetWindow::FileMenuBar() {
 		b_create = true;
 		b_makefolder = true;
 	}
-
 	imgui_->ImguiHelp("Add New Folder", 0);
 
-	if (ImGui::MenuItem(ICON_FA_COPY) && !path_selection_.empty()) {
-
-		std::string source_dir = imgui_->OpenSaveDialog("(*.*) All Files\0* *.*\0", 0, 1);
-		std::string destination_dir = path_selection_.generic_string();
-
-		if (!source_dir.empty()) {
-
-			if (source_dir.find("|") != source_dir.npos) {
-
-				multifiles_ = MultiFileSelection(source_dir);
-				for (int i = 0; i < multifiles_.size(); i++)
-					fs::copy(multifiles_[i], destination_dir, fs::copy_options::overwrite_existing);
-			}
-			else
-				fs::copy(source_dir, destination_dir, fs::copy_options::overwrite_existing); // only 1 file selected
-		}
-	}
+	if (ImGui::MenuItem(ICON_FA_COPY) && !path_selection_.empty())
+		CopyFilesDirectory();
 
 	imgui_->ImguiHelp("Copy File(s) to Current Directory", 0);
 
 	ImGui::MenuItem(ICON_FA_TRASH);
 	imgui_->ImguiHelp("Trash Bin. WARNING:\n CANNOT UNDO so be careful", 0);
-	std::string file_del = {};
-
-	if (ImGui::BeginDragDropTarget()) {
-
-		if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
-
-			if (payLoad->DataSize == sizeof(std::string)) {
-
-				path = *((std::string*)payLoad->Data);
-
-				if (fs::is_directory(path) && fs::is_empty(path)) {
-					fs::remove(path);
-				}
-				else if (fs::is_directory(path) && !fs::is_empty(path))
-				{
-					b_deletefolder = true;
-					folder_to_del_ = path;
-				}
-				else if (fs::is_regular_file(path) && imgui_->CheckString(path, "texture") && imgui_->CheckString(path, ".json") && !fs::is_empty(path)) {
-
-					rapidjson::Document file;
-
-					DeSerializeJSON(path, file);
-
-					const rapidjson::Value& files_arr = file;
-					DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
-
-					for (rapidjson::Value::ConstMemberIterator it = files_arr.MemberBegin(); it != files_arr.MemberEnd(); ++it) {
-
-						file_del = it->name.GetString();
-
-						texture_->UnloadTileset(file_del);
-					}
-
-				}
-				else
-					fs::remove(path);
-			}
-		}
-
-		ImGui::EndDragDropTarget();
-	}
+	FileDeletion();
 
 	ImGui::MenuItem(ICON_FA_PLUS);
 	imgui_->ImguiHelp("Add in New Assets", 0);
@@ -263,8 +208,7 @@ void AssetWindow::DisplayFolderFiles(float window_width, float window_height) {
 
 void AssetWindow::DeleteWholeFolder() {
 
-	ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-	ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+	imgui_->SetPopupPosition();
 
 	if (ImGui::BeginPopupModal(ICON_FA_TRASH "Are you Sure?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		ImGui::Text("Folder: "); ImGui::SameLine(0, 3); ImGui::TextColored(GOLDENORANGE, folder_to_del_.c_str());
@@ -328,5 +272,74 @@ std::string AssetWindow::DirectoryName(fs::directory_entry directory) {
 
 	std::string tempPath = directory.path().generic_string();
 	return tempPath.substr(tempPath.find_last_of("/") + 1);
+}
+
+void AssetWindow::CopyFilesDirectory() {
+
+	std::string source_dir = imgui_->OpenSaveDialog(imgui_->GetGenericFilter(), 0, 1);
+	std::string destination_dir = path_selection_.generic_string();
+
+	if (!source_dir.empty()) {
+
+		if (imgui_->CheckString(source_dir, "|")) {
+
+			multifiles_ = MultiFileSelection(source_dir);
+			for (int i = 0; i < multifiles_.size(); i++)
+				fs::copy(multifiles_[i], destination_dir, fs::copy_options::overwrite_existing);
+		}
+		else
+			fs::copy(source_dir, destination_dir, fs::copy_options::overwrite_existing); // only 1 file selected
+	}
+
+}
+
+void AssetWindow::FileDeletion() {
+
+	std::string path{};
+
+	std::string file_del = {};
+
+	if (ImGui::BeginDragDropTarget()) {
+
+		if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
+
+			if (payLoad->DataSize == sizeof(std::string)) {
+
+				path = *((std::string*)payLoad->Data);
+
+				if (fs::is_directory(path) && fs::is_empty(path)) {
+					fs::remove(path);
+				}
+				else if (fs::is_directory(path) && !fs::is_empty(path))
+				{
+					b_deletefolder = true;
+					folder_to_del_ = path;
+				}
+				else if (fs::is_regular_file(path) && imgui_->CheckString(path, "texture") && imgui_->CheckString(path, ".json") && !fs::is_empty(path)) {
+
+					rapidjson::Document file;
+
+					DeSerializeJSON(path, file);
+
+					const rapidjson::Value& files_arr = file;
+					DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
+
+					for (rapidjson::Value::ConstMemberIterator it = files_arr.MemberBegin(); it != files_arr.MemberEnd(); ++it) {
+
+						file_del = it->name.GetString();
+
+						texture_->UnloadTileset(file_del);
+					}
+
+					asset_->SetUnloadBool(true);
+					fs::remove(path);
+
+				}
+				else
+					fs::remove(path);
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
 }
 

@@ -83,7 +83,6 @@ void EntityWindow::ShowEntityList() {
 		ImGui::Separator();
 
 		static ImGuiTextFilter filter;
-
 		filter.Draw(ICON_FA_FILTER, 150.0f);
 
 		for (entityIT = entities_->GetEntities().begin(); entityIT != entities_->GetEntities().end(); entityIT++) {

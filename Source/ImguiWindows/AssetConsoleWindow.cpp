@@ -49,7 +49,7 @@ void AssetConsoleWindow::AddTextureAnimation() {
 		AddBlankJson();
 
 		if (!chosen_json_.empty())
-			AddNewTexture();
+			AddNewAsset();
 	}
 		break;
 	case AddFile::ADDAudio:
@@ -58,7 +58,7 @@ void AssetConsoleWindow::AddTextureAnimation() {
 		DisplayAudioJson();
 
 		if (!chosen_json_.empty())
-			AddNewAudio();
+			AddNewAsset();
 	}
 		break;
 	case AddFile::ADDAnimation:
@@ -243,7 +243,7 @@ void AssetConsoleWindow::DisplayAudioJson() {
 
 						ImGui::Text("Looping? : %d", it->second.loop); ImGui::SameLine(0, 5); imgui_->ImguiHelp("Enter in either 1 or 0 for this field");
 						if (ImGui::InputTextWithHint("##loop", "Enter in either 1 or 0 for this field", buffer_loop, sizeof(buffer_loop), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsDecimal))
-							it->second.loop = std::stof(buffer_loop);
+							it->second.loop = std::stoi(buffer_loop);
 
 						ImGui::TreePop();
 					}
@@ -338,6 +338,7 @@ void AssetConsoleWindow::DisplayAudioJson() {
 				writer.String(std::to_string(soundfile.loop).c_str());
 				
 				writer.EndObject();
+
 				writer.EndArray();
 			}
 
@@ -489,43 +490,81 @@ void AssetConsoleWindow::DisplayTextureJson() {
 	}
 }
 
-void AssetConsoleWindow::AddNewAudio() {
 
-	if (ImGui::CollapsingHeader("Add New Audio")) {
+void AssetConsoleWindow::AddNewAsset() {
 
-		AudioInfo newsound;
-		std::string foldername = {};
-		// other than the path and the name, rest of the file details will be added in with default values. Update if needed
-		ImGui::Text("When a new texture is added in, Sound Details will be added\nwith default values. Update it if needed");
-		ImGui::Text("Adding Texture Path: %s", imgui_->GetAssetAdd().c_str());
+	if (ImGui::CollapsingHeader("Add New Asset")) {
+
+		std::string folderName = {};
 
 		static char buffer[256];
 		memset(buffer, 0, sizeof(buffer));
-		strcpy_s(buffer, sizeof(buffer), foldername.c_str());
+		strcpy_s(buffer, sizeof(buffer), folderName.c_str());
+
+		ImGui::Text("Any New Assets Added In, other than the Label and the Path\nrest of the details will be set with Default Value. Update them accordingly if need be");
 
 		if (!imgui_->GetAssetAdd().empty()) {
 
-			if (ImGui::InputTextWithHint("##newAudioname", "Enter a Name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+			switch (type)
+			{
+			case AddFile::ADDTexture:
+			{
+				TextureInfo newtex;
+				ImGui::TextColored(GOLDENORANGE, "Adding in a NEW Texture");
+				ImGui::Text("Path: %s", imgui_->GetAssetAdd().c_str());
 
-				if (!std::string(buffer).empty()) {
+				UpdatePath();
 
-					if (imgui_->CheckString(imgui_->GetAssetAdd(), ".mp3")) {
+				if (ImGui::InputTextWithHint("##newTexturename", "Enter a Name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
 
-						newsound.path = imgui_->GetAssetAdd();
-						newsound.volume = 1.0f;
-						newsound.min_distance = newsound.vol_falloff = 0.0f;
-						newsound.loop = 0;
+					if (!std::string(buffer).empty()) {
 
-						audio_info[std::string(buffer)] = newsound;
+						if (imgui_->CheckString(imgui_->GetAssetAdd(), ".png")) {
 
-						imgui_->SetAssetAdd({});
+							newtex.path = imgui_->GetAssetAdd();
+							newtex.column = newtex.row = 1;
+							tex_info_[std::string(buffer)] = newtex;
+
+							imgui_->SetAssetAdd({});
+							newtex = {};
+						}
+						else
+							b_wrong_type = true;
 					}
-					else
-						b_wrong_type = true;
 				}
 			}
-		}
+				break;
+			case AddFile::ADDAudio:
+			{
+				AudioInfo newsound;
+				ImGui::TextColored(SKYBLUE, "Adding in a NEW Audio");
+				ImGui::Text("Path: %s", imgui_->GetAssetAdd().c_str());
 
+				UpdatePath();
+
+				if (ImGui::InputTextWithHint("##newAudioname", "Enter a Name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+
+					if (!std::string(buffer).empty()) {
+
+						if (imgui_->CheckString(imgui_->GetAssetAdd(), ".mp3")) {
+
+							newsound.path = imgui_->GetAssetAdd();
+							newsound.volume = 1.0f;
+							newsound.min_distance = newsound.vol_falloff = 0.0f;
+							newsound.loop = 0;
+
+							audio_info[std::string(buffer)] = newsound;
+
+							imgui_->SetAssetAdd({});
+						}
+						else
+							b_wrong_type = true;
+					}
+				}
+			}
+				break;
+			}
+		}
 		else {
 			ImGui::Text("No Texture Set, Drag One here or to the add icon in the asset browser");
 
@@ -540,57 +579,23 @@ void AssetConsoleWindow::AddNewAudio() {
 				ImGui::EndDragDropTarget();
 			}
 		}
-
 	}
 }
 
-void AssetConsoleWindow::AddNewTexture() {
+void AssetConsoleWindow::UpdatePath() {
 
-	if (ImGui::CollapsingHeader("Add New Texture")) {
-		TextureInfo newtex;
-		std::string folderName = {};
-		ImGui::Text("When a new texture is added in, Rows & Columns will be added with default value of 1\nUpdate it if needed");
-		ImGui::Text("Adding Texture Path: %s", imgui_->GetAssetAdd().c_str());
-		static char buffer[256];
-		memset(buffer, 0, sizeof(buffer));
-		strcpy_s(buffer, sizeof(buffer), folderName.c_str());
+	if (ImGui::BeginDragDropTarget()) {
 
-		if (!imgui_->GetAssetAdd().empty()) {
+		if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
 
-			if (ImGui::InputTextWithHint("##newTexturename", "Enter a Name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+			if (payLoad->DataSize == sizeof(std::string))
 
-				if (!std::string(buffer).empty()) {
-
-					if (imgui_->CheckString(imgui_->GetAssetAdd(), ".png")) {
-
-						newtex.path = imgui_->GetAssetAdd();
-						newtex.column = newtex.row = 1;
-						tex_info_[std::string(buffer)] = newtex;
-
-						imgui_->SetAssetAdd({});
-						newtex = {};
-					}
-					else
-						b_wrong_type = true;
-				}
-			}
+				imgui_->SetAssetAdd(*((std::string*)payLoad->Data));
 		}
-		else {
-			ImGui::Text("No Texture Set, Drag One here or to the add icon in the asset browser");
-
-			if (ImGui::BeginDragDropTarget()) {
-
-				if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
-
-					if (payLoad->DataSize == sizeof(std::string)) 
-
-						imgui_->SetAssetAdd(*((std::string*)payLoad->Data));
-				}
-				ImGui::EndDragDropTarget();
-			}
-		}
+		ImGui::EndDragDropTarget();
 	}
 }
+
 
 void AssetConsoleWindow::WrongTypePopup() {
 
@@ -628,15 +633,10 @@ void AssetConsoleWindow::UnloadPopup() {
 
 	if (b_unload) {
 
-		switch (type)
-		{
-		case AddFile::ADDTexture:
+		if (type == AddFile::ADDTexture)
 			ImGui::OpenPopup("Texture Unloaded");
-			break;
-		case AddFile::ADDAudio:
+		if (type == AddFile::ADDAudio)
 			ImGui::OpenPopup("Sound Unloaded");
-			break;
-		}
 	}
 
 	imgui_->PopUpMessage("Texture Unloaded", "Texture has been unloaded from the engine");
@@ -682,6 +682,16 @@ void AssetConsoleWindow::AddBlankJson() {
 			}
 		}
 	}
+}
+
+bool AssetConsoleWindow::GetUnloadBool() {
+	
+	return b_unload;
+}
+
+void AssetConsoleWindow::SetUnloadBool(bool updated_bool) {
+
+	b_unload = updated_bool;
 }
 
 std::string AssetConsoleWindow::FindUnderscore(std::string filename) {

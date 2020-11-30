@@ -10,80 +10,39 @@ void ArchetypeWindow::Init() {
 	factory_ = &*CORE->GetSystem <EntityFactory>();
 
 	b_nocam = false;
+	b_missingcomp = false;
+	b_noscale = b_notrans = false;
+	b_new_archetype = false;
+
+	archetype_name = {};
 }
 
 void ArchetypeWindow::Update() {
 	
 	if (imgui_->b_archetypewin) {
 
-		ImGui::Begin("Archetypes", &imgui_->b_archetypewin);
+		ImGui::Begin("Archetypes", &imgui_->b_archetypewin, ImGuiWindowFlags_MenuBar);
 
-		if (ImGui::CollapsingHeader("Available Archetypes", ImGuiTreeNodeFlags_DefaultOpen)) {
+		ArchetypeMenuBar();
 
+		if (ImGui::CollapsingHeader("Archetypes List", ImGuiTreeNodeFlags_DefaultOpen))
 			AvaliableArchetypes();
 
-			ImGui::Separator();
-			ImGui::PushFont(imgui_->img_font_);
-			if (ImGui::Button(ICON_FA_SAVE " Save List"))
-				imgui_->SaveArchetype();
-
-			ImGui::SameLine();
-
-			if (ImGui::Button(ICON_FA_FILE_IMPORT " Load List"))
-				imgui_->LoadArchetype();
-			ImGui::PopFont();
-
-			ImGui::SameLine(0, 4);
-			imgui_->ImguiHelp("Close Archetype Tab before\nmaking other selections");
-		}
-
-		if (ImGui::CollapsingHeader("Create New Archetypes")) {
-
-			if (entities_) {
-				std::string entityName;
-
-				char buffer[256];
-				memset(buffer, 0, sizeof(buffer));
-				strcpy_s(buffer, sizeof(buffer), entityName.c_str());
-
-				ImGui::Text(ICON_FA_EDIT " New Archetype Name:");
-				ImGui::PushItemWidth(250.0f);
-
-				if (ImGui::InputTextWithHint("##name", "Enter name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
-					AddArchetype(std::string(buffer));
-
-				ImGui::PopItemWidth();
-			}
-		}
-
-		ImGui::Separator();
-
-		if (imgui_->b_editcomp) {
-
-			if (imgui_->GetEntity() && !imgui_->GetEntity()->GetID()) {
-
-				ImGui::PushItemWidth(250.0f);
-
-				AddComponent();
-
-				ImGui::PopItemWidth();
-			}
-		}
+		AddComponent();
 
 		ImGui::End();
+
+		NoCameraPopUp();
+		AddNewArchetypePopup();
 	}
 
-	if (b_nocam)
-		ImGui::OpenPopup("No Camera");
-
-	ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-	ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-
-	NoCameraPopUp();
 }
 
 void ArchetypeWindow::AvaliableArchetypes() {
 	bool opened = false;
+
+	static ImGuiTextFilter filter;
+	filter.Draw(ICON_FA_FILTER, 150.0f);
 
 	if (entities_) {
 
@@ -91,53 +50,229 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 			ImGuiTreeNodeFlags flags = ((imgui_->GetEntity() == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
 
-			opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, entityIT->first.c_str()));
+			if (filter.PassFilter(entityIT->first.c_str())) {
+				opened = (ImGui::TreeNodeEx((void*)(size_t)entityIT->second, flags, entityIT->first.c_str()));
 
-			if (ImGui::IsItemClicked())
-				imgui_->SetEntity(entityIT->second); // store the selected Entity to find its components
-			
-			if (opened) {
+				if (ImGui::IsItemClicked())
+					imgui_->SetEntity(entityIT->second); // store the selected Entity to find its components
 
-				if (ImGui::Button(ICON_FA_PLUS_SQUARE " Spawn Entity")) {
-					if (imgui_->GetExistingSceneCamera()) {  
-						entities_->CloneArchetype(entityIT->first);
-						imgui_->SetEntity(nullptr);
-					}
-					else
-					{
-						if (entityIT->first == "Camera") {
+				if (opened) {
 
-							entities_->CloneArchetype(entityIT->first);
-							imgui_->SetEntity(nullptr);
+					if (ImGui::Button(ICON_FA_PLUS_SQUARE " Spawn Entity")) {
+
+						if (imgui_->GetExistingSceneCamera()) {
+
+							if (entityIT->second->GetComponent(ComponentTypes::TEXTURERENDERER)) {
+
+								if (entityIT->second->GetComponent(ComponentTypes::TRANSFORM) && entityIT->second->GetComponent(ComponentTypes::SCALE)) {
+
+									entities_->CloneArchetype(entityIT->first);
+									imgui_->SetEntity(nullptr);
+
+								}
+								else
+									b_missingcomp = true;
+
+							}
+							else {
+
+								entities_->CloneArchetype(entityIT->first);
+								imgui_->SetEntity(nullptr);
+							}
 						}
-						else if (entityIT->first != "Camera")
-							b_nocam = true;
+						else // no camera
+						{
+							if (entityIT->first == "Camera") {
 
+								entities_->CloneArchetype(entityIT->first);
+								imgui_->SetEntity(nullptr);
+							}
+							else if (entityIT->first != "Camera")
+								b_nocam = true;
+						}
 					}
-				}
 
-				if (ImGui::Button("Delete Archetype")) {
+					if (b_missingcomp) {
+						ImGui::OpenPopup("Components are Missing!!!");
+
+						imgui_->SetEntity(entityIT->second);
+
+						if (!imgui_->GetEntity()->GetComponent(ComponentTypes::TRANSFORM))
+							b_notrans = true;
+						if (!imgui_->GetEntity()->GetComponent(ComponentTypes::SCALE))
+							b_noscale = true;
+					}
+
+					MissingComponentPopUp();
+
+					if (ImGui::Button("Delete Archetype")) {
+
+						imgui_->SetEntity(entityIT->second);
+
+						ImGui::OpenPopup(ICON_FA_TRASH " Delete Confirmation");
+					}
+
+					imgui_->DeletePopUp(ICON_FA_TRASH " Delete Confirmation", entityIT->first);
+
+					ImGui::Checkbox("Add/Edit Components", &imgui_->b_editcomp); ImGui::SameLine(0, 3);
+					imgui_->ImguiHelp("Untick this whenever you are done");
 
 					imgui_->SetEntity(entityIT->second);
-
-					ImGui::OpenPopup(ICON_FA_TRASH " Delete Confirmation");
+					archetype_name = entityIT->first;
+					ImGui::TreePop();
 				}
-
-				imgui_->DeletePopUp(ICON_FA_TRASH " Delete Confirmation", entityIT->first);
-
-				ImGui::Checkbox("Add/Edit Components", &imgui_->b_editcomp); ImGui::SameLine(0, 3);
-				imgui_->ImguiHelp("Untick this whenever you are done");
-
-				imgui_->SetEntity(entityIT->second);
-
-				ImGui::TreePop();
 			}
-
 		}
 	}
 }
 
+void ArchetypeWindow::ArchetypeMenuBar() {
+
+	if (ImGui::BeginMenuBar()) {
+		ImGui::PushFont(imgui_->img_font_);
+
+		if (ImGui::MenuItem(ICON_FA_PLUS_SQUARE))
+			b_new_archetype = true;
+
+		imgui_->ImguiHelp("Add New Archetype", 0);
+
+		if (ImGui::MenuItem(ICON_FA_SAVE))
+			imgui_->SaveArchetype(imgui_->GetArchetypePath());
+
+		imgui_->ImguiHelp("Save Current List", 0);
+
+		if (ImGui::MenuItem(ICON_FA_SAVE ICON_FA_ELLIPSIS_H)) {
+
+			std::string path = imgui_->OpenSaveDialog("(*.json) Paperback Engine Scene\0*.json\0", 0);
+			imgui_->SaveArchetype(path);
+		}
+
+		imgui_->ImguiHelp("Save List As...", 0);
+
+		if (ImGui::MenuItem(ICON_FA_FILE_IMPORT))
+			imgui_->LoadArchetype();
+
+		imgui_->ImguiHelp("Load Archetype List", 0);
+
+		imgui_->ImguiHelp("Close Archetype Tab before\nmaking other selections");
+
+		ImGui::PopFont();
+		ImGui::EndMenuBar();
+	}
+}
+
+void ArchetypeWindow::AddArchetype(std::string archetypeName)
+{
+	std::stringstream name;
+	std::shared_ptr<Component> component;
+
+	name << archetypeName;
+
+	imgui_->SetEntity(entities_->CreateNewArchetype(archetypeName));
+
+	IComponentCreator* creator = comp_mgr_->GetComponentCreator("Name");
+	component = creator->Create();
+
+	component->DeSerialize(name);
+	imgui_->GetEntity()->AddComponent(ComponentTypes::NAME, component);
+	imgui_->GetEntity()->InitArchetype();
+
+	imgui_->SetEntity(nullptr);
+}
+
+void ArchetypeWindow::AddComponent() {
+
+	if (imgui_->b_editcomp)
+		ImGui::OpenPopup("Add Components to Archetype");
+
+	imgui_->SetPopupPosition();
+
+	if (ImGui::BeginPopup("Add Components to Archetype")) {
+
+		if (imgui_->GetEntity() && !imgui_->GetEntity()->GetID()) {
+
+			ImGui::Text("Amending Archetype: "); ImGui::SameLine(0, 7);
+			ImGui::TextColored(GOLDENORANGE, archetype_name.c_str());
+
+			if (ImGui::BeginCombo("##components", "Available Components")) {
+
+				for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it) {
+
+					ComponentTypes componenttype = StringToComponentType(it->first.c_str());
+
+					if (!imgui_->GetEntity()->HasComponent(componenttype)) {
+
+						if (ImGui::Selectable(it->first.c_str()))
+							AddSingleComponent(it->first, componenttype);
+					}
+				}
+
+				ImGui::EndCombo();
+			}
+		}
+
+		if (ImGui::Button("Close This Panel")) {
+
+			imgui_->b_editcomp = false;
+			imgui_->SetEntity({});
+			archetype_name = {};
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
+	}
+}
+
+void ArchetypeWindow::AddSingleComponent(std::string archetype, ComponentTypes component) {
+
+	std::shared_ptr<Component> comp;
+	IComponentCreator* creator = comp_mgr_->GetComponentCreator(archetype.c_str());
+	comp = creator->Create();
+	imgui_->GetEntity()->AddComponent(component, comp);
+	imgui_->GetEntity()->InitArchetype();
+}
+
+void ArchetypeWindow::AddNewArchetypePopup() {
+
+	if (b_new_archetype)
+		ImGui::OpenPopup("Add Archetype");
+
+	imgui_->SetPopupPosition();
+
+	if (ImGui::BeginPopup("Add Archetype")) {
+
+		if (entities_) {
+			std::string entityName;
+
+			char buffer[256];
+			memset(buffer, 0, sizeof(buffer));
+			strcpy_s(buffer, sizeof(buffer), entityName.c_str());
+
+			ImGui::Text(ICON_FA_EDIT " New Archetype Name:");
+			ImGui::PushItemWidth(250.0f);
+
+			if (ImGui::InputTextWithHint("##name", "Enter name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
+
+				AddArchetype(std::string(buffer));
+				b_new_archetype = false;
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::PopItemWidth();
+		}
+
+		if (ImGui::Button("Close This Panel")) {
+
+		}
+		ImGui::EndPopup();
+	}
+}
+
 void ArchetypeWindow::NoCameraPopUp() {
+
+	if (b_nocam)
+		ImGui::OpenPopup("No Camera");
+
+	imgui_->SetPopupPosition();
 
 	if (ImGui::BeginPopupModal("No Camera", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
@@ -166,49 +301,73 @@ void ArchetypeWindow::NoCameraPopUp() {
 
 		ImGui::EndPopup();
 	}
-
 }
 
-void ArchetypeWindow::AddArchetype(std::string archetypeName)
-{
-	std::stringstream name;
-	std::shared_ptr<Component> component;
+void ArchetypeWindow::MissingComponentPopUp() {
 
-	name << archetypeName;
+	imgui_->SetPopupPosition();
 
-	imgui_->SetEntity(entities_->CreateNewArchetype(archetypeName));
+	if (ImGui::BeginPopupModal("Components are Missing!!!", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
-	IComponentCreator* creator = comp_mgr_->GetComponentCreator("Name");
-	component = creator->Create();
+		ImGui::TextColored(REDHOVERED, "Error!!!!!");
+		if (b_notrans && b_noscale)
+			ImGui::Text("Trying to add an entity with a Texture with no have Scale & Transform Component");
+		else if (b_notrans)
+			ImGui::Text("Trying to add an entity with a Texture with no Transform Component");
+		else if (b_noscale)
+			ImGui::Text("Trying to add an entity with a Texture with no have Scale Component");
 
-	component->DeSerialize(name);
-	imgui_->GetEntity()->AddComponent(ComponentTypes::NAME, component);
-	imgui_->GetEntity()->InitArchetype();
+		ImGui::Text("Want to add in the missing component? Or Remove the texture component?");
 
-	imgui_->SetEntity(nullptr);
-}
+		if (ImGui::Button("Add")) {
 
-void ArchetypeWindow::AddComponent() {
+			if (b_notrans && b_noscale) {
 
-	if (ImGui::BeginCombo("##components", "Available Components")) {
-
-		for (ComponentManager::ComponentMapTypeIt it = comp_mgr_->GetComponentList().begin(); it != comp_mgr_->GetComponentList().end(); ++it) {
-
-			ComponentTypes componenttype = StringToComponentType(it->first.c_str());
-
-			if (!imgui_->GetEntity()->HasComponent(componenttype)) {
-
-				if (ImGui::Selectable(it->first.c_str())) {
-
-					std::shared_ptr<Component> comp;
-					IComponentCreator* creator = comp_mgr_->GetComponentCreator(it->first.c_str());
-					comp = creator->Create();
-					imgui_->GetEntity()->AddComponent(componenttype, comp);
-					imgui_->GetEntity()->InitArchetype();
-				}
+				AddSingleComponent("Transform", ComponentTypes::TRANSFORM);
+				b_notrans = false;
+				AddSingleComponent("Scale", ComponentTypes::SCALE);
+				b_noscale = false;
 			}
+			else if (b_notrans) {
+
+				AddSingleComponent("Transform", ComponentTypes::TRANSFORM);
+				b_notrans = false;
+			}
+			else if (b_noscale) {
+
+				AddSingleComponent("Scale", ComponentTypes::SCALE);
+				b_noscale = false;
+			}
+
+			ImGui::CloseCurrentPopup();
+			b_missingcomp = false;
 		}
 
-		ImGui::EndCombo();
+		ImGui::SameLine(0, 10);
+
+		if (ImGui::Button("Cancel")) {
+
+			ImGui::CloseCurrentPopup();
+			b_notrans = false;
+			b_noscale = false;
+			b_missingcomp = false;
+		}
+
+		ImGui::SameLine(0, 10);
+
+		if (ImGui::Button("Remove Texture")) {
+
+			std::shared_ptr<TextureRenderer> entitytexture = std::dynamic_pointer_cast<TextureRenderer>(imgui_->GetEntity()->GetComponent(ComponentTypes::TEXTURERENDERER));
+			imgui_->GetEntity()->RemoveComponent(entitytexture);
+
+			b_notrans = false;
+			b_noscale = false;
+			b_missingcomp = false;
+
+			ImGui::CloseCurrentPopup();
+		}
+
+		imgui_->SetEntity({});
+		ImGui::EndPopup();
 	}
 }

@@ -6,6 +6,7 @@
 #include "Systems/ImguiSystem.h"
 #include <filesystem>
 #include "Manager/TextureManager.h"
+#include "ImguiWindows\AssetConsoleWindow.h"
 
 namespace fs = std::filesystem;
 
@@ -39,6 +40,7 @@ public:
 	*/
 	/******************************************************************************/
 	void FileDirectoryCheck(fs::path filedirectory);
+
 	/******************************************************************************/
 	/*!
 		\fn CheckFileType()
@@ -100,6 +102,9 @@ public:
 	std::string FileString(std::string icon, std::string file_name);
 	std::string DirectoryName(fs::directory_entry directory);
 
+	void CopyFilesDirectory();
+	void FileDeletion();
+
 private:
 
 	ImguiSystem* imgui_;
@@ -114,5 +119,6 @@ private:
 
 	std::vector<std::string> multifiles_;
 
+	AssetConsoleWindow* asset_;
 };
 #endif

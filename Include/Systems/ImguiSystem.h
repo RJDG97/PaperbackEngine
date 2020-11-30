@@ -271,7 +271,7 @@ public:
 	\brief Saves the list of avaliable archetypes
 */
 /******************************************************************************/
-	void SaveArchetype();
+	void SaveArchetype(std::string path);
 
 /******************************************************************************/
 /*!
@@ -400,6 +400,15 @@ public:
 
 	bool CheckString(std::string path, const char* key);
 
+	void SetPopupPosition();
+
+	std::string GetArchetypePath();
+
+	void SetArchetypePath(std::string new_path);
+
+	const char* GetSceneFilter();
+	const char* GetGenericFilter();
+
 private:
 
 	// map to store all imgui windows added to the system
@@ -422,15 +431,17 @@ private:
 
 	CMap<Camera>* cam_arr_;
 	Camera* camera_;
-	Level* editor_;
 
+	Level* editor_;
 	AMap* amap_;
 
 	std::string img_to_add_;
 
 	std::string current_loaded_path_;
 
-	const char* scene_filter_;
+	std::string archetype_path_;
+
+	const char* scene_filter_, *generic_filter_;
 
 	// bools for the docking space
 	bool b_dock_space_open, b_fullscreen_persistant, b_fullscreen;

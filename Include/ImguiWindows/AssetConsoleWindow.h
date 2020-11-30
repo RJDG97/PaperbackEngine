@@ -110,11 +110,12 @@ public:
 		\brief Adds a new texture to the map
 	*/
 	/******************************************************************************/
-	void AddNewTexture();
 
 	void DisplayAudioJson();
 
-	void AddNewAudio();
+	void AddNewAsset();
+
+	void UpdatePath();
 
 	std::string FindUnderscore(std::string filename);
 
@@ -130,6 +131,9 @@ public:
 	*/
 	/******************************************************************************/
 	void AddBlankJson();
+
+	bool GetUnloadBool();
+	void SetUnloadBool(bool updated_bool);
 
 private:
 	ImguiSystem* imgui_;

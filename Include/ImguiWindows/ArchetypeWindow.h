@@ -67,6 +67,14 @@ public:
 /******************************************************************************/
 	void NoCameraPopUp();
 
+	void MissingComponentPopUp();
+
+	void AddSingleComponent(std::string archetype, ComponentTypes component);
+
+	void AddNewArchetypePopup();
+
+	void ArchetypeMenuBar();
+
 private:
 	EntityManager* entities_;
 	ImguiSystem* imgui_;
@@ -74,7 +82,9 @@ private:
 	Levels levels_;
 	EntityFactory* factory_;
 
-	bool b_nocam;
+	bool b_nocam, b_missingcomp, b_noscale, b_notrans, b_new_archetype, b_add;
+
+	std::string archetype_name;
 };
 
 #endif 
