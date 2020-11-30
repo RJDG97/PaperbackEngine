@@ -149,8 +149,8 @@
     {
       "component": "PointLight",
       "color": "1.0 1.0 0.6",
-      "radius": "50.0",
-      "intensity": "0.2"
+      "radius": "400.0",
+      "intensity": "1.0"
     },
     {
       "component": "LogicComponent",
@@ -522,7 +522,7 @@
     },
     {
       "component": "Scale",
-      "scale": "800.0 460.0"
+      "scale": "640.0 360.0"
     },
     {
       "component": "AABB",
@@ -533,7 +533,7 @@
       "component": "TextureRenderer",
       "texture": "Menu_Background_0",
       "layer": "0",
-      "ui": "0",
+      "ui": "1",
       "alive": "1"
     },
     {
@@ -608,7 +608,7 @@
     },
     {
       "component": "Scale",
-      "scale": "800.0 150.0"
+      "scale": "640.0 120.0"
     },
     {
       "component": "AABB",
@@ -619,7 +619,7 @@
       "component": "TextureRenderer",
       "texture": "Menu_CloudOne_0",
       "layer": "0",
-      "ui": "0",
+      "ui": "1",
       "alive": "1"
     }
   ],

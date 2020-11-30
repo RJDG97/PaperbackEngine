@@ -2,7 +2,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 0.65",
+      "position": "0.16 0.45",
       "rotation": "0.0"
     },
     {
@@ -13,7 +13,7 @@
     },
     {
       "component": "Scale",
-      "scale": "150.0 50.0"
+      "scale": "120.0 40.0"
     },
     {
       "component": "AABB",
@@ -24,13 +24,13 @@
       "component": "TextureRenderer",
       "texture": "Menu_Start_0",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 -0.95",
+      "position": "0.16 -0.75",
       "rotation": "0.0"
     },
     {
@@ -41,7 +41,7 @@
     },
     {
       "component": "Scale",
-      "scale": "150.0 50.0"
+      "scale": "120.0 40.0"
     },
     {
       "component": "AABB",
@@ -52,13 +52,13 @@
       "component": "TextureRenderer",
       "texture": "Menu_HowToPlay_0",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 -2.6",
+      "position": "0.16 -1.9",
       "rotation": "0.0"
     },
     {
@@ -69,7 +69,7 @@
     },
     {
       "component": "Scale",
-      "scale": "150.0 50.0"
+      "scale": "120.0 40.0"
     },
     {
       "component": "AABB",
@@ -80,13 +80,13 @@
       "component": "TextureRenderer",
       "texture": "Menu_Editor_0",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 -4.3",
+      "position": "0.16 -3.2",
       "rotation": "0.0"
     },
     {
@@ -97,7 +97,7 @@
     },
     {
       "component": "Scale",
-      "scale": "150.0 50.0"
+      "scale": "120.0 40.0"
     },
     {
       "component": "AABB",
@@ -108,7 +108,7 @@
       "component": "TextureRenderer",
       "texture": "Menu_Quit_0",
       "layer": "2",
-      "ui": "0"
+      "ui": "1"
     }
   ],
   "button": [
