@@ -233,7 +233,7 @@ bool VerifyCursorCollision(const Vector2D& bottom_left, const Vector2D& top_righ
 
 bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button) {
 
-	Vec2 cursor_pos_scaled = (1 / *camera_->GetMainCamera()->GetCameraZoom()) * cursor_pos;
+	Vec2 cursor_pos_scaled = cursor_pos;
 
 	//convert button AABB to global
 	Vec2 bottom_left = CORE->GetGlobalScale() * button->bottom_left_;
