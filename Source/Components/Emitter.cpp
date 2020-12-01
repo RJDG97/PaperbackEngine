@@ -54,10 +54,10 @@ void Emitter::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
 	writer->String(std::to_string(lifetime_).c_str());
 
 	writer->Key("emitter spawn interval");
-	writer->String(std::to_string(interval_).c_str());
+	writer->String(std::to_string(spawn_interval_).c_str());
 	
 	writer->Key("emitter request");
-	writer->String(std::to_string(spawn_interval_).c_str());
+	writer->String(std::to_string(request_).c_str());
 	
 	writer->Key("emitter maximum spawn");
 	writer->String(std::to_string(max_spawn_).c_str());
@@ -78,13 +78,13 @@ void Emitter::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
 	writer->String((std::to_string(particle_force_.direction_range_.x) + " " + std::to_string(particle_force_.direction_range_.y)).c_str());
 
 	writer->Key("particle rotation speed");
-	writer->String((std::to_string(particle_rotation_.rotation_speed_.x) + " " + std::to_string(particle_rotation_.rotation_speed_.x)).c_str());
+	writer->String((std::to_string(particle_rotation_.rotation_speed_.x) + " " + std::to_string(particle_rotation_.rotation_speed_.y)).c_str());
 
 	writer->Key("min rotation angle range");
-	writer->String((std::to_string(particle_rotation_.min_rotation_range_.x) + " " + std::to_string(particle_rotation_.min_rotation_range_.x)).c_str());
+	writer->String((std::to_string(particle_rotation_.min_rotation_range_.x) + " " + std::to_string(particle_rotation_.min_rotation_range_.y)).c_str());
 
 	writer->Key("max rotation angle range");
-	writer->String((std::to_string(particle_rotation_.max_rotation_range_.x) + " " + std::to_string(particle_rotation_.max_rotation_range_.x)).c_str());
+	writer->String((std::to_string(particle_rotation_.max_rotation_range_.x) + " " + std::to_string(particle_rotation_.max_rotation_range_.y)).c_str());
 
 	writer->Key("number of textures");
 	writer->String(std::to_string(particle_texture_.number_of_textures_).c_str());
