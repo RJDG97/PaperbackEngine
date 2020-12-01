@@ -57,6 +57,18 @@
   
   "UI_Paused_Quit": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit.png 1 1",
   
+  "UI_Paused_QuitGame": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame.png 1 1",
+  
+  "UI_Paused_QuitGame_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame_Clicked.png 1 1",
+  
+  "UI_Paused_QuitGame_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame_Hover.png 1 1",
+  
+  "UI_Paused_Return": "Resources/Sprites/UI_Elements/Pause/UI_Return.png 1 1",
+  
+  "UI_Paused_Return_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Return_Clicked.png 1 1",
+  
+  "UI_Paused_Return_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Return_Hover.png 1 1",
+  
   "UI_Paused_Restart": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart.png 1 1",
   
   "UI_Paused_Resume": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume.png 1 1",

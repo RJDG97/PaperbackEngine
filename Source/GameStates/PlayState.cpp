@@ -381,6 +381,15 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 					return;
 					break;
 				}
+				case 4:
+				{
+					if (help_)
+						break;
+
+					Message mesg{ MessageIDTypes::EXIT };
+					CORE->BroadcastMessage(&mesg);
+					break;
+				}
 				}
 			}
 			}

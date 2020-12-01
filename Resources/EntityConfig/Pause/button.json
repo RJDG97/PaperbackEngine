@@ -60,7 +60,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.0 1.1",
+      "position": "0.0 2.0",
       "rotation": "0.0"
     },
     {
@@ -89,7 +89,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.0 -0.6",
+      "position": "0.0 0.5",
       "rotation": "0.0"
     },
     {
@@ -118,7 +118,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.0 -2.4",
+      "position": "0.0 -1.0",
       "rotation": "0.0"
     },
     {
@@ -139,7 +139,36 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "UI_Paused_Quit_0",
+      "texture": "UI_Paused_Return_0",
+      "layer": "2",
+      "ui": "1"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.0 -2.5",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "4",
+      "active": "0",
+      "scale": "2.0 0.66",
+      "group": "1"
+    },
+    {
+      "component": "Scale",
+      "scale": "160.0 40.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "6"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_Paused_QuitGame_0",
       "layer": "2",
       "ui": "1"
     }
