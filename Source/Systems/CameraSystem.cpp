@@ -106,6 +106,11 @@ void CameraSystem::CameraUpdate(Camera* camera)
 
 void CameraSystem::CameraZoom(Camera* camera, float zoom)
 {
+    if (camera->cam_zoom_ + zoom < 0.0f)
+    {
+        return;
+    }
+
     camera->cam_zoom_ = zoom;
 
     camera->cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),

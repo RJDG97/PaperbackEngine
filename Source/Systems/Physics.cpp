@@ -45,6 +45,7 @@ void Physics::Init() {
 	logic_arr_ = comp_mgr->GetComponentArray<LogicComponent>();
 	force_mgr = &*CORE->GetManager<ForcesManager>();
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
+	logic_mgr_ = &*CORE->GetManager<LogicManager>();
 	graphics_sys_ = &*CORE->GetSystem<GraphicsSystem>();
 }
 
@@ -118,16 +119,20 @@ void Physics::Update(float frametime) {
 	}
 
 	// Update textures and child entity offset
-	for (auto& [parent_id, logic] : *logic_arr_) {
+	for (auto& [id, logic] : *logic_arr_) {
+
+		std::string update{};
 
 		if (logic->my_logic_.find("UpdateTexture") != logic->my_logic_.end()) {
 
-			logic->my_logic_["UpdateTexture"](parent_id);
+			update = logic->my_logic_["UpdateTexture"];
+			logic_mgr_->Exec(update, id);
 		}
 
 		if (logic->my_logic_.find("UpdateChildOffset") != logic->my_logic_.end()) {
 
-			logic->my_logic_["UpdateChildOffset"](parent_id);
+			update = logic->my_logic_["UpdateChildOffset"];
+			logic_mgr_->Exec(update, id);
 		}
 	}
 }

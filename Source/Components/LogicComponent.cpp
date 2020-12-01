@@ -1,6 +1,6 @@
 #include "Engine/Core.h"
-#include "Script/Player_Script.h"
 #include "Components/LogicComponent.h"
+#include "Manager/ComponentManager.h"
 
 void LogicComponent::Init() {
 
@@ -21,8 +21,8 @@ void LogicComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>*
 	writer->Key("component");
 	writer->String("LogicComponent");
 
-	writer->Key("entity");
-	writer->String(entity_.c_str());
+	//writer->Key("entity");
+	//writer->String(entity_.c_str());
 
 	writer->Key("number_of_fns");
 	writer->String(std::to_string(size_).c_str());
@@ -33,7 +33,7 @@ void LogicComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>*
 		writer->String(name.c_str());
 
 		writer->Key("function");
-		writer->String(name.c_str());
+		writer->String(function.c_str());
 	}
 
 	writer->EndObject();
@@ -48,20 +48,18 @@ void LogicComponent::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuf
 
 void LogicComponent::DeSerialize(std::stringstream& data) {
 
-	/*data >> function_;
-	SetLogicFn(MyUpdate, function_);*/
-
-	data >> entity_ >> size_;
+	//data >> entity_ >> size_;
+	data >> size_;
 
 	std::string name, fn_name;
-	LogicUpdate logic;
+	//LogicUpdate logic;
 
 	for (size_t i = 0; i < size_; ++i) {
 
 		data >> name >> fn_name;
-		SetLogicFn(logic, fn_name, entity_);
+		//SetLogicFn(logic, fn_name, entity_);
 
-		my_logic_.emplace(name, logic);
+		my_logic_.emplace(name, fn_name);
 	}
 }
 
@@ -70,6 +68,17 @@ void LogicComponent::DeSerializeClone(std::stringstream& data) {
 	
 	// should just clone from archetype
 	(void)data;
+}
+
+
+const std::string& LogicComponent::GetLogic(const std::string& fn) {
+
+	if (my_logic_.find(fn) != my_logic_.end()) {
+
+		return my_logic_[fn];
+	}
+
+	return {};
 }
 
 

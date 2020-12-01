@@ -36,6 +36,8 @@ namespace Stag_Script
 			{
 				case AI::AIState::Return:
 				{
+					MessageBGM_Play msg{ "EnemyLostSight" };
+					CORE->BroadcastMessage(&msg);
 					graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
 					break;
 				}
@@ -46,11 +48,15 @@ namespace Stag_Script
 				}
 				case AI::AIState::Attack:
 				{
+					MessageBGM_Play msg{ "EnemyAttack" };
+					CORE->BroadcastMessage(&msg);
 					graphics->ChangeAnimation(renderer, "Stagbeetle_Attack");
 					break;
 				}
 				case AI::AIState::Detected:
 				{
+					MessageBGM_Play msg{ "EnemyDetect" };
+					CORE->BroadcastMessage(&msg);
 					graphics->ChangeAnimation(renderer, "Stagbeetle_Alert");
 					break;
 				}

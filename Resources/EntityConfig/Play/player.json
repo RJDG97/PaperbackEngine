@@ -19,13 +19,21 @@
             "to_clone": "Camera "
         },
         {
-            "component": "LogicComponent",
-            "entity": "",
-            "number_of_fns": "2",
-            "name": "UpdateChildOffset",
-            "function": "UpdateChildOffset",
-            "name": "UpdateTexture",
-            "function": "UpdateTexture"
+          "component": "InputController",
+          "size": "13",
+          "move_left": "move_left 65",
+          "move_right": "move_right 68",
+          "move_up": "move_up 87",
+          "move_down": "move_down 83",
+          "invisible": "invisible 340",
+          "burrow": "burrow 69",
+          "debug": "debug 66",
+          "spin_left": "spin_left 44",
+          "spin_right": "spin_right 46",
+          "shrink": "shrink 59",
+          "expand": "expand 39",
+          "pause" : "pause 256",
+          "confirm" : "confirm 257"
         }
     ]
 }

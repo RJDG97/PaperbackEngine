@@ -73,9 +73,18 @@ float Motion::GetMass()
 	return mass_;
 }
 
-void Motion::SetMass(float newMass)
-{
-	mass_ = newMass;
+void Motion::SetMass(float new_mass) {
+	mass_ = new_mass;
+}
+
+float Motion::GetForce() {
+	
+	return force_;
+}
+
+void Motion::SetForce(float new_force) {
+
+	force_ = new_force;
 }
 
 bool Motion::GetIsLeft() {

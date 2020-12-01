@@ -12,6 +12,7 @@
 #include "Systems/GraphicsSystem.h"
 #include "Manager/ForcesManager.h"
 #include "Manager/ComponentManager.h"
+#include "Manager/LogicManager.h"
 #include "Components/Motion.h"
 #include "Components/Status.h"
 #include <unordered_map>
@@ -96,6 +97,7 @@ private:
 	ForcesManager* force_mgr;
 	GraphicsSystem* graphics_sys_;
 	ComponentManager* component_mgr_;
+	LogicManager* logic_mgr_;
 	
 	// Component map pointers
 	TransformType* transform_arr_;

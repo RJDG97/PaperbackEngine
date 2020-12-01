@@ -399,7 +399,7 @@ void SoundSystem::Draw() {
 
 				if (points.size() == graphics_system_->GetBatchSize())
 				{
-					graphics_system_->DrawDebugLines(points, { 0.0f, 0.5f, 1.0f, 0.5f }, 1.0f);
+					graphics_system_->DrawDebugLines(points, { 1.0f, 0.0f, 0.0f, 1.0f }, 1.0f);
 					points.clear();
 				}
 			}
@@ -407,7 +407,7 @@ void SoundSystem::Draw() {
 
 		if (points.size() > 0)
 		{
-			graphics_system_->DrawDebugLines(points, { 0.0f, 0.5f, 1.0f, 0.5f }, 1.0f);
+			graphics_system_->DrawDebugLines(points, { 1.0f, 0.0f, 0.0f, 1.0f }, 1.0f);
 		}
 	}
 }

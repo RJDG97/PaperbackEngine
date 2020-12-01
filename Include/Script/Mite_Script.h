@@ -43,11 +43,15 @@ namespace Mite_Script
 				}
 				case AI::AIState::Attack:
 				{
+					MessageBGM_Play msg{ "EnemyExplode" };
+					CORE->BroadcastMessage(&msg);
 					graphics->ChangeAnimation(renderer, "Mite_Explode");
 					break;
 				}
 				case AI::AIState::Detected:
 				{
+					MessageBGM_Play msg{ "EnemyDetect" };
+					CORE->BroadcastMessage(&msg);
 					graphics->ChangeAnimation(renderer, "Mite_Alert");
 					break;
 				}

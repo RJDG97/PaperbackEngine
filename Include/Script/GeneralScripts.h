@@ -57,6 +57,15 @@ namespace GeneralScripts
 
 	/******************************************************************************/
 	/*!
+	  \fn ReturnStringType(const AI::AIType& type)
+
+	  \brief Return AI Type in string form
+	*/
+	/******************************************************************************/
+	std::string ReturnStringType(const AI::AIType& type);
+
+	/******************************************************************************/
+	/*!
 	  \fn Patrol(AIIt obj)
 
 	  \brief Set Enemy to Patrol waypoints

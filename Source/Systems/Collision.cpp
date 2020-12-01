@@ -233,7 +233,7 @@ bool VerifyCursorCollision(const Vector2D& bottom_left, const Vector2D& top_righ
 
 bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button) {
 
-	Vec2 cursor_pos_scaled = (1 / *camera_->GetMainCamera()->GetCameraZoom()) * cursor_pos;
+	Vec2 cursor_pos_scaled = cursor_pos;
 
 	//convert button AABB to global
 	Vec2 bottom_left = CORE->GetGlobalScale() * button->bottom_left_;
@@ -401,6 +401,10 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 			player_status->status_ = StatusType::HIT;
 			player_status->status_timer_ = 2.0f;
 			--(player_health->current_health_);
+
+			MessageBGM_Play msg{ "PlayerHurt" };
+			CORE->BroadcastMessage(&msg);
+
 			return true;
 		}
 
@@ -461,6 +465,9 @@ void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 	{
 		++(player_health->current_health_);
 		FACTORY->Destroy(aabb2->second->GetOwner());
+
+		MessageBGM_Play msg{ "PlayerDrink" };
+		CORE->BroadcastMessage(&msg);
 	}
 
 }

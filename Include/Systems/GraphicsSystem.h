@@ -126,7 +126,7 @@ public:
     \brief Draws texture that covers the entire viewport (for post-processing)
 */
 /******************************************************************************/
-    void DrawFinalTextureWithVignette(GLuint* texture, float opacity);
+    void DrawVignette(float opacity);
 
 /******************************************************************************/
 /*!
