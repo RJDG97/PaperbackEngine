@@ -29,7 +29,7 @@ namespace StagBeetle
 	{
 		//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Stagbeetle_Attack");
 		// Find current distance of player from obj
-		float distance = Vector2DDistance(obj->second->GetPlayerLastPos(), GeneralScripts::obj_rigidbody->GetPosition());
+		float distance = Vector2DDistance(obj->second->GetPlayerLastPos(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos());
 		// If obj is close enough, return true
 		if (distance < 0.1f)
 		{
@@ -37,7 +37,7 @@ namespace StagBeetle
 			return false;
 		}
 		//get directional unit vector
-		Vector2D directional = obj->second->GetPlayerLastPos() - GeneralScripts::obj_rigidbody->GetPosition();
+		Vector2D directional = obj->second->GetPlayerLastPos() - GeneralScripts::obj_rigidbody->GetOffsetAABBPos();
 		directional /= Vector2DLength(directional * 2.0f);
 
 		//multiply by speed
@@ -97,7 +97,7 @@ namespace StagBeetle
 			{
 				obj->second->GetTimer().TimerStop();
 				obj->second->GetTimer().TimerReset();
-				float distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetPosition(), GeneralScripts::player_rigidbody->GetPosition());
+				float distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
 				if (distance < 5.0f && tries != 1) // Player in radius
 				{
 					obj->second->SetPlayerLastPos(GeneralScripts::player_rigidbody->GetOffsetAABBPos());

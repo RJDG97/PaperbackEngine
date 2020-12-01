@@ -146,6 +146,13 @@ namespace Player_Scripts
 
 			EntityID player_id = entity_mgr->GetPlayerEntities().back()->GetID();
 			Status* player_status = component_mgr->GetComponent<Status>(player_id);
+			
+			//God Mode
+			if (controller->VerifyKey("god", m->input_)) {
+
+				CORE->ToggleGodMode();
+			}
+			
 			// Skills
 			if (controller->VerifyKey("burrow", m->input_)) {
 

@@ -16,7 +16,7 @@ namespace Mite
 			obj->second->GetTimer().TimerStop();
 			obj->second->GetTimer().TimerReset();
 
-			float distance = Vector2DDistance(GeneralScripts::player_rigidbody->GetPosition(), GeneralScripts::obj_rigidbody->GetPosition());
+			float distance = Vector2DDistance(GeneralScripts::player_rigidbody->GetOffsetAABBPos(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos());
 			// Explsion animation
 			if (distance < 50.0f && !(GeneralScripts::player_status->GetStatus() == StatusType::BURROW ||
 				GeneralScripts::player_status->GetStatus() == StatusType::HIT)) // replace with attack radius
@@ -72,7 +72,7 @@ namespace Mite
 				break;
 			case AI::AIState::Chase:
 				//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
-				float distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetPosition(), GeneralScripts::player_rigidbody->GetPosition());
+				float distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
 				if (distance > 5.0f) // Player not in radius
 				{
 					obj->second->SetState(AI::AIState::Patrol);

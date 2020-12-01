@@ -10,6 +10,7 @@ std::unique_ptr<CoreEngine> CORE;
 CoreEngine::CoreEngine() :
 	debug_{ false },
 	pause_{ false },
+	god_mode_{ false },
 	game_pause_{ false },
 	b_game_active_{ true },
 	global_scale_{ 64.0f }
@@ -136,4 +137,16 @@ void CoreEngine::ToggleGamePauseStatus() {
 
 void CoreEngine::SetGameActiveStatus(bool status) {
 	b_game_active_ = status;
+}
+
+bool CoreEngine::GetGodMode() {
+	return god_mode_;
+}
+
+void CoreEngine::ResetGodMode() {
+	god_mode_ = false;
+}
+
+void CoreEngine::ToggleGodMode() {
+	god_mode_ = !god_mode_;
 }
