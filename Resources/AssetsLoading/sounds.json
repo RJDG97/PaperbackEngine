@@ -17,6 +17,42 @@
             "loop": "0"
         }
     ],
+    "EnemyDetect": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Detect.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "EnemyAttack": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Attack.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "EnemyLostSight": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Lost_Sight.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "EnemyExplode": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Explode.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
     "GameBGM": [
         {
             "path": "Resources/SoundCache/States/Game_Mode_BGM_V3.mp3",

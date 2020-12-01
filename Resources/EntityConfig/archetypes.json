@@ -112,7 +112,7 @@
     {
       "component": "Motion",
       "mass": "5.0",
-      "force": "200.0",
+      "force": "270.0",
       "alive": "1.0"
     },
     {

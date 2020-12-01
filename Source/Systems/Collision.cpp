@@ -401,6 +401,10 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 			player_status->status_ = StatusType::HIT;
 			player_status->status_timer_ = 2.0f;
 			--(player_health->current_health_);
+
+			MessageBGM_Play msg{ "PlayerHurt" };
+			CORE->BroadcastMessage(&msg);
+
 			return true;
 		}
 
@@ -461,6 +465,9 @@ void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 	{
 		++(player_health->current_health_);
 		FACTORY->Destroy(aabb2->second->GetOwner());
+
+		MessageBGM_Play msg{ "PlayerDrink" };
+		CORE->BroadcastMessage(&msg);
 	}
 
 }
