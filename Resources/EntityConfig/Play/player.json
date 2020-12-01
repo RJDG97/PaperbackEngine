@@ -20,7 +20,7 @@
         },
         {
           "component": "InputController",
-          "size": "13",
+          "size": "14",
           "move_left": "move_left 65",
           "move_right": "move_right 68",
           "move_up": "move_up 87",
@@ -33,7 +33,8 @@
           "shrink": "shrink 59",
           "expand": "expand 39",
           "pause" : "pause 256",
-          "confirm" : "confirm 257"
+          "confirm" : "confirm 257",
+          "god": "god 71"
         }
     ]
 }

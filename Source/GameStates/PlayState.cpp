@@ -80,6 +80,8 @@ void PlayState::Free()
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
 
+	CORE->ResetGodMode();
+
 	win_ = false;
 	help_ = false;
 }

@@ -175,11 +175,16 @@ public:
 	void ToggleGamePauseStatus();
 	void SetGameActiveStatus(bool status);
 
+	bool GetGodMode();
+	void ToggleGodMode();
+	void ResetGodMode();
+
 private:
 
 	bool debug_;
 	bool pause_;
 	bool game_pause_;
+	bool god_mode_;
 
 	// Tracks all the systems the game uses
 	using SystemIt = std::vector< std::pair<std::string, std::shared_ptr<ISystem>> >::iterator;

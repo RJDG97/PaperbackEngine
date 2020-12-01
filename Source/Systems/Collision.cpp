@@ -500,6 +500,9 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 		{
 		case CollisionLayer::PLAYER:
 		{
+			if (!CORE->GetGodMode())
+				break;
+
 			if (PlayervEnemyResponse(aabb1, aabb2)) {
 
 				// Comment this if you would like players to be able to phase through enemies
