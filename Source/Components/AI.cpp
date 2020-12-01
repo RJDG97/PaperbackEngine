@@ -35,6 +35,34 @@ void AI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 	writer->EndObject();
 }
 
+void AI::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("AI");
+
+	writer->Key("AIType");
+	writer->String(GeneralScripts::ReturnStringType(type_).c_str());
+
+	writer->Key("range");
+	writer->String(std::to_string(range_).c_str());
+
+	writer->Key("speed");
+	writer->String(std::to_string(speed_).c_str());
+
+	writer->Key("dest");
+	writer->String(std::to_string(num_destinations_).c_str());
+
+	for (size_t i = 0; i < num_destinations_; ++i) {
+		
+		writer->Key(("destination" + std::to_string(i + 1)).c_str());
+		writer->String((std::to_string(destinations_[i].x) + " " + std::to_string(destinations_[i].y)).c_str());
+	}
+
+	writer->EndObject();
+}
+
 void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;

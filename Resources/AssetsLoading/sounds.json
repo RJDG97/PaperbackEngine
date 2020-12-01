@@ -56,9 +56,9 @@
     "GameBGM": [
         {
             "path": "Resources/SoundCache/States/Game_Mode_BGM_V3.mp3",
-            "volume": "0.300000",
-            "min distance": "4.000000",
-            "volume falloff": "0.100000",
+            "volume": "0.400000",
+            "min distance": "3.000000",
+            "volume falloff": "0.040000",
             "loop": "1"
         }
     ],

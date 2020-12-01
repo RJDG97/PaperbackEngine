@@ -139,6 +139,33 @@ namespace GeneralScripts
 		return AI::AIType::StagBeetle;
 	}
 
+	std::string ReturnStringType(const AI::AIType& type) {
+	
+		switch (type)
+		{
+			case AI::AIType::StagBeetle:
+			{
+				return "Stag_Beetle";
+				break;
+			}
+			case AI::AIType::Mite:
+			{
+				return "Mite";
+				break;
+			}
+			case AI::AIType::Hornet:
+			{
+				return "Hornet";
+				break;
+			}
+			default:
+			{
+				return "Stag_Beetle";
+				break;
+			}
+		}
+	}
+
 	void Patrol(AIIt obj)
 	{
 		// If path is empty, set path
