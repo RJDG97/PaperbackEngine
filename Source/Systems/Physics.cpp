@@ -134,16 +134,6 @@ void Physics::Update(float frametime) {
 			update = logic->my_logic_["UpdateChildOffset"];
 			logic_mgr_->Exec(update, id);
 		}
-
-		//if (logic->my_logic_.find("UpdateTexture") != logic->my_logic_.end()) {
-
-		//	logic->my_logic_["UpdateTexture"](parent_id);
-		//}
-
-		//if (logic->my_logic_.find("UpdateChildOffset") != logic->my_logic_.end()) {
-
-		//	logic->my_logic_["UpdateChildOffset"](parent_id);
-		//}
 	}
 }
 

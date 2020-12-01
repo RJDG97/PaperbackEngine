@@ -97,9 +97,9 @@ namespace Player_Scripts
 		}
 	}
 
-	void PlayerControllerScript(const EntityID& id, Message& message) {
+	void PlayerControllerScript(const EntityID& id, Message* message) {
 
-		Message_Input* m = dynamic_cast<Message_Input*>(&message);
+		Message_Input* m = dynamic_cast<Message_Input*>(message);
 
 		std::shared_ptr<EntityManager> entity_mgr = CORE->GetManager<EntityManager>();
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();

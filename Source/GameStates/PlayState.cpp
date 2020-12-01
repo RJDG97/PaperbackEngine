@@ -202,7 +202,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			if (logic) {
 				// If the logic is valid, run update loop
 				std::string update = logic->GetLogic("UpdateInput");
-				logic_mgr_->Exec(update, id, *msg);
+				logic_mgr_->Exec(update, id, msg);
 			}
 		}
 
