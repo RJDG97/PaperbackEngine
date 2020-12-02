@@ -151,11 +151,50 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+/******************************************************************************/
+/*!
+  \fn SetSoundLine(std::vector<SoundLine> updated_vec)
+
+  \brief Set the Vector of SoundLines
+*/
+/******************************************************************************/	
 	void SetSoundLine(std::vector<SoundLine> updated_vec);
 
+/******************************************************************************/
+/*!
+  \fn GetNewSoundLine()
+
+  \brief Get an Empty Sound Line 
+*/
+/******************************************************************************/
 	SoundLine GetNewSoundLine();
 
+/******************************************************************************/
+/*!
+  \fn SetNewSoundLine(SoundLine newline)
+
+  \brief Set the Empty Sound Line 
+*/
+/******************************************************************************/
 	void SetNewSoundLine(SoundLine newline);
+
+/******************************************************************************/
+/*!
+  \fn GetNumberLines()
+
+  \brief Get the current number of SoundLines
+*/
+/******************************************************************************/
+	size_t GetNumberLines();
+
+/******************************************************************************/
+/*!
+  \fn SetNumberLines(size_t num_of_lines)
+
+  \brief Set the current number of SoundLines
+*/
+/******************************************************************************/
+	void SetNumberLines(size_t num_of_lines);
 };
 
 #endif

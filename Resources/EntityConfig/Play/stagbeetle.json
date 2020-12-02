@@ -1,43 +1,65 @@
 {
-  "StagBeetle": [
-    {
-      "component": "AI",
-      "AItype": "Stag_Beetle",
-      "range": "5.0",
-      "speed": "140.0",
-      "dest": "4",
-      "destination1": "2.50 -20.6", 
-      "destination2": "2.50 -31.4",
-      "destination3": "27.8 -30.0",
-      "destination4": "31.5 -20.1"
-    },
-    {
-      "component": "Transform",
-      "position": "2.50 -22.6",
-      "rotation": "0.0",
-      "offset": "0.0 0.0",
-      "aabb offset": "0.0 -3.0"
-    }
-  ],
-  "StagBeetle": [
-    {
-      "component": "AI",
-      "AItype": "Stag_Beetle",
-      "range": "5.0",
-      "speed": "140.0",
-      "dest": "5",
-      "destination1": "17.87 -1.84", 
-      "destination2": "17.87 5.46", 
-      "destination3": "33.11 5.51", 
-      "destination4": "33.11 16.01", 
-      "destination5": "33.11 -2.09"
-    },
-    {
-      "component": "Transform",
-      "position": "19.87 -1.84",
-      "rotation": "0.0",
-      "offset": "0.0 0.0",
-      "aabb offset": "0.0 -3.0"
-    }
-  ]
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "5.440646 -27.512911",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -3.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "4",
+            "destination1": "2.500000 -20.600000",
+            "destination2": "2.500000 -31.400000",
+            "destination3": "27.799999 -30.000000",
+            "destination4": "31.500000 -20.100000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateTexture",
+            "function": "Stag_UpdateTexture"
+        }
+    ],
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "17.87 2.84",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -3.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "5",
+            "destination1": "17.870001 -1.840000",
+            "destination2": "17.870001 6.860000",
+            "destination3": "34.110001 6.810000",
+            "destination4": "34.110001 16.010000",
+            "destination5": "34.110001 -2.090000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateTexture",
+            "function": "Stag_UpdateTexture"
+        }
+    ]
 }

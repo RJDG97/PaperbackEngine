@@ -53,6 +53,12 @@
   
   "UI_PauseButton_Hover": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton_Hover.png 1 1",
   
+  "UI_FullScreenButton": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton.png 1 1",
+  
+  "UI_FullScreenButton_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton_Clicked.png 1 1",
+  
+  "UI_FullScreenButton_Hover": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton_Hover.png 1 1",
+  
   "UI_Paused_HowTo": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo.png 1 1",
   
   "UI_Paused_Quit": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit.png 1 1",

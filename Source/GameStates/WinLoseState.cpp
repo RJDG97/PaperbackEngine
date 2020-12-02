@@ -16,6 +16,8 @@ void WinLoseState::Init(std::string level_name) {
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
+
+	CORE->GetSystem<GraphicsSystem>()->EnableLighting(false);
 }
 
 

@@ -539,7 +539,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				if (PlayerGateResponse(aabb1, aabb2)) {
 					
 					//if fails to open gate then prevent player from going past
-					DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
+					DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
 				}
 				break;
 			}

@@ -8,6 +8,7 @@
 #include "Manager/ComponentManager.h"
 #include "GameStates/Levels.h"
 #include "Systems/Factory.h"
+#include "ImguiWindows/EntityWindow.h"
 
 class ArchetypeWindow : public IWindow
 {
@@ -67,6 +68,16 @@ public:
 /******************************************************************************/
 	void NoCameraPopUp();
 
+	void MissingComponentPopUp();
+
+	void AddSingleComponent(std::string archetype, ComponentTypes component);
+
+	void AddNewArchetypePopup();
+
+	void ArchetypeMenuBar();
+
+	std::vector<std::string> CheckArchetypeTexture(std::string path);
+
 private:
 	EntityManager* entities_;
 	ImguiSystem* imgui_;
@@ -74,7 +85,9 @@ private:
 	Levels levels_;
 	EntityFactory* factory_;
 
-	bool b_nocam;
+	bool b_nocam, b_missingcomp, b_noscale, b_notrans, b_new_archetype, b_add;
+
+	std::string archetype_name;
 };
 
 #endif 

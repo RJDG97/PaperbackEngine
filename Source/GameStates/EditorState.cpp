@@ -41,6 +41,11 @@ void EditorState::Init(std::string)
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
+
+	m_PlayState.Init();
+
+	imgui_ = &*CORE->GetSystem<ImguiSystem>();
+
 }
 
 void EditorState::Free()
@@ -67,5 +72,6 @@ std::string EditorState::GetStateName() {
 
 void EditorState::StateInputHandler(Message* msg, Game* game) {
 
-	m_PlayState.StateInputHandler(msg, game);
+	if (!imgui_->EditorMode())
+		m_PlayState.StateInputHandler(msg, game);
 }

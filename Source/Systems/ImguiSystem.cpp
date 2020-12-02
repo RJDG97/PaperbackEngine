@@ -65,10 +65,12 @@ void ImguiSystem::Init(){
     img_to_add_ = {};
 
     current_loaded_path_ = {};
+    archetype_path_ = "Resources/EntityConfig/archetypes.json";
 
     scene_filter_ =
         "(*.json) Paperback Engine Scene\0*.json\0";
-       // "(*.*) All Files\0* *.*\0";
+
+    generic_filter_ = "(*.*) All Files\0* *.*\0";
 
 //////////// Setup Dear ImGui context///////////////////////////
 
@@ -155,6 +157,7 @@ void ImguiSystem::Update(float frametime) {
 
             if (b_add_path)
                 ImGui::OpenPopup("No Path Set");
+
             PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
             b_add_path = false;
             // for the selection of entity
@@ -303,10 +306,18 @@ void ImguiSystem::ImguiMenuBar() {
 
         if (ImGui::BeginMenu("Archetypes")) {
 
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save Archetype List as")) {
+
+                std::string path = OpenSaveDialog(scene_filter_, 0);
+                SaveArchetype(path);
+            }
+
             if (ImGui::MenuItem(ICON_FA_SAVE " Save Archetypes"))
-                SaveArchetype();
+                SaveArchetype(archetype_path_);
+
             if (ImGui::MenuItem(ICON_FA_FILE_IMPORT " Load Archetypes"))
                 LoadArchetype();
+
             ImGui::Separator();
             if (ImGui::MenuItem(ICON_FA_EDIT " Edit Archetype Path"))
                 b_editpath = true;
@@ -314,7 +325,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::EndMenu();
         }
 
-        if (ImGui::BeginMenu(ICON_FA_WINDOW_RESTORE " ImGui Windows")) {
+        if (ImGui::BeginMenu(ICON_FA_WINDOW_RESTORE " Windows")) {
 
             ImGui::Checkbox("Toggle Scene Hierachy", &b_entitywin);
             ImGui::Checkbox("Toggle Component Viewer", &b_component);
@@ -325,53 +336,6 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Texture Window", &b_showtex);
             ImGui::Separator();
             ImGui::Checkbox("See System Performance", &b_display);
-
-            ImGui::EndMenu();
-        }
-
-        // placeholder
-        if (ImGui::BeginMenu(ICON_FA_COGS " Control Panel")) {
-
-            if (ImGui::TreeNode(ICON_FA_MUSIC " Audio Settings")) {
-
-                VolumeControl();
-
-                ImGui::TreePop();
-            }
-
-            if (ImGui::TreeNode("Vignette Size Settings")) {
-
-                ImVec2 inputsize = { graphics_->GetVignetteSize().x, graphics_->GetVignetteSize().y };
-
-                float lineHeight = bold_font_->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
-                ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
-
-                CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
-                ImGui::PushFont(bold_font_);
-                if (ImGui::Button("X", buttonSize))
-                    inputsize.x = 600.0f;
-
-                ImGui::PopStyleColor(3);
-                ImGui::PushItemWidth(150.0f);
-                ImGui::DragFloat("##Xsize", &inputsize.x, 0.1f, 0.0f, 0.0f);
-                ImGui::PopItemWidth();
-                ImGui::SameLine(0, 3);
-
-                CustomImGuiButton(GREENDEFAULT, GREENHOVERED, GREENACTIVE);
-                if (ImGui::Button("Y", buttonSize))
-                    inputsize.y = 320.0f;
-
-                ImGui::PopStyleColor(3);
-                ImGui::PushItemWidth(150.0f);
-                ImGui::DragFloat("##Ysize", &inputsize.y, 0.1f, 0.0f, 0.0f);
-
-                ImGui::PopItemWidth();
-                ImGui::PopFont();
-                
-                graphics_->SetVignetteSize({ inputsize.x, inputsize.y });
-
-                ImGui::TreePop();
-            }
 
             ImGui::EndMenu();
         }
@@ -451,6 +415,25 @@ void ImguiSystem::SetAssetAdd(std::string image) {
     img_to_add_ = image;
 }
 
+std::string ImguiSystem::GetArchetypePath() {
+    return archetype_path_;
+}
+
+void ImguiSystem::SetArchetypePath(std::string new_path) {
+
+    archetype_path_ = new_path;
+}
+
+const char* ImguiSystem::GetSceneFilter() { 
+
+    return scene_filter_;
+}
+
+const char* ImguiSystem::GetGenericFilter() { 
+
+    return generic_filter_; 
+}
+
 void ImguiSystem::LoadJsonPaths(std::string path) {
 
     rapidjson::Document doc;
@@ -466,11 +449,9 @@ void ImguiSystem::LoadJsonPaths(std::string path) {
 
         editor_->AddNewEntityPath(archetype_name, filepath);
     }
-
 }
 
-void ImguiSystem::SaveArchetype() {
-    std::string path = OpenSaveDialog(scene_filter_, 1);
+void ImguiSystem::SaveArchetype(std::string path) {
     if (!path.empty())
         factory_->SerializeArchetypes(path);
 }
@@ -485,6 +466,9 @@ void ImguiSystem::LoadArchetype() {
         factory_->DestroyAllArchetypes();
         factory_->CreateAllArchetypes(file);
     }
+
+    archetype_path_ = path;
+    selected_entity_ = {};
 }
 
 void ImguiSystem::OpenFile() {
@@ -624,16 +608,16 @@ void ImguiSystem::DrawGrid() {
        }
    }
 
-   if (points.size() > 0)
-   {
+   if (points.size() > 0) {
+
        graphics_->DrawDebugLines(points, { 1.0f, 1.0f, 1.0f, 0.5f }, 1.0f);
    }
 }
 
 void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
-    ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-    ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+    SetPopupPosition();
+
     if (ImGui::BeginPopupModal(windowName, NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
         ImGui::Text(message);
@@ -649,7 +633,6 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
 void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component) {
 
-    ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
     std::string warning = {};
 
     if (entity) {
@@ -657,7 +640,8 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
         warning = objName + " from " + entityname->GetName();
     }
 
-    ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+    SetPopupPosition();
+
     if (ImGui::BeginPopupModal(windowName, NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
         ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f , 1.0f }, "Deleting: ");
@@ -680,7 +664,7 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
             else if (!selected_entity_->GetID() && entity)
                 entity->RemoveComponent(component); // delete component from archetype
 
-            SetEntity(nullptr);
+            selected_entity_ = {};
             ImGui::CloseCurrentPopup();
         }
 
@@ -736,23 +720,10 @@ bool ImguiSystem::CheckString(std::string path, const char* key) {
    
 }
 
-void ImguiSystem::VolumeControl() {
+void ImguiSystem::SetPopupPosition() {
 
-    if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
-        sound_->PauseSound("all", true, true);
-    if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
-        sound_->MuteSound("all", true, true);
-
-    ImGui::Separator();
-
-    float inputVol = sound_->GetVolume();
-    ImGui::Text("Volume:");
-    ImGui::Text(ICON_FA_VOLUME_DOWN); ImGui::SameLine(0, 3);
-    ImGui::PushItemWidth(250.0f);
-    ImGui::SliderFloat("", &inputVol, 0.0f, 1.0f, "%.2f");
-    ImGui::PopItemWidth(); ImGui::SameLine(0, 3);
-    ImGui::Text(ICON_FA_VOLUME_UP);
-    sound_->SetVolume(inputVol);
+    ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
+    ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 }
 
 ImguiSystem::~ImguiSystem() {

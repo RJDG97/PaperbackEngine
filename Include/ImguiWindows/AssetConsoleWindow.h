@@ -3,6 +3,7 @@
 #define _ASSET_CONSOLE_WINDOW_H_
 
 #include "ImguiWindows/IWindow.h"
+#include "ImguiWindows/ArchetypeWindow.h"
 #include "Systems/ImguiSystem.h"
 #include "Manager/TextureManager.h"
 #include <filesystem>
@@ -96,7 +97,7 @@ public:
 
 	/******************************************************************************/
 	/*!
-		\fn DisplayJson()
+		\fn DisplayTextureJson()
 
 		\brief Displays the infomation of the chosen json
 	*/
@@ -110,11 +111,12 @@ public:
 		\brief Adds a new texture to the map
 	*/
 	/******************************************************************************/
-	void AddNewTexture();
 
 	void DisplayAudioJson();
 
-	void AddNewAudio();
+	void AddNewAsset();
+
+	void UpdatePath();
 
 	std::string FindUnderscore(std::string filename);
 
@@ -131,20 +133,35 @@ public:
 	/******************************************************************************/
 	void AddBlankJson();
 
+	bool GetUnloadBool();
+	void SetUnloadBool(bool updated_bool);
+
+	void SerializeJson();
+
+	std::vector<std::string> Check(std::string path);
+
 private:
 	ImguiSystem* imgui_;
 	TextureManager* texture_;
 	SoundSystem* sound_;
+	GraphicsSystem* graphics_;
+	ComponentManager* component_;
+	EntityManager* entities_;
 
+	ArchetypeWindow* archetype_;
+	
 	std::map<std::string, TextureInfo> tex_info_;
 	std::map<std::string, AudioInfo> audio_info;
 
 	std::vector<std::string> filesdel_;
 	std::vector<std::string> jsonfiles_;
+	std::vector<EntityID> listEntity_;
+	std::vector<std::string> listArchetype_;
 	std::string chosen_json_;
 
 	std::string json_to_load_; 
-	bool b_unload, b_wrong_type;
+
+	bool b_unload, b_wrong_type, b_load;
 
 	AddFile type;
 

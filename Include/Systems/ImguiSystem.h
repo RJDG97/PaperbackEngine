@@ -232,8 +232,34 @@ public:
 	\brief Set the imguimode bool
 */
 /******************************************************************************/
-
 	void SetImguiBool(bool mode);
+
+/******************************************************************************/
+/*!
+	\fn GetSceneFilter()
+
+	\brief Get the Json Filter for the filedialog
+*/
+/******************************************************************************/
+	const char* GetSceneFilter();
+
+/******************************************************************************/
+/*!
+	\fn GetGenericFilter()
+
+	\brief Get the Generic Filter for the filedialog
+*/
+/******************************************************************************/
+	const char* GetGenericFilter();
+
+/******************************************************************************/
+/*!
+	\fn GetExistingSceneCamera()
+
+	\brief Get the Curreny Active Camera in the Scene
+*/
+/******************************************************************************/
+	Camera* GetExistingSceneCamera();
 
 /******************************************************************************/
 /*!
@@ -243,17 +269,8 @@ public:
 	\brief Manages the pop up for deletion of entities/archetype/components
 */
 /******************************************************************************/
-	void DeletePopUp(const char* windowName, std::string objName, Entity* entity = nullptr, std::shared_ptr<Component> component = nullptr);
-
-
-/******************************************************************************/
-/*!
-	\fn ImguiHelp(const char* description)
-
-	\brief to generate hints if needed
-*/
-/******************************************************************************/	
-	void ImguiHelp(const char* description, int symbol  = 1);
+	void DeletePopUp(const char* windowName, std::string objName, Entity* entity = nullptr, 
+					std::shared_ptr<Component> component = nullptr);
 
 /******************************************************************************/
 /*!
@@ -271,7 +288,7 @@ public:
 	\brief Saves the list of avaliable archetypes
 */
 /******************************************************************************/
-	void SaveArchetype();
+	void SaveArchetype(std::string path);
 
 /******************************************************************************/
 /*!
@@ -338,6 +355,15 @@ public:
 
 /******************************************************************************/
 /*!
+	\fn ImguiHelp(const char* description)
+
+	\brief to generate hints if needed
+*/
+/******************************************************************************/
+	void ImguiHelp(const char* description, int symbol = 1);
+
+/******************************************************************************/
+/*!
 	\fn EditString(std::string filepath, const char* startpos = "Resources")
 
 	\brief Edits the string for usage of Serialize and Deserialize
@@ -374,15 +400,6 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn VolumeControl()
-
-	\brief Able to control the audio
-*/
-/******************************************************************************/
-	void VolumeControl();
-
-/******************************************************************************/
-/*!
 	\fn EditorMode()
 
 	\brief Checks if the window is in focus or hovered
@@ -390,15 +407,69 @@ public:
 /******************************************************************************/	
 	bool EditorMode();
 
-	Camera* GetExistingSceneCamera();
+/******************************************************************************/
+/*!
+	\fn GetAssetAdd();
 
+	\brief Gets the path of the new Asset
+*/
+/******************************************************************************/
 	std::string GetAssetAdd();
 
+/******************************************************************************/
+/*!
+	\fn SetAssetAdd(std::string image)
+
+	\brief Sets the path of the new Asset to be added in
+*/
+/******************************************************************************/
 	void SetAssetAdd(std::string image);
 
+/******************************************************************************/
+/*!
+	\fn LoadJsonPaths(std::string path)
+
+	\brief Load the paths of the archetypes from the json 
+*/
+/******************************************************************************/
 	void LoadJsonPaths(std::string path);
 
+/******************************************************************************/
+/*!
+	\fn CheckString(std::string path, const char* key)
+
+	\brief Checks if the string contains the key
+*/
+/******************************************************************************/
 	bool CheckString(std::string path, const char* key);
+
+/******************************************************************************/
+/*!
+	\fn SetPopupPosition()
+
+	\brief Sets the position of the next window/pop up to be the centre
+	of the dock
+*/
+/******************************************************************************/
+	void SetPopupPosition();
+
+/******************************************************************************/
+/*!
+	\fn GetArchetypePath()
+
+	\brief Get the path of the loaded archetype file
+*/
+/******************************************************************************/
+	std::string GetArchetypePath();
+
+/******************************************************************************/
+/*!
+	\fn SetArchetypePath(std::string new_path)
+
+	\brief Set the path of the archetype file
+*/
+/******************************************************************************/
+	void SetArchetypePath(std::string new_path);
 
 private:
 
@@ -422,25 +493,26 @@ private:
 
 	CMap<Camera>* cam_arr_;
 	Camera* camera_;
-	Level* editor_;
 
+	Level* editor_;
 	AMap* amap_;
 
 	std::string img_to_add_;
 
 	std::string current_loaded_path_;
 
-	const char* scene_filter_;
+	std::string archetype_path_;
+
+	const char* scene_filter_, *generic_filter_;
 
 	// bools for the docking space
 	bool b_dock_space_open, b_fullscreen_persistant, b_fullscreen;
 
-	bool b_imgui_mode, b_lock_entity, b_show_pop, b_add_path, b_save_check, b_close_confirm;
+	bool b_imgui_mode, b_lock_entity, b_show_pop, b_add_path, b_save_check, b_close_confirm, b_editor;
 
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
-
 };
 
 #endif

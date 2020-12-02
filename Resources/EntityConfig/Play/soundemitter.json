@@ -2,7 +2,7 @@
     "SoundEmitter": [
         {
             "component": "SoundEmitter",
-            "sound name": "GameBGM",
+            "sound name": "River",
             "number of sound lines": "13",
             "start": "-9.500000 -24.000000",
             "end": "-9.500000 -7.500000",

@@ -159,6 +159,18 @@ namespace Player_Scripts
 			}
 
 			
+			if (controller->VerifyKey("lose", m->input_)) {
+
+				Message msg{ MessageIDTypes::GSM_LOSE };
+				CORE->BroadcastMessage(&msg);
+			}
+
+			if (controller->VerifyKey("win", m->input_)) {
+
+				Message msg{ MessageIDTypes::GSM_WIN };
+				CORE->BroadcastMessage(&msg);
+			}
+
 			// Skills
 			if (controller->VerifyKey("burrow", m->input_)) {
 

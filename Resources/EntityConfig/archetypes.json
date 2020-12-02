@@ -738,7 +738,7 @@
     },
     {
       "component": "AABB",
-      "scale": "1.0 0.5",
+      "scale": "1.0 1.0",
       "layer": "7"
     },
     {
@@ -747,6 +747,12 @@
       "layer": "1",
       "ui": "0",
       "alive": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.6",
+      "radius": "6.0",
+      "intensity": "1.0"
     }
   ],
   "Puddle": [

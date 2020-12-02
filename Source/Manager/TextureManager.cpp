@@ -292,6 +292,11 @@ std::map<std::string, Texture>& TextureManager::GetTextureMap() {
     return textures_;
 }
 
+Tileset* TextureManager::GetTileset(std::string tileset_name) {
+
+    return &tilesets_[tileset_name];
+}
+
 TextureManager::~TextureManager() {
 
     UnloadAllTilesets();

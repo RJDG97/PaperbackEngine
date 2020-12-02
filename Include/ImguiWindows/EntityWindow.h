@@ -155,6 +155,40 @@ public:
 
 	void EmitterInput(float& emitter_var, float default_val, std::string input_label, float start_val, float end_val, std::string button_label = ICON_FA_UNDO);
 
+	void NameComponent(Entity* entity);
+
+	void MotionComponent(Entity* entity);
+
+	void TransformComponent(Entity* entity);
+
+	void HealthComponent(Entity* entity);
+
+	void CameraComponent(Entity* entity);
+
+	void TextureRendererComponent(Entity* entity);
+
+	void AnimationRendererComponent(Entity* entity);
+
+	void AABBComponent(Entity* entity);
+
+	void AIComponent(Entity* entity);
+
+	void ScaleComponent(Entity* entity);
+
+	void StatusComponent(Entity* entity);
+
+	void PointLightComponent(Entity* entity);
+
+	void ConeLightComponent(Entity* entity);
+
+	void ParentChildComponent(Entity* entity);
+	
+	void ParticleComponent(Entity* entity);
+
+	void EmitterComponent(Entity* entity);
+
+	void SoundEmitterComponent(Entity* entity);
+
 private:
 
 	WindowsSystem* win_;

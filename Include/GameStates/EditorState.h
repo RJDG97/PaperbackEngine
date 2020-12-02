@@ -3,11 +3,13 @@
 
 #include "GameStates/GameState.h"
 #include "Manager/EntityManager.h"
+#include "Systems/ImguiSystem.h"
 
 // inherits the abstract class GameState
 class EditorState : public GameState
 {
 	bool pause_;
+	ImguiSystem* imgui_;
 
 public:
 	friend class Game;
