@@ -29,5 +29,7 @@
 
   "Objectives": "Resources/EntityConfig/Play/objectives.json",
   
-  "Burrowable": "Resources/EntityConfig/Play/burrowable.json"
+  "Burrowable": "Resources/EntityConfig/Play/burrowable.json",
+
+  "DialogueBox": "Resources/EntityConfig/Play/dialoguebox.json"
 }

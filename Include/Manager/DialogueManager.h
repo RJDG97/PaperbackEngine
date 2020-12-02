@@ -27,7 +27,10 @@ class Dialogue
 
 public:
 
-	std::vector<DialogueContent> GetContents();
+	Dialogue() = default;
+	Dialogue(std::vector<DialogueContent> contents);
+
+	std::vector<DialogueContent>* GetContents();
 };
 
 class DialogueManager : public IManager {

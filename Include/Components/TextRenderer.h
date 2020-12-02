@@ -88,6 +88,8 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	void SetText(std::string text);
 };
 
 #endif

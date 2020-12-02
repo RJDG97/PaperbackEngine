@@ -6,6 +6,7 @@
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
 #include "Systems/Collision.h"
+#include "Systems/DialogueSystem.h"
 #include "Systems/Game.h"
 #include "Manager/ComponentManager.h"
 #include "Components/LogicComponent.h"
@@ -129,17 +130,21 @@ namespace Player_Scripts
 			Message pause{ MessageIDTypes::BGM_PAUSE };
 			CORE->BroadcastMessage(&pause);
 		}
+		if (controller->VerifyKey("advance_text", m->input_)) {
 
-		if (game->GetStateName() == "Play") {
-
-			// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
-			// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
-			if (CORE->GetCorePauseStatus() && controller->VerifyKey("confirm", m->input_)) {
-				//CORE->SetGameActiveStatus(false);
-				game->ChangeState(&m_MenuState);
-				return;
-			}
+			CORE->GetSystem<DialogueSystem>()->AdvanceText();
 		}
+
+		//if (game->GetStateName() == "Play") {
+
+		//	// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
+		//	// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
+		//	if (CORE->GetCorePauseStatus() && controller->VerifyKey("confirm", m->input_)) {
+		//		//CORE->SetGameActiveStatus(false);
+		//		game->ChangeState(&m_MenuState);
+		//		return;
+		//	}
+		//}
 
 
 		if (!entity_mgr->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {
@@ -152,6 +157,7 @@ namespace Player_Scripts
 
 				CORE->ToggleGodMode();
 			}
+
 			
 			// Skills
 			if (controller->VerifyKey("burrow", m->input_)) {
@@ -180,6 +186,7 @@ namespace Player_Scripts
 					m_PlayState.SetStatus("Player", StatusType::INVISIBLE, 0.0f, &*CORE->GetSystem<Game>()); // "M"
 				}
 			}
+			
 
 			if (player_status && player_status->GetStatus() != StatusType::INVISIBLE) {
 				//input group

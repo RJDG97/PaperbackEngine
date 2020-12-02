@@ -2,6 +2,7 @@
 #include "Systems/ISystem.h"
 #include "Manager/ComponentManager.h"
 #include "Manager/DialogueManager.h"
+#include "Systems/SoundSystem.h"
 
 class DialogueSystem : public ISystem
 {
@@ -16,6 +17,8 @@ class DialogueSystem : public ISystem
 	};
 
 	DialogueManager* dialogue_manager_;
+	SoundSystem* sound_system_;
+	ComponentManager* component_manager_;
 
 	Dialogue* current_dialogue_;
 	std::vector<DialogueContent>::iterator current_dialogue_content_;
@@ -23,10 +26,15 @@ class DialogueSystem : public ISystem
 	std::string current_speech_;
 	float text_elapsed_time_;
 	float text_speed_;
+	size_t num_characters_;
 
-	float textbox_scale_;
+	Vector2D textbox_max_scale_;
 	float textbox_scale_speed_;
 	DialogueStatus dialogue_status_;
+
+	Scale* dialogue_box_scale_;
+	TextureRenderer* dialogue_box_renderer_;
+	TextRenderer* dialogue_text_renderer_;
 
 public:
 
@@ -83,4 +91,13 @@ public:
 */
 /******************************************************************************/
 	void AdvanceText();
+
+/******************************************************************************/
+/*!
+	\fn TempCleanup()
+
+	\brief Temporary cleanup
+*/
+/******************************************************************************/
+	void TempCleanup();
 };

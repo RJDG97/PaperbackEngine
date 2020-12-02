@@ -9,6 +9,13 @@ DialogueContent::DialogueContent(std::string portrait, std::string name, std::st
 
 }
 
+
+Dialogue::Dialogue(std::vector<DialogueContent> contents)
+    : contents_ { contents }
+{
+
+}
+
 std::string* DialogueContent::GetSpeech()
 {
     return &speech_;
@@ -26,7 +33,7 @@ void DialogueManager::LoadDialogueSet(std::string level_name)
     DeserializeJSON(dialogueset_path, dialogueset_to_load);
 
     const rapidjson::Value& files_arr = dialogueset_to_load;
-    DEBUG_ASSERT(files_arr.IsObject(), "Level JSON does not exist in proper format");
+    DEBUG_ASSERT(files_arr.IsObject(), "Dialogue JSON does not exist in proper format");
 
     //handle sorting of information into the map
     for (rapidjson::Value::ConstMemberIterator file_it = files_arr.MemberBegin(); file_it != files_arr.MemberEnd(); ++file_it) {
@@ -59,6 +66,8 @@ void DialogueManager::LoadDialogue(std::string dialogue_name, std::string path)
         contents.push_back({ portrait, name, speech });
 
     }
+
+    dialogues_[dialogue_name] = { contents };
 }
 
 void DialogueManager::DeserializeJSON(const std::string& filename, rapidjson::Document& doc)
@@ -87,7 +96,7 @@ Dialogue* DialogueManager::GetDialogue(std::string dialogue_name)
     return &dialogues_[dialogue_name];
 }
 
-std::vector<DialogueContent> Dialogue::GetContents()
+std::vector<DialogueContent>* Dialogue::GetContents()
 {
-    return contents_;
+    return &contents_;
 }

@@ -24,6 +24,8 @@
 #include "Manager/ForcesManager.h"
 #include "Manager/AMap.h"
 
+#include "Systems/DialogueSystem.h"
+
 #include <memory>
 
 // SAMPLE PLAY STATE
@@ -68,6 +70,9 @@ void PlayState::Init(std::string)
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.5f);
+
+	CORE->GetManager<DialogueManager>()->LoadDialogueSet("Play");
+	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("intro");
 }
 
 void PlayState::Free()
@@ -80,6 +85,7 @@ void PlayState::Free()
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
 
+	CORE->GetSystem<DialogueSystem>()->TempCleanup();
 	CORE->ResetGodMode();
 
 	win_ = false;
@@ -206,15 +212,15 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 			}
 		}
 
-		/*
+		
 		for (Game::InputControllerIt it = game->input_controller_arr_->begin(); it != game->input_controller_arr_->end(); ++it) {
 			Message_Input* m = dynamic_cast<Message_Input*>(msg);
-			
+		
 			if (!m)
 				continue;
 
 			InputController* InputController = it->second;
-
+			/*
 			if (InputController->VerifyKey("pause", m->input_)) { // "Esc" key
 				CORE->ToggleCorePauseStatus(); // Disable physics update
 				CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
@@ -325,14 +331,12 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 							ScaleEntityBig(player_scale, true);
 						}
 					}
-					else if (InputController->VerifyKey("advance_text", m->input_)) {
-
-						
-					}
-				}
-			}
+					else*/ 
+						//CORE->GetSystem<DialogueSystem>()->AdvanceText();
+				/*}
+			}*/
 		}
-		*/
+		
 		if (!game->debug_ && game->GetStateName() == "Play") {
 
 			switch (msg->message_id_) {
@@ -377,7 +381,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 					MessageBGM_Play button{ "ButtonPress" };
 					CORE->BroadcastMessage(&button);
-
+					CORE->GetSystem<DialogueSystem>()->TempCleanup();
 					game->ChangeState(&m_MenuState);
 					//CORE->SetGameActiveStatus(false);
 					return;

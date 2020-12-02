@@ -724,14 +724,14 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
         return;
     }
 
-    Vector2D obj_pos_ = xform->position_;
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale();
 
     Vector2D pos;
     float scale;
 
     if (text_renderer->ui_) {
 
-        pos = obj_pos_;
+        pos = obj_pos_ + 0.5f * Vector2D{ win_size_.x, win_size_.y };
         scale = text_renderer->scale_;
     }
 

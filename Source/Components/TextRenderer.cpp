@@ -100,3 +100,8 @@ std::shared_ptr<Component> TextRenderer::Clone() {
 
     return cloned;
 }
+
+void TextRenderer::SetText(std::string text)
+{
+    text_ = text;
+}
