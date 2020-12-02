@@ -50,6 +50,7 @@ void PlayState::Init(std::string)
 
 	help_ = false;
 	lose_ = false;
+	timer_ = 12.0f;
 
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
@@ -64,7 +65,6 @@ void PlayState::Init(std::string)
 	FACTORY->LoadLevel("Play");
 	FACTORY->LoadLevel("Pause");
 
-	// Not sure...
 	CORE->GetSystem<GraphicsSystem>()->EnableLighting(true);
 	
 	MessageBGM_Play msg{ "River" };
@@ -148,13 +148,23 @@ void PlayState::Update(Game* game, float frametime)
 	// If there exists at least 1 player
 	if (entity_mgr_->GetPlayerEntities().size() > 0) {
 
+		timer_ -= frametime;
+
 		if (!component_mgr_)
 			component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
 		EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
 		Health* health = component_mgr_->GetComponent<Health>(player_id);
 
+		if (!CORE->GetGodMode() && timer_ < 0.0f) {
+
+			int new_hp = health->GetCurrentHealth() - 1;
+			health->SetCurrentHealth(new_hp);
+			timer_ = 12.0f;
+		}
+
 		if (health && health->GetCurrentHealth() <= 0) {
+
 			game->ChangeState(&m_WinLoseState, "Lose");
 		}
 	}
