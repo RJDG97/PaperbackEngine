@@ -31,6 +31,35 @@
   "button": [
     {
       "component": "Transform",
+      "position": "9.0 5.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "8",
+      "active": "0",
+      "scale": "1.0 1.0",
+      "group": "3"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.1 0.1",
+      "layer": "6"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_FullScreenButton_0",
+      "layer": "2",
+      "ui": "1"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
       "position": "0.0 0.0",
       "rotation": "0.0"
     },

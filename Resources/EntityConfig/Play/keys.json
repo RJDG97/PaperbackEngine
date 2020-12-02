@@ -2,7 +2,7 @@
     "Key": [
         {
             "component": "Transform",
-            "position": "14.100000 22.200001",
+            "position": "24.800000 33.400001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -15,8 +15,14 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 0.500000",
+            "scale": "1.000000 1.000000",
             "layer": "7"
+        },
+        {
+          "component": "PointLight",
+          "color": "1.0 1.0 0.6",
+          "radius": "400.0",
+          "intensity": "0.7"
         }
     ]
 }

@@ -148,6 +148,7 @@ void Game::SendMessageD(Message* m) {
 		states_.back()->StateInputHandler(m, this);
 		break;
 	}
+	case MessageIDTypes::GSM_LOSE:
 	case MessageIDTypes::GSM_WIN:
 	case MessageIDTypes::C_MOVEMENT:
 	{

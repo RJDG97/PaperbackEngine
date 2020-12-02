@@ -129,6 +129,7 @@ private:
 	EntityManager* entity_mgr_;
 	bool win_{ false };
 	bool help_{ false };
+	bool lose_{ false };
 };
 
 

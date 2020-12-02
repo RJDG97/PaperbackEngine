@@ -47,6 +47,7 @@ void PlayState::Init(std::string)
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
 	help_ = false;
+	lose_ = false;
 
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
@@ -61,8 +62,11 @@ void PlayState::Init(std::string)
 	// Not sure...
 	CORE->GetSystem<GraphicsSystem>()->EnableLighting(true);
 	
-	MessageBGM_Play msg{ "GameBGM" };
+	MessageBGM_Play msg{ "River" };
 	CORE->BroadcastMessage(&msg);
+
+	//MessageBGM_Play m{ "Tree" };
+	//CORE->BroadcastMessage(&m);
 
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
@@ -84,6 +88,7 @@ void PlayState::Free()
 
 	win_ = false;
 	help_ = false;
+	lose_ = false;
 }
 
 void PlayState::Update(Game* game, float frametime)
@@ -91,9 +96,17 @@ void PlayState::Update(Game* game, float frametime)
 	if (!entity_mgr_)
 		entity_mgr_ = &*CORE->GetManager<EntityManager>();
 
-	if (win_)
+	if (win_) {
+		
 		game->ChangeState(&m_WinLoseState, "Win");
+		return;
+	}
 
+	if (lose_) {
+		
+		game->ChangeState(&m_WinLoseState, "Lose");
+		return;
+	}
 	entity_mgr_->GetEntities();
 
 	// To use in play state, in menu state for testing
@@ -401,6 +414,12 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 					CORE->BroadcastMessage(&mesg);
 					break;
 				}
+				case 8:
+				{
+
+					CORE->GetSystem<WindowsSystem>()->ToggleFullScreen();
+					break;
+				}
 				}
 			}
 			}
@@ -451,6 +470,12 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 		{
 
 			win_ = true;
+			break;
+		}
+		case MessageIDTypes::GSM_LOSE:
+		{
+
+			lose_ = true;
 			break;
 		}
 		}

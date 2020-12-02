@@ -71,6 +71,42 @@
             "loop": "1"
         }
     ],
+    "Fire": [
+        {
+            "path": "Resources/SoundCache/Environment/FireCracking.mp3",
+            "volume": "0.100000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "1"
+        }
+    ],
+    "River": [
+      {
+          "path": "Resources/SoundCache/Environment/River.mp3",
+          "volume": "0.090000",
+          "min distance": "3.000000",
+          "volume falloff": "0.020000",
+          "loop": "1"
+      }
+    ],
+    "Tree": [
+      {
+          "path": "Resources/SoundCache/Environment/TreeRustle.mp3",
+          "volume": "0.100000",
+          "min distance": "3.000000",
+          "volume falloff": "0.050000",
+          "loop": "1"
+      }
+    ],
+    "WaterDropping": [
+      {
+          "path": "Resources/SoundCache/Environment/WaterDroplet.mp3",
+          "volume": "0.100000",
+          "min distance": "3.000000",
+          "volume falloff": "0.050000",
+          "loop": "1"
+      }
+    ],
     "PlayerDies": [
         {
             "path": "Resources/SoundCache/Player/Player_Dies.mp3",

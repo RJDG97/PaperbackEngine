@@ -14,12 +14,12 @@
         },
         {
             "component": "InputController",
-            "size": "14",
+            "size": "16",
             "burrow": "burrow 69",
             "confirm": "confirm 257",
             "debug": "debug 66",
             "expand": "expand 39",
-            "god": "god 71",
+            "god": "god 55",
             "invisible": "invisible 340",
             "move_down": "move_down 83",
             "move_left": "move_left 65",
@@ -28,7 +28,9 @@
             "pause": "pause 256",
             "shrink": "shrink 59",
             "spin_left": "spin_left 44",
-            "spin_right": "spin_right 46"
+            "spin_right": "spin_right 46",
+            "win": "win 56",
+            "lose": "lose 57"
         },
         {
             "component": "ParentChild",
