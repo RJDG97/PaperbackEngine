@@ -35,7 +35,6 @@ void ArchetypeWindow::Update() {
 		NoCameraPopUp();
 		AddNewArchetypePopup();
 	}
-
 }
 
 void ArchetypeWindow::AvaliableArchetypes() {
@@ -72,10 +71,8 @@ void ArchetypeWindow::AvaliableArchetypes() {
 								}
 								else
 									b_missingcomp = true;
-
 							}
 							else {
-
 								entities_->CloneArchetype(entityIT->first);
 								imgui_->SetEntity(nullptr);
 							}
@@ -91,7 +88,6 @@ void ArchetypeWindow::AvaliableArchetypes() {
 								b_nocam = true;
 						}
 					}
-
 					if (b_missingcomp) {
 						ImGui::OpenPopup("Components are Missing!!!");
 
@@ -161,6 +157,26 @@ void ArchetypeWindow::ArchetypeMenuBar() {
 	}
 }
 
+std::vector<std::string> ArchetypeWindow::CheckArchetypeTexture(std::string path)
+{
+	std::pair<Entity*, std::vector<ComponentTypes>> entity = {};
+	std::vector<std::string> archetypes = {};
+	if (entities_) {
+
+		for (EntityManager::EntityArchetypeMapTypeIt entityIT = entities_->GetArchetypes().begin(); entityIT != entities_->GetArchetypes().end(); ++entityIT) {
+
+			if (entityIT->second->GetComponent(ComponentTypes::TEXTURERENDERER)) {
+				std::shared_ptr<TextureRenderer> entitytexture = std::dynamic_pointer_cast<TextureRenderer>(entityIT->second->GetComponent(ComponentTypes::TEXTURERENDERER));
+
+				if (entitytexture->GetCurrentTextureName() == path)
+					archetypes.push_back(entityIT->first);
+			}
+		}
+	}
+
+	return archetypes;
+}
+
 void ArchetypeWindow::AddArchetype(std::string archetypeName)
 {
 	std::stringstream name;
@@ -182,12 +198,9 @@ void ArchetypeWindow::AddArchetype(std::string archetypeName)
 
 void ArchetypeWindow::AddComponent() {
 
-	if (imgui_->b_editcomp)
-		ImGui::OpenPopup("Add Components to Archetype");
+	if (imgui_->b_editcomp) {
 
-	imgui_->SetPopupPosition();
-
-	if (ImGui::BeginPopup("Add Components to Archetype")) {
+		ImGui::Begin("Add Components to Archetype");
 
 		if (imgui_->GetEntity() && !imgui_->GetEntity()->GetID()) {
 
@@ -216,11 +229,11 @@ void ArchetypeWindow::AddComponent() {
 			imgui_->b_editcomp = false;
 			imgui_->SetEntity({});
 			archetype_name = {};
-			ImGui::CloseCurrentPopup();
 		}
 
-		ImGui::EndPopup();
+		ImGui::End();
 	}
+	
 }
 
 void ArchetypeWindow::AddSingleComponent(std::string archetype, ComponentTypes component) {

@@ -1,33 +1,18 @@
 {
-  "Floor": "Resources/EntityConfig/Play/floor.json",
-  
-  "Player": "Resources/EntityConfig/Play/player.json",
-  
-  "StagBeetle": "Resources/EntityConfig/Play/stagbeetle.json",
-  
-  "Mite": "Resources/EntityConfig/Play/mite.json",
-  
-  "Hole": "Resources/EntityConfig/Play/hole.json",
-  
-  "Boundary": "Resources/EntityConfig/Play/boundary.json",
-  
-  "Watergauge": "Resources/EntityConfig/Play/watergauge.json",
-  
-  "Goal": "Resources/EntityConfig/Play/goal.json",
-  
-  "Gate": "Resources/EntityConfig/Play/gate.json",
-  
-  "Key": "Resources/EntityConfig/Play/keys.json",
-  
-  "Puddle": "Resources/EntityConfig/Play/puddle.json",
-  
-  "ParticleEmitter": "Resources/EntityConfig/Play/particleemitter.json",
-  
-  "MyParticle": "Resources/EntityConfig/Play/myparticles.json",
-  
-  "SoundEmitter": "Resources/EntityConfig/Play/soundemitter.json",
-
-  "Objectives": "Resources/EntityConfig/Play/objectives.json",
-  
-  "Burrowable": "Resources/EntityConfig/Play/burrowable.json"
+    "Floor": "Resources/EntityConfig/Play/floor.json",
+    "Mite": "Resources/EntityConfig/Play/mite.json",
+    "Player": "Resources/EntityConfig/Play/player.json",
+    "StagBeetle": "Resources/EntityConfig/Play/stagbeetle.json",
+    "Watergauge": "Resources/EntityConfig/Play/watergauge.json",
+    "Hole": "Resources/EntityConfig/Play/hole.json",
+    "Boundary": "Resources/EntityConfig/Play/boundary.json",
+    "Goal": "Resources/EntityConfig/Play/goal.json",
+    "Gate": "Resources/EntityConfig/Play/gate.json",
+    "Key": "Resources/EntityConfig/Play/keys.json",
+    "Puddle": "Resources/EntityConfig/Play/puddle.json",
+    "ParticleEmitter": "Resources/EntityConfig/Play/particleemitter.json",
+    "MyParticle": "Resources/EntityConfig/Play/myparticles.json",
+    "SoundEmitter": "Resources/EntityConfig/Play/soundemitter.json",
+    "Objectives": "Resources/EntityConfig/Play/objectives.json",
+    "Burrowable": "Resources/EntityConfig/Play/burrowable.json"
 }

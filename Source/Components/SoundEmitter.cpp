@@ -83,6 +83,32 @@ void SoundEmitter::RemoveBackSoundLine() {
 	sound_lines_.pop_back();
 }
 
+void SoundEmitter::SetSoundLine(std::vector<SoundLine> updated_vec) {
+
+	sound_lines_.clear();
+	sound_lines_ = updated_vec;
+}
+
+SoundLine SoundEmitter::GetNewSoundLine() {
+
+	return new_line_;
+}
+
+void SoundEmitter::SetNewSoundLine(SoundLine newline) {
+
+	new_line_ = newline;
+}
+
+size_t SoundEmitter::GetNumberLines() {
+
+	return num_sound_lines_;
+}
+
+void SoundEmitter::SetNumberLines(size_t num_of_lines) {
+
+	num_sound_lines_ = num_of_lines;
+}
+
 void SoundEmitter::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 
 	writer->StartObject();
@@ -144,20 +170,4 @@ void SoundEmitter::DeSerializeClone(std::stringstream& data) {
 std::shared_ptr<Component> SoundEmitter::Clone() {
 	
 	return std::make_shared<SoundEmitter>();
-}
-
-void SoundEmitter::SetSoundLine(std::vector<SoundLine> updated_vec) {
-
-	sound_lines_.clear();
-	sound_lines_ = updated_vec;
-}
-
-SoundLine SoundEmitter::GetNewSoundLine() {
-
-	return new_line_;
-}
-
-void SoundEmitter::SetNewSoundLine(SoundLine newline) {
-
-	new_line_ = newline;
 }

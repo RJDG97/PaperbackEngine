@@ -211,8 +211,9 @@ void AssetWindow::DeleteWholeFolder() {
 	imgui_->SetPopupPosition();
 
 	if (ImGui::BeginPopupModal(ICON_FA_TRASH "Are you Sure?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-		ImGui::Text("Folder: "); ImGui::SameLine(0, 3); ImGui::TextColored(GOLDENORANGE, folder_to_del_.c_str());
-		ImGui::Text("is NOT EMPTY!\nYou sure you want to delete?\nThis cannot be undone!!!");
+		ImGui::Text("Folder: "); 
+		ImGui::TextColored(GOLDENORANGE, folder_to_del_.c_str()); ImGui::SameLine(0, 10); ImGui::Text("is NOT EMPTY!");
+		ImGui::Text("You sure you want to delete?\nThis cannot be undone!!!");
 
 		imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
 		if (ImGui::Button("Yes"))
@@ -333,7 +334,6 @@ void AssetWindow::FileDeletion() {
 
 					asset_->SetUnloadBool(true);
 					fs::remove(path);
-
 				}
 				else
 					fs::remove(path);

@@ -5,14 +5,22 @@ void AssetConsoleWindow::Init() {
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
 	texture_ = &*CORE->GetManager<TextureManager>();
 	sound_ = &*CORE->GetSystem<SoundSystem>();
+	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
+	component_ = &*CORE->GetManager<ComponentManager>();
+	entities_ = &*CORE->GetManager<EntityManager>();
+
+	archetype_ = &*imgui_->GetWindow<ArchetypeWindow>();
+
 	chosen_json_ = {};
 	filesdel_ = {};
 	jsonfiles_ = {};
 	tex_info_ = {};
 	audio_info = {};
+	listEntity_ = {};
 
 	b_unload = false;
 	b_wrong_type = false;
+	b_load = false;
 
 	type = AddFile::ADDNothing;
 }
@@ -31,19 +39,16 @@ void AssetConsoleWindow::AddTextureAnimation() {
 	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_addtexture);
 	ImGui::Text("Select what type of files you want to update."); ImGui::SameLine(0, 5);
 	imgui_->ImguiHelp("Press the'Save & Reload Textures' button after making\nany confirmed changes, and before changing to another file.\nIf you change file before confirming your changes,\nall previous amendments will be undone");
-
+	ImGui::Text("Type of Assets:");
 	ImGui::RadioButton("Texture", &(int&)type, (int)AddFile::ADDTexture);
 	ImGui::RadioButton("Audio", &(int&)type, (int)AddFile::ADDAudio);
 	ImGui::RadioButton("Animation", &(int&)type, (int)AddFile::ADDAnimation);
 
 	ImGui::Separator();
 
-	switch (type) 
+	if(type == AddFile::ADDTexture)
 	{
-	case AddFile::ADDTexture:
-	{
-		ImGui::Text("Choose Texture Json to modify");
-
+		ImGui::Text("Choose Json to modify");
 		SelectAssetJson();
 		DisplayTextureJson();
 		AddBlankJson();
@@ -51,21 +56,22 @@ void AssetConsoleWindow::AddTextureAnimation() {
 		if (!chosen_json_.empty())
 			AddNewAsset();
 	}
-		break;
-	case AddFile::ADDAudio:
+	if (type == AddFile::ADDAudio)
 	{
+		ImGui::Text("Choose Json to modify");
 		SelectAssetJson();
 		DisplayAudioJson();
 
 		if (!chosen_json_.empty())
 			AddNewAsset();
 	}
-		break;
-	case AddFile::ADDAnimation:
-		break;
 
-	}
 	ImGui::End();
+
+	if (b_load)
+		ImGui::OpenPopup("Reloading Completed");
+	imgui_->PopUpMessage("Reloading Completed", "Files have been reloaded");
+	b_load = false;
 }
 
 void AssetConsoleWindow::LoadTextureJson(std::string level_name) {
@@ -135,15 +141,15 @@ void AssetConsoleWindow::SelectAssetJson() {
 
 	if (ImGui::BeginCombo("##json", (chosen_json_.empty() ? "Choose File" : chosen_json_.c_str()))) {
 
-		for (auto& texjson : fs::directory_iterator("Resources/AssetsLoading")) {
+		for (auto& assetjson : fs::directory_iterator("Resources/AssetsLoading")) {
 
 			switch(type)
 			{
 			case AddFile::ADDTexture:
 			{
-				if (fs::is_regular_file(texjson) && texjson.path().extension() == ".json" && imgui_->CheckString(texjson.path().filename().generic_string(), "texture")) {
+				if (fs::is_regular_file(assetjson) && assetjson.path().extension() == ".json" && imgui_->CheckString(assetjson.path().filename().generic_string(), "texture")) {
 
-					filename = texjson.path().filename().generic_string().c_str();
+					filename = assetjson.path().filename().generic_string().c_str();
 
 					if (ImGui::Selectable(filename.c_str())) {
 
@@ -153,7 +159,7 @@ void AssetConsoleWindow::SelectAssetJson() {
 
 						LoadTextureJson(file);
 
-						chosen_json_ = texjson.path().generic_string().c_str();
+						chosen_json_ = assetjson.path().generic_string().c_str();
 
 						json_to_load_ = file;
 					}
@@ -163,19 +169,19 @@ void AssetConsoleWindow::SelectAssetJson() {
 
 			case AddFile::ADDAudio:
 			{
-				if (fs::is_regular_file(texjson) && texjson.path().extension() == ".json" && imgui_->CheckString(texjson.path().filename().generic_string(), "sounds")) {
+				if (fs::is_regular_file(assetjson) && assetjson.path().extension() == ".json" && imgui_->CheckString(assetjson.path().filename().generic_string(), "sounds")) {
 
-					file = texjson.path().filename().generic_string().c_str();
+					file = assetjson.path().filename().generic_string().c_str();
 
 					if (ImGui::Selectable(file.c_str())) {
 
-						filename = texjson.path().generic_string().c_str();
+						filename = assetjson.path().generic_string().c_str();
 
 						audio_info.clear();
 
 						LoadSoundJson(filename);
 
-						chosen_json_ = texjson.path().generic_string().c_str();
+						chosen_json_ = assetjson.path().generic_string().c_str();
 
 						json_to_load_ = filename;
 					}
@@ -256,7 +262,6 @@ void AssetConsoleWindow::DisplayAudioJson() {
 
 					if (ImGui::BeginPopupModal("Remove Sound?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
-
 						std::string del = it->first;
 						ImGui::Text("Removing Texture: %s\nMake Sure no object is using this texturer?", it->first.c_str());
 						// later add to show which textures are using it
@@ -302,58 +307,16 @@ void AssetConsoleWindow::DisplayAudioJson() {
 
 	ImGui::Separator();
 
-	if (ImGui::Button("Save & Reload Textures")) {
-
-		rapidjson::StringBuffer sb;
-		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
-
-		std::string despath = chosen_json_;
-
-		std::ofstream filestream(despath);
-
-		if (filestream.is_open()) {
-
-			writer.StartObject();
-
-			for (auto& [name, soundfile] : audio_info) {
-
-				writer.Key(name.c_str());
-
-				writer.StartArray();
-
-				writer.StartObject();
-				writer.Key("path");
-				writer.String(soundfile.path.c_str());
-
-				writer.Key("volume");
-				writer.String(std::to_string(soundfile.volume).c_str());
-
-				writer.Key("min distance");
-				writer.String(std::to_string(soundfile.min_distance).c_str());
-
-				writer.Key("volume falloff");
-				writer.String(std::to_string(soundfile.vol_falloff).c_str());
-
-				writer.Key("loop");
-				writer.String(std::to_string(soundfile.loop).c_str());
-				
-				writer.EndObject();
-
-				writer.EndArray();
-			}
-
-			writer.EndObject();
-			filestream << sb.GetString();
-		}
-
-		filestream.close();
-
-		if (!json_to_load_.empty())
-			sound_->DeSerialize(json_to_load_);
-	}
+	if (ImGui::Button("Save & Reload Textures"))
+		SerializeJson();
 }
 
 void AssetConsoleWindow::DisplayTextureJson() {
+
+	std::string entityname = {};
+	std::vector<std::string> listtextures = {};
+	GLuint texture_ID = {};
+	Texture* texture = {};
 
 	if (!chosen_json_.empty()) {
 
@@ -386,7 +349,7 @@ void AssetConsoleWindow::DisplayTextureJson() {
 						ImGui::TreePop();
 					}
 
-					if (ImGui::TreeNodeEx("Row & Columns")) {
+					if (ImGui::TreeNodeEx("Row & Columns", ImGuiTreeNodeFlags_DefaultOpen)) {
 
 						static char bufferR[256];
 						static char bufferC[256];
@@ -413,44 +376,77 @@ void AssetConsoleWindow::DisplayTextureJson() {
 					if (ImGui::Button("Remove"))
 						ImGui::OpenPopup("Sure?");
 
-					ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-					ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+					imgui_->SetPopupPosition();
 
 					if (ImGui::BeginPopupModal("Sure?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 						std::string del = it->first;
-						ImGui::Text("Removing Texture: %s\nMake Sure no object is using this texturer?", it->first.c_str());
-						// later add to show which textures are using it
-						imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
-						if (ImGui::Button("YES")) {
 
-							if (it == tex_info_.begin())
-								it = tex_info_.erase(it);
-							else {
+						listtextures = texture_->GetTileset(del)->GetTileNames(); // get the list of textures
+						
+						for (int i = 0; i < listtextures.size(); ++i) {
 
-								it = tex_info_.erase(it);
-								--it;
+							texture = texture_->GetTexture(listtextures[i]); //get the actual texture
+							texture_ID = texture->GetTilesetHandle(); //get the ID (to check thru the entities)
+							listArchetype_ = archetype_->CheckArchetypeTexture(listtextures[i]); // check if archetype has texture
+						}
+						listEntity_ = graphics_->EntitiesWithThisTexture(texture_ID);
+
+						if (!listArchetype_.empty()) { // entities are using the texture
+
+							ImGui::TextColored(REDDEFAULT, "UNABLE TO REMOVE TEXTURE:\n%s", it->first.c_str());
+							ImGui::Text("Currently been used by:");
+
+							ImGui::TextColored(GOLDENORANGE, "Archetype(s):");
+							for (int j = 0; j < listArchetype_.size(); ++j)
+								ImGui::Text(listArchetype_[j].c_str());
+
+							ImGui::Separator();
+
+							if (!listEntity_.empty()) {
+								ImGui::TextColored(GOLDENORANGE, "Entity(ies):");
+								for (int i = 0; i < listEntity_.size(); ++i)
+									ImGui::Text((component_->GetComponent<Name>(listEntity_[i])->GetName() + std::to_string(listEntity_[i])).c_str());
+
+								ImGui::Separator();
 							}
 
-							filesdel_.push_back(del);
-
-							for (int i = 0; i < filesdel_.size(); i++)
-								texture_->UnloadTileset(filesdel_[i]);
-
-							filesdel_.clear();
-
-							b_unload = true;
-
-							ImGui::CloseCurrentPopup();
+							if (ImGui::Button("OK"))
+								ImGui::CloseCurrentPopup();
 						}
+						else {
 
-						ImGui::PopStyleColor(3);
-						ImGui::SameLine(0, 3);
-						if (ImGui::Button("Cancel"))
-							ImGui::CloseCurrentPopup();
+							ImGui::Text("%s is not being used by any Archetypes\nor Active Entities (of the CURRENT SCENE)", del.c_str());
+
+							if (ImGui::Button("YES")) {
+
+								if (it == tex_info_.begin())
+									it = tex_info_.erase(it);
+								else {
+
+									it = tex_info_.erase(it);
+									--it;
+								}
+
+								filesdel_.push_back(del);
+
+								for (int i = 0; i < filesdel_.size(); i++)
+									texture_->UnloadTileset(filesdel_[i]);
+
+								filesdel_.clear();
+
+								b_unload = true;
+
+								ImGui::CloseCurrentPopup();
+							}
+							ImGui::SameLine(0, 3);
+
+							if (ImGui::Button("Cancel"))
+								ImGui::CloseCurrentPopup();
+
+						}
 
 						ImGui::EndPopup();
 					}
-
 					ImGui::TreePop();
 					break;
 				}
@@ -461,33 +457,8 @@ void AssetConsoleWindow::DisplayTextureJson() {
 
 	ImGui::Separator();
 
-	if (ImGui::Button("Save & Reload Textures")) {
-
-		rapidjson::StringBuffer sb;
-		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
-
-		std::string despath = chosen_json_;
-
-		std::ofstream filestream(despath);
-		if (filestream.is_open()) {
-
-			writer.StartObject();
-
-			for (auto fileit = tex_info_.begin(); fileit != tex_info_.end(); ++fileit) {
-
-				writer.Key(fileit->first.c_str());
-				writer.String((fileit->second.path + " " + std::to_string(fileit->second.column) + " " + std::to_string(fileit->second.row)).c_str());
-			}
-
-			writer.EndObject();
-			filestream << sb.GetString();
-		}
-
-		filestream.close();
-
-		if (!json_to_load_.empty())
-			texture_->TextureBatchLoad(json_to_load_);
-	}
+	if (ImGui::Button("Save & Reload Textures"))
+		SerializeJson();
 }
 
 
@@ -505,10 +476,8 @@ void AssetConsoleWindow::AddNewAsset() {
 
 		if (!imgui_->GetAssetAdd().empty()) {
 
-			switch (type)
-			{
-			case AddFile::ADDTexture:
-			{
+			if(type == AddFile::ADDTexture) {
+
 				TextureInfo newtex;
 				ImGui::TextColored(GOLDENORANGE, "Adding in a NEW Texture");
 				ImGui::Text("Path: %s", imgui_->GetAssetAdd().c_str());
@@ -533,9 +502,9 @@ void AssetConsoleWindow::AddNewAsset() {
 					}
 				}
 			}
-				break;
-			case AddFile::ADDAudio:
-			{
+
+			if (type == AddFile::ADDAudio) {
+
 				AudioInfo newsound;
 				ImGui::TextColored(SKYBLUE, "Adding in a NEW Audio");
 				ImGui::Text("Path: %s", imgui_->GetAssetAdd().c_str());
@@ -562,10 +531,9 @@ void AssetConsoleWindow::AddNewAsset() {
 					}
 				}
 			}
-				break;
-			}
 		}
 		else {
+
 			ImGui::Text("No Texture Set, Drag One here or to the add icon in the asset browser");
 
 			if (ImGui::BeginDragDropTarget()) {
@@ -596,7 +564,6 @@ void AssetConsoleWindow::UpdatePath() {
 	}
 }
 
-
 void AssetConsoleWindow::WrongTypePopup() {
 
 	if (b_wrong_type)
@@ -607,17 +574,12 @@ void AssetConsoleWindow::WrongTypePopup() {
 
 	if (ImGui::BeginPopupModal("Wrong File Type", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
-		switch (type)
-		{
-		case AddFile::ADDTexture:
+		if (type == AddFile::ADDTexture)
 			ImGui::Text("The Asset you are trying to load in:\n%s\nis of the wrong format.\nOnly Png Image Files", imgui_->GetAssetAdd().c_str());
-			break;
-		case AddFile::ADDAudio:
+
+		else if (type == AddFile::ADDAudio)
 			ImGui::Text("The Asset you are trying to load in:\n%s\nis of the wrong format.\nOnly Mp3 Audio Files", imgui_->GetAssetAdd().c_str());
-			break;
-		case AddFile::ADDAnimation:
-			break;
-		}
+
 
 		if (ImGui::Button("OK")) {
 
@@ -662,19 +624,12 @@ void AssetConsoleWindow::AddBlankJson() {
 			if (!std::string(filebuffer).empty()) {
 
 				 pathtext = filebuffer;
-
-				switch (type) {
-
-				case AddFile::ADDTexture:
+				 if (type == AddFile::ADDTexture)
 					filepath = std::string("Resources/AssetsLoading/" + pathtext + "_texture.json").c_str();
-					break;
-				case AddFile::ADDAudio:
-					break;
-				case AddFile::ADDAnimation:
-					filepath = std::string("Resources/AssetsLoading/" + pathtext + "_animation.json").c_str();
-					break;
 
-				}
+				 if (type == AddFile::ADDAnimation)
+					filepath = std::string("Resources/AssetsLoading/" + pathtext + "_animation.json").c_str();
+
 				std::ofstream destfile(filepath, std::ios::binary | std::ios::app);
 
 				destfile << "{\n\n}"; // prepare the file as a blank json
@@ -684,14 +639,91 @@ void AssetConsoleWindow::AddBlankJson() {
 	}
 }
 
-bool AssetConsoleWindow::GetUnloadBool() {
-	
-	return b_unload;
-}
+void AssetConsoleWindow::SerializeJson() {
 
-void AssetConsoleWindow::SetUnloadBool(bool updated_bool) {
+	if (type == AddFile::ADDTexture) {
 
-	b_unload = updated_bool;
+		rapidjson::StringBuffer sb;
+		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+
+		std::string despath = chosen_json_;
+
+		std::ofstream filestream(despath);
+		if (filestream.is_open()) {
+
+			writer.StartObject();
+
+			for (auto fileit = tex_info_.begin(); fileit != tex_info_.end(); ++fileit) {
+
+				writer.Key(fileit->first.c_str());
+				writer.String((fileit->second.path + " " + std::to_string(fileit->second.column) + " " + std::to_string(fileit->second.row)).c_str());
+			}
+
+			writer.EndObject();
+			filestream << sb.GetString();
+		}
+
+		filestream.close();
+
+		if (!json_to_load_.empty()) {
+			texture_->TextureBatchLoad(json_to_load_);
+
+			b_load = true;
+		}
+
+	}
+
+	if (type == AddFile::ADDAudio) {
+
+		rapidjson::StringBuffer sb;
+		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+
+		std::string despath = chosen_json_;
+
+		std::ofstream filestream(despath);
+
+		if (filestream.is_open()) {
+
+			writer.StartObject();
+
+			for (auto& [name, soundfile] : audio_info) {
+
+				writer.Key(name.c_str());
+
+				writer.StartArray();
+
+				writer.StartObject();
+				writer.Key("path");
+				writer.String(soundfile.path.c_str());
+
+				writer.Key("volume");
+				writer.String(std::to_string(soundfile.volume).c_str());
+
+				writer.Key("min distance");
+				writer.String(std::to_string(soundfile.min_distance).c_str());
+
+				writer.Key("volume falloff");
+				writer.String(std::to_string(soundfile.vol_falloff).c_str());
+
+				writer.Key("loop");
+				writer.String(std::to_string(soundfile.loop).c_str());
+
+				writer.EndObject();
+
+				writer.EndArray();
+			}
+
+			writer.EndObject();
+			filestream << sb.GetString();
+		}
+
+		filestream.close();
+
+		if (!json_to_load_.empty()) {
+			sound_->DeSerialize(json_to_load_);
+			b_load = true;
+		}
+	}
 }
 
 std::string AssetConsoleWindow::FindUnderscore(std::string filename) {
@@ -699,4 +731,14 @@ std::string AssetConsoleWindow::FindUnderscore(std::string filename) {
 		return (filename.substr(0, filename.find("_")));
 	else
 		return std::string();
+}
+
+bool AssetConsoleWindow::GetUnloadBool() {
+
+	return b_unload;
+}
+
+void AssetConsoleWindow::SetUnloadBool(bool updated_bool) {
+
+	b_unload = updated_bool;
 }

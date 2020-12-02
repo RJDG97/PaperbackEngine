@@ -179,6 +179,15 @@ void PlayState::SetHelp(const bool& status) {
 	help_ = status;
 }
 
+void PlayState::Init(){
+
+	component_mgr_ = &*CORE->GetManager<ComponentManager>();
+	entity_mgr_ = &*CORE->GetManager<EntityManager>();
+	logic_mgr_ = &*CORE->GetManager<LogicManager>();
+	logic_arr_ = component_mgr_->GetComponentArray<LogicComponent>();
+	input_arr_ = component_mgr_->GetComponentArray<InputController>();
+}
+
 bool VerifyStatusNoneOrAlt(StatusType player, StatusType to_check) {
 
 	return (player == StatusType::NONE || player == to_check);

@@ -42,7 +42,13 @@ void TextureTilesWindow::Update() {
 				ImVec2 buttonsize = ImVec2{ 64, 64 };
 
 				ImGui::PushID(counter);
-				ImGui::ImageButton(texID, buttonsize, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
+				if (!tex_vtx->size()) {
+
+					ImGui::PopID();
+					continue;
+				}	
+				else 
+					ImGui::ImageButton(texID, buttonsize, ImVec2{ (*tex_vtx)[2].x, (*tex_vtx)[2].y }, ImVec2{ (*tex_vtx)[1].x, (*tex_vtx)[1].y });
 
 				float last_button_size = ImGui::GetItemRectMax().x;
 				float next_button_size = last_button_size + style.ItemSpacing.x + buttonsize.x;

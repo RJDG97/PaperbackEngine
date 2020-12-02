@@ -13,28 +13,38 @@
             "layer": "3"
         },
         {
+            "component": "InputController",
+            "size": "14",
+            "burrow": "burrow 69",
+            "confirm": "confirm 257",
+            "debug": "debug 66",
+            "expand": "expand 39",
+            "god": "god 71",
+            "invisible": "invisible 340",
+            "move_down": "move_down 83",
+            "move_left": "move_left 65",
+            "move_right": "move_right 68",
+            "move_up": "move_up 87",
+            "pause": "pause 256",
+            "shrink": "shrink 59",
+            "spin_left": "spin_left 44",
+            "spin_right": "spin_right 46"
+        },
+        {
             "component": "ParentChild",
             "elements": "2",
             "to_clone": "FakeWall ",
             "to_clone": "Camera "
         },
         {
-          "component": "InputController",
-          "size": "14",
-          "move_left": "move_left 65",
-          "move_right": "move_right 68",
-          "move_up": "move_up 87",
-          "move_down": "move_down 83",
-          "invisible": "invisible 340",
-          "burrow": "burrow 69",
-          "debug": "debug 66",
-          "spin_left": "spin_left 44",
-          "spin_right": "spin_right 46",
-          "shrink": "shrink 59",
-          "expand": "expand 39",
-          "pause" : "pause 256",
-          "confirm" : "confirm 257",
-          "god": "god 71"
+            "component": "LogicComponent",
+            "number_of_fns": "3",
+            "name": "UpdateChildOffset",
+            "function": "Player_UpdateChildOffset",
+            "name": "UpdateInput",
+            "function": "Player_UpdateInput",
+            "name": "UpdateTexture",
+            "function": "Player_UpdateTexture"
         }
     ]
 }

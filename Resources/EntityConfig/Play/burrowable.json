@@ -1,14 +1,22 @@
 {
-  "burrowable": [
-    {
-      "component": "Transform",
-      "position": "-6.62 -1.0",
-      "rotation": "0.0"
-    },
-    {
-      "component": "AABB",
-      "scale": "1.9 2.2",
-      "layer": "10"
-    }
-  ]
+    "Burrowable": [
+        {
+            "component": "Transform",
+            "position": "-6.620000 -1.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Rock_Two_0",
+            "layer": "2",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.900000 2.200000",
+            "layer": "10"
+        }
+    ]
 }

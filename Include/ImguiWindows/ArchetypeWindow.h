@@ -8,6 +8,7 @@
 #include "Manager/ComponentManager.h"
 #include "GameStates/Levels.h"
 #include "Systems/Factory.h"
+#include "ImguiWindows/EntityWindow.h"
 
 class ArchetypeWindow : public IWindow
 {
@@ -74,6 +75,8 @@ public:
 	void AddNewArchetypePopup();
 
 	void ArchetypeMenuBar();
+
+	std::vector<std::string> CheckArchetypeTexture(std::string path);
 
 private:
 	EntityManager* entities_;

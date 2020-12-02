@@ -157,6 +157,7 @@ void ImguiSystem::Update(float frametime) {
 
             if (b_add_path)
                 ImGui::OpenPopup("No Path Set");
+
             PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
             b_add_path = false;
             // for the selection of entity
@@ -448,7 +449,6 @@ void ImguiSystem::LoadJsonPaths(std::string path) {
 
         editor_->AddNewEntityPath(archetype_name, filepath);
     }
-
 }
 
 void ImguiSystem::SaveArchetype(std::string path) {
@@ -724,25 +724,6 @@ void ImguiSystem::SetPopupPosition() {
 
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
     ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-}
-
-void ImguiSystem::VolumeControl() {
-
-    if (ImGui::Button(ICON_FA_PLAY ICON_FA_PAUSE " Play/Pause Sound"))
-        sound_->PauseSound("all", true, true);
-    if (ImGui::Button(ICON_FA_VOLUME_MUTE " Mute Sound"))
-        sound_->MuteSound("all", true, true);
-
-    ImGui::Separator();
-
-    float inputVol = sound_->GetVolume();
-    ImGui::Text("Volume:");
-    ImGui::Text(ICON_FA_VOLUME_DOWN); ImGui::SameLine(0, 3);
-    ImGui::PushItemWidth(250.0f);
-    ImGui::SliderFloat("", &inputVol, 0.0f, 1.0f, "%.2f");
-    ImGui::PopItemWidth(); ImGui::SameLine(0, 3);
-    ImGui::Text(ICON_FA_VOLUME_UP);
-    sound_->SetVolume(inputVol);
 }
 
 ImguiSystem::~ImguiSystem() {
