@@ -151,6 +151,7 @@ namespace Player_Scripts
 
 			EntityID player_id = entity_mgr->GetPlayerEntities().back()->GetID();
 			Status* player_status = component_mgr->GetComponent<Status>(player_id);
+			Transform* player_transform = component_mgr->GetComponent<Transform>(player_id);
 			
 			//God Mode
 			if (controller->VerifyKey("god", m->input_)) {
@@ -158,17 +159,29 @@ namespace Player_Scripts
 				CORE->ToggleGodMode();
 			}
 
-			
-			if (controller->VerifyKey("lose", m->input_)) {
+			if (CORE->GetGodMode()) {
 
-				Message msg{ MessageIDTypes::GSM_LOSE };
-				CORE->BroadcastMessage(&msg);
-			}
+				if (controller->VerifyKey("lose", m->input_)) {
 
-			if (controller->VerifyKey("win", m->input_)) {
+					Message msg{ MessageIDTypes::GSM_LOSE };
+					CORE->BroadcastMessage(&msg);
+				}
 
-				Message msg{ MessageIDTypes::GSM_WIN };
-				CORE->BroadcastMessage(&msg);
+				if (controller->VerifyKey("win", m->input_)) {
+
+					Message msg{ MessageIDTypes::GSM_WIN };
+					CORE->BroadcastMessage(&msg);
+				}
+
+				if (controller->VerifyKey("teleport_key", m->input_)) {
+
+					player_transform->SetPosition( { 24.8f, 31.0f } );
+				}
+
+				if (controller->VerifyKey("teleport_house", m->input_)) {
+
+					player_transform->SetPosition( { -23.5f, 23.0f } );
+				}
 			}
 
 			// Skills
