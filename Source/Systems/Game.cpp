@@ -89,6 +89,12 @@ void Game::PopState()
 void Game::Update(float frametime)
 {
 
+	if (CORE->GetGamePauseStatus() && !CORE->GetCorePauseStatus()) {
+
+		M_DEBUG->WriteDebugMessage("\nStrange error occurred, game paused but core not paused\n");
+		CORE->ToggleCorePauseStatus();
+	}
+
 	// let the current state take control
 	if (!states_.empty() && !CORE->GetCorePauseStatus() && !CORE->GetGamePauseStatus()) {
 	
