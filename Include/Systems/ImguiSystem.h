@@ -38,6 +38,14 @@
 #define GOLDENORANGE ImVec4{ 1.0f, 0.843f, 0.0f, 1.0f }
 #define SKYBLUE ImVec4{ 0.0f, 0.749f, 1.0f, 1.0f }
 
+
+enum CloseApp {
+	NONE = 0,
+	CREATENEWSCENE,
+	RETURNMENU,
+	EXITAPP
+};
+
 class ImguiSystem : public ISystem
 {
 public:
@@ -471,6 +479,8 @@ public:
 /******************************************************************************/
 	void SetArchetypePath(std::string new_path);
 
+	void SaveCheckPopUp(const char* window_name, int exit_type);
+
 private:
 
 	// map to store all imgui windows added to the system
@@ -508,11 +518,13 @@ private:
 	// bools for the docking space
 	bool b_dock_space_open, b_fullscreen_persistant, b_fullscreen;
 
-	bool b_imgui_mode, b_lock_entity, b_show_pop, b_add_path, b_save_check, b_close_confirm, b_editor;
+	bool b_imgui_mode, b_lock_entity, b_show_pop, b_add_path, b_close_confirm, b_editor;
 
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
+
+	CloseApp type;
 };
 
 #endif

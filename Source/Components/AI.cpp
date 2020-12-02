@@ -76,7 +76,7 @@ void AI::DeSerializeClone(std::stringstream& data) {
 
 	// clone data will be for number of destinations and destinations
 	data >> type >> range_ >> speed_ >> num_destinations_;
-
+	state_ = AIState::Patrol;
 	type_ = GeneralScripts::GetType(type);
 	alive_ = true;
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
@@ -101,7 +101,7 @@ std::shared_ptr<Component> AI::Clone() {
 	cloned->type_ = type_;
 	cloned->range_ = range_;
 	cloned->attackpower_ = attackpower_;
-
+	cloned->state_ = state_;
 	cloned->speed_ = speed_;
 	cloned->num_destinations_ = num_destinations_;
 	cloned->destinations_.reserve(destinations_.size());

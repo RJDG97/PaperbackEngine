@@ -29,10 +29,10 @@ struct AudioInfo {
 
 enum AddFile {
 
-	ADDTexture = 0,
-	ADDAudio,
-	ADDAnimation,
-	ADDNothing
+	ADDTEXTURE = 0,
+	ADDAUDIO,
+	ADDANIMATION,
+	ADDNOTHING
 };
 
 class AssetConsoleWindow : public IWindow {

@@ -99,7 +99,6 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 	}
 	else
 		ImGui::TextColored(ImVec4{1.0f, 0.0f, 0.0f, 1.0f}, "No Path Set");
-
 }
 
 void EntityPathWindow::AddPaths(Level* editor) {

@@ -22,7 +22,7 @@ void AssetConsoleWindow::Init() {
 	b_wrong_type = false;
 	b_load = false;
 
-	type = AddFile::ADDNothing;
+	type = AddFile::ADDNOTHING;
 }
 
 void AssetConsoleWindow::Update() {
@@ -40,15 +40,14 @@ void AssetConsoleWindow::AddTextureAnimation() {
 	ImGui::Text("Select what type of files you want to update."); ImGui::SameLine(0, 5);
 	imgui_->ImguiHelp("Press the'Save & Reload Textures' button after making\nany confirmed changes, and before changing to another file.\nIf you change file before confirming your changes,\nall previous amendments will be undone");
 	ImGui::Text("Type of Assets:");
-	ImGui::RadioButton("Texture", &(int&)type, (int)AddFile::ADDTexture);
-	ImGui::RadioButton("Audio", &(int&)type, (int)AddFile::ADDAudio);
-	ImGui::RadioButton("Animation", &(int&)type, (int)AddFile::ADDAnimation);
+	ImGui::RadioButton("Texture", &(int&)type, (int)AddFile::ADDTEXTURE);
+	ImGui::RadioButton("Audio", &(int&)type, (int)AddFile::ADDAUDIO);
+	ImGui::RadioButton("Animation", &(int&)type, (int)AddFile::ADDANIMATION);
 
 	ImGui::Separator();
 
-	if(type == AddFile::ADDTexture)
-	{
-		ImGui::Text("Choose Json to modify");
+	if(type == AddFile::ADDTEXTURE) {
+
 		SelectAssetJson();
 		DisplayTextureJson();
 		AddBlankJson();
@@ -56,9 +55,8 @@ void AssetConsoleWindow::AddTextureAnimation() {
 		if (!chosen_json_.empty())
 			AddNewAsset();
 	}
-	if (type == AddFile::ADDAudio)
-	{
-		ImGui::Text("Choose Json to modify");
+	if (type == AddFile::ADDAUDIO) {
+
 		SelectAssetJson();
 		DisplayAudioJson();
 
@@ -145,7 +143,7 @@ void AssetConsoleWindow::SelectAssetJson() {
 
 			switch(type)
 			{
-			case AddFile::ADDTexture:
+			case AddFile::ADDTEXTURE:
 			{
 				if (fs::is_regular_file(assetjson) && assetjson.path().extension() == ".json" && imgui_->CheckString(assetjson.path().filename().generic_string(), "texture")) {
 
@@ -167,7 +165,7 @@ void AssetConsoleWindow::SelectAssetJson() {
 			}
 				break;
 
-			case AddFile::ADDAudio:
+			case AddFile::ADDAUDIO:
 			{
 				if (fs::is_regular_file(assetjson) && assetjson.path().extension() == ".json" && imgui_->CheckString(assetjson.path().filename().generic_string(), "sounds")) {
 
@@ -476,7 +474,7 @@ void AssetConsoleWindow::AddNewAsset() {
 
 		if (!imgui_->GetAssetAdd().empty()) {
 
-			if(type == AddFile::ADDTexture) {
+			if(type == AddFile::ADDTEXTURE) {
 
 				TextureInfo newtex;
 				ImGui::TextColored(GOLDENORANGE, "Adding in a NEW Texture");
@@ -503,7 +501,7 @@ void AssetConsoleWindow::AddNewAsset() {
 				}
 			}
 
-			if (type == AddFile::ADDAudio) {
+			if (type == AddFile::ADDAUDIO) {
 
 				AudioInfo newsound;
 				ImGui::TextColored(SKYBLUE, "Adding in a NEW Audio");
@@ -574,10 +572,10 @@ void AssetConsoleWindow::WrongTypePopup() {
 
 	if (ImGui::BeginPopupModal("Wrong File Type", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
-		if (type == AddFile::ADDTexture)
+		if (type == AddFile::ADDTEXTURE)
 			ImGui::Text("The Asset you are trying to load in:\n%s\nis of the wrong format.\nOnly Png Image Files", imgui_->GetAssetAdd().c_str());
 
-		else if (type == AddFile::ADDAudio)
+		else if (type == AddFile::ADDAUDIO)
 			ImGui::Text("The Asset you are trying to load in:\n%s\nis of the wrong format.\nOnly Mp3 Audio Files", imgui_->GetAssetAdd().c_str());
 
 
@@ -595,9 +593,9 @@ void AssetConsoleWindow::UnloadPopup() {
 
 	if (b_unload) {
 
-		if (type == AddFile::ADDTexture)
+		if (type == AddFile::ADDTEXTURE)
 			ImGui::OpenPopup("Texture Unloaded");
-		if (type == AddFile::ADDAudio)
+		if (type == AddFile::ADDAUDIO)
 			ImGui::OpenPopup("Sound Unloaded");
 	}
 
@@ -624,10 +622,10 @@ void AssetConsoleWindow::AddBlankJson() {
 			if (!std::string(filebuffer).empty()) {
 
 				 pathtext = filebuffer;
-				 if (type == AddFile::ADDTexture)
+				 if (type == AddFile::ADDTEXTURE)
 					filepath = std::string("Resources/AssetsLoading/" + pathtext + "_texture.json").c_str();
 
-				 if (type == AddFile::ADDAnimation)
+				 if (type == AddFile::ADDANIMATION)
 					filepath = std::string("Resources/AssetsLoading/" + pathtext + "_animation.json").c_str();
 
 				std::ofstream destfile(filepath, std::ios::binary | std::ios::app);
@@ -641,7 +639,7 @@ void AssetConsoleWindow::AddBlankJson() {
 
 void AssetConsoleWindow::SerializeJson() {
 
-	if (type == AddFile::ADDTexture) {
+	if (type == AddFile::ADDTEXTURE) {
 
 		rapidjson::StringBuffer sb;
 		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
@@ -673,7 +671,7 @@ void AssetConsoleWindow::SerializeJson() {
 
 	}
 
-	if (type == AddFile::ADDAudio) {
+	if (type == AddFile::ADDAUDIO) {
 
 		rapidjson::StringBuffer sb;
 		rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);

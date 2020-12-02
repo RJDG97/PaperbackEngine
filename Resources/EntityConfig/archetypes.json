@@ -174,68 +174,6 @@
       "component": "InputController"
     }
   ],
-  "Enemy": [
-    {
-      "component": "Name",
-      "name": "Enemy"
-    },
-    {
-      "component": "Transform",
-      "position": "0.0 0.0",
-      "rotation": "0.0",
-      "offset": "0.0 0.0"
-    },
-    {
-      "component": "Motion",
-      "mass": "10.0"
-    },
-    {
-      "component": "Scale",
-      "scale": "256.0 256.0"
-    },
-    {
-      "component": "AnimationRenderer",
-      "number of animations": "7",
-      "add animation": "Stagbeetle_Charge",
-      "add animation": "Stagbeetle_Attack",
-      "add animation": "Stagbeetle_Run",
-      "add animation": "Stagbeetle_Alert",
-      "add animation": "Stagbeetle_Idle",
-      "add animation": "Stagbeetle_Confused",
-      "add animation": "Stagbeetle_Walk",
-      "set animation": "Stagbeetle_Walk",
-      "play_animation": "1",
-      "has_finished_animating": "0",
-      "layer": "2",
-      "ui": "0",
-      "alive": "1"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.5 0.5",
-      "layer": "2"
-    },
-    {
-      "component": "Status"
-    },
-    {
-      "component": "Health",
-      "maximum health": "5"
-    },
-    {
-      "component": "PointLight",
-      "angle": "30.0",
-      "color": "1.0 1.0 0.0",
-      "radius": "400.0",
-      "intensity": "1.0"
-    },
-    {
-      "component": "LogicComponent",
-      "number_of_fns": "1",
-      "name": "UpdateTexture",
-      "function": "Stag_UpdateTexture"
-    }
-  ],
   "Wall": [
     {
       "component": "Name",

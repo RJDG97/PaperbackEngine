@@ -43,6 +43,8 @@ void ImguiSystem::Init(){
     camera_ = nullptr;
     editor_ = factory_->GetLevel("Editor");
 
+    type = CloseApp::NONE;
+
     //Imgui Window Bools
     b_archetypewin = true;
     b_entitywin = true;
@@ -58,9 +60,9 @@ void ImguiSystem::Init(){
 
     b_lock_entity = false;
     b_imgui_mode = false;
-    b_save_check = false;
 
     selected_entity_ = nullptr;
+    b_close_confirm = false;
 
     img_to_add_ = {};
 
@@ -160,6 +162,13 @@ void ImguiSystem::Update(float frametime) {
 
             PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
             b_add_path = false;
+
+            if (b_close_confirm)
+                ImGui::OpenPopup("Exit Confirmation");
+
+            SaveCheckPopUp("Exit Confirmation", type);
+            b_close_confirm = false;
+
             // for the selection of entity
             if (!EditorMode() && camera_) {
 
@@ -250,13 +259,17 @@ void ImguiSystem::ImguiMenuBar() {
                 selected_entity_ = {};
                 editor_->entity_paths_.clear();
                 OpenFile();
-                LoadJsonPaths(current_loaded_path_);
+                if (!current_loaded_path_.empty())
+                    LoadJsonPaths(current_loaded_path_);
             }
 
             if (ImGui::MenuItem(ICON_FA_SAVE " Save")) {
 
                 if (!editor_->entity_paths_.empty()) {
-                    SaveFile(current_loaded_path_);
+
+                    if (!current_loaded_path_.empty())
+                        SaveFile(current_loaded_path_);
+
                     b_show_pop = true;
                 }
                 else
@@ -271,6 +284,9 @@ void ImguiSystem::ImguiMenuBar() {
                     std::string path = OpenSaveDialog(scene_filter_, 1);
                     SaveFile(path);
 
+                    if (!path.empty())
+                        LoadJsonPaths(path);
+
                     b_show_pop = true;
                 }
                 else
@@ -278,28 +294,25 @@ void ImguiSystem::ImguiMenuBar() {
             }
 
             if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene")) {
-                selected_entity_ = {};
-                NewScene();
+                b_close_confirm = true;
+                type = CloseApp::CREATENEWSCENE;
             }
 
             ImGui::Separator();
 
-            if (ImGui::MenuItem(ICON_FA_REPLY " Return to Menu")){
-
-                b_imgui_mode = false;
-                FACTORY->DestroyAllEntities();
-                selected_entity_ = {};
-                CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
-
+            if (ImGui::MenuItem(ICON_FA_REPLY " Return to Menu")) {
+                b_close_confirm = true;
+                type = CloseApp::RETURNMENU;
             }
-            if (ImGui::IsItemHovered())
-                ImguiHelp("Have you save the current\nworking scene. There is no auto recovery", 0);
 
-            if (ImGui::MenuItem(ICON_FA_POWER_OFF " Exit"))
-                CORE->SetGameActiveStatus(false);
+            ImguiHelp("Did you save?", 0);
 
-            if (ImGui::IsItemHovered())
-                ImguiHelp("Have you save the current\nworking scene. There is no auto recovery", 0);
+            if (ImGui::MenuItem(ICON_FA_POWER_OFF " Exit")) {
+                b_close_confirm = true;
+                type = CloseApp::EXITAPP;
+            }
+
+            ImguiHelp("Did you save?", 0);
 
             ImGui::EndMenu();
         }
@@ -319,8 +332,12 @@ void ImguiSystem::ImguiMenuBar() {
                 LoadArchetype();
 
             ImGui::Separator();
+
             if (ImGui::MenuItem(ICON_FA_EDIT " Edit Archetype Path"))
                 b_editpath = true;
+
+            ImGui::Separator();
+            ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
 
             ImGui::EndMenu();
         }
@@ -422,6 +439,45 @@ std::string ImguiSystem::GetArchetypePath() {
 void ImguiSystem::SetArchetypePath(std::string new_path) {
 
     archetype_path_ = new_path;
+}
+
+void ImguiSystem::SaveCheckPopUp(const char* window_name, int exit_type) {
+
+    SetPopupPosition();
+
+    if (ImGui::BeginPopupModal(window_name, NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+
+        ImGui::TextColored(REDDEFAULT, "Have you save whatever you've been working on ?");
+        ImGui::Text("There's no turning back if you leave !");
+
+        if (ImGui::Button("Yep I Did")) {
+
+            if (exit_type == CloseApp::CREATENEWSCENE) { // create new scene
+
+                selected_entity_ = {};
+                NewScene();
+            }
+            if (exit_type == CloseApp::RETURNMENU) { // return to menu
+                b_imgui_mode = false;
+                FACTORY->DestroyAllEntities();
+                selected_entity_ = {};
+                CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
+            }
+            else { // exit the app
+
+                CORE->SetGameActiveStatus(false);
+            }
+
+            ImGui::CloseCurrentPopup();
+        }
+
+        ImGui::SameLine(0, 10);
+
+        if (ImGui::Button("Nope"))
+            ImGui::CloseCurrentPopup();
+
+        ImGui::EndPopup();
+    }
 }
 
 const char* ImguiSystem::GetSceneFilter() { 
@@ -679,6 +735,7 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
 }
 
 std::string ImguiSystem::EditString(std::string filepath, const char* startpos) {
+
     return filepath.substr(filepath.find(startpos));
 }
 
@@ -717,7 +774,6 @@ bool ImguiSystem::CheckString(std::string path, const char* key) {
     if (path.find(key) != path.npos)
         return true;
     return false;
-   
 }
 
 void ImguiSystem::SetPopupPosition() {
