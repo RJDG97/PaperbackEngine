@@ -10,18 +10,17 @@
       "emitter lifetime": "1000",
       "emitter spawn interval": "0.2",
       "emitter request": "5",
-      "emitter maximum spawn": "50",
-      "particle lifetime range": "2.0 5.0",
-      "particle min pos": "-0.25 -0.25",
-      "particle max pos": "0.25 0.25",
+      "emitter maximum spawn": "250",
+      "particle lifetime range": "5.0 20.0",
+      "particle min pos": "-57.0 55.0",
+      "particle max pos": "50.0 55.0",
       "particle force range": "25.0 100.0",
-      "particle direction range": "0.0 360.0",
-      "particle rotation speed": "1.0 5.0",
-      "min rotation angle range": "45.0 90.0",
-      "max rotation angle range": "180.0 225.0",
-      "number of textures": "2",
-      "texture": "Leaf_0",
-      "texture": "Puddle_0"
+      "particle direction range": "135.0 270.0",
+      "particle rotation speed": "1.0 2.0",
+      "min rotation angle range": "0.0 45.0",
+      "max rotation angle range": "0.0 45.0",
+      "number of textures": "1",
+      "texture": "Leaf_0"
     }
   ]
 }
