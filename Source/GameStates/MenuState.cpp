@@ -39,9 +39,12 @@ void MenuState::Init(std::string)
 
 	help_ = false;
 
-	CORE->ResetCorePauseStatus();
 	FACTORY->LoadLevel("Menu");
 	CORE->GetSystem<GraphicsSystem>()->EnableLighting(false);
+
+	CORE->ResetGodMode();
+	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
 
 	MessageBGM_Play msg{ "MenuDefault" };
 	CORE->BroadcastMessage(&msg);
@@ -59,8 +62,11 @@ void MenuState::Free()
 	MessageBGM_Stop msg{ "MenuDefault" };
 	CORE->BroadcastMessage(&msg);
 
-	FACTORY->DestroyAllEntities();
+	CORE->ResetGodMode();
+	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
 
+	FACTORY->DestroyAllEntities();
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 
 	help_ = false;

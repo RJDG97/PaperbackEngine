@@ -57,7 +57,10 @@ void PlayState::Init(std::string)
 	logic_arr_ = component_mgr_->GetComponentArray<LogicComponent>();
 	input_arr_ = component_mgr_->GetComponentArray<InputController>();
 
+	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
+
 	FACTORY->LoadLevel("Play");
 	FACTORY->LoadLevel("Pause");
 
@@ -91,6 +94,8 @@ void PlayState::Free()
 
 	CORE->GetSystem<DialogueSystem>()->TempCleanup();
 	CORE->ResetGodMode();
+	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
 
 	win_ = false;
 	help_ = false;
@@ -232,131 +237,6 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				std::string update = logic->GetLogic("UpdateInput");
 				logic_mgr_->Exec(update, id, msg);
 			}
-		}
-
-		
-		for (Game::InputControllerIt it = game->input_controller_arr_->begin(); it != game->input_controller_arr_->end(); ++it) {
-			Message_Input* m = dynamic_cast<Message_Input*>(msg);
-		
-			if (!m)
-				continue;
-
-			InputController* InputController = it->second;
-			/*
-			if (InputController->VerifyKey("pause", m->input_)) { // "Esc" key
-				CORE->ToggleCorePauseStatus(); // Disable physics update
-				CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
-				CORE->GetSystem<Collision>()->ToggleClickables(1);
-				CORE->GetSystem<Collision>()->ToggleClickables(3);
-
-				if (help_) {
-
-					help_ = false;
-
-					CORE->GetSystem<Collision>()->ToggleClickables(1);
-					CORE->GetSystem<Collision>()->ToggleClickables(2);
-				}
-
-				Message pause{ MessageIDTypes::BGM_PAUSE };
-				CORE->BroadcastMessage(&pause);
-			}
-
-			if (game->GetStateName() == "Play") {
-
-				// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
-				// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
-				//if (CORE->GetCorePauseStatus() && InputController->VerifyKey("confirm", m->input_)) {
-				//	//CORE->SetGameActiveStatus(false);
-				//	game->ChangeState(&m_MenuState);
-				//	return;
-				//}
-			}
-
-			if (!entity_mgr_->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {
-
-				EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
-				Status* player_status = component_mgr_->GetComponent<Status>(player_id);
-
-				// Skills
-				if (InputController->VerifyKey("burrow", m->input_)) {
-
-					if (CORE->GetSystem<Collision>()->BurrowReady() && VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::BURROW)) {
-
-						SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
-					}
-				}
-				else if (InputController->VerifyKey("invisible", m->input_)) {
-
-					AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(player_id);
-
-					if (VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::INVISIBLE)) {
-
-						if (player_status->GetStatus() == StatusType::INVISIBLE) {
-
-							CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Idle");
-						}
-
-						else {
-
-							CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Hiding");
-						}
-
-						SetStatus("Player", StatusType::INVISIBLE, 0.0f, &*CORE->GetSystem<Game>()); // "M"
-					}
-				}
-
-				if (player_status && player_status->status_ != StatusType::INVISIBLE) {
-					//input group
-					float power = component_mgr_->GetComponent<Motion>(player_id)->force_;
-
-					if (InputController->VerifyKey("move_left", m->input_)) {
-
-						CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
-					}
-					else if (InputController->VerifyKey("move_right", m->input_)) {
-
-						CORE->GetManager<ForcesManager>()->AddForce(player_id, "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
-					}
-					else if (InputController->VerifyKey("move_up", m->input_)) {
-
-						CORE->GetManager<ForcesManager>()->AddForce(player_id, "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
-					}
-					else if (InputController->VerifyKey("move_down", m->input_)) {
-
-						CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
-					}
-					else if (InputController->VerifyKey("spin_left", m->input_)) {
-
-						Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
-						if (player_xform) {
-							RotateLeft(player_xform, true);
-						}
-					}
-					else if (InputController->VerifyKey("spin_right", m->input_)) {
-
-						Transform* player_xform = component_mgr_->GetComponent<Transform>(player_id);
-						if (player_xform) {
-							RotateLeft(player_xform, false);
-						}
-					}
-					else if (InputController->VerifyKey("shrink", m->input_)) {
-
-						Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
-						if (player_scale) {
-							ScaleEntityBig(player_scale, false);
-						}
-					}
-					else if (InputController->VerifyKey("expand", m->input_)) {
-
-						Scale* player_scale = component_mgr_->GetComponent<Scale>(player_id);
-						if (player_scale) {
-							ScaleEntityBig(player_scale, true);
-						}
-					}
-					else*/ 
-						//CORE->GetSystem<DialogueSystem>()->AdvanceText();
-				/*}
-			}*/
 		}
 		
 		if (!game->debug_ && game->GetStateName() == "Play") {

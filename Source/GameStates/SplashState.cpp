@@ -15,10 +15,11 @@ void SplashState::Init(std::string) {
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
 
+	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
 
 	FACTORY->LoadLevel("Splash");
-
 	CORE->GetManager<TransitionManager>()->ResetTransition("Splash", &m_MenuState);
 
 	MessageBGM_Play msg{ "MenuDefault" };
@@ -27,6 +28,10 @@ void SplashState::Init(std::string) {
 
 
 void SplashState::Free() {
+
+	CORE->ResetGodMode();
+	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
 
 	FACTORY->DestroyAllEntities();
 }

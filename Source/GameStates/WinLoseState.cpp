@@ -11,7 +11,10 @@ WinLoseState m_WinLoseState;
 
 void WinLoseState::Init(std::string level_name) {
 
+	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
+
 	FACTORY->LoadLevel(level_name);
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
@@ -35,6 +38,10 @@ void WinLoseState::Draw(Game* game) {
 
 
 void WinLoseState::Free() {
+
+	CORE->ResetGodMode();
+	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
 
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
