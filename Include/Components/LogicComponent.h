@@ -85,7 +85,7 @@ public:
   \brief Retrieves the relevant string for update fn
 */
 /******************************************************************************/
-	const std::string& GetLogic(const std::string& fn);
+	const std::string GetLogic(const std::string& fn);
 
 /******************************************************************************/
 /*!

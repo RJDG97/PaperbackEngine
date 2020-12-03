@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Source.cpp
+*\brief        Contains the definition for the entire game loop including adding of
+*			   Systems and Managers to the Core Engine
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Source.h"
 
 #include "Systems/WindowsSystem.h"

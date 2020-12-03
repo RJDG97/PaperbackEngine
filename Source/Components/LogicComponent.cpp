@@ -85,7 +85,7 @@ void LogicComponent::DeSerializeClone(std::stringstream& data) {
 }
 
 
-const std::string& LogicComponent::GetLogic(const std::string& fn) {
+const std::string LogicComponent::GetLogic(const std::string& fn) {
 
 	if (my_logic_.find(fn) != my_logic_.end()) {
 

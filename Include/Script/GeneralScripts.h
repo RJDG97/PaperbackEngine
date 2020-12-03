@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         GeneralScripts.h
+*\brief        Contains declaration of functions and variables used for
+*			   generic AI in the game
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _GENERALSCRIPT_H_
 #define _GENERALSCRIPT_H_
 
