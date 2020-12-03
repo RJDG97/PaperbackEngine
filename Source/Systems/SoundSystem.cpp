@@ -230,7 +230,7 @@ void SoundSystem::PauseSound(std::string file_id, bool status, bool all) {
 	}
 	else {
 
-		b_paused_ = !b_paused_;
+		b_paused_ = status;
 
 		for (auto& [name, sound_channel] : channel_library_) {
 
@@ -452,6 +452,12 @@ void SoundSystem::SendMessageD(Message* m) {
 	{
 		// Pause all current active channels
 		PauseSound("all", true, true);
+		break;
+	}
+	case MessageIDTypes::BGM_RESUME:
+	{
+		// Resume all current active channels
+		PauseSound("all", false, true);
 		break;
 	}
 	case MessageIDTypes::BGM_MUTE:

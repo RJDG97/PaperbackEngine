@@ -42,6 +42,7 @@ enum class MessageIDTypes
 	BGM_PLAY,
 	BGM_STOP,
 	BGM_PAUSE,
+	BGM_RESUME,
 	BGM_MUTE,
 
 	// Game State System
