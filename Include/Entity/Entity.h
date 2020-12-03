@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Entity.h
+*\brief        Contains declaration of functions and variables used for
+*			   an Entity
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
 

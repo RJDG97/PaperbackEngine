@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         AI.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the AI Component
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Components/AI.h"
 #include "Manager/ComponentManager.h"
 #include "Script/GeneralScripts.h"
@@ -66,7 +79,6 @@ void AI::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer
 void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;
-	float x;
 	data >> type >> range_ >> speed_;
 }
 

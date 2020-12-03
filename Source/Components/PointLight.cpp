@@ -1,4 +1,17 @@
-	#include "Components/PointLight.h"
+/**********************************************************************************
+*\file         PointLight.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the PointLight Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
+#include "Components/PointLight.h"
 #include "Manager/ComponentManager.h"
 #include "Systems/LightingSystem.h"
 #include "Engine/Core.h"
