@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         ArchetypeWindow.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the ArchetypeWindow for the management of archetypes
+*			   (Creating, deleting, amending existing archetypes)
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #include "ImguiWindows/ArchetypeWindow.h"
 #include "Entity/Entity.h"
 #include "Engine/Core.h"

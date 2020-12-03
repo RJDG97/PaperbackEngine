@@ -195,7 +195,6 @@
     <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
     <ClCompile Include="Source\ImguiWindows\SystemWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp" />
     <ClCompile Include="Source\Manager\AMap.cpp" />
@@ -282,7 +281,6 @@
     <ClInclude Include="Include\ImguiWindows\AssetWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
     <ClInclude Include="Include\ImguiWindows\SystemWindow.h" />
     <ClInclude Include="Include\ImguiWindows\TextureTilesWindow.h" />

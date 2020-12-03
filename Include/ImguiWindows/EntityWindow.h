@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         EntityWindow.h
+*\brief        Contains declaration of functions and variables used for
+*			   the EntityWindow to display/manage entities as well as their components
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #pragma once
 #ifndef _ENTITY_WINDOW_H_
 #define _ENTITY_WINDOW_H_
@@ -141,52 +153,222 @@ public:
 /******************************************************************************/
 	const char* GetPlayerStatus(int playerState);
 
+/******************************************************************************/
+/*!
+	\fn SetArrowButtons(int& componentVar)
+
+	\brief Set the arrows buttons for the variable
+*/
+/******************************************************************************/
 	void SetArrowButtons(int& componentVar);
 
+/******************************************************************************/
+/*!
+	\fn SetButtonSize()
+
+	\brief Set the button size for based on the size a single character 
+*/	
+/******************************************************************************/
 	ImVec2 SetButtonSize();
 
+/******************************************************************************/
+/*!
+	\fn RemoveComponent(const char* windowName, std::string objName, Entity* entity, 
+		std::shared_ptr<Component> component)
+
+	\brief Remove the chosen component from the specific archetype
+*/
+/******************************************************************************/
 	void RemoveComponent(const char* windowName, std::string objName, Entity* entity, std::shared_ptr<Component> component);
 
+/******************************************************************************/
+/*!
+	\fn DragEntity()
+
+	\brief Handles the calculation and mouse state check for dragging entities
+*/
+/******************************************************************************/
 	void DragEntity();
 
+/******************************************************************************/
+/*!
+	\fn DragEntityCheckBox()
+
+	\brief To enable or disable users to be able to drag entities around
+*/
+/******************************************************************************/
 	void DragEntityCheckBox();
 
+/******************************************************************************/
+/*!
+	\fn SelectEntityComponent()
+
+	\brief Gets the selected entity/archetype's component
+*/
+/******************************************************************************/
 	void SelectEntityComponent();
 
+/******************************************************************************/
+/*!
+	\fn EmitterInput(float& emitter_var, float default_val, std::string input_label, 
+		float start_val, float end_val, std::string button_label = ICON_FA_UNDO)
+
+	\brief Input space for Emitter Component variables
+*/
+/******************************************************************************/
 	void EmitterInput(float& emitter_var, float default_val, std::string input_label, float start_val, float end_val, std::string button_label = ICON_FA_UNDO);
 
+/******************************************************************************/
+/*!
+	\fn NameComponent(Entity* entity)
+
+	\brief Display the entity's Name Component
+*/
+/******************************************************************************/
 	void NameComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn MotionComponent(Entity* entity)
+
+	\brief Displays the entity's motion component
+*/
+/******************************************************************************/
 	void MotionComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn TransformComponent(Entity* entity)
+
+	\brief Displays the entity's transform component
+*/
+/******************************************************************************/
 	void TransformComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn HealthComponent(Entity* entity)
+
+	\brief Displays the entity's health component
+*/
+/******************************************************************************/
 	void HealthComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn CameraComponent(Entity* entity)
+
+	\brief Displays the entity's camera component
+*/
+/******************************************************************************/
 	void CameraComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn TextureRendererComponent(Entity* entity)
+
+	\brief Displays the entity's texture renderer component
+*/
+/******************************************************************************/
 	void TextureRendererComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn AnimationRendererComponent(Entity* entity)
+
+	\brief Displays the entity's animation component
+*/
+/******************************************************************************/
 	void AnimationRendererComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn AABBComponent(Entity* entity)
+
+	\brief Displays the entity's AABB/Collider component
+*/
+/******************************************************************************/
 	void AABBComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn AIComponent(Entity* entity)
+
+	\brief Displays the entity's AI component
+*/
+/******************************************************************************/
 	void AIComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn ScaleComponent(Entity* entity)
+
+	\brief Displays the entity's scale component
+*/
+/******************************************************************************/
 	void ScaleComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn StatusComponent(Entity* entity)
+
+	\brief Displays the entity's status component
+*/
+/******************************************************************************/
 	void StatusComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn PointLightComponent(Entity* entity)
+
+	\brief Displays the entity's pointlight component
+*/
+/******************************************************************************/
 	void PointLightComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn ConeLightComponent(Entity* entity)
+
+	\brief Displays the entity's conelight component
+*/
+/******************************************************************************/
 	void ConeLightComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn ParentChildComponent(Entity* entity)
+
+	\brief Displays the entity's parent child component
+*/
+/******************************************************************************/
 	void ParentChildComponent(Entity* entity);
-	
+
+/******************************************************************************/
+/*!
+	\fn ParticleComponent(Entity* entity)
+
+	\brief Displays the entity's particle component
+
+/******************************************************************************/
 	void ParticleComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn EmitterComponent(Entity* entity)
+
+	\brief Displays the entity's emitter component
+*/
+/******************************************************************************/
 	void EmitterComponent(Entity* entity);
 
+/******************************************************************************/
+/*!
+	\fn SoundEmitterComponent(Entity* entity)
+
+	\brief Displays the entity's soundemitter component
+*/
+/******************************************************************************/
 	void SoundEmitterComponent(Entity* entity);
 
 private:

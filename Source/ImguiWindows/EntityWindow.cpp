@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         EntityWindow.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the EntityWindow to display/manage entities as well as their components
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #include "ImguiWindows/EntityWindow.h"
 #include "Components/SoundEmitter.h"
 #include "Entity/ComponentTypes.h"
@@ -578,8 +590,8 @@ void EntityWindow::CameraComponent(Entity* entity) {
 			ImGui::Text("Camera Zoom: %.2f", *entity_camera->GetCameraZoom());
 
 			if (ImGui::Button("+", SetButtonSize()))
-				entity_camera->SetCameraZoom(&*entity_camera, 0.9f);
-
+				camera_->CameraZoom(&*entity_camera, 0.9f);
+			
 			ImGui::SameLine(0, 3);
 
 			if (ImGui::Button("-", SetButtonSize()))

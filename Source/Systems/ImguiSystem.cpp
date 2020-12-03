@@ -1,7 +1,18 @@
+/**********************************************************************************
+*\file         ImguiSystem.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the ImguiSystem and the Editor Windows
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+               or disclosure of this file or its contents without the prior
+               written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #include "Systems/ImguiSystem.h"
 #include "Manager/Amap.h"
 
-#include "ImguiWindows/ImguiViewport.h"
 #include "ImguiWindows/EntityWindow.h"
 #include "ImguiWindows/EntityPathWindow.h"
 #include "ImguiWindows/ArchetypeWindow.h"
@@ -20,7 +31,6 @@
 
 void ImguiSystem::Init(){
     // Adding window to Imgui's Window map
-    //AddWindow<ImguiViewport>();
     AddWindow<ArchetypeWindow>();
     AddWindow<EntityWindow>();
     AddWindow<EntityPathWindow>();

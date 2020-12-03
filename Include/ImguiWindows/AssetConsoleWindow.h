@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         AssetConsoleWindow.h
+*\brief        Contains declaration of functions and variables used for
+*			   the AssetConsoleWindow for the management of assets added into the
+*			   engine (Eg. Audio, Textures, Animation)
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #pragma once
 #ifndef _ASSET_CONSOLE_WINDOW_H_
 #define _ASSET_CONSOLE_WINDOW_H_
@@ -99,29 +112,63 @@ public:
 	/*!
 		\fn DisplayTextureJson()
 
-		\brief Displays the infomation of the chosen json
+		\brief Displays the information of the chosen json
 	*/
 	/******************************************************************************/
 	void DisplayTextureJson();
 
 	/******************************************************************************/
 	/*!
-		\fn AddNewTexture()
+		\fn DisplayAudioJson()
 
-		\brief Adds a new texture to the map
+		\brief Displays the information of the chosen json
 	*/
 	/******************************************************************************/
-
 	void DisplayAudioJson();
 
+	/******************************************************************************/
+	/*!
+		\fn AddNewAsset()
+
+		\brief Adds a new Asset depending on the file type
+	*/
+	/******************************************************************************/
 	void AddNewAsset();
 
+	/******************************************************************************/
+	/*!
+		\fn UpdatePath()
+
+		\brief Update the path of the texture using Drag and Drop within the editor
+	*/
+	/******************************************************************************/
 	void UpdatePath();
 
+	/******************************************************************************/
+	/*!
+		\fn FindUnderscore(std::string filename)
+
+		\brief Gets the actual name of the json
+	*/
+	/******************************************************************************/
 	std::string FindUnderscore(std::string filename);
 
+	/******************************************************************************/
+	/*!
+		\fn WrongTypePopup()
+
+		\brief Pop up to warn/inform users that they are trying to add wrong files
+	*/
+	/******************************************************************************/
 	void WrongTypePopup();
 
+	/******************************************************************************/
+	/*!
+		\fn UnloadPopup()
+
+		\brief Pop up to info users that the textures have been unloaded
+	*/
+	/******************************************************************************/
 	void UnloadPopup();
 
 	/******************************************************************************/
@@ -132,13 +179,32 @@ public:
 	*/
 	/******************************************************************************/
 	void AddBlankJson();
+	/******************************************************************************/
+	/*!
+		\fn GetUnloadBool()
 
+		\brief Gets the bool for the Unload pop up
+	*/
+	/******************************************************************************/
 	bool GetUnloadBool();
+
+	/******************************************************************************/
+	/*!
+		\fn SetUnloadBool(bool updated_bool)
+
+		\brief Sets the bool for the Unload pop up
+	*/
+	/******************************************************************************/
 	void SetUnloadBool(bool updated_bool);
 
-	void SerializeJson();
+	/******************************************************************************/
+	/*!
+		\fn SerializeJson()
 
-	std::vector<std::string> Check(std::string path);
+		\brief Serialize data of the different assets into their respective jsons
+	*/
+	/******************************************************************************/
+	void SerializeJson();
 
 private:
 	ImguiSystem* imgui_;

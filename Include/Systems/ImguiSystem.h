@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         ImguiSystem.h
+*\brief        Contains declaration of functions and variables used for
+*			   the ImguiSystem and the Editor Windows
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #ifndef _IMGUI_SYSTEM_H_
 #define _IMGUI_SYSTEM_H_
 
@@ -19,12 +31,13 @@
 #include "Systems/SoundSystem.h"
 
 #include "ImguiWindows/IWindow.h"
+#include "Imgui/IconsFontAwesome5.h"
 
 #include "Manager/EntityManager.h"
 #include "Manager/AMap.h"
-#include "Imgui/IconsFontAwesome5.h"
 
-//colours for axis buttons
+//colours for axis buttons (to be removed later, and replaced with json)
+
 #define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
 #define REDHOVERED ImVec4{ 0.965f, 0.075f, 0.118f, 1.0f }
 #define REDACTIVE  ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
@@ -38,8 +51,8 @@
 #define GOLDENORANGE ImVec4{ 1.0f, 0.843f, 0.0f, 1.0f }
 #define SKYBLUE ImVec4{ 0.0f, 0.749f, 1.0f, 1.0f }
 
-
 enum CloseApp {
+
 	NONE = 0,
 	CREATENEWSCENE,
 	RETURNMENU,
@@ -181,7 +194,7 @@ public:
 /*!
 	\fn ResetSelectedEntity()
 
-	\brief Resets the Entity* of the selected entity to nullptr
+	\brief Resets the EntityID of the selected entity
 */
 /******************************************************************************/
 	void ResetSelectedEntity();
@@ -211,7 +224,6 @@ public:
 	\brief Retrieve the entity*
 */
 /******************************************************************************/
-
 	Entity* GetEntity();
 
 /******************************************************************************/
@@ -221,7 +233,6 @@ public:
 	\brief Set the entity* to the selected entity
 */
 /******************************************************************************/
-
 	void SetEntity(Entity* newentity);
 
 /******************************************************************************/
@@ -279,6 +290,25 @@ public:
 /******************************************************************************/
 	void DeletePopUp(const char* windowName, std::string objName, Entity* entity = nullptr, 
 					std::shared_ptr<Component> component = nullptr);
+
+/******************************************************************************/
+/*!
+	\fn SaveCheckPopUp(const char* window_name, int exit_type)
+
+	\brief Pop up for when the user wants to exit the app thru the
+		   editor menu options
+*/
+/******************************************************************************/
+	void SaveCheckPopUp(const char* window_name, int exit_type);
+
+/******************************************************************************/
+/*!
+	\fn PopUpMessage(const char* windowName, const char* message)
+
+	\brief Shows a pop message with a simple confirmation from the user
+*/
+/******************************************************************************/
+	void PopUpMessage(const char* windowName, const char* message);
 
 /******************************************************************************/
 /*!
@@ -381,18 +411,9 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn PopUpMessage(const char* windowName, const char* message)
-
-	\brief Shows a pop message with a simple confirmation from the user
-*/
-/******************************************************************************/
-	void PopUpMessage(const char* windowName, const char* message);
-
-/******************************************************************************/
-/*!
 	\fn DrawGrid()
 
-	\brief Draws the world grid (wip)
+	\brief Draws the world grid
 */
 /******************************************************************************/
 	void DrawGrid();
@@ -478,8 +499,6 @@ public:
 */
 /******************************************************************************/
 	void SetArchetypePath(std::string new_path);
-
-	void SaveCheckPopUp(const char* window_name, int exit_type);
 
 private:
 

@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         AssetConsoleWindow.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the AssetConsoleWindow for the management of assets added into the
+*			   engine (Eg. Audio, Textures, Animation)
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
 #include "ImguiWindows/AssetConsoleWindow.h"
 
 void AssetConsoleWindow::Init() {

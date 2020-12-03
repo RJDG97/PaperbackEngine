@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         Emitter.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Particle Emitter and its Particles.
+
+*\author	   Jun Pu, Lee, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #pragma once
 #ifndef _EMITTER_H_
 #define _EMITTER_H_
@@ -189,36 +201,183 @@ public:
 /******************************************************************************/
 	size_t GetRequest() const;
 
-	void SetAlive(bool status);
+/******************************************************************************/
+/*!
+  \fn GetLifeTime()
 
+  \brief Get the lifetime of the emitter
+*/
+/******************************************************************************/
 	float GetLifeTime();
+/******************************************************************************/
+/*!
+  \fn GetInterval()
 
-	void SetLifeTime(float new_lifetime);
-
+  \brief Get the time interval of the emitter
+*/
+/******************************************************************************/	
 	float GetInterval();
 
+/******************************************************************************/
+/*!
+  \fn GetSpawnInterval()
+
+  \brief Get the spawn interval of the emitter
+*/
+/******************************************************************************/
 	float GetSpawnInterval();
 
-	void SetSpawnInterval(float new_spawn_interval);
-	
+/******************************************************************************/
+/*!
+  \fn GetCurrentNumberSpawned()
+
+  \brief Get the current number of particles in the scene
+*/
+/******************************************************************************/
 	size_t GetCurrentNumberSpawned();
 
+/******************************************************************************/
+/*!
+  \fn GetMaxNumberParticles()
+
+  \brief Get the limit of the number of particles
+*/
+/******************************************************************************/
 	size_t GetMaxNumberParticles();
 
+/******************************************************************************/
+/*!
+  \fn SetAlive(bool status)
+
+  \brief Sets the alive status of the emitter
+*/
+/******************************************************************************/
+	void SetAlive(bool status);
+
+/******************************************************************************/
+/*!
+  \fn SetLifeTime(float new_lifetime)
+
+  \brief Sets the lifetime of the emitter
+*/
+/******************************************************************************/
+	void SetLifeTime(float new_lifetime);
+
+/******************************************************************************/
+/*!
+  \fn SetSpawnInterval(float new_spawn_interval)
+
+  \brief Sets the interval of the spawning of particles
+*/
+/******************************************************************************/
+	void SetSpawnInterval(float new_spawn_interval);
+
+/******************************************************************************/
+/*!
+  \fn SetMaxNumberParticles(size_t particle_limit)
+
+  \brief Set the Max number of particles to be spawned
+*/
+/******************************************************************************/
 	void SetMaxNumberParticles(size_t particle_limit);
 
+/******************************************************************************/
+/*!
+  \fn SetRequest()
+
+  \brief Set the number of particles to request for
+*/
+/******************************************************************************/
 	void SetRequest(size_t new_request);
 
+/******************************************************************************/
+/*!
+  \fn GetLifeTimeStruct()
+
+  \brief Gets the GenerateLifetime struct and all the variables
+*/
+/******************************************************************************/
 	GenerateLifetime GetLifeTimeStruct();
+
+/******************************************************************************/
+/*!
+  \fn GetPositionStruct()
+
+  \brief Gets the GeneratePosition struct and all the variables
+*/
+/******************************************************************************/
 	GeneratePosition GetPositionStruct();
+
+/******************************************************************************/
+/*!
+  \fn GetForceStruct()
+
+  \brief Gets the GenerateForce struct and all the variables 
+*/
+/******************************************************************************/
 	GenerateForce	 GetForceStruct();
+
+/******************************************************************************/
+/*!
+  \fn GetRotationStruct()
+
+  \brief  Gets the GenerateRotation struct and all the variables
+*/
+/******************************************************************************/
 	GenerateRotation GetRotationStruct();
+
+/******************************************************************************/
+/*!
+  \fn GenerateTexture  GetTextureStruct()
+
+  \brief Gets the GenerateTexture struct and all the variables
+*/
+/******************************************************************************/
 	GenerateTexture  GetTextureStruct();
 
-	void SetLifeTimeStruct(Vector2D lifetime);;
+/******************************************************************************/
+/*!
+  \fn SetLifeTimeStruct(Vector2D lifetime)
+
+  \brief Set the variables for the GenerateLifetime struct
+*/
+/******************************************************************************/	
+	void SetLifeTimeStruct(Vector2D lifetime);
+
+/******************************************************************************/
+/*!
+  \fn SetPositionStruct(Vector2D min_pos, Vector2D max_pos)
+
+  \brief Set the variables for the GeneratePosition struct
+*/
+/******************************************************************************/
 	void SetPositionStruct(Vector2D min_pos, Vector2D max_pos);
+
+/******************************************************************************/
+/*!
+  \fn SetForceStruct(Vector2D force_rng, Vector2D direction_rng)
+
+  \brief Set the variables for the GenerateForces struct
+*/
+/******************************************************************************/
 	void SetForceStruct(Vector2D force_rng, Vector2D direction_rng);
+
+/******************************************************************************/
+/*!
+  \fn SetRotationStruct(Vector2D rot_speed, Vector2D min_rot, Vector2D max_rot)
+
+  \brief Set the variables for the GenerateRotation struct
+*/
+/******************************************************************************/
 	void SetRotationStruct(Vector2D rot_speed, Vector2D min_rot, Vector2D max_rot);
+
+/******************************************************************************/
+/*!
+  \fn SetTextureStruct(size_t tex_num, std::vector<std::string> textures_)
+
+  \brief Set the variables for the GenerateTexture struct
+*/
+/******************************************************************************/
 	void SetTextureStruct(size_t tex_num, std::vector<std::string> textures_);
 };
 

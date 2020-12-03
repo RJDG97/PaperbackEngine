@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         AssetWindow.h
+*\brief        Contains declaration of functions and variables used for
+*			   the AssetWindow for the Editor's Asset Browser
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #pragma once
 #ifndef _ASSET_WINDOW_H_
 #define _ASSET_WINDOW_H_
@@ -85,7 +97,6 @@ public:
 		\brief Displays all folders of the "Resources" folder
 	*/
 	/******************************************************************************/
-
 	void DisplayFolders(float window_width, float window_height);
 
 	/******************************************************************************/
@@ -94,15 +105,54 @@ public:
 
 		\brief Displays all folders and files inside a directory
 	*/
-	/******************************************************************************/
-
+	/*****************************************************************************/
 	void DisplayFolderFiles(float window_width, float window_height);
 
+	/******************************************************************************/
+	/*!
+		\fn MultiFileSelection(std::string appended_files)
+
+		\brief Handles the tokenizing and appending of file paths to the
+			   directory path
+	*/
+	/******************************************************************************/
 	std::vector<std::string> MultiFileSelection(std::string appended_files);
+
+	/******************************************************************************/
+	/*!
+		\fn FileString(std::string icon, std::string file_name)
+
+		\brief Appends a blank space between 2 strings
+	*/
+	/******************************************************************************/
 	std::string FileString(std::string icon, std::string file_name);
+
+	/******************************************************************************/
+	/*!
+		\fn DirectoryName(fs::directory_entry directory)
+
+		\brief Gets the actual name of the Folder/Directory
+	*/
+	/******************************************************************************/
 	std::string DirectoryName(fs::directory_entry directory);
 
+	/******************************************************************************/
+	/*!
+		\fn CopyFilesDirectory()
+
+		\brief Copies single or multiple files from the source directory
+			   to the current directory
+	*/
+	/******************************************************************************/
 	void CopyFilesDirectory();
+
+	/******************************************************************************/
+	/*!
+		\fn FileDeletion()
+
+		\brief Handles of deleting and unloading files from the asset browser
+	*/
+	/******************************************************************************/
 	void FileDeletion();
 
 private:

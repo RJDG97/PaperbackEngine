@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         Emitter.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Particle Emitter and its Particles.
+
+*\author	   Jun Pu, Lee, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #include "Components/Emitter.h"
 #include "Components/Transform.h"
 #include "Manager/ForcesManager.h"
@@ -159,19 +171,17 @@ void Emitter::SetParticle(const EntityID& id) {
 	Transform* xform_p = component_manager->GetComponent<Transform>(id);
 	Transform* xform_e = component_manager->GetComponent<Transform>(GetOwner()->GetID());
 	Motion* motion = component_manager->GetComponent<Motion>(id);
-	TextureRenderer* texture_renderer= component_manager->GetComponent<TextureRenderer>(id);
+	TextureRenderer* texture_renderer = component_manager->GetComponent<TextureRenderer>(id);
 
 	// Check if all of them are valid (Might replace with DEBUG_ASSERT)
 	if (!particle || !xform_p || !xform_e || !motion || !texture_renderer)
 		return;
 
-	
 	particle_lifetime_.Generate(particle);
 	particle_position_.Generate(xform_p, xform_e);
 	particle_force_.Generate(forces_manager, particle, id);
 	particle_rotation_.Generate(xform_p);
 	particle_texture_.Generate(graphics_system, texture_renderer);
-
 
 	// Set parent id
 	particle->spawner_ = GetOwner()->GetID();
@@ -184,7 +194,6 @@ void Emitter::SetParticle(const EntityID& id) {
 	// Decrement quota
 	++current_spawn_;
 }
-
 
 void Emitter::Spawn(float frametime) {
 

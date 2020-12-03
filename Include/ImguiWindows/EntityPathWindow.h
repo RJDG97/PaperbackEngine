@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         EntityPathWindow.h
+*\brief        Contains declaration of functions and variables used for
+*			   the EntityPathWindow to set the saving json path for each
+*			   archetype type
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #pragma once
 #ifndef _ENTITY_PATH_WINDOW_H_
 #define _ENTITY_PATH_WINDOW_H_

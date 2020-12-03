@@ -85,15 +85,51 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+/******************************************************************************/
+/*!
+	\fn  GetCameraPosition()
+
+	\brief Gets the camera position
+*/
+/******************************************************************************/
 	glm::vec2* GetCameraPosition();
 
+/******************************************************************************/
+/*!
+	\fn GetVector2DCameraPosition()
+
+	\brief gets the converted Vector2D camera position
+*/
+/******************************************************************************/
 	Vector2D GetVector2DCameraPosition();
 
+/******************************************************************************/
+/*!
+	\fn GetCameraZoom()
+
+	\brief Get the zoom of the chosen camera
+*/
+/******************************************************************************/
 	float* GetCameraZoom();
 
+/******************************************************************************/
+/*!
+	\fn SetCameraZoom(Camera* camera, float zoom);
+
+	\brief Set the zoom of the chosen camera
+*/
+/******************************************************************************/
+	void SetCameraZoom(Camera* camera, float zoom);
+
+/******************************************************************************/
+/*!
+	\fn GetCameraWorldToNDCTransform()
+
+	\brief get a converted camera position
+*/
+/******************************************************************************/
 	glm::mat3* GetCameraWorldToNDCTransform();
 
-	void SetCameraZoom(Camera* camera, float zoom);
 };
 
 #endif

@@ -344,9 +344,6 @@
     <ClCompile Include="Source\GameStates\MenuState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Manager\EntityManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
@@ -677,9 +674,6 @@
       <Filter>Systems\Partitioning System</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\SystemWindow.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\IRenderer.h">
