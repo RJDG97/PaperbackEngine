@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         Matrix3x3.h
+*\brief        Contains definition of functions and variables used for Matrix3x3
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef CS230_MATRIX3X3_H_
 #define CS230_MATRIX3X3_H_
 

@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         Game.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Game State Manager
+*
+*\author	   Sim Ee Ling, Adele, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include <iostream>
 #include "Systems/Game.h"
 #include "GameStates/GameState.h"

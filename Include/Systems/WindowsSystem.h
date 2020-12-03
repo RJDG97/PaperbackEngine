@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         WindowsSystem.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Windows System
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _WINDOWS_SYSTEM_H_
 #define _WINDOWS_SYSTEM_H_

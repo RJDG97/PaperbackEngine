@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         GameState.h
+*\brief        Contains declaration of the State interface used for each GameState
+*
+*\author	   Sim Ee Ling, Adele, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
