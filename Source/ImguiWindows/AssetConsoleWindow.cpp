@@ -249,6 +249,9 @@ void AssetConsoleWindow::DisplayAudioJson() {
 						if (ImGui::InputTextWithHint("##vol", "Enter a value between 0.0f and 1.0f" ,buffer_vol, sizeof(buffer_vol), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsDecimal))
 							it->second.volume = std::stof(buffer_vol);
 
+						ImGui::Separator();
+						ImGui::Text("Details below, don't have to worry about them. Its mainly for the sound emitter usage");
+
 						ImGui::Text("Min Distance Needed: %.2f", it->second.min_distance);
 						if (ImGui::InputText("##min", buffer_min, sizeof(buffer_min), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsDecimal))
 							it->second.min_distance = std::stof(buffer_min);
@@ -384,11 +387,11 @@ void AssetConsoleWindow::DisplayTextureJson() {
 					}
 
 					if (ImGui::Button("Remove"))
-						ImGui::OpenPopup("Sure?");
+						ImGui::OpenPopup("Remove Texture");
 
 					imgui_->SetPopupPosition();
 
-					if (ImGui::BeginPopupModal("Sure?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+					if (ImGui::BeginPopupModal("Remove Texture", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 						std::string del = it->first;
 
 						listtextures = texture_->GetTileset(del)->GetTileNames(); // get the list of textures
@@ -403,7 +406,7 @@ void AssetConsoleWindow::DisplayTextureJson() {
 
 						if (!listArchetype_.empty()) { // entities are using the texture
 
-							ImGui::TextColored(REDDEFAULT, "UNABLE TO REMOVE TEXTURE:\n%s", it->first.c_str());
+							ImGui::TextColored(REDDEFAULT, "UNABLE TO REMOVE TEXTURE:\n'%s' ", it->first.c_str());
 							ImGui::Text("Currently been used by:");
 
 							ImGui::TextColored(GOLDENORANGE, "Archetype(s):");
@@ -425,7 +428,8 @@ void AssetConsoleWindow::DisplayTextureJson() {
 						}
 						else {
 
-							ImGui::Text("%s is not being used by any Archetypes\nor Active Entities (of the CURRENT SCENE)", del.c_str());
+							ImGui::Text("'%s' is not being used by any Archetypes\nor Active Entities (of the CURRENT SCENE)", del.c_str());
+							ImGui::Text("You may remove the texture");
 
 							if (ImGui::Button("YES")) {
 
