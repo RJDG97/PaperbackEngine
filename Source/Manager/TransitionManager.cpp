@@ -59,6 +59,15 @@ void TransitionManager::ResetTransition(const std::string& id, GameState* next_s
 		graphics_system_->SetMaxVignetteSize(current_size_);
 		current_transition_ = &*it->second;
 		transition_speed_ = max_size_ / current_transition_->default_transition_timer_;
+
+		if (current_transition_->skip_) {
+			
+			end_ = true;
+			next_state_ = next_state;
+			current_transition_->current_texture_ = current_transition_->texture_sequence_.begin();
+			return;
+		}
+
 		current_transition_->current_texture_ = current_transition_->texture_sequence_.begin();
 		begin_ = true;
 		next_state_ = next_state;
@@ -133,7 +142,8 @@ void TransitionManager::CloseTransition(const float& frametime) {
 		current_size_ = { 0.0f, 0.0f };
 		clear_current_size_ = { 0.0f, 0.0f };
 
-		if (++current_transition_->current_texture_ != current_transition_->texture_sequence_.end()) {
+		if (current_transition_->current_texture_ != current_transition_->texture_sequence_.end() &&
+			++current_transition_->current_texture_ != current_transition_->texture_sequence_.end()) {
 			
 			graphics_system_->ChangeTexture(texture_arr_->GetComponent(1), *current_transition_->current_texture_);
 			current_transition_->dark_timer_ = current_transition_->default_dark_timer_;
@@ -163,6 +173,7 @@ void TransitionManager::LoadTransition(std::string name, std::stringstream& data
 	// Read in data from the stream
 	data >> scene->size_ >> scene->default_timer_ >> scene->default_transition_timer_ >> scene->default_dark_timer_;
 	scene->timer_ = scene->default_timer_;
+	scene->skip_ = scene->size_ <= 0 ? 1 : 0;
 
 	// Initialize vector of textures to be changed in sequence
 	for (size_t i = 0; i < scene->size_; ++i) {

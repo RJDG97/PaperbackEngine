@@ -124,7 +124,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				CORE->BroadcastMessage(&button);
 
 				// Enter play state
-				game->ChangeState(&m_PlayState);
+				CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_PlayState);
 				return;
 				break;
 			}

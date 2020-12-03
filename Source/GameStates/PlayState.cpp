@@ -35,6 +35,7 @@
 #include "Entity/ComponentTypes.h"
 
 #include "Manager/ForcesManager.h"
+#include "Manager/TransitionManager.h"
 #include "Manager/AMap.h"
 
 #include "Systems/DialogueSystem.h"
@@ -99,7 +100,7 @@ void PlayState::Free()
 {
 	std::cout << "PlayState clean Successful" << std::endl;
 
-	MessageBGM_Stop msg{ "GameBGM" };
+	MessageBGM_Stop msg{ "River" };
 	CORE->BroadcastMessage(&msg);
 
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
@@ -307,8 +308,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 					MessageBGM_Play button{ "ButtonPress" };
 					CORE->BroadcastMessage(&button);
 					CORE->GetSystem<DialogueSystem>()->TempCleanup();
-					game->ChangeState(&m_MenuState);
-					//CORE->SetGameActiveStatus(false);
+					CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
 					return;
 					break;
 				}

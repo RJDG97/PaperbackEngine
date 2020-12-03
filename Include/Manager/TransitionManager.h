@@ -30,6 +30,7 @@ struct SceneTransition
 	using TextureSequenceIt = TextureSequence::iterator;
 
 	size_t size_;
+	bool skip_;
 	float timer_;
 	float default_timer_;
 	float default_transition_timer_;
