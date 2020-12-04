@@ -18,6 +18,8 @@ void EntityPathWindow::Init() {
     imgui_ = &*CORE->GetSystem<ImguiSystem>();
     entities_ = &*CORE->GetManager<EntityManager>();
 	factory_ = &*CORE->GetSystem <EntityFactory>();
+
+	b_wrong_loc = false;
 }
 
 void EntityPathWindow::Update() {
@@ -36,6 +38,12 @@ void EntityPathWindow::Update() {
 
 		ImGui::End();
 	}
+
+	if (b_wrong_loc)
+		ImGui::OpenPopup("Wrong Location Set");
+
+	imgui_->PopUpMessage("Wrong Location Set","Wrong Location Set.\nSet the Path to be within the 'Resources' folder!");
+	b_wrong_loc = false;
 }
 
 void EntityPathWindow::ManagePaths(Level* editor) {
@@ -59,8 +67,7 @@ void EntityPathWindow::ManagePaths(Level* editor) {
 
 							newPath = *((std::string*)payLoad->Data);
 
-							if (newPath.find(".json") != newPath.npos)
-
+							if (imgui_->CheckString(newPath, "json"))
 								it->second = newPath;
 						}
 					}
@@ -128,8 +135,12 @@ void EntityPathWindow::AddPaths(Level* editor) {
 					if (ImGui::Selectable(entityIT->first.c_str())) {
 						path = imgui_->OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);
 
-						if (!path.empty())
-							editor->AddNewEntityPath(entityIT->first, imgui_->EditString(path));
+						if (!path.empty()) {
+							if (imgui_->CheckString(path, "Resources"))
+								editor->AddNewEntityPath(entityIT->first, imgui_->EditString(path));
+							else
+								b_wrong_loc = true;
+						}
 					}
 				}
 			}
@@ -137,5 +148,4 @@ void EntityPathWindow::AddPaths(Level* editor) {
 		}
 		ImGui::SameLine(0, 3); imgui_->ImguiHelp("Select an archetype\nto set the save filepath");
 	}
-
 }

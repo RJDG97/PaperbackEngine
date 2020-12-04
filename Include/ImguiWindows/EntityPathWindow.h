@@ -66,5 +66,6 @@ private:
 	EntityManager* entities_;
 	EntityFactory* factory_;
 
+	bool b_wrong_loc;
 };
 #endif

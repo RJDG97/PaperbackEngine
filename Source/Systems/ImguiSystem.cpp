@@ -531,9 +531,10 @@ void ImguiSystem::LoadArchetype() {
 
         factory_->DestroyAllArchetypes();
         factory_->CreateAllArchetypes(file);
+
+        archetype_path_ = path;
     }
 
-    archetype_path_ = path;
     selected_entity_ = {};
 }
 
@@ -635,7 +636,7 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save, int multis
     else {
 
         if (GetSaveFileNameA(&ofn) == TRUE)
-            return ofn.lpstrFile;
+            return ofn.lpstrFile + std::string(".json");
     }
 
     return std::string(); // returns an empty string if user cancels/didnt select anything
