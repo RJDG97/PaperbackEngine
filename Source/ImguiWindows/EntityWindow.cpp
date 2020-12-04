@@ -1013,34 +1013,37 @@ void EntityWindow::SoundEmitterComponent(Entity* entity) {
 
 		for (std::vector<SoundLine>::iterator begin = input_sound_lines.begin(); begin != input_sound_lines.end(); ++begin) {
 			++counter;
+			std::string label = "Line " + std::to_string(counter);
+			if (ImGui::CollapsingHeader(label.c_str())) {
 
-			if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, "Start Point X: %.2f Y: %.2f\nEnd Point: X: %.2f Y: %.2f", begin->start_.x, begin->start_.y, begin->end_.x, begin->end_.y)) {
+				if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, "Start Point X: %.2f Y: %.2f\nEnd Point: X: %.2f Y: %.2f", begin->start_.x, begin->start_.y, begin->end_.x, begin->end_.y)) {
 
-				if (ImGui::TreeNode("Update Line Segment")) {
+					if (ImGui::TreeNode("Update Line Segment")) {
 
-					ImGui::Text("Start Point:");
-					Vec2Input(begin->start_, 1.0f, "##startx", "##starty");
-					ImGui::Text("End Point:");
-					Vec2Input(begin->end_, 1.0f);
+						ImGui::Text("Start Point:");
+						Vec2Input(begin->start_, 1.0f, "##startx", "##starty");
+						ImGui::Text("End Point:");
+						Vec2Input(begin->end_, 1.0f);
 
-					entity_sound->SetSoundLine(input_sound_lines);
-					entity_sound->SetNumberLines(input_sound_lines.size());
-					ImGui::TreePop();
-				}
-
-				if (ImGui::Button("Delete")) {
-
-					if (begin == input_sound_lines.begin())
-						begin = input_sound_lines.erase(begin);
-					else {
-						begin = input_sound_lines.erase(begin);
-						--begin;
+						entity_sound->SetSoundLine(input_sound_lines);
+						entity_sound->SetNumberLines(input_sound_lines.size());
+						ImGui::TreePop();
 					}
 
-					entity_sound->SetSoundLine(input_sound_lines);
-					entity_sound->SetNumberLines(input_sound_lines.size());
+					if (ImGui::Button("Delete")) {
+
+						if (begin == input_sound_lines.begin())
+							begin = input_sound_lines.erase(begin);
+						else {
+							begin = input_sound_lines.erase(begin);
+							--begin;
+						}
+
+						entity_sound->SetSoundLine(input_sound_lines);
+						entity_sound->SetNumberLines(input_sound_lines.size());
+					}
+					ImGui::TreePop();
 				}
-				ImGui::TreePop();
 			}
 		}
 

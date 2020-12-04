@@ -220,7 +220,7 @@ void ImguiSystem::ImGuiCustomStyle() {
 
     ImVec4* colors = ImGui::GetStyle().Colors;
 
-    colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.45f);
+    colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.75f);
 }
 
 void ImguiSystem::ImguiRender() {
