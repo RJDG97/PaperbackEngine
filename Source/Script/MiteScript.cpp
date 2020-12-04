@@ -58,11 +58,12 @@ namespace Mite
 					//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
 					GeneralScripts::Patrol(obj);
 				}
-				if (GeneralScripts::DetectPlayer(obj))
-					GeneralScripts::map_->Pathing(obj->second->GetPath(), 
-						GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), 
+				if (GeneralScripts::DetectPlayer(obj)) {
+					GeneralScripts::map_->Pathing(obj->second->GetPath(),
+						GeneralScripts::obj_rigidbody->GetOffsetAABBPos(),
 						GeneralScripts::player_rigidbody->GetOffsetAABBPos());
 					obj->second->SetState(AI::AIState::Chase);
+				}
 				break;
 			case AI::AIState::Detected:
 				// Player Detected anim
