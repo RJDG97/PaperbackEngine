@@ -157,6 +157,11 @@ bool CoreEngine::GetGodMode() {
 	return god_mode_;
 }
 
+void CoreEngine::SetGodMode(bool status) {
+
+	god_mode_ = status;
+}
+
 void CoreEngine::ResetGodMode() {
 	god_mode_ = false;
 }

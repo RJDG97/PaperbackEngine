@@ -58,6 +58,7 @@ void EditorState::Init(std::string)
 
 	imgui_ = &*CORE->GetSystem<ImguiSystem>();
 
+	CORE->SetGodMode(true);
 }
 
 void EditorState::Free()

@@ -190,6 +190,7 @@ public:
 	void SetGameActiveStatus(bool status);
 
 	bool GetGodMode();
+	void SetGodMode(bool status);
 	void ToggleGodMode();
 	void ResetGodMode();
 

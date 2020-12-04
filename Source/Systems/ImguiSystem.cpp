@@ -468,6 +468,7 @@ void ImguiSystem::SaveCheckPopUp(const char* window_name, int exit_type) {
                 b_imgui_mode = false;
                 FACTORY->DestroyAllEntities();
                 selected_entity_ = {};
+                CORE->ResetGodMode();
                 CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
             }
             else { // exit the app

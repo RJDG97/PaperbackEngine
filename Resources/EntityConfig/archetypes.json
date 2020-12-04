@@ -149,8 +149,8 @@
     {
       "component": "PointLight",
       "color": "1.0 1.0 0.6",
-      "radius": "400.0",
-      "intensity": "1.0"
+      "radius": "500.0",
+      "intensity": "0.7"
     },
     {
       "component": "LogicComponent",
@@ -689,8 +689,8 @@
     {
       "component": "PointLight",
       "color": "1.0 1.0 0.6",
-      "radius": "6.0",
-      "intensity": "1.0"
+      "radius": "200.0",
+      "intensity": "0.7"
     }
   ],
   "Puddle": [

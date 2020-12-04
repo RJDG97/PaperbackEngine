@@ -14,7 +14,7 @@
         },
         {
             "component": "Emitter",
-            "emitter lifetime": "207.943420",
+            "emitter lifetime": "36.233028",
             "emitter spawn interval": "0.200000",
             "emitter request": "5",
             "emitter maximum spawn": "250",
