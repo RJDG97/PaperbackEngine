@@ -754,5 +754,8 @@
     <ClInclude Include="Include\Manager\LogicManager.h">
       <Filter>ResourceManagers</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Script\Button_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

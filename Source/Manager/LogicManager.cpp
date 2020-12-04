@@ -16,6 +16,7 @@
 #include "Script/Mite_Script.h"
 #include "Script/Stag_Script.h"
 #include "Script/Player_Script.h"
+#include "Script/Button_Script.h"
 #include "Systems/Message.h"
 
 
@@ -37,4 +38,10 @@ void LogicManager::Init() {
 
 	// Register mite helper functions
 	RegisterLogic("Mite_UpdateTexture", &Mite_Script::TextureUpdateScript);
+
+	// Register Burrow UI button helper function
+	RegisterLogic("BurrowIcon_UpdateTexture", &Button_Script::BurrowUI_TextureUpdateScript);
+
+	// Register Burrow UI button helper function
+	RegisterLogic("HideIcon_UpdateTexture", &Button_Script::HideUI_TextureUpdateScript);
 }

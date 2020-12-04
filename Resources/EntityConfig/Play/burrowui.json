@@ -1,0 +1,25 @@
+{
+  "BurrowIcon": [
+    {
+      "component": "Transform",
+      "position": "6.5 -5.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "BurrowSkill_UI_0",
+      "layer": "2",
+      "ui": "1",
+      "alive": "1"
+    },
+    {
+      "component": "Scale",
+      "scale": "48.0 48.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "6"
+    }
+  ]
+}

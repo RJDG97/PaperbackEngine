@@ -31,5 +31,9 @@
   
   "Burrowable": "Resources/EntityConfig/Play/burrowable.json",
 
-  "DialogueBox": "Resources/EntityConfig/Play/dialoguebox.json"
+  "DialogueBox": "Resources/EntityConfig/Play/dialoguebox.json",
+  
+  "BurrowIcon": "Resources/EntityConfig/Play/burrowui.json",
+  
+  "HideIcon": "Resources/EntityConfig/Play/hideui.json"
 }

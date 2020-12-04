@@ -858,12 +858,12 @@
     {
       "component": "ParentChild"
     },
-	{
+    {
       "component": "LogicComponent",
       "number_of_fns": "1",
       "name": "UpdateChildOffset",
       "function": "Player_UpdateChildOffset"
-	}
+    }
    ],
    "DialogueText": [
     {
@@ -886,6 +886,74 @@
       "layer": "10",
       "ui": "1",
       "alive": "0"
+    }
+   ],
+   "BurrowIcon": [
+    {
+      "component": "Name",
+      "name": "BurrowIcon"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "48.0 48.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "BurrowSkill_UI_0",
+      "layer": "2",
+      "ui": "1",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "6"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "BurrowIcon_UpdateTexture"
+    }
+   ],
+   "HideIcon": [
+    {
+      "component": "Name",
+      "name": "HideIcon"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "48.0 48.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "HideSkill_UI_0",
+      "layer": "2",
+      "ui": "1",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "6"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "HideIcon_UpdateTexture"
     }
    ]
 }

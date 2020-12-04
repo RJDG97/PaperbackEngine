@@ -234,25 +234,7 @@ void InputSystem::Update(float frametime) {
 	(void)frametime;
 
 	unsigned char input_flag = 0; //used for checking what directional buttons are held
-	
-	/*
-	if (IsKeyPressed(GLFW_KEY_LEFT)) {
-		//input_flag |= LEFT_FLAG;
-		SendHoldMessage(GLFW_KEY_LEFT);
-	}
-	if (IsKeyPressed(GLFW_KEY_UP)) {
-		//input_flag |= UP_FLAG;
-		SendHoldMessage(GLFW_KEY_UP);
-	}
-	if (IsKeyPressed(GLFW_KEY_RIGHT)) {
-		//input_flag |= RIGHT_FLAG;
-		SendHoldMessage(GLFW_KEY_RIGHT);
-	}
-	if (IsKeyPressed(GLFW_KEY_DOWN)) {
-		//input_flag |= DOWN_FLAG;
-		SendHoldMessage(GLFW_KEY_DOWN);
-	}
-	*/
+
 
 	if (IsKeyPressed(GLFW_KEY_A)) {
 		//input_flag |= LEFT_FLAG;
@@ -280,16 +262,6 @@ void InputSystem::Update(float frametime) {
 	if (IsKeyPressed(GLFW_KEY_RIGHT))
 		input_flag |= RIGHT_FLAG;
 
-	/*
-	if (IsKeyPressed(GLFW_KEY_Z))
-		input_flag |= Z_FLAG;
-	if (IsKeyPressed(GLFW_KEY_X))
-		input_flag |= X_FLAG;
-	if (IsKeyPressed(GLFW_KEY_C))
-		input_flag |= C_FLAG;
-	if (IsKeyPressed(GLFW_KEY_V))
-		input_flag |= V_FLAG;
-	*/
 	
 	if (IsKeyPressed(GLFW_KEY_COMMA)) {
 	
