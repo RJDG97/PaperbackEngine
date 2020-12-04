@@ -124,13 +124,13 @@ void EntityPathWindow::AddPaths(Level* editor) {
 	std::string path;
 	if (entities_) {
 
-		if (ImGui::BeginCombo("##Archetypes", "Archetypes")) {
+		if (ImGui::BeginCombo("##Archetypes", "Archetypes Available")) {
 
 			for (EntityManager::EntityArchetypeMapTypeIt entityIT = entities_->GetArchetypes().begin(); entityIT != entities_->GetArchetypes().end(); ++entityIT) {
 				
 				auto it = editor->entity_paths_.find(entityIT->first);
 
-				if (it == editor->entity_paths_.end()) {
+				if (it == editor->entity_paths_.end()) { //only set each archetype path 1 time
 
 					if (ImGui::Selectable(entityIT->first.c_str())) {
 						path = imgui_->OpenSaveDialog("(*.json) Scenes/Archetypes\0*.json\0", 1);

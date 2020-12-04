@@ -66,7 +66,15 @@ void ParentChild::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer
 
 void ParentChild::DeSerialize(std::stringstream& data) {
 
-	(void)data;
+	// (void)data;
+	data >> number_of_children_;
+
+	to_clone_.resize(number_of_children_);
+
+	for (size_t i = 0; i < number_of_children_; ++i) {
+
+		data >> to_clone_[i];
+	}
 }
 
 void ParentChild::DeSerializeClone(std::stringstream& data) {
@@ -94,7 +102,11 @@ void ParentChild::DeSerializeClone(std::stringstream& data) {
 
 std::shared_ptr<Component> ParentChild::Clone() {
 
-	return std::make_shared<ParentChild>();
+	std::shared_ptr<ParentChild> cloned = std::make_shared<ParentChild>();
+	cloned->number_of_children_ = number_of_children_;
+	cloned->to_clone_ = to_clone_;
+
+	return cloned;
 }
 
 std::vector<Entity*>& ParentChild::GetChildren() {

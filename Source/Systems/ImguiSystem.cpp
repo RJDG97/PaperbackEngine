@@ -147,6 +147,7 @@ void ImguiSystem::Update(float frametime) {
         camera_ = GetCamera();
 
         ImGuiIO& io = ImGui::GetIO();
+
         if (b_dock_space_open) {
             DockSpaceFlagSet();
 
@@ -161,23 +162,7 @@ void ImguiSystem::Update(float frametime) {
         	// menu bar
             ImguiMenuBar();
 
-            if (b_show_pop)
-                ImGui::OpenPopup("Save Confirmation");
-
-            PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
-            b_show_pop = false;
-
-            if (b_add_path)
-                ImGui::OpenPopup("No Path Set");
-
-            PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
-            b_add_path = false;
-
-            if (b_close_confirm)
-                ImGui::OpenPopup("Exit Confirmation");
-
-            SaveCheckPopUp("Exit Confirmation", type);
-            b_close_confirm = false;
+            Popups();
 
             // for the selection of entity
             if (!EditorMode() && camera_) {
@@ -277,16 +262,26 @@ void ImguiSystem::ImguiMenuBar() {
 
                 if (!editor_->entity_paths_.empty()) {
 
-                    if (!current_loaded_path_.empty())
-                        SaveFile(current_loaded_path_);
+                    if (!current_loaded_path_.empty()) {
 
-                    b_show_pop = true;
+                        SaveFile(current_loaded_path_);
+                        b_show_pop = true;
+                    }
+                    else {
+
+                        std::string path = OpenSaveDialog(scene_filter_, 1);
+                        SaveFile(path);
+
+                        if (!path.empty()) {
+                            LoadJsonPaths(path);
+                            b_show_pop = true;
+                        }
+                    }
                 }
                 else
                     b_add_path = true;
             }
-            if (ImGui::IsItemHovered())
-                ImguiHelp(("Current Set Path " + current_loaded_path_).c_str(), 0);
+            ImguiHelp(("Current Set Path " + current_loaded_path_).c_str(), 0);
 
             if (ImGui::MenuItem("Save Scene As...")) {
                 if (!editor_->entity_paths_.empty()) {
@@ -294,10 +289,11 @@ void ImguiSystem::ImguiMenuBar() {
                     std::string path = OpenSaveDialog(scene_filter_, 1);
                     SaveFile(path);
 
-                    if (!path.empty())
-                        LoadJsonPaths(path);
+                    if (!path.empty()) {
 
-                    b_show_pop = true;
+                        LoadJsonPaths(path);
+                        b_show_pop = true;
+                    }
                 }
                 else
                     b_add_path = true;
@@ -361,6 +357,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Asset Browser", & b_asset);
             ImGui::Checkbox("Toggle Asset Console Window", &b_addtexture);
             ImGui::Checkbox("Toggle Texture Window", &b_showtex);
+            ImguiHelp("View All Loaded Textures", 0);
             ImGui::Separator();
             ImGui::Checkbox("See System Performance", &b_display);
 
@@ -635,8 +632,13 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save, int multis
     }
     else {
 
-        if (GetSaveFileNameA(&ofn) == TRUE)
-            return ofn.lpstrFile + std::string(".json");
+        if (GetSaveFileNameA(&ofn) == TRUE) {
+
+            if (!CheckString(ofn.lpstrFile, ".json"))
+                return ofn.lpstrFile + std::string(".json");
+            else
+                return ofn.lpstrFile;
+        }
     }
 
     return std::string(); // returns an empty string if user cancels/didnt select anything
@@ -689,10 +691,8 @@ void ImguiSystem::PopUpMessage(const char* windowName, const char* message) {
 
         ImGui::Text(message);
 
-        if (ImGui::Button("OK")) {
-
+        if (ImGui::Button("OK"))
             ImGui::CloseCurrentPopup();
-        }
 
         ImGui::EndPopup();
     }
@@ -791,6 +791,27 @@ void ImguiSystem::SetPopupPosition() {
 
     ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
     ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+}
+
+void ImguiSystem::Popups() {
+
+    if (b_show_pop)
+        ImGui::OpenPopup("Save Confirmation");
+
+    PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
+    b_show_pop = false;
+
+    if (b_add_path)
+        ImGui::OpenPopup("No Path Set");
+
+    PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
+    b_add_path = false;
+
+    if (b_close_confirm)
+        ImGui::OpenPopup("Exit Confirmation");
+
+    SaveCheckPopUp("Exit Confirmation", type);
+    b_close_confirm = false;
 }
 
 ImguiSystem::~ImguiSystem() {

@@ -500,6 +500,16 @@ public:
 /******************************************************************************/
 	void SetArchetypePath(std::string new_path);
 
+/******************************************************************************/
+/*!
+	\fn Popups()
+
+	\brief Handles the pop ups
+*/
+/******************************************************************************/	
+	void Popups();
+
+
 private:
 
 	// map to store all imgui windows added to the system
