@@ -674,7 +674,7 @@ void Collision::UpdateClickableBB() {
 bool Collision::BurrowReady() {
 	
 	Entity* player_entity = entity_mgr_->GetPlayerEntities().back();
-	Vector2D player_pos = transform_arr_->GetComponent(player_entity->GetID())->GetPosition();
+	Vector2D player_pos = transform_arr_->GetComponent(player_entity->GetID())->GetOffsetAABBPos();
 	Vector2D grid_scale = partitioning_->ConvertTransformToGridScale(player_pos);
 	
 	CollisionMapType col_map{};
