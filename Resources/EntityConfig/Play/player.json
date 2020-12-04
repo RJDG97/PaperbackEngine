@@ -2,7 +2,7 @@
     "Player": [
         {
             "component": "Transform",
-            "position": "-18.000000 -25.070000",
+            "position": "-18.300272 -24.710081",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.000000"
@@ -13,42 +13,42 @@
             "layer": "3"
         },
         {
+            "component": "InputController",
+            "size": "18",
+            "advance_text": "advance_text 257",
+            "burrow": "burrow 69",
+            "debug": "debug 66",
+            "expand": "expand 39",
+            "god": "god 53",
+            "invisible": "invisible 340",
+            "lose": "lose 55",
+            "move_down": "move_down 83",
+            "move_left": "move_left 65",
+            "move_right": "move_right 68",
+            "move_up": "move_up 87",
+            "pause": "pause 256",
+            "shrink": "shrink 59",
+            "spin_left": "spin_left 44",
+            "spin_right": "spin_right 46",
+            "teleport_house": "teleport_house 57",
+            "teleport_key": "teleport_key 56",
+            "win": "win 54"
+        },
+        {
             "component": "ParentChild",
             "elements": "2",
             "to_clone": "FakeWall ",
             "to_clone": "Camera "
         },
         {
-          "component": "InputController",
-          "size": "18",
-          "move_left": "move_left 65",
-          "move_right": "move_right 68",
-          "move_up": "move_up 87",
-          "move_down": "move_down 83",
-          "invisible": "invisible 340",
-          "burrow": "burrow 69",
-          "debug": "debug 66",
-          "spin_left": "spin_left 44",
-          "spin_right": "spin_right 46",
-          "shrink": "shrink 59",
-          "expand": "expand 39",
-          "pause": "pause 256",
-          "advance_text": "advance_text 257",
-          "god": "god 53",
-          "win": "win 54",
-          "lose": "lose 55",
-          "teleport_key": "teleport_key 56",
-          "teleport_house": "teleport_house 57"
-        },
-        {
-          "component": "LogicComponent",
-          "number_of_fns": "3",
-          "name": "UpdateChildOffset",
-          "function": "Player_UpdateChildOffset",
-          "name": "UpdateInput",
-          "function": "Player_UpdateInput",
-          "name": "UpdateTexture",
-          "function": "Player_UpdateTexture"
+            "component": "LogicComponent",
+            "number_of_fns": "3",
+            "name": "UpdateChildOffset",
+            "function": "Player_UpdateChildOffset",
+            "name": "UpdateInput",
+            "function": "Player_UpdateInput",
+            "name": "UpdateTexture",
+            "function": "Player_UpdateTexture"
         }
     ]
 }

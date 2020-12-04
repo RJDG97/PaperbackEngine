@@ -1,25 +1,28 @@
 {
-  "BurrowIcon": [
-    {
-      "component": "Transform",
-      "position": "6.5 -5.0",
-      "rotation": "0.0"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "BurrowSkill_UI_0",
-      "layer": "2",
-      "ui": "1",
-      "alive": "1"
-    },
-    {
-      "component": "Scale",
-      "scale": "48.0 48.0"
-    },
-    {
-      "component": "AABB",
-      "scale": "1.0 1.0",
-      "layer": "6"
-    }
-  ]
+    "BurrowIcon": [
+        {
+            "component": "Transform",
+            "position": "6.500000 -5.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "BurrowSkill_UI_0",
+            "layer": "2",
+            "ui": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "6"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateTexture",
+            "function": "BurrowIcon_UpdateTexture"
+        }
+    ]
 }

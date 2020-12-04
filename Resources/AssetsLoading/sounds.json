@@ -56,7 +56,7 @@
     "GameBGM": [
         {
             "path": "Resources/SoundCache/States/Game_Mode_BGM_V3.mp3",
-            "volume": "0.400000",
+            "volume": "0.500000",
             "min distance": "3.000000",
             "volume falloff": "0.040000",
             "loop": "1"
@@ -83,9 +83,9 @@
     "River": [
       {
           "path": "Resources/SoundCache/Environment/River.mp3",
-          "volume": "0.090000",
-          "min distance": "3.000000",
-          "volume falloff": "0.020000",
+          "volume": "0.40000",
+          "min distance": "4.000000",
+          "volume falloff": "0.030000",
           "loop": "1"
       }
     ],
