@@ -78,6 +78,7 @@ void DialogueSystem::Update(float frametime)
 					if (num_characters_ > entire_speech_->size())
 					{
 						current_speech_ = *entire_speech_;
+						num_characters_ = 0;
 						dialogue_text_renderer_->SetText(current_speech_);
 						dialogue_status_ = DialogueStatus::FINISHED_ADVANCING;
 					}
@@ -147,6 +148,8 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 
 	CORE->SetMovementLock(true);
 
+	text_elapsed_time_ = 0.0f;
+	num_characters_ = 0;
 	dialogue_box_renderer_->SetAlive(true);
 	dialogue_text_renderer_->SetAlive(true);
 	dialogue_box_scale_->SetScale({ dialogue_box_scale_->GetScale().x, 0.0f });

@@ -83,7 +83,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_PauseMenu_0",
-      "layer": "10",
+      "layer": "20",
       "ui": "1"
     }
   ],
@@ -112,7 +112,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_Resume_0",
-      "layer": "10",
+      "layer": "20",
       "ui": "1"
     }
   ],
@@ -141,7 +141,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_HowTo_0",
-      "layer": "10",
+      "layer": "20",
       "ui": "1"
     }
   ],
@@ -170,7 +170,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_Return_0",
-      "layer": "10",
+      "layer": "20",
       "ui": "1"
     }
   ],
@@ -199,7 +199,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_QuitGame_0",
-      "layer": "10",
+      "layer": "20",
       "ui": "1"
     }
   ],
@@ -228,7 +228,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_HowToPlay_0",
-      "layer": "10",
+      "layer": "20",
       "ui": "1"
     }
   ]

@@ -338,7 +338,7 @@ void GraphicsSystem::Draw() {
     for (IRenderOrderIt it = uirenderers_in_order_.begin();
         it != uirenderers_in_order_.end(); ++it) {
 
-        if (!it->second->alive_ || it->second->layer_ < 10) {
+        if (!it->second->alive_ || it->second->layer_ < 10 || it->second->layer_ >= 20) {
 
             continue;
         }
@@ -360,6 +360,7 @@ void GraphicsSystem::Draw() {
         DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
     }
 
+    //Temporary way to draw things above the vignette for now, will make proper use of layering in the future
     graphic_shaders_["TextShader"]->Use();
     glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
 
@@ -377,6 +378,29 @@ void GraphicsSystem::Draw() {
         }
 
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
+    }
+
+    //Temporary way to draw things above the dialogue text for now, will make proper use of layering in the future
+    graphic_shaders_["UIShader"]->Use();
+    glBindVertexArray(graphic_models_["UIModel"]->vaoid_);
+
+    for (IRenderOrderIt it = uirenderers_in_order_.begin();
+        it != uirenderers_in_order_.end(); ++it) {
+
+        if (!it->second->alive_ || it->second->layer_ < 20) {
+
+            continue;
+        }
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID()))
+            continue;
+
+        DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
     }
 
     if (debug_) { debug_ = !debug_; }
