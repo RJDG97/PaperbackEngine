@@ -19,10 +19,31 @@ class IManager {
 
 public:
 
+/******************************************************************************/
+/*!
+	\fn Init()
+
+	\brief Init for derived manager classes
+*/
+/******************************************************************************/
 	virtual void Init() = 0;
 
+/******************************************************************************/
+/*!
+	\fn Update()
+
+	\brief Non pure virtual update for derived manager classes
+*/
+/******************************************************************************/
 	virtual void Update(float frametime) { (void)frametime; }
 
+/******************************************************************************/
+/*!
+	\fn ~IManager()
+
+	\brief Destructor for derived manager classes
+*/
+/******************************************************************************/
 	virtual ~IManager() = default;
 };
 #endif
