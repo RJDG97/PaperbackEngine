@@ -187,5 +187,14 @@
             "volume falloff": "0.000000",
             "loop": "1"
         }
+    ],
+    "Fire": [
+        {
+            "path": "Resources/SoundCache/Environment/Fire.mp3",
+            "volume": "0.300000",
+            "min distance": "1.500000",
+            "volume falloff": "0.030000",
+            "loop": "1"
+        }
     ]
 }
