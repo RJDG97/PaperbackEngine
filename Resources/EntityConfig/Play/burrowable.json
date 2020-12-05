@@ -8,12 +8,6 @@
             "aabb offset": "0.000000 0.000000"
         },
         {
-            "component": "TextureRenderer",
-            "texture": "Rock_Two_0",
-            "layer": "2",
-            "ui": "0"
-        },
-        {
             "component": "AABB",
             "scale": "1.900000 2.200000",
             "layer": "10"

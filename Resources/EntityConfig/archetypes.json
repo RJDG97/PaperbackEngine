@@ -851,13 +851,6 @@
       "scale": "32.0 32.0"
     },
     {
-      "component": "TextureRenderer",
-      "texture": "Rock_Two_0",
-      "layer": "2",
-      "ui": "0",
-      "alive": "1"
-    },
-    {
       "component": "AABB",
       "scale": "0.5 0.5",
       "layer": "10"
@@ -1057,7 +1050,7 @@
     {
       "component": "TextureRenderer",
       "texture": "Hill_One_0",
-      "layer": "0",
+      "layer": "2",
       "ui": "0"
     },
     {
@@ -1085,7 +1078,7 @@
     {
       "component": "TextureRenderer",
       "texture": "Hill_Two_0",
-      "layer": "0",
+      "layer": "2",
       "ui": "0"
     },
     {

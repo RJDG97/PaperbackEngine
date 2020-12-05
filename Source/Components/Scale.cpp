@@ -51,6 +51,11 @@ void Scale::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) 
 	writer->EndObject();
 }
 
+void Scale::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	Serialize(writer);
+}
+
 void Scale::DeSerialize(std::stringstream& data) {
 
 	data >> scale_.x >> scale_.y;

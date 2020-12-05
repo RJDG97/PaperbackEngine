@@ -10,13 +10,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.100000 0.500000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -30,13 +34,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -50,13 +58,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.600000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -70,13 +82,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.000000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -90,13 +106,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.000000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -110,13 +130,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.000000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -130,13 +154,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.000000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -150,13 +178,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -170,13 +202,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -190,13 +226,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -210,13 +250,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -230,13 +274,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -250,13 +298,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -270,13 +322,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -290,13 +346,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -310,13 +370,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -330,13 +394,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -350,13 +418,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -370,13 +442,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -390,13 +466,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -410,13 +490,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -430,13 +514,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "BushLight": [
@@ -450,13 +538,89 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
+            "layer": "2",
             "ui": "0"
         },
         {
             "component": "AABB",
             "scale": "1.200000 0.700000",
             "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
+            "position": "-7.400000 0.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_One_0",
+            "layer": "2",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "132.000000 132.000000"
+        }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
+            "position": "-7.420000 -0.880000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_One_0",
+            "layer": "3",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "132.000000 132.000000"
+        }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
+            "position": "-7.420000 -2.790000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_One_0",
+            "layer": "3",
+            "ui": "0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "132.000000 132.000000"
         }
     ]
 }
