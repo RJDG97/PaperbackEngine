@@ -45,6 +45,9 @@ void TransitionManager::Init() {
 
 
 void TransitionManager::ResetTransition(const std::string& id, GameState* next_state) {
+
+	if (current_transition_)
+		return;
 	
 	SceneTransitionsIt it = transition_map_.find(id);
 
