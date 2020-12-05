@@ -36,8 +36,7 @@
         },
         {
             "component": "ParentChild",
-            "elements": "2",
-            "to_clone": "FakeWall ",
+            "elements": "1",
             "to_clone": "Camera "
         },
         {

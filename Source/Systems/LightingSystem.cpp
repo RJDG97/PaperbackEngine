@@ -121,6 +121,11 @@ void LightingSystem::Update(float frametime) {
 
 	for (PointLightIt it = point_light_arr_->begin(); it != point_light_arr_->end(); ++it) {
 
+		if (!it->second->alive_)
+		{
+			continue;
+		}
+
 		if (debug_) {
 			// Log id of entity and it's updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Point light position updated)\n");
@@ -130,6 +135,11 @@ void LightingSystem::Update(float frametime) {
 	}
 
 	for (ConeLightIt it = cone_light_arr_->begin(); it != cone_light_arr_->end(); ++it) {
+
+		if (!it->second->alive_)
+		{
+			continue;
+		}
 
 		if (debug_) {
 			// Log id of entity and it's updated components that are being updated
@@ -164,6 +174,11 @@ void LightingSystem::Draw() {
 
 	for (PointLightIt it = point_light_arr_->begin(); it != point_light_arr_->end(); ++it) {
 
+		if (!it->second->alive_)
+		{
+			continue;
+		}
+
 		if (debug_) {
 			// Log id of entity and its updated components that are being updated
 			M_DEBUG->WriteDebugMessage("Drawing point light for entity: " + std::to_string(it->first) + "\n");
@@ -176,6 +191,11 @@ void LightingSystem::Draw() {
 	cone_light_shader->Use();
 
 	for (ConeLightIt it = cone_light_arr_->begin(); it != cone_light_arr_->end(); ++it) {
+
+		if (!it->second->alive_)
+		{
+			continue;
+		}
 
 		if (debug_) {
 			// Log id of entity and its updated components that are being updated

@@ -1,1130 +1,980 @@
 {
-    "Boundary": [
-        {
-            "component": "Name",
-            "name": "Boundary"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        }
-    ],
-    "BurrowIcon": [
-        {
-            "component": "Name",
-            "name": "BurrowIcon"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "BurrowSkill_UI_0",
-            "layer": "2",
-            "ui": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "6"
-        },
-        {
-            "component": "Scale",
-            "scale": "48.000000 48.000000"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateTexture",
-            "function": "BurrowIcon_UpdateTexture"
-        }
-    ],
-    "Burrowable": [
-        {
-            "component": "Name",
-            "name": "Burrowable"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Rock_Two_0",
-            "layer": "2",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        }
-    ],
-    "BushDark": [
-        {
-            "component": "Name",
-            "name": "BushDark"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bush_Two_0",
-            "layer": "0",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "BushLight": [
-        {
-            "component": "Name",
-            "name": "BushLight"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bush_One_0",
-            "layer": "0",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "Button": [
-        {
-            "component": "Name",
-            "name": "Button"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Environment_Tiles_20",
-            "layer": "2",
-            "ui": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "6"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        },
-        {
-            "component": "Clickable",
-            "scale": "1.000000 1.000000"
-        }
-    ],
     "Camera": [
-        {
-            "component": "Name",
-            "name": "Camera"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "Camera",
-            "Camera Position": "0.000000 0.000000",
-            "Camera Size": "1280.000000 720.000000",
-            "Camera Zoom": "0.800000"
-        }
-    ],
-    "Clouds": [
-        {
-            "component": "Name",
-            "name": "Clouds"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 5.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Menu_CloudOne_0",
-            "layer": "0",
-            "ui": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "27.330000 4.330000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "640.000000 120.000000"
-        }
-    ],
-    "DialogueBox": [
-        {
-            "component": "Name",
-            "name": "DialogueBox"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 -3.800000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "UI_DialogueBox_0",
-            "layer": "0",
-            "ui": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "320.000000 160.000000"
-        },
-        {
-            "component": "ParentChild",
-            "elements": "0"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateChildOffset",
-            "function": "Player_UpdateChildOffset"
-        }
-    ],
-    "DialogueText": [
-        {
-            "component": "Name",
-            "name": "DialogueText"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "-3.200000 -0.800000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextRenderer",
-            "font": "Grandstander-Light",
-            "sentence length": "0",
-            "text": "",
-            "color": "0.450000 0.260000 0.260000",
-            "scale": "0.350000",
-            "layer": "10",
-            "ui": "1"
-        }
-    ],
-    "FakeWall": [
-        {
-            "component": "Name",
-            "name": "FakeWall"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 1.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Rock_Three_0",
-            "layer": "2",
-            "ui": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        }
-    ],
-    "FakeWallTwo": [
-        {
-            "component": "Name",
-            "name": "FakeWallTwo"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 2.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Environment_Tiles_20",
-            "layer": "2",
-            "ui": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        }
-    ],
-    "Floor": [
-        {
-            "component": "Name",
-            "name": "Floor"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Temp_Background_0",
-            "layer": "0",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.300000 0.300000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "3520.000000 3520.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "0.000000 0.000000 0.000000",
-            "radius": "0.000000",
-            "intensity": "0.000000"
-        }
-    ],
-    "Gate": [
-        {
-            "component": "Name",
-            "name": "Gate"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Props_Gate_0",
-            "layer": "1",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 0.500000",
-            "layer": "8"
-        },
-        {
-            "component": "Scale",
-            "scale": "130.000000 90.000000"
-        }
-    ],
-    "Goal": [
-        {
-            "component": "Name",
-            "name": "Goal"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Environment_Tiles_20",
-            "layer": "2",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "5"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        }
-    ],
-    "GrassDark": [
-        {
-            "component": "Name",
-            "name": "GrassDark"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Grass_One_0",
-            "layer": "1",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "48.000000 48.000000"
-        }
-    ],
-    "GrassLight": [
-        {
-            "component": "Name",
-            "name": "GrassLight"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Grass_Two_0",
-            "layer": "0",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "30.000000 30.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "50.000000 50.000000"
-        }
-    ],
-    "HideIcon": [
-        {
-            "component": "Name",
-            "name": "HideIcon"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "HideSkill_UI_0",
-            "layer": "2",
-            "ui": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "6"
-        },
-        {
-            "component": "Scale",
-            "scale": "48.000000 48.000000"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateTexture",
-            "function": "HideIcon_UpdateTexture"
-        }
-    ],
-    "HillNormal": [
-        {
-            "component": "Name",
-            "name": "HillNormal"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Hill_One_0",
-            "layer": "0",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "6.000000 4.500000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "530.000000 530.000000"
-        }
-    ],
-    "HillTShaped": [
-        {
-            "component": "Name",
-            "name": "HillTShaped"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Hill_Two_0",
-            "layer": "0",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "30.000000 30.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "250.000000 250.000000"
-        }
-    ],
-    "Hole": [
-        {
-            "component": "Name",
-            "name": "Hole"
-        },
-        {
-            "component": "Transform",
-            "position": "5.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Hole_0",
-            "layer": "1",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "4"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        }
-    ],
-    "InputController": [
-        {
-            "component": "Name",
-            "name": "InputController"
-        },
-        {
-            "component": "InputController"
-        }
-    ],
-    "Key": [
-        {
-            "component": "Name",
-            "name": "Key"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Key_One_0",
-            "layer": "1",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "7"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "200.000000",
-            "intensity": "0.700000"
-        }
-    ],
-    "MenuBG": [
-        {
-            "component": "Name",
-            "name": "MenuBG"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Menu_Background_0",
-            "layer": "0",
-            "ui": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "27.330000 13.330000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "640.000000 360.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "0.000000",
-            "intensity": "1.000000"
-        },
-        {
-            "component": "ParentChild",
-            "elements": "0"
-        }
-    ],
-    "Mite": [
-        {
-            "component": "Name",
-            "name": "Mite"
-        },
-        {
-            "component": "Motion",
-            "mass": "8.000000",
-            "force": "0.000000",
-            "alive": "1"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "Health",
-            "maximum health": "10"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "4",
-            "add animation": "Mite_Alert",
-            "add animation": "Mite_Explode",
-            "add animation": "Mite_Idle",
-            "add animation": "Mite_Walk",
-            "set animation": "Mite_Idle",
-            "play_animation": "1",
-            "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "2"
-        },
-        {
-            "component": "AI",
-            "range": "-431602080.000000",
-            "speed": "-431602080.000000"
-        },
-        {
-            "component": "Scale",
-            "scale": "256.000000 256.000000"
-        },
-        {
-            "component": "Status"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateTexture",
-            "function": "Mite_UpdateTexture"
-        }
-    ],
-    "MovingWall": [
-        {
-            "component": "Name",
-            "name": "MovingWall"
-        },
-        {
-            "component": "Motion",
-            "mass": "8.000000",
-            "force": "0.000000",
-            "alive": "1"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "1",
-            "add animation": "Mite_Walk",
-            "set animation": "Mite_Walk",
-            "play_animation": "1",
-            "has_finished_animating": "0",
-            "layer": "1",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "128.000000 128.000000"
-        },
-        {
-            "component": "BasicAI",
-            "speed": "80.000000"
-        }
-    ],
-    "MyParticle": [
-        {
-            "component": "Name",
-            "name": "MyParticle"
-        },
-        {
-            "component": "Motion",
-            "mass": "1.000000",
-            "force": "0.000000",
-            "alive": "0"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Key_One_0",
-            "layer": "1",
-            "ui": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        },
-        {
-            "component": "Particle"
-        }
-    ],
-    "Objectives": [
-        {
-            "component": "Name",
-            "name": "Objectives"
-        },
-        {
-            "component": "Transform",
-            "position": "2.500000 7.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "UI_Objectives_0",
-            "layer": "0",
-            "ui": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "200.000000 100.000000"
-        }
-    ],
-    "ParticleEmitter": [
-        {
-            "component": "Name",
-            "name": "ParticleEmitter"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Emitter"
-        }
-    ],
-    "Player": [
-        {
-            "component": "Name",
-            "name": "Player"
-        },
-        {
-            "component": "Motion",
-            "mass": "5.000000",
-            "force": "270.000000",
-            "alive": "1"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 2.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "Health",
-            "maximum health": "10"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "5",
-            "add animation": "Player_Hiding",
-            "add animation": "Player_Burrow_Walk",
-            "add animation": "Player_Burrow_Idle",
-            "add animation": "Player_Idle",
-            "add animation": "Player_Walk",
-            "set animation": "Player_Walk",
-            "play_animation": "1",
-            "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "3"
-        },
-        {
-            "component": "Scale",
-            "scale": "64.000000 128.000000"
-        },
-        {
-            "component": "Status"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "500.000000",
-            "intensity": "0.700000"
-        },
-        {
-            "component": "InputController"
-        },
-        {
-            "component": "ParentChild",
-            "elements": "1",
-            "to_clone": "Camera "
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "3",
-            "name": "UpdateChildOffset",
-            "function": "Player_UpdateChildOffset",
-            "name": "UpdateInput",
-            "function": "Player_UpdateInput",
-            "name": "UpdateTexture",
-            "function": "Player_UpdateTexture"
-        },
-        {
-            "component": "Inventory"
-        }
-    ],
-    "Puddle": [
-        {
-            "component": "Name",
-            "name": "Puddle"
-        },
-        {
-            "component": "Transform",
-            "position": "2.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Puddle_0",
-            "layer": "1",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        }
-    ],
-    "SoundEmitter": [
-        {
-            "component": "Name",
-            "name": "SoundEmitter"
-        },
-        {
-            "component": "SoundEmitter"
-        }
-    ],
-    "StagBeetle": [
-        {
-            "component": "Name",
-            "name": "StagBeetle"
-        },
-        {
-            "component": "Motion",
-            "mass": "8.000000",
-            "force": "0.000000",
-            "alive": "1"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "Health",
-            "maximum health": "10"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "7",
-            "add animation": "Stagbeetle_Charge",
-            "add animation": "Stagbeetle_Attack",
-            "add animation": "Stagbeetle_Run",
-            "add animation": "Stagbeetle_Alert",
-            "add animation": "Stagbeetle_Idle",
-            "add animation": "Stagbeetle_Confused",
-            "add animation": "Stagbeetle_Walk",
-            "set animation": "Stagbeetle_Walk",
-            "play_animation": "1",
-            "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "2"
-        },
-        {
-            "component": "AI",
-            "range": "-431602080.000000",
-            "speed": "-431602080.000000"
-        },
-        {
-            "component": "Scale",
-            "scale": "256.000000 256.000000"
-        },
-        {
-            "component": "Status"
-        },
-        {
-            "component": "ConeLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "40.000000",
-            "intensity": "1.000000",
-            "angle": "1.000000"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateTexture",
-            "function": "Stag_UpdateTexture"
-        }
-    ],
-    "UIText": [
-        {
-            "component": "Name",
-            "name": "UIText"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextRenderer",
-            "font": "Grandstander-Medium",
-            "sentence length": "4",
-            "text": "This is UI text. ",
-            "color": "1.000000 0.500000 1.000000",
-            "scale": "1.000000",
-            "layer": "10",
-            "ui": "1"
-        }
-    ],
-    "Wall": [
-        {
-            "component": "Name",
-            "name": "Wall"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Rock_Three_0",
-            "layer": "2",
-            "ui": "0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "0.500000 1.000000 1.000000",
-            "radius": "200.000000",
-            "intensity": "2.000000"
-        }
-    ],
-    "Watergauge": [
-        {
-            "component": "Name",
-            "name": "Watergauge"
-        },
-        {
-            "component": "Transform",
-            "position": "1.500000 9.200000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "WaterGauge_Droplet_0",
-            "layer": "0",
-            "ui": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "128.000000 128.000000"
-        }
-    ],
-    "WorldText": [
-        {
-            "component": "Name",
-            "name": "WorldText"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextRenderer",
-            "font": "Grandstander-Medium",
-            "sentence length": "4",
-            "text": "This is World text. ",
-            "color": "1.000000 0.500000 1.000000",
-            "scale": "1.000000",
-            "layer": "10",
-            "ui": "0"
-        }
-    ]
+    {
+      "component": "Name",
+      "name": "Camera"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Camera",
+      "camera position": "0.0 0.0",
+      "camera size": "1280.0 720.0",
+      "camera zoom": "0.8",
+      "targeted": "0"
+    }
+  ],
+  "Floor": [
+    {
+      "component": "Name",
+      "name": "Floor"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "3520.0 3520.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.3 0.3",
+      "layer": "0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Temp_Background_0",
+      "layer": "0",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.0 0.0 0.0",
+      "radius": "0.0",
+      "intensity": "0.0",
+	  "alive": "1"
+    }
+   ],
+   "UIText": [
+    {
+      "component": "Name",
+      "name": "UIText"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "TextRenderer",
+      "font": "Grandstander-Medium",
+      "sentence length": "4",
+      "text": "This is UI text.",
+      "color": "1.0 0.5 1.0",
+      "scale": "1.0",
+      "layer": "10",
+      "ui": "1",
+      "alive": "1"
+    }
+   ],
+  "WorldText": [
+    {
+      "component": "Name",
+      "name": "WorldText"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "TextRenderer",
+      "font": "Grandstander-Medium",
+      "sentence length": "4",
+      "text": "This is World text.",
+      "color": "1.0 0.5 1.0",
+      "scale": "1.0",
+      "layer": "10",
+      "ui": "0",
+      "alive": "1"
+    }
+   ],
+  "Player": [
+    {
+      "component": "Name",
+      "name": "Player"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 2.0 ",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Motion",
+      "mass": "5.0",
+      "force": "270.0",
+      "alive": "1.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "64.0 128.0"
+    },
+    {
+      "component": "Health",
+      "health": "10.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "5",
+      "add animation": "Player_Hiding",
+      "add animation": "Player_Burrow_Walk",
+      "add animation": "Player_Burrow_Idle",
+      "add animation": "Player_Idle",
+      "add animation": "Player_Walk",
+      "set animation": "Player_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "2",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "3"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.7",
+      "radius": "500.0",
+      "intensity": "0.85",
+	  "alive": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "3",
+      "name": "UpdateChildOffset",
+      "function": "Player_UpdateChildOffset",
+      "name": "UpdateTexture",
+      "function": "Player_UpdateTexture",
+      "name": "UpdateInput",
+      "function": "Player_UpdateInput"
+    },
+    {
+      "component": "Inventory"
+    },
+    {
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "Camera"
+    },
+    {
+      "component": "InputController"
+    }
+  ],
+  "Wall": [
+    {
+      "component": "Name",
+      "name": "Wall"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock_Three_0",
+      "layer": "2",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.5 1.0 1.0",
+      "radius": "200.0",
+      "intensity": "2.0",
+	  "alive": "1"
+    }
+  ],
+  "MovingWall": [
+    {
+      "component": "Name",
+      "name": "MovingWall"
+    },
+    {
+      "component": "BasicAI",
+      "speed": "80.0"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "128.0 128.0"
+    },
+    {
+      "component": "Motion",
+      "mass": "8.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "1",
+      "add animation": "Mite_Walk",
+      "set animation": "Mite_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "1",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "1"
+    }
+  ],
+  "Button": [
+    {
+      "component": "Name",
+      "name": "Button"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Environment_Tiles_20",
+      "layer": "10",
+      "ui": "1",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "6"
+    },
+    {
+      "component": "Clickable",
+      "scale": "1.0 1.0",
+      "active": "1"
+    }
+  ],
+  "Hole": [
+    {
+      "component": "Name",
+      "name": "Hole"
+    },
+    {
+      "component": "Transform",
+      "position": "5.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Hole_0",
+      "layer": "1",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "4"
+    }
+  ],
+  "InputController": [
+    {
+      "component": "Name",
+      "name": "InputController"
+    },
+    {
+      "component": "InputController"
+    }
+  ],
+  "StagBeetle": [
+    {
+      "component": "Name",
+      "name": "StagBeetle"
+    },
+    {
+      "component": "AI",
+      "AItype": "Stag_Beetle",
+      "range": "300.0",
+      "speed": "3000.0", 
+      "dest": "1",
+      "destination1": "0.0 0.0"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "256.0 256.0"
+    },
+    {
+      "component": "Health",
+      "health": "10.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "7",
+      "add animation": "Stagbeetle_Charge",
+      "add animation": "Stagbeetle_Attack",
+      "add animation": "Stagbeetle_Run",
+      "add animation": "Stagbeetle_Alert",
+      "add animation": "Stagbeetle_Idle",
+      "add animation": "Stagbeetle_Confused",
+      "add animation": "Stagbeetle_Walk",
+      "set animation": "Stagbeetle_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "2",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "2"
+    },
+    {
+      "component": "Motion",
+      "mass": "8.0"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.9 0.6 0.9",
+      "radius": "1000.0",
+      "intensity": "0.6",
+	  "alive": "1"
+    },
+    {
+      "component": "ConeLight",
+      "angle": "50.0",
+      "color": "1.0 0.7 0.7",
+      "radius": "900.0",
+      "intensity": "0.9",
+	  "alive": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "Stag_UpdateTexture"
+    }
+  ],
+  "Mite": [
+    {
+      "component": "Name",
+      "name": "Mite"
+    },
+    {
+      "component": "AI",
+      "AItype": "Mite",
+      "range": "3.0",
+      "speed": "100.0", 
+      "dest": "1",
+      "destination1": "0.0 0.0"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "256.0 256.0"
+    },
+    {
+      "component": "Health",
+      "health": "10.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "4",
+      "add animation": "Mite_Alert",
+      "add animation": "Mite_Explode",
+      "add animation": "Mite_Idle",
+      "add animation": "Mite_Walk",
+      "set animation": "Mite_Idle",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "2",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.6 0.9 0.6",
+      "radius": "1000.0",
+      "intensity": "0.6",
+	  "alive": "1"
+    },
+    {
+      "component": "ConeLight",
+      "angle": "50.0",
+      "color": "0.7 1.0 0.7",
+      "radius": "900.0",
+      "intensity": "0.9",
+	  "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "2"
+    },
+    {
+      "component": "Motion",
+      "mass": "8.0"
+    },
+    {
+      "component": "Status"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "Mite_UpdateTexture"
+    }
+  ],
+  "MenuBG": [
+    {
+      "component": "Name",
+      "name": "MenuBG"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "640.0 360.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "27.33 13.33",
+      "layer": "0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Menu_Background_0",
+      "layer": "0",
+      "ui": "1",
+      "alive": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.7",
+      "radius": "0.0",
+      "intensity": "1.0",
+	  "alive": "1"
+    },
+    {
+      "component": "ParentChild"
+    }
+  ],
+  "Boundary": [
+    {
+      "component": "Name",
+      "name": "Boundary"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "1"
+    }
+  ],
+  "Goal": [
+    {
+      "component": "Name",
+      "name": "Goal"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "5"
+    }
+  ],
+  "Clouds": [
+    {
+      "component": "Name",
+      "name": "Clouds"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 5.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "640.0 120.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "27.33 4.33",
+      "layer": "0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Menu_CloudOne_0",
+      "layer": "0",
+      "ui": "1",
+      "alive": "1"
+    }
+  ],
+  "Watergauge": [
+    {
+      "component": "Name",
+      "name": "Watergauge"
+    },
+    {
+      "component": "Transform",
+      "position": "1.5 9.2",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "128.0 128.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "WaterGauge_Droplet_0",
+      "layer": "10",
+      "ui": "1",
+      "alive": "1"
+    }
+  ],
+  "FakeWall": [
+    {
+      "component": "Name",
+      "name": "FakeWall"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 1.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock_Three_0",
+      "layer": "2",
+      "ui": "0",
+      "alive": "1"
+    }
+  ],
+  "FakeWallTwo": [
+    {
+      "component": "Name",
+      "name": "FakeWallTwo"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 2.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Environment_Tiles_20",
+      "layer": "2",
+      "ui": "0",
+      "alive": "1"
+    }
+  ],
+  "Gate": [
+    {
+      "component": "Name",
+      "name": "Gate"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "260.0 180.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 0.5",
+      "layer": "8"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Props_Gate_0",
+      "layer": "1",
+      "ui": "0",
+      "alive": "1"
+    }
+  ],
+  "Key": [
+    {
+      "component": "Name",
+      "name": "Key"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "7"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Key_One_0",
+      "layer": "1",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "1.0 1.0 0.6",
+      "radius": "350.0",
+      "intensity": "0.6",
+	  "alive": "1"
+    }
+  ],
+  "Puddle": [
+    {
+      "component": "Name",
+      "name": "Puddle"
+    },
+    {
+      "component": "Transform",
+      "position": "2.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "9"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Puddle_0",
+      "layer": "1",
+      "ui": "0",
+      "alive": "1"
+    }
+   ],
+  "ParticleEmitter": [
+    {
+      "component": "Name",
+      "name": "ParticleEmitter"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "0"
+    },
+    {
+      "component": "Emitter"
+    }
+   ],
+  "MyParticle": [
+    {
+      "component": "Name",
+      "name": "MyParticle"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Motion",
+      "mass": "1.0",
+      "force": "0.0",
+      "alive": "0.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Key_One_0",
+      "layer": "1",
+      "ui": "0",
+      "alive": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "Particle"
+    }
+   ],
+   "SoundEmitter": [
+    {
+      "component": "Name",
+      "name": "SoundEmitter"
+    },
+    {
+      "component": "SoundEmitter"
+    }
+   ],
+  "Objectives": [
+    {
+      "component": "Name",
+      "name": "Objectives"
+    },
+    {
+      "component": "Transform",
+      "position": "2.5 7.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "200.0 100.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_Objectives_0",
+      "layer": "10",
+      "ui": "1",
+      "alive": "1"
+    }
+  ],
+  "Burrowable": [
+    {
+      "component": "Name",
+      "name": "Burrowable"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Rock_Two_0",
+      "layer": "2",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "10"
+    }
+  ],
+  "DialogueBox": [
+    {
+      "component": "Name",
+      "name": "DialogueBox"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 -3.8",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "320.0 160.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_DialogueBox_0",
+      "layer": "10",
+      "ui": "1",
+      "alive": "0"
+    },
+    {
+      "component": "ParentChild"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateChildOffset",
+      "function": "Player_UpdateChildOffset"
+    }
+   ],
+   "DialogueText": [
+    {
+      "component": "Name",
+      "name": "DialogueText"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "-3.2 -0.8"
+    },
+    {
+      "component": "TextRenderer",
+      "font": "Grandstander-Medium",
+      "sentence length": "0",
+      "text": " ",
+      "color": "0.30 0.55 0.20",
+      "scale": "0.35",
+      "layer": "11",
+      "ui": "1",
+      "alive": "0"
+    }
+   ],
+   "BurrowIcon": [
+    {
+      "component": "Name",
+      "name": "BurrowIcon"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "48.0 48.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "BurrowSkill_UI_0",
+      "layer": "10",
+      "ui": "1",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "6"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "BurrowIcon_UpdateTexture"
+    }
+   ],
+   "HideIcon": [
+    {
+      "component": "Name",
+      "name": "HideIcon"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "48.0 48.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "HideSkill_UI_0",
+      "layer": "10",
+      "ui": "1",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 1.0",
+      "layer": "6"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "HideIcon_UpdateTexture"
+    }
+   ]
 }

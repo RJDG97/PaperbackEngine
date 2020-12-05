@@ -28,9 +28,31 @@ class DialogueContent
 
 public:
 
+/******************************************************************************/
+/*!
+  \fn DialogueContent()
+
+  \brief Default constructor
+*/
+/******************************************************************************/
 	DialogueContent() = default;
+
+/******************************************************************************/
+/*!
+  \fn DialogueContent()
+
+  \brief Constructor for DiglogueContent
+*/
+/******************************************************************************/
 	DialogueContent(std::string portrait, std::string name, std::string speech);
 
+/******************************************************************************/
+/*!
+  \fn GetSpeech()
+
+  \brief Get speech
+*/
+/******************************************************************************/
 	std::string* GetSpeech();
 };
 
@@ -40,9 +62,31 @@ class Dialogue
 
 public:
 
+/******************************************************************************/
+/*!
+  \fn Dialogue()
+
+  \brief Default constructor
+*/
+/******************************************************************************/
 	Dialogue() = default;
+
+/******************************************************************************/
+/*!
+  \fn Dialogue()
+
+  \brief Constructor for DiglogueContent
+*/
+/******************************************************************************/
 	Dialogue(std::vector<DialogueContent> contents);
 
+/******************************************************************************/
+/*!
+  \fn GetContents()
+
+  \brief Get contents of Diglogue
+*/
+/******************************************************************************/
 	std::vector<DialogueContent>* GetContents();
 };
 
@@ -52,13 +96,48 @@ class DialogueManager : public IManager {
 
 public:
 
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Initialize Dialogue Manager
+*/
+/******************************************************************************/
 	void Init();
 
+/******************************************************************************/
+/*!
+  \fn LoadDialogueSet()
+
+  \brief Load a full dialogue
+*/
+/******************************************************************************/
 	void LoadDialogueSet(std::string level_name);
 
+/******************************************************************************/
+/*!
+  \fn LoadDialogue()
+
+  \brief Load a dialogue
+*/
+/******************************************************************************/
 	void LoadDialogue(std::string dialogue_name, std::string path);
 
+/******************************************************************************/
+/*!
+  \fn DeserializeJSON()
+
+  \brief Parse data
+*/
+/******************************************************************************/
 	void DeserializeJSON(const std::string& filename, rapidjson::Document& doc);
 
+/******************************************************************************/
+/*!
+  \fn GetDialogue()
+
+  \brief Get the dialogue paired with the dialogue_name
+*/
+/******************************************************************************/
 	Dialogue* GetDialogue(std::string dialogue_name);
 };

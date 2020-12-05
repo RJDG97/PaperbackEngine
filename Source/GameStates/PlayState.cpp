@@ -42,17 +42,14 @@
 
 #include <memory>
 
-// SAMPLE PLAY STATE
+// Play state
 PlayState m_PlayState;
 
-
-// Temporary pre-declaration for Engine Proof
-// Yeah its pretty illegal I know
+// Temp declaration
 void ScaleEntityBig(Scale* scale, bool yes);
 void RotateLeft(Transform* xform, bool yes);
 
-//demo pointer to player
-//Entity* player;
+
 
 void PlayState::Init(std::string)
 {
@@ -284,8 +281,17 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 					CORE->GetSystem<Collision>()->ToggleClickables(1);
 					CORE->GetSystem<Collision>()->ToggleClickables(3);
 
-					Message pause{ MessageIDTypes::BGM_PAUSE };
-					CORE->BroadcastMessage(&pause);
+					if (CORE->GetCorePauseStatus()) {
+						
+						Message pause{ MessageIDTypes::BGM_PAUSE };
+						CORE->BroadcastMessage(&pause);
+					}
+					else {
+
+						Message pause{ MessageIDTypes::BGM_RESUME };
+						CORE->BroadcastMessage(&pause);
+					}
+
 					break;
 				}
 				case 7:
@@ -366,8 +372,6 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 				new_vel.x += power;
 			}
-
-			//std::cout << "New Velocity Passed: " << new_vel.x << ", " << new_vel.y << std::endl;
 
 			MessagePhysics_Motion m2{ MessageIDTypes::CAM_UPDATE_POS, new_vel };
 			CORE->BroadcastMessage(&m2);

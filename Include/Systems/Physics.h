@@ -124,6 +124,13 @@ private:
 	LogicComponentType* logic_arr_;
 };
 
+/******************************************************************************/
+/*!
+  \fn VerifyZeroFloat()
+
+  \brief Verifies whether a float is between EPSILON and -EPSILON
+*/
+/******************************************************************************/
 bool VerifyZeroFloat(const float& val);
 
 #endif

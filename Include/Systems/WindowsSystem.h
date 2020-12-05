@@ -196,6 +196,13 @@ public:
 	void ToggleFullScreen();
 };
 
+/******************************************************************************/
+/*!
+  \fn CreateDebugWindow()
+
+  \brief Create a debug console window
+*/
+/******************************************************************************/
 void CreateDebugWindow();
 
 #endif

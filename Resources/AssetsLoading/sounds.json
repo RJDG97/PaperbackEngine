@@ -142,5 +142,14 @@
             "volume falloff": "0.000000",
             "loop": "0"
         }
+    ],
+    "TextAdvancing": [
+        {
+            "path": "Resources/SoundCache/UI/TextAdvancing.mp3",
+            "volume": "0.700000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
     ]
 }

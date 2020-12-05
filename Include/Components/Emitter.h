@@ -32,6 +32,14 @@ struct GenerateLifetime
 {
 	// Range for lifetime of particles
 	Vector2D lifetime_range_;
+
+/******************************************************************************/
+/*!
+  \fn Generate()
+
+  \brief Generates a particle's lifespan
+*/
+/******************************************************************************/
 	void Generate(Particle* particle);
 };
 
@@ -39,6 +47,14 @@ struct GeneratePosition
 {
 	// Range for spawning 
 	Vector2D min_pos_, max_pos_;
+
+/******************************************************************************/
+/*!
+  \fn Generate()
+
+  \brief Generates a particle's position
+*/
+/******************************************************************************/
 	void Generate(Transform* particle_transform, Transform* emitter_transform);
 };
 
@@ -48,6 +64,14 @@ struct GenerateForce
 	Vector2D force_range_;
 	// Range for direction of vector (-1 to 1)
 	Vector2D direction_range_;
+
+/******************************************************************************/
+/*!
+  \fn Generate()
+
+  \brief Generates a particle's force and direction
+*/
+/******************************************************************************/
 	void Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id);
 };
 
@@ -57,6 +81,14 @@ struct GenerateRotation
 	Vector2D rotation_speed_;
 	// Range for rotation of texture
 	Vector2D min_rotation_range_, max_rotation_range_;
+
+/******************************************************************************/
+/*!
+  \fn Generate()
+
+  \brief Generates a particle's rotation
+*/
+/******************************************************************************/
 	void Generate(Transform* transform);
 
 };
@@ -66,6 +98,14 @@ struct GenerateTexture
 	// Different available textures
 	size_t number_of_textures_;
 	std::vector<std::string> texture_names_;
+
+/******************************************************************************/
+/*!
+  \fn Generate()
+
+  \brief Generates a particle's texture
+*/
+/******************************************************************************/
 	void Generate(std::shared_ptr<GraphicsSystem> graphics_system, TextureRenderer* texture);
 };
 

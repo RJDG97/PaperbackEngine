@@ -33,6 +33,8 @@ class PointLight : public Component {
 
 	glm::vec2 pos_;
 
+	bool alive_;
+
 public:
 
 	friend class LightingSystem;
@@ -133,6 +135,15 @@ public:
 
 /******************************************************************************/
 /*!
+	\fn GetAlive()
+
+	\brief Get the alive of the component
+*/
+/******************************************************************************/
+	bool GetAlive();
+
+/******************************************************************************/
+/*!
 	\fn SetRadius()
 
 	\brief Sets the radius of the component
@@ -157,6 +168,15 @@ public:
 */
 /******************************************************************************/
 	void SetColor(glm::vec3 new_color);
+
+/******************************************************************************/
+/*!
+	\fn SetAlive(bool alive)
+
+	\brief Sets the alive of the component
+*/
+/******************************************************************************/
+	void SetAlive(bool alive);
 	
 };
 

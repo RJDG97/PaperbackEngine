@@ -19,6 +19,7 @@
 #include "Systems/Game.h"
 #include "Systems/Debug.h"
 #include "Systems/InputSystem.h"
+#include "Systems/DialogueSystem.h" //temporary
 #include "Manager/ForcesManager.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
@@ -58,40 +59,6 @@ auto absVec = [](Vector2D vec) {
 
 	return vec;
 };
-
-// Instead of scale* use aabb's custom scale
-Vector2D Normal(const Collision::AABBIt& s1, const Collision::AABBIt& s2,
-	const Transform* t1, const Transform* t2) {
-
-	Vector2D scale_sum = s1->second->GetAABBScale() + s2->second->GetAABBScale();
-	Vector2D vec = absVec(t1->GetOffsetAABBPos() - t2->GetOffsetAABBPos());
-
-	Vector2D minkowski;
-	minkowski.x = vec.y * scale_sum.x;
-	minkowski.y = vec.x * scale_sum.y;
-
-
-	if (minkowski.y > minkowski.x) {
-		if (minkowski.y > -minkowski.x) {
-			// Collision on top for Object A
-			return Vector2D{ 1, 0 };
-		}
-		else {
-			// Collision on left for Object A
-			return Vector2D{ 0, 1 };
-		}
-	}
-	else {
-		if (minkowski.y > -minkowski.x) {
-			// Collision on the right for Object A
-			return Vector2D{ 0, 1 };
-		}
-		else {
-			// Collision on the bottom for Object A
-			return Vector2D{ 1, 0 };
-		}
-	}
-}
 
 Vector2D SATNormal(const Collision::AABBIt& s1, const Collision::AABBIt& s2,
 	const Transform* t1, const Transform* t2, float& penetration) {
@@ -268,34 +235,6 @@ bool Collision::CheckCursorCollision(const Vec2& cursor_pos, const AABB* box) {
 	return VerifyCursorCollision(bottom_left, top_right, cursor_pos);
 }
 
-//std::pair<Entity*, std::vector<ComponentTypes>> Collision::GetAttachedComponentIDs() {
-//	std::vector<ComponentTypes> comp_arr;
-//	Entity* entity;
-//	EntityID selected_entity_id = SelectEntity();
-//
-//	if (selected_entity_id != 0) {
-//		// Grab entity from factory and return the bitset
-//		std::shared_ptr<EntityFactory> factory = CORE->GetSystem<EntityFactory>();
-//		entity = factory->GetObjectWithID(selected_entity_id);
-//
-//		// If entity exists in factory
-//		if (entity) {
-//			// Grab component array from entity
-//			ComponentArr arr = entity->GetComponentArr();
-//			// Resize component array accordingly
-//			comp_arr.reserve(arr.size());
-//
-//			// Iterate all components and save the enums
-//			for (ComponentArrIt it = arr.begin(); it != arr.end(); ++it) {
-//				comp_arr.push_back((*it)->GetComponentTypeID());
-//			}
-//		}
-//	}
-//
-//	// Return compiled entity 
-//	return std::make_pair(entity, comp_arr);
-//}
-
 bool Collision::SeparatingAxisTheorem(const AABB& a, const AABB& b) {
 	// AABB_1
 	Vector2D aab1_bot_left = a.GetBottomLeft();
@@ -453,6 +392,8 @@ bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 		player_inven->SetHasKey(false);
 		FACTORY->Destroy(aabb2->second->GetOwner());
 
+		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("gateunlocked");
+
 		return false;
 	}
 
@@ -467,6 +408,9 @@ void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
 
 		player_inven->SetHasKey(true);
 		FACTORY->Destroy(aabb2->second->GetOwner());
+
+		//temporary
+		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("keypickedup");
 
 		return;
 	}
@@ -514,7 +458,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 		{
 		case CollisionLayer::PLAYER:
 		{
-			if (!CORE->GetGodMode())
+			if (CORE->GetGodMode())
 				break;
 
 			if (PlayervEnemyResponse(aabb1, aabb2)) {
@@ -824,7 +768,7 @@ void Collision::GetPartitionedCollisionMap(size_t x, size_t y, CollisionMapType&
 	}
 }
 
-void Collision::ProcessPartitionedEntities(size_t y, size_t x, float frametime) {										//test fn
+void Collision::ProcessPartitionedEntities(size_t y, size_t x, float frametime) {
 
 	CollisionMapType col_map{};
 
@@ -955,8 +899,6 @@ void Collision::Draw() {
 			graphics_->DrawDebugLines(non_collided_points, { 0.0f, 1.0f, 0.0f, 1.0f }, 2.5f);
 		}
 	}
-
-	//if (debug_) { debug_ = !debug_; }
 }
 
 //function more akin to "What to do when message is received" for internal logic
@@ -972,11 +914,6 @@ void Collision::SendMessageD(Message* m) {
 	case MessageIDTypes::M_MOUSE_PRESS:
 	{
 		CheckClickableCollision();
-
-		// If in debug mode, allow for selecting of entities
-		//if (debug_) {
-		//	std::pair<Entity*, std::vector<ComponentTypes>> fake_pair = GetAttachedComponentIDs();
-		//}
 		break;
 	}
 	default:

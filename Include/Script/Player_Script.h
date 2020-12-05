@@ -30,7 +30,13 @@
 
 namespace Player_Scripts
 {
+	/******************************************************************************/
+	/*!
+	  \fn UpdateChildOffset()
 
+	  \brief Update child entity's position
+	*/
+	/******************************************************************************/
 	void UpdateChildOffset(const EntityID& parent_id) {
 
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
@@ -51,6 +57,14 @@ namespace Player_Scripts
 		}
 	}
 
+
+	/******************************************************************************/
+	/*!
+	  \fn TextureUpdateScript()
+
+	  \brief Texture update script for Player
+	*/
+	/******************************************************************************/
 	void TextureUpdateScript(const EntityID& parent_id) {
 		
 		std::shared_ptr<GraphicsSystem> graphics = CORE->GetSystem<GraphicsSystem>();
@@ -112,6 +126,14 @@ namespace Player_Scripts
 		}
 	}
 
+
+	/******************************************************************************/
+	/*!
+	  \fn PlayerControllerScript()
+
+	  \brief Player controller script
+	*/
+	/******************************************************************************/
 	void PlayerControllerScript(const EntityID& id, Message* message) {
 
 		Message_Input* m = dynamic_cast<Message_Input*>(message);
@@ -141,24 +163,21 @@ namespace Player_Scripts
 				CORE->GetSystem<Collision>()->ToggleClickables(2);
 			}
 
-			Message pause{ MessageIDTypes::BGM_PAUSE };
-			CORE->BroadcastMessage(&pause);
+			if (CORE->GetCorePauseStatus()) {
+
+				Message pause{ MessageIDTypes::BGM_PAUSE };
+				CORE->BroadcastMessage(&pause);
+			}
+			else {
+
+				Message pause{ MessageIDTypes::BGM_RESUME };
+				CORE->BroadcastMessage(&pause);
+			}
 		}
 		if (controller->VerifyKey("advance_text", m->input_)) {
 
 			CORE->GetSystem<DialogueSystem>()->AdvanceText();
 		}
-
-		//if (game->GetStateName() == "Play") {
-
-		//	// Re-enable this if you want to be able to exit the game by pressing enter once pause menu is brought up
-		//	// Yet to include buttons into the play state because we need a way to filter UI for pause menu in graphics
-		//	if (CORE->GetCorePauseStatus() && controller->VerifyKey("confirm", m->input_)) {
-		//		//CORE->SetGameActiveStatus(false);
-		//		game->ChangeState(&m_MenuState);
-		//		return;
-		//	}
-		//}
 
 
 		if (!entity_mgr->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {
@@ -227,7 +246,7 @@ namespace Player_Scripts
 			}
 			
 
-			if (player_status && player_status->GetStatus() != StatusType::INVISIBLE) {
+			if (player_status && player_status->GetStatus() != StatusType::INVISIBLE && !CORE->GetMovementLock()) {
 				//input group
 				float power = component_mgr->GetComponent<Motion>(id)->GetForce();
 

@@ -73,7 +73,7 @@ void DialogueSystem::Update(float frametime)
 				{
 					++num_characters_;
 					text_elapsed_time_ = 0.0f;
-					sound_system_->PlaySounds("ButtonPress");
+					sound_system_->PlaySounds("TextAdvancing");
 
 					if (num_characters_ > entire_speech_->size())
 					{
@@ -100,6 +100,7 @@ void DialogueSystem::Update(float frametime)
 
 			case DialogueStatus::CLOSING: {
 
+				dialogue_text_renderer_->SetText(" ");
 				float new_scale = dialogue_box_scale_->GetScale().y - textbox_scale_speed_ * frametime;
 				dialogue_box_scale_->SetScale({ textbox_max_scale_.x, new_scale });
 
@@ -108,6 +109,8 @@ void DialogueSystem::Update(float frametime)
 					new_scale = 0.0f;
 					dialogue_box_scale_->SetScale({ textbox_max_scale_.x, new_scale });
 					dialogue_status_ = DialogueStatus::INACTIVE;
+
+					CORE->SetMovementLock();
 				}
 
 				break;
@@ -141,6 +144,8 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 			}
 		}
 	}
+
+	CORE->SetMovementLock(true);
 
 	dialogue_box_renderer_->SetAlive(true);
 	dialogue_text_renderer_->SetAlive(true);

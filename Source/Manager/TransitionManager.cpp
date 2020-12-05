@@ -19,8 +19,8 @@
 
 TransitionManager::TransitionManager() : 
 	transition_speed_{ },
-	max_size_{ 720.0f, 405.0f },
-	max_clear_size_{ 480.0f, 270.0f },
+	max_size_{ 800.0f, 450.0f },
+	max_clear_size_{ 320.0f, 180.0f },
 	current_size_{ },
 	current_transition_{ nullptr },
 	next_state_{ nullptr },
@@ -45,6 +45,9 @@ void TransitionManager::Init() {
 
 
 void TransitionManager::ResetTransition(const std::string& id, GameState* next_state) {
+
+	if (current_transition_)
+		return;
 	
 	SceneTransitionsIt it = transition_map_.find(id);
 
@@ -155,8 +158,6 @@ void TransitionManager::CloseTransition(const float& frametime) {
 			CORE->GetSystem<Game>()->ChangeState(next_state_);
 
 			// Last scene is completed
-			/*current_transition_ = nullptr;
-			next_state_ = nullptr;*/
 			begin_ = true;
 		}
 	}
