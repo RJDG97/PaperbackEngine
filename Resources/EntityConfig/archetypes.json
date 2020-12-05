@@ -148,9 +148,9 @@
     },
     {
       "component": "PointLight",
-      "color": "1.0 1.0 0.6",
+      "color": "1.0 1.0 0.7",
       "radius": "500.0",
-      "intensity": "0.7"
+      "intensity": "0.85"
     },
     {
       "component": "LogicComponent",
@@ -375,11 +375,17 @@
       "component": "Status"
     },
     {
+      "component": "PointLight",
+      "color": "0.9 0.6 0.9",
+      "radius": "1000.0",
+      "intensity": "0.6"
+    },
+    {
       "component": "ConeLight",
-      "angle": "40.0",
-      "color": "1.0 1.0 0.2",
-      "radius": "500.0",
-      "intensity": "1.0"
+      "angle": "50.0",
+      "color": "1.0 0.7 0.7",
+      "radius": "1200.0",
+      "intensity": "0.9"
     },
     {
       "component": "LogicComponent",
@@ -428,6 +434,19 @@
       "layer": "2",
       "ui": "0",
       "alive": "1"
+    },
+    {
+      "component": "PointLight",
+      "color": "0.6 0.9 0.6",
+      "radius": "1000.0",
+      "intensity": "0.6"
+    },
+    {
+      "component": "ConeLight",
+      "angle": "50.0",
+      "color": "0.7 1.0 0.7",
+      "radius": "1200.0",
+      "intensity": "0.9"
     },
     {
       "component": "AABB",
@@ -525,13 +544,6 @@
       "component": "AABB",
       "scale": "0.5 0.5",
       "layer": "5"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Environment_Tiles_20",
-      "layer": "2",
-      "ui": "0",
-      "alive": "1"
     }
   ],
   "Clouds": [
@@ -644,7 +656,7 @@
     },
     {
       "component": "Scale",
-      "scale": "130.0 90.0"
+      "scale": "260.0 180.0"
     },
     {
       "component": "AABB",
@@ -689,8 +701,8 @@
     {
       "component": "PointLight",
       "color": "1.0 1.0 0.6",
-      "radius": "200.0",
-      "intensity": "0.7"
+      "radius": "350.0",
+      "intensity": "0.6"
     }
   ],
   "Puddle": [
