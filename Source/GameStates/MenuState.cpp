@@ -72,8 +72,7 @@ void MenuState::Free()
 {
 	std::cout << "MenuState clean Successful" << std::endl;
 
-	MessageBGM_Stop msg{ "MenuDefault" };
-	CORE->BroadcastMessage(&msg);
+	CORE->GetSystem<SoundSystem>()->StopSound("All", true);
 
 	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();

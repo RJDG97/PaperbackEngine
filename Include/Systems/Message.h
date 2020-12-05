@@ -40,7 +40,6 @@ enum class MessageIDTypes
 
 	// Sound System
 	BGM_PLAY,
-	BGM_STOP,
 	BGM_PAUSE,
 	BGM_RESUME,
 	BGM_MUTE,
@@ -166,20 +165,6 @@ struct MessageBGM_Play : public Message
 */
 /******************************************************************************/
 	MessageBGM_Play(const std::string file_id);
-};
-
-struct MessageBGM_Stop : public Message
-{
-	std::string file_id_;
-
-	/******************************************************************************/
-	/*!
-	  \fn MessageBGM_Stop()
-
-	  \brief Initializes a message with the name of sound file to be stopped
-	*/
-	/******************************************************************************/
-	MessageBGM_Stop(const std::string file_id);
 };
 
 ///Message to tell the game to quit

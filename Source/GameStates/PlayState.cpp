@@ -97,8 +97,7 @@ void PlayState::Free()
 {
 	std::cout << "PlayState clean Successful" << std::endl;
 
-	MessageBGM_Stop msg{ "River" };
-	CORE->BroadcastMessage(&msg);
+	CORE->GetSystem<SoundSystem>()->StopSound("All", true);
 
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();

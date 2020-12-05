@@ -461,15 +461,6 @@ void SoundSystem::SendMessageD(Message* m) {
 		MuteSound("all", true, true);
 		break;
 	}
-	case MessageIDTypes::BGM_STOP:
-	{
-		// stops the current BGM
-		//need to check id of song to stop
-		MessageBGM_Stop* msg = dynamic_cast<MessageBGM_Stop*>(m);
-		std::cout << "Stopping Sound File: " << msg->file_id_ << std::endl;
-		StopSound(msg->file_id_);
-		break;
-	}
 	default:
 		break;
 	}

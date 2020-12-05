@@ -64,7 +64,7 @@ void EditorState::Init(std::string)
 void EditorState::Free()
 {
 	std::cout << "EditorState clean Successful" << std::endl;
-
+	CORE->GetSystem<SoundSystem>()->StopSound("All", true);
 	FACTORY->DestroyAllEntities();
 }
 
