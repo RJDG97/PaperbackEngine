@@ -514,7 +514,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 		{
 		case CollisionLayer::PLAYER:
 		{
-			if (!CORE->GetGodMode())
+			if (CORE->GetGodMode())
 				break;
 
 			if (PlayervEnemyResponse(aabb1, aabb2)) {

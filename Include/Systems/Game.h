@@ -167,6 +167,13 @@ public:
 /******************************************************************************/
 	virtual void SendMessageD(Message* m) override;
 
+/******************************************************************************/
+/*!
+  \fn LoadAllTextureJson()
+
+  \brief Load all textures from a specific path
+*/
+/******************************************************************************/
 	std::vector<std::string> LoadAllTextureJson();
 
 private:

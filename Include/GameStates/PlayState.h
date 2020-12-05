@@ -148,9 +148,31 @@ private:
 	float timer_ = 12.0f;
 };
 
+/******************************************************************************/
+/*!
+  \fn VerifyStatusNoneOrAlt()
 
+  \brief Verifies player status whether it is equal before setting status
+*/
+/******************************************************************************/
 bool VerifyStatusNoneOrAlt(StatusType player, StatusType to_check);
+
+/******************************************************************************/
+/*!
+  \fn RotateLeft()
+
+  \brief Rotate either left or right
+*/
+/******************************************************************************/
 void RotateLeft(Transform* xform, bool yes);
+
+/******************************************************************************/
+/*!
+  \fn ScaleEntityBig()
+
+  \brief Scale either up or down
+*/
+/******************************************************************************/
 void ScaleEntityBig(Scale* scale, bool yes);
 
 extern PlayState m_PlayState;

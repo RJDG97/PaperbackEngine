@@ -56,8 +56,32 @@ class SoundChannel
 	friend class SoundSystem;
 
 public:
+
+	/******************************************************************************/
+	/*!
+	  \fn SoundChannel()
+
+	  \brief Constructor for SoundChannel
+	*/
+	/******************************************************************************/
 	SoundChannel();
+
+	/******************************************************************************/
+	/*!
+	  \fn SoundChannel()
+
+	  \brief Constructor for SoundChannel
+	*/
+	/******************************************************************************/
 	SoundChannel(float volume, float min_distance, float volume_falloff);
+
+	/******************************************************************************/
+	/*!
+	  \fn SoundChannel()
+
+	  \brief Destructor for SoundChannel
+	*/
+	/******************************************************************************/
 	~SoundChannel();
 
 private:

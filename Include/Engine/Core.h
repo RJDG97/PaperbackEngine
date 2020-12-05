@@ -180,18 +180,109 @@ public:
 		return std::dynamic_pointer_cast<ManagerType>(return_val->second);
 	}
 
+
+/******************************************************************************/
+/*!
+  \fn GetCorePauseStatus()
+
+  \brief Get pause status
+*/
+/******************************************************************************/
 	bool GetCorePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn ResetCorePauseStatus()
+
+  \brief Reset pause status
+*/
+/******************************************************************************/
 	void ResetCorePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn ToggleCorePauseStatus()
+
+  \brief Toggle pause status
+*/
+/******************************************************************************/
 	void ToggleCorePauseStatus();
 
+
+
+/******************************************************************************/
+/*!
+  \fn GetGamePauseStatus()
+
+  \brief Get game pause status
+*/
+/******************************************************************************/
 	bool GetGamePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn 	void ResetGamePauseStatus();
+()
+
+  \brief Reset game pause status
+*/
+/******************************************************************************/
 	void ResetGamePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn ToggleGamePauseStatus()
+
+  \brief Toggle game pause status
+*/
+/******************************************************************************/
 	void ToggleGamePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn SetGameActiveStatus()
+
+  \brief Set game pause status
+*/
+/******************************************************************************/
 	void SetGameActiveStatus(bool status);
 
+
+
+/******************************************************************************/
+/*!
+  \fn GetGodMode()
+
+  \brief Get god mode
+*/
+/******************************************************************************/
 	bool GetGodMode();
+
+/******************************************************************************/
+/*!
+  \fn SetGodMode()
+
+  \brief Set god mode
+*/
+/******************************************************************************/
 	void SetGodMode(bool status);
+
+/******************************************************************************/
+/*!
+  \fn ToggleGodMode()
+
+  \brief Toggle god mode
+*/
+/******************************************************************************/
 	void ToggleGodMode();
+
+/******************************************************************************/
+/*!
+  \fn ResetGodMode()
+
+  \brief Reset god mode
+*/
+/******************************************************************************/
 	void ResetGodMode();
 
 private:
@@ -209,8 +300,6 @@ private:
 	using ManagerIt = std::unordered_map<std::string, std::shared_ptr<IManager>>::iterator;
 	std::unordered_map<std::string, std::shared_ptr<IManager>> managers_;
 
-	////The last time the game was updated
-	//unsigned LastTime;
 	//Is the game running (true) or being shut down (false)?
 	bool b_game_active_;
 
