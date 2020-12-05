@@ -7,5 +7,7 @@
 
   "Key Animations": "Resources/AssetsLoading/Animation/key_animations.json",
   
-  "Torch Animations": "Resources/AssetsLoading/Animation/torch_animations.json"
+  "Torch Animations": "Resources/AssetsLoading/Animation/torch_animations.json",
+  
+  "Gate Animations": "Resources/AssetsLoading/Animation/gate_animations.json"
 }
