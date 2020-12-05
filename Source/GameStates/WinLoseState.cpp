@@ -65,16 +65,6 @@ void WinLoseState::StateInputHandler(Message* msg, Game* game) {
 
 	switch(msg->message_id_)
 	{
-		//case MessageIDTypes::M_BUTTON_TRIGGERED:
-		//{
-		//	Message_Input* m = dynamic_cast<Message_Input*>(msg);
-		//	if (m) {
-		//		// yeah change this input to the button checker thingies ma jig when we have buttons
-		//		if (m->input_== GLFW_KEY_ENTER)
-		//			game->ChangeState(&m_MenuState);
-		//	}
-		//	break;
-		//}
 		case MessageIDTypes::BUTTON:
 		{
 			Message_Button* m = dynamic_cast<Message_Button*>(msg);

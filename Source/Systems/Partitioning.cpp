@@ -32,9 +32,6 @@ void PartitioningSystem::InitPartition() {
 	abs_bottom_left_ = CORE->GetManager<AMap>()->GetBottomLeft();
 	abs_top_right_ = CORE->GetManager<AMap>()->GetTopRight();
 
-	//int x = static_cast<int>((abs_top_right_.x - abs_bottom_left_.x) / grid_size_);
-	//int y = static_cast<int>((abs_top_right_.y - abs_bottom_left_.y) / grid_size_);
-
 	float x = (abs_top_right_.x - abs_bottom_left_.x) / grid_size_;
 	float y = (abs_top_right_.y - abs_bottom_left_.y) / grid_size_;
 

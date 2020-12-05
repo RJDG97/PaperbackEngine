@@ -33,8 +33,6 @@ SoundSystem::SoundSystem() :
 
 SoundSystem::~SoundSystem() {
 
-	//Serialize("Resources/AssetsLoading/sounds.json");
-
 	// Terminate system
 	f_system_->close();
 	f_system_->release();
@@ -76,16 +74,6 @@ void SoundSystem::SetVolume(std::string fileID, const float& vol) {
 			c_it->second->volume_ = vol;
 		}
 	}
-}
-
-void SoundSystem::SetVolume(const float& vol) {																// to be removed
-	
-	volume_ = vol;
-}
-
-float SoundSystem::GetVolume() {																			// to be removed
-	
-	return volume_;
 }
 
 void SoundSystem::LoadSound(std::string name, std::stringstream& data) {

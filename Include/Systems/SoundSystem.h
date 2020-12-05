@@ -179,24 +179,6 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn SetVolume()    ->   To be removed
-
-  \brief Set volume for all sound channels
-*/
-/******************************************************************************/
-	void SetVolume(const float& vol);
-
-/******************************************************************************/
-/*!
-  \fn GetVolume()   ->   To be removed
-
-  \brief Get volume for all sound channels
-*/
-/******************************************************************************/
-	float GetVolume();
-
-/******************************************************************************/
-/*!
   \fn CheckError()
 
   \brief Checks if the FMOD sound file has been successfully loaded, 
