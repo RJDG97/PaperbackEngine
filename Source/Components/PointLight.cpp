@@ -95,6 +95,11 @@ glm::vec3 PointLight::GetColor() {
 	return color_;
 }
 
+bool PointLight::GetAlive()
+{
+	return alive_;
+}
+
 void PointLight::SetRadius(float new_radius){
 
 	radius_ = new_radius;
@@ -108,4 +113,9 @@ void PointLight::SetIntensity(float new_intensity){
 void PointLight::SetColor(glm::vec3 new_color) {
 
 	color_ = new_color;
+}
+
+void PointLight::SetAlive(bool alive)
+{
+	alive_ = alive;
 }

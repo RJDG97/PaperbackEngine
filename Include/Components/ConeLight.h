@@ -35,6 +35,8 @@ class ConeLight : public Component {
 	glm::vec2 pos_;
 	glm::vec2 direction_;
 
+	bool alive_;
+
 public:
 
 	friend class LightingSystem;
@@ -144,6 +146,15 @@ public:
 
 	/******************************************************************************/
 	/*!
+		\fn GetAlive()
+
+		\brief Get the alive of the component
+	*/
+	/******************************************************************************/
+	bool GetAlive();
+
+	/******************************************************************************/
+	/*!
 		\fn SetRadius()
 
 		\brief Sets the radius of the component
@@ -171,12 +182,21 @@ public:
 
 	/******************************************************************************/
 	/*!
-		\fn GetAngle()
+		\fn SetAngle()
 
-		\brief Get the Angle of the component
+		\brief Set the Angle of the component
 	*/
 	/******************************************************************************/
 	void SetAngle(float new_angle);
+
+	/******************************************************************************/
+	/*!
+		\fn SetAlive()
+
+		\brief Set the alive of the component
+	*/
+	/******************************************************************************/
+	void SetAlive(bool alive);
 
 };
 

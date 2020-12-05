@@ -293,7 +293,52 @@ void GraphicsSystem::Draw() {
     for (IRenderOrderIt it = uirenderers_in_order_.begin();
         it != uirenderers_in_order_.end(); ++it) {
 
-        if (!it->second->alive_) {
+        if (!it->second->alive_ || it->second->layer_ >= 10) {
+
+            continue;
+        }
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID()))
+            continue;
+
+        DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
+    }
+
+    //draws all the UI text
+    graphic_shaders_["TextShader"]->Use();
+    glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
+
+    for (TextRenderOrderIt it = uitext_renderers_in_order_.begin();
+         it != uitext_renderers_in_order_.end(); ++it) {
+
+        if (!it->second->alive_ || it->second->layer_ >= 10) {
+
+            continue;
+        }
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
+    }
+
+    DrawVignette(1.0f);
+
+    //Temporary way to draw things above the vignette for now, will make proper use of layering in the future
+    graphic_shaders_["UIShader"]->Use();
+    glBindVertexArray(graphic_models_["UIModel"]->vaoid_);
+
+    for (IRenderOrderIt it = uirenderers_in_order_.begin();
+        it != uirenderers_in_order_.end(); ++it) {
+
+        if (!it->second->alive_ || it->second->layer_ < 10) {
 
             continue;
         }
@@ -315,15 +360,13 @@ void GraphicsSystem::Draw() {
         DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
     }
 
-    //draws all the UI text
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     graphic_shaders_["TextShader"]->Use();
     glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
 
     for (TextRenderOrderIt it = uitext_renderers_in_order_.begin();
          it != uitext_renderers_in_order_.end(); ++it) {
 
-        if (!it->second->alive_) {
+        if (!it->second->alive_ || it->second->layer_ < 10) {
 
             continue;
         }
@@ -335,8 +378,6 @@ void GraphicsSystem::Draw() {
 
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
-
-    DrawVignette(1.0f);
 
     if (debug_) { debug_ = !debug_; }
 }

@@ -39,6 +39,8 @@ namespace Mite
 			GeneralScripts::obj_rigidbody->SetPosition
 			(*obj->second->GetDestinations().begin());
 			GeneralScripts::comp_mgr->GetComponent<AnimationRenderer>(obj->first)->SetAlive(false);
+			GeneralScripts::comp_mgr->GetComponent<PointLight>(obj->first)->SetAlive(false);
+			GeneralScripts::comp_mgr->GetComponent<ConeLight>(obj->first)->SetAlive(false);
 			obj->second->SetLife(false);
 			// CORE->GetManager<ComponentManager>()->GetComponent<TextureRenderer>(obj->first)->SetLife(false);
 		}
@@ -107,6 +109,8 @@ namespace Mite
 				obj->second->SetState(AI::AIState::Patrol);
 				obj->second->GetPath().clear();
 				GeneralScripts::comp_mgr->GetComponent<AnimationRenderer>(obj->first)->SetAlive(true);
+				GeneralScripts::comp_mgr->GetComponent<PointLight>(obj->first)->SetAlive(true);
+				GeneralScripts::comp_mgr->GetComponent<ConeLight>(obj->first)->SetAlive(true);
 				obj->second->SetLife(true);
 				//CORE->GetManager<ComponentManager>()->GetComponent<TextureRenderer>(obj->first)->SetLife(true);
 			}

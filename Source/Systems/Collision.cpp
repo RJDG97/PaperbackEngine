@@ -19,6 +19,7 @@
 #include "Systems/Game.h"
 #include "Systems/Debug.h"
 #include "Systems/InputSystem.h"
+#include "Systems/DialogueSystem.h" //temporary
 #include "Manager/ForcesManager.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
@@ -453,6 +454,8 @@ bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 		player_inven->SetHasKey(false);
 		FACTORY->Destroy(aabb2->second->GetOwner());
 
+		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("gateunlocked");
+
 		return false;
 	}
 
@@ -467,6 +470,9 @@ void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
 
 		player_inven->SetHasKey(true);
 		FACTORY->Destroy(aabb2->second->GetOwner());
+
+		//temporary
+		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("keypickedup");
 
 		return;
 	}
