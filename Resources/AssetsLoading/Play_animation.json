@@ -3,5 +3,7 @@
 	
 	"Mite Animations": "Resources/AssetsLoading/Animation/mite_animations.json",
 	
-	"Stagbeetle Animations": "Resources/AssetsLoading/Animation/stagbeetle_animations.json"
+	"Stagbeetle Animations": "Resources/AssetsLoading/Animation/stagbeetle_animations.json",
+
+        "Key Animations": "Resources/AssetsLoading/Animation/key_animations.json"
 }
