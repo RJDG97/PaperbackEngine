@@ -5,5 +5,7 @@
 	
 	"Stagbeetle Animations": "Resources/AssetsLoading/Animation/stagbeetle_animations.json",
 
-        "Key Animations": "Resources/AssetsLoading/Animation/key_animations.json"
+  "Key Animations": "Resources/AssetsLoading/Animation/key_animations.json",
+  
+  "Torch Animations": "Resources/AssetsLoading/Animation/torch_animations.json"
 }

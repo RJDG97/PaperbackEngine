@@ -52,13 +52,16 @@ void PointLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* wri
 	writer->Key("intensity");
 	writer->String(std::to_string(intensity_).c_str());
 
+	writer->Key("alive");
+	writer->String(std::to_string(alive_).c_str());
+
 	writer->EndObject();
 }
 
 void PointLight::DeSerialize(std::stringstream& data) {
 
 	data >> color_.x >> color_.y >> color_.z
-		 >> radius_ >> intensity_;
+		 >> radius_ >> intensity_ >> alive_;
 }
 
 void PointLight::DeSerializeClone(std::stringstream& data) {
@@ -76,6 +79,7 @@ std::shared_ptr<Component> PointLight::Clone() {
 	cloned->model_ = model_;
 	cloned->shdr_pgm_ = shdr_pgm_;
 	cloned->radius_ = radius_;
+	cloned->alive_ = alive_;
 
 	return cloned;
 }
