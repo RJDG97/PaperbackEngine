@@ -27,7 +27,7 @@
 #include "Manager/AMap.h"
 #include "Manager/TransitionManager.h"
 
-#include "Engine/Core.h" //FOR TESTING
+#include "Engine/Core.h"
 
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Factory.h"

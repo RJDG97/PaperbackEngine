@@ -149,6 +149,14 @@ private:
 /******************************************************************************/
 	void DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first);
 
+/******************************************************************************/
+/*!
+  \fn WallvEnemyResponse()
+
+  \brief Helper function to handle response of an enemy colliding
+		 with a wall
+*/
+/******************************************************************************/
 	void WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2);
 
 /******************************************************************************/
@@ -187,6 +195,13 @@ private:
 /******************************************************************************/
 	void PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2);
 
+/******************************************************************************/
+/*!
+  \fn PlayerCollectibleResponse()
+
+  \brief Helper function to handle response of a player colliding with a collectible
+*/
+/******************************************************************************/
 	void PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2);
 
 /******************************************************************************/

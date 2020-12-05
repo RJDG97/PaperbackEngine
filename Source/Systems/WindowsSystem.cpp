@@ -41,8 +41,6 @@ void WindowsSystem::Init() {
 	// In case a GLFW function fails, an error is reported to callback function
 	//glfwSetErrorCallback(GLHelper::error_cb);
 
-	//width_ = 800;
-	//height_ = 600;
 	DeSerialize();
 
 	// Before asking GLFW to create an OpenGL context, we specify the minimum constraints

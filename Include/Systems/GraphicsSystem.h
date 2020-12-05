@@ -422,14 +422,58 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
     void SetVignetteSize(glm::vec2 size);
 
+/******************************************************************************/
+/*!
+    \fn GetVignetteSize()
+
+    \brief Get vignette's size
+*/
+/******************************************************************************/
     glm::vec2 GetVignetteSize();
 
+/******************************************************************************/
+/*!
+    \fn SetMaxVignetteSize()
+
+    \brief Set vignette's max size
+*/
+/******************************************************************************/
     void SetMaxVignetteSize(glm::vec2 size);
 
+/******************************************************************************/
+/*!
+    \fn GetMaxVignetteSize()
+
+    \brief Get vignette's max size
+*/
+/******************************************************************************/
     glm::vec2 GetMaxVignetteSize();
 
+/******************************************************************************/
+/*!
+    \fn DrawDebugLines()
+
+    \brief Draw debug lines with a vector of points
+*/
+/******************************************************************************/
     void DrawDebugLines(Points points, glm::vec4 color, float width);
+
+/******************************************************************************/
+/*!
+    \fn EnableLighting()
+
+    \brief Toggle lighting
+*/
+/******************************************************************************/
     void EnableLighting(bool value);
+
+/******************************************************************************/
+/*!
+    \fn EntitiesWithThisTexture()
+
+    \brief Check vectors with a particular texture
+*/
+/******************************************************************************/
     std::vector<EntityID> EntitiesWithThisTexture(GLuint handle);
 
     using TextRendererType = CMap<TextRenderer>;

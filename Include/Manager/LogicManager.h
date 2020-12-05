@@ -46,6 +46,13 @@ private:
 	template <typename... Args>
 	static inline std::map<std::string, void(*)(Args...)> logic_map_;
 
+	/******************************************************************************/
+	/*!
+		\fn RegisterLogic()
+
+		\brief Registers a function pointer to a string name
+	*/
+	/******************************************************************************/
 	template <typename... Args>
 	void RegisterLogic(const std::string& name, void(*function)(Args...)) {
 
@@ -76,7 +83,14 @@ public:
 	/******************************************************************************/
 	void Init() override;
 
-	template <typename... Args/*, typename... Params*/>
+	/******************************************************************************/
+	/*!
+		\fn Exec()
+
+		\brief Executes a function with the matching param signatures & matching string
+	*/
+	/******************************************************************************/
+	template <typename... Args>
 	void Exec(const std::string& name, Args&&... args) {
 
 		DEBUG_ASSERT(logic_map_<remove_cv<Args>...>[name], "Function is nullptr!");

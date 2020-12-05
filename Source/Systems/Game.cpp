@@ -83,8 +83,7 @@ void Game::ChangeState(GameState* state, std::string level_name)
 	states_.back()->Init(level_name);
 }
 
-// temporarily pushes a new state onto the stack
-void Game::PushState(GameState* state) // need to check if current state already exists in stack
+void Game::PushState(GameState* state)
 {
 	(void)state;
 }

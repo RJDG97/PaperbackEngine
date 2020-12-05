@@ -158,8 +158,6 @@ void TransitionManager::CloseTransition(const float& frametime) {
 			CORE->GetSystem<Game>()->ChangeState(next_state_);
 
 			// Last scene is completed
-			/*current_transition_ = nullptr;
-			next_state_ = nullptr;*/
 			begin_ = true;
 		}
 	}
