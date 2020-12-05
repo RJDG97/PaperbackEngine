@@ -15,8 +15,8 @@
         },
         {
             "component": "AABB",
-            "scale": "6.000000 4.500000",
-            "layer": "0"
+            "scale": "6.000000 2.800000",
+            "layer": "1"
         }
     ],
     "HillNormal": [
@@ -35,8 +35,8 @@
         },
         {
             "component": "AABB",
-            "scale": "6.000000 4.500000",
-            "layer": "0"
+            "scale": "6.000000 2.800000",
+            "layer": "1"
         }
     ]
 }
