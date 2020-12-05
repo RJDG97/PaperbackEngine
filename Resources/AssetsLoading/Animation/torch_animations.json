@@ -1,0 +1,11 @@
+{
+  "Torch_Idle.png": [ 
+    {
+	  "Folder": "Props/Props_Anims",
+	  "Animation Batch Name": "Torch_Animations",
+	  "Columns": "10",
+	  "Rows": "1",
+      "Animation Name, Number of Frames, Frame Duration": "Torch_Idle 10 0.06"
+    }
+  ]
+}

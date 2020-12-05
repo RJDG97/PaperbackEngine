@@ -63,7 +63,7 @@ void EntityWindow::Update() {
 		if (b_grid)
 			imgui_->DrawGrid();
 
-		if (ImGui::Checkbox("Draw Bounding Box", &b_draw)) {
+		if (ImGui::Checkbox("Bounding Boxes", &b_draw)) {
 
 			Message msg(MessageIDTypes::DEBUG_ALL);
 			CORE->BroadcastMessage(&msg);
@@ -1122,6 +1122,12 @@ void EntityWindow::TextureRendererComponent(Entity* entity) {
 		ComponentInputInt("Texture Renderer Layer: ", "##texlayer", input_layer, 95.0f, 1, 1);
 
 		graphics_->ChangeLayer(&*entity_texture, input_layer);
+
+		int input_ui = entity_texture->GetUI();
+
+		ComponentInputInt("UI: ", "##uilayer", input_ui, 95.0f, 0, 1);
+
+		entity_texture->SetUI(input_ui);
 
 		std::string path = {};
 

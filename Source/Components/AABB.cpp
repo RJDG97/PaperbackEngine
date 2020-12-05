@@ -21,7 +21,8 @@
 AABB::AABB() : 
 	top_right_{},
 	bottom_left_{},
-	scale_{ 30.0f,30.0f }
+	scale_{ 0.5f,0.5f },
+	layer_{0}
 {}
 
 AABB::~AABB() {

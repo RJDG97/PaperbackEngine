@@ -299,6 +299,13 @@ void ImguiSystem::ImguiMenuBar() {
                     b_add_path = true;
             }
 
+            if (ImGui::MenuItem("Save Entity Path Only")) {
+
+                factory_->SerializeCurrentLevelEntities(); // save each entity to their respective path
+
+            }
+            ImguiHelp("This saves the individual paths of each type of entity in the scene.\nUser would have to manually update the scene json themselves.", 0);
+
             if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene")) {
                 b_close_confirm = true;
                 type = CloseApp::CREATENEWSCENE;
@@ -462,21 +469,25 @@ void ImguiSystem::SaveCheckPopUp(const char* window_name, int exit_type) {
             if (exit_type == CloseApp::CREATENEWSCENE) { // create new scene
 
                 selected_entity_ = {};
+                type = CloseApp::NONE;
                 NewScene();
+                ImGui::CloseCurrentPopup();
             }
             if (exit_type == CloseApp::RETURNMENU) { // return to menu
                 b_imgui_mode = false;
                 FACTORY->DestroyAllEntities();
                 selected_entity_ = {};
                 CORE->ResetGodMode();
+                type = CloseApp::NONE;
                 CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
+                ImGui::CloseCurrentPopup();
             }
-            else { // exit the app
+            else if (exit_type == CloseApp::EXITAPP){ // exit the app
 
+                type = CloseApp::NONE;
                 CORE->SetGameActiveStatus(false);
+                ImGui::CloseCurrentPopup();
             }
-
-            ImGui::CloseCurrentPopup();
         }
 
         ImGui::SameLine(0, 10);
@@ -725,14 +736,18 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
         CustomImGuiButton((ImVec4)ImColor::HSV(0 / 7.0f, 0.6f, 0.6f), (ImVec4)ImColor::HSV(0 / 7.0f, 0.7f, 0.7f), (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
 
         if (ImGui::Button("OK")) {
-            if (!selected_entity_->GetID() && !entity) 
+            if (!selected_entity_->GetID() && !entity) {
                 entities_->DeleteArchetype(selected_entity_); //delete archetype
-            else if (selected_entity_->GetID() && !entity)
+                selected_entity_ = nullptr;
+            }
+            else if (selected_entity_->GetID() && !entity) {
                 entities_->DeleteEntity((selected_entity_)); //delete entities
+                selected_entity_ = nullptr;
+            }
             else if (!selected_entity_->GetID() && entity)
                 entity->RemoveComponent(component); // delete component from archetype
 
-            selected_entity_ = {};
+            
             ImGui::CloseCurrentPopup();
         }
 

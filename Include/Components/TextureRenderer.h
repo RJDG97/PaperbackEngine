@@ -123,6 +123,9 @@ public:
 /******************************************************************************/
 	std::string GetCurrentTextureName();
 
+	int GetUI();
+
+	void SetUI(int ui);
 };
 
 #endif

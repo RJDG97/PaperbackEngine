@@ -98,13 +98,13 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "0",
-            "ui": "0"
+            "layer": "-842150451",
+            "ui": "205"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "0"
+            "scale": "30.000000 30.000000",
+            "layer": "14829735431805717965"
         },
         {
             "component": "Scale",
@@ -127,12 +127,12 @@
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
             "layer": "0",
-            "ui": "0"
+            "ui": "205"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "0"
+            "scale": "30.000000 30.000000",
+            "layer": "14829735431805717965"
         },
         {
             "component": "Scale",
@@ -425,17 +425,17 @@
         {
             "component": "TextureRenderer",
             "texture": "Grass_One_0",
-            "layer": "1",
-            "ui": "0"
+            "layer": "-842150451",
+            "ui": "205"
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
+            "scale": "30.000000 30.000000",
+            "layer": "14829735431805717965"
         },
         {
             "component": "Scale",
-            "scale": "48.000000 48.000000"
+            "scale": "50.000000 50.000000"
         }
     ],
     "GrassLight": [
@@ -454,12 +454,12 @@
             "component": "TextureRenderer",
             "texture": "Grass_Two_0",
             "layer": "0",
-            "ui": "0"
+            "ui": "205"
         },
         {
             "component": "AABB",
             "scale": "30.000000 30.000000",
-            "layer": "0"
+            "layer": "14829735431805717965"
         },
         {
             "component": "Scale",
@@ -516,16 +516,16 @@
             "component": "TextureRenderer",
             "texture": "Hill_One_0",
             "layer": "0",
-            "ui": "0"
+            "ui": "205"
         },
         {
             "component": "AABB",
-            "scale": "6.000000 4.500000",
-            "layer": "0"
+            "scale": "30.000000 30.000000",
+            "layer": "14829735431805717965"
         },
         {
             "component": "Scale",
-            "scale": "530.000000 530.000000"
+            "scale": "250.000000 250.000000"
         }
     ],
     "HillTShaped": [
@@ -544,12 +544,12 @@
             "component": "TextureRenderer",
             "texture": "Hill_Two_0",
             "layer": "0",
-            "ui": "0"
+            "ui": "205"
         },
         {
             "component": "AABB",
             "scale": "30.000000 30.000000",
-            "layer": "0"
+            "layer": "14829735431805717965"
         },
         {
             "component": "Scale",
@@ -707,8 +707,8 @@
         },
         {
             "component": "AI",
-            "range": "-431602080.000000",
-            "speed": "-431602080.000000"
+            "range": "3.000000",
+            "speed": "100.000000"
         },
         {
             "component": "Scale",
@@ -1000,8 +1000,8 @@
         },
         {
             "component": "AI",
-            "range": "-431602080.000000",
-            "speed": "-431602080.000000"
+            "range": "300.000000",
+            "speed": "3000.000000"
         },
         {
             "component": "Scale",
@@ -1013,9 +1013,9 @@
         {
             "component": "ConeLight",
             "color": "1.000000 1.000000 1.000000",
-            "radius": "40.000000",
+            "radius": "500.000000",
             "intensity": "1.000000",
-            "angle": "1.000000"
+            "angle": "40.000000"
         },
         {
             "component": "LogicComponent",

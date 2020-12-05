@@ -114,3 +114,12 @@ std::string TextureRenderer::GetCurrentTextureName()
 {
     return texture_name_;
 }
+
+int TextureRenderer::GetUI() {
+
+    return ui_;
+}
+
+void TextureRenderer::SetUI(int ui) {
+    ui_ = ui;
+}

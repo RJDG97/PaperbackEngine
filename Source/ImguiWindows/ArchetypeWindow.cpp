@@ -74,7 +74,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 						if (imgui_->GetExistingSceneCamera()) {
 
-							if (entityIT->second->GetComponent(ComponentTypes::TEXTURERENDERER)) {
+							if (entityIT->second->GetComponent(ComponentTypes::TEXTURERENDERER) || entityIT->second->GetComponent(ComponentTypes::ANIMATIONRENDERER)) {
 
 								if (entityIT->second->GetComponent(ComponentTypes::TRANSFORM) && entityIT->second->GetComponent(ComponentTypes::SCALE)) {
 
@@ -105,6 +105,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 						ImGui::OpenPopup("Components are Missing!!!");
 
 						imgui_->SetEntity(entityIT->second);
+						archetype_name = entityIT->first;
 
 						if (!imgui_->GetEntity()->GetComponent(ComponentTypes::TRANSFORM))
 							b_notrans = true;
@@ -126,8 +127,6 @@ void ArchetypeWindow::AvaliableArchetypes() {
 					ImGui::Checkbox("Add/Edit Components", &imgui_->b_editcomp); ImGui::SameLine(0, 3);
 					imgui_->ImguiHelp("Untick this whenever you are done");
 
-					imgui_->SetEntity(entityIT->second);
-					archetype_name = entityIT->first;
 					ImGui::TreePop();
 				}
 			}
@@ -152,7 +151,7 @@ void ArchetypeWindow::ArchetypeMenuBar() {
 
 		if (ImGui::MenuItem(ICON_FA_SAVE ICON_FA_ELLIPSIS_H)) {
 
-			std::string path = imgui_->OpenSaveDialog("(*.json) Paperback Engine Scene\0*.json\0", 0);
+			std::string path = imgui_->OpenSaveDialog("(*.json) Paperback Engine Scene\0*.json\0", 1);
 			imgui_->SaveArchetype(path);
 		}
 
@@ -246,7 +245,6 @@ void ArchetypeWindow::AddComponent() {
 
 		ImGui::End();
 	}
-	
 }
 
 void ArchetypeWindow::AddSingleComponent(std::string archetype, ComponentTypes component) {
@@ -287,7 +285,8 @@ void ArchetypeWindow::AddNewArchetypePopup() {
 		}
 
 		if (ImGui::Button("Close This Panel")) {
-
+			b_new_archetype = false;
+			ImGui::CloseCurrentPopup();
 		}
 		ImGui::EndPopup();
 	}
@@ -337,7 +336,7 @@ void ArchetypeWindow::MissingComponentPopUp() {
 
 		ImGui::TextColored(REDHOVERED, "Error!!!!!");
 		if (b_notrans && b_noscale)
-			ImGui::Text("Trying to add an entity with a Texture with no have Scale & Transform Component");
+			ImGui::Text("Trying to add an entity with a Texture without Scale & Transform Components");
 		else if (b_notrans)
 			ImGui::Text("Trying to add an entity with a Texture with no Transform Component");
 		else if (b_noscale)
@@ -350,18 +349,33 @@ void ArchetypeWindow::MissingComponentPopUp() {
 			if (b_notrans && b_noscale) {
 
 				AddSingleComponent("Transform", ComponentTypes::TRANSFORM);
-				b_notrans = false;
 				AddSingleComponent("Scale", ComponentTypes::SCALE);
+
+				entities_->CloneArchetype(archetype_name);
+				//imgui_->SetEntity(nullptr);
+				archetype_name = {};
+
 				b_noscale = false;
+				b_notrans = false;
 			}
 			else if (b_notrans) {
 
 				AddSingleComponent("Transform", ComponentTypes::TRANSFORM);
+
+				entities_->CloneArchetype(archetype_name);
+				//imgui_->SetEntity(nullptr);
+				archetype_name = {};
+
 				b_notrans = false;
 			}
 			else if (b_noscale) {
 
 				AddSingleComponent("Scale", ComponentTypes::SCALE);
+
+				entities_->CloneArchetype(archetype_name);
+				//imgui_->SetEntity(nullptr);
+				archetype_name = {};
+
 				b_noscale = false;
 			}
 
@@ -377,6 +391,7 @@ void ArchetypeWindow::MissingComponentPopUp() {
 			b_notrans = false;
 			b_noscale = false;
 			b_missingcomp = false;
+			archetype_name = {};
 		}
 
 		ImGui::SameLine(0, 10);
@@ -389,6 +404,7 @@ void ArchetypeWindow::MissingComponentPopUp() {
 			b_notrans = false;
 			b_noscale = false;
 			b_missingcomp = false;
+			archetype_name = {};
 
 			ImGui::CloseCurrentPopup();
 		}
