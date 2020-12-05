@@ -71,14 +71,15 @@ void TextureRenderer::DeSerializeClone(std::stringstream& data) {
     //remove existing entry before proceeding
     CORE->GetSystem<GraphicsSystem>()->RemoveTextureRendererComponent(Component::GetOwner()->GetID());
 
-    int layer;
+    //int layer;
 
-    data >> texture_name_ >> layer >> ui_;
+    //data >> texture_name_ >> layer >> ui_;
+    DeSerialize(data);
 
-    if (layer != layer_) {
+    //if (layer != layer_) {
 
-        M_DEBUG->WriteDebugMessage("Layer is keyed in wrongly!");
-    }
+    //    M_DEBUG->WriteDebugMessage("Layer is keyed in wrongly!");
+    //}
 
     //readd with new info
     CORE->GetSystem<GraphicsSystem>()->AddTextureRendererComponent(Component::GetOwner()->GetID(), this);

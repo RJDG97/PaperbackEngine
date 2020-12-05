@@ -285,12 +285,31 @@ public:
 /******************************************************************************/
 	void ResetGodMode();
 
+/******************************************************************************/
+/*!
+  \fn GetMovementLock()
+
+  \brief Get status of whether movement is locked
+*/
+/******************************************************************************/
+	bool GetMovementLock();
+
+/******************************************************************************/
+/*!
+  \fn SetGetMovementLock()
+
+  \brief Set movement lock
+*/
+/******************************************************************************/
+	void SetMovementLock(bool status = false);
+
 private:
 
 	bool debug_;
 	bool pause_;
 	bool game_pause_;
 	bool god_mode_;
+	bool movement_lock_;
 
 	// Tracks all the systems the game uses
 	using SystemIt = std::vector< std::pair<std::string, std::shared_ptr<ISystem>> >::iterator;

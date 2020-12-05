@@ -26,6 +26,7 @@ CoreEngine::CoreEngine() :
 	pause_{ false },
 	god_mode_{ false },
 	game_pause_{ false },
+	movement_lock_{ false },
 	b_game_active_{ true },
 	global_scale_{ 64.0f }
 {
@@ -168,4 +169,13 @@ void CoreEngine::ResetGodMode() {
 
 void CoreEngine::ToggleGodMode() {
 	god_mode_ = !god_mode_;
+}
+
+bool CoreEngine::GetMovementLock() {
+	return movement_lock_;
+}
+
+void CoreEngine::SetMovementLock(bool status) {
+
+	movement_lock_ = status;
 }

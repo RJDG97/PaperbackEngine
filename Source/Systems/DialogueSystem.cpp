@@ -109,6 +109,8 @@ void DialogueSystem::Update(float frametime)
 					new_scale = 0.0f;
 					dialogue_box_scale_->SetScale({ textbox_max_scale_.x, new_scale });
 					dialogue_status_ = DialogueStatus::INACTIVE;
+
+					CORE->SetMovementLock();
 				}
 
 				break;
@@ -142,6 +144,8 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 			}
 		}
 	}
+
+	CORE->SetMovementLock(true);
 
 	dialogue_box_renderer_->SetAlive(true);
 	dialogue_text_renderer_->SetAlive(true);

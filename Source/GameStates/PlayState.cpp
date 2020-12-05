@@ -281,8 +281,17 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 					CORE->GetSystem<Collision>()->ToggleClickables(1);
 					CORE->GetSystem<Collision>()->ToggleClickables(3);
 
-					Message pause{ MessageIDTypes::BGM_PAUSE };
-					CORE->BroadcastMessage(&pause);
+					if (CORE->GetCorePauseStatus()) {
+						
+						Message pause{ MessageIDTypes::BGM_PAUSE };
+						CORE->BroadcastMessage(&pause);
+					}
+					else {
+
+						Message pause{ MessageIDTypes::BGM_RESUME };
+						CORE->BroadcastMessage(&pause);
+					}
+
 					break;
 				}
 				case 7:

@@ -163,8 +163,16 @@ namespace Player_Scripts
 				CORE->GetSystem<Collision>()->ToggleClickables(2);
 			}
 
-			Message pause{ MessageIDTypes::BGM_PAUSE };
-			CORE->BroadcastMessage(&pause);
+			if (CORE->GetCorePauseStatus()) {
+
+				Message pause{ MessageIDTypes::BGM_PAUSE };
+				CORE->BroadcastMessage(&pause);
+			}
+			else {
+
+				Message pause{ MessageIDTypes::BGM_RESUME };
+				CORE->BroadcastMessage(&pause);
+			}
 		}
 		if (controller->VerifyKey("advance_text", m->input_)) {
 
@@ -238,7 +246,7 @@ namespace Player_Scripts
 			}
 			
 
-			if (player_status && player_status->GetStatus() != StatusType::INVISIBLE) {
+			if (player_status && player_status->GetStatus() != StatusType::INVISIBLE && !CORE->GetMovementLock()) {
 				//input group
 				float power = component_mgr->GetComponent<Motion>(id)->GetForce();
 

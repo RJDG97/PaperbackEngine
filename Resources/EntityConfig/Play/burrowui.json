@@ -10,7 +10,7 @@
         {
             "component": "TextureRenderer",
             "texture": "BurrowSkill_UI_0",
-            "layer": "2",
+            "layer": "10",
             "ui": "1"
         },
         {
