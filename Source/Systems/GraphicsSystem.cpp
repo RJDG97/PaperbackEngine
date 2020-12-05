@@ -230,7 +230,7 @@ void GraphicsSystem::Draw() {
 
         float y_position =
             component_manager_->GetComponent<Transform>(it->second->GetOwner()->GetID())->GetPosition().y * CORE->GetGlobalScale() -
-            component_manager_->GetComponent<Scale>(it->second->GetOwner()->GetID())->GetScale().y;
+            component_manager_->GetComponent<Scale>(it->second->GetOwner()->GetID())->GetScale().y / 2.0f;
 
         y_sorted.insert({ y_position, it->second });
         
