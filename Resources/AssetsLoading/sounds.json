@@ -83,8 +83,8 @@
     "River": [
       {
           "path": "Resources/SoundCache/Environment/River.mp3",
-          "volume": "0.40000",
-          "min distance": "4.000000",
+          "volume": "0.20000",
+          "min distance": "3.000000",
           "volume falloff": "0.030000",
           "loop": "1"
       }
@@ -150,6 +150,42 @@
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
+        }
+    ],
+    "AnimalSound": [
+        {
+            "path": "Resources/SoundCache/Environment/Animal_Sound.mp3",
+            "volume": "0.400000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1"
+        }
+    ],
+    "Atmosphehe": [
+        {
+            "path": "Resources/SoundCache/Environment/Atmosphere.mp3",
+            "volume": "0.400000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1"
+        }
+    ],
+    "Cricket": [
+        {
+            "path": "Resources/SoundCache/Environment/Cricket.mp3",
+            "volume": "0.500000",
+            "min distance": "3.500000",
+            "volume falloff": "0.030000",
+            "loop": "1"
+        }
+    ],
+    "Lake": [
+        {
+            "path": "Resources/SoundCache/Environment/Lake.mp3",
+            "volume": "0.400000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1"
         }
     ]
 }

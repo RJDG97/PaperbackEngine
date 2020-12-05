@@ -1,7 +1,7 @@
 {
   "Key_Idle.png": [ 
     {
-	  "Folder": "character_spritesheets",
+	  "Folder": "Props/Props_Anims",
 	  "Animation Batch Name": "Key_Animations",
 	  "Columns": "11",
 	  "Rows": "1",

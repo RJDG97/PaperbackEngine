@@ -347,8 +347,15 @@ void SoundSystem::Update(float frametime) {
 		for (auto& [id, sound_emitter] : *sound_emitter_arr_) {
 
 			ChannelIt it = channel_library_.find(sound_emitter->sound_name_);
-			if (it == channel_library_.end() || !sound_emitter->num_sound_lines_)
+			if (!sound_emitter->num_sound_lines_)
 				continue;
+
+			// If currently not playing sound, play it
+			if (it == channel_library_.end()) {
+
+				PlaySounds(sound_emitter->sound_name_);
+				return;
+			}
 
 			float dist = sound_emitter->GetMinDist(player_transform->GetOffsetAABBPos());
 
