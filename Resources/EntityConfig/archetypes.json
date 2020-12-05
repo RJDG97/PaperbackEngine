@@ -1,5 +1,5 @@
 {
-    "Camera": [
+  "Camera": [
     {
       "component": "Name",
       "name": "Camera"
@@ -50,10 +50,10 @@
       "color": "0.0 0.0 0.0",
       "radius": "0.0",
       "intensity": "0.0",
-	  "alive": "1"
+      "alive": "1"
     }
-   ],
-   "UIText": [
+  ],
+  "UIText": [
     {
       "component": "Name",
       "name": "UIText"
@@ -75,7 +75,7 @@
       "ui": "1",
       "alive": "1"
     }
-   ],
+  ],
   "WorldText": [
     {
       "component": "Name",
@@ -98,7 +98,7 @@
       "ui": "0",
       "alive": "1"
     }
-   ],
+  ],
   "Player": [
     {
       "component": "Name",
@@ -152,7 +152,7 @@
       "color": "1.0 1.0 0.7",
       "radius": "500.0",
       "intensity": "0.85",
-	  "alive": "1"
+      "alive": "1"
     },
     {
       "component": "LogicComponent",
@@ -208,7 +208,7 @@
       "color": "0.5 1.0 1.0",
       "radius": "200.0",
       "intensity": "2.0",
-	  "alive": "1"
+      "alive": "1"
     }
   ],
   "MovingWall": [
@@ -330,7 +330,7 @@
       "component": "AI",
       "AItype": "Stag_Beetle",
       "range": "300.0",
-      "speed": "3000.0", 
+      "speed": "3000.0",
       "dest": "1",
       "destination1": "0.0 0.0"
     },
@@ -382,7 +382,7 @@
       "color": "0.9 0.6 0.9",
       "radius": "1000.0",
       "intensity": "0.6",
-	  "alive": "1"
+      "alive": "1"
     },
     {
       "component": "ConeLight",
@@ -390,7 +390,7 @@
       "color": "1.0 0.7 0.7",
       "radius": "900.0",
       "intensity": "0.9",
-	  "alive": "1"
+      "alive": "1"
     },
     {
       "component": "LogicComponent",
@@ -408,7 +408,7 @@
       "component": "AI",
       "AItype": "Mite",
       "range": "3.0",
-      "speed": "100.0", 
+      "speed": "100.0",
       "dest": "1",
       "destination1": "0.0 0.0"
     },
@@ -445,7 +445,7 @@
       "color": "0.6 0.9 0.6",
       "radius": "1000.0",
       "intensity": "0.6",
-	  "alive": "1"
+      "alive": "1"
     },
     {
       "component": "ConeLight",
@@ -453,7 +453,7 @@
       "color": "0.7 1.0 0.7",
       "radius": "900.0",
       "intensity": "0.9",
-	  "alive": "1"
+      "alive": "1"
     },
     {
       "component": "AABB",
@@ -506,7 +506,7 @@
       "color": "1.0 1.0 0.7",
       "radius": "0.0",
       "intensity": "1.0",
-	  "alive": "1"
+      "alive": "1"
     },
     {
       "component": "ParentChild"
@@ -711,7 +711,7 @@
       "color": "1.0 1.0 0.6",
       "radius": "350.0",
       "intensity": "0.6",
-	  "alive": "1"
+      "alive": "1"
     }
   ],
   "Puddle": [
@@ -741,7 +741,7 @@
       "ui": "0",
       "alive": "1"
     }
-   ],
+  ],
   "ParticleEmitter": [
     {
       "component": "Name",
@@ -761,7 +761,7 @@
     {
       "component": "Emitter"
     }
-   ],
+  ],
   "MyParticle": [
     {
       "component": "Name",
@@ -793,8 +793,8 @@
     {
       "component": "Particle"
     }
-   ],
-   "SoundEmitter": [
+  ],
+  "SoundEmitter": [
     {
       "component": "Name",
       "name": "SoundEmitter"
@@ -802,7 +802,7 @@
     {
       "component": "SoundEmitter"
     }
-   ],
+  ],
   "Objectives": [
     {
       "component": "Name",
@@ -885,8 +885,8 @@
       "name": "UpdateChildOffset",
       "function": "Player_UpdateChildOffset"
     }
-   ],
-   "DialogueText": [
+  ],
+  "DialogueText": [
     {
       "component": "Name",
       "name": "DialogueText"
@@ -908,8 +908,8 @@
       "ui": "1",
       "alive": "0"
     }
-   ],
-   "BurrowIcon": [
+  ],
+  "BurrowIcon": [
     {
       "component": "Name",
       "name": "BurrowIcon"
@@ -942,8 +942,8 @@
       "name": "UpdateTexture",
       "function": "BurrowIcon_UpdateTexture"
     }
-   ],
-   "HideIcon": [
+  ],
+  "HideIcon": [
     {
       "component": "Name",
       "name": "HideIcon"
@@ -976,5 +976,173 @@
       "name": "UpdateTexture",
       "function": "HideIcon_UpdateTexture"
     }
-   ]
+  ],
+  "BushDark": [
+    {
+      "component": "Name",
+      "name": "BushDark"
+    },
+    {
+      "component": "Transform",
+      "position": "0.000000 0.000000",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 0.000000"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Bush_Two_0",
+      "layer": "0",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.500000 0.500000",
+      "layer": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "100.000000 100.000000"
+    }
+  ],
+  "BushLight": [
+    {
+      "component": "Name",
+      "name": "BushLight"
+    },
+    {
+      "component": "Transform",
+      "position": "0.000000 0.000000",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 0.000000"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Bush_One_0",
+      "layer": "0",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.500000 0.500000",
+      "layer": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "100.000000 100.000000"
+    }
+  ],
+  "HillNormal": [
+    {
+      "component": "Name",
+      "name": "HillNormal"
+    },
+    {
+      "component": "Transform",
+      "position": "0.000000 0.000000",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 0.000000"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Hill_One_0",
+      "layer": "0",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "6.000000 4.500000",
+      "layer": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "530.000000 530.000000"
+    }
+  ],
+  "HillTShaped": [
+    {
+      "component": "Name",
+      "name": "HillTShaped"
+    },
+    {
+      "component": "Transform",
+      "position": "0.000000 0.000000",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 0.000000"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Hill_Two_0",
+      "layer": "0",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "30.000000 30.000000",
+      "layer": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "250.000000 250.000000"
+    }
+  ],
+  "GrassDark": [
+    {
+      "component": "Name",
+      "name": "GrassDark"
+    },
+    {
+      "component": "Transform",
+      "position": "0.000000 0.000000",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 0.000000"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Grass_One_0",
+      "layer": "1",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.000000 1.000000",
+      "layer": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "48.000000 48.000000"
+    }
+  ],
+  "GrassLight": [
+    {
+      "component": "Name",
+      "name": "GrassLight"
+    },
+    {
+      "component": "Transform",
+      "position": "0.000000 0.000000",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 0.000000"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Grass_Two_0",
+      "layer": "0",
+      "ui": "0"
+    },
+    {
+      "component": "AABB",
+      "scale": "30.000000 30.000000",
+      "layer": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "50.000000 50.000000"
+    }
+  ]
 }
