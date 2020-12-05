@@ -1192,7 +1192,7 @@
     },
     {
       "component": "Scale",
-      "scale": "256.0 128.0"
+      "scale": "256.0 190.0"
     },
     {
       "component": "AnimationRenderer",
@@ -1207,7 +1207,7 @@
     },
     {
       "component": "AABB",
-      "scale": "4.0 2.0",
+      "scale": "1.0 3.0",
       "layer": "0"
     }
   ]
