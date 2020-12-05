@@ -25,6 +25,13 @@
 
 namespace Button_Script
 {
+	/******************************************************************************/
+	/*!
+	  \fn BurrowUI_TextureUpdateScript()
+
+	  \brief Texture update script for Burrow UI Button
+	*/
+	/******************************************************************************/
 	void BurrowUI_TextureUpdateScript(const EntityID& parent_id) {
 
 		std::shared_ptr<GraphicsSystem> graphics = CORE->GetSystem<GraphicsSystem>();
@@ -55,6 +62,13 @@ namespace Button_Script
 	}
 
 
+	/******************************************************************************/
+	/*!
+	  \fn HideUI_TextureUpdateScript()
+
+	  \brief Texture update script for Hide UI Button
+	*/
+	/******************************************************************************/
 	void HideUI_TextureUpdateScript(const EntityID& parent_id) {
 
 		std::shared_ptr<GraphicsSystem> graphics = CORE->GetSystem<GraphicsSystem>();

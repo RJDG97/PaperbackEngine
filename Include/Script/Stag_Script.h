@@ -24,6 +24,13 @@
 
 namespace Stag_Script
 {
+	/******************************************************************************/
+	/*!
+	  \fn TextureUpdateScript()
+
+	  \brief Texture update script for stag
+	*/
+	/******************************************************************************/
 	void TextureUpdateScript(const EntityID& parent_id) {
 		
 		std::shared_ptr<GraphicsSystem> graphics = CORE->GetSystem<GraphicsSystem>();
