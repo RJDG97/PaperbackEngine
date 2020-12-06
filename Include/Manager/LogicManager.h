@@ -44,7 +44,7 @@ class LogicManager : public IManager
 private:
 
 	template <typename... Args>
-	static inline std::map<std::string, void(*)(Args...)> logic_map_;
+	static inline std::map<std::string, void(*)(Args...)> logic_map_ = {};
 
 	/******************************************************************************/
 	/*!
