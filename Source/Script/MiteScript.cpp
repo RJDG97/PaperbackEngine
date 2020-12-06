@@ -88,8 +88,18 @@ namespace Mite
 						obj->second->SetState(AI::AIState::Attack);
 						break;
 					}
-					if(GeneralScripts::map_->Pathing(obj->second->GetPath(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos()))
+					if (GeneralScripts::map_->Pathing(obj->second->GetPath(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos()))
+					{
+						Vector2D directional = GeneralScripts::player_rigidbody->GetOffsetAABBPos() - GeneralScripts::obj_rigidbody->GetOffsetAABBPos();
+						directional /= Vector2DLength(directional);
+
+						//multiply by speed
+						directional *= obj->second->GetSpeed();
+
+						// Move AI
+						GeneralScripts::forces_->AddForce(obj->second->GetOwner()->GetID(), "movement", PE_FrameRate.GetFixedDelta(), directional);
 						obj->second->SetState(AI::AIState::Chase);
+					}
 					else
 						obj->second->SetState(AI::AIState::Patrol);
 				}
