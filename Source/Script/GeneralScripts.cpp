@@ -34,7 +34,7 @@ namespace GeneralScripts
 	{
 		float distance = Vector2DLength(player_rigidbody->GetOffsetAABBPos() - obj_rigidbody->GetOffsetAABBPos());
 
-		if (distance < 1.0f)
+		if (distance < 2.0f)
 			return true;
 
 		// If path is empty, set path
