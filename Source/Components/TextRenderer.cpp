@@ -65,6 +65,9 @@ void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
     writer->Key("ui");
     writer->String(std::to_string(ui_).c_str());
 
+    writer->Key("alive");
+    writer->String(std::to_string(alive_).c_str());
+
     writer->EndObject();
 }
 
