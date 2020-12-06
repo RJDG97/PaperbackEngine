@@ -462,7 +462,7 @@ void RemoveTextRendererComponent(EntityID id);
 /*!
     \fn EnableLighting()
 
-    \brief Toggle lighting
+    \brief Enables or disables lighting
 */
 /******************************************************************************/
     void EnableLighting(bool value);
@@ -471,7 +471,7 @@ void RemoveTextRendererComponent(EntityID id);
 /*!
     \fn EntitiesWithThisTexture()
 
-    \brief Check vectors with a particular texture
+    \brief Check all entites to see if they have a particular texture
 */
 /******************************************************************************/
     std::vector<EntityID> EntitiesWithThisTexture(GLuint handle);

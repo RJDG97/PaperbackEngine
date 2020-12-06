@@ -75,7 +75,7 @@ public:
 /*!
   \fn Dialogue()
 
-  \brief Constructor for DiglogueContent
+  \brief Constructor for Dialogue
 */
 /******************************************************************************/
 	Dialogue(std::vector<DialogueContent> contents);
@@ -109,7 +109,7 @@ public:
 /*!
   \fn LoadDialogueSet()
 
-  \brief Load a full dialogue
+  \brief Load a full dialogue set
 */
 /******************************************************************************/
 	void LoadDialogueSet(std::string level_name);
