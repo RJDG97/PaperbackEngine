@@ -170,24 +170,6 @@ void LightingSystem::Draw() {
 	Shader* cone_light_shader = lighting_shaders_["ConeLightShader"];
 
 	glBindVertexArray(light_model_->vaoid_);
-	point_light_shader->Use();
-
-	for (PointLightIt it = point_light_arr_->begin(); it != point_light_arr_->end(); ++it) {
-
-		if (!it->second->alive_)
-		{
-			continue;
-		}
-
-		if (debug_) {
-			// Log id of entity and its updated components that are being updated
-			M_DEBUG->WriteDebugMessage("Drawing point light for entity: " + std::to_string(it->first) + "\n");
-		}
-
-		DrawPointLight(point_light_shader, it->second, cam_zoom);
-	}
-
-	glBindVertexArray(light_model_->vaoid_);
 	cone_light_shader->Use();
 
 	for (ConeLightIt it = cone_light_arr_->begin(); it != cone_light_arr_->end(); ++it) {
@@ -203,6 +185,23 @@ void LightingSystem::Draw() {
 		}
 
 		DrawConeLight(cone_light_shader, it->second, cam_zoom);
+	}
+
+	point_light_shader->Use();
+
+	for (PointLightIt it = point_light_arr_->begin(); it != point_light_arr_->end(); ++it) {
+
+		if (!it->second->alive_)
+		{
+			continue;
+		}
+
+		if (debug_) {
+			// Log id of entity and its updated components that are being updated
+			M_DEBUG->WriteDebugMessage("Drawing point light for entity: " + std::to_string(it->first) + "\n");
+		}
+
+		DrawPointLight(point_light_shader, it->second, cam_zoom);
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);

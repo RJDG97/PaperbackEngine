@@ -241,9 +241,9 @@ Model* ModelManager::AddLinesModel(std::string model_name, size_t size) {
 
     for (size_t i = 0; i < size * 2; ++i)
     {
-        idx_vtx.push_back(i);
-        pos_vtx.push_back({ i, i });    //pos_vtx stuff doesn't matter since it will be data will be changed later on
-        pos_vtx.push_back({ i, i });
+        idx_vtx.push_back(static_cast<GLushort>(i));
+        pos_vtx.push_back({ static_cast<GLushort>(i), static_cast<GLushort>(i) });    //pos_vtx stuff doesn't matter since it will be data will be changed later on
+        pos_vtx.push_back({ static_cast<GLushort>(i), static_cast<GLushort>(i) });
     }
 
     // Generate a VAO handle to encapsulate the VBO(s)
@@ -275,7 +275,7 @@ Model* ModelManager::AddLinesModel(std::string model_name, size_t size) {
     mdl.vboid_ = vbo_hdl;
     mdl.primitive_type_ = GL_LINES;
     mdl.draw_cnt_ = static_cast<GLuint>(idx_vtx.size());    // number of vertices
-    mdl.primitive_cnt_ = idx_vtx.size() / 2;                // number of GL_LINES
+    mdl.primitive_cnt_ = static_cast<GLuint>(idx_vtx.size()) / 2;                // number of GL_LINES
     models_[model_name] = mdl;
 
     return &models_[model_name];

@@ -138,7 +138,7 @@ public:
 /*!
 	\fn GetCameraWorldToNDCTransform()
 
-	\brief get a converted camera position
+	\brief Get a converted camera position
 */
 /******************************************************************************/
 	glm::mat3* GetCameraWorldToNDCTransform();

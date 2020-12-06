@@ -568,7 +568,7 @@
         {
             "component": "AABB",
             "scale": "0.500000 0.500000",
-            "layer": "1"
+            "layer": "0"
         },
         {
             "component": "Scale",
@@ -592,7 +592,7 @@
         {
             "component": "AABB",
             "scale": "0.500000 0.500000",
-            "layer": "1"
+            "layer": "0"
         },
         {
             "component": "Scale",
@@ -616,7 +616,7 @@
         {
             "component": "AABB",
             "scale": "0.500000 0.500000",
-            "layer": "1"
+            "layer": "0"
         },
         {
             "component": "Scale",
