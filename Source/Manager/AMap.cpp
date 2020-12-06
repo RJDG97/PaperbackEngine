@@ -219,7 +219,7 @@ bool AMap::inlist(std::list<node> L, node N)
 	return false;
 }
 
-void AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
+bool AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 {
 	// Reset nodes
 	InitializeNodes();
@@ -235,9 +235,13 @@ void AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 	node* startnode = &node_map_[static_cast<size_t>((start + abs_min).y)][static_cast<size_t>((start + abs_min).x)];
 	node* desnode = &node_map_[static_cast<size_t>((des + abs_min).y)][static_cast<size_t>((des + abs_min).x)];
 	node* currentnode = nullptr;
+
 	// Set for Drawing on map
 	startnode->start_ = true;
 	desnode->des_ = true;
+
+	if (desnode->obstacle_)
+		return false;
 
 	std::list<node> openlist;
 	std::list<node> closedlist;
@@ -259,13 +263,13 @@ void AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 		// If des reached exit
 		if (currentnode == desnode)
 		{
-			while (currentnode)
+			while (currentnode->parent_)
 			{
 				currentnode->path_ = true;
 				path.push_back(currentnode->nodepos_ - abs_min);
 				currentnode = currentnode->parent_;
 			}
-			return;
+			return true;
 		}
 
 		for (auto nnode : currentnode->neighbour_)
@@ -288,6 +292,7 @@ void AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 			}
 		}
 	}
+	return false;
 }
 
 void AMap::DrawMap()

@@ -48,7 +48,7 @@ namespace Mite
 
 	void Handler(AIIt obj)
 	{
-
+		float distance;
 		if (obj->second->GetLife()) {
 			switch (obj->second->GetState())
 			{
@@ -79,8 +79,14 @@ namespace Mite
 				}
 				break;
 			case AI::AIState::Withdraw:
-				GeneralScripts::map_->Pathing(obj->second->GetPath(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
-				obj->second->SetState(AI::AIState::Chase);
+				distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
+				if (distance > 2.0f) // Player not in radius
+				{
+					GeneralScripts::map_->Pathing(obj->second->GetPath(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
+					obj->second->SetState(AI::AIState::Chase);
+				}
+				else
+					obj->second->SetState(AI::AIState::Attack);
 				break;
 			case AI::AIState::Attack:
 				//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Explode");
@@ -88,7 +94,7 @@ namespace Mite
 				break;
 			case AI::AIState::Chase:
 				//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Walk");
-				float distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
+				distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
 				if (distance > 5.0f) // Player not in radius
 				{
 					obj->second->SetState(AI::AIState::Patrol);

@@ -116,7 +116,7 @@ public:
 	  \brief Finds viable paths from start to destination
 	*/
 	/******************************************************************************/
-	void Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des);
+	bool Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des);
 
 	/******************************************************************************/
 	/*!

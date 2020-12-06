@@ -329,9 +329,20 @@ void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 
 	UNREFERENCED_PARAMETER(aabb1);
 	AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
-	if (ai_state->GetState() == AI::AIState::Attack)
+	switch (ai_state->GetType())
 	{
-		ai_state->SetState(AI::AIState::Withdraw);
+	case AI::AIType::StagBeetle:
+		if (ai_state->GetState() == AI::AIState::Attack)
+		{
+			ai_state->SetState(AI::AIState::Withdraw);
+		}
+		break;
+	case AI::AIType::Mite:
+		if (ai_state->GetState() == AI::AIState::Chase)
+		{
+			ai_state->SetState(AI::AIState::Withdraw);
+		}
+		break;
 	}
 }
 
