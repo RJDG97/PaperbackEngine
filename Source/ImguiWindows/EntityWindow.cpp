@@ -33,6 +33,7 @@ void EntityWindow::Init(){
 	originalVec_ = { 0,0 };	
 	b_draw = false;
 	b_grid = false;
+	b_light = false;
 }
 
 void EntityWindow::Update() {
@@ -68,6 +69,10 @@ void EntityWindow::Update() {
 			Message msg(MessageIDTypes::DEBUG_ALL);
 			CORE->BroadcastMessage(&msg);
 		}
+
+		ImGui::Checkbox("Enable Lighting", &b_light);
+
+		graphics_->EnableLighting(b_light);
 
 		SelectEntityComponent();// to see the components
 		ImGui::End();
