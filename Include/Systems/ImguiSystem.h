@@ -31,7 +31,7 @@
 #include "Systems/SoundSystem.h"
 
 #include "ImguiWindows/IWindow.h"
-#include "Imgui/IconsFontAwesome5.h"
+#include <IconsFontAwesome5.h>
 
 #include "Manager/EntityManager.h"
 #include "Manager/AMap.h"

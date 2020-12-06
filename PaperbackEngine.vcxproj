@@ -151,12 +151,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Include\Imgui\imgui.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_demo.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_draw.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_widgets.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_demo.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_draw.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_widgets.cpp" />
     <ClCompile Include="Source\Components\AABB.cpp" />
     <ClCompile Include="Source\Components\AI.cpp" />
     <ClCompile Include="Source\Components\AnimationRenderer.cpp" />
@@ -284,15 +284,6 @@
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
     <ClInclude Include="Include\ImguiWindows\SystemWindow.h" />
     <ClInclude Include="Include\ImguiWindows\TextureTilesWindow.h" />
-    <ClInclude Include="Include\Imgui\IconsFontAwesome5.h" />
-    <ClInclude Include="Include\Imgui\imconfig.h" />
-    <ClInclude Include="Include\Imgui\imgui.h" />
-    <ClInclude Include="Include\Imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="Include\Imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="Include\Imgui\imgui_internal.h" />
-    <ClInclude Include="Include\Imgui\imstb_rectpack.h" />
-    <ClInclude Include="Include\Imgui\imstb_textedit.h" />
-    <ClInclude Include="Include\Imgui\imstb_truetype.h" />
     <ClInclude Include="Include\Manager\AMap.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\ComponentManager.h" />
@@ -339,6 +330,15 @@
     <ClInclude Include="Include\Systems\SoundSystem.h" />
     <ClInclude Include="Include\Systems\TransitionSystem.h" />
     <ClInclude Include="Include\Systems\WindowsSystem.h" />
+    <ClInclude Include="lib\DearImGui\IconsFontAwesome5.h" />
+    <ClInclude Include="lib\DearImGui\imconfig.h" />
+    <ClInclude Include="lib\DearImGui\imgui.h" />
+    <ClInclude Include="lib\DearImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="lib\DearImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="lib\DearImGui\imgui_internal.h" />
+    <ClInclude Include="lib\DearImGui\imstb_rectpack.h" />
+    <ClInclude Include="lib\DearImGui\imstb_textedit.h" />
+    <ClInclude Include="lib\DearImGui\imstb_truetype.h" />
     <ClInclude Include="Source\Source.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
