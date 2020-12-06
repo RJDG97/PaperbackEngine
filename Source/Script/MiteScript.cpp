@@ -34,7 +34,8 @@ namespace Mite
 			if (distance < 50.0f && !(GeneralScripts::player_status->GetStatus() == StatusType::BURROW ||
 				GeneralScripts::player_status->GetStatus() == StatusType::HIT)) // replace with attack radius
 			{
-				GeneralScripts::player_health->SetCurrentHealth(GeneralScripts::player_health->GetCurrentHealth() - 1);
+				if(!CORE->GetGodMode())
+					GeneralScripts::player_health->SetCurrentHealth(GeneralScripts::player_health->GetCurrentHealth() - 1);
 			}
 			GeneralScripts::obj_rigidbody->SetPosition
 			(*obj->second->GetDestinations().begin());
@@ -80,13 +81,20 @@ namespace Mite
 				break;
 			case AI::AIState::Withdraw:
 				distance = Vector2DDistance(GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
-				if (distance > 2.0f) // Player not in radius
+				if (GeneralScripts::DetectPlayer(obj)) // Player not in radius
 				{
-					GeneralScripts::map_->Pathing(obj->second->GetPath(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos());
-					obj->second->SetState(AI::AIState::Chase);
+					if (distance < 2.0f || obj->second->GetState() == AI::AIState::Attack)
+					{
+						obj->second->SetState(AI::AIState::Attack);
+						break;
+					}
+					if(GeneralScripts::map_->Pathing(obj->second->GetPath(), GeneralScripts::obj_rigidbody->GetOffsetAABBPos(), GeneralScripts::player_rigidbody->GetOffsetAABBPos()))
+						obj->second->SetState(AI::AIState::Chase);
+					else
+						obj->second->SetState(AI::AIState::Patrol);
 				}
 				else
-					obj->second->SetState(AI::AIState::Attack);
+					obj->second->SetState(AI::AIState::Patrol);
 				break;
 			case AI::AIState::Attack:
 				//CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(GeneralScripts::obj_anim_renderer, "Mite_Explode");

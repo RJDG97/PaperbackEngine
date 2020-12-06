@@ -342,6 +342,11 @@ void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 		{
 			ai_state->SetState(AI::AIState::Withdraw);
 		}
+		else if (ai_state->GetState() != AI::AIState::Attack)
+		{
+			ai_state->GetPath().clear();
+			ai_state->SetState(AI::AIState::Patrol);
+		}
 		break;
 	}
 }
