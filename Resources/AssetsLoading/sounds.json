@@ -20,7 +20,7 @@
     "EnemyDetect": [
         {
             "path": "Resources/SoundCache/Enemy/Enemy_Detect.mp3",
-            "volume": "1.000000",
+            "volume": "0.600000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -29,7 +29,7 @@
     "EnemyAttack": [
         {
             "path": "Resources/SoundCache/Enemy/Enemy_Attack.mp3",
-            "volume": "1.000000",
+            "volume": "0.800000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -195,6 +195,24 @@
             "min distance": "1.500000",
             "volume falloff": "0.030000",
             "loop": "1"
+        }
+    ],
+    "Win": [
+        {
+            "path": "Resources/SoundCache/States/Win.mp3",
+            "volume": "0.500000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "Lose": [
+        {
+            "path": "Resources/SoundCache/States/Lose.mp3",
+            "volume": "0.500000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
         }
     ]
 }

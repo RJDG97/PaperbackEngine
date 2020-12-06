@@ -34,6 +34,9 @@ void WinLoseState::Init(std::string level_name) {
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 
 	CORE->GetSystem<GraphicsSystem>()->EnableLighting(false);
+
+	MessageBGM_Play msg{ level_name };
+	CORE->BroadcastMessage(&msg);
 }
 
 
