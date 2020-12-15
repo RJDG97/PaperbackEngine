@@ -18,9 +18,11 @@
 
 #include <vector>
 #include <bitset>
+#include <unordered_set>
 #include "Systems/ISystem.h"
 #include "Manager/ComponentManager.h"
 #include "MathLib/MathHelper.h"
+
 
 
 class PartitioningSystem : public ISystem
@@ -29,6 +31,7 @@ public:
 
 	using Bitset = std::bitset<1700>;
 	using PartitionAxis = std::vector< Bitset >;
+	using EntityIDSet = std::unordered_set<EntityID>;
 
 	using TransformMap = CMap<Transform>;
 	using TransformMapIt = TransformMap::MapTypeIt;
@@ -135,8 +138,18 @@ public:
 /******************************************************************************/
 	Vector2D ConvertTransformToGridScale(const Vector2D& pos);
 
-private:
+/******************************************************************************/
+/*!
+  \fn GetActiveEntityIDs()
 
+  \brief Returns a set of EntityIDs of all entities on the screen
+*/
+/******************************************************************************/
+	const EntityIDSet& GetActiveEntityIDs();
+
+private:
+	
+	// Data members
 	ComponentManager* component_manager_;
 	TransformMap* transform_map_;
 	AABBMap* aabb_map_;
@@ -145,6 +158,22 @@ private:
 	size_t grid_size_;
 	Vector2D abs_bottom_left_;
 	Vector2D abs_top_right_;
+	EntityIDSet id_set_;
+
+
+	// Private helper functions
+	void ComputeBoundaries(const Vector2D& camera_pos, Vector2D& bottom_left, Vector2D& top_right);
+	void ConvertBoundariesToLocal(Vector2D& bottom_left, Vector2D& top_right);
+	void ComputePartitionBoundaries(Vector2D& bottom_left, Vector2D& top_right);
+
+/******************************************************************************/
+/*!
+  \fn GetPartitionedEntities()
+
+  \brief Stores all entities on the screen into an unordered_set
+*/
+/******************************************************************************/
+	void ComputePartitionedEntities();
 };
 
 

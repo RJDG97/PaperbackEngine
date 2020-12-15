@@ -19,6 +19,15 @@
 	// Supress warning: nonstandard extension used : nameless struct/union
 #pragma warning( disable : 4201 )
 #endif
+	namespace My
+	{
+		template <typename T>
+		struct Vector2D
+		{
+			T x, y;
+		};
+	}
+
 	typedef union Vector2D
 	{
 		struct

@@ -127,7 +127,7 @@ public:
 					// Log system message to "Source/Debug.txt"
 					M_DEBUG->WriteDebugMessage("Getting System: " + begin->first + "\n");
 				}
-				return std::dynamic_pointer_cast<SystemType>(begin->second);
+				return std::reinterpret_pointer_cast<SystemType>(begin->second);
 			}
 		}
 
@@ -177,7 +177,7 @@ public:
 			M_DEBUG->WriteDebugMessage(str.str());
 		}
 		
-		return std::dynamic_pointer_cast<ManagerType>(return_val->second);
+		return std::reinterpret_pointer_cast<ManagerType>(return_val->second);
 	}
 
 

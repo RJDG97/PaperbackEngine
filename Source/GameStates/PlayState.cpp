@@ -178,6 +178,8 @@ void PlayState::Update(Game* game, float frametime)
 			game->ChangeState(&m_WinLoseState, "Lose");
 		}
 	}
+
+	PartitioningSystem::EntityIDSet set = CORE->GetSystem<PartitioningSystem>()->GetActiveEntityIDs();
 }
 
 void PlayState::Draw(Game* game)
