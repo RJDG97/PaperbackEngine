@@ -17,19 +17,16 @@
 #include "Manager/ComponentManager.h"
 #include "Engine/Core.h"
 #include <iostream> 
-// originally sstream
 
 Inventory::Inventory() :
-	has_key_{ false },
-	keys_{}
+	current_capacity_{},
+	max_capacity_{},
+	inventory_{}
 {}
 
 Inventory::~Inventory() {
 
-	//CORE->GetSystem<Physics>()->RemoveTransformComponent(Component::GetOwner()->GetID());
-	//CORE->GetSystem<Collision>()->RemoveTransformComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<Inventory>(Component::GetOwner()->GetID());
-
 }
 
 void Inventory::Init() {
@@ -52,28 +49,64 @@ void Inventory::DeSerialize(std::stringstream& data) {
 	UNREFERENCED_PARAMETER(data);
 }
 
-bool Inventory::HasKey() const {
-
-	return has_key_;
-}
-
-void Inventory::SetHasKey(const bool val) {
-
-	keys_ = (val) ? keys_ + 1 : ((keys_ > 0) ? keys_ - 1 : keys_);
-	has_key_ = (keys_ > 0) ? true : false;
-}
-
-size_t Inventory::GetKeys() const {
-
-	return keys_;
-}
-
 std::shared_ptr<Component> Inventory::Clone() {
+
 	M_DEBUG->WriteDebugMessage("Cloning Inventory Component\n");
 	std::shared_ptr<Inventory> cloned = std::make_shared<Inventory>();
 
-	cloned->has_key_ = has_key_;
-	cloned->keys_ = keys_;
+	cloned->current_capacity_ = current_capacity_;
+	cloned->max_capacity_ = max_capacity_;
+	cloned->inventory_ = inventory_;
 
 	return cloned;
+}
+
+void Inventory::InsertItem(Collectible& item) {
+
+	auto it = inventory_.find(item.item_name_);
+
+	// Item did not exist previously in inventory
+	if (it == inventory_.end()) {
+		
+		// After picking up an item, increment inventory counter
+		++current_capacity_;
+		inventory_[item.item_name_] = { 1, item.item_description_ };
+	}
+	// Item already existed before
+	else {
+		
+		// Increment duplicate item counter
+		++inventory_[item.item_name_].count_;
+	}
+
+	inventory_[item.item_name_].entities_.insert(item.GetOwner()->GetID());
+}
+
+void Inventory::RemoveItem(const ItemName& name) {
+
+	auto it = inventory_.find(name);
+
+	if (it != inventory_.end()) {
+		
+		// Decrement item count and remove the first instance of the item picked up
+		--inventory_[name].count_;
+		inventory_[name].entities_.erase( inventory_[name].entities_.begin() );
+
+		// If no more of the same item remains after removing, erase it
+		if (inventory_[name].count_ == 0) {
+			
+			--current_capacity_;
+			inventory_.erase(name);
+		}
+	}
+}
+
+bool Inventory::HasItem(const std::string& name) {
+
+	auto it = inventory_.find(name);
+
+	if (it != inventory_.end())
+		return true;
+
+	return false;
 }

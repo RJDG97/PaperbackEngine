@@ -145,7 +145,7 @@ public:
   \brief Returns a set of EntityIDs of all entities on the screen
 */
 /******************************************************************************/
-	const EntityIDSet& GetActiveEntityIDs();
+	const EntityIDSet& GetActiveEntityIDs() const;
 
 private:
 	
@@ -162,7 +162,7 @@ private:
 
 
 	// Private helper functions
-	void ComputeBoundaries(const Vector2D& camera_pos, Vector2D& bottom_left, Vector2D& top_right);
+	void ComputeBoundaries(const Vector2D& camera_pos, const float& camera_zoom, Vector2D& bottom_left, Vector2D& top_right);
 	void ConvertBoundariesToLocal(Vector2D& bottom_left, Vector2D& top_right);
 	void ComputePartitionBoundaries(Vector2D& bottom_left, Vector2D& top_right);
 

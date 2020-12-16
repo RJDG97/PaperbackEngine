@@ -62,7 +62,6 @@ void PartitioningSystem::Update(float frametime) {
 			it->second->GetLayer() == static_cast<size_t>(CollisionLayer::UI_ELEMENTS))
 			continue;
 
-		//int min_x, min_y, max_x, max_y;
 		float min_x, min_y, max_x, max_y, pos_x, pos_y;
 		
 		Transform* xform = transform_map_->GetComponent(it->first);
@@ -180,7 +179,7 @@ Vector2D PartitioningSystem::ConvertTransformToGridScale(const Vector2D& pos) {
 
 
 
-const PartitioningSystem::EntityIDSet& PartitioningSystem::GetActiveEntityIDs() {
+const PartitioningSystem::EntityIDSet& PartitioningSystem::GetActiveEntityIDs() const {
 	
 	return id_set_;
 }
@@ -189,34 +188,38 @@ const PartitioningSystem::EntityIDSet& PartitioningSystem::GetActiveEntityIDs() 
 // Call this function every loop
 void PartitioningSystem::ComputePartitionedEntities() {
 
+	float inv_cam_zoom{};
 	Bitset all_entities{};
-	My::Vector2D<size_t> my_bottom_left{}, my_top_right{};
 	Vector2D bottom_left{}, top_right{}, camera_pos{};
+	My::Vector2D<size_t> my_bottom_left{}, my_top_right{};
 	Camera* camera = nullptr;
+	Transform* transform = nullptr;
 
+	camera = CORE->GetSystem<CameraSystem>()->GetMainCamera();
 
-
-	// Little tester
-	CMap<Camera>* camera_arr_ = component_manager_->GetComponentArray<Camera>();
-	if (camera_arr_->begin() != camera_arr_->end())
-		camera = camera_arr_->begin()->second;
-
-
-
+	// If camera doesn't exist, skip computation
 	if (!camera)
 		return;
 
-	// Clear the IDSet every loop
+	inv_cam_zoom = 1 / *camera->GetCameraZoom();
+	transform = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID());
+
+	// If transform doesn't exist for camera, skip computation - To be changed eventually when camera is not an entity
+	if (!transform)
+		return;
+
+	// Clear the IDSet
 	id_set_.clear();
 
-	camera_pos = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->GetOffsetAABBPos() * CORE->GetGlobalScale() + abs_bottom_left_;
+	// Convert camera's position from GameScale to WorldScale
+	camera_pos = transform->GetOffsetAABBPos() * CORE->GetGlobalScale();
 
 	// Compute the bottom left and top right of the area to be displayed
-	ComputeBoundaries(camera_pos, bottom_left, top_right);
-	// 
+	ComputeBoundaries(camera_pos, inv_cam_zoom, bottom_left, top_right);
+	// Convert the positions to game coordinates (Divide by GameScale)
 	ConvertBoundariesToLocal(bottom_left, top_right);
+	// Convert the positions to grid coordinates (Divide by PartitionScale)
 	ComputePartitionBoundaries(bottom_left, top_right);
-
 
 	// Cast to size_t
 	my_bottom_left.x = static_cast<size_t>(bottom_left.x);
@@ -224,7 +227,7 @@ void PartitioningSystem::ComputePartitionedEntities() {
 	my_top_right.x = static_cast<size_t>(top_right.x);
 	my_top_right.y = static_cast<size_t>(top_right.y);
 
-
+	// Iterate through partition boundaries to determine all entities that lie within
 	for (size_t i = my_bottom_left.y; i < my_top_right.y; ++i) {
 		for (size_t j = my_bottom_left.x; j < my_top_right.x; ++j) {
 
@@ -242,7 +245,7 @@ void PartitioningSystem::ComputePartitionedEntities() {
 		}
 	}
 
-	// If bit is |'d, insert into the unordered_set to be iterated through
+	// If an EntityID is set, insert it's ID into the std::set to be marked as active
 	for (size_t i = 0; i < all_entities.size(); ++i) {
 		
 		if (all_entities.test(i)) {
@@ -250,48 +253,45 @@ void PartitioningSystem::ComputePartitionedEntities() {
 			id_set_.insert(i);
 		}
 	}
+
+	id_set_ = id_set_;
 }
 
-void PartitioningSystem::ComputeBoundaries(const Vector2D& camera_pos, Vector2D& bottom_left, Vector2D& top_right) {
+void PartitioningSystem::ComputeBoundaries(const Vector2D& camera_pos, const float& camera_zoom, Vector2D& bottom_left, Vector2D& top_right) {
 
 	std::shared_ptr<WindowsSystem> windows = CORE->GetSystem<WindowsSystem>();
-	
 
 	if (windows) {
 
-		bottom_left.x = camera_pos.x - (windows->GetWinWidth() * 0.5f);
-		bottom_left.y = camera_pos.y - (windows->GetWinHeight() * 0.5f);
+		bottom_left.x = camera_pos.x - (windows->GetWinWidth() * 0.5f * camera_zoom);
+		bottom_left.y = camera_pos.y - (windows->GetWinHeight() * 0.5f * camera_zoom);
 
-		top_right.x = camera_pos.x + (windows->GetWinWidth() * 0.5f);
-		top_right.y = camera_pos.y + (windows->GetWinHeight() * 0.5f);
+		top_right.x = camera_pos.x + (windows->GetWinWidth() * 0.5f * camera_zoom);
+		top_right.y = camera_pos.y + (windows->GetWinHeight() * 0.5f * camera_zoom);
 	}
-	else {
-		
-		// Essentially an error
-		bottom_left.x = -1.0f;
-	}
+	
+	DEBUG_ASSERT(windows, "WindowsSystem does not exist!!");
 }
 
 void PartitioningSystem::ConvertBoundariesToLocal(Vector2D& bottom_left, Vector2D& top_right) {
 
-	if (bottom_left.x == -1.0f)
-		return;
-
 	// Assumption is that GlobalScale will NEVER be 0
 	float inv_scale = 1 / CORE->GetGlobalScale();
 
+	// Convert to game coordinates by dividing by GameScale
 	bottom_left *= inv_scale;
 	top_right *= inv_scale;
+
+	// Shift the coordinates so that the minimum will always be (0, 0) or greater
+	bottom_left += abs_bottom_left_;
+	top_right += abs_bottom_left_;
 }
 
 void PartitioningSystem::ComputePartitionBoundaries(Vector2D& bottom_left, Vector2D& top_right) {
 
-	if (bottom_left.x == -1.0f)
-		return;
-
 	float inv_partition_scale = 1.0f / grid_size_;
-	float inv_scale = 1 / CORE->GetGlobalScale();
 
+	// Convert the game coordinates into partition grid
 	bottom_left *= inv_partition_scale;
 	top_right *= inv_partition_scale;
 
@@ -301,31 +301,7 @@ void PartitioningSystem::ComputePartitionBoundaries(Vector2D& bottom_left, Vecto
 	RoundUp(top_right.x);
 	RoundUp(top_right.y);
 
-	// Map coordinates to positive axes
-	if (bottom_left.x < 0.0f) {
-
-		float x_boundary = CORE->GetManager<AMap>()->GetBottomLeft().x * inv_scale;
-
-		if (bottom_left.x < x_boundary) {
-			bottom_left.x = std::max(x_boundary, bottom_left.x) - std::min(x_boundary, bottom_left.x);
-		}
-
-		top_right.x += abs(bottom_left.x);
-		//bottom_left.x = 0.0f;
-	}
-	if (bottom_left.y < 0.0f) {
-		
-		float y_boundary = CORE->GetManager<AMap>()->GetBottomLeft().y * inv_scale;
-
-		if (bottom_left.y < y_boundary) {
-			bottom_left.y = std::max(y_boundary, bottom_left.y) - std::min(y_boundary, bottom_left.y);
-			//bottom_left.y = y_boundary;
-		}
-
-		top_right.y += abs(bottom_left.y);
-		//bottom_left.y = 0.0f;
-	}
-
+	// Make sure smallest values are set to the bottom for iteration purposes
 	if (bottom_left.x > top_right.x)
 		std::swap(bottom_left.x, top_right.x);
 	if (bottom_left.y > top_right.y)

@@ -48,6 +48,8 @@
 #include "Components/Particle.h"
 #include "Components/Emitter.h"
 #include "Components/SoundEmitter.h"
+#include "Components/Collectible.h"
+#include "Components/Unlockable.h"
 
 template <typename T>
 class CMap
@@ -253,7 +255,7 @@ private:
 using ComponentManager = CManager<
 	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight, Camera,
 	TextRenderer, InputController, TextureRenderer, AnimationRenderer, ParentChild, LogicComponent, Inventory,
-	Emitter, Particle, SoundEmitter
+	Emitter, Particle, SoundEmitter, Collectible, Unlockable
 >;
 
 

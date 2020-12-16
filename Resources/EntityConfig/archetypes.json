@@ -675,13 +675,18 @@
       "component": "AnimationRenderer",
       "number of animations": "2",
       "add animation": "Gate_Idle",
-	  "add animation": "Gate_Opening",
+      "add animation": "Gate_Opening",
       "set animation": "Gate_Idle",
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
       "ui": "0",
       "alive": "1"
+    },
+    {
+      "component": "Unlockable",
+      "count": "1.0",
+      "item name": "Key"
     }
   ],
   "Key": [
@@ -721,6 +726,11 @@
       "radius": "370.0",
       "intensity": "0.6",
       "alive": "1"
+    },
+    {
+      "component": "Collectible",
+      "item name": "Key",
+      "item description": "Wow tis be a key lol!!"
     }
   ],
   "Puddle": [

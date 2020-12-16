@@ -30,10 +30,12 @@ EngineDebug::~EngineDebug() {
 }
 
 void EngineDebug::WriteDebugMessage(const std::string& str) {
-	
+
+	#if defined(DEBUG) | defined(_DEBUG)
 	if (my_file_.is_open()) {
 		my_file_ << str;
 	}
+	#endif
 }
 
 void EngineDebug::SaveDebug() {

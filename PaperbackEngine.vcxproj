@@ -164,6 +164,7 @@
     <ClCompile Include="Source\Components\BasicAI.cpp" />
     <ClCompile Include="Source\Components\Camera.cpp" />
     <ClCompile Include="Source\Components\Clickable.cpp" />
+    <ClCompile Include="Source\Components\Collectible.cpp" />
     <ClCompile Include="Source\Components\ConeLight.cpp" />
     <ClCompile Include="Source\Components\Emitter.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Source\Components\Scale.cpp" />
     <ClCompile Include="Source\Components\Status.cpp" />
     <ClCompile Include="Source\Components\Transform.cpp" />
+    <ClCompile Include="Source\Components\Unlockable.cpp" />
     <ClCompile Include="Source\Engine\Core.cpp" />
     <ClCompile Include="Source\Entity\Entity.cpp" />
     <ClCompile Include="Source\GameStates\CreditsState.cpp" />
@@ -245,6 +247,7 @@
     <ClInclude Include="Include\Components\BasicAI.h" />
     <ClInclude Include="Include\Components\Camera.h" />
     <ClInclude Include="Include\Components\Clickable.h" />
+    <ClInclude Include="Include\Components\Collectible.h" />
     <ClInclude Include="Include\Components\ConeLight.h" />
     <ClInclude Include="Include\Components\Emitter.h" />
     <ClInclude Include="Include\Components\Health.h" />
@@ -264,6 +267,7 @@
     <ClInclude Include="Include\Components\Scale.h" />
     <ClInclude Include="Include\Components\Status.h" />
     <ClInclude Include="Include\Components\Transform.h" />
+    <ClInclude Include="Include\Components\Unlockable.h" />
     <ClInclude Include="Include\Engine\Core.h" />
     <ClInclude Include="Include\Entity\ComponentCreator.h" />
     <ClInclude Include="Include\Entity\ComponentTypes.h" />

@@ -45,6 +45,8 @@
 #include "Components/Emitter.h"
 #include "Components/Particle.h"
 #include "Components/SoundEmitter.h"
+#include "Components/Collectible.h"
+#include "Components/Unlockable.h"
 
 #include "Components/AI.h"
 
@@ -150,6 +152,8 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("Particle", new ComponentCreator<Particle>(ComponentTypes::PARTICLE));
 	comp_mgr_->AddComponentCreator("Emitter", new ComponentCreator<Emitter>(ComponentTypes::EMITTER));
 	comp_mgr_->AddComponentCreator("SoundEmitter", new ComponentCreator<SoundEmitter>(ComponentTypes::SOUNDEMITTER));
+	comp_mgr_->AddComponentCreator("Collectible", new ComponentCreator<Collectible>(ComponentTypes::COLLECTIBLE));
+	comp_mgr_->AddComponentCreator("Unlockable", new ComponentCreator<Unlockable>(ComponentTypes::UNLOCKABLE));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");

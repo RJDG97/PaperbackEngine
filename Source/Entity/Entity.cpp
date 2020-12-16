@@ -245,6 +245,10 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::EMITTER;
 	else if (str == "SoundEmitter")
 		return ComponentTypes::SOUNDEMITTER;
+	else if (str == "Collectible")
+		return ComponentTypes::COLLECTIBLE;
+	else if (str == "Unlockable")
+		return ComponentTypes::UNLOCKABLE;
 	else
 		return ComponentTypes::NONE;
 }

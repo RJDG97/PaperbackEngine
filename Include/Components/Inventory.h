@@ -15,16 +15,37 @@
 #ifndef _INVENTORY_H_
 #define _INVENTORY_H_
 
+#include <set>
+#include <memory>
+#include <string>
+#include <sstream>
+#include <unordered_map>
 #include "Entity/Entity.h"
 #include "MathLib/Vector2D.h"
 #include "Components/IComponent.h"
-#include <sstream>
-#include <memory>
+#include "Components/Collectible.h"
+#include "Components/Unlockable.h"
+
+struct ItemDescription
+{
+	size_t count_;
+	std::string description_;
+	std::set<EntityID> entities_;
+
+	ItemDescription() {}
+
+	ItemDescription(const size_t& count, const std::string& description) :
+		count_{ count },
+		description_{ description },
+		entities_{}
+	{}
+};
 
 class Inventory : public Component {
-	bool has_key_;
-	size_t keys_;
+
 public:
+
+	using ItemName = std::string;
 
 /******************************************************************************/
 /*!
@@ -74,33 +95,6 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn HasKey()
-
-  \brief Returns a bool value
-*/
-/******************************************************************************/
-	bool HasKey() const;
-
-/******************************************************************************/
-/*!
-  \fn SetRotation()
-
-  \brief Sets the rotation of the component
-*/
-/******************************************************************************/
-	void SetHasKey(const bool val = true);
-
-/******************************************************************************/
-/*!
-  \fn GetKeys()
-
-  \brief Returns the number of held keys
-*/
-/******************************************************************************/
-	size_t GetKeys() const;
-
-/******************************************************************************/
-/*!
   \fn Clone()
 
   \brief Clones the existing component
@@ -108,5 +102,37 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+/******************************************************************************/
+/*!
+  \fn InsertItem()
+
+  \brief Inserts an item into the inventory
+*/
+/******************************************************************************/
+	void InsertItem(Collectible& item);
+
+/******************************************************************************/
+/*!
+  \fn RemoveItem()
+
+  \brief Inserts an item into the inventory
+*/
+/******************************************************************************/
+	void RemoveItem(const ItemName& name);
+
+/******************************************************************************/
+/*!
+  \fn HasItem()
+
+  \brief Checks whether an inventory contains an item
+*/
+/******************************************************************************/
+	bool HasItem(const std::string& name);
+
+private:
+
+	size_t current_capacity_;
+	size_t max_capacity_;
+	std::unordered_map<ItemName, ItemDescription> inventory_;
 };
 #endif

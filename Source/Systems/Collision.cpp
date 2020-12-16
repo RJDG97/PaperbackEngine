@@ -401,13 +401,41 @@ void Collision::GoalResponse() {
 
 bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 
-	Inventory* player_inven = component_mgr_->GetComponent<Inventory>(aabb1->first);
+	// Get player's inventory component
+	Inventory* inventory = component_mgr_->GetComponent<Inventory>(aabb1->first);
+	Unlockable* unlockable = component_mgr_->GetComponent<Unlockable>(aabb2->first);
 
-	if (player_inven && player_inven->HasKey()) {
 
-		player_inven->SetHasKey(false);
-		FACTORY->Destroy(aabb2->second->GetOwner());
+	//if (player_inven && player_inven->HasKey()) {
 
+	//	player_inven->SetHasKey(false);
+	//	FACTORY->Destroy(aabb2->second->GetOwner());
+
+	//	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("gateunlocked");
+
+	//	return false;
+	//}
+
+
+
+	if (inventory && unlockable) {
+
+		auto requirements = unlockable->GetRequiredItems();
+
+		for (size_t i = 0; i < requirements.size(); ++i) {
+
+			if (!inventory->HasItem(requirements[i])) {
+				
+				return true;
+			}
+		}
+
+		// Deactivate rendering & collision of the collectible
+		AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(aabb2->first);
+		renderer->SetAlive(false);
+		aabb2->second->alive_ = false;
+
+		// Temporary?
 		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("gateunlocked");
 
 		return false;
@@ -418,17 +446,38 @@ bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 
 void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
 
-	Inventory* player_inven = component_mgr_->GetComponent<Inventory>(aabb1->first);
+	// Get player's inventory component
+	Inventory* inventory = component_mgr_->GetComponent<Inventory>(aabb1->first);
+	// Get collided entity's collectible component
+	Collectible* collectible = component_mgr_->GetComponent<Collectible>(aabb2->first);
 
-	if (player_inven) {
 
-		player_inven->SetHasKey(true);
-		FACTORY->Destroy(aabb2->second->GetOwner());
 
-		//temporary
+	//if (player_inven) {
+
+	//	player_inven->SetHasKey(true);
+	//	FACTORY->Destroy(aabb2->second->GetOwner());
+
+	//	//temporary
+	//	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("keypickedup");
+
+	//	return;
+	//}
+
+
+
+	if (inventory && collectible) {
+
+		// Insert the collectible into the player's inventory
+		inventory->InsertItem(*collectible);
+
+		// Deactivate rendering & collision of the collectible
+		AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(aabb2->first);
+		renderer->SetAlive(false);
+		aabb2->second->alive_ = false;
+
+		// Temporary?
 		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("keypickedup");
-
-		return;
 	}
 }
 
@@ -556,6 +605,9 @@ void Collision::ProcessCollision(CollisionMapIt col_layer_a, CollisionMapIt col_
 				motion_arr_->GetComponent(layer_b_it->first)->velocity_ : Vector2D{};
 
 			float t_first{};
+
+			if (!layer_a_it->second->alive_ || !layer_b_it->second->alive_)
+				continue;
 
 			if (CheckCollision(*layer_a_it->second, vel1, *layer_b_it->second, vel2, frametime, t_first)) {
 

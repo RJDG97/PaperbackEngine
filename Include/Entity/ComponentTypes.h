@@ -42,6 +42,8 @@ enum class ComponentTypes {
 	PARTICLE,
 	EMITTER,
 	SOUNDEMITTER,
+	COLLECTIBLE,
+	UNLOCKABLE,
 	MAX
 };
 

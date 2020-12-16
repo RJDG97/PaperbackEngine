@@ -180,6 +180,12 @@
     <Filter Include="Systems\Dialogue System">
       <UniqueIdentifier>{0e6ac633-d7dc-402d-a2c0-599493b1ebc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Collectible">
+      <UniqueIdentifier>{7a20c22c-2bdd-4923-9f8d-fe7ecfc5b3d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Unlockable">
+      <UniqueIdentifier>{9f755395-ee1f-414c-9725-c6713fa795a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -442,6 +448,12 @@
     </ClCompile>
     <ClCompile Include="lib\DearImGui\imgui_widgets.cpp">
       <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Collectible.cpp">
+      <Filter>Entity\Components\Collectible</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Unlockable.cpp">
+      <Filter>Entity\Components\Unlockable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -756,6 +768,12 @@
     </ClInclude>
     <ClInclude Include="lib\DearImGui\imstb_truetype.h">
       <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Collectible.h">
+      <Filter>Entity\Components\Collectible</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Unlockable.h">
+      <Filter>Entity\Components\Unlockable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

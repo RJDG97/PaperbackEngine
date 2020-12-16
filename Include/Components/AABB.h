@@ -23,11 +23,15 @@
 #include <memory>
 
 class AABB : public Component {
+
 	Vector2D scale_;
 	Vector2D top_right_;
     Vector2D bottom_left_;
 	bool collided;
 	size_t layer_;
+	bool alive_;
+
+
 public:
 	friend class Collision;
 
