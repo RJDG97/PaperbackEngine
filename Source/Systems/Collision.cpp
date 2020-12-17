@@ -479,7 +479,7 @@ void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
 
 void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 
-	std::shared_ptr<LogicManager> logic = CORE->GetManager<LogicManager>();
+	LogicManager* logic = &*CORE->GetManager<LogicManager>();
 	
 	auto& [player_id, player_aabb] = *aabb1;
 	auto& [collectible_id, collectible_aabb] = *aabb2;
@@ -491,8 +491,8 @@ void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 	std::string environment_collectible = collectible_logic->GetLogic("Collectible");
 
 	// Execute player's logic script
-	logic->Exec(player_collectible, player_id, collectible_id);
 	logic->Exec(environment_collectible, collectible_id);
+	logic->Exec(player_collectible, player_id, collectible_id);
 
 
 
@@ -565,12 +565,6 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				GoalResponse();
 				break;
 			}
-			//case CollisionLayer::KEYS: 
-			//{
-			//	PlayerCollectibleResponse(aabb1, aabb2);
-			//	//PlayerKeyResponse(aabb1, aabb2);
-			//	break;
-			//}
 			case CollisionLayer::GATE:
 			{
 				if (PlayerGateResponse(aabb1, aabb2)) {
@@ -653,6 +647,9 @@ void Collision::RemoveAABBComponent(EntityID id) {
 			M_DEBUG->WriteDebugMessage("Removing AABB Component from map: " + std::to_string(id) + "\n");
 			begin->second.erase(comp);
 			break;
+		}
+		else {
+			M_DEBUG->WriteDebugMessage("SHIT FUCKING ERROR!!!!!!!!");
 		}
 	}
 }
@@ -901,15 +898,16 @@ void Collision::Update(float frametime) {
 			if (!partitioning_->VerifyPartition(j, i))
 				continue;
 
-			// Else perform collision checks on partition
-			if (entity_mgr_->GetEntities().size() > 10) {
+			//// Else perform collision checks on partition
+			//if (entity_mgr_->GetEntities().size() > 10) {
 
-				futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
-			}
-			else {
+			//	futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
+			//}
+			//else {
 
-				ProcessPartitionedEntities(i, j, frametime);
-			}
+			//	ProcessPartitionedEntities(i, j, frametime);
+			//}
+			ProcessPartitionedEntities(i, j, frametime);
 		}
 	}
 	

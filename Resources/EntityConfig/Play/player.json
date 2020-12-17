@@ -41,13 +41,15 @@
         },
         {
             "component": "LogicComponent",
-            "number_of_fns": "3",
+            "number_of_fns": "4",
             "name": "UpdateChildOffset",
             "function": "Player_UpdateChildOffset",
             "name": "UpdateInput",
             "function": "Player_UpdateInput",
             "name": "UpdateTexture",
-            "function": "Player_UpdateTexture"
+            "function": "Player_UpdateTexture",
+            "name": "Collectible",
+            "function": "Player_Collectible"
         }
     ]
 }

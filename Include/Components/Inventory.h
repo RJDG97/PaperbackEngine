@@ -30,7 +30,7 @@ struct ItemDescription
 {
 	size_t count_;
 	std::string description_;
-	std::set<EntityID> entities_;
+	std::vector<EntityID> entities_;
 
 	ItemDescription() {}
 
@@ -39,6 +39,10 @@ struct ItemDescription
 		description_{ description },
 		entities_{}
 	{}
+
+	~ItemDescription() {
+		entities_.clear();
+	}
 };
 
 class Inventory : public Component {
@@ -109,7 +113,7 @@ public:
   \brief Inserts an item into the inventory
 */
 /******************************************************************************/
-	void InsertItem(Collectible& item);
+	void InsertItem(const Collectible& item);
 
 /******************************************************************************/
 /*!

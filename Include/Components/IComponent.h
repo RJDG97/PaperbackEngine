@@ -86,7 +86,7 @@ public:
   \brief Returns a pointer to the entity that owns the component
 */
 /******************************************************************************/
-	Entity* GetOwner() { return owner_; }
+	Entity* GetOwner() const { return owner_; }
 
 /******************************************************************************/
 /*!

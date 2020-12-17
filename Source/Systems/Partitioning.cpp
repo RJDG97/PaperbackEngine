@@ -253,13 +253,11 @@ void PartitioningSystem::ComputePartitionedEntities() {
 			id_set_.insert(i);
 		}
 	}
-
-	id_set_ = id_set_;
 }
 
 void PartitioningSystem::ComputeBoundaries(const Vector2D& camera_pos, const float& camera_zoom, Vector2D& bottom_left, Vector2D& top_right) {
 
-	std::shared_ptr<WindowsSystem> windows = CORE->GetSystem<WindowsSystem>();
+	WindowsSystem* windows = &*CORE->GetSystem<WindowsSystem>();
 
 	if (windows) {
 

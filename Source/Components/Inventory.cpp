@@ -27,7 +27,7 @@ Inventory::Inventory() :
 Inventory::~Inventory() {
 
 	// Wtf somehow there's a mem allocation somewhere o.o
-	//inventory_.clear();
+	inventory_.clear();
 	CORE->GetManager<ComponentManager>()->RemoveComponent<Inventory>(Component::GetOwner()->GetID());
 }
 
@@ -63,19 +63,18 @@ std::shared_ptr<Component> Inventory::Clone() {
 	return cloned;
 }
 
-void Inventory::InsertItem(Collectible& item) {
+void Inventory::InsertItem(const Collectible& item) {
 
 	auto it = inventory_.find(item.item_name_);
 
 	// Item did not exist previously in inventory
-	if (it == inventory_.end()) {
+	if (it == inventory_.end() && 
+		((current_capacity_ + 1) <= max_capacity_)) {
 		
 		// After picking up an item, increment inventory counter
 		++current_capacity_;
-		ItemDescription desc{ 1, item.item_description_ };
-		inventory_[item.item_name_] = desc;
 
-		//inventory_[item.item_name_] = { 1, item.item_description_ };
+		inventory_[item.item_name_] = { 1, item.item_description_ };
 	}
 	// Item already existed before
 	else {
@@ -84,7 +83,7 @@ void Inventory::InsertItem(Collectible& item) {
 		++inventory_[item.item_name_].count_;
 	}
 
-	inventory_[item.item_name_].entities_.insert(item.GetOwner()->GetID());
+	inventory_[item.item_name_].entities_.push_back(item.GetOwner()->GetID());
 }
 
 void Inventory::RemoveItem(const ItemName& name) {
