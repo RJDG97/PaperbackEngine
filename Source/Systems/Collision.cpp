@@ -21,6 +21,7 @@
 #include "Systems/InputSystem.h"
 #include "Systems/DialogueSystem.h" //temporary
 #include "Manager/ForcesManager.h"
+#include "Manager/LogicManager.h"
 #include "Components/Transform.h"
 #include "Entity/ComponentCreator.h"
 #include "Entity/ComponentTypes.h"
@@ -401,25 +402,18 @@ void Collision::GoalResponse() {
 
 bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 
+	auto& [player_id, player_aabb] = *aabb1;
+	auto& [unlockable_id, unlockable_aabb] = *aabb2;
+
 	// Get player's inventory component
-	Inventory* inventory = component_mgr_->GetComponent<Inventory>(aabb1->first);
-	Unlockable* unlockable = component_mgr_->GetComponent<Unlockable>(aabb2->first);
-
-
-	//if (player_inven && player_inven->HasKey()) {
-
-	//	player_inven->SetHasKey(false);
-	//	FACTORY->Destroy(aabb2->second->GetOwner());
-
-	//	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("gateunlocked");
-
-	//	return false;
-	//}
-
+	Inventory* inventory = component_mgr_->GetComponent<Inventory>(player_id);
+	// Get collided entity's unlockable component
+	Unlockable* unlockable = component_mgr_->GetComponent<Unlockable>(unlockable_id);
 
 
 	if (inventory && unlockable) {
 
+		// Get all requirements to unlock an event
 		auto requirements = unlockable->GetRequiredItems();
 
 		for (size_t i = 0; i < requirements.size(); ++i) {
@@ -430,10 +424,16 @@ bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 			}
 		}
 
-		// Deactivate rendering & collision of the collectible
-		AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(aabb2->first);
-		renderer->SetAlive(false);
-		aabb2->second->alive_ = false;
+		// Disable relevant components of the collected entity
+		AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(unlockable_id);
+		PointLight* point_light = component_mgr_->GetComponent<PointLight>(unlockable_id);
+
+		if (renderer)
+			renderer->SetAlive(false);
+		if (point_light)
+			point_light->SetAlive(false);
+
+		unlockable_aabb->alive_ = false;
 
 		// Temporary?
 		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("gateunlocked");
@@ -446,24 +446,13 @@ bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 
 void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
 
+	auto& [player_id, player_aabb] = *aabb1;
+	auto& [collectible_id, collectible_aabb] = *aabb2;
+
 	// Get player's inventory component
-	Inventory* inventory = component_mgr_->GetComponent<Inventory>(aabb1->first);
+	Inventory* inventory = component_mgr_->GetComponent<Inventory>(player_id);
 	// Get collided entity's collectible component
-	Collectible* collectible = component_mgr_->GetComponent<Collectible>(aabb2->first);
-
-
-
-	//if (player_inven) {
-
-	//	player_inven->SetHasKey(true);
-	//	FACTORY->Destroy(aabb2->second->GetOwner());
-
-	//	//temporary
-	//	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("keypickedup");
-
-	//	return;
-	//}
-
+	Collectible* collectible = component_mgr_->GetComponent<Collectible>(collectible_id);
 
 
 	if (inventory && collectible) {
@@ -472,9 +461,16 @@ void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
 		inventory->InsertItem(*collectible);
 
 		// Deactivate rendering & collision of the collectible
-		AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(aabb2->first);
-		renderer->SetAlive(false);
-		aabb2->second->alive_ = false;
+		AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(collectible_id);
+		PointLight* point_light = component_mgr_->GetComponent<PointLight>(collectible_id);
+
+		// Disable relevant components of the collected entity
+		if (renderer)
+			renderer->SetAlive(false);
+		if (point_light)
+			point_light->SetAlive(false);
+
+		collectible_aabb->alive_ = false;
 
 		// Temporary?
 		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("keypickedup");
@@ -482,16 +478,34 @@ void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
 }
 
 void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
-	
-	Health* player_health = component_mgr_->GetComponent<Health>(aabb1->first);
-	if (player_health->current_health_ != player_health->GetMaxHealth())
-	{
-		++(player_health->current_health_);
-		FACTORY->Destroy(aabb2->second->GetOwner());
 
-		MessageBGM_Play msg{ "PlayerDrink" };
-		CORE->BroadcastMessage(&msg);
-	}
+	std::shared_ptr<LogicManager> logic = CORE->GetManager<LogicManager>();
+	
+	auto& [player_id, player_aabb] = *aabb1;
+	auto& [collectible_id, collectible_aabb] = *aabb2;
+
+	LogicComponent* player_logic = component_mgr_->GetComponent<LogicComponent>(player_id);
+	LogicComponent* collectible_logic = component_mgr_->GetComponent<LogicComponent>(collectible_id);
+
+	std::string player_collectible = player_logic->GetLogic("Collectible");
+	std::string environment_collectible = collectible_logic->GetLogic("Collectible");
+
+	// Execute player's logic script
+	logic->Exec(player_collectible, player_id, collectible_id);
+	logic->Exec(environment_collectible, collectible_id);
+
+
+
+
+	//Health* player_health = component_mgr_->GetComponent<Health>(aabb1->first);
+	//if (player_health->current_health_ != player_health->GetMaxHealth())
+	//{
+	//	++(player_health->current_health_);
+	//	FACTORY->Destroy(aabb2->second->GetOwner());
+
+	//	MessageBGM_Play msg{ "PlayerDrink" };
+	//	CORE->BroadcastMessage(&msg);
+	//}
 
 }
 
@@ -551,12 +565,12 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				GoalResponse();
 				break;
 			}
-			case CollisionLayer::KEYS: 
-			{
-
-				PlayerKeyResponse(aabb1, aabb2);
-				break;
-			}
+			//case CollisionLayer::KEYS: 
+			//{
+			//	PlayerCollectibleResponse(aabb1, aabb2);
+			//	//PlayerKeyResponse(aabb1, aabb2);
+			//	break;
+			//}
 			case CollisionLayer::GATE:
 			{
 				if (PlayerGateResponse(aabb1, aabb2)) {
@@ -796,26 +810,27 @@ void Collision::Init() {
 	*/
 	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "00000000", false);
 
-	/*
-	Parameter 1: Collision layer 5
-	Parameter 2: Collidable with Layer 3 (PLAYER)
-	*/
-	AddCollisionLayers(CollisionLayer::KEYS, "00001000", false);
+	///*
+	//Parameter 1: Collision layer 5
+	//Parameter 2: Collidable with Layer 3 (PLAYER)
+	//*/
+	//AddCollisionLayers(CollisionLayer::KEYS, "00001000", false);
 
 	/*
-	Parameter 1: Collision layer 5
-	Parameter 2: Collidable with Layer 3 (PLAYER)
-	*/
-	AddCollisionLayers(CollisionLayer::COLLECTIBLE, "00001000", false);
-
-	/*
-	Parameter 1: Collision layer 5
+	Parameter 1: Collision layer 7
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
 	AddCollisionLayers(CollisionLayer::GATE, "00001000", false);
 
 	/*
-	Parameter 1: Collision layer 5
+	Parameter 1: Collision layer 8
+	Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::COLLECTIBLE, "00001000", false);
+
+
+	/*
+	Parameter 1: Collision layer 9
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
 	AddCollisionLayers(CollisionLayer::BURROWABLE, "00001000", false);
@@ -857,6 +872,7 @@ void Collision::ProcessPartitionedEntities(size_t y, size_t x, float frametime) 
 
 			// check if bit for layer 1 is active, meaning that both layers will interact
 			if ((layer1_mask->second.first & layer2_mask->second.first).test(static_cast<size_t>(layer1->first))) {
+
 
 				//proceed to pass onto next function
 				ProcessCollision(layer1, layer2, frametime);

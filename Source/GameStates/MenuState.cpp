@@ -166,7 +166,6 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 				MessageBGM_Play button{ "ButtonPress" };
 				CORE->BroadcastMessage(&button);
-
 				// Toggle off game
 				CORE->SetGameActiveStatus(false);
 				return;

@@ -33,6 +33,8 @@ SoundSystem::SoundSystem() :
 
 SoundSystem::~SoundSystem() {
 
+	StopSound("All", true);
+
 	// Terminate system
 	f_system_->close();
 	f_system_->release();

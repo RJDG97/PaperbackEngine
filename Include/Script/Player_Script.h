@@ -30,6 +30,39 @@
 
 namespace Player_Scripts
 {
+	void CollectedCollectible(const EntityID& player_id, const EntityID& collectible_id) {
+		
+		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		Collectible* collectible = component_mgr->GetComponent<Collectible>(collectible_id);
+
+		if (!collectible)
+			return;
+		
+		switch (collectible->GetItemType())
+		{
+			case CollectibleType::PUDDLE:
+			{
+				Health* health = component_mgr->GetComponent<Health>(player_id);
+
+				if (health) {
+					health->IncrementHealth();
+				}
+
+				break;
+			}
+			case CollectibleType::KEY:
+			{
+				Inventory* inventory = component_mgr->GetComponent<Inventory>(player_id);
+
+				if (inventory) {
+					inventory->InsertItem(*collectible);
+				}
+
+				break;
+			}
+		}
+	}
+
 	/******************************************************************************/
 	/*!
 	  \fn UpdateChildOffset()

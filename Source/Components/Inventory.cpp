@@ -26,6 +26,8 @@ Inventory::Inventory() :
 
 Inventory::~Inventory() {
 
+	// Wtf somehow there's a mem allocation somewhere o.o
+	//inventory_.clear();
 	CORE->GetManager<ComponentManager>()->RemoveComponent<Inventory>(Component::GetOwner()->GetID());
 }
 
@@ -46,7 +48,7 @@ void Inventory::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writ
 
 void Inventory::DeSerialize(std::stringstream& data) {
 	
-	UNREFERENCED_PARAMETER(data);
+	data >> max_capacity_;
 }
 
 std::shared_ptr<Component> Inventory::Clone() {
@@ -54,9 +56,9 @@ std::shared_ptr<Component> Inventory::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning Inventory Component\n");
 	std::shared_ptr<Inventory> cloned = std::make_shared<Inventory>();
 
-	cloned->current_capacity_ = current_capacity_;
-	cloned->max_capacity_ = max_capacity_;
-	cloned->inventory_ = inventory_;
+	//cloned->current_capacity_ = current_capacity_;
+	//cloned->max_capacity_ = max_capacity_;
+	//cloned->inventory_ = inventory_;
 
 	return cloned;
 }
@@ -70,7 +72,10 @@ void Inventory::InsertItem(Collectible& item) {
 		
 		// After picking up an item, increment inventory counter
 		++current_capacity_;
-		inventory_[item.item_name_] = { 1, item.item_description_ };
+		ItemDescription desc{ 1, item.item_description_ };
+		inventory_[item.item_name_] = desc;
+
+		//inventory_[item.item_name_] = { 1, item.item_description_ };
 	}
 	// Item already existed before
 	else {

@@ -90,3 +90,9 @@ void Health::SetMaxHealth(int newHealth){
 
 	maximum_health_ = newHealth;
 }
+
+void Health::IncrementHealth() {
+
+	if (current_health_ < maximum_health_)
+		++current_health_;
+}

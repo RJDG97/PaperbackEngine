@@ -16,7 +16,8 @@
 #include "Script/Mite_Script.h"
 #include "Script/Stag_Script.h"
 #include "Script/Player_Script.h"
-#include "Script/Button_Script.h"
+#include "Script/UI_Script.h"
+#include "Script/Collectible_Script.h"
 #include "Systems/Message.h"
 
 
@@ -32,6 +33,7 @@ void LogicManager::Init() {
 	RegisterLogic("Player_UpdateTexture", &Player_Scripts::TextureUpdateScript);
 	RegisterLogic("Player_UpdateChildOffset", &Player_Scripts::UpdateChildOffset);
 	RegisterLogic("Player_UpdateInput", &Player_Scripts::PlayerControllerScript);
+	RegisterLogic("Player_Collectible", &Player_Scripts::CollectedCollectible);
 
 	// Register stag helper functions
 	RegisterLogic("Stag_UpdateTexture", &Stag_Script::TextureUpdateScript);
@@ -39,9 +41,12 @@ void LogicManager::Init() {
 	// Register mite helper functions
 	RegisterLogic("Mite_UpdateTexture", &Mite_Script::TextureUpdateScript);
 
-	// Register Burrow UI button helper function
-	RegisterLogic("BurrowIcon_UpdateTexture", &Button_Script::BurrowUI_TextureUpdateScript);
+	// Register Burrow UI helper function
+	RegisterLogic("BurrowIcon_UpdateTexture", &UI_Script::BurrowUI_TextureUpdateScript);
 
-	// Register Burrow UI button helper function
-	RegisterLogic("HideIcon_UpdateTexture", &Button_Script::HideUI_TextureUpdateScript);
+	// Register Hide UI helper function
+	RegisterLogic("HideIcon_UpdateTexture", &UI_Script::HideUI_TextureUpdateScript);
+
+	// Register Environment Collectible helper function
+	RegisterLogic("Environment_Collectible", &Collectible_Script::CollectedCollectible);
 }

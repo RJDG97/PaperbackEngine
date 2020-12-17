@@ -45,7 +45,6 @@ enum class CollisionLayer
 	HOLE,
 	GOAL,
 	UI_ELEMENTS,     // Non-interactable
-	KEYS,
 	GATE,
 	COLLECTIBLE,
 	BURROWABLE,

@@ -1,7 +1,7 @@
 /**********************************************************************************
-*\file         Mite_Script.h
+*\file         UI_Script.h
 *\brief        Contains definition of functions and variables used for
-*			   the Mite Script
+*			   the UI Script
 *
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
@@ -13,8 +13,8 @@
 
 
 #pragma once
-#ifndef _BUTTON_SCRIPT_H_
-#define _BUTTON_SCRIPT_H_
+#ifndef _UI_SCRIPT_H_
+#define _UI_SCRIPT_H_
 
 #include "Entity/Entity.h"
 #include "Engine/Core.h"
@@ -23,7 +23,7 @@
 #include "Manager/EntityManager.h"
 #include "Components/LogicComponent.h"
 
-namespace Button_Script
+namespace UI_Script
 {
 	/******************************************************************************/
 	/*!

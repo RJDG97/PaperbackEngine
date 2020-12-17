@@ -98,3 +98,13 @@ size_t AABB::GetLayer() const {
 
 	return layer_;
 }
+
+void AABB::SetAlive(bool status) {
+
+	alive_ = status;
+}
+
+bool AABB::GetAlive() const {
+
+	return alive_;
+}

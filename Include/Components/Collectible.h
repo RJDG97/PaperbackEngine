@@ -21,6 +21,24 @@
 #include "MathLib/Vector2D.h"
 #include "Components/IComponent.h"
 
+
+enum class CollectibleType
+{
+	NONE = 0,
+	PUDDLE,
+	KEY
+};
+
+/******************************************************************************/
+/*!
+  \fn StringToCollectible()
+
+  \brief Converts the item's name into an ENUM
+*/
+/******************************************************************************/
+const CollectibleType StringToCollectible(const std::string& type);
+
+
 class Collectible : public Component {
 
 public:
@@ -82,9 +100,21 @@ public:
 	/******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+	/******************************************************************************/
+	/*!
+	  \fn GetItemType()
+
+	  \brief Get the item type
+	*/
+	/******************************************************************************/
+	const CollectibleType& GetItemType() const;
+
 private:
 
 	std::string item_name_;
 	std::string item_description_;
+	CollectibleType item_type_;
 };
+
+
 #endif

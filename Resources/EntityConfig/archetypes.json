@@ -156,16 +156,19 @@
     },
     {
       "component": "LogicComponent",
-      "number_of_fns": "3",
+      "number_of_fns": "4",
       "name": "UpdateChildOffset",
       "function": "Player_UpdateChildOffset",
       "name": "UpdateTexture",
       "function": "Player_UpdateTexture",
       "name": "UpdateInput",
-      "function": "Player_UpdateInput"
+      "function": "Player_UpdateInput",
+      "name": "Collectible",
+      "function": "Player_Collectible"
     },
     {
-      "component": "Inventory"
+      "component": "Inventory",
+      "max capacity": "9"
     },
     {
       "component": "ParentChild",
@@ -669,7 +672,7 @@
     {
       "component": "AABB",
       "scale": "1.0 0.5",
-      "layer": "8"
+      "layer": "7"
     },
     {
       "component": "AnimationRenderer",
@@ -707,7 +710,7 @@
     {
       "component": "AABB",
       "scale": "1.0 1.0",
-      "layer": "7"
+      "layer": "8"
     },
     {
       "component": "AnimationRenderer",
@@ -730,7 +733,13 @@
     {
       "component": "Collectible",
       "item name": "Key",
-      "item description": "Wow tis be a key lol!!"
+      "item description": "Wow tis be a mon-key whehey"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "Collectible",
+      "function": "Environment_Collectible"
     }
   ],
   "Puddle": [
@@ -751,7 +760,7 @@
     {
       "component": "AABB",
       "scale": "0.5 0.5",
-      "layer": "9"
+      "layer": "8"
     },
     {
       "component": "TextureRenderer",
@@ -759,6 +768,17 @@
       "layer": "1",
       "ui": "0",
       "alive": "1"
+    },
+    {
+      "component": "Collectible",
+      "item name": "Puddle",
+      "item description": "Wow tis be a water-poodle whehey"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "Collectible",
+      "function": "Environment_Collectible"
     }
   ],
   "ParticleEmitter": [
@@ -863,7 +883,7 @@
     {
       "component": "AABB",
       "scale": "0.5 0.5",
-      "layer": "10"
+      "layer": "9"
     }
   ],
   "DialogueBox": [

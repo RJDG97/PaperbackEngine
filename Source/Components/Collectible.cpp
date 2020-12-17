@@ -20,7 +20,8 @@
 
 Collectible::Collectible() :
 	item_name_{},
-	item_description_{}
+	item_description_{},
+	item_type_{ CollectibleType::NONE }
 {}
 
 Collectible::~Collectible() {
@@ -53,6 +54,7 @@ void Collectible::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* wr
 void Collectible::DeSerialize(std::stringstream& data) {
 
 	data >> item_name_ >> item_description_;
+	item_type_ = StringToCollectible(item_name_);
 }
 
 std::shared_ptr<Component> Collectible::Clone() {
@@ -62,6 +64,26 @@ std::shared_ptr<Component> Collectible::Clone() {
 
 	cloned->item_name_ = item_name_;
 	cloned->item_description_ = item_description_;
+	cloned->item_type_ = item_type_;
 
 	return cloned;
+}
+
+const CollectibleType& Collectible::GetItemType() const {
+
+	return item_type_;
+}
+
+
+
+const CollectibleType StringToCollectible(const std::string& type) {
+
+	if (type == "Key")
+		return CollectibleType::KEY;
+	else if (type == "Puddle")
+		return CollectibleType::PUDDLE;
+	
+
+	else
+		return CollectibleType::NONE;
 }
