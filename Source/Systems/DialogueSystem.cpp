@@ -34,7 +34,7 @@ void DialogueSystem::Update(float frametime)
 		return;
 	}
 
-	if (dialogue_box_renderer_ == nullptr)
+	if (entire_speech_ == nullptr || dialogue_box_renderer_ == nullptr)
 	{
 		return;
 	}
@@ -146,17 +146,24 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 		}
 	}
 
-	CORE->SetMovementLock(true);
-
 	text_elapsed_time_ = 0.0f;
 	num_characters_ = 0;
 	dialogue_box_renderer_->SetAlive(true);
 	dialogue_text_renderer_->SetAlive(true);
 	dialogue_box_scale_->SetScale({ dialogue_box_scale_->GetScale().x, 0.0f });
 	current_dialogue_ = dialogue_manager_->GetDialogue(dialogue_name);
+
+	// Do replace this...
+	if (current_dialogue_->GetContents()->begin() == current_dialogue_->GetContents()->end()) {
+		entire_speech_ = nullptr;
+		return;
+	}
+
 	current_dialogue_content_ = current_dialogue_->GetContents()->begin();
 	entire_speech_ = current_dialogue_content_->GetSpeech();
 	dialogue_status_ = DialogueStatus::OPENING;
+
+	CORE->SetMovementLock(true);
 }
 
 void DialogueSystem::AdvanceText()
