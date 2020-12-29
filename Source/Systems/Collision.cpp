@@ -254,23 +254,55 @@ bool Collision::SeparatingAxisTheorem(const AABB& a, const AABB& b) {
 	return 0;
 }
 
-void Collision::CheckClickableCollision() {
+void Collision::CheckClickableCollision(ButtonStates& state) {
 
 	Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();
 
-	for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
-
+	for (auto& [id, clickable] : *clickable_arr_) {
+		
 		// Only if clickable is set to active
-		if (clickable->second->active_) {
+		if (clickable->active_) {
 
-			if (CheckCursorCollision(cursor_pos, clickable->second)) {
+			LogicManager* logic_manager = &*CORE->GetManager<LogicManager>();
+			LogicComponent* logic = component_mgr_->GetComponent<LogicComponent>(id);
 
-				Message_Button msg{ clickable->second->index_ };
-				CORE->BroadcastMessage(&msg);
-				return;
+			if (CheckCursorCollision(cursor_pos, clickable)) {
+
+				// Run logic script to change texture to be "Hovered"
+				std::string UpdateTexture = logic->GetLogic("ButtonUpdateTexture");
+
+				logic_manager->Exec(UpdateTexture, id, state);
+
+				if (state == ButtonStates::CLICKED)
+					return;
+			}
+			else {
+				
+				// Run logic script to change texture to be Default
+				ButtonStates button_state = ButtonStates::DEFAULT;
+				std::string UpdateTexture = logic->GetLogic("ButtonUpdateTexture");
+
+				logic_manager->Exec(UpdateTexture, id, button_state);
 			}
 		}
 	}
+	
+
+
+
+	//for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
+
+	//	// Only if clickable is set to active
+	//	if (clickable->second->active_) {
+
+	//		if (CheckCursorCollision(cursor_pos, clickable->second)) {
+
+	//			Message_Button msg{ clickable->second->index_ };
+	//			CORE->BroadcastMessage(&msg);
+	//			return;
+	//		}
+	//	}
+	//}
 }
 
 EntityID Collision::SelectEntity(Vector2D cursor_pos) {
@@ -444,39 +476,6 @@ bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 	return true;
 }
 
-void Collision::PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2) {
-
-	auto& [player_id, player_aabb] = *aabb1;
-	auto& [collectible_id, collectible_aabb] = *aabb2;
-
-	// Get player's inventory component
-	Inventory* inventory = component_mgr_->GetComponent<Inventory>(player_id);
-	// Get collided entity's collectible component
-	Collectible* collectible = component_mgr_->GetComponent<Collectible>(collectible_id);
-
-
-	if (inventory && collectible) {
-
-		// Insert the collectible into the player's inventory
-		inventory->InsertItem(*collectible);
-
-		// Deactivate rendering & collision of the collectible
-		AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(collectible_id);
-		PointLight* point_light = component_mgr_->GetComponent<PointLight>(collectible_id);
-
-		// Disable relevant components of the collected entity
-		if (renderer)
-			renderer->SetAlive(false);
-		if (point_light)
-			point_light->SetAlive(false);
-
-		collectible_aabb->alive_ = false;
-
-		// Temporary?
-		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("keypickedup");
-	}
-}
-
 void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 
 	LogicManager* logic = &*CORE->GetManager<LogicManager>();
@@ -493,20 +492,6 @@ void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 	// Execute player's logic script
 	logic->Exec(environment_collectible, collectible_id);
 	logic->Exec(player_collectible, player_id, collectible_id);
-
-
-
-
-	//Health* player_health = component_mgr_->GetComponent<Health>(aabb1->first);
-	//if (player_health->current_health_ != player_health->GetMaxHealth())
-	//{
-	//	++(player_health->current_health_);
-	//	FACTORY->Destroy(aabb2->second->GetOwner());
-
-	//	MessageBGM_Play msg{ "PlayerDrink" };
-	//	CORE->BroadcastMessage(&msg);
-	//}
-
 }
 
 void Collision::CollisionResponse(const CollisionLayer& layer_a, const CollisionLayer& layer_b,
@@ -588,6 +573,16 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				}
 				break;
 			}
+			case CollisionLayer::SOLID_ENVIRONMENT:
+			{
+				// If player is burrowing, do not allow the player to pass through
+				Status* player_status = status_arr_->GetComponent(aabb1->first);
+				if (player_status && player_status->GetStatus() == StatusType::BURROW) {
+
+					DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
+				}
+				break;
+			}
 		}
 		break;
 	}
@@ -655,6 +650,7 @@ void Collision::RemoveAABBComponent(EntityID id) {
 }
 
 void Collision::UpdateBoundingBox() {
+
 	if (debug_)
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Bounding Boxes\n");
 
@@ -676,21 +672,21 @@ void Collision::UpdateBoundingBox() {
 }
 
 void Collision::UpdateClickableBB() {
+
 	if (debug_)
 		M_DEBUG->WriteDebugMessage("Collision System: Updating Clickable Bounding Boxes\n");
 
-	for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
+	for (auto& [id, clickable] : *clickable_arr_) {
 
-		//reset collided flag to false to prepare for collision check after
-		clickable->second->collided_ = false;
+		clickable->collided_ = false;
 
-		Entity* entity = clickable->second->GetOwner();
+		Entity* entity = clickable->GetOwner();
 		DEBUG_ASSERT((entity), "Entity does not exist");
 
-		Transform* entity_position = transform_arr_->GetComponent(clickable->second->GetOwner()->GetID());
+		Transform* entity_position = transform_arr_->GetComponent(clickable->GetOwner()->GetID());
 
-		clickable->second->bottom_left_ = entity_position->position_ - clickable->second->scale_;
-		clickable->second->top_right_ = entity_position->position_ + clickable->second->scale_;
+		clickable->bottom_left_ = entity_position->position_ - clickable->scale_;
+		clickable->top_right_ = entity_position->position_ + clickable->scale_;
 	}
 }
 
@@ -807,12 +803,6 @@ void Collision::Init() {
 	*/
 	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "00000000", false);
 
-	///*
-	//Parameter 1: Collision layer 5
-	//Parameter 2: Collidable with Layer 3 (PLAYER)
-	//*/
-	//AddCollisionLayers(CollisionLayer::KEYS, "00001000", false);
-
 	/*
 	Parameter 1: Collision layer 7
 	Parameter 2: Collidable with Layer 3 (PLAYER)
@@ -825,12 +815,17 @@ void Collision::Init() {
 	*/
 	AddCollisionLayers(CollisionLayer::COLLECTIBLE, "00001000", false);
 
-
 	/*
 	Parameter 1: Collision layer 9
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
 	AddCollisionLayers(CollisionLayer::BURROWABLE, "00001000", false);
+
+	/*
+	Parameter 1: Collision layer 9
+	Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::SOLID_ENVIRONMENT, "00001000", false);
 
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }
@@ -916,6 +911,9 @@ void Collision::Update(float frametime) {
 		future.get();
 	}
 
+	ButtonStates state = ButtonStates::HOVERED;
+	CheckClickableCollision(state);
+
 	// Possibly to toggle off debug mode
 	if (debug_)
 	{
@@ -995,7 +993,35 @@ void Collision::SendMessageD(Message* m) {
 	}
 	case MessageIDTypes::M_MOUSE_PRESS:
 	{
-		CheckClickableCollision();
+		// Placeholder measure to allow for disabling of the "HowToPlay" popups
+		// Illegal poopy code but it works TEMPORARILY
+		// I WILL FIND A BETTER WAY FOR THIS I PROMISE
+		for (auto& [id, click] : *clickable_arr_) {
+			
+			ParentChild* pc = component_mgr_->GetComponent<ParentChild>(id);
+			if (pc->GetChildren().empty())
+				continue;
+
+			std::vector<Entity*> children = pc->GetChildren();
+			EntityID howto_id = children[0]->GetID();
+
+			TextureRenderer* pc_renderer = component_mgr_->GetComponent<TextureRenderer>(howto_id);
+
+			if (pc_renderer->IsAlive()) {
+
+				// Disable the HowToPlay window
+				pc_renderer->SetAlive(false);
+
+				// Disable the buttons in the background
+				Message_Button msg{ 7 };
+				CORE->BroadcastMessage(&msg);
+				return;
+			}
+		}
+
+		// No choice because of the need for a L-Value Ref for Logic Manager's param
+		ButtonStates state = ButtonStates::CLICKED;
+		CheckClickableCollision(state);
 		break;
 	}
 	default:

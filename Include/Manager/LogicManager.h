@@ -93,6 +93,9 @@ public:
 	template <typename... Args>
 	void Exec(const std::string& name, Args&&... args) {
 
+		if (name == "")
+			return;
+
 		DEBUG_ASSERT(logic_map_<remove_cv<Args>...>[name], "Function is nullptr!");
 		logic_map_<remove_cv<Args>...>[name](std::forward<Args>(args)...);
 	}

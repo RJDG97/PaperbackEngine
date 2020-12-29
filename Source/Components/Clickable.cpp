@@ -29,6 +29,11 @@ Clickable::Clickable() :
 	group_{}
 {}
 
+size_t Clickable::GetIndex() {
+
+	return index_;
+}
+
 bool Clickable::GetActive() {
 	
 	return active_;

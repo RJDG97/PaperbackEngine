@@ -772,13 +772,13 @@
     <ClInclude Include="Include\Components\Unlockable.h">
       <Filter>Entity\Components\Unlockable</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Script\Button_Script.h">
-      <Filter>Entity\Components\Logic\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Script\UI_Script.h">
       <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Include\Script\Collectible_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Button_Script.h">
       <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
   </ItemGroup>

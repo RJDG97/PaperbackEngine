@@ -68,8 +68,8 @@ enum class MessageIDTypes
 	// Change animation
 	CHANGE_ANIMATION_1,
 	CHANGE_ANIMATION_2,
-	FLIP_SPRITE_X,
-	FLIP_SPRITE_Y,
+	CAM_ZOOM_OUT,
+	CAM_ZOOM_IN,
 
 	// Factory
 	FTY_PURGE,

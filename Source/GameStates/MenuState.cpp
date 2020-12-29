@@ -183,6 +183,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				CORE->GetSystem<Collision>()->ToggleClickables(2);
 				CORE->GetSystem<Collision>()->ToggleClickables(0);
 				help_ = false;
+				return;
 				break;
 			}
 			}

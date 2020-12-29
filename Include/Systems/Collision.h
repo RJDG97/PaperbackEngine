@@ -48,6 +48,7 @@ enum class CollisionLayer
 	GATE,
 	COLLECTIBLE,
 	BURROWABLE,
+	SOLID_ENVIRONMENT, // Player cannot burrow through this surface
 	MAX
 };
 
@@ -187,15 +188,6 @@ private:
 
 /******************************************************************************/
 /*!
-  \fn PlayerKeyResponse()
-
-  \brief Helper function to handle response of a player colliding with a key
-*/
-/******************************************************************************/
-	void PlayerKeyResponse(AABBIt aabb1, AABBIt aabb2);
-
-/******************************************************************************/
-/*!
   \fn PlayerCollectibleResponse()
 
   \brief Helper function to handle response of a player colliding with a collectible
@@ -241,15 +233,6 @@ private:
   \brief Checks for collision between mouse cursor and a menu entity
 */
 /******************************************************************************/
-	bool CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button);
-
-/******************************************************************************/
-/*!
-  \fn CheckCursorCollision()
-
-  \brief Checks for collision between mouse cursor and a menu entity
-*/
-/******************************************************************************/
 	bool CheckCursorCollision(const Vec2& cursor_pos, const AABB* box);
 
 public:
@@ -283,7 +266,16 @@ public:
   \brief Checks for collision between mouse cursor and a menu entity
 */
 /******************************************************************************/
-	void CheckClickableCollision();
+	void CheckClickableCollision(ButtonStates& state);
+
+/******************************************************************************/
+/*!
+  \fn CheckCursorCollision()
+
+  \brief Checks for collision between mouse cursor and a menu entity
+*/
+/******************************************************************************/
+	bool CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button);
 	
 /******************************************************************************/
 /*!

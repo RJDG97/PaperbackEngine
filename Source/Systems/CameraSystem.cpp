@@ -83,14 +83,14 @@ void CameraSystem::SendMessageD(Message* m)
             break;
         }*/
 
-        case MessageIDTypes::FLIP_SPRITE_X: {
+        case MessageIDTypes::CAM_ZOOM_IN: {
 
             Camera* camera = GetMainCamera();
             CameraZoom(camera, camera->cam_zoom_ + 0.1f);
             break;
         }
 
-        case MessageIDTypes::FLIP_SPRITE_Y: {
+        case MessageIDTypes::CAM_ZOOM_OUT: {
 
             Camera* camera = GetMainCamera();
             CameraZoom(camera, camera->cam_zoom_ - 0.1f);

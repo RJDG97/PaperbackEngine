@@ -25,6 +25,12 @@
       "texture": "Menu_Start_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "MenuState_EnterPlayState"
     }
   ],
   "button": [
@@ -53,6 +59,17 @@
       "texture": "Menu_HowToPlay_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "MenuState_HowToPlay"
+    },
+    {
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "HowToPlay"
     }
   ],
   "button": [
@@ -81,6 +98,12 @@
       "texture": "Menu_Editor_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "MenuState_EnterEditorState"
     }
   ],
   "button": [
@@ -109,35 +132,12 @@
       "texture": "Menu_Quit_0",
       "layer": "2",
       "ui": "1"
-    }
-  ],
-  "button": [
-    {
-      "component": "Transform",
-      "position": "0.0 1.25",
-      "rotation": "0.0"
     },
     {
-      "component": "Clickable",
-      "index": "7",
-      "active": "0",
-      "scale": "100.0 100.0",
-      "group": "2"
-    },
-    {
-      "component": "Scale",
-      "scale": "312.0 400.0"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.1 0.1",
-      "layer": "6"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "UI_HowToPlay_0",
-      "layer": "2",
-      "ui": "1"
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "MenuState_QuitGame"
     }
   ]
 }

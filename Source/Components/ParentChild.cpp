@@ -81,7 +81,7 @@ void ParentChild::DeSerializeClone(std::stringstream& data) {
 	
 	data >> number_of_children_;
 
-	DEBUG_ASSERT((number_of_children_ >= 1), "There are no children..");
+	//DEBUG_ASSERT((number_of_children_ >= 1), "There are no children..");
 
 	to_clone_.resize(number_of_children_);
 

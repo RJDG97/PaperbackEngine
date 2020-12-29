@@ -1,0 +1,44 @@
+{
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "23.50000 -12.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 5.000000",
+            "layer": "10"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "24.70000 27.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 4.000000",
+            "layer": "10"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-7.70000 -25.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.000000 1.700000",
+            "layer": "10"
+        }
+    ]
+}

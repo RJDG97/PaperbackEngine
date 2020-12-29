@@ -27,6 +27,12 @@
       "layer": "10",
       "ui": "1",
       "alive": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "PlayState_PauseGame"
     }
   ],
   "button": [
@@ -56,6 +62,12 @@
       "texture": "UI_FullScreenButton_0",
       "layer": "10",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "PlayState_EnterFullScreen"
     }
   ],
   "button": [
@@ -114,6 +126,12 @@
       "texture": "UI_Paused_Resume_0",
       "layer": "20",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "PauseState_ResumeGame"
     }
   ],
   "button": [
@@ -143,6 +161,17 @@
       "texture": "UI_Paused_HowTo_0",
       "layer": "20",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "PauseState_HowToPlay"
+    },
+    {
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "HowToPlay"
     }
   ],
   "button": [
@@ -172,6 +201,12 @@
       "texture": "UI_Paused_Return_0",
       "layer": "20",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "PauseState_ReturnToMenu"
     }
   ],
   "button": [
@@ -201,35 +236,12 @@
       "texture": "UI_Paused_QuitGame_0",
       "layer": "20",
       "ui": "1"
-    }
-  ],
-  "button": [
-    {
-      "component": "Transform",
-      "position": "0.0 1.25",
-      "rotation": "0.0"
     },
     {
-      "component": "Clickable",
-      "index": "7",
-      "active": "0",
-      "scale": "100.0 100.0",
-      "group": "2"
-    },
-    {
-      "component": "Scale",
-      "scale": "312.0 400.0"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.1 0.1",
-      "layer": "6"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "UI_HowToPlay_0",
-      "layer": "20",
-      "ui": "1"
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "PauseState_QuitGame"
     }
   ]
 }

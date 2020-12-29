@@ -21,6 +21,13 @@
 #include <sstream>
 #include <memory>
 
+enum class ButtonStates
+{
+	DEFAULT = 0,
+	HOVERED,
+	CLICKED
+};
+
 class Clickable : public Component {
 	Vector2D scale_; // double check if needed
 	Vector2D top_right_;
@@ -95,6 +102,8 @@ public:
 	void SetTopRight(const Vector2D& top_right) {
 		top_right_ = top_right;
 	}
+
+	size_t GetIndex();
 
 /******************************************************************************/
 /*!

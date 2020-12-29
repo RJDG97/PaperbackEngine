@@ -285,6 +285,14 @@
       "component": "Clickable",
       "scale": "1.0 1.0",
       "active": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "0"
+    },
+    {
+      "component": "ParentChild",
+      "counter": "0"
     }
   ],
   "Hole": [
@@ -1238,6 +1246,50 @@
       "component": "AABB",
       "scale": "1.0 3.0",
       "layer": "0"
+    }
+  ],
+  "SolidEnvironment": [
+    {
+      "component": "Name",
+      "name": "SolidEnvironment"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "10"
+    }
+  ],
+  "HowToPlay": [
+    {
+      "component": "Name",
+      "name": "HowToPlay"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 1.25",
+      "rotation": "0.0",
+      "offset": "0.0 1.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "312.0 400.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_HowToPlay_0",
+      "layer": "2",
+      "ui": "1",
+      "alive": "0"
     }
   ]
 }

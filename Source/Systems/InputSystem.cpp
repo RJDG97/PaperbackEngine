@@ -100,8 +100,24 @@ void ScrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 {
 	UNREFERENCED_PARAMETER(window);
 	UNREFERENCED_PARAMETER(xOffset);
-	UNREFERENCED_PARAMETER(yOffset);
-	// in case we need to scroll input
+
+	// If cursor is within a window, disable scroll to zoom
+	ImguiSystem* imgui = &*CORE->GetSystem<ImguiSystem>();
+	if (imgui->EditorMode())
+		return;
+
+	// Zoom in
+	if (yOffset > 0.0f) {
+
+		Message msg(MessageIDTypes::CAM_ZOOM_IN);
+		CORE->BroadcastMessage(&msg);
+	}
+	// Zoom out
+	else if (yOffset < 0.0f) {
+		
+		Message msg(MessageIDTypes::CAM_ZOOM_OUT);
+		CORE->BroadcastMessage(&msg);
+	}
 }
 
 /******************************************************************************/
@@ -158,13 +174,13 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_KEY_O:
 		{
-			Message msg(MessageIDTypes::FLIP_SPRITE_X);
+			Message msg(MessageIDTypes::CAM_ZOOM_IN);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_P:
 		{
-			Message msg(MessageIDTypes::FLIP_SPRITE_Y);
+			Message msg(MessageIDTypes::CAM_ZOOM_OUT);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}

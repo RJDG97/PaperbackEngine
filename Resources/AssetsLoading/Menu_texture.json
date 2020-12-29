@@ -7,11 +7,27 @@
   
   "Menu_Start": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play.png 1 1",
   
+  "Menu_Start_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Hover.png 1 1",
+  
+  "Menu_Start_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Clicked.png 1 1",
+  
   "Menu_HowToPlay": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay.png 1 1",
+  
+  "Menu_HowToPlay_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay_Hover.png 1 1",
+  
+  "Menu_HowToPlay_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay_Clicked.png 1 1",
   
   "Menu_Editor": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor.png 1 1",
   
+  "Menu_Editor_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Hover.png 1 1",
+  
+  "Menu_Editor_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Clicked.png 1 1",
+  
   "Menu_Quit": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit.png 1 1",
+  
+  "Menu_Quit_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit_Hover.png 1 1",
+  
+  "Menu_Quit_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit_Clicked.png 1 1",
   
   "Lose_Background": "Resources/Sprites/UI_Elements/Lose/UI_Defeat.png 1 1",
   
@@ -61,7 +77,15 @@
   
   "UI_Paused_HowTo": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo.png 1 1",
   
+  "UI_Paused_HowTo_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo_Clicked.png 1 1",
+  
+  "UI_Paused_HowTo_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo_Hover.png 1 1",
+  
   "UI_Paused_Quit": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit.png 1 1",
+  
+  "UI_Paused_Quit_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit_Clicked.png 1 1",
+  
+  "UI_Paused_Quit_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit_Hover.png 1 1",
   
   "UI_Paused_QuitGame": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame.png 1 1",
   
@@ -77,7 +101,15 @@
   
   "UI_Paused_Restart": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart.png 1 1",
   
+  "UI_Paused_Restart_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart_Clicked.png 1 1",
+  
+  "UI_Paused_Restart_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart_Hover.png 1 1",
+  
   "UI_Paused_Resume": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume.png 1 1",
+  
+  "UI_Paused_Resume_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume_Clicked.png 1 1",
+  
+  "UI_Paused_Resume_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume_Hover.png 1 1",
   
   "UI_Paused_Settings": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Settings.png 1 1",
   

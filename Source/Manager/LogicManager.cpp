@@ -18,6 +18,7 @@
 #include "Script/Player_Script.h"
 #include "Script/UI_Script.h"
 #include "Script/Collectible_Script.h"
+#include "Script/Button_Script.h"
 #include "Systems/Message.h"
 
 
@@ -29,16 +30,16 @@ LogicManager::LogicManager() {
 
 void LogicManager::Init() {
 	
-	// Register player helper functions
+	// Register Player helper functions
 	RegisterLogic("Player_UpdateTexture", &Player_Scripts::TextureUpdateScript);
 	RegisterLogic("Player_UpdateChildOffset", &Player_Scripts::UpdateChildOffset);
 	RegisterLogic("Player_UpdateInput", &Player_Scripts::PlayerControllerScript);
 	RegisterLogic("Player_Collectible", &Player_Scripts::CollectedCollectible);
 
-	// Register stag helper functions
+	// Register Stag helper functions
 	RegisterLogic("Stag_UpdateTexture", &Stag_Script::TextureUpdateScript);
 
-	// Register mite helper functions
+	// Register Mite helper functions
 	RegisterLogic("Mite_UpdateTexture", &Mite_Script::TextureUpdateScript);
 
 	// Register Burrow UI helper function
@@ -49,4 +50,18 @@ void LogicManager::Init() {
 
 	// Register Environment Collectible helper function
 	RegisterLogic("Environment_Collectible", &Collectible_Script::CollectedCollectible);
+
+	// Register MenuState Button helper functions
+	RegisterLogic("MenuState_EnterPlayState", &Button_Script::MenuEnterPlay);
+	RegisterLogic("MenuState_HowToPlay", &Button_Script::MenuHowToPlay);
+	RegisterLogic("MenuState_EnterEditorState", &Button_Script::MenuEnterEditor);
+	RegisterLogic("MenuState_QuitGame", &Button_Script::MenuQuitGame);
+
+	// Register PauseState Button helper functions
+	RegisterLogic("PlayState_PauseGame", &Button_Script::PlayPauseGame);
+	RegisterLogic("PlayState_EnterFullScreen", &Button_Script::PlayFullScreen);
+	RegisterLogic("PauseState_ResumeGame", &Button_Script::PauseResumeGame);
+	RegisterLogic("PauseState_HowToPlay", &Button_Script::PauseHowToPlay);
+	RegisterLogic("PauseState_ReturnToMenu", &Button_Script::PauseReturnToMenu);
+	RegisterLogic("PauseState_QuitGame", &Button_Script::PauseQuitGame);
 }

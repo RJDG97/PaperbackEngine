@@ -62,16 +62,13 @@ void LogicComponent::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuf
 
 void LogicComponent::DeSerialize(std::stringstream& data) {
 
-	//data >> entity_ >> size_;
 	data >> size_;
 
 	std::string name, fn_name;
-	//LogicUpdate logic;
 
 	for (size_t i = 0; i < size_; ++i) {
 
 		data >> name >> fn_name;
-		//SetLogicFn(logic, fn_name, entity_);
 
 		my_logic_.emplace(name, fn_name);
 	}
@@ -80,8 +77,7 @@ void LogicComponent::DeSerialize(std::stringstream& data) {
 
 void LogicComponent::DeSerializeClone(std::stringstream& data) {
 	
-	// should just clone from archetype
-	(void)data;
+	DeSerialize(data);
 }
 
 

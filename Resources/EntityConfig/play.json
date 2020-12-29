@@ -23,5 +23,6 @@
     "BushLight": "Resources/EntityConfig/Play/bushlight.json",
     "GrassDark": "Resources/EntityConfig/Play/grassdark.json",
     "BushDark": "Resources/EntityConfig/Play/bushdark.json",
-    "Torch": "Resources/EntityConfig/Play/torches.json"
+    "Torch": "Resources/EntityConfig/Play/torches.json",
+    "SolidEnvironment": "Resources/EntityConfig/Play/solidenvironment.json"
 }

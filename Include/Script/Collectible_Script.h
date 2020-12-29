@@ -1,7 +1,7 @@
 /**********************************************************************************
-*\file         UI_Script.h
+*\file         Collectible_Script.h
 *\brief        Contains definition of functions and variables used for
-*			   the UI Script
+*			   the Collectible Script
 *
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
@@ -24,36 +24,11 @@
 
 namespace Collectible_Script
 {
-	///******************************************************************************/
-	///*!
-	//  \fn Key_Collected()
-
-	//  \brief Collectible update script for a Key
-	//*/
-	///******************************************************************************/
-	//void Key_Collected(const EntityID& collectible_id) {
-
-	//	ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
-
-	//	// Grab relevant components
-	//	AnimationRenderer* renderer = component_mgr->GetComponent<AnimationRenderer>(collectible_id);
-	//	PointLight* point_light = component_mgr->GetComponent<PointLight>(collectible_id);
-	//	AABB* aabb = component_mgr->GetComponent<AABB>(collectible_id);
-
-	//	// Toggle to inactive (Potentially delete them)
-	//	if (renderer)
-	//		renderer->SetAlive(false);
-	//	if (point_light)
-	//		point_light->SetAlive(false);
-	//	if (aabb)
-	//		aabb->SetAlive(false);
-	//}
-
 	/******************************************************************************/
 	/*!
-	  \fn Puddle_Collected()
+	  \fn CollectedCollectible()
 
-	  \brief Collectible update script for a Puddle
+	  \brief Collectible update script for a Puddle / Key
 	*/
 	/******************************************************************************/
 	void CollectedCollectible(const EntityID& collectible_id) {
@@ -61,14 +36,17 @@ namespace Collectible_Script
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
 
 		// Grab relevant components
-		AnimationRenderer* renderer = component_mgr->GetComponent<AnimationRenderer>(collectible_id);
+		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(collectible_id);
+		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(collectible_id);
 		Collectible* collectible = component_mgr->GetComponent<Collectible>(collectible_id);
 		PointLight* point_light = component_mgr->GetComponent<PointLight>(collectible_id);
 		AABB* aabb = component_mgr->GetComponent<AABB>(collectible_id);
 
 		// Toggle to inactive (Potentially delete them)
-		if (renderer)
-			renderer->SetAlive(false);
+		if (animation_renderer)
+			animation_renderer->SetAlive(false);
+		if (texture_renderer)
+			texture_renderer->SetAlive(false);
 		if (point_light)
 			point_light->SetAlive(false);
 		if (aabb)
