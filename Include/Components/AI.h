@@ -17,6 +17,7 @@
 #include "Entity/Entity.h" 
 #include "MathLib/Vector2D.h"
 #include "Systems/FrameRateController.h"
+#include "Manager/BehaviourTree.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -339,7 +340,9 @@ public:
 
 private:
 
+	Behaviour::Root root_;
 	AIType type_;
+	
 	AIState state_;
 	float range_;
 	int attackpower_;

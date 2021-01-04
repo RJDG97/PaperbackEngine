@@ -17,13 +17,16 @@
 #include "Systems/Debug.h"
 #include "Engine/Core.h"
 
+#include "Script/Stag_Tree.h"
+
 void LogicSystem::Init()
 {
+	std::cout << "Call Logic System" << std::endl;
 	comp_mgr = &*CORE->GetManager<ComponentManager>();
 	GeneralScripts::comp_mgr = &*CORE->GetManager<ComponentManager>();
 
 	ai_arr_ = comp_mgr->GetComponentArray<AI>();
-	
+
 	GeneralScripts::map_ = &*CORE->GetManager<AMap>();
 	GeneralScripts::forces_ = &*CORE->GetManager<ForcesManager>();
 }
@@ -31,13 +34,13 @@ void LogicSystem::Init()
 void LogicSystem::Update(float frametime)
 {
 	(void)frametime;
-	//std::cout << "LogicSystem::Update" << std::endl;
 	for (AIIt ai = ai_arr_->begin(); ai != ai_arr_->end(); ++ai) {
 
 		// AI type handler
 		GeneralScripts::AIHandler(ai);
 
-		// any code relevant for all AI
+		// Run AI Behaviour Tree
+		//ai->second->root_.run();
 	}
 }
 

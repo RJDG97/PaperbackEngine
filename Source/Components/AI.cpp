@@ -16,6 +16,7 @@
 #include "Script/GeneralScripts.h"
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
+#include "Script/Stag_Tree.h"
 
 AI::AI() : 
 	type_{}, state_{AI::AIState::Patrol}
@@ -89,6 +90,7 @@ void AI::DeSerializeClone(std::stringstream& data) {
 	// clone data will be for number of destinations and destinations
 	data >> type >> range_ >> speed_ >> num_destinations_;
 	state_ = AIState::Patrol;
+	//root_.setChild(new Stag_Tree);
 	type_ = GeneralScripts::GetType(type);
 	alive_ = true;
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
@@ -108,6 +110,8 @@ std::shared_ptr<Component> AI::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning AI Component\n");
 
 	std::shared_ptr<AI> cloned = std::make_shared<AI>();
+
+	cloned->root_ = root_;
 
 	cloned->alive_ = alive_;
 	cloned->type_ = type_;

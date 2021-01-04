@@ -3,93 +3,48 @@
 
 #include <vector>
 
-class MonoBehaviour
+#include <vector>
+
+class Behaviour
 {
 public:
-
 	class Node {
 	public:
-		virtual bool Run() = 0;
+		virtual bool run() = 0;
 	};
 
 	class CompositeNode : public Node {
-		
-		std::vector<Node*> children_;
-	
+		std::vector<Node*> children;
 	public:
-		const std::vector<Node*>& GetChildren() const
-		{
-			return children_;
-		}
+		const std::vector<Node*>& getChildren() const;
 
-		void AddChild(Node* child){
-			children_.emplace_back(child);
-		}
-
-		void AddChildren(std::initializer_list<Node*>&& newchildren)
-		{
-			for (Node* child : newchildren)
-			{
-				AddChild(child);
-			}
-		}
-
-		template <typename T>
-		void AddChildren(const T& newchildren) {
-			for (Node* child : newchildren)
-			{
-				AddChild(child);
-			}
-		}
+		void addChild(Node* child);
 	};
 
-	// One child fails all fails
-	class SelectorNode : public CompositeNode {
+	class Selector : public CompositeNode {
 	public:
-
-		virtual bool Run() override {
-			for (Node* child : GetChildren()) {
-				if (child->Run())
-					return true;
-			}
-			return false;
-		}
+		bool run() override;
 	};
 
-	// One child succeeds all succeed
-	class SequenceNode : public CompositeNode {
+	class Sequence : public CompositeNode {
 	public:
-		virtual bool Run() override {
-			for (Node* child : GetChildren()) {
-				if (!child->Run())
-					return false;
-			}
-			return true;
-		}
+		bool run() override;
 	};
 
-	class DecoratorNode :public Node {
-		Node* child_;
-	protected:
-		Node* GetChild() const{
-			return child_;
-		}
+	class DecoratorNode : public Node {
+		Node* child;
 	public:
-		void SetChild(Node* newchild) {
-			child_ = newchild;
-		}
+		const Node& getChildren() const;
 	};
 
-	class Root : public DecoratorNode {
-		friend class MonoBehaviour;
-		virtual bool Run() override {
-			return GetChild()->Run();
-		}
+	class Root : public Node
+	{
+		Node* child;
+	public:
+		void setChild(Node* newchild);
 
+		bool run() override;
 	};
-
-	virtual bool Run() = 0;
-
 };
 
 #endif

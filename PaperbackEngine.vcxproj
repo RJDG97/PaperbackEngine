@@ -201,6 +201,7 @@
     <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp" />
     <ClCompile Include="Source\Manager\AMap.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
+    <ClCompile Include="Source\Manager\BehaviourTree.cpp" />
     <ClCompile Include="Source\Manager\DialogueManager.cpp" />
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="Include\ImguiWindows\TextureTilesWindow.h" />
     <ClInclude Include="Include\Manager\AMap.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
+    <ClInclude Include="Include\Manager\BehaviourTree.h" />
     <ClInclude Include="Include\Manager\ComponentManager.h" />
     <ClInclude Include="Include\Manager\DialogueManager.h" />
     <ClInclude Include="Include\Manager\EntityManager.h" />
@@ -315,6 +317,7 @@
     <ClInclude Include="Include\Script\ScriptList.h" />
     <ClInclude Include="Include\Script\StagScript.h" />
     <ClInclude Include="Include\Script\Player_Script.h" />
+    <ClInclude Include="Include\Script\Stag_Tree.h" />
     <ClInclude Include="Include\Script\UI_Script.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\Collision.h" />

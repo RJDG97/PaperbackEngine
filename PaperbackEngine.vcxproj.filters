@@ -186,6 +186,9 @@
     <Filter Include="Entity\Components\Unlockable">
       <UniqueIdentifier>{9f755395-ee1f-414c-9725-c6713fa795a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Behaviour System">
+      <UniqueIdentifier>{46ced2f8-0168-4bca-957f-2bf270902a6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -454,6 +457,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\Unlockable.cpp">
       <Filter>Entity\Components\Unlockable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\BehaviourTree.cpp">
+      <Filter>Systems\Behaviour System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -780,6 +786,12 @@
     </ClInclude>
     <ClInclude Include="Include\Script\Button_Script.h">
       <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\BehaviourTree.h">
+      <Filter>Systems\Behaviour System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Stag_Tree.h">
+      <Filter>Scripts\StagBeetle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
