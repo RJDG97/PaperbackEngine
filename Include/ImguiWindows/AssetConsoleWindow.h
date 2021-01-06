@@ -40,6 +40,21 @@ struct AudioInfo {
 	int loop;
 };
 
+struct AnimationInfo {
+
+	std::string anim_batch_name_;
+	std::string anim_folder_;
+	int column_;
+	int row_;
+};
+
+struct IndividualAnimationInfo {
+
+	std::string anim_name_;
+	int num_frames_;
+	GLfloat frame_duration_;
+};
+
 enum AddFile {
 
 	ADDTEXTURE = 0,
@@ -80,15 +95,31 @@ public:
 	void AddTextureAnimation();
 
 	/******************************************************************************/
-/*!
-	\fn LoadTextureJson(std::string level_name)
+	/*!
+		\fn LoadTextureJson(std::string level_name)
 
-	\brief Load the json into a map
-*/
-/******************************************************************************/
+		\brief Load the json into a map
+	*/
+	/******************************************************************************/
 	void LoadTextureJson(std::string level_name);
 
-	//void LoadAnimationJson(std::string level_name);
+	/******************************************************************************/
+	/*!
+		\fn LoadAnimationJson(std::string level_name)
+
+		\brief Load the json into a map
+	*/
+	/******************************************************************************/
+	void LoadAnimationJson(std::string level_name);
+
+	/******************************************************************************/
+	/*!
+		\fn LoadAnimationJson(std::string level_name)
+
+		\brief Load the json into a map
+	*/
+	/******************************************************************************/
+	void LoadAnimationsJson(std::string json_path);
 
 	/******************************************************************************/
 	/*!
@@ -116,6 +147,15 @@ public:
 	*/
 	/******************************************************************************/
 	void DisplayTextureJson();
+
+	/******************************************************************************/
+	/*!
+		\fn DisplayTextureJson()
+
+		\brief Displays the information of the chosen json
+	*/
+	/******************************************************************************/
+	void DisplayAnimationJson();
 
 	/******************************************************************************/
 	/*!
@@ -213,11 +253,17 @@ private:
 	GraphicsSystem* graphics_;
 	ComponentManager* component_;
 	EntityManager* entities_;
-
 	ArchetypeWindow* archetype_;
 	
 	std::map<std::string, TextureInfo> tex_info_;
 	std::map<std::string, AudioInfo> audio_info;
+
+	// key for the following maps would be the same one (spritesheet name)
+	std::map<std::string, AnimationInfo> general_anim_info_; // store general infomation of the animation json
+	std::map<std::string, std::vector<IndividualAnimationInfo>> animation_info_; // store specific infomation of the individual animation
+	std::vector<IndividualAnimationInfo> indi_anim_info_;
+
+	std::map<std::string, std::string> listAnimationJson_;;
 
 	std::vector<std::string> filesdel_;
 	std::vector<std::string> jsonfiles_;
@@ -226,6 +272,7 @@ private:
 	std::string chosen_json_;
 
 	std::string json_to_load_; 
+	std::string animation_json_;
 
 	bool b_unload, b_wrong_type, b_load;
 

@@ -24,9 +24,9 @@ void EntityPathWindow::Init() {
 
 void EntityPathWindow::Update() {
 
-	if (imgui_->b_editpath) {
+	if (imgui_->b_edit_path) {
 
-		ImGui::Begin("Set Entity Save Path", &imgui_->b_editpath);
+		ImGui::Begin("Set Entity Save Path", &imgui_->b_edit_path);
 
 		Level* editor = factory_->GetLevel("Editor");
 

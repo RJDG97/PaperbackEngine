@@ -183,7 +183,7 @@ void AssetWindow::FileMenuBar() {
 
 				path = *((std::string*)payLoadtex->Data);
 
-					imgui_->b_addtexture = true;
+					imgui_->b_add_texture = true;
 					imgui_->SetAssetAdd(path);			
 			}
 		}

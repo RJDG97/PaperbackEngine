@@ -30,7 +30,7 @@ void EntityWindow::Init(){
 	camera_ = &*CORE->GetSystem<CameraSystem>();
 	sound_ = &*CORE->GetSystem<SoundSystem>();
 
-	originalVec_ = { 0,0 };	
+	originalVec_ = mousePos_ = { 0,0 };	
 	b_draw = false;
 	b_grid = false;
 	b_light = false;
@@ -39,9 +39,9 @@ void EntityWindow::Init(){
 void EntityWindow::Update() {
 	//ImGui::ShowDemoWindow();
 	//ImGui::ShowStyleEditor();
-	if (imgui_->b_entitywin) {
+	if (imgui_->b_entity_win) {
 
-		ImGui::Begin("Entity Inspector", &imgui_->b_entitywin);
+		ImGui::Begin("Entity Inspector", &imgui_->b_entity_win);
 
 		ImGui::Separator();
 
@@ -54,15 +54,17 @@ void EntityWindow::Update() {
 
 		ImGui::Begin("Component Inspector", &imgui_->b_component);
 
+		SelectEntityComponent();// to see the components
+		ImGui::End();
+	}
+
+	if (imgui_->b_settings) {
+
+		ImGui::Begin("Editor Settings", &imgui_->b_settings);
+
 		DragEntityCheckBox();
 
 		ImGui::SameLine(0, 3);
-
-		if (imgui_->GetCamera())
-			ImGui::Checkbox("Draw Grid", &b_grid);
-
-		if (b_grid)
-			imgui_->DrawGrid();
 
 		if (ImGui::Checkbox("Bounding Boxes", &b_draw)) {
 
@@ -74,7 +76,24 @@ void EntityWindow::Update() {
 
 		graphics_->EnableLighting(b_light);
 
-		SelectEntityComponent();// to see the components
+		ImGui::SameLine(0, 3);
+
+		if (imgui_->GetCamera()) {
+
+			ImGui::Checkbox("Draw Grid", &b_grid);
+
+			if (!imgui_->EditorMode()) {
+
+				if (input_->IsMousePressed(0))
+					mousePos_ = input_->GetUpdatedCoords();
+
+				ImGui::Text("Current Cursor Position: %.2f, %.2f", mousePos_.x, mousePos_.y);
+			}
+		}
+
+		if (b_grid)
+			imgui_->DrawGrid();
+
 		ImGui::End();
 	}
 
@@ -241,7 +260,7 @@ std::pair<Entity*, std::vector<ComponentTypes>> EntityWindow::GetEntityComponent
 
 void EntityWindow::SelectEntityComponent() {
 
-	if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
+	if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_edit_comp))) {
 
 		std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
 

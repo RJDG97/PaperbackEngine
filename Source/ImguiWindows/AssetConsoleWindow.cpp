@@ -20,7 +20,6 @@ void AssetConsoleWindow::Init() {
 	graphics_ = &*CORE->GetSystem<GraphicsSystem>();
 	component_ = &*CORE->GetManager<ComponentManager>();
 	entities_ = &*CORE->GetManager<EntityManager>();
-
 	archetype_ = &*imgui_->GetWindow<ArchetypeWindow>();
 
 	chosen_json_ = {};
@@ -29,6 +28,11 @@ void AssetConsoleWindow::Init() {
 	tex_info_ = {};
 	audio_info = {};
 	listEntity_ = {};
+	animation_info_ = {};
+	general_anim_info_ = {};
+	indi_anim_info_ = {};
+	animation_json_ = {};
+	listAnimationJson_ = {};
 
 	b_unload = false;
 	b_wrong_type = false;
@@ -39,7 +43,7 @@ void AssetConsoleWindow::Init() {
 
 void AssetConsoleWindow::Update() {
 
-	if (imgui_->b_addtexture)
+	if (imgui_->b_add_texture)
 		AddTextureAnimation();
 
 	UnloadPopup();
@@ -48,7 +52,7 @@ void AssetConsoleWindow::Update() {
 
 void AssetConsoleWindow::AddTextureAnimation() {
 
-	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_addtexture);
+	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_add_texture);
 	ImGui::Text("Select what type of files you want to update."); ImGui::SameLine(0, 5);
 	imgui_->ImguiHelp("Press the'Save & Reload Textures' button after making\nany confirmed changes, and before changing to another file.\nIf you change file before confirming your changes,\nall previous amendments will be undone");
 	ImGui::Text("Type of Assets:");
@@ -66,6 +70,16 @@ void AssetConsoleWindow::AddTextureAnimation() {
 
 		if (!chosen_json_.empty())
 			AddNewAsset();
+	}
+	if (type == AddFile::ADDANIMATION) {
+		SelectAssetJson();
+		DisplayAnimationJson();
+		//AddBlankJson();
+
+
+		if (!chosen_json_.empty())
+			AddNewAsset();
+
 	}
 	if (type == AddFile::ADDAUDIO) {
 
@@ -105,6 +119,62 @@ void AssetConsoleWindow::LoadTextureJson(std::string level_name) {
 
 		tex_info_[tilename] = tex;
 	}
+}
+
+void AssetConsoleWindow::LoadAnimationJson(std::string level_name) {
+
+	rapidjson::Document anim_data;
+	std::string path = "Resources/AssetsLoading/" + level_name + "_animation.json";
+
+	DeSerializeJSON(path, anim_data);
+
+	const rapidjson::Value& anim_arr = anim_data;
+	DEBUG_ASSERT(anim_arr.IsObject(), "Level JSON does not exist in proper format");
+
+	for (rapidjson::Value::ConstMemberIterator file_it = anim_arr.MemberBegin(); file_it != anim_arr.MemberEnd(); ++file_it) {
+
+		listAnimationJson_[file_it->name.GetString()] = file_it->value.GetString(); // loads all the names of each individual animation json files
+	}
+
+}
+
+void AssetConsoleWindow::LoadAnimationsJson(std::string json_path) {
+
+		rapidjson::Document animation_set_data;
+		DeSerializeJSON(json_path, animation_set_data);
+
+		//Only one element in this array
+		const rapidjson::Value& animation_set_arr = animation_set_data;
+		DEBUG_ASSERT(animation_set_arr.IsObject(), "Level JSON does not exist in proper format");
+
+		const rapidjson::Value& animation_set_param = *animation_set_arr.MemberBegin()->value.Begin();
+
+		rapidjson::Value::ConstMemberIterator anim_set_param_it = animation_set_param.MemberBegin();
+
+		std::string spritesheet_name = animation_set_arr.MemberBegin()->name.GetString();
+
+		AnimationInfo animation;
+		animation.anim_folder_ = (anim_set_param_it++)->value.GetString();
+		animation.anim_batch_name_ = (anim_set_param_it++)->value.GetString();
+		animation.column_ = std::stoi((anim_set_param_it++)->value.GetString());
+		animation.row_ = std::stoi((anim_set_param_it++)->value.GetString());
+
+		std::vector<IndividualAnimationInfo> individual_anim_info;
+
+		for (; anim_set_param_it != animation_set_param.MemberEnd(); ++anim_set_param_it) {
+
+			std::stringstream stream;
+			stream << anim_set_param_it->value.GetString();
+
+			IndividualAnimationInfo anim;
+			stream >> anim.anim_name_ >> anim.num_frames_ >> anim.frame_duration_;
+			individual_anim_info.push_back(anim);
+		}
+
+		general_anim_info_[spritesheet_name] = animation;
+		animation_info_[spritesheet_name] = individual_anim_info;
+
+
 }
 
 void AssetConsoleWindow::LoadSoundJson(std::string level_name) {
@@ -176,7 +246,6 @@ void AssetConsoleWindow::SelectAssetJson() {
 				}
 			}
 				break;
-
 			case AddFile::ADDAUDIO:
 			{
 				if (fs::is_regular_file(assetjson) && assetjson.path().extension() == ".json" && imgui_->CheckString(assetjson.path().filename().generic_string(), "sounds")) {
@@ -200,6 +269,32 @@ void AssetConsoleWindow::SelectAssetJson() {
 				break;
 			}
 		}
+
+		if (type == AddFile::ADDANIMATION)
+		{
+			for (auto& animjson : fs::directory_iterator("Resources\\AssetsLoading")) {
+
+				if (fs::is_regular_file(animjson) && animjson.path().extension() == ".json" && imgui_->CheckString(animjson.path().filename().generic_string(), "animation")) {
+
+					filename = animjson.path().filename().generic_string().c_str();
+
+					if (ImGui::Selectable(filename.c_str())) {
+
+						file = FindUnderscore(filename);
+
+						animation_info_.clear();
+						general_anim_info_.clear();
+
+						LoadAnimationJson(file);
+
+						chosen_json_ = animjson.path().generic_string().c_str();
+
+						json_to_load_ = file;
+					}
+				}
+			}
+		}
+		
 		ImGui::EndCombo();
 	}
 }
@@ -475,6 +570,51 @@ void AssetConsoleWindow::DisplayTextureJson() {
 		SerializeJson();
 }
 
+void AssetConsoleWindow::DisplayAnimationJson() {
+	std::string spritesheet{};
+	if (!chosen_json_.empty()) {
+
+		if (ImGui::TreeNodeEx((chosen_json_ + " details:").c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
+
+			if (ImGui::BeginCombo("##animationsjson", (animation_json_.empty() ? "Choose File" : animation_json_.c_str()))) {
+
+				for (auto it = listAnimationJson_.begin(); it != listAnimationJson_.end(); ++it) {
+
+					if (ImGui::Selectable(it->first.c_str())) {
+
+						animation_json_ = it->second;
+						LoadAnimationsJson(animation_json_);
+					}
+				}
+
+				ImGui::EndCombo();
+			}
+			ImGui::TreePop();
+		}
+	}
+
+	if (!animation_json_.empty()) {
+
+		for (auto it = general_anim_info_.begin(); it != general_anim_info_.end(); ++it) {
+
+			spritesheet = it->first.c_str();
+			ImGui::Text(spritesheet.c_str());
+
+			ImGui::Text("Folder: %s, Animation Batch Name: %s, Columns: %d, Rows: %d", it->second.anim_folder_.c_str(), it->second.anim_batch_name_.c_str(), it->second.column_, it->second.row_);
+
+			auto info = animation_info_.find(spritesheet);
+
+			if (info != animation_info_.end()) {
+
+				for (int i = 0; i < info->second.size(); ++i) {
+
+					ImGui::Text("Animation Name: %s, Number of Frames: %d, Frame Duration: %.2f", info->second[i].anim_name_.c_str(), info->second[i].num_frames_, info->second[i].frame_duration_);
+				}
+			}
+		}
+
+	}
+}
 
 void AssetConsoleWindow::AddNewAsset() {
 

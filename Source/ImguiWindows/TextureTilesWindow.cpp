@@ -28,15 +28,15 @@ void TextureTilesWindow::Update() {
 
 	int counter = 0;
 
-	if (imgui_->b_showtex) {
-		ImGui::Begin("Texture Tiles", &imgui_->b_showtex, ImGuiWindowFlags_MenuBar);
+	if (imgui_->b_show_tex) {
+		ImGui::Begin("Texture Tiles", &imgui_->b_show_tex, ImGuiWindowFlags_MenuBar);
 
 		ImGui::BeginMenuBar();
 		static ImGuiTextFilter filter;
 		filter.Draw(ICON_FA_FILTER, 250.0f);
 
 		if (ImGui::Selectable(ICON_FA_PLUS ICON_FA_IMAGE))
-			imgui_->b_addtexture = true;
+			imgui_->b_add_texture = true;
 		if (ImGui::IsItemHovered())
 			imgui_->ImguiHelp("Add New Texture", 0);
 		ImGui::EndMenuBar();
