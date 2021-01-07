@@ -13,7 +13,7 @@
     },
     {
       "component": "Scale",
-      "scale": "90.0 90.0"
+      "scale": "45.0 45.0"
     },
     {
       "component": "AABB",
@@ -25,6 +25,12 @@
       "texture": "UI_QuitYes_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "WinLoseState_EnterMenuState"
     }
   ],
   "button": [
@@ -41,7 +47,7 @@
     },
     {
       "component": "Scale",
-      "scale": "90.0 90.0"
+      "scale": "45.0 45.0"
     },
     {
       "component": "AABB",
@@ -53,6 +59,12 @@
       "texture": "UI_QuitNo_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "WinLoseState_QuitGame"
     }
   ]
 }
