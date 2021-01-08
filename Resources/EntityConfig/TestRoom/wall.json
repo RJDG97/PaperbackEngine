@@ -7,7 +7,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Rock",
+      "texture": "Environment_Tiles_20",
       "layer": "2",
       "ui": "0"
     }
@@ -20,7 +20,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Rock",
+      "texture": "Environment_Tiles_20",
       "layer": "2",
       "ui": "0"
     }
@@ -47,7 +47,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "Rock",
+      "texture": "Environment_Tiles_20",
       "layer": "2",
       "ui": "0"
     },

@@ -1,8 +1,22 @@
+/**********************************************************************************
+*\file         AI.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the AI Component
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Components/AI.h"
 #include "Manager/ComponentManager.h"
 #include "Script/GeneralScripts.h"
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
+#include "Script/Stag_Tree.h"
 
 AI::AI() : 
 	type_{}, state_{AI::AIState::Patrol}
@@ -35,13 +49,38 @@ void AI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 	writer->EndObject();
 }
 
+void AI::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	writer->StartObject();
+
+	writer->Key("component");
+	writer->String("AI");
+
+	writer->Key("AIType");
+	writer->String(GeneralScripts::ReturnStringType(type_).c_str());
+
+	writer->Key("range");
+	writer->String(std::to_string(range_).c_str());
+
+	writer->Key("speed");
+	writer->String(std::to_string(speed_).c_str());
+
+	writer->Key("dest");
+	writer->String(std::to_string(num_destinations_).c_str());
+
+	for (size_t i = 0; i < num_destinations_; ++i) {
+		
+		writer->Key(("destination" + std::to_string(i + 1)).c_str());
+		writer->String((std::to_string(destinations_[i].x) + " " + std::to_string(destinations_[i].y)).c_str());
+	}
+
+	writer->EndObject();
+}
+
 void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;
-
 	data >> type >> range_ >> speed_;
-	type_ = GeneralScripts::GetType(type);
-	
 }
 
 void AI::DeSerializeClone(std::stringstream& data) {
@@ -50,9 +89,10 @@ void AI::DeSerializeClone(std::stringstream& data) {
 
 	// clone data will be for number of destinations and destinations
 	data >> type >> range_ >> speed_ >> num_destinations_;
-
+	state_ = AIState::Patrol;
+	//root_.setChild(new Stag_Tree);
 	type_ = GeneralScripts::GetType(type);
-
+	alive_ = true;
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
 	destinations_.resize(num_destinations_);
@@ -71,14 +111,18 @@ std::shared_ptr<Component> AI::Clone() {
 
 	std::shared_ptr<AI> cloned = std::make_shared<AI>();
 
+	cloned->root_ = root_;
+
+	cloned->alive_ = alive_;
 	cloned->type_ = type_;
 	cloned->range_ = range_;
 	cloned->attackpower_ = attackpower_;
-
+	cloned->state_ = state_;
 	cloned->speed_ = speed_;
 	cloned->num_destinations_ = num_destinations_;
 	cloned->destinations_.reserve(destinations_.size());
 	std::copy(std::begin(destinations_), std::end(destinations_), std::back_inserter(cloned->destinations_));
+	std::copy(std::begin(path_), std::end(path_), std::back_inserter(cloned->path_));
 	cloned->current_destination_ = cloned->destinations_.begin();
 
 	return cloned;
@@ -201,4 +245,14 @@ void AI::SetPath(std::vector<Vector2D>& path)
 Time_Channel& AI::GetTimer()
 {
 	return recovery_timer_;
+}
+
+bool AI::GetLife()
+{
+	return alive_;
+}
+
+void AI::SetLife(bool life)
+{
+	alive_ = life;
 }

@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         FramwRateController.h
+*\brief        Contains declaration of functions and variables used for
+*			   the FrameRateController
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef FrameRateController_H
 #define FrameRateController_H
 
@@ -157,16 +170,76 @@ public:
 /******************************************************************************/
 	void SetFPS(float);
 
+/******************************************************************************/
+/*!
+  \fn GetDelta()
+
+  \brief Get delta time
+*/
+/******************************************************************************/
 	float GetDelta();
 
+/******************************************************************************/
+/*!
+  \fn GetFixedDelta()
+
+  \brief Get fixed delta time
+*/
+/******************************************************************************/
 	float GetFixedDelta();
 
+/******************************************************************************/
+/*!
+  \fn GetSteps()
+
+  \brief Get number of steps "paused"
+*/
+/******************************************************************************/
 	int GetSteps();
 
+/******************************************************************************/
+/*!
+  \fn SetSystemPerformance()
+
+  \brief Compute performance
+*/
+/******************************************************************************/
 	void SetSystemPerformance(ISystem* system);
+
+/******************************************************************************/
+/*!
+  \fn GetSystemPerformance()
+
+  \brief Get system performance data
+*/
+/******************************************************************************/
 	std::map<std::string, float>& GetSystemPerformance();
+
+/******************************************************************************/
+/*!
+  \fn PrintSystemPerformance()
+
+  \brief Print system performance in debug console
+*/
+/******************************************************************************/
 	void PrintSystemPerformance();
+
+/******************************************************************************/
+/*!
+  \fn StartSystemTimer()
+
+  \brief Start timer
+*/
+/******************************************************************************/
 	void StartSystemTimer();
+
+/******************************************************************************/
+/*!
+  \fn EndSystemTimer()
+
+  \brief End timer
+*/
+/******************************************************************************/
 	void EndSystemTimer();
 };
 

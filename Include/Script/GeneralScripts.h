@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         GeneralScripts.h
+*\brief        Contains declaration of functions and variables used for
+*			   generic AI in the game
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _GENERALSCRIPT_H_
 #define _GENERALSCRIPT_H_
 
@@ -8,11 +21,14 @@
 
 namespace GeneralScripts
 {
+	extern ComponentManager* comp_mgr;
+
 	extern EntityID player_id;
 	extern Transform* player_rigidbody;
 	extern Transform* obj_rigidbody;
 	extern AnimationRenderer* obj_anim_renderer;
 	extern Status* player_status;
+	extern Health* player_health;
 	extern AMap* map_;
 	extern ForcesManager* forces_;
 
@@ -51,6 +67,15 @@ namespace GeneralScripts
 	*/
 	/******************************************************************************/
 	AI::AIType GetType(std::string type);
+
+	/******************************************************************************/
+	/*!
+	  \fn ReturnStringType(const AI::AIType& type)
+
+	  \brief Return AI Type in string form
+	*/
+	/******************************************************************************/
+	std::string ReturnStringType(const AI::AIType& type);
 
 	/******************************************************************************/
 	/*!

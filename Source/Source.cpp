@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Source.cpp
+*\brief        Contains the definition for the entire game loop including adding of
+*			   Systems and Managers to the Core Engine
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Source.h"
 
 #include "Systems/WindowsSystem.h"
@@ -11,6 +25,7 @@
 #include "Systems/LightingSystem.h"
 #include "Systems/ImguiSystem.h"
 #include "Systems/LogicSystem.h"
+#include "Systems/DialogueSystem.h"
 
 #include "Manager/ModelManager.h"
 #include "Manager/TextureManager.h"
@@ -19,7 +34,11 @@
 #include "Manager/ForcesManager.h"
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
+#include "Manager/ParticleManager.h"
 #include "Manager/AMap.h"
+#include "Manager/TransitionManager.h"
+#include "Manager/DialogueManager.h"
+#include "Manager/LogicManager.h"
 
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
@@ -27,6 +46,8 @@
 #include "Systems/Game.h"
 #include "Systems/Collision.h"
 #include "Systems/Partitioning.h"
+#include "Systems/ParticleSystem.h"
+#include "Systems/TransitionSystem.h"
 #include "Systems/Debug.h"
 #include <sstream>
 
@@ -61,10 +82,13 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<Physics>();
 		CORE->AddSystem<PartitioningSystem>();
 		CORE->AddSystem<Collision>();
+		CORE->AddSystem<ParticleSystem>();
 		CORE->AddSystem<ImguiSystem>();
 		CORE->AddSystem<SoundSystem>();
 		CORE->AddSystem<Game>();
 		CORE->AddSystem<LogicSystem>();
+		CORE->AddSystem<TransitionSystem>();
+		CORE->AddSystem<DialogueSystem>();
 
 		// Add Managers to the Core Engine
 		CORE->AddManager<ComponentManager>();
@@ -76,6 +100,10 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddManager<FontManager>();
 		CORE->AddManager<AnimationManager>();
 		CORE->AddManager<ForcesManager>();
+		CORE->AddManager<ParticleManager>();
+		CORE->AddManager<TransitionManager>();
+		CORE->AddManager<DialogueManager>();
+		CORE->AddManager<LogicManager>();
 
 		// Initialize all Systems & Managers that
 		// were added to the Core Engine

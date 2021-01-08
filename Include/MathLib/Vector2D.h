@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         Vector2D.h
+*\brief        Contains declaration of functions used for Vector2D
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef CS230_VECTOR2D_H_
 #define CS230_VECTOR2D_H_
 
@@ -6,6 +19,15 @@
 	// Supress warning: nonstandard extension used : nameless struct/union
 #pragma warning( disable : 4201 )
 #endif
+	namespace My
+	{
+		template <typename T>
+		struct Vector2D
+		{
+			T x, y;
+		};
+	}
+
 	typedef union Vector2D
 	{
 		struct

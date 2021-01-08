@@ -1,8 +1,23 @@
+/**********************************************************************************
+*\file         Physics.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Physics System
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Systems/Physics.h"
-#include "Engine/Core.h"
-#include <iostream>
 #include "Systems/Debug.h"
 #include "Components/Status.h"
+#include "Engine/Core.h"
+#include "MathLib/Matrix3x3.h"
+#include <iostream>
 #include <assert.h>
 
 bool VerifyZeroFloat(const float& val) {
@@ -40,8 +55,11 @@ void Physics::Init() {
 	motion_arr_ = comp_mgr->GetComponentArray<Motion>();
 	status_arr_ = comp_mgr->GetComponentArray<Status>();
 	transform_arr_ = comp_mgr->GetComponentArray<Transform>();
+	particle_arr_ = comp_mgr->GetComponentArray<Particle>();
+	logic_arr_ = comp_mgr->GetComponentArray<LogicComponent>();
 	force_mgr = &*CORE->GetManager<ForcesManager>();
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
+	logic_mgr_ = &*CORE->GetManager<LogicManager>();
 	graphics_sys_ = &*CORE->GetSystem<GraphicsSystem>();
 }
 
@@ -56,22 +74,43 @@ void Physics::Update(float frametime) {
 	// Updating entity's velocity
 	for (MotionIt motion = motion_arr_->begin(); motion != motion_arr_->end(); ++motion) {
 
+		if (!motion->second->alive_)
+			continue;
+
+		Transform* xform = transform_arr_->GetComponent(motion->first);
+		Particle* particle = component_mgr_->GetComponent<Particle>(motion->first);
+
 		// Perform update of entity's motion component
-		//motion->second->velocity_ += motion->second->acceleration_ * frametime;
-		motion->second->acceleration_ = force_mgr->GetForce(motion->second->GetOwner()->GetID()) / motion->second->mass_;
-		motion->second->velocity_ += motion->second->acceleration_ * frametime;
+		Vector2D new_vel{};
+		motion->second->acceleration_ = force_mgr->GetForce(motion->second->GetOwner()->GetID()) * motion->second->inv_mass_;
+		new_vel += motion->second->acceleration_ * frametime;
+
+		// Apply rotation matrix to velocity only if it's a particle to save processing power
+		if (particle) {
+
+			Matrix3x3 mtx{};
+			
+			// Apply rotation matrix to the velocity
+			xform->rotation_ += xform->rotation_speed_;
+			Mtx33RotDeg(mtx, xform->rotation_);
+			new_vel = mtx * new_vel;
+
+			// Check if rotation is within bounds otherwise inverse the velocity
+			if (xform->rotation_ > xform->rotation_range_.y || xform->rotation_ < xform->rotation_range_.x) {
+
+				xform->rotation_speed_ = -xform->rotation_speed_;
+			}
+		}
+
+		// Perform update ot entity's velocity
+		motion->second->velocity_ += new_vel;
 		motion->second->velocity_ *= 0.80f;
+
 
 		// If velocity is close to 0, reset to 0	
 		SnapZero(motion->second->velocity_);
 
-		// Handles the updating of textures for player and enemy sprites
-		TextureHandler(motion);
-
 		// Check whether the entity owns a transform component by checking entity ID
-		//TransformIt xform = transform_arr_.find(motion->first);
-		Transform* xform = transform_arr_->GetComponent(motion->first);
-
 		if (xform) {
 			if (debug_) {
 				// Log id of entity and it's updated components that are being updated
@@ -92,90 +131,28 @@ void Physics::Update(float frametime) {
 			}
 		}
 	}
-}
 
-void Physics::TextureHandler(MotionIt motion) {
+	// Update textures and child entity offset
+	for (auto& [id, logic] : *logic_arr_) {
 
-	// If velocity x is 0 and status is NONE, swap to idle
-	AnimationRenderer* renderer = component_mgr_->GetComponent<AnimationRenderer>(motion->first);
+		std::string update{};
 
-	if (renderer) {
+		if (logic->my_logic_.find("UpdateTexture") != logic->my_logic_.end()) {
 
-		Status* status = status_arr_->GetComponent(motion->first);
-
-		if (status) {
-
-			Name* name = component_mgr_->GetComponent<Name>(motion->first);
-
-			if (status->status_ != StatusType::BURROW && status->status_ != StatusType::INVISIBLE) {
-
-				if (name) {
-
-					if (VerifyZeroFloat(motion->second->velocity_.x) && VerifyZeroFloat(motion->second->velocity_.y)) {
-
-						//to verify is name is correct
-						if (name->GetName() == "Player") {
-
-							graphics_sys_->ChangeAnimation(renderer, "Player_Idle");
-						}
-						else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "StagBeetle") {
-
-							// Renzo probably needs to add an extra check here to disable this setting if AI detects player
-							graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Idle");
-						}
-					}
-					else {
-
-						if (name->GetName() == "Player") {
-
-							graphics_sys_->ChangeAnimation(renderer, "Player_Walk");
-
-						}
-						else if (name->GetName() == "Enemy" || name->GetName() == "MovingWall" || name->GetName() == "StagBeetle") {
-
-							// Renzo probably needs to add an extra check here to disable this setting if AI detects player
-							graphics_sys_->ChangeAnimation(renderer, "Stagbeetle_Walk");
-						}
-					}
-				}
-			}
-			else if (status->status_ == StatusType::BURROW) {
-
-				if (VerifyZeroFloat(motion->second->velocity_.x) && VerifyZeroFloat(motion->second->velocity_.y)) {
-
-					//to verify is name is correct
-					if (name->GetName() == "Player") {
-
-						graphics_sys_->ChangeAnimation(renderer, "Player_Burrow_Idle");
-					}
-				}
-				else {
-
-					if (name->GetName() == "Player") {
-
-						graphics_sys_->ChangeAnimation(renderer, "Player_Burrow_Walk");
-
-					}
-				}
-			}
+			update = logic->my_logic_["UpdateTexture"];
+			logic_mgr_->Exec(update, id);
 		}
-	
-		if (motion->second->velocity_.x > 0 && motion->second->is_left_) {
 
-			graphics_sys_->FlipTextureY(renderer);
-			motion->second->is_left_ = false;
-		}
-		else if (motion->second->velocity_.x < 0 && !motion->second->is_left_) {
+		if (logic->my_logic_.find("UpdateChildOffset") != logic->my_logic_.end()) {
 
-			graphics_sys_->FlipTextureY(renderer);
-			motion->second->is_left_ = true;
+			update = logic->my_logic_["UpdateChildOffset"];
+			logic_mgr_->Exec(update, id);
 		}
 	}
 }
 
+
 void Physics::ChangeVelocity(Message* m) {
-	// If there are multiple players the results will be duplicated
-	// because there is no specific entity id at the moment
 
 	//dynamic cast from message base class to derived message class
 	MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
@@ -194,10 +171,9 @@ void Physics::ChangeVelocity(Message* m) {
 
 				//update the acceleration data member of that component with the message's
 				motion->second->velocity_ = msg->new_vec_;
-
-				//std::cout << "New Acceleration: " << motion->second->acceleration_.x << ", " << motion->second->acceleration_.y << std::endl;
 			}
 			else {
+
 				motion->second->velocity_ = {};
 			}
 		}
@@ -209,7 +185,6 @@ void Physics::SendMessageD(Message* msg) {
 	{
 		case MessageIDTypes::PHY_UPDATE_VEL:
 		{
-			//std::cout << "Physics System: Updating velocity of player" << std::endl;
 			ChangeVelocity(msg);
 			break;
 		}

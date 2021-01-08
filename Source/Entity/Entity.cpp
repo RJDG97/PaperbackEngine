@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Entity.cpp
+*\brief        Contains definition of functions and variables used for
+*			   an Entity
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Entity/Entity.h"
 #include "Components/IComponent.h"
 #include "Manager/EntityManager.h"
@@ -219,6 +233,22 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::INPUTCONTROLLER;
 	else if (str == "AI")
 		return ComponentTypes::AI;
+	else if (str == "ParentChild")
+		return ComponentTypes::PARENTCHILD;
+	else if (str == "LogicComponent")
+		return ComponentTypes::LOGICCOMPONENT;
+	else if (str == "Inventory")
+		return ComponentTypes::INVENTORY;
+	else if (str == "Particle")
+		return ComponentTypes::PARTICLE;
+	else if (str == "Emitter")
+		return ComponentTypes::EMITTER;
+	else if (str == "SoundEmitter")
+		return ComponentTypes::SOUNDEMITTER;
+	else if (str == "Collectible")
+		return ComponentTypes::COLLECTIBLE;
+	else if (str == "Unlockable")
+		return ComponentTypes::UNLOCKABLE;
 	else
 		return ComponentTypes::NONE;
 }

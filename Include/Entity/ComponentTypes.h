@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         ComponentTypes.h
+*\brief        Contains definition of ENUMs for Components
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _COMPONENT_TYPES_H_
 #define _COMPONENT_TYPES_H_
 
@@ -23,6 +36,14 @@ enum class ComponentTypes {
 	BASICAI,
 	CLICKABLE,
 	INPUTCONTROLLER,
+	PARENTCHILD,
+	LOGICCOMPONENT,
+	INVENTORY,
+	PARTICLE,
+	EMITTER,
+	SOUNDEMITTER,
+	COLLECTIBLE,
+	UNLOCKABLE,
 	MAX
 };
 

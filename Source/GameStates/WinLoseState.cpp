@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         WinLoseState.cpp
+*\brief        Contains definition of WinLose State
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "GameStates/WinLoseState.h"
 #include "GameStates/MenuState.h"
 #include "GameStates/PlayState.h"
@@ -11,11 +24,19 @@ WinLoseState m_WinLoseState;
 
 void WinLoseState::Init(std::string level_name) {
 
+	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
+
 	FACTORY->LoadLevel(level_name);
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
+
+	CORE->GetSystem<GraphicsSystem>()->EnableLighting(false);
+
+	MessageBGM_Play msg{ level_name };
+	CORE->BroadcastMessage(&msg);
 }
 
 
@@ -34,6 +55,10 @@ void WinLoseState::Draw(Game* game) {
 
 void WinLoseState::Free() {
 
+	CORE->ResetGodMode();
+	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
+
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
 }
@@ -43,16 +68,6 @@ void WinLoseState::StateInputHandler(Message* msg, Game* game) {
 
 	switch(msg->message_id_)
 	{
-		case MessageIDTypes::M_BUTTON_TRIGGERED:
-		{
-			Message_Input* m = dynamic_cast<Message_Input*>(msg);
-			if (m) {
-				// yeah change this input to the button checker thingies ma jig when we have buttons
-				if (m->input_== GLFW_KEY_ENTER)
-					game->ChangeState(&m_MenuState);
-			}
-			break;
-		}
 		case MessageIDTypes::BUTTON:
 		{
 			Message_Button* m = dynamic_cast<Message_Button*>(msg);

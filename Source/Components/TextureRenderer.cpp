@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         TextureRenderer.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the TextureRenderer Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+               or disclosure of this file or its contents without the prior
+               written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Components/TextureRenderer.h"
 #include "Manager/ComponentManager.h"
 #include "Components/Transform.h"
@@ -40,6 +53,9 @@ void TextureRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
     writer->Key("ui");
     writer->String(std::to_string(ui_).c_str());
 
+    writer->Key("alive");
+    writer->String(std::to_string(alive_).c_str());
+
     writer->EndObject();
 }
 
@@ -50,7 +66,7 @@ void TextureRenderer::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBu
 
 void TextureRenderer::DeSerialize(std::stringstream& data) {
     
-    data >> texture_name_ >> layer_ >> ui_;
+    data >> texture_name_ >> layer_ >> ui_ >> alive_;
 }
 
 void TextureRenderer::DeSerializeClone(std::stringstream& data) {
@@ -58,14 +74,15 @@ void TextureRenderer::DeSerializeClone(std::stringstream& data) {
     //remove existing entry before proceeding
     CORE->GetSystem<GraphicsSystem>()->RemoveTextureRendererComponent(Component::GetOwner()->GetID());
 
-    int layer;
+    //int layer;
 
-    data >> texture_name_ >> layer >> ui_;
+    //data >> texture_name_ >> layer >> ui_;
+    DeSerialize(data);
 
-    if (layer != layer_) {
+    //if (layer != layer_) {
 
-        M_DEBUG->WriteDebugMessage("Layer is keyed in wrongly!");
-    }
+    //    M_DEBUG->WriteDebugMessage("Layer is keyed in wrongly!");
+    //}
 
     //readd with new info
     CORE->GetSystem<GraphicsSystem>()->AddTextureRendererComponent(Component::GetOwner()->GetID(), this);
@@ -81,6 +98,7 @@ std::shared_ptr<Component> TextureRenderer::Clone() {
     // IRenderer
     cloned->layer_ = layer_;
     cloned->ui_ = ui_;
+    cloned->alive_ = alive_;
 
     // TextureRenderer
     cloned->texture_name_ = texture_name_;
@@ -91,12 +109,21 @@ std::shared_ptr<Component> TextureRenderer::Clone() {
 
 void TextureRenderer::InitTextures() {
 
-    texture_ = *CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
-    texture_handle_ = texture_.GetTilesetHandle();
-    tex_vtx_ = *texture_.GetTexVtx();
+    texture_ = CORE->GetManager<TextureManager>()->GetTexture(texture_name_);
+    texture_handle_ = texture_->GetTilesetHandle();
+    tex_vtx_ = *texture_->GetTexVtx();
 }
 
 std::string TextureRenderer::GetCurrentTextureName()
 {
     return texture_name_;
+}
+
+int TextureRenderer::GetUI() {
+
+    return ui_;
+}
+
+void TextureRenderer::SetUI(int ui) {
+    ui_ = ui;
 }

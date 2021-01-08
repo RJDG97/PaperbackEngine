@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         AABB.h
+*\brief        Contains declaration of functions and variables used for
+*			   the AABB Component
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _AABB_H_
 #define _AABB_H_
@@ -9,12 +23,15 @@
 #include <memory>
 
 class AABB : public Component {
+
 	Vector2D scale_;
 	Vector2D top_right_;
     Vector2D bottom_left_;
-	Vector2D offset_;
 	bool collided;
 	size_t layer_;
+	bool alive_;
+
+
 public:
 	friend class Collision;
 
@@ -162,23 +179,24 @@ public:
 */
 /******************************************************************************/
 	size_t GetLayer() const;
+
 /******************************************************************************/
 /*!
-  \fn GetOffset()
+  \fn SetAlive()
 
-  \brief Get the entity AABB offset
+  \brief Set alive status of AABB component
 */
 /******************************************************************************/
-	Vector2D GetOffset();
-	
+	void SetAlive(bool status);
+
 /******************************************************************************/
 /*!
-  \fn SetOffset(Vector2D new_offset)
+  \fn GetAlive()
 
-  \brief Set the entity AABB offset
+  \brief Get alive status of AABB component
 */
 /******************************************************************************/
-	void SetOffset(Vector2D new_offset);
+	bool GetAlive() const;
 };
 
 #endif

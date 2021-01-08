@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         Message.h
+*\brief        Contains declaration of the different messages in the game
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _MESSAGE_H_
 #define _MESSAGE_H_
 
@@ -27,17 +40,16 @@ enum class MessageIDTypes
 
 	// Sound System
 	BGM_PLAY,
-	BGM_STOP,
 	BGM_PAUSE,
+	BGM_RESUME,
 	BGM_MUTE,
-	BGM_COMPLETED,
-	BGM_RELOAD,
 
 	// Game State System
 	GSM_CHANGESTATE,
 	GSM_PUSHSTATE,
 	GSM_POPSTATE,
-	GSM_PAUSESTATE, // TBC
+	GSM_WIN, // TBC
+	GSM_LOSE,
 
 	// Message to Game System
 	M_MOVEMENT,
@@ -56,8 +68,8 @@ enum class MessageIDTypes
 	// Change animation
 	CHANGE_ANIMATION_1,
 	CHANGE_ANIMATION_2,
-	FLIP_SPRITE_X,
-	FLIP_SPRITE_Y,
+	CAM_ZOOM_OUT,
+	CAM_ZOOM_IN,
 
 	// Factory
 	FTY_PURGE,
@@ -153,20 +165,6 @@ struct MessageBGM_Play : public Message
 */
 /******************************************************************************/
 	MessageBGM_Play(const std::string file_id);
-};
-
-struct MessageBGM_Stop : public Message
-{
-	std::string file_id_;
-
-	/******************************************************************************/
-	/*!
-	  \fn MessageBGM_Stop()
-
-	  \brief Initializes a message with the name of sound file to be stopped
-	*/
-	/******************************************************************************/
-	MessageBGM_Stop(const std::string file_id);
 };
 
 ///Message to tell the game to quit

@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         Camera.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Camera System
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _CAMERASYSTEM_H_
 #define _CAMERASYSTEM_H_
@@ -18,18 +31,9 @@ class CameraSystem : public ISystem {
 	CameraType* camera_arr_;
 
 	WindowsSystem* windows_system_;
-
-	//Temporary, will make use of camera components next time
-	Transform* target_;
-	bool targeted_;
+	ComponentManager* component_manager_;
 
 public:
-
-	//Temporary, will make use of camera components next time
-	glm::vec2 cam_pos_;
-	glm::vec2 cam_size_;
-	glm::mat3 world_to_ndc_xform_;
-	float cam_zoom_;
 
 /******************************************************************************/
 /*!
@@ -111,7 +115,7 @@ public:
 	\brief Updates camera
 */
 /******************************************************************************/
-	void CameraUpdate(/*Camera* camera*/);
+	void CameraUpdate(Camera* camera);
 
 /******************************************************************************/
 /*!
@@ -120,7 +124,7 @@ public:
 	\brief Sets zoom data member of camera
 */
 /******************************************************************************/
-	void CameraZoom(/*Camera* camera,*/ float zoom);
+	void CameraZoom(Camera* camera, float zoom);
 
 /******************************************************************************/
 /*!
@@ -129,7 +133,7 @@ public:
 	\brief Moves the camera
 */
 /******************************************************************************/
-	void CameraMove(/*Camera* camera,*/ Vector2D displacement);
+	void CameraMove(Camera* camera, Vector2D displacement);
 
 /******************************************************************************/
 /*!
@@ -138,35 +142,16 @@ public:
 	\brief Sets postion of the camera
 */
 /******************************************************************************/
-	void CameraSetPosition(/*Camera* camera,*/ Vector2D postion);
+	void CameraSetPosition(Camera* camera, Vector2D postion);
 
 /******************************************************************************/
 /*!
-	\fn CameraUnTarget()
+	\fn GetMainCamera()
 
-	\brief Sets target of camera to nullptr and un-snaps camera from target
+	\brief Gets the main camera
 */
 /******************************************************************************/
-	void CameraUnTarget(/*Camera* camera,*/);
-
-/******************************************************************************/
-/*!
-	\fn CameraUnTarget()
-
-	\brief Sets target of camera to the entity
-*/
-/******************************************************************************/
-	void SetTarget(/*Camera* camera,*/ Entity* target);
-
-/******************************************************************************/
-/*!
-	\fn ToggleTargeted()
-
-	\brief Toggles whether camera follow target or moves independantly from
-		   the entity
-*/
-/******************************************************************************/
-	void ToggleTargeted(/*Camera* camera*/);
+	Camera* GetMainCamera();
 };
 
 #endif

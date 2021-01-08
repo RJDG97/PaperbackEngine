@@ -89,6 +89,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -119,6 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,6 +140,7 @@
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -148,12 +151,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Include\Imgui\imgui.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_demo.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_draw.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Include\Imgui\imgui_widgets.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_demo.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_draw.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="lib\DearImGui\imgui_widgets.cpp" />
     <ClCompile Include="Source\Components\AABB.cpp" />
     <ClCompile Include="Source\Components\AI.cpp" />
     <ClCompile Include="Source\Components\AnimationRenderer.cpp" />
@@ -161,39 +164,54 @@
     <ClCompile Include="Source\Components\BasicAI.cpp" />
     <ClCompile Include="Source\Components\Camera.cpp" />
     <ClCompile Include="Source\Components\Clickable.cpp" />
+    <ClCompile Include="Source\Components\Collectible.cpp" />
     <ClCompile Include="Source\Components\ConeLight.cpp" />
+    <ClCompile Include="Source\Components\Emitter.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\InputController.cpp" />
+    <ClCompile Include="Source\Components\Inventory.cpp" />
+    <ClCompile Include="Source\Components\LogicComponent.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
     <ClCompile Include="Source\Components\Name.cpp" />
+    <ClCompile Include="Source\Components\ParentChild.cpp" />
+    <ClCompile Include="Source\Components\Particle.cpp" />
     <ClCompile Include="Source\Components\PointLight.cpp" />
+    <ClCompile Include="Source\Components\SoundEmitter.cpp" />
     <ClCompile Include="Source\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Components\TextureRenderer.cpp" />
     <ClCompile Include="Source\Components\Scale.cpp" />
     <ClCompile Include="Source\Components\Status.cpp" />
     <ClCompile Include="Source\Components\Transform.cpp" />
+    <ClCompile Include="Source\Components\Unlockable.cpp" />
     <ClCompile Include="Source\Engine\Core.cpp" />
     <ClCompile Include="Source\Entity\Entity.cpp" />
+    <ClCompile Include="Source\GameStates\CreditsState.cpp" />
     <ClCompile Include="Source\GameStates\EditorState.cpp" />
     <ClCompile Include="Source\GameStates\Levels.cpp" />
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
+    <ClCompile Include="Source\GameStates\SplashState.cpp" />
     <ClCompile Include="Source\GameStates\WinLoseState.cpp" />
     <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\AssetFileSystem.cpp" />
+    <ClCompile Include="Source\ImguiWindows\AssetConsoleWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp" />
     <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp" />
     <ClCompile Include="Source\ImguiWindows\SystemWindow.cpp" />
+    <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp" />
     <ClCompile Include="Source\Manager\AMap.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
+    <ClCompile Include="Source\Manager\BehaviourTree.cpp" />
+    <ClCompile Include="Source\Manager\DialogueManager.cpp" />
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
     <ClCompile Include="Source\Manager\ForcesManager.cpp" />
+    <ClCompile Include="Source\Manager\LogicManager.cpp" />
     <ClCompile Include="Source\Manager\ModelManager.cpp" />
+    <ClCompile Include="Source\Manager\ParticleManager.cpp" />
     <ClCompile Include="Source\Manager\ShaderManager.cpp" />
     <ClCompile Include="Source\Manager\TextureManager.cpp" />
+    <ClCompile Include="Source\Manager\TransitionManager.cpp" />
     <ClCompile Include="Source\MathLib\MathHelper.cpp" />
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp" />
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
@@ -205,6 +223,7 @@
     <ClCompile Include="Source\Systems\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Collision.cpp" />
     <ClCompile Include="Source\Systems\Debug.cpp" />
+    <ClCompile Include="Source\Systems\DialogueSystem.cpp" />
     <ClCompile Include="Source\Systems\Factory.cpp" />
     <ClCompile Include="Source\Systems\FrameRateController.cpp" />
     <ClCompile Include="Source\Systems\Game.cpp" />
@@ -214,9 +233,11 @@
     <ClCompile Include="Source\Systems\LightingSystem.cpp" />
     <ClCompile Include="Source\Systems\LogicSystem.cpp" />
     <ClCompile Include="Source\Systems\Message.cpp" />
+    <ClCompile Include="Source\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Source\Systems\Partitioning.cpp" />
     <ClCompile Include="Source\Systems\Physics.cpp" />
     <ClCompile Include="Source\Systems\SoundSystem.cpp" />
+    <ClCompile Include="Source\Systems\TransitionSystem.cpp" />
     <ClCompile Include="Source\Systems\WindowsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -227,67 +248,81 @@
     <ClInclude Include="Include\Components\BasicAI.h" />
     <ClInclude Include="Include\Components\Camera.h" />
     <ClInclude Include="Include\Components\Clickable.h" />
+    <ClInclude Include="Include\Components\Collectible.h" />
     <ClInclude Include="Include\Components\ConeLight.h" />
+    <ClInclude Include="Include\Components\Emitter.h" />
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\InputController.h" />
+    <ClInclude Include="Include\Components\Inventory.h" />
     <ClInclude Include="Include\Components\IRenderer.h" />
+    <ClInclude Include="Include\Components\LogicComponent.h" />
     <ClInclude Include="Include\Components\Motion.h" />
     <ClInclude Include="Include\Components\Name.h" />
+    <ClInclude Include="Include\Components\ParentChild.h" />
+    <ClInclude Include="Include\Components\Particle.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
+    <ClInclude Include="Include\Components\SoundEmitter.h" />
     <ClInclude Include="Include\Components\TextRenderer.h" />
     <ClInclude Include="Include\Components\TextureRenderer.h" />
     <ClInclude Include="Include\Components\Scale.h" />
     <ClInclude Include="Include\Components\Status.h" />
     <ClInclude Include="Include\Components\Transform.h" />
+    <ClInclude Include="Include\Components\Unlockable.h" />
     <ClInclude Include="Include\Engine\Core.h" />
     <ClInclude Include="Include\Entity\ComponentCreator.h" />
     <ClInclude Include="Include\Entity\ComponentTypes.h" />
     <ClInclude Include="Include\Entity\Entity.h" />
+    <ClInclude Include="Include\GameStates\CreditsState.h" />
     <ClInclude Include="Include\GameStates\EditorState.h" />
     <ClInclude Include="Include\GameStates\GameState.h" />
     <ClInclude Include="Include\GameStates\Levels.h" />
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
+    <ClInclude Include="Include\GameStates\SplashState.h" />
     <ClInclude Include="Include\GameStates\WinLoseState.h" />
     <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\AssetFileSystem.h" />
+    <ClInclude Include="Include\ImguiWindows\AssetConsoleWindow.h" />
     <ClInclude Include="Include\ImguiWindows\AssetWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h" />
     <ClInclude Include="Include\ImguiWindows\EntityWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\ImguiViewport.h" />
     <ClInclude Include="Include\ImguiWindows\IWindow.h" />
     <ClInclude Include="Include\ImguiWindows\SystemWindow.h" />
-    <ClInclude Include="Include\Imgui\IconsFontAwesome4.h" />
-    <ClInclude Include="Include\Imgui\imconfig.h" />
-    <ClInclude Include="Include\Imgui\imgui.h" />
-    <ClInclude Include="Include\Imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="Include\Imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="Include\Imgui\imgui_internal.h" />
-    <ClInclude Include="Include\Imgui\imstb_rectpack.h" />
-    <ClInclude Include="Include\Imgui\imstb_textedit.h" />
-    <ClInclude Include="Include\Imgui\imstb_truetype.h" />
+    <ClInclude Include="Include\ImguiWindows\TextureTilesWindow.h" />
     <ClInclude Include="Include\Manager\AMap.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
+    <ClInclude Include="Include\Manager\BehaviourTree.h" />
     <ClInclude Include="Include\Manager\ComponentManager.h" />
+    <ClInclude Include="Include\Manager\DialogueManager.h" />
     <ClInclude Include="Include\Manager\EntityManager.h" />
     <ClInclude Include="Include\Manager\FontManager.h" />
     <ClInclude Include="Include\Manager\ForcesManager.h" />
     <ClInclude Include="Include\Manager\IManager.h" />
+    <ClInclude Include="Include\Manager\LogicManager.h" />
     <ClInclude Include="Include\Manager\ModelManager.h" />
+    <ClInclude Include="Include\Manager\ParticleManager.h" />
     <ClInclude Include="Include\Manager\ShaderManager.h" />
     <ClInclude Include="Include\Manager\TextureManager.h" />
+    <ClInclude Include="Include\Manager\TransitionManager.h" />
     <ClInclude Include="Include\MathLib\MathHelper.h" />
     <ClInclude Include="Include\MathLib\Matrix3x3.h" />
     <ClInclude Include="Include\MathLib\Vector2D.h" />
+    <ClInclude Include="Include\Script\Button_Script.h" />
+    <ClInclude Include="Include\Script\Collectible_Script.h" />
+    <ClInclude Include="Include\Script\Stag_Script.h" />
     <ClInclude Include="Include\Script\GeneralScripts.h" />
     <ClInclude Include="Include\Script\HornetScript.h" />
     <ClInclude Include="Include\Script\MiteScript.h" />
+    <ClInclude Include="Include\Script\Mite_Script.h" />
     <ClInclude Include="Include\Script\ScriptList.h" />
     <ClInclude Include="Include\Script\StagScript.h" />
+    <ClInclude Include="Include\Script\Player_Script.h" />
+    <ClInclude Include="Include\Script\Stag_Tree.h" />
+    <ClInclude Include="Include\Script\UI_Script.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\Collision.h" />
     <ClInclude Include="Include\Systems\Debug.h" />
+    <ClInclude Include="Include\Systems\DialogueSystem.h" />
     <ClInclude Include="Include\Systems\Factory.h" />
     <ClInclude Include="Include\Systems\FrameRateController.h" />
     <ClInclude Include="Include\Systems\Game.h" />
@@ -298,10 +333,21 @@
     <ClInclude Include="Include\Systems\LightingSystem.h" />
     <ClInclude Include="Include\Systems\LogicSystem.h" />
     <ClInclude Include="Include\Systems\Message.h" />
+    <ClInclude Include="Include\Systems\ParticleSystem.h" />
     <ClInclude Include="Include\Systems\Partitioning.h" />
     <ClInclude Include="Include\Systems\Physics.h" />
     <ClInclude Include="Include\Systems\SoundSystem.h" />
+    <ClInclude Include="Include\Systems\TransitionSystem.h" />
     <ClInclude Include="Include\Systems\WindowsSystem.h" />
+    <ClInclude Include="lib\DearImGui\IconsFontAwesome5.h" />
+    <ClInclude Include="lib\DearImGui\imconfig.h" />
+    <ClInclude Include="lib\DearImGui\imgui.h" />
+    <ClInclude Include="lib\DearImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="lib\DearImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="lib\DearImGui\imgui_internal.h" />
+    <ClInclude Include="lib\DearImGui\imstb_rectpack.h" />
+    <ClInclude Include="lib\DearImGui\imstb_textedit.h" />
+    <ClInclude Include="lib\DearImGui\imstb_truetype.h" />
     <ClInclude Include="Source\Source.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

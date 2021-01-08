@@ -150,6 +150,45 @@
     <Filter Include="Systems\Partitioning System">
       <UniqueIdentifier>{6157a7c2-606d-4780-bd59-f35b15eccae9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Logic">
+      <UniqueIdentifier>{58bade04-aa1a-4e3c-8428-cdc4c6f4d4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\ParentChild">
+      <UniqueIdentifier>{cec5a0a5-b5d6-43ad-890a-9f8c5e089274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Logic\Scripts">
+      <UniqueIdentifier>{b1a64bfd-9e17-4593-b27c-730af3661f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Inventory">
+      <UniqueIdentifier>{f4765795-dcf6-49d1-952c-078eb957ea63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Particle System">
+      <UniqueIdentifier>{77f5d275-1666-4c1d-b450-a9a145412156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Particle">
+      <UniqueIdentifier>{96ccd475-1721-4dc5-a114-229da5d20a0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Emitter">
+      <UniqueIdentifier>{654cb997-b4fa-404b-8fe6-f5cf8548e2e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\SoundEmitter">
+      <UniqueIdentifier>{3fad4c78-1ea5-489b-a7ec-1d7d028fa212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Transition System">
+      <UniqueIdentifier>{552aadbe-c30d-49db-94fd-a206b2e3adc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Dialogue System">
+      <UniqueIdentifier>{0e6ac633-d7dc-402d-a2c0-599493b1ebc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Collectible">
+      <UniqueIdentifier>{7a20c22c-2bdd-4923-9f8d-fe7ecfc5b3d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Unlockable">
+      <UniqueIdentifier>{9f755395-ee1f-414c-9725-c6713fa795a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Behaviour System">
+      <UniqueIdentifier>{46ced2f8-0168-4bca-957f-2bf270902a6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -251,24 +290,6 @@
     <ClCompile Include="Source\Components\Clickable.cpp">
       <Filter>Entity\Components\Clickable</Filter>
     </ClCompile>
-    <ClCompile Include="Include\Imgui\imgui.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\Imgui\imgui_demo.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\Imgui\imgui_draw.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\Imgui\imgui_impl_glfw.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\Imgui\imgui_impl_opengl3.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\Imgui\imgui_widgets.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Systems\ImguiSystem.cpp">
       <Filter>Systems\Imgui System</Filter>
     </ClCompile>
@@ -314,9 +335,6 @@
     <ClCompile Include="Source\GameStates\MenuState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\ImguiViewport.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Manager\EntityManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
@@ -359,14 +377,89 @@
     <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\AssetFileSystem.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-      </ClCompile>
     <ClCompile Include="Source\MathLib\MathHelper.cpp">
       <Filter>Systems\MathLibrary</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\ConeLight.cpp">
       <Filter>Entity\Components\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\ParentChild.cpp">
+      <Filter>Entity\Components\ParentChild</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\LogicComponent.cpp">
+      <Filter>Entity\Components\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Inventory.cpp">
+      <Filter>Entity\Components\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ParticleManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\ParticleSystem.cpp">
+      <Filter>Systems\Particle System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Particle.cpp">
+      <Filter>Entity\Components\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Emitter.cpp">
+      <Filter>Entity\Components\Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\AssetConsoleWindow.cpp">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\SoundEmitter.cpp">
+      <Filter>Entity\Components\SoundEmitter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\DialogueManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\SplashState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStates\CreditsState.cpp">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\TransitionManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\TransitionSystem.cpp">
+      <Filter>Systems\Transition System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\DialogueSystem.cpp">
+      <Filter>Systems\Dialogue System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\LogicManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\DearImGui\imgui.cpp">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\DearImGui\imgui_demo.cpp">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\DearImGui\imgui_draw.cpp">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\DearImGui\imgui_impl_glfw.cpp">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\DearImGui\imgui_impl_opengl3.cpp">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\DearImGui\imgui_widgets.cpp">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Collectible.cpp">
+      <Filter>Entity\Components\Collectible</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Unlockable.cpp">
+      <Filter>Entity\Components\Unlockable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\BehaviourTree.cpp">
+      <Filter>Systems\Behaviour System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -490,30 +583,6 @@
     <ClInclude Include="Include\Components\Clickable.h">
       <Filter>Entity\Components\Clickable</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Imgui\imconfig.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\imgui.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\imgui_impl_glfw.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\imgui_impl_opengl3.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\imgui_internal.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\imstb_rectpack.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\imstb_textedit.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\imstb_truetype.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Systems\ImguiSystem.h">
       <Filter>Systems\Imgui System</Filter>
     </ClInclude>
@@ -601,14 +670,8 @@
     <ClInclude Include="Include\ImguiWindows\SystemWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\ImguiViewport.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Components\IRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Imgui\IconsFontAwesome4.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
@@ -616,14 +679,119 @@
     <ClInclude Include="Include\ImguiWindows\AssetWindow.h">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\AssetFileSystem.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
     <ClInclude Include="Include\MathLib\MathHelper.h">
       <Filter>Systems\MathLibrary</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\ConeLight.h">
       <Filter>Entity\Components\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\LogicComponent.h">
+      <Filter>Entity\Components\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\ParentChild.h">
+      <Filter>Entity\Components\ParentChild</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Inventory.h">
+      <Filter>Entity\Components\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Player_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Mite_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Stag_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\ParticleManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\ParticleSystem.h">
+      <Filter>Systems\Particle System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Particle.h">
+      <Filter>Entity\Components\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Emitter.h">
+      <Filter>Entity\Components\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\TextureTilesWindow.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\AssetConsoleWindow.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\SoundEmitter.h">
+      <Filter>Entity\Components\SoundEmitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\DialogueManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\CreditsState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\SplashState.h">
+      <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\TransitionManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\TransitionSystem.h">
+      <Filter>Systems\Transition System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\DialogueSystem.h">
+      <Filter>Systems\Dialogue System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\LogicManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DearImGui\IconsFontAwesome5.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DearImGui\imconfig.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DearImGui\imgui.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DearImGui\imgui_impl_glfw.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DearImGui\imgui_impl_opengl3.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DearImGui\imgui_internal.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DearImGui\imstb_rectpack.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DearImGui\imstb_textedit.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DearImGui\imstb_truetype.h">
+      <Filter>Systems\Imgui System\ImguiFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Collectible.h">
+      <Filter>Entity\Components\Collectible</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Unlockable.h">
+      <Filter>Entity\Components\Unlockable</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\UI_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Collectible_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Button_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\BehaviourTree.h">
+      <Filter>Systems\Behaviour System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Stag_Tree.h">
+      <Filter>Scripts\StagBeetle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

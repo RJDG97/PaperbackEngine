@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         Camera.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Camera Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+               or disclosure of this file or its contents without the prior
+               written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Components\Camera.h"
 #include "Engine/Core.h"
 #include "Systems/CameraSystem.h"
@@ -8,12 +21,12 @@ Camera::Camera()
 
 Camera::~Camera() {
 
-    CORE->GetSystem<CameraSystem>()->RemoveCameraComponent(Component::GetOwner()->GetID());
+    CORE->GetManager<ComponentManager>()->RemoveComponent<Camera>(Component::GetOwner()->GetID());
 }
 
 void Camera::Init()
 {
-    CORE->GetSystem<CameraSystem>()->AddCameraComponent(Component::GetOwner()->GetID(), this);
+    CORE->GetManager<ComponentManager>()->AddComponent<Camera>(Component::GetOwner()->GetID(), this);
 
     glm::mat3 view_xform_ = { 1 , 0 , 0,
                               0 , 1 , 0,
@@ -48,14 +61,16 @@ void Camera::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 void Camera::DeSerialize(std::stringstream& data)
 {
     data >> cam_pos_.x >> cam_pos_.y
-         >> cam_size_.x >> cam_size_.y
-         >> cam_zoom_;
+        >> cam_size_.x >> cam_size_.y
+        >> cam_zoom_;
 
 }
 
 void Camera::DeSerializeClone(std::stringstream& data)
 {
     DeSerialize(data);
+
+    cam_size_ /= cam_zoom_;
 
     glm::mat3 view_xform_ = { 1 , 0 , 0,
                               0 , 1 , 0,
@@ -75,7 +90,8 @@ std::shared_ptr<Component> Camera::Clone()
     std::shared_ptr<Camera> cloned = std::make_shared<Camera>();
 
     cloned->cam_pos_ = cam_pos_;
-    cloned->cam_size_ = cam_size_;
+    cloned->cam_zoom_ = cam_zoom_;
+    cloned->cam_size_ = cam_size_ / cam_zoom_;
 
     glm::mat3 view_xform_ = { 1 , 0 , 0,
                               0 , 1 , 0,
@@ -86,7 +102,35 @@ std::shared_ptr<Component> Camera::Clone()
                                      0 , 0 , 1 };
 
     cloned->world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
-    cloned->cam_zoom_ = cam_zoom_;
 
     return cloned;
+}
+
+glm::vec2* Camera::GetCameraPosition()
+{
+    return &cam_pos_;
+}
+
+Vector2D Camera::GetVector2DCameraPosition() {
+    
+    return Vector2D{ -cam_pos_.x, -cam_pos_.y };
+}
+
+float* Camera::GetCameraZoom()
+{
+    return &cam_zoom_;
+}
+
+glm::mat3* Camera::GetCameraWorldToNDCTransform()
+{
+    return &world_to_ndc_xform_;
+}
+
+void Camera::SetCameraZoom(Camera* camera, float zoom) {
+
+    camera->cam_zoom_ /= (zoom);
+
+    camera->cam_size_ = glm::vec2{ CORE->GetSystem<WindowsSystem>()->GetWinWidth(),
+                            CORE->GetSystem<WindowsSystem>()->GetWinHeight() } / camera->cam_zoom_;
+
 }

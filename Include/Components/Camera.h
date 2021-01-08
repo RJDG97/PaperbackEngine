@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         Camera.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Camera Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
@@ -12,13 +25,9 @@
 class Camera : public Component
 {
 	glm::vec2 cam_pos_;
-	glm::vec2 cam_size_;
 	float cam_zoom_;
-
+	glm::vec2 cam_size_;
 	glm::mat3 world_to_ndc_xform_;
-
-	Transform* target_;
-	bool targeted_;
 
 public:
 
@@ -88,6 +97,52 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+/******************************************************************************/
+/*!
+	\fn  GetCameraPosition()
+
+	\brief Gets the camera position
+*/
+/******************************************************************************/
+	glm::vec2* GetCameraPosition();
+
+/******************************************************************************/
+/*!
+	\fn GetVector2DCameraPosition()
+
+	\brief gets the converted Vector2D camera position
+*/
+/******************************************************************************/
+	Vector2D GetVector2DCameraPosition();
+
+/******************************************************************************/
+/*!
+	\fn GetCameraZoom()
+
+	\brief Get the zoom of the chosen camera
+*/
+/******************************************************************************/
+	float* GetCameraZoom();
+
+/******************************************************************************/
+/*!
+	\fn SetCameraZoom(Camera* camera, float zoom);
+
+	\brief Set the zoom of the chosen camera
+*/
+/******************************************************************************/
+	void SetCameraZoom(Camera* camera, float zoom);
+
+/******************************************************************************/
+/*!
+	\fn GetCameraWorldToNDCTransform()
+
+	\brief Get a converted camera position
+*/
+/******************************************************************************/
+	glm::mat3* GetCameraWorldToNDCTransform();
+
 };
 
 #endif

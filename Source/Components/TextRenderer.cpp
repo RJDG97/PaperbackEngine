@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         TextRenderer.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the TextRenderer Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+               or disclosure of this file or its contents without the prior
+               written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Components/TextRenderer.h"
 #include "Manager/ComponentManager.h"
 #include "Components/Transform.h"
@@ -52,6 +65,9 @@ void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
     writer->Key("ui");
     writer->String(std::to_string(ui_).c_str());
 
+    writer->Key("alive");
+    writer->String(std::to_string(alive_).c_str());
+
     writer->EndObject();
 }
 
@@ -74,7 +90,8 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
      data >> color_.x >> color_.y >> color_.z
           >> scale_
           >> layer_
-          >> ui_;
+          >> ui_
+          >> alive_;
 }
 
 
@@ -95,6 +112,12 @@ std::shared_ptr<Component> TextRenderer::Clone() {
     cloned->scale_ = scale_;
     cloned->layer_ = layer_;
     cloned->ui_ = ui_;
+    cloned->alive_ = alive_;
 
     return cloned;
+}
+
+void TextRenderer::SetText(std::string text)
+{
+    text_ = text;
 }

@@ -1,17 +1,42 @@
+/**********************************************************************************
+*\file         TextureManager.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Texture Manager
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+               or disclosure of this file or its contents without the prior
+               written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Manager/TextureManager.h"
 #include "Systems/Debug.h"
 #include <FreeImage.h>
 #include <iostream>
 
-Texture::Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx) :
-    tileset_handle_{ tileset_handle },
+Texture::Texture(size_t width, size_t height, GLuint tileset_handle, std::vector<glm::vec2> tex_vtx) :
+    width_ {width},
+    height_ {height},
+    tileset_handle_ { tileset_handle },
     tex_vtx_ { tex_vtx } {
 
 }
 
-GLuint* Texture::GetTilesetHandle() {
+size_t Texture::GetWidth()
+{
+    return width_;
+}
 
-    return &tileset_handle_;
+size_t Texture::GetHeight()
+{
+    return height_;
+}
+
+GLuint Texture::GetTilesetHandle() {
+
+    return tileset_handle_;
 }
 
 std::vector<glm::vec2>* Texture::GetTexVtx() {
@@ -24,13 +49,13 @@ void Texture::SetTexVtx(std::vector<glm::vec2> new_vertex) {
 	tex_vtx_ = new_vertex;
 }
 
-Tileset::Tileset(GLuint tileset_handle, std::vector<std::string>* tileset_name) :
+Tileset::Tileset(GLuint tileset_handle, std::vector<std::string> tileset_name) :
     tileset_handle_ { tileset_handle },
     tile_names_ { tileset_name } {
     
 }
 
-std::vector<std::string>* Tileset::GetTileNames() {
+std::vector<std::string> Tileset::GetTileNames() {
 
     return tile_names_;
 }
@@ -62,32 +87,16 @@ void TextureManager::TextureBatchLoad(std::string level_name) {
     //handle sorting of information into the map
     for (rapidjson::Value::ConstMemberIterator file_it = files_arr.MemberBegin(); file_it != files_arr.MemberEnd(); ++file_it) {
 
-        std::string path_name{ file_it->value.GetString() };
+        std::string tileset_name{ file_it->name.GetString() };
+        std::stringstream info;
+        info << file_it->value.GetString();
 
-        rapidjson::Document texture_data;
-        DeSerializeJSON(path_name, texture_data);
-        
-        //Only one element in this array
-        const rapidjson::Value& texture_arr = texture_data;
-        DEBUG_ASSERT(texture_arr.IsObject(), "Level JSON does not exist in proper format");
-        std::string texture_pathname = std::string{"Resources/Sprites/"} + texture_arr.MemberBegin()->name.GetString();
+        std::string texture_path;
+        int columns;
+        int rows;
+        info >> texture_path >> columns >> rows;
 
-        const rapidjson::Value& texture_param = *texture_arr.MemberBegin()->value.Begin();
-        
-        rapidjson::Value::ConstMemberIterator texture_param_it = texture_param.MemberBegin();
-        
-        std::string tileset_name = (texture_param_it++)->value.GetString();
-        int columns = std::stoi((texture_param_it++)->value.GetString());
-        int rows = std::stoi((texture_param_it++)->value.GetString());
-
-        std::vector<std::string> tile_names;
-
-        for (; texture_param_it != texture_param.MemberEnd(); ++texture_param_it)
-        {
-            tile_names.push_back(texture_param_it->value.GetString());
-        }
-
-        CreateTileset(texture_pathname.c_str(), columns, rows, tile_names, tileset_name);
+        CreateTileset(texture_path.c_str(), columns, rows, tileset_name);
     }
 }
 
@@ -135,7 +144,7 @@ void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char r
                  0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
     //haven't decided on how to store these!
-    textures_[texture_name] = Texture{ texobj_hdl, { {-1.0f, -1.0f}, {-1.0f, 1.0f}, {1.0f, -1.0f}, {1.0f, 1.0f}} };
+    textures_[texture_name] = Texture{ 1, 1, texobj_hdl, { {-1.0f, -1.0f}, {-1.0f, 1.0f}, {1.0f, -1.0f}, {1.0f, 1.0f}} };
     delete[] pixels;
 }
 
@@ -145,7 +154,7 @@ void TextureManager::LoadMiscTextures() {
     //CreateQuadTexture("WhiteQuad", 255, 255, 255, 255);
 }
 
-GLuint TextureManager::LoadImageFile(const char* filename) {
+std::vector<GLuint> TextureManager::LoadImageFile(const char* filename) {
 
     std::cout << "Tileset is being loaded : " << filename << std::endl;
 
@@ -185,8 +194,8 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
     //retrieve the image data
     BYTE* bits = FreeImage_GetBits(dib);
     //get the image width and height
-    int width = FreeImage_GetWidth(dib);
-    int height = FreeImage_GetHeight(dib);
+    unsigned int width = FreeImage_GetWidth(dib);
+    unsigned int height = FreeImage_GetHeight(dib);
 
     DEBUG_ASSERT(!(bits == 0) || (width == 0) || (height == 0),
         (std::string{ "Bits and/or Width and/or Height of image file is zero : " } += filename).c_str());
@@ -206,10 +215,10 @@ GLuint TextureManager::LoadImageFile(const char* filename) {
 
     //return success
     std::cout << "Tileset successfully loaded : " << filename << std::endl;
-    return texobj_hdl;
+    return { width, height, texobj_hdl };
 }
 
-void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::vector<std::string>& texture_names, std::string tileset_name)
+void TextureManager::CreateTileset(const char* filename, size_t columns, size_t rows, std::string tileset_name)
 {
     auto it = tilesets_.find(tileset_name);
 
@@ -219,8 +228,17 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
         return;
     }
 
-    GLuint tileset_handle_ = LoadImageFile(filename);
-    tilesets_[tileset_name] = { tileset_handle_, &texture_names };
+    std::vector<std::string> tile_names;
+
+    for (int i = 0; i < columns * rows; ++i)
+    {
+        tile_names.push_back(tileset_name + "_" + std::to_string(i));
+    }
+
+    //[0] -> width, [1] -> height, [2] -> handle
+    std::vector<GLuint> image_file_data = LoadImageFile(filename);
+    GLuint tileset_handle_ = image_file_data[2];
+    tilesets_[tileset_name] = { tileset_handle_, tile_names };
 
     glm::vec2 offset{ 1.0f / columns, 1.0f / rows };
 
@@ -228,17 +246,12 @@ void TextureManager::CreateTileset(const char* filename, size_t columns, size_t 
 
         for (int x = 0; x < columns; ++x) {
 
-            if (texture_names[y * columns + x] == "Empty") {
-
-                continue;
-            }
-
             glm::vec2 origin{ x / static_cast<float>(columns) ,
                                1 - y / static_cast<float>(rows) - offset.y };
 
-            // + 1 skips over the name of the tilset
-            textures_[texture_names[y * columns + x]] =
-                Texture{ tileset_handle_,
+            textures_[tile_names[y * columns + x]] =
+                Texture{ image_file_data[0], image_file_data[1],
+                         tileset_handle_,
                          { {origin.x, origin.y},
                            {origin.x + offset.x, origin.y},
                            {origin.x, origin.y + offset.y},
@@ -255,16 +268,16 @@ bool TextureManager::UnloadTileset(std::string tileset_name) {
     if (it != tilesets_.end()) {
 
         it->second.UnloadTileset();
-        std::vector<std::string>* tile_name = it->second.GetTileNames();
+        std::vector<std::string> tile_name = it->second.GetTileNames();
 
-        for (int i = 0; i < tile_name->size(); ++i) {
+        for (int i = 0; i < tile_name.size(); ++i) {
 
-            textures_.erase((*tile_name)[i]);
+            textures_.erase(tile_name[i]);
         }
 
         tilesets_.erase(tileset_name);
 
-        std::cout << "Tileset " << tileset_name << "is unloaded" << std::endl;
+        std::cout << "Tileset " << tileset_name << " is unloaded" << std::endl;
         return true;
     }
 
@@ -290,6 +303,11 @@ Texture* TextureManager::GetTexture(std::string texture_name) {
 std::map<std::string, Texture>& TextureManager::GetTextureMap() {
 
     return textures_;
+}
+
+Tileset* TextureManager::GetTileset(std::string tileset_name) {
+
+    return &tilesets_[tileset_name];
 }
 
 TextureManager::~TextureManager() {

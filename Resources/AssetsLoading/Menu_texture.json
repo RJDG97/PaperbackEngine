@@ -1,55 +1,131 @@
 { 
-  "Environment Tiles": "Resources/AssetsLoading/Texture/environment_tiles.json",
+  "Environment_Tiles": "Resources/Sprites/tiles.png 3 7",
   
-  "Temp Background": "Resources/AssetsLoading/Texture/temp_background.json",
+  "Temp_Background": "Resources/Sprites/Background.png 1 1",
 
-  "Menu Background": "Resources/AssetsLoading/Texture/menu_background.json",
+  "Menu_Background": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen.png 1 1",
   
-  "Menu Start": "Resources/AssetsLoading/Texture/menu_start_button.json",
+  "Menu_Start": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play.png 1 1",
   
-  "Menu HowToPlay": "Resources/AssetsLoading/Texture/menu_howtoplay_button.json",
+  "Menu_Start_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Hover.png 1 1",
   
-  "Menu Editor": "Resources/AssetsLoading/Texture/menu_editor.json",
+  "Menu_Start_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Clicked.png 1 1",
   
-  "Menu Quit": "Resources/AssetsLoading/Texture/menu_quit_button.json",
+  "Menu_HowToPlay": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay.png 1 1",
   
-  "Menu Settings": "Resources/AssetsLoading/Texture/menu_settings_button.json",
+  "Menu_HowToPlay_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay_Hover.png 1 1",
   
-  "Menu TryAgain": "Resources/AssetsLoading/Texture/menu_tryagain_button.json",
+  "Menu_HowToPlay_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay_Clicked.png 1 1",
   
-  "Lose Background": "Resources/AssetsLoading/Texture/lose_background.json",
+  "Menu_Editor": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor.png 1 1",
   
-  "Menu CloudOne": "Resources/AssetsLoading/Texture/menu_cloud1.json",
+  "Menu_Editor_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Hover.png 1 1",
   
-  "Menu CloudTwo": "Resources/AssetsLoading/Texture/menu_cloud2.json",
+  "Menu_Editor_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Clicked.png 1 1",
   
-  "Menu Defeat": "Resources/AssetsLoading/Texture/defeat_menu.json",
+  "Menu_Quit": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit.png 1 1",
   
-  "HowTo Ability": "Resources/AssetsLoading/Texture/howto_play_ability.json",
+  "Menu_Quit_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit_Hover.png 1 1",
   
-  "HowTo Movement": "Resources/AssetsLoading/Texture/howto_play_movement.json",
+  "Menu_Quit_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit_Clicked.png 1 1",
   
-  "HowTo Pause": "Resources/AssetsLoading/Texture/howto_play_pause.json",
+  "Lose_Background": "Resources/Sprites/UI_Elements/Lose/UI_Defeat.png 1 1",
   
-  "HowTo WaterGauge": "Resources/AssetsLoading/Texture/howto_play_watergauge.json",
+  "Menu_CloudOne": "Resources/Sprites/UI_Elements/Menu/Clouds_01.png 1 1",
   
-  "UI LeftButton": "Resources/AssetsLoading/Texture/ui_leftbutton.json",
+  "Menu_CloudTwo": "Resources/Sprites/UI_Elements/Menu/Clouds_02.png 1 1",
   
-  "UI RightButton": "Resources/AssetsLoading/Texture/ui_rightbutton.json",
+  "HowTo_Ability": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Ability.png 1 1",
   
-  "UI QuitGame": "Resources/AssetsLoading/Texture/ui_quitgame.json",
+  "HowTo_Movement": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Movement.png 1 1",
   
-  "UI QuitNo": "Resources/AssetsLoading/Texture/ui_quitgame_no.json",
+  "HowTo_Pause": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Pause.png 1 1",
   
-  "UI QuitYes": "Resources/AssetsLoading/Texture/ui_quitgame_yes.json",
+  "HowTo_WaterGauge": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_WaterGauge.png 1 1",
   
-  "UI Win": "Resources/AssetsLoading/Texture/ui_win.json",
+  "UI_LeftButton": "Resources/Sprites/UI_Elements/HowTo/UI_LeftButton.png 1 1",
   
-  "WaterGauge Leaves": "Resources/AssetsLoading/Texture/watergauge_leaves.json",
+  "UI_RightButton": "Resources/Sprites/UI_Elements/HowTo/UI_RightButton.png 1 1",
   
-  "WaterGauge Droplet": "Resources/AssetsLoading/Texture/watergauge_droplet.json",
+  "UI_QuitGame": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame.png 1 1",
   
-  "WaterGauge Shine": "Resources/AssetsLoading/Texture/watergauge_shine.json",
+  "UI_QuitNo": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton.png 1 1",
   
-  "WaterGauge Water": "Resources/AssetsLoading/Texture/watergauge_water.json"
+  "UI_QuitNo_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton_Clicked.png 1 1",
+  
+  "UI_QuitNo_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton_Hover.png 1 1",
+  
+  "UI_QuitYes": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes.png 1 1",
+  
+  "UI_QuitYes_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Clicked.png 1 1",
+  
+  "UI_QuitYes_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Hover.png 1 1",
+  
+  "UI_Win": "Resources/Sprites/UI_Elements/Win/UI_Win.png 1 1",
+  
+  "WaterGauge_Leaves": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Leaves.png 1 1",
+  
+  "WaterGauge_Droplet": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Droplet.png 1 1",
+  
+  "WaterGauge_Shine": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Shine.png 1 1",
+  
+  "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1",
+  
+  "UI_PauseButton": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton.png 1 1",
+  
+  "UI_PauseButton_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton_Clicked.png 1 1",
+  
+  "UI_PauseButton_Hover": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton_Hover.png 1 1",
+  
+  "UI_FullScreenButton": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton.png 1 1",
+  
+  "UI_FullScreenButton_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton_Clicked.png 1 1",
+  
+  "UI_FullScreenButton_Hover": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton_Hover.png 1 1",
+  
+  "UI_Paused_HowTo": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo.png 1 1",
+  
+  "UI_Paused_HowTo_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo_Clicked.png 1 1",
+  
+  "UI_Paused_HowTo_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo_Hover.png 1 1",
+  
+  "UI_Paused_Quit": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit.png 1 1",
+  
+  "UI_Paused_Quit_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit_Clicked.png 1 1",
+  
+  "UI_Paused_Quit_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit_Hover.png 1 1",
+  
+  "UI_Paused_QuitGame": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame.png 1 1",
+  
+  "UI_Paused_QuitGame_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame_Clicked.png 1 1",
+  
+  "UI_Paused_QuitGame_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame_Hover.png 1 1",
+  
+  "UI_Paused_Return": "Resources/Sprites/UI_Elements/Pause/UI_Return.png 1 1",
+  
+  "UI_Paused_Return_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Return_Clicked.png 1 1",
+  
+  "UI_Paused_Return_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Return_Hover.png 1 1",
+  
+  "UI_Paused_Restart": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart.png 1 1",
+  
+  "UI_Paused_Restart_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart_Clicked.png 1 1",
+  
+  "UI_Paused_Restart_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart_Hover.png 1 1",
+  
+  "UI_Paused_Resume": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume.png 1 1",
+  
+  "UI_Paused_Resume_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume_Clicked.png 1 1",
+  
+  "UI_Paused_Resume_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume_Hover.png 1 1",
+  
+  "UI_Paused_Settings": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Settings.png 1 1",
+  
+  "UI_PauseMenu": "Resources/Sprites/UI_Elements/Pause/UI_PauseMenu.png 1 1",
+  
+  "UI_HowToPlay": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay.png 1 1",
+  
+  "UI_Objectives": "Resources/Sprites/UI_Elements/HowTo/UI_Objectives.png 1 1",
+
+  "UI_DialogueBox": "Resources/Sprites/UI_Elements/Dialogue/UI_DialogueBox.png 1 1"
 }

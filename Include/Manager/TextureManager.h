@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         TextureManager.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Texture Manager
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _TEXTURE_MANAGER_H_
 #define _TEXTURE_MANAGER_H_
@@ -14,6 +27,8 @@
 
 class Texture {
 
+	size_t width_;
+	size_t height_;
 	GLuint tileset_handle_;
 	std::vector<glm::vec2> tex_vtx_;
 
@@ -30,13 +45,31 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx)
+	\fn Texture(size_t width, size_t height, GLuint tileset_handle, std::vector<glm::vec2> tex_vtx)
 
 	\brief Constructor for Texture that initializes all its data members
 		   according to the respective values
 */
 /******************************************************************************/
-	Texture(GLuint tileset_handle, std::vector<glm::vec2> tex_vtx);
+	Texture(size_t width, size_t height, GLuint tileset_handle, std::vector<glm::vec2> tex_vtx);
+
+/******************************************************************************/
+/*!
+	\fn GetWidth()
+
+	\brief Gets width of texture.
+*/
+/******************************************************************************/
+	size_t GetWidth();
+
+/******************************************************************************/
+/*!
+	\fn GetHeight()
+
+	\brief Gets height of texture.
+*/
+/******************************************************************************/
+	size_t GetHeight();
 
 /******************************************************************************/
 /*!
@@ -45,7 +78,7 @@ public:
 	\brief Gets the handle of the tileset texture
 */
 /******************************************************************************/
-	GLuint* GetTilesetHandle();
+	GLuint GetTilesetHandle();
 
 /******************************************************************************/
 /*!
@@ -69,7 +102,7 @@ public:
 class Tileset {
 
 	GLuint tileset_handle_;
-	std::vector<std::string>* tile_names_;
+	std::vector<std::string> tile_names_;
 
 public:
 
@@ -90,7 +123,7 @@ public:
 		   according to the respective values
 */
 /******************************************************************************/
-	Tileset(GLuint tileset_handle, std::vector<std::string>* tileset_name);
+	Tileset(GLuint tileset_handle, std::vector<std::string> tileset_name);
 
 /******************************************************************************/
 /*!
@@ -99,7 +132,7 @@ public:
 	\brief Gets the name of all the tiles that is contained in the tileset
 */
 /******************************************************************************/
-	std::vector<std::string>* GetTileNames();
+	std::vector<std::string> GetTileNames();
 
 /******************************************************************************/
 /*!
@@ -172,15 +205,14 @@ public:
 /*!
 	\fn LoadImageFile(const char* filename)
 
-	\brief Loads an image file and returns the handle to the texture file
+	\brief Loads an image file and returns the width, height and handle to the texture file
 */
 /******************************************************************************/
-	GLuint LoadImageFile(const char* filename);
+	std::vector<GLuint> LoadImageFile(const char* filename);
 
 /******************************************************************************/
 /*!
 	\fn CreateTileset(const char* filename, size_t columns, size_t rows,
-					  std::vector<std::string>& texture_names,
 					  std::string tileset_name)
 
 	\brief Creates a tileset using the path given and stores all the tiles
@@ -188,7 +220,6 @@ public:
 */
 /******************************************************************************/
 	void CreateTileset(const char* filename, size_t columns, size_t rows,
-					   std::vector<std::string>& texture_names,
 					   std::string tileset_name);
 
 /******************************************************************************/
@@ -220,7 +251,23 @@ public:
 /******************************************************************************/
 	Texture* GetTexture(std::string texture_name);
 
+/******************************************************************************/
+/*!
+	\fn  GetTextureMap()
+
+	\brief Gets the Texture Manager map
+*/
+/******************************************************************************/
 	std::map<std::string, Texture>& GetTextureMap();
+
+/******************************************************************************/
+/*!
+	\fn  GetTextureMap()
+
+	\brief Gets the Texture Manager map
+*/
+/******************************************************************************/
+	Tileset* GetTileset(std::string tileset_name);
 
 /******************************************************************************/
 /*!

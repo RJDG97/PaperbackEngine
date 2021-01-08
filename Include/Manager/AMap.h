@@ -1,9 +1,23 @@
+/**********************************************************************************
+*\file         AMap.h
+*\brief        Contains declaration of functions and variables used for
+*			   the AMap System
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _A_MAP_H_
 #define _A_MAP_H_
 
 #include <map>
 #include <vector>
+#include <list>
 #include "MathLib/Vector2D.h"
 #include "MathLib/MathHelper.h"
 #include "Entity/Entity.h"
@@ -20,6 +34,7 @@ class AMap : public IManager
 		bool des_;
 		bool obstacle_;
 		bool visited_;
+		bool path_;
 		node* parent_;
 		std::vector<node*> neighbour_;
 	};
@@ -78,12 +93,30 @@ public:
 	
 	/******************************************************************************/
 	/*!
+	  \fn InitializeNodes()
+
+	  \brief Initialize nodes
+	*/
+	/******************************************************************************/
+	void InitializeNodes();
+
+	/******************************************************************************/
+	/*!
+	  \fn inlist()
+
+	  \brief Return if in list
+	*/
+	/******************************************************************************/
+	bool inlist(std::list<node> L, node N);
+
+	/******************************************************************************/
+	/*!
 	  \fn Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des)
 
 	  \brief Finds viable paths from start to destination
 	*/
 	/******************************************************************************/
-	void Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des);
+	bool Pathing(std::vector<Vector2D>& path, Vector2D start, Vector2D des);
 
 	/******************************************************************************/
 	/*!
@@ -109,11 +142,49 @@ private:
 	Vector2D bottom_left_;
 	AMapTypeY node_map_;
 
+	/******************************************************************************/
+	/*!
+	  \fn AMapInitialization()
 
+	  \brief Initialize AMap
+	*/
+	/******************************************************************************/
 	void AMapInitialization(std::map<EntityID, Entity*> entity_map);
+
+	/******************************************************************************/
+	/*!
+	  \fn SetAMapSize()
+
+	  \brief Resize AMap depending on furthest entities in game
+	*/
+	/******************************************************************************/
 	void SetAMapSize(Vector2D& size);
+
+	/******************************************************************************/
+	/*!
+	  \fn SetNodeNeighbours()
+
+	  \brief Set neighbours of a node
+	*/
+	/******************************************************************************/
 	void SetNodeNeighbours();
+
+	/******************************************************************************/
+	/*!
+	  \fn InsertEntityNodes()
+
+	  \brief Insert an entity in a "node"
+	*/
+	/******************************************************************************/
 	void InsertEntityNodes(const Vector2D& pos, const Vector2D& scale);
+
+	/******************************************************************************/
+	/*!
+	  \fn ClearMap()
+
+	  \brief Clear the AMap
+	*/
+	/******************************************************************************/
 	void ClearMap();
 };
 

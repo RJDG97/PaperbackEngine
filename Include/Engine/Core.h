@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Core.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Core Engine System
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _CORE_ENGINE_H_
 #define _CORE_ENGINE_H_
 
@@ -113,7 +127,7 @@ public:
 					// Log system message to "Source/Debug.txt"
 					M_DEBUG->WriteDebugMessage("Getting System: " + begin->first + "\n");
 				}
-				return std::dynamic_pointer_cast<SystemType>(begin->second);
+				return std::reinterpret_pointer_cast<SystemType>(begin->second);
 			}
 		}
 
@@ -163,23 +177,139 @@ public:
 			M_DEBUG->WriteDebugMessage(str.str());
 		}
 		
-		return std::dynamic_pointer_cast<ManagerType>(return_val->second);
+		return std::reinterpret_pointer_cast<ManagerType>(return_val->second);
 	}
 
+
+/******************************************************************************/
+/*!
+  \fn GetCorePauseStatus()
+
+  \brief Get pause status
+*/
+/******************************************************************************/
 	bool GetCorePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn ResetCorePauseStatus()
+
+  \brief Reset pause status
+*/
+/******************************************************************************/
 	void ResetCorePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn ToggleCorePauseStatus()
+
+  \brief Toggle pause status
+*/
+/******************************************************************************/
 	void ToggleCorePauseStatus();
 
+
+
+/******************************************************************************/
+/*!
+  \fn GetGamePauseStatus()
+
+  \brief Get game pause status
+*/
+/******************************************************************************/
 	bool GetGamePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn 	void ResetGamePauseStatus();
+()
+
+  \brief Reset game pause status
+*/
+/******************************************************************************/
 	void ResetGamePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn ToggleGamePauseStatus()
+
+  \brief Toggle game pause status
+*/
+/******************************************************************************/
 	void ToggleGamePauseStatus();
+
+/******************************************************************************/
+/*!
+  \fn SetGameActiveStatus()
+
+  \brief Set game pause status
+*/
+/******************************************************************************/
 	void SetGameActiveStatus(bool status);
+
+
+
+/******************************************************************************/
+/*!
+  \fn GetGodMode()
+
+  \brief Get god mode
+*/
+/******************************************************************************/
+	bool GetGodMode();
+
+/******************************************************************************/
+/*!
+  \fn SetGodMode()
+
+  \brief Set god mode
+*/
+/******************************************************************************/
+	void SetGodMode(bool status);
+
+/******************************************************************************/
+/*!
+  \fn ToggleGodMode()
+
+  \brief Toggle god mode
+*/
+/******************************************************************************/
+	void ToggleGodMode();
+
+/******************************************************************************/
+/*!
+  \fn ResetGodMode()
+
+  \brief Reset god mode
+*/
+/******************************************************************************/
+	void ResetGodMode();
+
+/******************************************************************************/
+/*!
+  \fn GetMovementLock()
+
+  \brief Get status of whether movement is locked
+*/
+/******************************************************************************/
+	bool GetMovementLock();
+
+/******************************************************************************/
+/*!
+  \fn SetGetMovementLock()
+
+  \brief Set movement lock
+*/
+/******************************************************************************/
+	void SetMovementLock(bool status = false);
 
 private:
 
 	bool debug_;
 	bool pause_;
 	bool game_pause_;
+	bool god_mode_;
+	bool movement_lock_;
 
 	// Tracks all the systems the game uses
 	using SystemIt = std::vector< std::pair<std::string, std::shared_ptr<ISystem>> >::iterator;
@@ -189,8 +319,6 @@ private:
 	using ManagerIt = std::unordered_map<std::string, std::shared_ptr<IManager>>::iterator;
 	std::unordered_map<std::string, std::shared_ptr<IManager>> managers_;
 
-	////The last time the game was updated
-	//unsigned LastTime;
 	//Is the game running (true) or being shut down (false)?
 	bool b_game_active_;
 

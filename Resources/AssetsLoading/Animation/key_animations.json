@@ -1,0 +1,11 @@
+{
+  "Key_Idle.png": [ 
+    {
+	  "Folder": "Props/Props_Anims",
+	  "Animation Batch Name": "Key_Animations",
+	  "Columns": "11",
+	  "Rows": "1",
+          "Animation Name, Number of Frames, Frame Duration": "Key_Idle 11 0.1"
+    }
+  ]
+}

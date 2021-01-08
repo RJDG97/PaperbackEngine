@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         Game.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Game State Manager
+*
+*\author	   Sim Ee Ling, Adele, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef GAME_H
 #define GAME_H
 
@@ -9,6 +22,9 @@
 #include "Components/BasicAI.h"
 #include "Components/InputController.h"
 #include "Manager/ComponentManager.h"
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 class GameState;
 
@@ -18,6 +34,15 @@ public:
 	friend class MenuState;
 	friend class PlayState;
 	friend class EditorState;
+
+
+	using StatusMapType = CMap<Status>;
+	using StatusIt = StatusMapType::MapTypeIt;
+	using BasicAIType = CMap<BasicAI>;
+	using BasicAIIt = BasicAIType::MapTypeIt;
+	using InputControllerType = CMap<InputController>;
+	using InputControllerIt = InputControllerType::MapTypeIt;
+
 
 /******************************************************************************/
 /*!
@@ -142,32 +167,36 @@ public:
 /******************************************************************************/
 	virtual void SendMessageD(Message* m) override;
 
+/******************************************************************************/
+/*!
+  \fn LoadAllTextureJson()
+
+  \brief Load all textures from a specific path
+*/
+/******************************************************************************/
+	std::vector<std::string> LoadAllTextureJson();
+
 private:
 	bool debug_;
 
 	// stack to hold the states
 	std::vector<GameState*> states_;
-
+	std::vector<std::string> files_to_load_;
 	// for the game loop
 	bool b_running_;
 
-	//using StatusIt = std::unordered_map<EntityID, Status*>::iterator;
-	//std::unordered_map<EntityID, Status*> status_arr_;
-	using StatusMapType = CMap<Status>;
-	using StatusIt = StatusMapType::MapTypeIt;
+	//using StatusMapType = CMap<Status>;
+	//using StatusIt = StatusMapType::MapTypeIt;
 	StatusMapType* status_arr_;
 
-	//using BasicAIIt = std::unordered_map<EntityID, BasicAI*>::iterator;
-	//std::unordered_map<EntityID, BasicAI*> basicai_arr_;
-	using BasicAIType = CMap<BasicAI>;
-	using BasicAIIt = BasicAIType::MapTypeIt;
+	//using BasicAIType = CMap<BasicAI>;
+	//using BasicAIIt = BasicAIType::MapTypeIt;
 	BasicAIType* basicai_arr_;
 
-	//using InputControllerIt = std::unordered_map<EntityID, InputController*>::iterator;
-	//std::unordered_map < EntityID, InputController*> input_controller_arr_;
-	using InputControllerType = CMap<InputController>;
-	using InputControllerIt = InputControllerType::MapTypeIt;
+	//using InputControllerType = CMap<InputController>;
+	//using InputControllerIt = InputControllerType::MapTypeIt;
 	InputControllerType* input_controller_arr_;
+
 
 /******************************************************************************/
 /*!

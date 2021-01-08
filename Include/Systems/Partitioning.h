@@ -1,12 +1,28 @@
+/**********************************************************************************
+*\file         Partitioning.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Partitioning System
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _PARTITIONING_H_
 #define _PARTITIONING_H_
 
 #include <vector>
 #include <bitset>
+#include <unordered_set>
 #include "Systems/ISystem.h"
 #include "Manager/ComponentManager.h"
 #include "MathLib/MathHelper.h"
+
 
 
 class PartitioningSystem : public ISystem
@@ -15,9 +31,14 @@ public:
 
 	using Bitset = std::bitset<1700>;
 	using PartitionAxis = std::vector< Bitset >;
+	using EntityIDSet = std::unordered_set<EntityID>;
 
 	using TransformMap = CMap<Transform>;
 	using TransformMapIt = TransformMap::MapTypeIt;
+
+	using TextureRendererMap = CMap<TextureRenderer>;
+
+	using AnimationRendererMap = CMap<AnimationRenderer>;
 
 	using AABBMap = CMap<AABB>;
 	using AABBMapIt = AABBMap::MapTypeIt;
@@ -121,16 +142,47 @@ public:
 /******************************************************************************/
 	Vector2D ConvertTransformToGridScale(const Vector2D& pos);
 
-private:
+/******************************************************************************/
+/*!
+  \fn GetActiveEntityIDs()
 
+  \brief Returns a set of EntityIDs of all entities on the screen
+*/
+/******************************************************************************/
+	const EntityIDSet& GetActiveEntityIDs() const;
+
+private:
+	
+	// Data members
 	ComponentManager* component_manager_;
+	AnimationRendererMap* animation_map_;
+	TextureRendererMap* texture_map_;
 	TransformMap* transform_map_;
 	AABBMap* aabb_map_;
 
 	PartitionAxis x_, y_;
+	PartitionAxis renderer_x_, renderer_y_;
 	size_t grid_size_;
 	Vector2D abs_bottom_left_;
 	Vector2D abs_top_right_;
+	EntityIDSet id_set_;
+
+
+	// Private helper functions
+	void ComputeBoundaries(const Vector2D& camera_pos, const float& camera_zoom, Vector2D& bottom_left, Vector2D& top_right);
+	void ConvertBoundariesToLocal(Vector2D& bottom_left, Vector2D& top_right);
+	void ComputePartitionBoundaries(Vector2D& bottom_left, Vector2D& top_right);
+	void InitEntityInPartition(const EntityID& id);
+	void InitRendererInPartition(const EntityID& id);
+
+/******************************************************************************/
+/*!
+  \fn GetPartitionedEntities()
+
+  \brief Stores all entities on the screen into an unordered_set
+*/
+/******************************************************************************/
+	void ComputePartitionedEntities();
 };
 
 

@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         AABB.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the AABB Component
+* 
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Components/AABB.h"
 #include "Engine/Core.h"
 #include "Systems/Collision.h"
@@ -7,8 +21,9 @@
 AABB::AABB() : 
 	top_right_{},
 	bottom_left_{},
-	scale_{30.0f,30.0f},
-	offset_{}
+	scale_{ 0.5f,0.5f },
+	layer_{ 0 },
+	alive_{ true }
 {}
 
 AABB::~AABB() {
@@ -36,9 +51,6 @@ void AABB::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 	writer->Key("layer");
 	writer->String((std::to_string(layer_)).c_str());
 
-	writer->Key("offset");
-	writer->String((std::to_string(offset_.x) + " " + std::to_string(offset_.y)).c_str());
-
 	writer->EndObject();
 }
 
@@ -46,7 +58,7 @@ void AABB::DeSerialize(std::stringstream& data) {
 	// Not required since it's going to be computed
 	std::cout << "Serializing AABB Component" << std::endl;
 	
-	data >> scale_.x >> scale_.y >> layer_ >> offset_.x >> offset_.y;
+	data >> scale_.x >> scale_.y >> layer_;
 }
 
 void AABB::DeSerializeClone(std::stringstream& data) {
@@ -87,12 +99,12 @@ size_t AABB::GetLayer() const {
 	return layer_;
 }
 
-Vector2D AABB::GetOffset() {
+void AABB::SetAlive(bool status) {
 
-	return offset_;
+	alive_ = status;
 }
 
-void AABB::SetOffset(Vector2D new_offset) {
+bool AABB::GetAlive() const {
 
-	offset_ = new_offset;
+	return alive_;
 }

@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Transform.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Transform Component
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _TRANSFORM_H_
 #define _TRANSFORM_H_
 
@@ -10,6 +24,10 @@
 class Transform : public Component {
 	Vector2D position_;
 	float rotation_;
+	float rotation_speed_;
+	Vector2D rotation_range_;
+	Vector2D offset_;
+	Vector2D aabb_offset_;
 public:
 	friend class Physics;
 	friend class GraphicsSystem;
@@ -102,6 +120,42 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn GetRotationSpeed()
+
+  \brief Returns the rotation of the component
+*/
+/******************************************************************************/
+	float GetRotationSpeed() const;
+
+/******************************************************************************/
+/*!
+  \fn SetRotationSpeed()
+
+  \brief Sets the rotation of the component
+*/
+/******************************************************************************/
+	void SetRotationSpeed(const float& new_speed);
+
+/******************************************************************************/
+/*!
+  \fn GetRotationRange()
+
+  \brief Returns the rotation of the component
+*/
+/******************************************************************************/
+	Vector2D GetRotationRange() const;
+
+/******************************************************************************/
+/*!
+  \fn SetRotationRange()
+
+  \brief Sets the rotation of the component
+*/
+/******************************************************************************/
+	void SetRotationRange(const Vector2D& new_range);
+
+/******************************************************************************/
+/*!
   \fn GetPosition()
 
   \brief Returns the rotation of the component
@@ -117,6 +171,60 @@ public:
 */
 /******************************************************************************/
 	void SetPosition(const Vector2D& new_pos);
+
+/******************************************************************************/
+/*!
+  \fn GetOffset()
+
+  \brief Returns the offset value
+*/
+/******************************************************************************/
+	Vector2D GetOffset() const;
+
+/******************************************************************************/
+/*!
+  \fn SetOffset()
+
+  \brief Sets the offset
+*/
+/******************************************************************************/
+	void SetOffset(const Vector2D& offset);
+
+/******************************************************************************/
+/*!
+  \fn AddOffset()
+
+  \brief Adds the offset value
+*/
+/******************************************************************************/
+	void AddOffset(const Vector2D& offset);
+
+/******************************************************************************/
+/*!
+  \fn GetAABBOffset()
+
+  \brief Get the entity AABB offset
+*/
+/******************************************************************************/
+	Vector2D GetAABBOffset() const;
+
+/******************************************************************************/
+/*!
+  \fn SetAABBOffset(Vector2D new_offset)
+
+  \brief Set the entity AABB offset
+*/
+/******************************************************************************/
+	void SetAABBOffset(const Vector2D& new_offset);
+
+/******************************************************************************/
+/*!
+  \fn GetOffsetAABBPos()
+
+  \brief Returns the entity's position offset by the aabb offset
+*/
+/******************************************************************************/
+	Vector2D GetOffsetAABBPos() const;
 
 /******************************************************************************/
 /*!

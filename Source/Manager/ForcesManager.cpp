@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         ForcesManager.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Forces Manager
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Manager/ForcesManager.h"
 #include "Systems/Debug.h"
 #include <iostream>
@@ -33,7 +47,7 @@ bool ForcesManager::EntityForces::VerifyForce(const std::string& name) {
 
 ForcesManager::Force::Force(const std::string& name, const float& lifespan, const Vector2D& force) :
 	name_{ name },
-	age_{ lifespan },
+	age_{ },
 	lifespan_{ lifespan },
 	force_{ force }
 {

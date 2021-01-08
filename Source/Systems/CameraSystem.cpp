@@ -1,40 +1,35 @@
+/**********************************************************************************
+*\file         Camera.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Camera System
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+               or disclosure of this file or its contents without the prior
+               written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Systems/CameraSystem.h"
 #include "Engine/Core.h"
 #include "Manager/EntityManager.h"
 
 void CameraSystem::Init()
 {
+    component_manager_ = &*CORE->GetManager<ComponentManager>();
+    camera_arr_ = component_manager_->GetComponentArray<Camera>();
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
-
-    cam_zoom_ = 0.8f;
-    targeted_ = false;
-
-    cam_pos_ = glm::vec2{ 0, 0 };
-    cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
-                           windows_system_->GetWinHeight() } / cam_zoom_;
-
-    glm::mat3 view_xform_{ 1 , 0 , 0,
-                            0 , 1 , 0,
-                            cam_pos_.x , cam_pos_.y , 1 };
-
-    // compute other matrices ...
-    glm::mat3 camwin_to_ndc_xform_{ 2 / cam_size_.x , 0 , 0,
-                                     0 , 2 / cam_size_.y , 0,
-                                     0 , 0 , 1 };
-
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
 }
 
 void CameraSystem::Update(float frametime)
 {
     (void)frametime;
 
-    //for (CameraIt camera = camera_arr_->begin(); camera != camera_arr_->end(); ++camera) {
+    for (CameraIt camera = camera_arr_->begin(); camera != camera_arr_->end(); ++camera) {
 
-        //CameraUpdate(camera->second);
-    //}
-
-    CameraUpdate();
+        CameraUpdate(camera->second);
+    }
 }
 
 void CameraSystem::Draw()
@@ -46,7 +41,6 @@ void CameraSystem::AddCameraComponent(EntityID id, Camera* camera)
     M_DEBUG->WriteDebugMessage("Adding Text Renderer Component to entity: "
         + std::to_string(id) + "\n");
 
-    //text_renderer_arr_[id] = text_renderer;
     camera_arr_->AddComponent(id, camera);
 }
 
@@ -62,98 +56,100 @@ std::string CameraSystem::GetName()
 
 void CameraSystem::SendMessageD(Message* m)
 {
+    if (camera_arr_->size() == 0)
+    {
+        return;
+    }
 
     switch (m->message_id_) {
 
-    case MessageIDTypes::CAM_UPDATE_POS: {
+        case MessageIDTypes::CAM_UPDATE_POS: {
 
-        if (!targeted_)
-        {
             MessagePhysics_Motion* msg = dynamic_cast<MessagePhysics_Motion*>(m);
-            CameraMove(/*current_camera,*/ msg->new_vec_);
+            CameraMove(GetMainCamera(), msg->new_vec_);
+            break;
         }
 
-        break;
-    }
-
-    case MessageIDTypes::CHANGE_ANIMATION_1: {
+        /*
+        case MessageIDTypes::CHANGE_ANIMATION_1: {
 
             //Temporary
             if (CORE->GetManager<EntityManager>()->GetPlayerEntities().size() > 0)
             {
-                SetTarget(/*current_camera,*/ CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
-                ToggleTargeted(/*current_camera*/);
+                SetTarget(GetMainCamera(), CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
+                ToggleTargeted(GetMainCamera());
             }
 
             break;
-        }
+        }*/
 
-        case MessageIDTypes::FLIP_SPRITE_X: {
+        case MessageIDTypes::CAM_ZOOM_IN: {
 
-            CameraZoom(/*current_camera,*/ 0.9f);
+            Camera* camera = GetMainCamera();
+            CameraZoom(camera, camera->cam_zoom_ + 0.1f);
             break;
         }
 
-        case MessageIDTypes::FLIP_SPRITE_Y: {
+        case MessageIDTypes::CAM_ZOOM_OUT: {
 
-            CameraZoom(/*current_camera,*/ 1.1f);
+            Camera* camera = GetMainCamera();
+            CameraZoom(camera, camera->cam_zoom_ - 0.1f);
             break;
         }
     }
 }
 
-void CameraSystem::CameraUpdate(/*Camera* camera*/)
+void CameraSystem::CameraUpdate(Camera* camera)
 {
-    if (/*camera->*/targeted_)
-    {
-        const float global_scale = CORE->GetGlobalScale();
-        Vector2D target = /*camera->*/target_->GetPosition() * -1;
-        /*camera->*/cam_pos_ = glm::vec2{ target.x, target.y } * global_scale;
-    }
+    const float global_scale = CORE->GetGlobalScale();
+    Vector2D position = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->GetPosition() * -1 * global_scale;
+    camera->cam_pos_ = glm::vec2{ position.x, position.y };
 
     glm::mat3 view_xform_ { 1 , 0 , 0,
                             0 , 1 , 0,
-                            /*camera->*/cam_pos_.x , /*camera->*/cam_pos_.y , 1 };
+                            camera->cam_pos_.x , camera->cam_pos_.y , 1 };
 
     // compute other matrices ...
-    glm::mat3 camwin_to_ndc_xform_ { 2 / /*camera->*/cam_size_.x , 0 , 0,
-                                     0 , 2 / /*camera->*/cam_size_.y , 0,
+    glm::mat3 camwin_to_ndc_xform_ { 2 / camera->cam_size_.x , 0 , 0,
+                                     0 , 2 / camera->cam_size_.y , 0,
                                      0 , 0 , 1 };
 
-    /*camera->*/world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
+    camera->world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
 }
 
-void CameraSystem::CameraZoom(/*Camera* camera,*/ float zoom)
+void CameraSystem::CameraZoom(Camera* camera, float zoom)
 {
-    /*camera->*/cam_size_ *= zoom;
-}
-
-void CameraSystem::CameraMove(/*Camera* camera,*/ Vector2D displacement)
-{
-    if (!/*camera->*/targeted_)
+    if (camera->cam_zoom_ + zoom < 0.0f)
     {
-        /*camera->*/cam_pos_.x -= displacement.x;
-        /*camera->*/cam_pos_.y -= displacement.y;
+        return;
     }
+
+    camera->cam_zoom_ = zoom;
+
+    camera->cam_size_ = glm::vec2{ windows_system_->GetWinWidth(),
+                           windows_system_->GetWinHeight() } / camera->cam_zoom_;
 }
 
-void CameraSystem::CameraSetPosition(/*Camera* camera,*/ Vector2D postion)
+void CameraSystem::CameraMove(Camera* camera, Vector2D displacement)
 {
-    cam_pos_ = glm::vec2{ postion.x, postion.y };
+    Transform* transform = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID());
+    Vector2D position = transform->GetPosition();
+    transform->AddOffset({ displacement.x * 0.01f, displacement.y * 0.01f });
+
+    //transform->SetPosition({ position.x + displacement.x * 0.05f, position.y + displacement.y * 0.05f });
 }
 
-void CameraSystem::CameraUnTarget()
+void CameraSystem::CameraSetPosition(Camera* camera, Vector2D postion)
 {
-    target_ = nullptr;
-    targeted_ = false;
+    camera->cam_pos_ = glm::vec2{ postion.x, postion.y };
 }
 
-void CameraSystem::SetTarget(/*Camera* camera,*/ Entity* target)
+Camera* CameraSystem::GetMainCamera()
 {
-    /*camera->*/target_ = &*std::dynamic_pointer_cast<Transform>(target->GetComponent(ComponentTypes::TRANSFORM));
-}
+    if (camera_arr_->size() == 0)
+    {
+        return nullptr;
+    }
 
-void CameraSystem::ToggleTargeted(/*Camera* camera*/)
-{
-    /*camera->*/targeted_ = !/*camera->*/targeted_;
+    return camera_arr_->begin()->second;
 }

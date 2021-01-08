@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         ImguiSystem.h
+*\brief        Contains declaration of functions and variables used for
+*			   the ImguiSystem and the Editor Windows
+
+*\author	   Ee Ling Adele, Sim, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #ifndef _IMGUI_SYSTEM_H_
 #define _IMGUI_SYSTEM_H_
 
@@ -5,7 +17,6 @@
 #include <map>
 #include <string>
 #include <memory>
-#include <filesystem>
 
 #include "Entity/Entity.h"
 #include "Engine/Core.h"
@@ -17,18 +28,16 @@
 #include "Systems/WindowsSystem.h"
 #include "Systems/InputSystem.h"
 #include "Systems/Factory.h"
-#include "Systems/Game.h"
 #include "Systems/SoundSystem.h"
 
 #include "ImguiWindows/IWindow.h"
-#include "GameStates/GameState.h"
-#include "GameStates/MenuState.h"
+#include <IconsFontAwesome5.h>
 
 #include "Manager/EntityManager.h"
-#include "Imgui/IconsFontAwesome4.h"
-//#include "ImguiWindows/AssetFileSystem.h"
+#include "Manager/AMap.h"
 
-//colours for axis buttons
+//colours for axis buttons (to be removed later, and replaced with json)
+
 #define REDDEFAULT ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
 #define REDHOVERED ImVec4{ 0.965f, 0.075f, 0.118f, 1.0f }
 #define REDACTIVE  ImVec4{ 0.773f, 0.027f, 0.067f, 1.0f }
@@ -42,19 +51,21 @@
 #define GOLDENORANGE ImVec4{ 1.0f, 0.843f, 0.0f, 1.0f }
 #define SKYBLUE ImVec4{ 0.0f, 0.749f, 1.0f, 1.0f }
 
-//namespace filesys = std::filesystem;
+enum CloseApp {
+
+	NONE = 0,
+	CREATENEWSCENE,
+	RETURNMENU,
+	EXITAPP
+};
+
 class ImguiSystem : public ISystem
 {
 public:
 	ImFont* bold_font_, *img_font_;
 
-	//using directory_entry = std::string;
-	//using filepath_vector = std::vector<filesys::path>;
-	//using directoryfile = std::unordered_map<directory_entry, filepath_vector>;
-	//using directoryfileit = std::unordered_map<directory_entry, filepath_vector>::const_iterator;
-	//directoryfile directory_map_;
-
-	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset, b_editcomp;;
+	bool b_entitywin, b_archetypewin, b_component, b_display, b_editpath, b_asset, b_editcomp, b_addtexture;
+	bool b_showtex;
 
 	ImguiSystem() {};
 
@@ -183,7 +194,7 @@ public:
 /*!
 	\fn ResetSelectedEntity()
 
-	\brief Resets the Entity* of the selected entity to nullptr
+	\brief Resets the EntityID of the selected entity
 */
 /******************************************************************************/
 	void ResetSelectedEntity();
@@ -213,7 +224,6 @@ public:
 	\brief Retrieve the entity*
 */
 /******************************************************************************/
-
 	Entity* GetEntity();
 
 /******************************************************************************/
@@ -223,7 +233,6 @@ public:
 	\brief Set the entity* to the selected entity
 */
 /******************************************************************************/
-
 	void SetEntity(Entity* newentity);
 
 /******************************************************************************/
@@ -242,8 +251,34 @@ public:
 	\brief Set the imguimode bool
 */
 /******************************************************************************/
-
 	void SetImguiBool(bool mode);
+
+/******************************************************************************/
+/*!
+	\fn GetSceneFilter()
+
+	\brief Get the Json Filter for the filedialog
+*/
+/******************************************************************************/
+	const char* GetSceneFilter();
+
+/******************************************************************************/
+/*!
+	\fn GetGenericFilter()
+
+	\brief Get the Generic Filter for the filedialog
+*/
+/******************************************************************************/
+	const char* GetGenericFilter();
+
+/******************************************************************************/
+/*!
+	\fn GetExistingSceneCamera()
+
+	\brief Get the Curreny Active Camera in the Scene
+*/
+/******************************************************************************/
+	Camera* GetExistingSceneCamera();
 
 /******************************************************************************/
 /*!
@@ -253,25 +288,27 @@ public:
 	\brief Manages the pop up for deletion of entities/archetype/components
 */
 /******************************************************************************/
-	void DeletePopUp(const char* windowName, std::string objName, Entity* entity = nullptr, std::shared_ptr<Component> component = nullptr);
+	void DeletePopUp(const char* windowName, std::string objName, Entity* entity = nullptr, 
+					std::shared_ptr<Component> component = nullptr);
 
 /******************************************************************************/
 /*!
-	\fn ImguiHelp(const char* description)
+	\fn SaveCheckPopUp(const char* window_name, int exit_type)
 
-	\brief to generate hints if needed
+	\brief Pop up for when the user wants to exit the app thru the
+		   editor menu options
 */
-/******************************************************************************/	
-	void ImguiHelp(const char* description);
+/******************************************************************************/
+	void SaveCheckPopUp(const char* window_name, int exit_type);
 
 /******************************************************************************/
 /*!
-	\fn ImguiInput()
+	\fn PopUpMessage(const char* windowName, const char* message)
 
-	\brief Manages the input used in the imgui system
+	\brief Shows a pop message with a simple confirmation from the user
 */
 /******************************************************************************/
-	void ImguiInput();
+	void PopUpMessage(const char* windowName, const char* message);
 
 /******************************************************************************/
 /*!
@@ -280,7 +317,7 @@ public:
 	\brief Runs the win32 API for the file dialog
 */
 /******************************************************************************/
-	std::string OpenSaveDialog(const char* filter, int save);
+	std::string OpenSaveDialog(const char* filter, int save, int multiselect = 0);
 
 /******************************************************************************/
 /*!
@@ -289,7 +326,7 @@ public:
 	\brief Saves the list of avaliable archetypes
 */
 /******************************************************************************/
-	void SaveArchetype();
+	void SaveArchetype(std::string path);
 
 /******************************************************************************/
 /*!
@@ -316,7 +353,7 @@ public:
 	\brief Saves the entities into their corresponding json files
 */
 /******************************************************************************/
-	void SaveFile();
+	void SaveFile(std::string dest_path);
 
 /******************************************************************************/
 /*!
@@ -356,6 +393,15 @@ public:
 
 /******************************************************************************/
 /*!
+	\fn ImguiHelp(const char* description)
+
+	\brief to generate hints if needed
+*/
+/******************************************************************************/
+	void ImguiHelp(const char* description, int symbol = 1);
+
+/******************************************************************************/
+/*!
 	\fn EditString(std::string filepath, const char* startpos = "Resources")
 
 	\brief Edits the string for usage of Serialize and Deserialize
@@ -365,12 +411,104 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn PopUpMessage(const char* windowName, const char* message)
+	\fn DrawGrid()
 
-	\brief Shows a pop message with a simple confirmation from the user
+	\brief Draws the world grid
 */
 /******************************************************************************/
-	void PopUpMessage(const char* windowName, const char* message);
+	void DrawGrid();
+
+/******************************************************************************/
+/*!
+	\fn GetCamera()
+
+	\brief Get the current active camera in the scene
+*/
+/******************************************************************************/
+	Camera* GetCamera();
+
+/******************************************************************************/
+/*!
+	\fn EditorMode()
+
+	\brief Checks if the window is in focus or hovered
+*/
+/******************************************************************************/	
+	bool EditorMode();
+
+/******************************************************************************/
+/*!
+	\fn GetAssetAdd();
+
+	\brief Gets the path of the new Asset
+*/
+/******************************************************************************/
+	std::string GetAssetAdd();
+
+/******************************************************************************/
+/*!
+	\fn SetAssetAdd(std::string image)
+
+	\brief Sets the path of the new Asset to be added in
+*/
+/******************************************************************************/
+	void SetAssetAdd(std::string image);
+
+/******************************************************************************/
+/*!
+	\fn LoadJsonPaths(std::string path)
+
+	\brief Load the paths of the archetypes from the json 
+*/
+/******************************************************************************/
+	void LoadJsonPaths(std::string path);
+
+/******************************************************************************/
+/*!
+	\fn CheckString(std::string path, const char* key)
+
+	\brief Checks if the string contains the key
+*/
+/******************************************************************************/
+	bool CheckString(std::string path, const char* key);
+
+/******************************************************************************/
+/*!
+	\fn SetPopupPosition()
+
+	\brief Sets the position of the next window/pop up to be the centre
+	of the dock
+*/
+/******************************************************************************/
+	void SetPopupPosition();
+
+/******************************************************************************/
+/*!
+	\fn GetArchetypePath()
+
+	\brief Get the path of the loaded archetype file
+*/
+/******************************************************************************/
+	std::string GetArchetypePath();
+
+/******************************************************************************/
+/*!
+	\fn SetArchetypePath(std::string new_path)
+
+	\brief Set the path of the archetype file
+*/
+/******************************************************************************/
+	void SetArchetypePath(std::string new_path);
+
+/******************************************************************************/
+/*!
+	\fn Popups()
+
+	\brief Handles the pop ups
+*/
+/******************************************************************************/	
+	void Popups();
+
 
 private:
 
@@ -379,41 +517,43 @@ private:
 	std::map<std::string, std::shared_ptr<IWindow>> imgui_window_arr_;
 
 	// get the selected entity ID
-	EntityID selected_entity_;
+	EntityID selected_entity_id_;
 
 	// to access the window pointer in the window system
 	WindowsSystem* win_;
 	Collision* collision_;
 	InputSystem* input_;
 	SoundSystem* sound_;
+	GraphicsSystem* graphics_;
 	
-	Entity* new_entity_; // entity* to store selected entity
+	Entity* selected_entity_; // entity* to store selected entity
 	EntityManager* entities_;
 	EntityFactory* factory_;
 
-	Level* editor_;
+	CMap<Camera>* cam_arr_;
+	Camera* camera_;
 
-	const char* scene_filter_;
-	const char* texture_filter_; //might remove
+	Level* editor_;
+	AMap* amap_;
+
+	std::string img_to_add_;
+
+	std::string current_loaded_path_;
+
+	std::string archetype_path_;
+
+	const char* scene_filter_, *generic_filter_;
 
 	// bools for the docking space
-	bool b_dock_space_open;
-	bool b_fullscreen_persistant;
-	bool b_fullscreen;
+	bool b_dock_space_open, b_fullscreen_persistant, b_fullscreen;
 
-	bool b_imguimode;
-	bool b_windows;
-	bool b_lock_entity;
-
-	bool b_showpop;
+	bool b_imgui_mode, b_lock_entity, b_show_pop, b_add_path, b_close_confirm, b_editor;
 
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;
 	ImGuiWindowFlags window_flags_;
 
-	
-
+	CloseApp type;
 };
-
 
 #endif

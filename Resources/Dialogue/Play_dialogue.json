@@ -1,0 +1,7 @@
+{
+  "intro": "Resources/Dialogue/Dialogue_Play/intro.json",
+
+  "keypickedup": "Resources/Dialogue/Dialogue_Play/keypickedup.json",
+
+  "gateunlocked": "Resources/Dialogue/Dialogue_Play/gateunlocked.json"
+}

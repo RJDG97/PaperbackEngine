@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         ConeLight.h
+*\brief        Contains declaration of functions and variables used for
+*			   the ConeLight Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 
 #ifndef _CONELIGHT_H_
@@ -20,6 +33,9 @@ class ConeLight : public Component {
 	float angle_;
 
 	glm::vec2 pos_;
+	glm::vec2 direction_;
+
+	bool alive_;
 
 public:
 
@@ -112,6 +128,33 @@ public:
 
 	/******************************************************************************/
 	/*!
+		\fn GetColor()
+
+		\brief Get the color of the component
+	*/
+	/******************************************************************************/
+	glm::vec3 GetColor();
+
+	/******************************************************************************/
+	/*!
+		\fn GetAngle()
+
+		\brief Get the Angle of the component
+	*/
+	/******************************************************************************/
+	float GetAngle();
+
+	/******************************************************************************/
+	/*!
+		\fn GetAlive()
+
+		\brief Get the alive of the component
+	*/
+	/******************************************************************************/
+	bool GetAlive();
+
+	/******************************************************************************/
+	/*!
 		\fn SetRadius()
 
 		\brief Sets the radius of the component
@@ -127,6 +170,33 @@ public:
 	*/
 	/******************************************************************************/
 	void SetIntensity(float new_intensity);
+
+	/******************************************************************************/
+	/*!
+		\fn SetColor()
+	
+		\brief Sets the color of the component
+	*/
+	/******************************************************************************/
+	void SetColor(glm::vec3 new_color);
+
+	/******************************************************************************/
+	/*!
+		\fn SetAngle()
+
+		\brief Set the Angle of the component
+	*/
+	/******************************************************************************/
+	void SetAngle(float new_angle);
+
+	/******************************************************************************/
+	/*!
+		\fn SetAlive()
+
+		\brief Set the alive of the component
+	*/
+	/******************************************************************************/
+	void SetAlive(bool alive);
 
 };
 

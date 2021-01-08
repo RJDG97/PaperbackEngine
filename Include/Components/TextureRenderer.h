@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         TextureRenderer.h
+*\brief        Contains declaration of functions and variables used for
+*			   the TextureRenderer Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 
 #ifndef _TEXTURERENDERER_H_
@@ -11,7 +24,7 @@
 
 class TextureRenderer : public IRenderer {
 
-	Texture texture_;
+	Texture* texture_;
 
 public:
 
@@ -110,6 +123,23 @@ public:
 /******************************************************************************/
 	std::string GetCurrentTextureName();
 
+/******************************************************************************/
+/*!
+	\fn GetUI()
+
+	\brief Get the ui variable of the texture component
+*/
+/******************************************************************************/
+	int GetUI();
+
+/******************************************************************************/
+/*!
+	\fn SetUI(int ui)
+
+	\brief Sets the ui variable of the texture component
+*/
+/******************************************************************************/
+	void SetUI(int ui);
 };
 
 #endif

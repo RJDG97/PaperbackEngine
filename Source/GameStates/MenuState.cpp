@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         MenuState.cpp
+*\brief        Contains definition of Menu State
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include <iostream>
 
 #include "Systems/Game.h"
@@ -12,8 +25,9 @@
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
 #include "Manager/AMap.h"
+#include "Manager/TransitionManager.h"
 
-#include "Engine/Core.h" //FOR TESTING
+#include "Engine/Core.h"
 
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Factory.h"
@@ -36,10 +50,14 @@ void MenuState::Init(std::string)
 	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 
-	CORE->ResetCorePauseStatus();
-	// Entities created within cannot be checked against directly (No * to entity)
+	help_ = false;
 
 	FACTORY->LoadLevel("Menu");
+	CORE->GetSystem<GraphicsSystem>()->EnableLighting(false);
+
+	CORE->ResetGodMode();
+	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
 
 	MessageBGM_Play msg{ "MenuDefault" };
 	CORE->BroadcastMessage(&msg);
@@ -47,21 +65,23 @@ void MenuState::Init(std::string)
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 
-	//Temporary
-	CORE->GetSystem<CameraSystem>()->CameraSetPosition({ 0, 0 });
-	CORE->GetSystem<CameraSystem>()->CameraUnTarget();
+	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.8f);
 }
 
 void MenuState::Free()
 {
 	std::cout << "MenuState clean Successful" << std::endl;
 
-	MessageBGM_Stop msg{ "MenuDefault" };
-	CORE->BroadcastMessage(&msg);
+	CORE->GetSystem<SoundSystem>()->StopSound("All", true);
+
+	CORE->ResetGodMode();
+	CORE->ResetCorePauseStatus();
+	CORE->ResetGamePauseStatus();
 
 	FACTORY->DestroyAllEntities();
-
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
+
+	help_ = false;
 }
 
 void MenuState::Update(Game* game, float frametime)
@@ -91,49 +111,81 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 			Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
-			MessageBGM_Play button{ "ButtonPress" };
-			CORE->BroadcastMessage(&button);
+			switch (m->button_index_)
+			{
+			case 1:
+			{
 
-			if (m->button_index_ == 1) {
+				if (help_)
+					break;
+
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
 
 				// Enter play state
-				game->ChangeState(&m_PlayState);
+				CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_PlayState);
 				return;
+				break;
 			}
+			case 2:
+			{
 
-			if (m->button_index_ == 2) {
+				if (help_)
+					break;
+
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
 
 				// "How to play"
+				CORE->GetSystem<Collision>()->ToggleClickables(2);
+				CORE->GetSystem<Collision>()->ToggleClickables(0);
+				help_ = true;
 				return;
+				break;
 			}
+			case 3: 
+			{
 
-			if (m->button_index_ == 3) {
+				if (help_)
+					break;
+
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
 
 				// Editor mode
 				CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
 				game->ChangeState(&m_EditorState);
 				return;
+				break;
 			}
+			case 4: 
+			{
 
-			if (m->button_index_ == 4) {
+				if (help_)
+					break;
 
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
 				// Toggle off game
 				CORE->SetGameActiveStatus(false);
 				return;
+				break;
 			}
+			case 7: 
+			{
 
-			if (m->button_index_ == 5) {
+				if (!help_)
+					break;
 
-				// Enter "Win" state
-				game->ChangeState(&m_WinLoseState, "Win"); // convert to quit game
+				MessageBGM_Play button{ "ButtonPress" };
+				CORE->BroadcastMessage(&button);
+
+				CORE->GetSystem<Collision>()->ToggleClickables(2);
+				CORE->GetSystem<Collision>()->ToggleClickables(0);
+				help_ = false;
 				return;
+				break;
 			}
-
-			if (m->button_index_ == 6) {
-
-				// Enter "Lose" state
-				game->ChangeState(&m_WinLoseState, "Lose"); // convert to quit game
-				return;
 			}
 			break;
 		}

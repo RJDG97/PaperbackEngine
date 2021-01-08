@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         BasicAI.h
+*\brief        Contains declaration of functions and variables used for
+*			   the BasicAI Component
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _BASICAI_H_
 #define _BASICAI_H_
 
@@ -93,12 +107,40 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+/******************************************************************************/
+/*!
+  \fn GetDestinations()
+
+  \brief Get destinations
+*/
+/******************************************************************************/
 	std::vector<Vector2D>& GetDestinations();
 
+/******************************************************************************/
+/*!
+  \fn SetDestinations()
+
+  \brief Set destinations
+*/
+/******************************************************************************/
 	void SetDestinations(std::vector<Vector2D> des);
 
+/******************************************************************************/
+/*!
+  \fn GetCurrentDes()
+
+  \brief Get the current destination
+*/
+/******************************************************************************/
 	DestinationIt GetCurrentDes();
 
+/******************************************************************************/
+/*!
+  \fn SetCurrentDes()
+
+  \brief Set the current destination
+*/
+/******************************************************************************/
 	void SetCurrentDes(DestinationIt Cdes);
 	
 /******************************************************************************/

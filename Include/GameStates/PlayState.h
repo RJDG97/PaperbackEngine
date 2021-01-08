@@ -1,19 +1,36 @@
+/**********************************************************************************
+*\file         PlayState.h
+*\brief        Contains declaration of Play State
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef PLAYSTATE_H
 #define PLAYSTATE_H
 
 #include "GameStates/GameState.h"
+#include "Manager/LogicManager.h"
 #include "Manager/EntityManager.h"
 #include "Manager/ComponentManager.h"
-#include "Components/Scale.h"
 
 // inherits the abstract class GameState
 class PlayState : public GameState
 {
-	ComponentManager* component_mgr_;
-	EntityManager* entity_mgr_;
-
 public:
+
 	friend class Game;
+
+	using LogicType = CMap<LogicComponent>;
+	using LogicIt = LogicType::MapTypeIt;
+
+	using InputType = CMap<InputController>;
+	using InputIt = InputType::MapTypeIt;
 
 /******************************************************************************/
 /*!
@@ -81,13 +98,82 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn GetHelp()
+
+  \brief Gets help
+*/
+/******************************************************************************/
+	bool GetHelp();
+
+/******************************************************************************/
+/*!
+  \fn SetHelp()
+
+  \brief Sets help
+*/
+/******************************************************************************/
+	void SetHelp(const bool& status);
+
+/******************************************************************************/
+/*!
   \fn PlayState()
 
   \brief A constructor for PlayState
 */
 /******************************************************************************/
 	PlayState() {}
+
+/******************************************************************************/
+/*!
+  \fn Init()
+
+  \brief Temporary Init Fn
+*/
+/******************************************************************************/
+	void Init();
+
+private:
+
+	LogicType* logic_arr_;
+	InputType* input_arr_;
+
+	ComponentManager* component_mgr_;
+	LogicManager* logic_mgr_;
+	EntityManager* entity_mgr_;
+	bool win_{ false };
+	bool help_{ false };
+	bool lose_{ false };
+
+	// Health timer...
+	float timer_ = 12.0f;
 };
+
+/******************************************************************************/
+/*!
+  \fn VerifyStatusNoneOrAlt()
+
+  \brief Verifies player status whether it is equal before setting status
+*/
+/******************************************************************************/
+bool VerifyStatusNoneOrAlt(StatusType player, StatusType to_check);
+
+/******************************************************************************/
+/*!
+  \fn RotateLeft()
+
+  \brief Rotate either left or right
+*/
+/******************************************************************************/
+void RotateLeft(Transform* xform, bool yes);
+
+/******************************************************************************/
+/*!
+  \fn ScaleEntityBig()
+
+  \brief Scale either up or down
+*/
+/******************************************************************************/
+void ScaleEntityBig(Scale* scale, bool yes);
 
 extern PlayState m_PlayState;
 

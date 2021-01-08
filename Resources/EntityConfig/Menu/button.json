@@ -2,7 +2,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 0.65",
+      "position": "0.16 0.45",
       "rotation": "0.0"
     },
     {
@@ -13,24 +13,30 @@
     },
     {
       "component": "Scale",
-      "scale": "150.0 50.0"
+      "scale": "120.0 40.0"
     },
     {
       "component": "AABB",
       "scale": "2.0 0.66",
-      "layer": "4"
+      "layer": "6"
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuStart",
+      "texture": "Menu_Start_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "MenuState_EnterPlayState"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 -0.95",
+      "position": "0.16 -0.75",
       "rotation": "0.0"
     },
     {
@@ -41,24 +47,35 @@
     },
     {
       "component": "Scale",
-      "scale": "150.0 50.0"
+      "scale": "120.0 40.0"
     },
     {
       "component": "AABB",
       "scale": "2.0 0.66",
-      "layer": "4"
+      "layer": "6"
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuHowToPlay",
+      "texture": "Menu_HowToPlay_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "MenuState_HowToPlay"
+    },
+    {
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "HowToPlay"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 -2.6",
+      "position": "0.16 -1.9",
       "rotation": "0.0"
     },
     {
@@ -69,24 +86,30 @@
     },
     {
       "component": "Scale",
-      "scale": "150.0 50.0"
+      "scale": "120.0 40.0"
     },
     {
       "component": "AABB",
       "scale": "2.0 0.66",
-      "layer": "4"
+      "layer": "6"
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuEditor",
+      "texture": "Menu_Editor_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "MenuState_EnterEditorState"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "0.3 -4.3",
+      "position": "0.16 -3.2",
       "rotation": "0.0"
     },
     {
@@ -97,58 +120,24 @@
     },
     {
       "component": "Scale",
-      "scale": "150.0 50.0"
+      "scale": "120.0 40.0"
     },
     {
       "component": "AABB",
       "scale": "2.0 0.66",
-      "layer": "4"
+      "layer": "6"
     },
     {
       "component": "TextureRenderer",
-      "texture": "MenuQuit",
+      "texture": "Menu_Quit_0",
       "layer": "2",
       "ui": "1"
-    }
-  ],
-  "button": [
-    {
-      "component": "Transform",
-      "position": "11.1 -6.6",
-      "rotation": "0.0"
     },
     {
-      "component": "Clickable",
-      "index": "5"
-    },
-    {
-      "component": "Scale",
-      "scale": "30.0 30.0"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.5 0.5",
-      "layer": "4"
-    }
-  ],
-  "button": [
-    {
-      "component": "Transform",
-      "position": "12.4 -6.6",
-      "rotation": "0.0"
-    },
-    {
-      "component": "Clickable",
-      "index": "6"
-    },
-    {
-      "component": "Scale",
-      "scale": "30.0 30.0"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.5 0.5",
-      "layer": "4"
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "MenuState_QuitGame"
     }
   ]
 }

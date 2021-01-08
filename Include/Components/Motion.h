@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Motion.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Motion Component
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _MOTION_H_
 #define _MOTION_H_
 
@@ -10,12 +24,16 @@ class Motion : public Component {
     Vector2D acceleration_;
 	float mass_;
 	float inv_mass_;
+	float force_;
 	bool is_left_;
+	bool alive_;
 
 public:
 	friend class Physics;
 	friend class Collision;
 	friend class PlayState;
+	friend class Emitter;
+	friend class ParticleSystem;
 
 /******************************************************************************/
 /*!
@@ -66,15 +84,6 @@ public:
 
 /******************************************************************************/
 /*!
-  \fn DeSerializeClone()
-
-  \brief DeSerializes data members within the Component
-*/
-/******************************************************************************/
-	//void DeSerializeClone(std::stringstream& data) override;
-
-/******************************************************************************/
-/*!
   \fn Clone()
 
   \brief Clones the existing component
@@ -82,9 +91,67 @@ public:
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
-	float GetMass();
-	void SetMass(float newMass);
+/******************************************************************************/
+/*!
+  \fn GetMass()
 
+  \brief Gets mass
+*/
+/******************************************************************************/
+	float GetMass();
+
+/******************************************************************************/
+/*!
+  \fn SetMass()
+
+  \brief Sets mass
+*/
+/******************************************************************************/
+	void SetMass(float new_mass);
+
+/******************************************************************************/
+/*!
+  \fn GetForce()
+
+  \brief Gets force
+*/
+/******************************************************************************/
+	float GetForce();
+
+/******************************************************************************/
+/*!
+  \fn SetForce()
+
+  \brief Sets force
+*/
+/******************************************************************************/
+	void SetForce(float new_force);
+
+/******************************************************************************/
+/*!
+  \fn GetIsLeft()
+
+  \brief Get left direction bool
+*/
+/******************************************************************************/
+	bool GetIsLeft();
+
+/******************************************************************************/
+/*!
+  \fn SetIsLeft()
+
+  \brief Set left direction bool
+*/
+/******************************************************************************/
+	void SetIsLeft(bool status);
+
+/******************************************************************************/
+/*!
+  \fn GetVelocity()
+
+  \brief Get velocity
+*/
+/******************************************************************************/
 	Vector2D GetVelocity();
 };
 

@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Collision.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Collision System
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _COLLISION_H_
 #define _COLLISION_H_
@@ -17,6 +31,7 @@
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
 #include "Systems/WindowsSystem.h"
+#include "Systems/CameraSystem.h"
 #include <unordered_map>
 #include <bitset>
 #include <string>
@@ -28,7 +43,13 @@ enum class CollisionLayer
 	ENEMY,
 	PLAYER,
 	HOLE,
-	UI_ELEMENTS     // Non-interactable
+	GOAL,
+	UI_ELEMENTS,     // Non-interactable
+	GATE,
+	COLLECTIBLE,
+	BURROWABLE,
+	SOLID_ENVIRONMENT, // Player cannot burrow through this surface
+	MAX
 };
 
 class Collision : public ISystem {
@@ -48,7 +69,10 @@ public:
 	using StatusIt = StatusMapType::MapTypeIt;
 
 	using TransformType = CMap<Transform>;
-	using TransformIt = TransformType::MapTypeIt;
+	using TransformIt = TransformType::MapTypeIt;	
+
+	using CameraType = CMap<Camera>;
+	using CameraIt = CameraType::MapTypeIt;
 
 	using ScaleType = CMap<Scale>;
 	using ScaleIt = ScaleType::MapTypeIt;
@@ -56,10 +80,10 @@ public:
 	using InputControllerType = CMap<InputController>;
 	using InputControllerIt = InputControllerType::MapTypeIt;
 
-	// Placeholder stuff, testing Collision Layering
-	typedef std::pair<std::bitset<10>, bool> CollidableLayers;
+	using CollidableLayer = std::bitset<static_cast<size_t>(CollisionLayer::MAX)>;
 
-	using CollidableLayer = std::bitset<10>;
+	// Placeholder stuff, testing Collision Layering
+	using CollidableLayers = std::pair<CollidableLayer, bool>;
 
 	using CollisionLayerIt = std::unordered_map<CollisionLayer, CollidableLayers>::iterator;
 
@@ -72,7 +96,6 @@ private:
 
 	//For debug drawing
 	bool debug_;
-	float* cam_zoom_;
 
 	// Component arrays
 	AABBType aabb_arr_;
@@ -80,8 +103,11 @@ private:
 	MotionType* motion_arr_;
 	StatusMapType* status_arr_;
 	TransformType* transform_arr_;
+	CameraType* camera_arr_;
 	ScaleType* scale_arr_;
 	InputControllerType* input_controller_arr_;
+	
+	Camera* cam_;
 
 	// Collision maps
 	std::unordered_map<CollisionLayer, CollidableLayers> collision_layer_arr_;
@@ -90,6 +116,7 @@ private:
 	// System pointers
 	GraphicsSystem* graphics_;
 	WindowsSystem* windows_;
+	CameraSystem* camera_;
 	PartitioningSystem* partitioning_;
 	EntityManager* entity_mgr_;
 	ComponentManager* component_mgr_;
@@ -124,12 +151,49 @@ private:
 
 /******************************************************************************/
 /*!
+  \fn WallvEnemyResponse()
+
+  \brief Helper function to handle response of an enemy colliding
+		 with a wall
+*/
+/******************************************************************************/
+	void WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2);
+
+/******************************************************************************/
+/*!
   \fn PlayervEnemyResponse()
 
   \brief Helper function to handle response of a player colliding with an enemy
 */
 /******************************************************************************/
 	bool PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2);
+	
+/******************************************************************************/
+/*!
+  \fn GoalResponse()
+
+  \brief Helper function to handle response of a player colliding with a goal
+*/
+/******************************************************************************/
+	void GoalResponse();
+
+/******************************************************************************/
+/*!
+  \fn PlayerGateResponse()
+
+  \brief Helper function to handle response of a player colliding with a gate
+*/
+/******************************************************************************/
+	bool PlayerGateResponse(AABBIt aabb1, AABBIt aabb2);
+
+/******************************************************************************/
+/*!
+  \fn PlayerCollectibleResponse()
+
+  \brief Helper function to handle response of a player colliding with a collectible
+*/
+/******************************************************************************/
+	void PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2);
 
 /******************************************************************************/
 /*!
@@ -161,15 +225,6 @@ private:
 */
 /******************************************************************************/
 	void UpdateClickableBB();
-
-/******************************************************************************/
-/*!
-  \fn CheckCursorCollision()
-
-  \brief Checks for collision between mouse cursor and a menu entity
-*/
-/******************************************************************************/
-	bool CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button);
 
 /******************************************************************************/
 /*!
@@ -211,7 +266,16 @@ public:
   \brief Checks for collision between mouse cursor and a menu entity
 */
 /******************************************************************************/
-	void CheckClickableCollision();
+	void CheckClickableCollision(ButtonStates& state);
+
+/******************************************************************************/
+/*!
+  \fn CheckCursorCollision()
+
+  \brief Checks for collision between mouse cursor and a menu entity
+*/
+/******************************************************************************/
+	bool CheckCursorCollision(const Vec2& cursor_pos, const Clickable* button);
 	
 /******************************************************************************/
 /*!
@@ -229,7 +293,7 @@ public:
   \brief Returns the EntityID of an object that has been selected by the cursor
 */
 /******************************************************************************/
-	EntityID SelectEntity();
+	EntityID SelectEntity(Vector2D cursor_pos);
 
 /******************************************************************************/
 /*!
@@ -340,7 +404,7 @@ public:
   \brief Helper function to set UI elements to be clickable
 */
 /******************************************************************************/
-	void ToggleClickables();
+	void ToggleClickables(size_t group);
 
 /******************************************************************************/
 /*!

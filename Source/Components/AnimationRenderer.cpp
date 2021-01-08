@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         AnimationRenderer.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the AnimationRenderer Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+               or disclosure of this file or its contents without the prior
+               written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Components/AnimationRenderer.h"
 #include "Components/Transform.h"
 #include "Components/Scale.h"
@@ -61,6 +74,9 @@ void AnimationRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffe
     writer->Key("ui");
     writer->String(std::to_string(ui_).c_str());
 
+    writer->Key("alive");
+    writer->String(std::to_string(alive_).c_str());
+
     writer->EndObject();
 }
 
@@ -82,7 +98,7 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     data >> current_animation_name_;
 
-    data >> play_animation_ >> has_finished_animating_ >> layer_ >> ui_;
+    data >> play_animation_ >> has_finished_animating_ >> layer_ >> ui_ >> alive_;
 }
 
 void AnimationRenderer::DeSerializeClone(std::stringstream& data)
@@ -106,6 +122,7 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
 	cloned->play_animation_ = play_animation_;
     cloned->has_finished_animating_ = has_finished_animating_;
     cloned->ui_ = ui_;
+    cloned->alive_ = alive_;
 
 	return cloned;
 }

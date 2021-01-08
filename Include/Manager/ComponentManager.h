@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         ComponentManager.h
+*\brief        Contains definition and declaration of functions and variables used for
+*			   the Component Manager
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _COMPONENT_MANAGER_H_
 #define _COMPONENT_MANAGER_H_
@@ -24,9 +38,18 @@
 #include "Components/TextureRenderer.h"
 #include "Components/AnimationRenderer.h"
 #include "Components/TextRenderer.h"
+#include "Components/Camera.h"
 #include "Components/Clickable.h"
 #include "Components/InputController.h"
 #include "Components/AI.h"
+#include "Components/ParentChild.h"
+#include "Components/LogicComponent.h"
+#include "Components/Inventory.h"
+#include "Components/Particle.h"
+#include "Components/Emitter.h"
+#include "Components/SoundEmitter.h"
+#include "Components/Collectible.h"
+#include "Components/Unlockable.h"
 
 template <typename T>
 class CMap
@@ -52,6 +75,15 @@ public:
 */
 /******************************************************************************/
 	MapTypeIt end();
+
+/******************************************************************************/
+/*!
+	\fn size()
+
+	\brief Returns size of the Type component map
+*/
+/******************************************************************************/
+	size_t size();
 
 /******************************************************************************/
 /*!
@@ -221,8 +253,9 @@ private:
 
 // When creating a new component, add it to this "List"
 using ComponentManager = CManager<
-	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight,
-	TextRenderer, InputController, TextureRenderer, AnimationRenderer
+	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight, Camera,
+	TextRenderer, InputController, TextureRenderer, AnimationRenderer, ParentChild, LogicComponent, Inventory,
+	Emitter, Particle, SoundEmitter, Collectible, Unlockable
 >;
 
 
@@ -238,6 +271,12 @@ template <typename T>
 typename CMap<T>::MapTypeIt CMap<T>::end() {
 
 	return component_map_.end();
+}
+
+template <typename T>
+size_t CMap<T>::size() {
+
+	return component_map_.size();
 }
 
 template <typename T>

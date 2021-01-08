@@ -2,7 +2,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "-7.2 -5.95",
+      "position": "-3.0 -3.55",
       "rotation": "0.0"
     },
     {
@@ -13,24 +13,30 @@
     },
     {
       "component": "Scale",
-      "scale": "90.0 90.0"
+      "scale": "45.0 45.0"
     },
     {
       "component": "AABB",
       "scale": "1.0 1.0",
-      "layer": "4"
+      "layer": "6"
     },
     {
       "component": "TextureRenderer",
-      "texture": "UIQuitYes",
+      "texture": "UI_QuitYes_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "WinLoseState_EnterMenuState"
     }
   ],
   "button": [
     {
       "component": "Transform",
-      "position": "6.65 -5.95",
+      "position": "3.0 -3.55",
       "rotation": "0.0"
     },
     {
@@ -41,18 +47,24 @@
     },
     {
       "component": "Scale",
-      "scale": "90.0 90.0"
+      "scale": "45.0 45.0"
     },
     {
       "component": "AABB",
       "scale": "1.0 1.0",
-      "layer": "4"
+      "layer": "6"
     },
     {
       "component": "TextureRenderer",
-      "texture": "UIQuitNo",
+      "texture": "UI_QuitNo_0",
       "layer": "2",
       "ui": "1"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "WinLoseState_QuitGame"
     }
   ]
 }

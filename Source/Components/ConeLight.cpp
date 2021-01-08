@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         ConeLight.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the ConeLight Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Components/PointLight.h"
 #include "Manager/ComponentManager.h"
 #include "Systems/LightingSystem.h"
@@ -42,6 +55,9 @@ void ConeLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writ
 	writer->Key("angle");
 	writer->String(std::to_string(angle_).c_str());
 
+	writer->Key("alive");
+	writer->String(std::to_string(alive_).c_str());
+
 	writer->EndObject();
 }
 
@@ -49,7 +65,8 @@ void ConeLight::DeSerialize(std::stringstream& data) {
 
 	data >> angle_
 		 >> color_.x >> color_.y >> color_.z
-		 >> radius_ >> intensity_;
+		 >> radius_ >> intensity_
+		 >> alive_;
 }
 
 void ConeLight::DeSerializeClone(std::stringstream& data) {
@@ -68,6 +85,7 @@ std::shared_ptr<Component> ConeLight::Clone() {
 	cloned->shdr_pgm_ = shdr_pgm_;
 	cloned->radius_ = radius_;
 	cloned->angle_ = angle_;
+	cloned->alive_ = alive_;
 
 	return cloned;
 }
@@ -82,6 +100,20 @@ float ConeLight::GetIntensity() {
 	return intensity_;
 }
 
+glm::vec3 ConeLight::GetColor() {
+	return color_;
+}
+
+float ConeLight::GetAngle() {
+
+	return angle_;
+}
+
+bool ConeLight::GetAlive() {
+
+	return alive_;
+}
+
 void ConeLight::SetRadius(float new_radius) {
 
 	radius_ = new_radius;
@@ -90,4 +122,19 @@ void ConeLight::SetRadius(float new_radius) {
 void ConeLight::SetIntensity(float new_intensity) {
 
 	intensity_ = new_intensity;
+}
+
+void ConeLight::SetColor(glm::vec3 new_color) {
+
+	color_ = new_color;
+}
+
+void ConeLight::SetAngle(float new_angle) {
+
+	angle_ = new_angle;
+}
+
+void ConeLight::SetAlive(bool alive) {
+
+	alive_ = alive;
 }

@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         InputSystem.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Input System
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Systems/InputSystem.h"
 #include "Systems/WindowsSystem.h"
 #include "GameStates/PlayState.h"
@@ -87,8 +100,24 @@ void ScrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 {
 	UNREFERENCED_PARAMETER(window);
 	UNREFERENCED_PARAMETER(xOffset);
-	UNREFERENCED_PARAMETER(yOffset);
-	// in case we need to scroll input
+
+	// If cursor is within a window, disable scroll to zoom
+	ImguiSystem* imgui = &*CORE->GetSystem<ImguiSystem>();
+	if (imgui->EditorMode())
+		return;
+
+	// Zoom in
+	if (yOffset > 0.0f) {
+
+		Message msg(MessageIDTypes::CAM_ZOOM_IN);
+		CORE->BroadcastMessage(&msg);
+	}
+	// Zoom out
+	else if (yOffset < 0.0f) {
+		
+		Message msg(MessageIDTypes::CAM_ZOOM_OUT);
+		CORE->BroadcastMessage(&msg);
+	}
 }
 
 /******************************************************************************/
@@ -106,7 +135,9 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 	// if Triggered
 	CORE->GetSystem<InputSystem>()->SetKeyState(key, action);
-	if (action == GLFW_PRESS)
+	bool imgui_ = CORE->GetSystem<ImguiSystem>()->EditorMode();
+
+	if (action == GLFW_PRESS && !imgui_)
 	{
 		// When a button is touched, dispatch a message with the key that's touched
 		SendTouchMessage(key);
@@ -114,7 +145,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 	// All these are categorized under pressed as well
 	// but since they are temporary, not converting
-	if (action == GLFW_PRESS) {
+	if (action == GLFW_PRESS && !imgui_) {
 		switch (key) {
 
 		case GLFW_KEY_B: 	//'B'
@@ -143,19 +174,19 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		}
 		case GLFW_KEY_O:
 		{
-			Message msg(MessageIDTypes::FLIP_SPRITE_X);
+			Message msg(MessageIDTypes::CAM_ZOOM_IN);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_P:
 		{
-			Message msg(MessageIDTypes::FLIP_SPRITE_Y);
+			Message msg(MessageIDTypes::CAM_ZOOM_OUT);
 			CORE->BroadcastMessage(&msg);
 			break;
 		}
 		case GLFW_KEY_T:
 		{
-
+			//GeneralScripts::map_->Pathing({-5, 0}, {0, 0});
 			GeneralScripts::map_->DrawMap();
 		}
 		}
@@ -181,7 +212,7 @@ void CheckWindowInFocus(GLFWwindow* window, int focus) {
 			if (CORE->GetSystem<Game>()->GetStateName() == "Play" && CORE->GetGamePauseStatus())
 				return;
 
-			Message msg{ MessageIDTypes::BGM_PAUSE };
+			Message msg{ MessageIDTypes::BGM_RESUME };
 			CORE->BroadcastMessage(&msg);
 
 			CORE->ResetCorePauseStatus();
@@ -220,44 +251,33 @@ void InputSystem::Update(float frametime) {
 
 	unsigned char input_flag = 0; //used for checking what directional buttons are held
 
-	//input.GetMouseCoord();
-	
-	if (IsKeyPressed(GLFW_KEY_LEFT)) {
+
+	if (IsKeyPressed(GLFW_KEY_A)) {
 		//input_flag |= LEFT_FLAG;
-		SendHoldMessage(GLFW_KEY_LEFT);
+		SendHoldMessage(GLFW_KEY_A);
 	}
-	if (IsKeyPressed(GLFW_KEY_UP)) {
+	if (IsKeyPressed(GLFW_KEY_W)) {
 		//input_flag |= UP_FLAG;
-		SendHoldMessage(GLFW_KEY_UP);
+		SendHoldMessage(GLFW_KEY_W);
 	}
-	if (IsKeyPressed(GLFW_KEY_RIGHT)) {
+	if (IsKeyPressed(GLFW_KEY_S)) {
 		//input_flag |= RIGHT_FLAG;
-		SendHoldMessage(GLFW_KEY_RIGHT);
+		SendHoldMessage(GLFW_KEY_S);
 	}
-	if (IsKeyPressed(GLFW_KEY_DOWN)) {
+	if (IsKeyPressed(GLFW_KEY_D)) {
 		//input_flag |= DOWN_FLAG;
-		SendHoldMessage(GLFW_KEY_DOWN);
+		SendHoldMessage(GLFW_KEY_D);
 	}
 
-	if (IsKeyPressed(GLFW_KEY_W))
-		input_flag |= W_FLAG;
-	if (IsKeyPressed(GLFW_KEY_S))
-		input_flag |= S_FLAG;
-	if (IsKeyPressed(GLFW_KEY_A))
-		input_flag |= A_FLAG;
-	if (IsKeyPressed(GLFW_KEY_D))
-		input_flag |= D_FLAG;
+	if (IsKeyPressed(GLFW_KEY_UP))
+		input_flag |= UP_FLAG;
+	if (IsKeyPressed(GLFW_KEY_DOWN))
+		input_flag |= DOWN_FLAG;
+	if (IsKeyPressed(GLFW_KEY_LEFT))
+		input_flag |= LEFT_FLAG;
+	if (IsKeyPressed(GLFW_KEY_RIGHT))
+		input_flag |= RIGHT_FLAG;
 
-	/*
-	if (IsKeyPressed(GLFW_KEY_Z))
-		input_flag |= Z_FLAG;
-	if (IsKeyPressed(GLFW_KEY_X))
-		input_flag |= X_FLAG;
-	if (IsKeyPressed(GLFW_KEY_C))
-		input_flag |= C_FLAG;
-	if (IsKeyPressed(GLFW_KEY_V))
-		input_flag |= V_FLAG;
-	*/
 	
 	if (IsKeyPressed(GLFW_KEY_COMMA)) {
 	
@@ -289,6 +309,18 @@ void InputSystem::Update(float frametime) {
 // Sends Messages
 void InputSystem::SendMessageD(Message* m) {
 	(void)m;
+}
+
+Vector2D InputSystem::GetUpdatedCoords()
+{
+	Vector2D cursor_ = GetCursorPosition();
+	Vector2D cameraPos_ = CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetVector2DCameraPosition();
+
+	float zoom_ = *CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetCameraZoom();
+	float Gscale = CORE->GetGlobalScale();
+
+	return ((cursor_ / (zoom_)) + cameraPos_) / Gscale;
+
 }
 
 // Set the param key state as the action param

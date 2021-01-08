@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Core.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Core Engine System
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Engine/Core.h"
 #include <iostream>
 #include "Systems/Physics.h"
@@ -10,9 +24,11 @@ std::unique_ptr<CoreEngine> CORE;
 CoreEngine::CoreEngine() :
 	debug_{ false },
 	pause_{ false },
+	god_mode_{ false },
 	game_pause_{ false },
+	movement_lock_{ false },
 	b_game_active_{ true },
-	global_scale_{ 60.0f }
+	global_scale_{ 64.0f }
 {
 }
 
@@ -51,11 +67,6 @@ void CoreEngine::GameLoop() {
 			PE_FrameRate.FrameRateLoop();
 
 			glfwSetWindowTitle(win->ptr_window, (win->GetWindowName() + " | " + std::to_string(PE_FrameRate.GetFPS()) + " FPS").c_str());
-
-			//if (CORE->GetSystem<InputSystem>()->IsKeyTriggered(GLFW_KEY_ESCAPE)) { // Q key
-			//	M_DEBUG->WriteDebugMessage("TERMINATE GAME LOOP\n");
-			//	b_game_active_ = false;
-			//}
 
 			for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
 				// Placeholder
@@ -136,4 +147,30 @@ void CoreEngine::ToggleGamePauseStatus() {
 
 void CoreEngine::SetGameActiveStatus(bool status) {
 	b_game_active_ = status;
+}
+
+bool CoreEngine::GetGodMode() {
+	return god_mode_;
+}
+
+void CoreEngine::SetGodMode(bool status) {
+
+	god_mode_ = status;
+}
+
+void CoreEngine::ResetGodMode() {
+	god_mode_ = false;
+}
+
+void CoreEngine::ToggleGodMode() {
+	god_mode_ = !god_mode_;
+}
+
+bool CoreEngine::GetMovementLock() {
+	return movement_lock_;
+}
+
+void CoreEngine::SetMovementLock(bool status) {
+
+	movement_lock_ = status;
 }

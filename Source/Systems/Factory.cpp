@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Factory.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Factory System
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Systems/Factory.h"
 #include "Engine/Core.h"
 #include "Entity/Entity.h"
@@ -14,6 +28,7 @@
 #include "Components/Status.h"
 #include "Components/Health.h"
 #include "Components/PointLight.h"
+#include "Components/ConeLight.h"
 #include "Components/AABB.h"
 #include "Components/Transform.h"
 #include "Components/Motion.h"
@@ -21,9 +36,17 @@
 #include "Components/TextureRenderer.h"
 #include "Components/AnimationRenderer.h"
 #include "Components/TextRenderer.h"
+#include "Components/Camera.h"
 #include "Components/Name.h"
 #include "Components/Clickable.h"
 #include "Components/InputController.h"
+#include "Components/ParentChild.h"
+#include "Components/LogicComponent.h"
+#include "Components/Emitter.h"
+#include "Components/Particle.h"
+#include "Components/SoundEmitter.h"
+#include "Components/Collectible.h"
+#include "Components/Unlockable.h"
 
 #include "Components/AI.h"
 
@@ -119,9 +142,18 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("TextureRenderer", new ComponentCreator<TextureRenderer>(ComponentTypes::TEXTURERENDERER));
 	comp_mgr_->AddComponentCreator("AnimationRenderer", new ComponentCreator<AnimationRenderer>(ComponentTypes::ANIMATIONRENDERER));
 	comp_mgr_->AddComponentCreator("TextRenderer", new ComponentCreator<TextRenderer>(ComponentTypes::TEXTRENDERER));
+	comp_mgr_->AddComponentCreator("Camera", new ComponentCreator<Camera>(ComponentTypes::CAMERA));
 	comp_mgr_->AddComponentCreator("Clickable", new ComponentCreator<Clickable>(ComponentTypes::CLICKABLE));
 	comp_mgr_->AddComponentCreator("InputController", new ComponentCreator<InputController>(ComponentTypes::INPUTCONTROLLER));
 	comp_mgr_->AddComponentCreator("AI", new ComponentCreator<AI>(ComponentTypes::AI));
+	comp_mgr_->AddComponentCreator("ParentChild", new ComponentCreator<ParentChild>(ComponentTypes::PARENTCHILD));
+	comp_mgr_->AddComponentCreator("LogicComponent", new ComponentCreator<LogicComponent>(ComponentTypes::LOGICCOMPONENT));
+	comp_mgr_->AddComponentCreator("Inventory", new ComponentCreator<Inventory>(ComponentTypes::INVENTORY));
+	comp_mgr_->AddComponentCreator("Particle", new ComponentCreator<Particle>(ComponentTypes::PARTICLE));
+	comp_mgr_->AddComponentCreator("Emitter", new ComponentCreator<Emitter>(ComponentTypes::EMITTER));
+	comp_mgr_->AddComponentCreator("SoundEmitter", new ComponentCreator<SoundEmitter>(ComponentTypes::SOUNDEMITTER));
+	comp_mgr_->AddComponentCreator("Collectible", new ComponentCreator<Collectible>(ComponentTypes::COLLECTIBLE));
+	comp_mgr_->AddComponentCreator("Unlockable", new ComponentCreator<Unlockable>(ComponentTypes::UNLOCKABLE));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");

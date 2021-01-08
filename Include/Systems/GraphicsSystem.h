@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         GraphicsSystem.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Graphics System
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+               or disclosure of this file or its contents without the prior
+               written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef GRAPHICSSYSTEM_H
 #define GRAPHICSSYSTEM_H
@@ -20,6 +33,14 @@
 #include <GLFW/glfw3.h>
 
 class GraphicsSystem : public ISystem {
+
+    class RenderLayer {
+
+        std::string name_;
+        bool y_sorted;
+        std::multimap<int, IRenderer*> renderers_;
+
+    };
 
     bool debug_;
 
@@ -56,7 +77,23 @@ class GraphicsSystem : public ISystem {
     std::vector<float> texture_id_sent;
     std::map<GLuint, GLuint> texture_handles;
 
+    glm::vec2 vignette_size;
+    glm::vec2 max_vignette_size;
+
+    using Points = std::vector<std::pair<glm::vec2, glm::vec2>>;
+
+    bool lighting_enabled_;
+
 public:
+
+/******************************************************************************/
+/*!
+    \fn GetBatchSize()
+
+    \brief Returns batch size
+*/
+/******************************************************************************/
+    int GetBatchSize();
 
 /******************************************************************************/
 /*!
@@ -94,6 +131,15 @@ public:
 */
 /******************************************************************************/
     void DrawFinalTexture(GLuint* texture, float opacity);
+
+/******************************************************************************/
+/*!
+    \fn DrawFinalTextureWithVignette(GLuint* texture, float opacity)
+
+    \brief Draws texture that covers the entire viewport (for post-processing)
+*/
+/******************************************************************************/
+    void DrawVignette(float opacity);
 
 /******************************************************************************/
 /*!
@@ -237,6 +283,24 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
+    \fn ChangeLayer(AnimationRenderer* anim_renderer, int layer)
+
+    \brief Change layer of animation renderer
+*/
+/******************************************************************************/
+    void ChangeLayer(AnimationRenderer* anim_renderer, int layer);
+
+/******************************************************************************/
+/*!
+    \fn ChangeLayer(TextureRenderer* tex_renderer, int layer)
+
+    \brief Change layer of texture renderer
+*/
+/******************************************************************************/
+    void ChangeLayer(TextureRenderer* tex_renderer, int layer);
+
+/******************************************************************************/
+/*!
     \fn FlipTextureX(IRenderer* i_renderer)
 
     \brief Flips the texture renderered in the x axis
@@ -349,8 +413,68 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
     GLuint GetFramebuffer();
 
-    void DrawDebugRectangle(std::vector<glm::vec2> points, glm::vec4 color);
-    void DrawDebugLine(std::vector<glm::vec2> points, glm::vec4 color);
+/******************************************************************************/
+/*!
+    \fn SetVignetteSize(glm::vec2 size)
+
+    \brief Set vignette's size
+*/
+/******************************************************************************/
+    void SetVignetteSize(glm::vec2 size);
+
+/******************************************************************************/
+/*!
+    \fn GetVignetteSize()
+
+    \brief Get vignette's size
+*/
+/******************************************************************************/
+    glm::vec2 GetVignetteSize();
+
+/******************************************************************************/
+/*!
+    \fn SetMaxVignetteSize()
+
+    \brief Set vignette's max size
+*/
+/******************************************************************************/
+    void SetMaxVignetteSize(glm::vec2 size);
+
+/******************************************************************************/
+/*!
+    \fn GetMaxVignetteSize()
+
+    \brief Get vignette's max size
+*/
+/******************************************************************************/
+    glm::vec2 GetMaxVignetteSize();
+
+/******************************************************************************/
+/*!
+    \fn DrawDebugLines()
+
+    \brief Draw debug lines with a vector of points
+*/
+/******************************************************************************/
+    void DrawDebugLines(Points points, glm::vec4 color, float width);
+
+/******************************************************************************/
+/*!
+    \fn EnableLighting()
+
+    \brief Enables or disables lighting
+*/
+/******************************************************************************/
+    void EnableLighting(bool value);
+
+/******************************************************************************/
+/*!
+    \fn EntitiesWithThisTexture()
+
+    \brief Check all entites to see if they have a particular texture
+*/
+/******************************************************************************/
+    std::vector<EntityID> EntitiesWithThisTexture(GLuint handle);
 
     using TextRendererType = CMap<TextRenderer>;
     using TextRendererIt = TextRendererType::MapTypeIt;
@@ -371,6 +495,7 @@ void RemoveTextRendererComponent(EntityID id);
     std::multimap<int, IRenderer*> uirenderers_in_order_;
     std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
 
+    std::map<int, RenderLayer> render_layers_;
 };
 
 #endif

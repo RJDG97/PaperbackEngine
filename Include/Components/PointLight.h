@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         PointLight.cpp
+*\brief        Contains declaration of functions and variables used for
+*			   the PointLight Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 
 #ifndef _POINTLIGHT_H_
@@ -19,6 +32,8 @@ class PointLight : public Component {
 	float intensity_;
 
 	glm::vec2 pos_;
+
+	bool alive_;
 
 public:
 
@@ -120,6 +135,15 @@ public:
 
 /******************************************************************************/
 /*!
+	\fn GetAlive()
+
+	\brief Get the alive of the component
+*/
+/******************************************************************************/
+	bool GetAlive();
+
+/******************************************************************************/
+/*!
 	\fn SetRadius()
 
 	\brief Sets the radius of the component
@@ -144,6 +168,15 @@ public:
 */
 /******************************************************************************/
 	void SetColor(glm::vec3 new_color);
+
+/******************************************************************************/
+/*!
+	\fn SetAlive(bool alive)
+
+	\brief Sets the alive of the component
+*/
+/******************************************************************************/
+	void SetAlive(bool alive);
 	
 };
 

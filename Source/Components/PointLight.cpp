@@ -1,4 +1,17 @@
-	#include "Components/PointLight.h"
+/**********************************************************************************
+*\file         PointLight.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the PointLight Component
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
+#include "Components/PointLight.h"
 #include "Manager/ComponentManager.h"
 #include "Systems/LightingSystem.h"
 #include "Engine/Core.h"
@@ -39,13 +52,16 @@ void PointLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* wri
 	writer->Key("intensity");
 	writer->String(std::to_string(intensity_).c_str());
 
+	writer->Key("alive");
+	writer->String(std::to_string(alive_).c_str());
+
 	writer->EndObject();
 }
 
 void PointLight::DeSerialize(std::stringstream& data) {
 
 	data >> color_.x >> color_.y >> color_.z
-		 >> radius_ >> intensity_;
+		 >> radius_ >> intensity_ >> alive_;
 }
 
 void PointLight::DeSerializeClone(std::stringstream& data) {
@@ -63,6 +79,7 @@ std::shared_ptr<Component> PointLight::Clone() {
 	cloned->model_ = model_;
 	cloned->shdr_pgm_ = shdr_pgm_;
 	cloned->radius_ = radius_;
+	cloned->alive_ = alive_;
 
 	return cloned;
 }
@@ -82,6 +99,11 @@ glm::vec3 PointLight::GetColor() {
 	return color_;
 }
 
+bool PointLight::GetAlive()
+{
+	return alive_;
+}
+
 void PointLight::SetRadius(float new_radius){
 
 	radius_ = new_radius;
@@ -95,4 +117,9 @@ void PointLight::SetIntensity(float new_intensity){
 void PointLight::SetColor(glm::vec3 new_color) {
 
 	color_ = new_color;
+}
+
+void PointLight::SetAlive(bool alive)
+{
+	alive_ = alive;
 }

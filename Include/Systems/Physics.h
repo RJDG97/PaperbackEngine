@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Physics.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Physics System
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _PHYSICS_H_
 #define _PHYSICS_H_
 
@@ -12,6 +26,7 @@
 #include "Systems/GraphicsSystem.h"
 #include "Manager/ForcesManager.h"
 #include "Manager/ComponentManager.h"
+#include "Manager/LogicManager.h"
 #include "Components/Motion.h"
 #include "Components/Status.h"
 #include <unordered_map>
@@ -29,6 +44,9 @@ public:
 	using StatusMapType = CMap<Status>;
 	using StatusIt = StatusMapType::MapTypeIt;
 
+	using ParticleType = CMap<Particle>;
+	using ParticleIt = ParticleType::MapTypeIt;
+
 /******************************************************************************/
 /*!
   \fn ChangeVelocity()
@@ -38,15 +56,6 @@ public:
 */
 /******************************************************************************/
 	void ChangeVelocity(Message* m);
-
-/******************************************************************************/
-/*!
-  \fn TextureHandler()
-
-  \brief Handles the change of textures depending on conditions
-*/
-/******************************************************************************/
-	void TextureHandler(MotionIt motion);
 
 /******************************************************************************/
 /*!
@@ -102,11 +111,26 @@ private:
 	ForcesManager* force_mgr;
 	GraphicsSystem* graphics_sys_;
 	ComponentManager* component_mgr_;
+	LogicManager* logic_mgr_;
 	
 	// Component map pointers
 	TransformType* transform_arr_;
 	MotionType* motion_arr_;
 	StatusMapType* status_arr_;
+	ParticleType* particle_arr_;
+
+	using LogicComponentType = CMap<LogicComponent>;
+	using LogicIt = LogicComponentType::MapTypeIt;
+	LogicComponentType* logic_arr_;
 };
+
+/******************************************************************************/
+/*!
+  \fn VerifyZeroFloat()
+
+  \brief Verifies whether a float is between EPSILON and -EPSILON
+*/
+/******************************************************************************/
+bool VerifyZeroFloat(const float& val);
 
 #endif

@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         WindowsSystem.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Windows System
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #include "Systems/WindowsSystem.h"
 #include "Systems/GraphicsSystem.h"
 #include "Systems/InputSystem.h"
@@ -28,8 +41,6 @@ void WindowsSystem::Init() {
 	// In case a GLFW function fails, an error is reported to callback function
 	//glfwSetErrorCallback(GLHelper::error_cb);
 
-	//width_ = 800;
-	//height_ = 600;
 	DeSerialize();
 
 	// Before asking GLFW to create an OpenGL context, we specify the minimum constraints

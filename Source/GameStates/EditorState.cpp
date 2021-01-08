@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         EditorState.cpp
+*\brief        Contains definition of Editor State
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 
 #include <iostream>
 
@@ -41,12 +53,18 @@ void EditorState::Init(std::string)
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
+
+	m_PlayState.Init();
+
+	imgui_ = &*CORE->GetSystem<ImguiSystem>();
+
+	CORE->SetGodMode(true);
 }
 
 void EditorState::Free()
 {
 	std::cout << "EditorState clean Successful" << std::endl;
-
+	CORE->GetSystem<SoundSystem>()->StopSound("All", true);
 	FACTORY->DestroyAllEntities();
 }
 
@@ -67,5 +85,6 @@ std::string EditorState::GetStateName() {
 
 void EditorState::StateInputHandler(Message* msg, Game* game) {
 
-	m_PlayState.StateInputHandler(msg, game);
+	if (!imgui_->EditorMode())
+		m_PlayState.StateInputHandler(msg, game);
 }

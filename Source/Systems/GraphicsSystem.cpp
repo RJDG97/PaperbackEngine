@@ -1,3 +1,16 @@
+/**********************************************************************************
+*\file         GraphicsSystem.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Graphics System
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+               or disclosure of this file or its contents without the prior
+               written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #define _USE_MATH_DEFINES
 
 #include "Systems/GraphicsSystem.h"
@@ -28,6 +41,11 @@ bool HasClickableAndActive(ComponentManager& mgr, EntityID id) {
     }
     //no clickable but active for rendering
     return true;
+}
+
+int GraphicsSystem::GetBatchSize()
+{
+    return batch_size_;
 }
 
 /*  _________________________________________________________________________ */
@@ -95,7 +113,7 @@ void GraphicsSystem::Init() {
 
     batch_size_ = 500;
 
-    graphic_models_["DebugModel"] = model_manager_->AddLinesModel("DebugModel");
+    graphic_models_["DebugModel"] = model_manager_->AddLinesModel("DebugModel", batch_size_);
     graphic_models_["BoxModel"] = model_manager_->AddTristripsModel(1, 1, "BoxModel");
     graphic_models_["TextModel"] = model_manager_->AddTristripsModel(1, 1, "TextModel");
     graphic_models_["UIModel"] = model_manager_->AddTristripsModel(1, 1, "UIModel");
@@ -112,6 +130,9 @@ void GraphicsSystem::Init() {
 
     graphic_shaders_["FinalShader"] =
         shader_manager_->AddShdrpgm("Shaders/final.vert", "Shaders/final.frag", "FinalShader");
+
+    graphic_shaders_["VignetteShader"] =
+        shader_manager_->AddShdrpgm("Shaders/vignette.vert", "Shaders/vignette.frag", "VignetteShader");
 
     graphic_shaders_["DebugShader"] =
         shader_manager_->AddShdrpgm("Shaders/debug.vert", "Shaders/debug.frag", "DebugShader");
@@ -138,7 +159,15 @@ void GraphicsSystem::Update(float frametime) {
     
     if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Update Debug Log:\n"); }
 
+    if (camera_system_->GetMainCamera() == nullptr)
+    {
+        return;
+    }
+
     for (AnimRendererIt it = anim_renderer_arr_->begin(); it != anim_renderer_arr_->end(); ++it) {
+
+        if (!it->second->alive_)
+            continue;
 
         if (debug_) {
             // Log id of entity and it's updated components that are being updated
@@ -163,23 +192,35 @@ Clears the buffer and then draws a rectangular model in the viewport.
 */
 void GraphicsSystem::Draw() {
 
-    if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
+    if (camera_system_->GetMainCamera() == nullptr)
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        return;
+    }
 
-    glm::vec2 cam_pos_ = camera_system_->cam_pos_;
-    glm::mat3 world_to_ndc_xform = camera_system_->world_to_ndc_xform_;
+    if (debug_) { M_DEBUG->WriteDebugMessage("\nGraphics System Draw Debug Log:\n"); }
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_);
     glClear(GL_COLOR_BUFFER_BIT);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    glm::mat3 world_to_ndc_xform = *camera_system_->GetMainCamera()->GetCameraWorldToNDCTransform();
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     graphic_shaders_["ObjectShader"]->Use();
     glBindVertexArray(graphic_models_["BatchModel"]->vaoid_);
     GLuint vbo_hdl = graphic_models_["BatchModel"]->vboid_;
 
+    std::multimap<float, IRenderer*> y_sorted {};
+
     //draws all the world textures/animations
     for (IRenderOrderIt it = worldobj_renderers_in_order_.begin();
          it != worldobj_renderers_in_order_.end() ; ) {
+
+        if (!it->second->alive_) {
+            ++it;
+            continue;
+        }
 
         if (debug_) {
 			// Log id of entity and its updated components that are being updated
@@ -187,7 +228,11 @@ void GraphicsSystem::Draw() {
                 std::to_string(it->first) + "\n");
 		}
 
-        BatchWorldObject(it->second);
+        float y_position =
+            component_manager_->GetComponent<Transform>(it->second->GetOwner()->GetID())->GetPosition().y * CORE->GetGlobalScale() -
+            component_manager_->GetComponent<Scale>(it->second->GetOwner()->GetID())->GetScale().y / 2.0f;
+
+        y_sorted.insert({ y_position, it->second });
         
         int current_layer = it->second->layer_;
         auto next_object = ++it;
@@ -196,7 +241,14 @@ void GraphicsSystem::Draw() {
             next_object == worldobj_renderers_in_order_.end() ||
             next_object->second->layer_ != current_layer) {
 
+            for (auto y_it = y_sorted.rbegin();
+                y_it != y_sorted.rend(); ++y_it ) {
+
+                BatchWorldObject(y_it->second);
+            }
+
             DrawBatch(vbo_hdl, world_to_ndc_xform);
+            y_sorted.clear();
         }
     
     }
@@ -208,6 +260,11 @@ void GraphicsSystem::Draw() {
     for (TextRenderOrderIt it = worldtext_renderers_in_order_.begin();
          it != worldtext_renderers_in_order_.end(); ++it) {
 
+        if (!it->second->alive_) {
+
+            continue;
+        }
+
         if (debug_) {
             // Log id of entity and its updated components that are being updated
             M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
@@ -216,11 +273,14 @@ void GraphicsSystem::Draw() {
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
     }
 
-    //glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(lighting_texture_, 1.0f);
-    glBlendFunc(GL_ONE, GL_ONE);
-    DrawFinalTexture(addition_texture_, 0.6f);
+    if (lighting_enabled_)
+    {
+        glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+        DrawFinalTexture(lighting_texture_, 1.0f);
+        glBlendFunc(GL_ONE, GL_ONE);
+        DrawFinalTexture(addition_texture_, 0.6f);
+    }
+
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -232,6 +292,56 @@ void GraphicsSystem::Draw() {
 
     for (IRenderOrderIt it = uirenderers_in_order_.begin();
         it != uirenderers_in_order_.end(); ++it) {
+
+        if (!it->second->alive_ || it->second->layer_ >= 10) {
+
+            continue;
+        }
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID()))
+            continue;
+
+        DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
+    }
+
+    //draws all the UI text
+    graphic_shaders_["TextShader"]->Use();
+    glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
+
+    for (TextRenderOrderIt it = uitext_renderers_in_order_.begin();
+         it != uitext_renderers_in_order_.end(); ++it) {
+
+        if (!it->second->alive_ || it->second->layer_ >= 10) {
+
+            continue;
+        }
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
+    }
+
+    DrawVignette(1.0f);
+
+    //Temporary way to draw things above the vignette for now, will make proper use of layering in the future
+    graphic_shaders_["UIShader"]->Use();
+    glBindVertexArray(graphic_models_["UIModel"]->vaoid_);
+
+    for (IRenderOrderIt it = uirenderers_in_order_.begin();
+        it != uirenderers_in_order_.end(); ++it) {
+
+        if (!it->second->alive_ || it->second->layer_ < 10 || it->second->layer_ >= 20) {
+
+            continue;
+        }
 
         if (debug_) {
             // Log id of entity and its updated components that are being updated
@@ -250,13 +360,17 @@ void GraphicsSystem::Draw() {
         DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
     }
 
-    //draws all the UI text
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //Temporary way to draw things above the vignette for now, will make proper use of layering in the future
     graphic_shaders_["TextShader"]->Use();
     glBindVertexArray(graphic_models_["TextModel"]->vaoid_);
 
     for (TextRenderOrderIt it = uitext_renderers_in_order_.begin();
          it != uitext_renderers_in_order_.end(); ++it) {
+
+        if (!it->second->alive_ || it->second->layer_ < 10) {
+
+            continue;
+        }
 
         if (debug_) {
             // Log id of entity and its updated components that are being updated
@@ -264,6 +378,29 @@ void GraphicsSystem::Draw() {
         }
 
         DrawTextObject(graphic_shaders_["TextShader"], graphic_models_["TextModel"], it->second);
+    }
+
+    //Temporary way to draw things above the dialogue text for now, will make proper use of layering in the future
+    graphic_shaders_["UIShader"]->Use();
+    glBindVertexArray(graphic_models_["UIModel"]->vaoid_);
+
+    for (IRenderOrderIt it = uirenderers_in_order_.begin();
+        it != uirenderers_in_order_.end(); ++it) {
+
+        if (!it->second->alive_ || it->second->layer_ < 20) {
+
+            continue;
+        }
+
+        if (debug_) {
+            // Log id of entity and its updated components that are being updated
+            M_DEBUG->WriteDebugMessage("Drawing entity: " + std::to_string(it->first) + "\n");
+        }
+
+        if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID()))
+            continue;
+
+        DrawUIObject(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
     }
 
     if (debug_) { debug_ = !debug_; }
@@ -281,6 +418,22 @@ void GraphicsSystem::DrawFinalTexture(GLuint* texture, float opacity) {
 
     glDrawElements(GL_TRIANGLE_STRIP, graphic_models_["BoxModel"]->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     graphic_shaders_["FinalShader"]->UnUse();
+    glBindVertexArray(0);
+}
+
+void GraphicsSystem::DrawVignette(float opacity) {
+
+    graphic_shaders_["VignetteShader"]->Use();
+    glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
+    glBindTexture(GL_TEXTURE_2D, graphic_models_["BoxModel"]->vaoid_);
+
+    graphic_shaders_["VignetteShader"]->SetUniform("center", { windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
+    graphic_shaders_["VignetteShader"]->SetUniform("clear_size", vignette_size);
+    graphic_shaders_["VignetteShader"]->SetUniform("max_size", max_vignette_size);
+    graphic_shaders_["VignetteShader"]->SetUniform("opacity", opacity);
+
+    glDrawElements(GL_TRIANGLE_STRIP, graphic_models_["BoxModel"]->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    graphic_shaders_["VignetteShader"]->UnUse();
     glBindVertexArray(0);
 }
 
@@ -561,17 +714,16 @@ void GraphicsSystem::BatchWorldObject(IRenderer* i_worldobj_renderer) {
     float orientation = static_cast<float>(transform->rotation_ * M_PI / 180);
     Vector2D pos = transform->position_ * global_scale;
 
-    //glm::vec2 scaling{ scale->GetScale().x, scale->GetScale().y };
     glm::vec2 scaling{ scale.x, scale.y };
     glm::vec2 rotation{ glm::cos(orientation), glm::sin(orientation) };
     glm::vec2 position{ pos.x, pos.y};
 
-    if (texture_handles.find(*i_worldobj_renderer->texture_handle_) == texture_handles.end()) {
+    if (texture_handles.find(i_worldobj_renderer->texture_handle_) == texture_handles.end()) {
 
-        texture_handles[*i_worldobj_renderer->texture_handle_] = static_cast<GLuint>(texture_handles.size());
+        texture_handles[i_worldobj_renderer->texture_handle_] = static_cast<GLuint>(texture_handles.size());
     }
 
-    GLuint tex_id = texture_handles[*i_worldobj_renderer->texture_handle_];
+    GLuint tex_id = texture_handles[i_worldobj_renderer->texture_handle_];
 
     for (int i = 0; i < 4; ++i) {
 
@@ -650,22 +802,25 @@ void GraphicsSystem::DrawTextObject(Shader* shader, Model* model, TextRenderer* 
         return;
     }
 
-    Vector2D obj_pos_ = xform->position_;
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale();
 
     Vector2D pos;
     float scale;
 
     if (text_renderer->ui_) {
 
-        pos = obj_pos_;
+        pos = obj_pos_ + 0.5f * Vector2D{ win_size_.x, win_size_.y };
         scale = text_renderer->scale_;
     }
 
     else {
 
-        glm::vec2 translation{ camera_system_->cam_pos_ * camera_system_->cam_zoom_ + 0.5f * win_size_ };
+        float cam_zoom = *camera_system_->GetMainCamera()->GetCameraZoom();
+        glm::vec2 cam_pos = *camera_system_->GetMainCamera()->GetCameraPosition();
+
+        glm::vec2 translation{ cam_pos * cam_zoom + 0.5f * win_size_ };
         pos = obj_pos_ + Vector2D{ translation.x, translation.y };
-        scale = text_renderer->scale_ * camera_system_->cam_zoom_;
+        scale = text_renderer->scale_ * cam_zoom;
     }
 
     std::string::const_iterator c;
@@ -710,8 +865,8 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_ren
     Transform* xform = component_manager_->GetComponent<Transform>(i_renderer->GetOwner()->GetID());
     Scale* scale = component_manager_->GetComponent<Scale>(i_renderer->GetOwner()->GetID());
 
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_ + 0.5f * Vector2D{ win_size_.x, win_size_.y };
-    Vector2D obj_scale = scale->scale_ * camera_system_->cam_zoom_;
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() + 0.5f * Vector2D{ win_size_.x, win_size_.y };
+    Vector2D obj_scale = scale->scale_;
 
     std::vector<glm::vec2> vertices;
     vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
@@ -724,7 +879,7 @@ void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, IRenderer* i_ren
         vertices.push_back(i_renderer->tex_vtx_[i]);
     }
 
-    glBindTextureUnit(0, *i_renderer->texture_handle_);
+    glBindTextureUnit(0, i_renderer->texture_handle_);
     
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * vertices.size(), vertices.data());
@@ -742,8 +897,8 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
 
     Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]->GetID());
 
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() * camera_system_->cam_zoom_ + 0.5f * Vector2D{ win_size_.x, win_size_.y };
-    Vector2D obj_scale = scale->scale_ * camera_system_->cam_zoom_;
+    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() + 0.5f * Vector2D{ win_size_.x, win_size_.y };
+    Vector2D obj_scale = scale->scale_ * 0.7f;
 
     std::vector<glm::vec2> gauge_vertices;
     std::vector<glm::vec2> water_vertices;
@@ -772,8 +927,8 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     }
     
     glNamedBufferSubData(model->GetVBOHandle(), 0,
-        sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeLeaves")->GetTilesetHandle());
+                         sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Leaves_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_DEPTH_TEST);
 
@@ -785,7 +940,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     glStencilMask(0xFF);
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeDroplet")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Droplet_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_DEPTH_TEST);
 
@@ -793,15 +948,65 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     glStencilMask(0x00);
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * water_vertices.size(), water_vertices.data());
-    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeWater")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Water_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
     glDisable(GL_STENCIL_TEST);
 
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, *texture_manager_->GetTexture("WatergaugeShine")->GetTilesetHandle());
+    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Shine_0")->GetTilesetHandle());
     glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 
+}
+
+void GraphicsSystem::ChangeLayer(AnimationRenderer* anim_renderer, int layer) {
+
+    anim_renderer->layer_ = layer;
+
+    for (auto it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ++it)
+    {
+        if (it->second == anim_renderer)
+        {
+            worldobj_renderers_in_order_.erase(it);
+            worldobj_renderers_in_order_.insert({ layer, anim_renderer });
+            return;
+        }
+    }
+
+    for (auto it = uirenderers_in_order_.begin(); it != uirenderers_in_order_.end(); ++it)
+    {
+        if (it->second == anim_renderer)
+        {
+            uirenderers_in_order_.erase(it);
+            uirenderers_in_order_.insert({ layer, anim_renderer });
+            return;
+        }
+    }
+}
+
+void GraphicsSystem::ChangeLayer(TextureRenderer* tex_renderer, int layer) {
+
+    tex_renderer->layer_ = layer;
+
+    for (auto it = worldobj_renderers_in_order_.begin(); it != worldobj_renderers_in_order_.end(); ++it)
+    {
+        if (it->second == tex_renderer)
+        {
+            worldobj_renderers_in_order_.erase(it);
+            worldobj_renderers_in_order_.insert({ layer, tex_renderer });
+            return;
+        }
+    }
+
+    for (auto it = uirenderers_in_order_.begin(); it != uirenderers_in_order_.end(); ++it)
+    {
+        if (it->second == tex_renderer)
+        {
+            uirenderers_in_order_.erase(it);
+            uirenderers_in_order_.insert({ layer, tex_renderer });
+            return;
+        }
+    }
 }
 
 void GraphicsSystem::FlipTextureX(IRenderer* i_renderer) {
@@ -834,8 +1039,22 @@ void GraphicsSystem::ChangeTexture(TextureRenderer* renderer, std::string textur
 
     if (renderer->texture_name_ != texture_name) {
      
-        renderer->texture_ = *(texture_manager_->GetTexture(texture_name));
+        renderer->texture_ = (texture_manager_->GetTexture(texture_name));
         renderer->texture_name_ = texture_name;
+        renderer->texture_handle_ = renderer->texture_->GetTilesetHandle();
+        renderer->tex_vtx_ = *renderer->texture_->GetTexVtx();
+
+        if (renderer->x_mirror_) {
+
+            std::swap(renderer->tex_vtx_[0], renderer->tex_vtx_[2]);
+            std::swap(renderer->tex_vtx_[1], renderer->tex_vtx_[3]);
+        }
+
+        if (renderer->y_mirror_) {
+
+            std::swap(renderer->tex_vtx_[0], renderer->tex_vtx_[1]);
+            std::swap(renderer->tex_vtx_[2], renderer->tex_vtx_[3]);
+        }
     }
 }
 
@@ -925,43 +1144,71 @@ GLuint GraphicsSystem::GetFramebuffer()
     return final_texture_;
 }
 
-void GraphicsSystem::DrawDebugRectangle(std::vector<glm::vec2> points, glm::vec4 color)
+void GraphicsSystem::DrawDebugLines(Points points, glm::vec4 color, float width)
 {
-    if (points.size() != 4)
-    {
-        M_DEBUG->WriteDebugMessage("Number of points passed into DebugSquare is not 4.\n");
-        return;
-    }
-
-    DrawDebugLine({ points[0], points[1] }, color);
-    DrawDebugLine({ points[1], points[2] }, color);
-    DrawDebugLine({ points[2], points[3] }, color);
-    DrawDebugLine({ points[3], points[0] }, color);
-}
-
-void GraphicsSystem::DrawDebugLine(std::vector<glm::vec2> points, glm::vec4 color)
-{
-    if (points.size() != 2)
-    {
-        M_DEBUG->WriteDebugMessage("Number of points passed into DebugLine is not 2.\n");
-        return;
-    }
-
     Shader* shader = graphic_shaders_["DebugShader"];
     Model* model = graphic_models_["DebugModel"];
 
     shader->Use();
     glBindVertexArray(model->vaoid_);
 
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glLineWidth(2.5f);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glLineWidth(width);
 
-    shader->SetUniform("world_to_ndc_xform", camera_system_->world_to_ndc_xform_);
+    shader->SetUniform("world_to_ndc_xform", *camera_system_->GetMainCamera()->GetCameraWorldToNDCTransform());
     shader->SetUniform("color", color);
     
-    glNamedBufferSubData(model->GetVBOHandle(), 0, sizeof(glm::vec2) * points.size(), points.data());
-    glDrawElements(GL_LINES, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+    glNamedBufferSubData(model->GetVBOHandle(), 0, sizeof(glm::vec2) * points.size() * 2, points.data());
+    glDrawElements(GL_LINES, static_cast<GLsizei>(points.size() * 2), GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
     shader->UnUse();
+}
+
+void GraphicsSystem::SetVignetteSize(glm::vec2 size)
+{
+    vignette_size = size;
+}
+
+glm::vec2 GraphicsSystem::GetVignetteSize() {
+   
+    return vignette_size;
+}
+
+void GraphicsSystem::SetMaxVignetteSize(glm::vec2 size)
+{
+    max_vignette_size = size;
+}
+
+glm::vec2 GraphicsSystem::GetMaxVignetteSize() {
+
+    return max_vignette_size;
+}
+
+void GraphicsSystem::EnableLighting(bool value)
+{
+    lighting_enabled_ = value;
+}
+
+std::vector<EntityID> GraphicsSystem::EntitiesWithThisTexture(GLuint handle)
+{
+    std::vector<EntityID> entities;
+
+    for (auto it = texture_renderer_arr_->begin(); it != texture_renderer_arr_->end(); ++it)
+    {
+        if (it->second->texture_handle_ == handle)
+        {
+            entities.push_back(it->first);
+        }
+    }
+
+    for (auto it = anim_renderer_arr_->begin(); it != anim_renderer_arr_->end(); ++it)
+    {
+        if (it->second->texture_handle_ == handle)
+        {
+            entities.push_back(it->first);
+        }
+    }
+    
+    return entities;
 }

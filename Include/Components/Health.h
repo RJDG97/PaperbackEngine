@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Health.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Health Component
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #pragma once
 #ifndef _HEALTH_H_
 #define _HEALTH_H_
@@ -114,6 +128,15 @@ public:
 */
 /******************************************************************************/
 	void SetMaxHealth(int newHealth);
+
+/******************************************************************************/
+/*!
+  \fn IncrementHealth()
+
+  \brief Increments health of entity if not max
+*/
+/******************************************************************************/
+	void IncrementHealth();
 };
 
 #endif

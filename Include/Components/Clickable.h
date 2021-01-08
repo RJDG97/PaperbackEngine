@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         Clickable.h
+*\brief        Contains declaration of functions and variables used for
+*			   the Clickable Component
+*
+*\author	   Jun Pu, Lee, 50% Code Contribution
+*\author	   Low Shun Qiang, Bryan, 50% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _CLICKABLE_H_
 #define _CLICKABLE_H_
 
@@ -7,12 +21,20 @@
 #include <sstream>
 #include <memory>
 
+enum class ButtonStates
+{
+	DEFAULT = 0,
+	HOVERED,
+	CLICKED
+};
+
 class Clickable : public Component {
 	Vector2D scale_; // double check if needed
 	Vector2D top_right_;
     Vector2D bottom_left_;
 	bool collided_, active_; // double check if needed
 	size_t index_;
+	size_t group_;
 
 public:
 	friend class Collision;
@@ -80,6 +102,8 @@ public:
 	void SetTopRight(const Vector2D& top_right) {
 		top_right_ = top_right;
 	}
+
+	size_t GetIndex();
 
 /******************************************************************************/
 /*!

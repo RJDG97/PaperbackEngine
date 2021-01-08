@@ -1,3 +1,17 @@
+/**********************************************************************************
+*\file         AnimationManager.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Animation Manager
+*
+*\author	   Mok Wen Qing, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
+
 #include "Manager/AnimationManager.h"
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Debug.h"
@@ -31,9 +45,9 @@ int Animation::GetNumFrames() {
 	return num_frames_;
 }
 
-GLuint* Animation::GetAnimationFramesHandle() {
+GLuint Animation::GetAnimationFramesHandle() {
 
-	return &animation_frames_;
+	return animation_frames_;
 }
 
 float Animation::GetOffsetX() {
@@ -130,7 +144,7 @@ void AnimationManager::CreateAnimation(const char* filename,
 									   std::vector<std::pair<std::string, int>>* animation_names_frames,
 									   std::vector<GLfloat> frame_durations) {
 	
-	GLuint image_handle = texture_manager_->LoadImageFile(filename);
+	GLuint image_handle = texture_manager_->LoadImageFile(filename)[2];
 	float offset_x = 1.0f / columns;
 
 	for (int i = 0; i < rows; ++i) {

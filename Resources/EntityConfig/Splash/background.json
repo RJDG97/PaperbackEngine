@@ -1,0 +1,24 @@
+{
+  "background": [
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Splash_DigipenLogo_0",
+      "layer": "0",
+      "ui": "1"
+    },
+    {
+      "component": "ParentChild",
+      "counter": "1",
+      "child": "Camera"
+    },
+    {
+      "component": "Scale",
+      "scale": "350.0 200.0"
+    }
+  ]
+}

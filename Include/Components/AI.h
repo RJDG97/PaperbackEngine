@@ -1,9 +1,23 @@
+/**********************************************************************************
+*\file         AI.h
+*\brief        Contains declaration of functions and variables used for
+*			   the AI Component
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
+
 #ifndef _AI_H_
 #define _AI_H_
 
 #include "Entity/Entity.h" 
 #include "MathLib/Vector2D.h"
 #include "Systems/FrameRateController.h"
+#include "Manager/BehaviourTree.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -27,6 +41,7 @@ public:
 		Detected,
 		Chase,
 		Attack,
+		Withdraw,
 		Return
 	};
 
@@ -69,6 +84,15 @@ public:
 	*/
 	/******************************************************************************/
 	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+
+	/******************************************************************************/
+	/*!
+	  \fn SerializeClone()
+
+	  \brief Serialises a cloned component into JSON format
+	*/
+	/******************************************************************************/
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
 
 	/******************************************************************************/
 	/*!
@@ -287,11 +311,38 @@ public:
 	/******************************************************************************/
 	void SetPath(std::vector<Vector2D>& path);
 
+	/******************************************************************************/
+	/*!
+	  \fn GetTimer()
+
+	  \brief Gets timer
+	*/
+	/******************************************************************************/
 	Time_Channel& GetTimer();
+
+	/******************************************************************************/
+	/*!
+	  \fn GetLife()
+
+	  \brief Returns life status
+	*/
+	/******************************************************************************/
+	bool GetLife();
+
+	/******************************************************************************/
+	/*!
+	  \fn SetLife()
+
+	  \brief Set life's status
+	*/
+	/******************************************************************************/
+	void SetLife(bool life);
 
 private:
 
+	Behaviour::Root root_;
 	AIType type_;
+	
 	AIState state_;
 	float range_;
 	int attackpower_;
@@ -303,6 +354,7 @@ private:
 	Vector2D player_last_pos_;
 	std::vector<Vector2D> path_;
 	Time_Channel recovery_timer_;
+	bool alive_;
 };
 
 #endif

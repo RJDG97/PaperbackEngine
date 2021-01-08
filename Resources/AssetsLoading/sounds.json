@@ -1,51 +1,218 @@
 {
-
-  "MenuDefault": [
-    {
-      "path": "Resources/SoundCache/States/MM_BGM.mp3",
-      "loop": "1"
-    }
-  ],
-  "GameBGM": [
-    {
-      "path": "Resources/SoundCache/States/Game_Mode_BGM_V3.mp3",
-      "loop": "1"
-    }
-  ],
-  "ButtonPress": [
-    {
-      "path": "Resources/SoundCache/States/Press_Button.mp3",
-      "loop": "0"
-    }
-  ],
-  "PlayerJump":  [
-    {
-      "path": "Resources/SoundCache/Player/Player_Jump.mp3",
-      "loop": "0"
-    }
-  ],
-  "PlayerDrink":  [
-    {
-      "path": "Resources/SoundCache/Player/Player_Drink.mp3",
-      "loop": "0"
-    }
-  ],
-  "PlayerHurt":  [
-    {
-      "path": "Resources/SoundCache/Player/Player_Hurt.mp3",
-      "loop": "0"
-    }
-  ],
-  "PlayerDies":  [
-    {
-      "path": "Resources/SoundCache/Player/Player_Dies.mp3",
-      "loop": "0"
-    }
-  ],
-  "EnemyWalk":  [
-    {
-      "path": "Resources/SoundCache/Player/Enemy_Walk.mp3",
-      "loop": "0"
-    }
-  ]
+    "ButtonPress": [
+        {
+            "path": "Resources/SoundCache/States/Press_Button.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "EnemyWalk": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Walk.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "EnemyDetect": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Detect.mp3",
+            "volume": "0.600000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "EnemyAttack": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Attack.mp3",
+            "volume": "0.800000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "EnemyLostSight": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Lost_Sight.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "EnemyExplode": [
+        {
+            "path": "Resources/SoundCache/Enemy/Enemy_Explode.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "GameBGM": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode_BGM_V3.mp3",
+            "volume": "0.500000",
+            "min distance": "3.000000",
+            "volume falloff": "0.040000",
+            "loop": "1"
+        }
+    ],
+    "MenuDefault": [
+        {
+            "path": "Resources/SoundCache/States/MM_BGM.mp3",
+            "volume": "0.300000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1"
+        }
+    ],
+    "Fire": [
+        {
+            "path": "Resources/SoundCache/Environment/FireCracking.mp3",
+            "volume": "0.100000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "1"
+        }
+    ],
+    "River": [
+      {
+          "path": "Resources/SoundCache/Environment/River.mp3",
+          "volume": "0.20000",
+          "min distance": "3.000000",
+          "volume falloff": "0.030000",
+          "loop": "1"
+      }
+    ],
+    "Tree": [
+      {
+          "path": "Resources/SoundCache/Environment/TreeRustle.mp3",
+          "volume": "0.100000",
+          "min distance": "3.000000",
+          "volume falloff": "0.050000",
+          "loop": "1"
+      }
+    ],
+    "WaterDropping": [
+      {
+          "path": "Resources/SoundCache/Environment/WaterDroplet.mp3",
+          "volume": "0.100000",
+          "min distance": "3.000000",
+          "volume falloff": "0.050000",
+          "loop": "1"
+      }
+    ],
+    "PlayerDies": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Dies.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerDrink": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Drink.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerHurt": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Hurt.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerJump": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "TextAdvancing": [
+        {
+            "path": "Resources/SoundCache/UI/TextAdvancing.mp3",
+            "volume": "0.700000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "AnimalSound": [
+        {
+            "path": "Resources/SoundCache/Environment/Animal_Sound.mp3",
+            "volume": "0.400000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1"
+        }
+    ],
+    "Atmosphehe": [
+        {
+            "path": "Resources/SoundCache/Environment/Atmosphere.mp3",
+            "volume": "0.400000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1"
+        }
+    ],
+    "Cricket": [
+        {
+            "path": "Resources/SoundCache/Environment/Cricket.mp3",
+            "volume": "0.500000",
+            "min distance": "3.500000",
+            "volume falloff": "0.030000",
+            "loop": "1"
+        }
+    ],
+    "Lake": [
+        {
+            "path": "Resources/SoundCache/Environment/Lake.mp3",
+            "volume": "0.400000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1"
+        }
+    ],
+    "Fire": [
+        {
+            "path": "Resources/SoundCache/Environment/Fire.mp3",
+            "volume": "0.300000",
+            "min distance": "1.500000",
+            "volume falloff": "0.030000",
+            "loop": "1"
+        }
+    ],
+    "Win": [
+        {
+            "path": "Resources/SoundCache/States/Win.mp3",
+            "volume": "0.500000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "Lose": [
+        {
+            "path": "Resources/SoundCache/States/Lose.mp3",
+            "volume": "0.500000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ]
 }
