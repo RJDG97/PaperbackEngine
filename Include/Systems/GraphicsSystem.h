@@ -28,6 +28,7 @@
 #include "Systems/CameraSystem.h"
 #include "Components/AnimationRenderer.h"
 #include "Components/TextRenderer.h"
+#include "Manager/LayerManager.h"
 #include <windows.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -37,8 +38,7 @@ class GraphicsSystem : public ISystem {
     class RenderLayer {
 
         std::string name_;
-        bool y_sorted;
-        std::multimap<int, IRenderer*> renderers_;
+        bool hidden;        // used in editor to show/hide layer
 
     };
 

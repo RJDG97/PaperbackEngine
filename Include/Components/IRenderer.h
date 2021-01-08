@@ -26,7 +26,6 @@ protected:
 	bool x_mirror_ = false;
 	bool y_mirror_ = false;
 
-	std::string texture_name_;
 	GLuint texture_handle_;
 	std::vector<glm::vec2> tex_vtx_;
 	
@@ -59,6 +58,7 @@ public:
 /******************************************************************************/
 	void SetAlive(bool life) { alive_ = life; }
 
+	virtual IRenderer* GetDerived() = 0;
 };
 
 #endif

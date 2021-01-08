@@ -116,6 +116,8 @@ public:
 */
 /******************************************************************************/
 	std::string GetCurrentAnimation();
+
+	virtual AnimationRenderer* GetDerived() { return this; }
 };
 
 #endif
