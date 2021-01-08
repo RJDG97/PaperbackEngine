@@ -25,7 +25,6 @@
 class TextureRenderer : public IRenderer {
 
 	Texture* texture_;
-	std::string texture_name_;
 
 public:
 
@@ -141,8 +140,6 @@ public:
 */
 /******************************************************************************/
 	void SetUI(int ui);
-
-	virtual TextureRenderer* GetDerived() { return this; }
 };
 
 #endif

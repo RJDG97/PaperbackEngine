@@ -110,8 +110,6 @@ public:
 */
 /******************************************************************************/
 	void SetText(std::string text);
-
-	virtual TextRenderer* GetDerived() { return this; }
 };
 
 #endif

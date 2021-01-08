@@ -189,45 +189,6 @@
     <Filter Include="Systems\Behaviour System">
       <UniqueIdentifier>{46ced2f8-0168-4bca-957f-2bf270902a6e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ResourceManagers\AnimationManager">
-      <UniqueIdentifier>{5ec2f6bf-4015-41ca-ba9a-3d6fd227f7d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\ComponentManager">
-      <UniqueIdentifier>{cb32e032-0d62-47eb-8ed9-eeada4598ffb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\DialogueManager">
-      <UniqueIdentifier>{3a5c1552-cca3-4778-a7d5-3a18c71c105a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\EntityManager">
-      <UniqueIdentifier>{225f642c-e364-40de-b5b3-61e02bfffc0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\FontManager">
-      <UniqueIdentifier>{cb633295-7b7c-4f19-bb20-afb796859df4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\ForcesManager">
-      <UniqueIdentifier>{11fb8bc9-d104-4208-aa7b-d7788f7898d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\LogicManager">
-      <UniqueIdentifier>{4c05a617-5e95-4845-8959-c0be69ed5ad4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\ModelManager">
-      <UniqueIdentifier>{c48e8ea4-78c0-496c-bcc4-fa41d1b8a0b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\ParticleManager">
-      <UniqueIdentifier>{b443a923-53be-491f-8ac6-246e30e4c92f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\ShaderManager">
-      <UniqueIdentifier>{1d1877ba-58bd-4ceb-945e-eb262f843974}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\TextureManager">
-      <UniqueIdentifier>{71ef6760-910b-4f0b-9fde-2ef582dc7f13}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\TransitionManager">
-      <UniqueIdentifier>{8ac91ba8-ab9a-41c6-bdfb-d212de2da96c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ResourceManagers\LayerManager">
-      <UniqueIdentifier>{ec9d9fab-0431-461d-9520-994c899f95e9}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -284,6 +245,15 @@
     <ClCompile Include="Source\GameStates\PlayState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\AnimationManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ModelManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\TextureManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp">
       <Filter>Systems\MathLibrary</Filter>
     </ClCompile>
@@ -298,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="Source\Source.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ShaderManager.cpp">
+      <Filter>ResourceManagers</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\Debug.cpp">
       <Filter>Systems\Debug</Filter>
@@ -319,6 +292,12 @@
     </ClCompile>
     <ClCompile Include="Source\Systems\ImguiSystem.cpp">
       <Filter>Systems\Imgui System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ForcesManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\FontManager.cpp">
+      <Filter>ResourceManagers</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\InputController.cpp">
       <Filter>Entity\Components\InputController</Filter>
@@ -355,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="Source\GameStates\MenuState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\EntityManager.cpp">
+      <Filter>ResourceManagers</Filter>
     </ClCompile>
     <ClCompile Include="Source\Script\GeneralScripts.cpp">
       <Filter>Scripts\GeneralScripts</Filter>
@@ -410,6 +392,9 @@
     <ClCompile Include="Source\Components\Inventory.cpp">
       <Filter>Entity\Components\Inventory</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\ParticleManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Systems\ParticleSystem.cpp">
       <Filter>Systems\Particle System</Filter>
     </ClCompile>
@@ -428,17 +413,26 @@
     <ClCompile Include="Source\Components\SoundEmitter.cpp">
       <Filter>Entity\Components\SoundEmitter</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\DialogueManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
     <ClCompile Include="Source\GameStates\SplashState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameStates\CreditsState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\TransitionManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Systems\TransitionSystem.cpp">
       <Filter>Systems\Transition System</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\DialogueSystem.cpp">
       <Filter>Systems\Dialogue System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\LogicManager.cpp">
+      <Filter>ResourceManagers</Filter>
     </ClCompile>
     <ClCompile Include="lib\DearImGui\imgui.cpp">
       <Filter>Systems\Imgui System\ImguiFiles</Filter>
@@ -466,42 +460,6 @@
     </ClCompile>
     <ClCompile Include="Source\Manager\BehaviourTree.cpp">
       <Filter>Systems\Behaviour System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\AnimationManager.cpp">
-      <Filter>ResourceManagers\AnimationManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\DialogueManager.cpp">
-      <Filter>ResourceManagers\DialogueManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\EntityManager.cpp">
-      <Filter>ResourceManagers\EntityManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\FontManager.cpp">
-      <Filter>ResourceManagers\FontManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\ForcesManager.cpp">
-      <Filter>ResourceManagers\ForcesManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\LogicManager.cpp">
-      <Filter>ResourceManagers\LogicManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\ModelManager.cpp">
-      <Filter>ResourceManagers\ModelManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\ParticleManager.cpp">
-      <Filter>ResourceManagers\ParticleManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\ShaderManager.cpp">
-      <Filter>ResourceManagers\ShaderManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\TextureManager.cpp">
-      <Filter>ResourceManagers\TextureManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\TransitionManager.cpp">
-      <Filter>ResourceManagers\TransitionManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Manager\LayerManager.cpp">
-      <Filter>ResourceManagers\LayerManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -540,6 +498,15 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\Factory.h">
       <Filter>Systems\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\AnimationManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\ModelManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\TextureManager.h">
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\GraphicsSystem.h">
       <Filter>Systems\Graphics System</Filter>
@@ -592,6 +559,9 @@
     <ClInclude Include="Include\Manager\IManager.h">
       <Filter>ResourceManagers</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Manager\ShaderManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
     <ClInclude Include="Include\Systems\Debug.h">
       <Filter>Systems\Debug</Filter>
     </ClInclude>
@@ -615,6 +585,12 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\ImguiSystem.h">
       <Filter>Systems\Imgui System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\ForcesManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\FontManager.h">
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\TextRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
@@ -651,6 +627,12 @@
     </ClInclude>
     <ClInclude Include="Include\GameStates\Levels.h">
       <Filter>Systems\Scene/State Manager\LevelsStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\EntityManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\ComponentManager.h">
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="Include\Script\GeneralScripts.h">
       <Filter>Scripts\GeneralScripts</Filter>
@@ -721,6 +703,9 @@
     <ClInclude Include="Include\Script\Stag_Script.h">
       <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Manager\ParticleManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
     <ClInclude Include="Include\Systems\ParticleSystem.h">
       <Filter>Systems\Particle System</Filter>
     </ClInclude>
@@ -739,17 +724,26 @@
     <ClInclude Include="Include\Components\SoundEmitter.h">
       <Filter>Entity\Components\SoundEmitter</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Manager\DialogueManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
     <ClInclude Include="Include\GameStates\CreditsState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
     <ClInclude Include="Include\GameStates\SplashState.h">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Manager\TransitionManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
     <ClInclude Include="Include\Systems\TransitionSystem.h">
       <Filter>Systems\Transition System</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\DialogueSystem.h">
       <Filter>Systems\Dialogue System</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\LogicManager.h">
+      <Filter>ResourceManagers</Filter>
     </ClInclude>
     <ClInclude Include="lib\DearImGui\IconsFontAwesome5.h">
       <Filter>Systems\Imgui System\ImguiFiles</Filter>
@@ -798,45 +792,6 @@
     </ClInclude>
     <ClInclude Include="Include\Script\Stag_Tree.h">
       <Filter>Scripts\StagBeetle</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\AnimationManager.h">
-      <Filter>ResourceManagers\AnimationManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\ComponentManager.h">
-      <Filter>ResourceManagers\ComponentManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\DialogueManager.h">
-      <Filter>ResourceManagers\DialogueManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\EntityManager.h">
-      <Filter>ResourceManagers\EntityManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\FontManager.h">
-      <Filter>ResourceManagers\FontManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\ForcesManager.h">
-      <Filter>ResourceManagers\ForcesManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\LogicManager.h">
-      <Filter>ResourceManagers\LogicManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\ModelManager.h">
-      <Filter>ResourceManagers\ModelManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\ParticleManager.h">
-      <Filter>ResourceManagers\ParticleManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\ShaderManager.h">
-      <Filter>ResourceManagers\ShaderManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\TextureManager.h">
-      <Filter>ResourceManagers\TextureManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\TransitionManager.h">
-      <Filter>ResourceManagers\TransitionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Manager\LayerManager.h">
-      <Filter>ResourceManagers\LayerManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
