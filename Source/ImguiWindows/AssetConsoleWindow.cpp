@@ -27,6 +27,7 @@ void AssetConsoleWindow::Init() {
 	tex_info_ = {};
 	audio_info = {};
 	listEntity_ = {};
+
 	animation_info_ = {};
 	general_anim_info_ = {};
 	indi_anim_info_ = {};
@@ -39,10 +40,12 @@ void AssetConsoleWindow::Init() {
 	b_unload = false;
 	b_wrong_type = false;
 	b_load = false;
+	b_new_json = false;
 
 	input_flags_ = ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank;
 
 	type = AddFile::ADDNOTHING;
+	filejson = AddFile::ADDNOTHING;
 }
 
 void AssetConsoleWindow::Update() {
@@ -50,22 +53,32 @@ void AssetConsoleWindow::Update() {
 	if (imgui_->b_add_texture)
 		AddTextureAnimation();
 
+	AddBlankJson();
 	UnloadPopup();
 	WrongTypePopup();
 }
 
 void AssetConsoleWindow::AddTextureAnimation() {
 
-	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_add_texture);
+	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_add_texture, ImGuiWindowFlags_MenuBar);
+	ImGui::BeginMenuBar();
+	if (ImGui::MenuItem(ICON_FA_FILE)) {
+
+		b_new_json = true;
+	}
+	ImGui::EndMenuBar();
+
 	ImGui::Text("Select what type of files you want to update."); ImGui::SameLine(0, 5);
 	imgui_->ImguiHelp("Press the'Save & Reload Textures' button after making\nany confirmed changes, and before changing to another file.\nIf you change file before confirming your changes,\nall previous amendments will be undone");
-	if (ImGui::TreeNode("Notes on Updating Existing Assets")) {
+	//if (ImGui::TreeNode("Notes on Updating Existing Assets")) {
 
-		ImGui::Text("Delete the existing asset in the Engine, and repeat the steps for adding in a new asset.");
-		ImGui::Text("If any entity/archetype is using the texture, remember to give the previously used name");
-	}
+	//	ImGui::Text("Delete the existing asset in the Engine, and repeat the steps for adding in a new asset.");
+	//	ImGui::Text("If any entity/archetype is using the texture, remember to give the previously used name");
 
-	ImGui::Text("Type of Assets:");
+	//	ImGui::TreePop();
+	//}
+
+	ImGui::Text("Choose the Asset Type:");
 
 	ImGui::RadioButton("Texture", &(int&)type, (int)AddFile::ADDTEXTURE);
 	ImGui::RadioButton("Audio", &(int&)type, (int)AddFile::ADDAUDIO);
@@ -77,7 +90,7 @@ void AssetConsoleWindow::AddTextureAnimation() {
 
 		SelectAssetJson();
 		DisplayTextureJson();
-		AddBlankJson();
+		//AddBlankJson();
 
 		if (!chosen_json_.empty())
 			AddNewAsset();
@@ -86,7 +99,7 @@ void AssetConsoleWindow::AddTextureAnimation() {
 
 		SelectAssetJson();
 		DisplayAnimationJson();
-		AddBlankJson();
+		//AddBlankJson();
 
 
 		if (!chosen_json_.empty())
@@ -828,9 +841,9 @@ void AssetConsoleWindow::AddNewAsset() {
 
 				UpdatePath();
 
-				if (ImGui::InputTextWithHint("##newAnimationname", "Enter the Animation Set Name (Eg. Player Animations)", namebuffer, sizeof(namebuffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
+				if (ImGui::InputTextWithHint("##newAnimationname", "Enter the Animation Set Name (Eg. Player Animations)", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
 
-					if (!std::string(namebuffer).empty()) {
+					if (!std::string(buffer).empty()) {
 
 						if (imgui_->CheckString(imgui_->GetAssetAdd(), ".png")) {
 
@@ -839,13 +852,13 @@ void AssetConsoleWindow::AddNewAsset() {
 
 							newanimation.column_ = newanimation.row_ = 1;
 
-							animation_batch_label_ = ReplaceCharacter(namebuffer, " ", "_");
+							animation_batch_label_ = ReplaceCharacter(buffer, " ", "_");
 
-							newinfo.json_label_ = namebuffer;
+							newinfo.json_label_ = buffer;
 							newinfo.json_path_ = "Resources/AssetsLoading/Animation/" + animation_batch_label_ + ".json";
 
 							general_anim_info_[animation_batch_label_] = newanimation;
-							templistAnimationJson_[std::string(namebuffer)] = newinfo;
+							templistAnimationJson_[std::string(buffer)] = newinfo;
 
 							imgui_->SetAssetAdd({});
 						}
@@ -857,34 +870,36 @@ void AssetConsoleWindow::AddNewAsset() {
 		}
 		else {
 
-			ImGui::Text("No Asset Set, Drag One here or to the add icon in the asset browser");
+			ImGui::TextColored(REDDEFAULT,"No Asset Set, Drag One here or to the add icon in the asset browser");
 
 			UpdatePath();
 		}
 	}
 
-	if (ImGui::CollapsingHeader("Add Individual Animations")) {
+	if (!animation_batch_label_.empty() && general_anim_info_.find(animation_batch_label_) != general_anim_info_.end()) {
 
-		std::string folderName{};
+		if (ImGui::CollapsingHeader("Add Individual Animations")) {
 
-		static char buffer[256];
-		memset(buffer, 0, sizeof(buffer));
-		strcpy_s(buffer, sizeof(buffer), folderName.c_str());
+			std::string folderName{};
 
-		static char bufferR[64];
-		memset(bufferR, 0, sizeof(bufferR));
-		strcpy_s(bufferR, sizeof(bufferR), folderName.c_str());
+			static char buffer[256];
+			memset(buffer, 0, sizeof(buffer));
+			strcpy_s(buffer, sizeof(buffer), folderName.c_str());
 
-		static char bufferC[64];
-		memset(bufferC, 0, sizeof(bufferC));
-		strcpy_s(bufferC, sizeof(bufferC), folderName.c_str());
+			static char bufferR[64];
+			memset(bufferR, 0, sizeof(bufferR));
+			strcpy_s(bufferR, sizeof(bufferR), folderName.c_str());
 
-		ImGui::Text("Newly Added Animation Set being added: "); ImGui::SameLine(0, 3);
-		ImGui::TextColored(AQUAMARINE, animation_batch_label_.c_str());
+			static char bufferC[64];
+			memset(bufferC, 0, sizeof(bufferC));
+			strcpy_s(bufferC, sizeof(bufferC), folderName.c_str());
 
-		//check if the animation set has been added into the other map first
-		IndividualAnimationInfo newanimationsinfo;
-		if (!animation_batch_label_.empty() && general_anim_info_.find(animation_batch_label_) != general_anim_info_.end()) {
+			ImGui::Text("Newly Added Animation Set being added: "); ImGui::SameLine(0, 3);
+			ImGui::TextColored(AQUAMARINE, animation_batch_label_.c_str());
+
+			//check if the animation set has been added into the other map first
+			IndividualAnimationInfo newanimationsinfo;
+
 
 			if (ImGui::InputTextWithHint("##newAnimationsname", "Enter the Individual Animation Name (Eg. Player_Burrow)", buffer, sizeof(buffer), input_flags_)) {
 
@@ -899,7 +914,7 @@ void AssetConsoleWindow::AddNewAsset() {
 			ImGui::PushItemWidth(120.0f);
 			ImGui::Text("Type in Number of Frames and Animation Duration");
 
-			if (ImGui::InputText("##animationframes", bufferC, sizeof(bufferC), input_flags_)) {
+			if (ImGui::InputText("##animationframes", bufferC, sizeof(bufferC), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsDecimal)) {
 
 				if (!std::string(bufferC).empty()) {
 
@@ -909,7 +924,7 @@ void AssetConsoleWindow::AddNewAsset() {
 
 			ImGui::SameLine(0, 10);
 
-			if (ImGui::InputText("##animationduration", bufferR, sizeof(bufferR), input_flags_)) {
+			if (ImGui::InputText("##animationduration", bufferR, sizeof(bufferR), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsDecimal)) {
 
 				if (!std::string(bufferR).empty()) {
 
@@ -919,8 +934,6 @@ void AssetConsoleWindow::AddNewAsset() {
 
 			ImGui::PopItemWidth();
 
-			ImGui::TreePop();
-			
 		}
 	}
 }
@@ -986,32 +999,56 @@ void AssetConsoleWindow::UnloadPopup() {
 
 void AssetConsoleWindow::AddBlankJson() {
 
-	if (ImGui::CollapsingHeader("Add Blank Json File")) {
+	if (b_new_json)
+		ImGui::OpenPopup("Add A Blank Json");
+
+	imgui_->SetPopupPosition();
+
+	if (ImGui::BeginPopup("Add A Blank Json")) {
+
 		std::string pathtext;
 		char filebuffer[256];
 		memset(filebuffer, 0, sizeof(filebuffer));
 		strcpy_s(filebuffer, sizeof(filebuffer), pathtext.c_str());
 		fs::path filepath{};
+		
+
+		ImGui::Text("Select the Asset type");
+
+		ImGui::RadioButton("Texture", &(int&)filejson, (int)AddFile::ADDTEXTURE);
+		//ImGui::RadioButton("Audio", &(int&)filejson, (int)AddFile::ADDAUDIO);
+		ImGui::RadioButton("Animation", &(int&)filejson, (int)AddFile::ADDANIMATION);
 
 		ImGui::Text("New Files will be reflected in the dropdown above and in the asset browser");
-		ImGui::TextColored(GOLDENORANGE, "For Adding new Animation Json,\nthe Name given is the 'Level Name' (Eg. Menu, Level1, Level2");
+		ImGui::TextColored(GOLDENORANGE, "For Adding new Animation Json,\nthe Name is the 'Level Name' (Eg. Menu, Level1, Level2");
+
 		if (ImGui::InputTextWithHint("##row", "Enter FileName & press ENTER", filebuffer, sizeof(filebuffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
 
 			if (!std::string(filebuffer).empty()) {
 
-				 pathtext = filebuffer;
-				 if (type == AddFile::ADDTEXTURE)
+				pathtext = filebuffer;
+
+				if (filejson == AddFile::ADDTEXTURE)
 					filepath = std::string("Resources/AssetsLoading/" + pathtext + "_texture.json").c_str();
 
-				 if (type == AddFile::ADDANIMATION)
+				if (filejson == AddFile::ADDANIMATION)
 					filepath = std::string("Resources/AssetsLoading/" + pathtext + "_animation.json").c_str();
 
 				std::ofstream destfile(filepath, std::ios::binary | std::ios::app);
 
 				destfile << "{\n\n}"; // prepare the file as a blank json
 				destfile.close();
+
+				b_new_json = false;
+				ImGui::CloseCurrentPopup();
 			}
 		}
+
+		if (ImGui::Button("Close This Panel")) {
+			b_new_json = false;
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
 	}
 }
 

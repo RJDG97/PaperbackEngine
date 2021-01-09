@@ -273,6 +273,7 @@ public:
 	*/
 	/******************************************************************************/
 	void AddBlankJson();
+
 	/******************************************************************************/
 	/*!
 		\fn GetUnloadBool()
@@ -328,11 +329,11 @@ private:
 	std::string animation_json_; // name of the upper 'layer' animation json file
 	std::string animation_batch_label_, animation_json_key_;
 
-	bool b_unload, b_wrong_type, b_load;
+	bool b_unload, b_wrong_type, b_load, b_new_json;
 
 	ImGuiInputTextFlags input_flags_;
 
-	AddFile type;
+	AddFile type, filejson;
 
 };
 #endif 
