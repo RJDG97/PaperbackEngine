@@ -24,7 +24,6 @@ void AssetConsoleWindow::Init() {
 
 	chosen_json_ = {};
 	filesdel_ = {};
-	jsonfiles_ = {};
 	tex_info_ = {};
 	audio_info = {};
 	listEntity_ = {};
@@ -33,10 +32,15 @@ void AssetConsoleWindow::Init() {
 	indi_anim_info_ = {};
 	animation_json_ = {};
 	listAnimationJson_ = {};
+	templistAnimationJson_ = {};
+	animation_batch_label_ = {}; // name of the animation set
+	animation_json_key_ = {}; // Upper layer json key 
 
 	b_unload = false;
 	b_wrong_type = false;
 	b_load = false;
+
+	input_flags_ = ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank;
 
 	type = AddFile::ADDNOTHING;
 }
@@ -55,7 +59,14 @@ void AssetConsoleWindow::AddTextureAnimation() {
 	ImGui::Begin("Add/Remove/Update Assets", &imgui_->b_add_texture);
 	ImGui::Text("Select what type of files you want to update."); ImGui::SameLine(0, 5);
 	imgui_->ImguiHelp("Press the'Save & Reload Textures' button after making\nany confirmed changes, and before changing to another file.\nIf you change file before confirming your changes,\nall previous amendments will be undone");
+	if (ImGui::TreeNode("Notes on Updating Existing Assets")) {
+
+		ImGui::Text("Delete the existing asset in the Engine, and repeat the steps for adding in a new asset.");
+		ImGui::Text("If any entity/archetype is using the texture, remember to give the previously used name");
+	}
+
 	ImGui::Text("Type of Assets:");
+
 	ImGui::RadioButton("Texture", &(int&)type, (int)AddFile::ADDTEXTURE);
 	ImGui::RadioButton("Audio", &(int&)type, (int)AddFile::ADDAUDIO);
 	ImGui::RadioButton("Animation", &(int&)type, (int)AddFile::ADDANIMATION);
@@ -72,9 +83,10 @@ void AssetConsoleWindow::AddTextureAnimation() {
 			AddNewAsset();
 	}
 	if (type == AddFile::ADDANIMATION) {
+
 		SelectAssetJson();
 		DisplayAnimationJson();
-		//AddBlankJson();
+		AddBlankJson();
 
 
 		if (!chosen_json_.empty())
@@ -133,9 +145,14 @@ void AssetConsoleWindow::LoadAnimationJson(std::string level_name) {
 
 	for (rapidjson::Value::ConstMemberIterator file_it = anim_arr.MemberBegin(); file_it != anim_arr.MemberEnd(); ++file_it) {
 
-		listAnimationJson_[file_it->name.GetString()] = file_it->value.GetString(); // loads all the names of each individual animation json files
-	}
+		AnimationJsonInfo newinfo;
 
+		newinfo.json_label_ = file_it->name.GetString();
+		newinfo.json_path_ = file_it->value.GetString();
+
+		listAnimationJson_[ReplaceCharacter(file_it->name.GetString(), " ", "_")] = newinfo;
+		templistAnimationJson_[ReplaceCharacter(file_it->name.GetString(), " ", "_")] = newinfo;
+	}
 }
 
 void AssetConsoleWindow::LoadAnimationsJson(std::string json_path) {
@@ -151,11 +168,10 @@ void AssetConsoleWindow::LoadAnimationsJson(std::string json_path) {
 
 		rapidjson::Value::ConstMemberIterator anim_set_param_it = animation_set_param.MemberBegin();
 
-		std::string spritesheet_name = animation_set_arr.MemberBegin()->name.GetString();
-
 		AnimationInfo animation;
+		animation.spritesheet_ = animation_set_arr.MemberBegin()->name.GetString();
 		animation.anim_folder_ = (anim_set_param_it++)->value.GetString();
-		animation.anim_batch_name_ = (anim_set_param_it++)->value.GetString();
+		std::string animationbatchname = (anim_set_param_it++)->value.GetString();
 		animation.column_ = std::stoi((anim_set_param_it++)->value.GetString());
 		animation.row_ = std::stoi((anim_set_param_it++)->value.GetString());
 
@@ -171,10 +187,8 @@ void AssetConsoleWindow::LoadAnimationsJson(std::string json_path) {
 			individual_anim_info.push_back(anim);
 		}
 
-		general_anim_info_[spritesheet_name] = animation;
-		animation_info_[spritesheet_name] = individual_anim_info;
-
-
+		general_anim_info_[animationbatchname] = animation;
+		animation_info_[animationbatchname] = individual_anim_info;
 }
 
 void AssetConsoleWindow::LoadSoundJson(std::string level_name) {
@@ -246,6 +260,7 @@ void AssetConsoleWindow::SelectAssetJson() {
 				}
 			}
 				break;
+
 			case AddFile::ADDAUDIO:
 			{
 				if (fs::is_regular_file(assetjson) && assetjson.path().extension() == ".json" && imgui_->CheckString(assetjson.path().filename().generic_string(), "sounds")) {
@@ -272,7 +287,7 @@ void AssetConsoleWindow::SelectAssetJson() {
 
 		if (type == AddFile::ADDANIMATION)
 		{
-			for (auto& animjson : fs::directory_iterator("Resources\\AssetsLoading")) {
+			for (auto& animjson : fs::directory_iterator("Resources/AssetsLoading")) {
 
 				if (fs::is_regular_file(animjson) && animjson.path().extension() == ".json" && imgui_->CheckString(animjson.path().filename().generic_string(), "animation")) {
 
@@ -281,6 +296,9 @@ void AssetConsoleWindow::SelectAssetJson() {
 					if (ImGui::Selectable(filename.c_str())) {
 
 						file = FindUnderscore(filename);
+
+						listAnimationJson_.clear();
+						templistAnimationJson_.clear();
 
 						animation_info_.clear();
 						general_anim_info_.clear();
@@ -300,6 +318,7 @@ void AssetConsoleWindow::SelectAssetJson() {
 }
 
 void AssetConsoleWindow::DisplayAudioJson() {
+
 	if (!chosen_json_.empty()) {
 
 		if (ImGui::TreeNodeEx((chosen_json_ + " details:").c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
@@ -323,7 +342,7 @@ void AssetConsoleWindow::DisplayAudioJson() {
 
 						if (ImGui::Button("Update")) {
 
-							std::string selectedpath = imgui_->OpenSaveDialog("(*.png) Spritesheets/Textures\0* .png\0", 0);
+							std::string selectedpath = imgui_->OpenSaveDialog("(*.mp3) Audio Files\0* .mp3\0", 0);
 
 							if (!selectedpath.empty())
 								it->second.path = selectedpath;
@@ -365,14 +384,13 @@ void AssetConsoleWindow::DisplayAudioJson() {
 					if (ImGui::Button("Remove"))
 						ImGui::OpenPopup("Remove Sound?");
 
-					ImVec2 centre = ImGui::GetMainViewport()->GetCenter();
-					ImGui::SetNextWindowPos(centre, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+					imgui_->SetPopupPosition();
 
 					if (ImGui::BeginPopupModal("Remove Sound?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
 						std::string del = it->first;
-						ImGui::Text("Removing Texture: %s\nMake Sure no object is using this texturer?", it->first.c_str());
-						// later add to show which textures are using it
+						ImGui::Text("Removing Audio File: %s\nMake Sure no object is using this file?", it->first.c_str());
+
 						imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
 						if (ImGui::Button("YES")) {
 
@@ -457,7 +475,7 @@ void AssetConsoleWindow::DisplayTextureJson() {
 						ImGui::TreePop();
 					}
 
-					if (ImGui::TreeNodeEx("Row & Columns", ImGuiTreeNodeFlags_DefaultOpen)) {
+					if (ImGui::TreeNodeEx("Row & Columns")) {
 
 						static char bufferR[256];
 						static char bufferC[256];
@@ -571,48 +589,150 @@ void AssetConsoleWindow::DisplayTextureJson() {
 }
 
 void AssetConsoleWindow::DisplayAnimationJson() {
-	std::string spritesheet{};
+	
+	DisplayUpperAnimationJson();
+	DisplayAnimationBatchJson();
+}
+
+void AssetConsoleWindow::DisplayUpperAnimationJson() {
+
 	if (!chosen_json_.empty()) {
 
-		if (ImGui::TreeNodeEx((chosen_json_ + " details:").c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
+		for (auto it = listAnimationJson_.begin(); it != listAnimationJson_.end(); ++it) {
 
-			if (ImGui::BeginCombo("##animationsjson", (animation_json_.empty() ? "Choose File" : animation_json_.c_str()))) {
 
-				for (auto it = listAnimationJson_.begin(); it != listAnimationJson_.end(); ++it) {
-
-					if (ImGui::Selectable(it->first.c_str())) {
-
-						animation_json_ = it->second;
-						LoadAnimationsJson(animation_json_);
-					}
-				}
-
-				ImGui::EndCombo();
-			}
-			ImGui::TreePop();
+			//animation_json_ = it->second.json_path_;
+			LoadAnimationsJson(it->second.json_path_);
 		}
 	}
+}
 
-	if (!animation_json_.empty()) {
+void AssetConsoleWindow::DisplayAnimationBatchJson() {
+	std::string animationbatchname{};
+
+	//if (!animation_json_.empty()) {
 
 		for (auto it = general_anim_info_.begin(); it != general_anim_info_.end(); ++it) {
 
-			spritesheet = it->first.c_str();
-			ImGui::Text(spritesheet.c_str());
+			animationbatchname = it->first.c_str();
 
-			ImGui::Text("Folder: %s, Animation Batch Name: %s, Columns: %d, Rows: %d", it->second.anim_folder_.c_str(), it->second.anim_batch_name_.c_str(), it->second.column_, it->second.row_);
+			if (ImGui::TreeNodeEx(animationbatchname.c_str())) {
 
-			auto info = animation_info_.find(spritesheet);
+				//ImGui::Text("Animation Batch: %s", animationbatchname.c_str());
 
-			if (info != animation_info_.end()) {
+				ImGui::Text("Animation Spritesheet: %s", it->second.spritesheet_.c_str());
+				if (ImGui::BeginDragDropTarget()) {
 
-				for (int i = 0; i < info->second.size(); ++i) {
+					if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
 
-					ImGui::Text("Animation Name: %s, Number of Frames: %d, Frame Duration: %.2f", info->second[i].anim_name_.c_str(), info->second[i].num_frames_, info->second[i].frame_duration_);
+						if (payLoad->DataSize == sizeof(std::string)) {
+
+							it->second.spritesheet_ = GetFileName(*((std::string*)payLoad->Data));
+						}
+					}
+					ImGui::EndDragDropTarget();
 				}
-			}
-		}
 
+				ImGui::Text("Animation Folder: %s", it->second.anim_folder_.c_str());
+
+				if (ImGui::BeginDragDropTarget()) {
+
+					if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
+
+						if (payLoad->DataSize == sizeof(std::string)) {
+
+							it->second.anim_folder_ = GetFolder(*((std::string*)payLoad->Data));
+						}							
+					}
+					ImGui::EndDragDropTarget();
+				}
+
+				if (ImGui::TreeNodeEx("Row & Columns", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+					static char bufferR[256];
+					static char bufferC[256];
+
+					ImGui::Text("Number of Columns: %d, Number of Rows: %d", it->second.column_, it->second.row_);
+
+					ImGui::PushItemWidth(150.0f);
+					ImGui::Text("Columns: "); ImGui::SameLine(0, 3);
+					if (ImGui::InputText("##col", bufferC, sizeof(bufferC), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsDecimal)) {
+						std::string colinput = bufferC;
+						it->second.column_ = std::stoi(colinput);
+					}
+
+					ImGui::Text("Rows: "); ImGui::SameLine(0, 3);
+					if (ImGui::InputText("##row", bufferR, sizeof(bufferR), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsDecimal)) {
+						std::string rowinput = bufferR;
+						it->second.row_ = std::stoi(rowinput);
+					}
+
+					ImGui::PopItemWidth();
+					ImGui::TreePop();
+				}
+
+				auto info = animation_info_.find(animationbatchname);
+
+				if (ImGui::TreeNodeEx("Individual Animations")) {
+
+					if (info != animation_info_.end()) {
+
+						for (int i = 0; i < info->second.size(); ++i) {
+
+							ImGui::Text("Animation Name: %s, Number of Frames: %d, Frame Duration: %.2f", info->second[i].anim_name_.c_str(), info->second[i].num_frames_, info->second[i].frame_duration_);
+						}
+					}
+
+					ImGui::TreePop();
+				}
+
+				if (ImGui::Button("Remove"))
+					ImGui::OpenPopup("Remove Animation?");
+
+				imgui_->SetPopupPosition();
+
+				if (ImGui::BeginPopupModal("Remove Animation?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+
+					std::string del = it->first;
+					ImGui::Text("Removing Texture: %s\nMake Sure no object is using this Animation?", it->first.c_str());
+					//add the checks later
+
+					imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
+					if (ImGui::Button("YES")) {
+
+						auto find = animation_info_.find(it->first.c_str());
+						if (find != animation_info_.end()) {
+
+							animation_info_.erase(it->first.c_str());
+						}
+
+						if (it == general_anim_info_.begin())
+							it = general_anim_info_.erase(it);
+						else {
+
+							it = general_anim_info_.erase(it);
+							--it;
+						}
+
+						//filesdel_.push_back(del);
+						//filesdel_.clear();
+
+						ImGui::CloseCurrentPopup();
+					}
+
+					ImGui::PopStyleColor(3);
+					ImGui::SameLine(0, 5);
+
+					if (ImGui::Button("Cancel"))
+						ImGui::CloseCurrentPopup();
+
+					ImGui::EndPopup();
+
+				}
+				ImGui::TreePop();
+				break;
+			}
+		//}
 	}
 }
 
@@ -626,11 +746,21 @@ void AssetConsoleWindow::AddNewAsset() {
 		memset(buffer, 0, sizeof(buffer));
 		strcpy_s(buffer, sizeof(buffer), folderName.c_str());
 
-		ImGui::Text("Any New Assets Added In, other than the Label and the Path\nrest of the details will be set with Default Value. Update them accordingly if need be");
+		static char bufferR[64];
+		memset(bufferR, 0, sizeof(bufferR));
+		strcpy_s(bufferR, sizeof(bufferR), folderName.c_str());
+
+		static char bufferC[64];
+		memset(bufferC, 0, sizeof(bufferC));
+		strcpy_s(bufferC, sizeof(bufferC), folderName.c_str());
+
+		static char namebuffer[256]{};
+
+		ImGui::Text("Any New Assets Added In, other than the Label and the Path\nrest of the details will be set with Default Value. Update if needed");
 
 		if (!imgui_->GetAssetAdd().empty()) {
 
-			if(type == AddFile::ADDTEXTURE) {
+			if (type == AddFile::ADDTEXTURE) {
 
 				TextureInfo newtex;
 				ImGui::TextColored(GOLDENORANGE, "Adding in a NEW Texture");
@@ -665,7 +795,7 @@ void AssetConsoleWindow::AddNewAsset() {
 
 				UpdatePath();
 
-				if (ImGui::InputTextWithHint("##newAudioname", "Enter a Name & press Enter", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
+				if (ImGui::InputTextWithHint("##newAudioname", "Enter a Name & press Enter", buffer, sizeof(buffer), input_flags_)) {
 
 					if (!std::string(buffer).empty()) {
 
@@ -685,21 +815,112 @@ void AssetConsoleWindow::AddNewAsset() {
 					}
 				}
 			}
+
+			if (type == AddFile::ADDANIMATION) {
+
+				// when user types in the animation batch name, create the json path when serializing follow "AnimationManager.cpp" line 109
+
+				AnimationInfo newanimation;
+				AnimationJsonInfo newinfo;
+
+				ImGui::TextColored(AQUAMARINE, "Adding in a NEW Animation");
+				ImGui::Text("Path: %s", imgui_->GetAssetAdd().c_str());
+
+				UpdatePath();
+
+				if (ImGui::InputTextWithHint("##newAnimationname", "Enter the Animation Set Name (Eg. Player Animations)", namebuffer, sizeof(namebuffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
+
+					if (!std::string(namebuffer).empty()) {
+
+						if (imgui_->CheckString(imgui_->GetAssetAdd(), ".png")) {
+
+							newanimation.anim_folder_ = GetFolder(imgui_->GetAssetAdd().c_str());
+							newanimation.spritesheet_ = GetFileName(imgui_->GetAssetAdd().c_str());
+
+							newanimation.column_ = newanimation.row_ = 1;
+
+							animation_batch_label_ = ReplaceCharacter(namebuffer, " ", "_");
+
+							newinfo.json_label_ = namebuffer;
+							newinfo.json_path_ = "Resources/AssetsLoading/Animation/" + animation_batch_label_ + ".json";
+
+							general_anim_info_[animation_batch_label_] = newanimation;
+							templistAnimationJson_[std::string(namebuffer)] = newinfo;
+
+							imgui_->SetAssetAdd({});
+						}
+						else
+							b_wrong_type = true;
+					}
+				}
+			}
 		}
 		else {
 
-			ImGui::Text("No Texture Set, Drag One here or to the add icon in the asset browser");
+			ImGui::Text("No Asset Set, Drag One here or to the add icon in the asset browser");
 
-			if (ImGui::BeginDragDropTarget()) {
+			UpdatePath();
+		}
+	}
 
-				if (const ImGuiPayload* payLoad = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
+	if (ImGui::CollapsingHeader("Add Individual Animations")) {
 
-					if (payLoad->DataSize == sizeof(std::string))
+		std::string folderName{};
 
-						imgui_->SetAssetAdd(*((std::string*)payLoad->Data));
+		static char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		strcpy_s(buffer, sizeof(buffer), folderName.c_str());
+
+		static char bufferR[64];
+		memset(bufferR, 0, sizeof(bufferR));
+		strcpy_s(bufferR, sizeof(bufferR), folderName.c_str());
+
+		static char bufferC[64];
+		memset(bufferC, 0, sizeof(bufferC));
+		strcpy_s(bufferC, sizeof(bufferC), folderName.c_str());
+
+		ImGui::Text("Newly Added Animation Set being added: "); ImGui::SameLine(0, 3);
+		ImGui::TextColored(AQUAMARINE, animation_batch_label_.c_str());
+
+		//check if the animation set has been added into the other map first
+		IndividualAnimationInfo newanimationsinfo;
+		if (!animation_batch_label_.empty() && general_anim_info_.find(animation_batch_label_) != general_anim_info_.end()) {
+
+			if (ImGui::InputTextWithHint("##newAnimationsname", "Enter the Individual Animation Name (Eg. Player_Burrow)", buffer, sizeof(buffer), input_flags_)) {
+
+				if (!std::string(buffer).empty()) {
+
+					newanimationsinfo.anim_name_ = buffer;
 				}
-				ImGui::EndDragDropTarget();
 			}
+
+			ImGui::NewLine();
+
+			ImGui::PushItemWidth(120.0f);
+			ImGui::Text("Type in Number of Frames and Animation Duration");
+
+			if (ImGui::InputText("##animationframes", bufferC, sizeof(bufferC), input_flags_)) {
+
+				if (!std::string(bufferC).empty()) {
+
+					newanimationsinfo.num_frames_ = std::stoi(bufferC);
+				}
+			}
+
+			ImGui::SameLine(0, 10);
+
+			if (ImGui::InputText("##animationduration", bufferR, sizeof(bufferR), input_flags_)) {
+
+				if (!std::string(bufferR).empty()) {
+
+					newanimationsinfo.frame_duration_ = std::stof(bufferR);
+				}
+			}
+
+			ImGui::PopItemWidth();
+
+			ImGui::TreePop();
+			
 		}
 	}
 }
@@ -728,7 +949,7 @@ void AssetConsoleWindow::WrongTypePopup() {
 
 	if (ImGui::BeginPopupModal("Wrong File Type", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
-		if (type == AddFile::ADDTEXTURE)
+		if (type == AddFile::ADDTEXTURE || type == AddFile::ADDANIMATION)
 			ImGui::Text("The Asset you are trying to load in:\n%s\nis of the wrong format.\nOnly Png Image Files", imgui_->GetAssetAdd().c_str());
 
 		else if (type == AddFile::ADDAUDIO)
@@ -773,6 +994,7 @@ void AssetConsoleWindow::AddBlankJson() {
 		fs::path filepath{};
 
 		ImGui::Text("New Files will be reflected in the dropdown above and in the asset browser");
+		ImGui::TextColored(GOLDENORANGE, "For Adding new Animation Json,\nthe Name given is the 'Level Name' (Eg. Menu, Level1, Level2");
 		if (ImGui::InputTextWithHint("##row", "Enter FileName & press ENTER", filebuffer, sizeof(filebuffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CharsNoBlank)) {
 
 			if (!std::string(filebuffer).empty()) {
@@ -820,11 +1042,10 @@ void AssetConsoleWindow::SerializeJson() {
 		filestream.close();
 
 		if (!json_to_load_.empty()) {
-			texture_->TextureBatchLoad(json_to_load_);
 
+			texture_->TextureBatchLoad(json_to_load_);
 			b_load = true;
 		}
-
 	}
 
 	if (type == AddFile::ADDAUDIO) {
@@ -885,6 +1106,37 @@ std::string AssetConsoleWindow::FindUnderscore(std::string filename) {
 		return (filename.substr(0, filename.find("_")));
 	else
 		return std::string();
+}
+
+std::string AssetConsoleWindow::GetFolder(std::string filename) {
+
+	if (filename.find("/") != filename.npos) {
+
+		std::string firstpass = filename.substr(0, filename.find_last_of("/"));
+		std::string secondpass = firstpass.substr(firstpass.find_first_of("/"));
+
+		return secondpass.substr(firstpass.find_first_of("/"));
+	}
+	return std::string();
+}
+
+std::string AssetConsoleWindow::GetFileName(std::string filename) {
+
+	if (filename.find("/") != filename.npos) {
+
+		return filename.substr(filename.find_last_of("/") + 1);
+	}
+	return std::string();
+}
+
+std::string AssetConsoleWindow::ReplaceCharacter(std::string filename, std::string toreplace, std::string newtext) {
+
+	size_t pos = filename.find(toreplace);
+	if (pos != filename.npos) {
+
+		return filename.replace(pos, toreplace.length(), newtext);
+	}
+	return std::string();
 }
 
 bool AssetConsoleWindow::GetUnloadBool() {

@@ -131,3 +131,8 @@ std::string AnimationRenderer::GetCurrentAnimation() {
 
     return current_animation_name_;
 }
+
+std::map<std::string, Animation> AnimationRenderer::GetAvailableAnimation() {
+    
+    return obj_animations_;
+}

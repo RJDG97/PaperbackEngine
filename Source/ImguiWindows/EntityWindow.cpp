@@ -592,12 +592,17 @@ void EntityWindow::AnimationRendererComponent(Entity* entity) {
 		graphics_->ChangeLayer(&*entity_animation, input_layer);
 
 		if (ImGui::BeginCombo("##Animation", entity_animation->GetCurrentAnimation().c_str())) {
-			for (auto it = animation_->GetAnimationMap().begin(); it != animation_->GetAnimationMap().end(); ++it)
-				if (ImGui::Selectable(it->first.c_str()))
+			for (auto it = animation_->GetAnimationMap().begin(); it != animation_->GetAnimationMap().end(); ++it) {
+				if (ImGui::Selectable(it->first.c_str())) {
+					if (entity_animation->GetAvailableAnimation().find(it->first.c_str()) == entity_animation->GetAvailableAnimation().end()) {
+
+						graphics_->AddAnimation(&(*entity_animation), it->first.c_str());
+					}
 					graphics_->ChangeAnimation(&(*entity_animation), it->first.c_str());
+				}
+			}
 			ImGui::EndCombo();
 		}
-
 		RemoveComponent("Delete Animation Renderer Component", std::string("Animation Renderer"), entity, entity_animation);
 	}
 }

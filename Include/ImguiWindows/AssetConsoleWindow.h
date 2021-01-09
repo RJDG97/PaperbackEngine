@@ -42,10 +42,12 @@ struct AudioInfo {
 
 struct AnimationInfo {
 
-	std::string anim_batch_name_;
+	std::string spritesheet_;
 	std::string anim_folder_;
 	int column_;
 	int row_;
+	std::string json_key_;
+	std::string batch_name_;
 };
 
 struct IndividualAnimationInfo {
@@ -53,6 +55,12 @@ struct IndividualAnimationInfo {
 	std::string anim_name_;
 	int num_frames_;
 	GLfloat frame_duration_;
+};
+
+struct AnimationJsonInfo {
+
+	std::string json_label_;
+	std::string json_path_;
 };
 
 enum AddFile {
@@ -150,12 +158,31 @@ public:
 
 	/******************************************************************************/
 	/*!
-		\fn DisplayTextureJson()
+		\fn DisplayAnimationJson()
 
 		\brief Displays the information of the chosen json
 	*/
 	/******************************************************************************/
 	void DisplayAnimationJson();
+
+	/******************************************************************************/
+	/*!
+		\fn DisplayUpperAnimationJson()
+
+		\brief Displays the animation batch name, and links to the corresponding 
+		json file of the specific animation batch
+	*/
+	/******************************************************************************/
+	void DisplayUpperAnimationJson();
+
+	/******************************************************************************/
+	/*!
+		\fn DisplayLowerAnimationJson()
+
+		\brief Displays the infomation of the specific animation batch
+	*/
+	/******************************************************************************/
+	void DisplayAnimationBatchJson();
 
 	/******************************************************************************/
 	/*!
@@ -192,6 +219,33 @@ public:
 	*/
 	/******************************************************************************/
 	std::string FindUnderscore(std::string filename);
+
+	/******************************************************************************/
+	/*!
+		\fn GetFolder(std::string filename)
+
+		\brief Gets the folder containing the texture/animation
+	*/
+	/******************************************************************************/
+	std::string GetFolder(std::string filename);
+
+	/******************************************************************************/
+	/*!
+		\fn GetFileName(std::string filename)
+
+		\brief Gets the name of the texture/animation
+	*/
+	/******************************************************************************/
+	std::string GetFileName(std::string filename);
+
+	/******************************************************************************/
+	/*!
+		\fn GetFileName(std::string filename, std::string toreplace, std::string newtext)
+
+		\brief Replace spaces with underscore
+	*/
+	/******************************************************************************/
+	std::string ReplaceCharacter(std::string filename, std::string toreplace, std::string newtext);
 
 	/******************************************************************************/
 	/*!
@@ -261,20 +315,22 @@ private:
 	// key for the following maps would be the same one (spritesheet name)
 	std::map<std::string, AnimationInfo> general_anim_info_; // store general infomation of the animation json
 	std::map<std::string, std::vector<IndividualAnimationInfo>> animation_info_; // store specific infomation of the individual animation
-	std::vector<IndividualAnimationInfo> indi_anim_info_;
+	std::vector<IndividualAnimationInfo> indi_anim_info_; // stores the infomation of the different sets of animation
+	std::map<std::string, AnimationJsonInfo> listAnimationJson_; // stores the upper json which contains the individual animation jsons & the filepath
+	std::map<std::string, AnimationJsonInfo> templistAnimationJson_; // stores the upper json which contains the individual animation jsons & the filepath
 
-	std::map<std::string, std::string> listAnimationJson_;;
+	std::vector<std::string> filesdel_; // files to delete
+	std::vector<EntityID> listEntity_; // list of entities using the texture
+	std::vector<std::string> listArchetype_; // list of archetypes using the texture
 
-	std::vector<std::string> filesdel_;
-	std::vector<std::string> jsonfiles_;
-	std::vector<EntityID> listEntity_;
-	std::vector<std::string> listArchetype_;
-	std::string chosen_json_;
-
-	std::string json_to_load_; 
-	std::string animation_json_;
+	std::string chosen_json_; // name of chosen json file to be amended/viewed
+	std::string json_to_load_; // name of json file to be loaded/reloaded into the engine
+	std::string animation_json_; // name of the upper 'layer' animation json file
+	std::string animation_batch_label_, animation_json_key_;
 
 	bool b_unload, b_wrong_type, b_load;
+
+	ImGuiInputTextFlags input_flags_;
 
 	AddFile type;
 

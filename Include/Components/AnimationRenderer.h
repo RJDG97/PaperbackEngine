@@ -116,6 +116,15 @@ public:
 */
 /******************************************************************************/
 	std::string GetCurrentAnimation();
+
+/******************************************************************************/
+/*!
+  \fn GetAvailableAnimation()
+
+  \brief Get the possible animations that the entity could use
+*/
+/******************************************************************************/
+	std::map<std::string, Animation> GetAvailableAnimation();
 };
 
 #endif

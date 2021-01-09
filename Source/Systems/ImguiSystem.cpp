@@ -482,6 +482,7 @@ void ImguiSystem::SaveCheckPopUp(const char* window_name, int exit_type) {
                 selected_entity_ = {};
                 type = CloseApp::NONE;
                 NewScene();
+                sound_->StopSound("All", true);
                 ImGui::CloseCurrentPopup();
             }
             if (exit_type == CloseApp::RETURNMENU) { // return to menu
@@ -554,11 +555,11 @@ void ImguiSystem::LoadArchetype() {
 
         archetype_path_ = path;
     }
-
     selected_entity_ = {};
 }
 
 void ImguiSystem::OpenFile() {
+
     std::string path = OpenSaveDialog(scene_filter_, 0);
 
     if (!path.empty())
