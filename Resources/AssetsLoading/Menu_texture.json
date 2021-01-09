@@ -49,9 +49,17 @@
   
   "UI_QuitGame": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame.png 1 1",
   
-  "UI_QuitNo": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_No.png 1 1",
+  "UI_QuitNo": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton.png 1 1",
+  
+  "UI_QuitNo_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton_Clicked.png 1 1",
+  
+  "UI_QuitNo_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton_Hover.png 1 1",
   
   "UI_QuitYes": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes.png 1 1",
+  
+  "UI_QuitYes_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Clicked.png 1 1",
+  
+  "UI_QuitYes_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Hover.png 1 1",
   
   "UI_Win": "Resources/Sprites/UI_Elements/Win/UI_Win.png 1 1",
   

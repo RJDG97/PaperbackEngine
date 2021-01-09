@@ -219,7 +219,7 @@ namespace Button_Script
 	/*!
 	  \fn PlayPauseGame()
 
-	  \brief Texture update script for the Menu to Quit
+	  \brief Texture update script for the Play State to enter Pause State
 	*/
 	/******************************************************************************/
 	static void PlayPauseGame(const EntityID& button_id, ButtonStates& state) {
@@ -263,7 +263,7 @@ namespace Button_Script
 	/*!
 	  \fn PlayFullScreen()
 
-	  \brief Texture update script for the Menu to Quit
+	  \brief Texture update script for the Play State to enter Fullscreen
 	*/
 	/******************************************************************************/
 	static void PlayFullScreen(const EntityID& button_id, ButtonStates& state) {
@@ -307,7 +307,7 @@ namespace Button_Script
 	/*!
 	  \fn PauseResumeGame()
 
-	  \brief Texture update script for the Menu to Quit
+	  \brief Texture update script for the Pause State to resume game
 	*/
 	/******************************************************************************/
 	static void PauseResumeGame(const EntityID& button_id, ButtonStates& state) {
@@ -351,7 +351,7 @@ namespace Button_Script
 	/*!
 	  \fn PauseHowToPlay()
 
-	  \brief Texture update script for the Menu to Quit
+	  \brief Texture update script for the Pause State to view HowToPlay
 	*/
 	/******************************************************************************/
 	static void PauseHowToPlay(const EntityID& button_id, ButtonStates& state) {
@@ -405,7 +405,7 @@ namespace Button_Script
 	/*!
 	  \fn PauseReturnToMenu()
 
-	  \brief Texture update script for the Menu to Quit
+	  \brief Texture update script for the Pause State to return to Menu
 	*/
 	/******************************************************************************/
 	static void PauseReturnToMenu(const EntityID& button_id, ButtonStates& state) {
@@ -449,7 +449,7 @@ namespace Button_Script
 	/*!
 	  \fn PauseQuitGame()
 
-	  \brief Texture update script for the Menu to Quit
+	  \brief Texture update script for the Pause State to Quit
 	*/
 	/******************************************************************************/
 	static void PauseQuitGame(const EntityID& button_id, ButtonStates& state) {
@@ -478,6 +478,94 @@ namespace Button_Script
 			case ButtonStates::CLICKED:
 			{
 				graphics_sys->ChangeTexture(texture_renderer, "UI_Paused_QuitGame_Clicked_0");
+
+				// Temporary measure until the ToggleClickables are sorted out
+				Message_Button msg{ clickable->GetIndex() };
+				CORE->BroadcastMessage(&msg);
+
+				break;
+			}
+		}
+	}
+
+
+	/******************************************************************************/
+	/*!
+	  \fn WinLoseReturnToMenu()
+
+	  \brief Texture update script for the WinLose State to Menu
+	*/
+	/******************************************************************************/
+	static void WinLoseReturnToMenu(const EntityID& button_id, ButtonStates& state) {
+
+		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		GraphicsSystem* graphics_sys = &*CORE->GetSystem<GraphicsSystem>();
+		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
+		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
+
+		if (!texture_renderer)
+			return;
+
+		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
+		switch (state)
+		{
+			case ButtonStates::DEFAULT:
+			{
+				graphics_sys->ChangeTexture(texture_renderer, "UI_QuitYes_0");
+				break;
+			}
+			case ButtonStates::HOVERED:
+			{
+				graphics_sys->ChangeTexture(texture_renderer, "UI_QuitYes_Hovered_0");
+				break;
+			}
+			case ButtonStates::CLICKED:
+			{
+				graphics_sys->ChangeTexture(texture_renderer, "UI_QuitYes_Clicked_0");
+
+				// Temporary measure until the ToggleClickables are sorted out
+				Message_Button msg{ clickable->GetIndex() };
+				CORE->BroadcastMessage(&msg);
+
+				break;
+			}
+		}
+	}
+
+
+	/******************************************************************************/
+	/*!
+	  \fn WinLoseReturnToQuit()
+
+	  \brief Texture update script for the WinLose State to Quit
+	*/
+	/******************************************************************************/
+	static void WinLoseReturnToQuit(const EntityID& button_id, ButtonStates& state) {
+
+		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		GraphicsSystem* graphics_sys = &*CORE->GetSystem<GraphicsSystem>();
+		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
+		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
+
+		if (!texture_renderer)
+			return;
+
+		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
+		switch (state)
+		{
+			case ButtonStates::DEFAULT:
+			{
+				graphics_sys->ChangeTexture(texture_renderer, "UI_QuitNo_0");
+				break;
+			}
+			case ButtonStates::HOVERED:
+			{
+				graphics_sys->ChangeTexture(texture_renderer, "UI_QuitNo_Hovered_0");
+				break;
+			}
+			case ButtonStates::CLICKED:
+			{
+				graphics_sys->ChangeTexture(texture_renderer, "UI_QuitNo_Clicked_0");
 
 				// Temporary measure until the ToggleClickables are sorted out
 				Message_Button msg{ clickable->GetIndex() };
