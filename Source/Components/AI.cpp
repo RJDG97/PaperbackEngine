@@ -19,17 +19,13 @@
 #include "Script/Stag_Tree.h"
 
 AI::AI() : 
-	type_{}, state_{AI::AIState::Patrol}
-{}
+	type_{}, state_{AI::AIState::Patrol}{}
 
 AI::~AI() {
-
-	//CORE->GetSystem<LogicSystem>()->RemoveAIComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<AI>(Component::GetOwner()->GetID());
 }
 
 void AI::Init() {
-	//CORE->GetSystem<LogicSystem>()->AddAIComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<AI>(Component::GetOwner()->GetID(), this);
 }
 
@@ -83,6 +79,28 @@ void AI::DeSerialize(std::stringstream& data) {
 	data >> type >> range_ >> speed_;
 }
 
+void AI::SetRoot(AIType type){
+	switch (type) 
+	{
+	case AI::AIType::StagBeetle:
+		root_.setChild(new Stag_Tree::StagRoot(this));
+		break;
+	default:root_.setChild(new Stag_Tree::StagRoot(this));
+	}
+}
+
+AI::AIType AI::GetType(std::string type)
+{
+	if (type == "Stag_Beetle")
+		return AI::AIType::StagBeetle;
+	else if (type == "Mite")
+		return AI::AIType::Mite;
+	else if (type == "Hornet")
+		return AI::AIType::Hornet;
+	// replace with exception
+	return AI::AIType::StagBeetle;
+}
+
 void AI::DeSerializeClone(std::stringstream& data) {
 
 	std::string type;
@@ -90,9 +108,9 @@ void AI::DeSerializeClone(std::stringstream& data) {
 	// clone data will be for number of destinations and destinations
 	data >> type >> range_ >> speed_ >> num_destinations_;
 	state_ = AIState::Patrol;
-	//root_.setChild(new Stag_Tree);
-	type_ = GeneralScripts::GetType(type);
-	alive_ = true;
+	type_ = GetType(type);
+	SetRoot(type_);
+	//alive_ = true;
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
 	destinations_.resize(num_destinations_);
@@ -111,10 +129,9 @@ std::shared_ptr<Component> AI::Clone() {
 
 	std::shared_ptr<AI> cloned = std::make_shared<AI>();
 
-	cloned->root_ = root_;
-
 	cloned->alive_ = alive_;
 	cloned->type_ = type_;
+	cloned->SetRoot(cloned->type_);
 	cloned->range_ = range_;
 	cloned->attackpower_ = attackpower_;
 	cloned->state_ = state_;
@@ -195,15 +212,8 @@ DestinationIt AI::GetCurrentDes()
 	return current_destination_;
 }
 
-//Vector2D AI::GetCurrentDes()
-//{
-//	return current_destination_;
-//}
-
 void AI::SetCurrentDes(DestinationIt Cdes)
 {
-	//if(Cdes == destinations_.end())
-	//	current_destination_ = destinations_.begin();
 	current_destination_ = Cdes;
 }
 

@@ -22,7 +22,8 @@ namespace StagBeetle
 
 	/******************************************************************************/
 	/*!
-	  \fn Attack(AIIt obj)
+	  \fn Attack(
+	  obj)
 
 	  \brief Run Stag Beetle Attack Pattern
 	*/

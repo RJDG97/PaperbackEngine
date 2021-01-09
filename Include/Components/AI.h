@@ -122,6 +122,10 @@ public:
 	/******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+	void SetRoot(AIType type);
+
+	AIType GetType(std::string type);
+
 	/******************************************************************************/
 	/*!
 	  \fn GetState()

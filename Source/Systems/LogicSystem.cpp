@@ -11,9 +11,9 @@
 
 
 #include "Systems/LogicSystem.h"
-#include "Script/GeneralScripts.h"
+//#include "Script/GeneralScripts.h"
 #include "Manager/ForcesManager.h"
-#include "Manager/AMap.h"
+//#include "Manager/AMap.h"
 #include "Systems/Debug.h"
 #include "Engine/Core.h"
 
@@ -21,14 +21,13 @@
 
 void LogicSystem::Init()
 {
-	std::cout << "Call Logic System" << std::endl;
 	comp_mgr = &*CORE->GetManager<ComponentManager>();
-	GeneralScripts::comp_mgr = &*CORE->GetManager<ComponentManager>();
+	//GeneralScripts::comp_mgr = &*CORE->GetManager<ComponentManager>();
 
 	ai_arr_ = comp_mgr->GetComponentArray<AI>();
 
-	GeneralScripts::map_ = &*CORE->GetManager<AMap>();
-	GeneralScripts::forces_ = &*CORE->GetManager<ForcesManager>();
+	//GeneralScripts::map_ = &*CORE->GetManager<AMap>();
+	//GeneralScripts::forces_ = &*CORE->GetManager<ForcesManager>();
 }
 
 void LogicSystem::Update(float frametime)
@@ -37,10 +36,10 @@ void LogicSystem::Update(float frametime)
 	for (AIIt ai = ai_arr_->begin(); ai != ai_arr_->end(); ++ai) {
 
 		// AI type handler
-		GeneralScripts::AIHandler(ai);
+		//GeneralScripts::AIHandler(ai);
 
 		// Run AI Behaviour Tree
-		//ai->second->root_.run();
+		ai->second->root_.run();
 	}
 }
 
