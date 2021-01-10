@@ -9,12 +9,12 @@ void Behaviour::CompositeNode::addChild(Node* child) {
 	children.emplace_back(child);
 }
 
-//Behaviour::CompositeNode::~CompositeNode(){
-//	for (Node* child : getChildren()) {
-//		if (child)
-//			delete child;
-//	}
-//}
+Behaviour::CompositeNode::~CompositeNode(){
+	for (Node* child : getChildren()) {
+		if (child)
+			delete child;
+	}
+}
 
 bool Behaviour::Selector::run(){
 	for (Node* child : getChildren()) {
@@ -30,14 +30,6 @@ bool Behaviour::Sequence::run() {
 			return false;
 	}
 	return true;
-}
-
-void Behaviour::DecoratorNode::setChild(Node* newchild) {
-	child = newchild;
-}
-
-bool Behaviour::DecoratorNode::run() {
-	return child->run();
 }
 
 void Behaviour::Root::setChild(Node* newchild) {

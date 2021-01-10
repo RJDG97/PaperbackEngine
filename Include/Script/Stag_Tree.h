@@ -6,7 +6,7 @@
 class Stag_Tree
 {
 public:
-	class StagRoot : public virtual Behaviour::Sequence
+	class StagRoot : public Behaviour::Sequence
 	{
 		AI* ai_;
 	public:
@@ -20,50 +20,36 @@ public:
 		}
 	};
 
-	class CheckAlive : public Behaviour::DecoratorNode
+	class CheckAlive :public Behaviour::Node
 	{
 		AI* ai_;
+		Time_Channel respawn_timer_;
 	public:
-		CheckAlive(AI* ai) : ai_(ai) {
-			setChild(new RespawnTimer(ai_));
-			ai_->SetLife(true);
-		}
+		CheckAlive(AI* ai) : ai_(ai)
+		{ respawn_timer_.TimerReset(); }
 
 		bool run() override
 		{
 			if (ai_->GetLife())
 				return true;
-			run();
-			return false;
-		}
-	};
-
-	class RespawnTimer :public Behaviour::Node
-	{
-		AI* ai_;
-		Time_Channel respawn_timer_;
-	public:
-		RespawnTimer(AI* ai) : ai_(ai)
-		{ respawn_timer_.TimerReset(); }
-
-		bool run() override
-		{
-			// If Timer has not started, start
-			if (respawn_timer_.TimeElapsed(s) == 0)
-				respawn_timer_.TimerStart();
-			// Update Timer if timer has not reached respawn time
-			if (respawn_timer_.TimeElapsed(s) < 5.0f )
+			else
 			{
-				std::cout << respawn_timer_.TimeElapsed(s) << std::endl;
-				respawn_timer_.TimerUpdate(); 
+				// If Timer has not started, start
+				if (respawn_timer_.TimeElapsed(s) == 0)
+					respawn_timer_.TimerStart();
+				// Update Timer if timer has not reached respawn time
+				if (respawn_timer_.TimeElapsed(s) < 5.0f)
+				{
+					respawn_timer_.TimerUpdate();
+				}
+				else // Stop timer and reset to 0
+				{
+					respawn_timer_.TimerStop();
+					respawn_timer_.TimerReset();
+					ai_->SetLife(true);
+				}
+				return false;
 			}
-			else // Stop timer and reset to 0
-			{
-				respawn_timer_.TimerStop();
-				respawn_timer_.TimerReset();
-				ai_->SetLife(true);
-			}
-			return true;
 		}
 	};
 

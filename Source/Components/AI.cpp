@@ -18,10 +18,11 @@
 #include "Engine/Core.h"
 #include "Script/Stag_Tree.h"
 
-AI::AI() : 
-	type_{}, state_{AI::AIState::Patrol}{}
+AI::AI() : root_(nullptr){}
 
 AI::~AI() {
+	if (root_)
+		delete root_;
 	CORE->GetManager<ComponentManager>()->RemoveComponent<AI>(Component::GetOwner()->GetID());
 }
 
@@ -83,9 +84,9 @@ void AI::SetRoot(AIType type){
 	switch (type) 
 	{
 	case AI::AIType::StagBeetle:
-		root_.setChild(new Stag_Tree::StagRoot(this));
+		root_ = new Stag_Tree::StagRoot(this);
 		break;
-	default:root_.setChild(new Stag_Tree::StagRoot(this));
+	default:root_ = new Stag_Tree::StagRoot(this);
 	}
 }
 
@@ -109,8 +110,6 @@ void AI::DeSerializeClone(std::stringstream& data) {
 	data >> type >> range_ >> speed_ >> num_destinations_;
 	state_ = AIState::Patrol;
 	type_ = GetType(type);
-	SetRoot(type_);
-	//alive_ = true;
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
 	destinations_.resize(num_destinations_);
@@ -129,7 +128,7 @@ std::shared_ptr<Component> AI::Clone() {
 
 	std::shared_ptr<AI> cloned = std::make_shared<AI>();
 
-	cloned->alive_ = alive_;
+	cloned->alive_ = true;
 	cloned->type_ = type_;
 	cloned->SetRoot(cloned->type_);
 	cloned->range_ = range_;

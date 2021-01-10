@@ -344,7 +344,7 @@ public:
 
 private:
 
-	Behaviour::Root root_;
+	Behaviour::Node* root_;
 	AIType type_;
 	
 	AIState state_;

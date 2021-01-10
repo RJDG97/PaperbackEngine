@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Manager/EntityManager.h"
+#include <iostream>
 
 class Behaviour
 {
@@ -17,8 +18,8 @@ public:
 		std::vector<Node*> children;
 	public:
 		const std::vector<Node*>& getChildren() const;
-
 		void addChild(Node* child);
+		~CompositeNode();
 	};
 
 	class Selector : public CompositeNode {
@@ -31,19 +32,13 @@ public:
 		bool run() override;
 	};
 
-	class DecoratorNode : public Node {
-		Node* child;
-	public:
-		void setChild(Node* newchild);
-		bool run() override;
-	};
-
 	class Root : public Node
 	{
 		Node* child;
 	public:
 		void setChild(Node* newchild);
 		bool run() override;
+		~Root() { delete child; }
 	};
 };
 
