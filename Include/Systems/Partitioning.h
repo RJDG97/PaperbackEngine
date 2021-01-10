@@ -36,6 +36,10 @@ public:
 	using TransformMap = CMap<Transform>;
 	using TransformMapIt = TransformMap::MapTypeIt;
 
+	using TextureRendererMap = CMap<TextureRenderer>;
+
+	using AnimationRendererMap = CMap<AnimationRenderer>;
+
 	using AABBMap = CMap<AABB>;
 	using AABBMapIt = AABBMap::MapTypeIt;
 
@@ -151,10 +155,13 @@ private:
 	
 	// Data members
 	ComponentManager* component_manager_;
+	AnimationRendererMap* animation_map_;
+	TextureRendererMap* texture_map_;
 	TransformMap* transform_map_;
 	AABBMap* aabb_map_;
 
 	PartitionAxis x_, y_;
+	PartitionAxis renderer_x_, renderer_y_;
 	size_t grid_size_;
 	Vector2D abs_bottom_left_;
 	Vector2D abs_top_right_;
@@ -165,6 +172,8 @@ private:
 	void ComputeBoundaries(const Vector2D& camera_pos, const float& camera_zoom, Vector2D& bottom_left, Vector2D& top_right);
 	void ConvertBoundariesToLocal(Vector2D& bottom_left, Vector2D& top_right);
 	void ComputePartitionBoundaries(Vector2D& bottom_left, Vector2D& top_right);
+	void InitEntityInPartition(const EntityID& id);
+	void InitRendererInPartition(const EntityID& id);
 
 /******************************************************************************/
 /*!
