@@ -53,9 +53,6 @@ void AI::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer
 	writer->Key("component");
 	writer->String("AI");
 
-	writer->Key("AIType");
-	writer->String(GeneralScripts::ReturnStringType(type_).c_str());
-
 	writer->Key("range");
 	writer->String(std::to_string(range_).c_str());
 
@@ -83,23 +80,23 @@ void AI::DeSerialize(std::stringstream& data) {
 void AI::SetRoot(AIType type){
 	switch (type) 
 	{
-	case AI::AIType::StagBeetle:
+	case StagBeetle:
 		root_ = new Stag_Tree::StagRoot(this);
 		break;
-	default:root_ = new Stag_Tree::StagRoot(this);
+	default: root_ = new Stag_Tree::StagRoot(this);
 	}
 }
 
 AI::AIType AI::GetType(std::string type)
 {
 	if (type == "Stag_Beetle")
-		return AI::AIType::StagBeetle;
+		return StagBeetle;
 	else if (type == "Mite")
-		return AI::AIType::Mite;
+		return Mite;
 	else if (type == "Hornet")
-		return AI::AIType::Hornet;
+		return Hornet;
 	// replace with exception
-	return AI::AIType::StagBeetle;
+	return StagBeetle;
 }
 
 void AI::DeSerializeClone(std::stringstream& data) {
@@ -108,8 +105,8 @@ void AI::DeSerializeClone(std::stringstream& data) {
 
 	// clone data will be for number of destinations and destinations
 	data >> type >> range_ >> speed_ >> num_destinations_;
-	state_ = AIState::Patrol;
 	type_ = GetType(type);
+	SetRoot(type_);
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
 	destinations_.resize(num_destinations_);
@@ -130,7 +127,6 @@ std::shared_ptr<Component> AI::Clone() {
 
 	cloned->alive_ = true;
 	cloned->type_ = type_;
-	cloned->SetRoot(cloned->type_);
 	cloned->range_ = range_;
 	cloned->attackpower_ = attackpower_;
 	cloned->state_ = state_;

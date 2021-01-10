@@ -1,5 +1,4 @@
 #include "Manager/BehaviourTree.h"
-#include <iostream>
 
 const std::vector<Behaviour::Node*>& Behaviour::CompositeNode::getChildren() const {
 	return children;

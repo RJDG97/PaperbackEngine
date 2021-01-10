@@ -39,7 +39,8 @@ void LogicSystem::Update(float frametime)
 		//GeneralScripts::AIHandler(ai);
 
 		// Run AI Behaviour Tree
-		ai->second->root_->run();
+		if(ai->second->root_)
+			ai->second->root_->run();
 	}
 }
 

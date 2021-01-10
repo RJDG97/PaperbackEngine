@@ -18,9 +18,7 @@
 #include "MathLib/Vector2D.h"
 #include "Systems/FrameRateController.h"
 #include "Manager/BehaviourTree.h"
-#include <iostream>
 #include <sstream>
-#include <vector>
 
 using DestinationIt = std::vector<Vector2D>::iterator;
 

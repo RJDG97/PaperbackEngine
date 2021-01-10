@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Manager/EntityManager.h"
+#include "Manager/AMap.h"
 #include <iostream>
 
 class Behaviour
