@@ -204,6 +204,15 @@ public:
 
 	/******************************************************************************/
 	/*!
+		\fn AddNewIndividualAnimation()
+
+		\brief Adds a new Asset depending on the file type
+	*/
+	/******************************************************************************/
+	void AddNewIndividualAnimation();
+
+	/******************************************************************************/
+	/*!
 		\fn UpdatePath()
 
 		\brief Update the path of the texture using Drag and Drop within the editor
@@ -301,6 +310,63 @@ public:
 	/******************************************************************************/
 	void SerializeJson();
 
+	/******************************************************************************/
+	/*!
+		\fn SerializeTextureJson()
+
+		\brief Handles the Menu Bar Options of the Window
+	*/
+	/******************************************************************************/
+	void SerializeTextureJson();
+
+	/******************************************************************************/
+	/*!
+		\fn SerializeTextureJson()
+
+		\brief Handles the Menu Bar Options of the Window
+	*/
+	/******************************************************************************/
+	void SerializeAudioJson();
+
+
+	/******************************************************************************/
+	/*!
+		\fn SerializeInternalAnimationJson()
+
+		\brief Handles the Menu Bar Options of the Window
+	*/
+	/******************************************************************************/
+	void SerializeInternalAnimationJson();
+
+	/******************************************************************************/
+	/*!
+		\fn SerializeExternalAnimationJson()
+
+		\brief Handles the Menu Bar Options of the Window
+	*/
+	/******************************************************************************/
+	void SerializeExternalAnimationJson();
+
+
+	/******************************************************************************/
+	/*!
+		\fn ReloadingPopUp()
+
+		\brief Handles the Reloading Pop Up Message
+	*/
+	/******************************************************************************/
+	void ReloadingPopUp();
+
+	/******************************************************************************/
+	/*!
+		\fn MenuBar()
+
+		\brief Handles the Menu Bar Options of the Window
+	*/
+	/******************************************************************************/
+	void MenuBar();
+
+
 private:
 	ImguiSystem* imgui_;
 	TextureManager* texture_;
@@ -309,14 +375,15 @@ private:
 	ComponentManager* component_;
 	EntityManager* entities_;
 	ArchetypeWindow* archetype_;
+	AnimationManager* animation_;
 	
 	std::map<std::string, TextureInfo> tex_info_;
 	std::map<std::string, AudioInfo> audio_info;
 
 	// key for the following maps would be the same one (spritesheet name)
+	std::vector<IndividualAnimationInfo> indi_anim_info_; // stores the infomation of the different sets of animation
 	std::map<std::string, AnimationInfo> general_anim_info_; // store general infomation of the animation json
 	std::map<std::string, std::vector<IndividualAnimationInfo>> animation_info_; // store specific infomation of the individual animation
-	std::vector<IndividualAnimationInfo> indi_anim_info_; // stores the infomation of the different sets of animation
 	std::map<std::string, AnimationJsonInfo> listAnimationJson_; // stores the upper json which contains the individual animation jsons & the filepath
 	std::map<std::string, AnimationJsonInfo> templistAnimationJson_; // stores the upper json which contains the individual animation jsons & the filepath
 
@@ -329,11 +396,13 @@ private:
 	std::string animation_json_; // name of the upper 'layer' animation json file
 	std::string animation_batch_label_, animation_json_key_;
 
-	bool b_unload, b_wrong_type, b_load, b_new_json;
+	bool b_unload, b_wrong_type, b_load, b_new_json, b_missing_input;
 
 	ImGuiInputTextFlags input_flags_;
 
 	AddFile type, filejson;
+
+	IndividualAnimationInfo anim_info_;
 
 };
 #endif 

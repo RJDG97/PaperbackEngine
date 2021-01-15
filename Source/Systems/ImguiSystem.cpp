@@ -381,6 +381,11 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::EndMenu();
         }
 
+        if (ImGui::MenuItem(VisibleIcon().c_str()))
+            b_windows = !b_windows;
+
+        ImguiHelp("Toggle Visible Windows", 0);
+
         ImGui::PopFont();
     }
     ImGui::EndMenuBar();
@@ -845,6 +850,14 @@ void ImguiSystem::Popups() {
         ImGui::OpenPopup("Individual Entity(ies) Saved");
     PopUpMessage("Individual Entity(ies) Saved", "Level Entities have been saved \ninto the respective json files.\nUpdate the Level Json File if needed");
     b_entity_save = false;
+}
+
+std::string ImguiSystem::VisibleIcon() {
+
+    if (b_windows)
+        return ICON_FA_EYE;
+    else
+        return ICON_FA_EYE_SLASH;
 }
 
 ImguiSystem::~ImguiSystem() {
