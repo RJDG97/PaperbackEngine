@@ -38,3 +38,11 @@ void Behaviour::Root::setChild(Node* newchild) {
 bool Behaviour::Root::run() {
 	return child->run();
 }
+
+void Behaviour::Inverter::setChild(Node* newchild) {
+	child = newchild;
+}
+
+bool Behaviour::Inverter::run() {
+	return !child->run();
+}

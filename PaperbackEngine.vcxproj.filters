@@ -793,5 +793,8 @@
     <ClInclude Include="Include\Script\Stag_Tree.h">
       <Filter>Scripts\StagBeetle</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Script\Mite_Tree.h">
+      <Filter>Scripts\Mite</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

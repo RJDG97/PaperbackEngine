@@ -41,6 +41,16 @@ public:
 		bool run() override;
 		~Root() { delete child; }
 	};
+
+	class Inverter :public Node
+	{
+		Node* child;
+	public:
+		void setChild(Node* newchild);
+		bool run() override;
+		~Inverter() { delete child; }
+
+	};
 };
 
 #endif

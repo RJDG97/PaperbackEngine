@@ -1,18 +1,18 @@
-#ifndef _STAG_TREE_H_
-#define _STAG_TREE_H_
+#ifndef _MITE_TREE_H_
+#define _MITE_TREE_H_
 
 #include "Manager/BehaviourTree.h"
 #include "Systems/Physics.h"
 #include "Engine/Core.h"
 
-class Stag_Tree: public Behaviour
+class Mite_Tree : public Behaviour
 {
 public:
-	class StagRoot : public Sequence
+	class MiteRoot : public Sequence
 	{
 		EntityID id_;
 	public:
-		StagRoot(EntityID id) : id_(id) {
+		MiteRoot(EntityID id) : id_(id) {
 			addChild(new CheckAlive(id));
 			addChild(new ActionSelector(id));
 		}
@@ -22,33 +22,46 @@ public:
 	{
 		EntityID id_;
 		AI* ai_;
+		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
 		Time_Channel respawn_timer_;
 	public:
-		CheckAlive(EntityID id) : id_(id){
+		CheckAlive(EntityID id) : id_(id) {
 			component_mgr = &*CORE->GetManager<ComponentManager>();
 			ai_ = component_mgr->GetComponent<AI>(id_);
-			respawn_timer_.TimerReset(); 
+			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
+			respawn_timer_.TimerReset();
 		}
 
 		bool run() override
 		{
-			if (ai_->GetLife())
+			if (ai_->GetLife()) {
 				return true;
+			}
 			else
 			{
 				// If Timer has not started, start
 				if (respawn_timer_.TimeElapsed(s) == 0)
 					respawn_timer_.TimerStart();
 				// Update Timer if timer has not reached respawn time
-				if (respawn_timer_.TimeElapsed(s) < 5.0f)
+				if (respawn_timer_.TimeElapsed(s) < 10.0f)
 				{
+					component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(false);
+					component_mgr->GetComponent<PointLight>(id_)->SetAlive(false);
+					component_mgr->GetComponent<ConeLight>(id_)->SetAlive(false);
 					respawn_timer_.TimerUpdate();
 				}
 				else // Stop timer and reset to 0
 				{
 					respawn_timer_.TimerStop();
 					respawn_timer_.TimerReset();
+					component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(true);
+					component_mgr->GetComponent<PointLight>(id_)->SetAlive(true);
+					component_mgr->GetComponent<ConeLight>(id_)->SetAlive(true);
+					obj_rigidbody_->SetPosition({
+						ai_->GetDestinations().begin()->x,
+						ai_->GetDestinations().begin()->y });
+					ai_->SetState(AI::AIState::Patrol);
 					ai_->SetLife(true);
 				}
 				return false;
@@ -101,7 +114,7 @@ public:
 			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
 		}
 
-		bool run() override{
+		bool run() override {
 			float distance = Vector2DLength(*ai_->GetCurrentDes() - obj_rigidbody_->GetOffsetAABBPos());
 			// If object is at next path node
 			if (distance < 1.0f || ai_->GetPath().empty())
@@ -157,9 +170,9 @@ public:
 			ai->SetState(AI::AIState::Patrol);
 			// If velocity is essentially 0, set player to idle
 			if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-				graphics->ChangeAnimation(renderer, "Stagbeetle_Idle");
-			graphics->ChangeAnimation(renderer, "Stagbeetle_Walk");
-			
+				graphics->ChangeAnimation(renderer, "Mite_Idle");
+			graphics->ChangeAnimation(renderer, "Mite_Walk");
+
 			if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
 				graphics->FlipTextureY(renderer);
 				motion->SetIsLeft(false);
@@ -187,7 +200,7 @@ public:
 			map_ = &*CORE->GetManager<AMap>();
 		}
 
-		bool run() override{
+		bool run() override {
 			ai_->GetPath().clear();
 			return map_->Pathing(ai_->GetPath(), obj_rigidbody_->GetOffsetAABBPos(), *ai_->GetCurrentDes());
 		}
@@ -209,12 +222,12 @@ public:
 			forces_ = &*CORE->GetManager<ForcesManager>();
 		}
 
-		bool run() override{
+		bool run() override {
 			// Calculate distance between ai and destination
 			float distance = Vector2DLength(ai_->GetPath().back() - obj_rigidbody_->GetOffsetAABBPos());
 
 			// If object is at next path node
-			if (distance < 1.0f) 
+			if (distance < 1.0f)
 				// Remove node destination
 				ai_->GetPath().pop_back();
 			if (!ai_->GetPath().empty())
@@ -254,7 +267,7 @@ public:
 		}
 	};
 
-	class PlayerWithinDistance :public Node 
+	class PlayerWithinDistance :public Node
 	{
 		EntityID id_;
 		AI* ai_;
@@ -269,7 +282,7 @@ public:
 	public:
 		PlayerWithinDistance(EntityID id, float dist)
 			: id_(id),
-			  detectdistance_(dist){
+			detectdistance_(dist) {
 			component_mgr = &*CORE->GetManager<ComponentManager>();
 			ai_ = component_mgr->GetComponent<AI>(id_);
 			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
@@ -390,7 +403,6 @@ public:
 			name = component_mgr->GetComponent<Name>(id_);
 			ai_ = component_mgr->GetComponent<AI>(id_);
 			Detect_timer_.TimerReset();
-			Detect_timer_.TimerStop();
 		}
 
 		bool run() override {
@@ -401,18 +413,17 @@ public:
 
 			if (ai_->GetState() == AI::AIState::Patrol) {
 				ai_->SetState(AI::AIState::Detected);
-				Detect_timer_.TimerStop();
 				Detect_timer_.TimerReset();
 				Detect_timer_.TimerStart();
 				MessageBGM_Play msg{ "EnemyDetect" };
 				CORE->BroadcastMessage(&msg);
-				graphics->ChangeAnimation(renderer, "Stagbeetle_Alert");
+				graphics->ChangeAnimation(renderer, "Mite_Alert");
 			}
 
 			if (ai_->GetState() == AI::AIState::Detected) {
 				// If velocity is essentially 0, set player to idle
 				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-					graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
+					graphics->ChangeAnimation(renderer, "Mite_Idle");
 
 				if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
 					graphics->FlipTextureY(renderer);
@@ -423,13 +434,13 @@ public:
 					motion->SetIsLeft(true);
 				}
 
+				Detect_timer_.TimerUpdate();
 				if (Detect_timer_.TimeElapsed(s) < 1.0f) {
-					Detect_timer_.TimerUpdate();
 					return true;
 				}
+				Detect_timer_.TimerStop();
+				Detect_timer_.TimerReset();
 			}
-			Detect_timer_.TimerStop();
-			Detect_timer_.TimerReset();
 			return false;
 		}
 	};
@@ -451,7 +462,7 @@ public:
 		EntityID id_;
 	public:
 		NotAtkRange(EntityID id) :id_(id) {
-			setChild(new PlayerWithinDistance(id_, 2.0f));
+			setChild(new PlayerWithinDistance(id_, 1.0f));
 		}
 	};
 
@@ -466,7 +477,7 @@ public:
 		EntityID player_id_;
 		Transform* player_rigidbody_;
 	public:
-		ChasePath(EntityID id): id_(id) {
+		ChasePath(EntityID id) : id_(id) {
 			component_mgr = &*CORE->GetManager<ComponentManager>();
 			ai_ = component_mgr->GetComponent<AI>(id_);
 			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
@@ -516,14 +527,14 @@ public:
 			if (ai_->GetState() == AI::AIState::Detected) {
 				ai_->SetState(AI::AIState::Chase);
 				MessageBGM_Play msg{ "EnemyAttack" };
-				CORE->BroadcastMessage(&msg); 
-				graphics->ChangeAnimation(renderer, "Stagbeetle_Run");
+				CORE->BroadcastMessage(&msg);
+				graphics->ChangeAnimation(renderer, "Mite_Walk");
 			}
 
 			if (ai_->GetState() == AI::AIState::Chase) {
 				// If velocity is essentially 0, set player to idle
 				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-					graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
+					graphics->ChangeAnimation(renderer, "Mite_Idle");
 
 				if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
 					graphics->FlipTextureY(renderer);
@@ -543,60 +554,8 @@ public:
 		EntityID id_;
 	public:
 		AttackSequence(EntityID id) :id_(id) {
-			addChild(new Charge(id_));
 			addChild(new AttackAnim(id_));
-		}
-	};
-
-	class Charge :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-
-		EntityID player_id_;
-		Status* player_status_;
-		Transform* player_rigidbody_;
-
-		ForcesManager* forces_;
-		float Speed_ = 1000.0f;
-	public:
-		Charge(EntityID id) :id_(id) {
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
-			forces_ = &*CORE->GetManager<ForcesManager>();
-		}
-		
-		void PlayerInit() {
-			player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
-			player_status_ = component_mgr->GetComponent<Status>(player_id_);
-			player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
-		}
-
-		bool run() override {
-			if (!player_id_)
-				PlayerInit();
-		
-			// Calculate distance between ai and destination
-			float distance = Vector2DLength(player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos());
-
-			// If object is at dest node
-			if (distance < 1.0f)
-			{
-				return false;
-			}
-			//get directional unit vector
-			Vector2D directional = player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos();
-			directional /= Vector2DLength(directional);
-
-			//multiply by speed
-			directional *= Speed_;
-
-			// Move AI
-			forces_->AddForce(id_, "movement", PE_FrameRate.GetFixedDelta(), directional);
-			return true;
+			//addChild(new Explosion(id_));
 		}
 	};
 
@@ -610,6 +569,7 @@ public:
 		Motion* motion;
 		Name* name;
 		AI* ai_;
+		Time_Channel Detect_timer_;
 	public:
 		AttackAnim(EntityID id) :id_(id) {
 			graphics = CORE->GetSystem<GraphicsSystem>();
@@ -618,6 +578,7 @@ public:
 			motion = component_mgr->GetComponent<Motion>(id_);
 			name = component_mgr->GetComponent<Name>(id_);
 			ai_ = component_mgr->GetComponent<AI>(id_);
+			Detect_timer_.TimerReset();
 		}
 
 		bool run() override {
@@ -628,15 +589,15 @@ public:
 
 			if (ai_->GetState() == AI::AIState::Chase) {
 				ai_->SetState(AI::AIState::Attack);
-				MessageBGM_Play msg{ "EnemyAttack" };
-				CORE->BroadcastMessage(&msg);
-				graphics->ChangeAnimation(renderer, "Stagbeetle_Attack");
+				Detect_timer_.TimerReset();
+				Detect_timer_.TimerStart();
+				graphics->ChangeAnimation(renderer, "Mite_Explode");
 			}
 
 			if (ai_->GetState() == AI::AIState::Attack) {
 				// If velocity is essentially 0, set player to idle
 				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-					graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
+					graphics->ChangeAnimation(renderer, "Mite_Idle");
 
 				if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
 					graphics->FlipTextureY(renderer);
@@ -645,6 +606,14 @@ public:
 				else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
 					graphics->FlipTextureY(renderer);
 					motion->SetIsLeft(true);
+				}
+
+				Detect_timer_.TimerUpdate();
+				if (Detect_timer_.TimeElapsed(s) > 1.0f) {
+					ai_->SetLife(false);
+					Detect_timer_.TimerReset();
+					Detect_timer_.TimerStop();
+					return true;
 				}
 			}
 			return true;

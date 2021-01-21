@@ -17,6 +17,7 @@
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
 #include "Script/Stag_Tree.h"
+#include "Script/Mite_Tree.h"
 
 AI::AI() : root_(nullptr){}
 
@@ -81,9 +82,11 @@ void AI::SetRoot(AIType type){
 	switch (type) 
 	{
 	case StagBeetle:
-		root_ = new Stag_Tree::StagRoot(this);
+		root_ = new Stag_Tree::StagRoot(GetOwner()->GetID());
 		break;
-	default: root_ = new Stag_Tree::StagRoot(this);
+	case Mite:
+		root_ = new Mite_Tree::MiteRoot(GetOwner()->GetID());
+		break;
 	}
 }
 

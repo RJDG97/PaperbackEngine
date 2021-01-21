@@ -360,28 +360,28 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 
 void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 
-	UNREFERENCED_PARAMETER(aabb1);
-	AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
-	switch (ai_state->GetType())
-	{
-	case AI::AIType::StagBeetle:
-		if (ai_state->GetState() == AI::AIState::Attack)
-		{
-			ai_state->SetState(AI::AIState::Withdraw);
-		}
-		break;
-	case AI::AIType::Mite:
-		if (ai_state->GetState() == AI::AIState::Chase)
-		{
-			ai_state->SetState(AI::AIState::Withdraw);
-		}
-		else if (ai_state->GetState() != AI::AIState::Attack)
-		{
-			ai_state->GetPath().clear();
-			ai_state->SetState(AI::AIState::Patrol);
-		}
-		break;
-	}
+	//UNREFERENCED_PARAMETER(aabb1);
+	//AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
+	//switch (ai_state->GetType())
+	//{
+	//case AI::AIType::StagBeetle:
+	//	if (ai_state->GetState() == AI::AIState::Attack)
+	//	{
+	//		ai_state->SetState(AI::AIState::Withdraw);
+	//	}
+	//	break;
+	//case AI::AIType::Mite:
+	//	//if (ai_state->GetState() == AI::AIState::Chase)
+	//	//{
+	//	//	ai_state->SetState(AI::AIState::Withdraw);
+	//	//}
+	//	//else if (ai_state->GetState() != AI::AIState::Attack)
+	//	//{
+	//	//	ai_state->GetPath().clear();
+	//	//	ai_state->SetState(AI::AIState::Patrol);
+	//	//}
+	//	break;
+	//}
 }
 
 
@@ -506,7 +506,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 		{
 			case CollisionLayer::ENEMY:
 			{
-				WallvEnemyResponse(aabb1, aabb2);
+				//WallvEnemyResponse(aabb1, aabb2);
 			}
 		}
 		DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);

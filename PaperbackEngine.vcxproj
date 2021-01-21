@@ -309,6 +309,7 @@
     <ClInclude Include="Include\MathLib\Vector2D.h" />
     <ClInclude Include="Include\Script\Button_Script.h" />
     <ClInclude Include="Include\Script\Collectible_Script.h" />
+    <ClInclude Include="Include\Script\Mite_Tree.h" />
     <ClInclude Include="Include\Script\Stag_Script.h" />
     <ClInclude Include="Include\Script\GeneralScripts.h" />
     <ClInclude Include="Include\Script\HornetScript.h" />
