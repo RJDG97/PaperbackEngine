@@ -100,7 +100,7 @@ public:
 		\brief Handles the adding/removing of textures (the overall window)
 	*/
 	/******************************************************************************/
-	void AddTextureAnimation();
+	void AddAssetSelection();
 
 	/******************************************************************************/
 	/*!
@@ -285,15 +285,6 @@ public:
 
 	/******************************************************************************/
 	/*!
-		\fn GetUnloadBool()
-
-		\brief Gets the bool for the Unload pop up
-	*/
-	/******************************************************************************/
-	bool GetUnloadBool();
-
-	/******************************************************************************/
-	/*!
 		\fn SetUnloadBool(bool updated_bool)
 
 		\brief Sets the bool for the Unload pop up
@@ -347,7 +338,6 @@ public:
 	/******************************************************************************/
 	void SerializeExternalAnimationJson();
 
-
 	/******************************************************************************/
 	/*!
 		\fn ReloadingPopUp()
@@ -359,6 +349,15 @@ public:
 
 	/******************************************************************************/
 	/*!
+		\fn MissingInfoPopUp()
+
+		\brief Handles the Missing Infomation Pop Up Message
+	*/
+	/******************************************************************************/
+	void MissingInfoPopUp();
+
+	/******************************************************************************/
+	/*!
 		\fn MenuBar()
 
 		\brief Handles the Menu Bar Options of the Window
@@ -366,6 +365,32 @@ public:
 	/******************************************************************************/
 	void MenuBar();
 
+	/******************************************************************************/
+	/*!
+		\fn SelectTextureJson()
+
+		\brief Handles the selection of Texture Jsons
+	*/
+	/******************************************************************************/
+	void SelectTextureJson(fs::path jsonpath);
+
+	/******************************************************************************/
+	/*!
+		\fn SelectAnimationJson()
+
+		\brief Handles the selection of Animation Jsons
+	*/
+	/******************************************************************************/
+	void SelectAnimationJson(fs::path jsonpath);
+
+	/******************************************************************************/
+	/*!
+		\fn SelectAudioJson()
+
+		\brief Handles the selection of Audio Jsons
+	*/
+	/******************************************************************************/
+	void SelectAudioJson(fs::path jsonpath);
 
 private:
 	ImguiSystem* imgui_;
@@ -378,7 +403,7 @@ private:
 	AnimationManager* animation_;
 	
 	std::map<std::string, TextureInfo> tex_info_;
-	std::map<std::string, AudioInfo> audio_info;
+	std::map<std::string, AudioInfo> audio_info_;
 
 	// key for the following maps would be the same one (spritesheet name)
 	std::vector<IndividualAnimationInfo> indi_anim_info_; // stores the infomation of the different sets of animation

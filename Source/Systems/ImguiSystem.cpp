@@ -121,7 +121,8 @@ void ImguiSystem::Init(){
     ImFontConfig icons_config; icons_config.MergeMode = true; icons_config.PixelSnapH = true;
     img_font_ = io.Fonts->AddFontFromFileTTF(FONT_ICON_FILE_NAME_FAS, 14.0f, &icons_config, icon_ranges);
     bold_font_ = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Bold.ttf", 16.0f);
-    // end of Imgui init
+
+    //////////// End iof ImGui Context Setup///////////////////////////
 
     b_dock_space_open = true;
     b_fullscreen_persistant = true;
@@ -186,6 +187,7 @@ void ImguiSystem::Update(float frametime) {
             ImGuiCustomStyle();
 
             if (b_windows) {
+
                 for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
                     begin->second->Update();
             }
@@ -193,6 +195,7 @@ void ImguiSystem::Update(float frametime) {
             ImGui::End(); // end of docking space
 
         }
+
         ImguiRender();
     }
 }
@@ -226,6 +229,7 @@ void ImguiSystem::ImGuiCustomStyle() {
 }
 
 void ImguiSystem::ImguiRender() {
+
     // Rendering
     ImGui::Render();
     int display_w, display_h;
@@ -252,6 +256,7 @@ void ImguiSystem::ImguiMenuBar() {
         ImGui::PushFont(img_font_);
 
         if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
+
             if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene")) {
                 selected_entity_ = {};
                 editor_->entity_paths_.clear();

@@ -150,7 +150,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					break;
 
 				case ComponentTypes::AI:
-					AIComponent(entitycomponent.first);
+					//AIComponent(entitycomponent.first);
 					break;
 
 				case ComponentTypes::SCALE:
