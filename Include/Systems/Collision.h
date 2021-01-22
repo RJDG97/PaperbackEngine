@@ -42,7 +42,7 @@ enum class CollisionLayer
 	TILES,
 	ENEMY,
 	PLAYER,
-	HOLE,
+	BIGKUSA,
 	GOAL,
 	UI_ELEMENTS,     // Non-interactable
 	GATE,
@@ -279,12 +279,31 @@ public:
 	
 /******************************************************************************/
 /*!
-  \fn BurrowReady()
+  \fn CollisionReady()
 
-  \brief Helper function to check if a player is over a hole before burrowing
+  \brief Helper function for Hide and UnBurrow Ready functions
 */
 /******************************************************************************/
-	bool BurrowReady();
+	bool CollisionReady(CollisionLayer col_layer);
+
+/******************************************************************************/
+/*!
+  \fn HideReady()
+
+  \brief Helper function to check if a player is over a bush before hiding
+*/
+/******************************************************************************/
+	bool HideReady();
+
+/******************************************************************************/
+/*!
+  \fn UnBurrowReady()
+
+  \brief Helper function to check if a player is not under a collidable object
+		 before unburrowing
+*/
+/******************************************************************************/
+	bool UnBurrowReady();
 
 /******************************************************************************/
 /*!

@@ -690,7 +690,7 @@ void Collision::UpdateClickableBB() {
 	}
 }
 
-bool Collision::BurrowReady() {
+bool Collision::CollisionReady(CollisionLayer col_layer) {
 	
 	Entity* player_entity = entity_mgr_->GetPlayerEntities().back();
 	Vector2D player_pos = transform_arr_->GetComponent(player_entity->GetID())->GetOffsetAABBPos();
@@ -708,11 +708,11 @@ bool Collision::BurrowReady() {
 	//hole layer == 4
 
 	if (col_map.find(CollisionLayer::PLAYER) != col_map.end() &&
-		col_map.find(CollisionLayer::HOLE) != col_map.end()) {
+		col_map.find(col_layer) != col_map.end()) {
 	
 		AABBIt player = col_map[CollisionLayer::PLAYER].find(player_entity->GetID());
 
-		AABBType* hole_map = &col_map[CollisionLayer::HOLE];
+		AABBType* hole_map = &col_map[col_layer];
 
 		for (AABBIt hole = hole_map->begin(); hole != hole_map->end(); ++hole) {
 
@@ -725,6 +725,16 @@ bool Collision::BurrowReady() {
 	}
 
 	return false;
+}
+
+bool Collision::HideReady() {
+
+	return CollisionReady(CollisionLayer::BIGKUSA);
+}
+
+bool Collision::UnBurrowReady() {
+
+	return !CollisionReady(CollisionLayer::BURROWABLE);
 }
 
 void Collision::ToggleClickables(size_t group) {
@@ -789,7 +799,7 @@ void Collision::Init() {
 		Parameter 2: Collidable with Layer 3 (PLAYER)
 		"THIS HOLE WAS MADE FOR ME"
 	*/
-	AddCollisionLayers(CollisionLayer::HOLE, "00001000", false);
+	AddCollisionLayers(CollisionLayer::BIGKUSA, "00001000", false);
 
 	/*
 		Parameter 1: Collision layer 5
