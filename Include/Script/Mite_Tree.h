@@ -8,11 +8,24 @@
 class Mite_Tree : public Behaviour
 {
 public:
-	class MiteRoot : public Sequence
+	class MiteRoot : public Root
 	{
 		EntityID id_;
 	public:
 		MiteRoot(EntityID id) : id_(id) {
+			setChild(new MiteSequence(id));
+		}
+
+		void CollisionResponse(EntityID obj) override{
+
+		}
+	};
+
+	class MiteSequence : public Sequence
+	{
+		EntityID id_;
+	public:
+		MiteSequence(EntityID id) : id_(id) {
 			addChild(new CheckAlive(id));
 			addChild(new ActionSelector(id));
 		}

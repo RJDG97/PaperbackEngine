@@ -39,6 +39,7 @@ public:
 	public:
 		void setChild(Node* newchild);
 		bool run() override;
+		virtual void CollisionResponse(EntityID obj) = 0;
 		~Root() { delete child; }
 	};
 

@@ -8,11 +8,28 @@
 class Stag_Tree: public Behaviour
 {
 public:
-	class StagRoot : public Sequence
+	void CollisionResponse()
+	{
+
+	}
+	class StagRoot :public Root
 	{
 		EntityID id_;
 	public:
-		StagRoot(EntityID id) : id_(id) {
+		StagRoot(EntityID id) :id_(id) {
+			setChild(new StagSequence(id));
+		}
+
+		void CollisionResponse(EntityID obj) override {
+			
+		}
+	};
+
+	class StagSequence : public Sequence
+	{
+		EntityID id_;
+	public:
+		StagSequence(EntityID id) : id_(id) {
 			addChild(new CheckAlive(id));
 			addChild(new ActionSelector(id));
 		}

@@ -340,9 +340,12 @@ public:
 	/******************************************************************************/
 	void SetLife(bool life);
 
+
+	Behaviour::Root* GetRoot() { return root_; };
+
 private:
 
-	Behaviour::Node* root_;
+	Behaviour::Root* root_;
 	AIType type_;
 	
 	AIState state_;

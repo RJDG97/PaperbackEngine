@@ -30,6 +30,8 @@
 #include "Components/Status.h"
 #include "Components/Scale.h"
 #include "Components/Inventory.h"
+#include "Script/Stag_Tree.h"
+#include "Script/Mite_Tree.h"
 #include <iostream>
 #include <assert.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -506,6 +508,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 		{
 			case CollisionLayer::ENEMY:
 			{
+				
 				//WallvEnemyResponse(aabb1, aabb2);
 			}
 		}
@@ -514,9 +517,10 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	}
 	case CollisionLayer::ENEMY:
 	{
-		AI* ai_state = component_mgr_->GetComponent<AI>(aabb1->first);
-		if (!ai_state->GetLife())
+		AI* ai_ = component_mgr_->GetComponent<AI>(aabb1->first);
+		if (!ai_->GetLife())
 			break;
+		ai_->GetRoot()->CollisionResponse(aabb2->first);
 
 		switch (layer_b)
 		{
