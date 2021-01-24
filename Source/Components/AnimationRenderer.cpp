@@ -131,3 +131,8 @@ std::string AnimationRenderer::GetCurrentAnimation() {
 
     return current_animation_name_;
 }
+
+bool AnimationRenderer::FinishedAnimating() const {
+
+    return has_finished_animating_;
+}

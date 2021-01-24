@@ -90,7 +90,7 @@ namespace Collectible_Script
 		std::string col_name = interactable->GetAnimationName("Collided");
 		graphics_sys->ChangeAnimation(animation_renderer, col_name);
 
-		if (graphics_sys->IsLastFrame(animation_renderer)) {
+		if (animation_renderer->FinishedAnimating()) {
 
 			if (aabb) {
 
