@@ -49,6 +49,8 @@ enum class CollisionLayer
 	COLLECTIBLE,
 	BURROWABLE,
 	SOLID_ENVIRONMENT, // Player cannot burrow through this surface
+	PUSHABLE,
+	INTERACTABLE,
 	MAX
 };
 
@@ -147,7 +149,7 @@ private:
 		 with a wall
 */
 /******************************************************************************/
-	void DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first);
+	void DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first, bool default_ = true);
 
 /******************************************************************************/
 /*!
@@ -194,6 +196,15 @@ private:
 */
 /******************************************************************************/
 	void PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2);
+
+/******************************************************************************/
+/*!
+  \fn PlayerInteractableResponse()
+
+  \brief Helper function to handle response of a player colliding with a Interactable
+*/
+/******************************************************************************/
+	void PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2);
 
 /******************************************************************************/
 /*!

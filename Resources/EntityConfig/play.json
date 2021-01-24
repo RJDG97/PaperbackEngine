@@ -24,5 +24,7 @@
     "GrassDark": "Resources/EntityConfig/Play/grassdark.json",
     "BushDark": "Resources/EntityConfig/Play/bushdark.json",
     "Torch": "Resources/EntityConfig/Play/torches.json",
-    "SolidEnvironment": "Resources/EntityConfig/Play/solidenvironment.json"
+    "SolidEnvironment": "Resources/EntityConfig/Play/solidenvironment.json",
+    "MoveBlok": "Resources/EntityConfig/Play/moveblok.json",
+    "Log": "Resources/EntityConfig/Play/log.json"
 }

@@ -189,6 +189,9 @@
     <Filter Include="Systems\Behaviour System">
       <UniqueIdentifier>{46ced2f8-0168-4bca-957f-2bf270902a6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Interactable">
+      <UniqueIdentifier>{16ce9f60-6931-4650-82c1-f8abe7319b41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -460,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="Source\Manager\BehaviourTree.cpp">
       <Filter>Systems\Behaviour System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Interactable.cpp">
+      <Filter>Entity\Components\Interactable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -792,6 +798,9 @@
     </ClInclude>
     <ClInclude Include="Include\Script\Stag_Tree.h">
       <Filter>Scripts\StagBeetle</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Interactable.h">
+      <Filter>Entity\Components\Interactable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

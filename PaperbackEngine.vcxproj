@@ -169,6 +169,7 @@
     <ClCompile Include="Source\Components\Emitter.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\InputController.cpp" />
+    <ClCompile Include="Source\Components\Interactable.cpp" />
     <ClCompile Include="Source\Components\Inventory.cpp" />
     <ClCompile Include="Source\Components\LogicComponent.cpp" />
     <ClCompile Include="Source\Components\Motion.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
     <ClInclude Include="Include\Components\InputController.h" />
+    <ClInclude Include="Include\Components\Interactable.h" />
     <ClInclude Include="Include\Components\Inventory.h" />
     <ClInclude Include="Include\Components\IRenderer.h" />
     <ClInclude Include="Include\Components\LogicComponent.h" />

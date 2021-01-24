@@ -54,7 +54,7 @@ ForcesManager::Force::Force(const std::string& name, const float& lifespan, cons
 }
 
 void ForcesManager::AddForce(EntityID id, const std::string& name, const float& lifespan, const Vector2D& force) {
-
+	
 	//access vector
 	EntityForces* entity = &force_map_[id];
 	
@@ -75,6 +75,7 @@ void ForcesManager::Update(float frametime) {
 		Vector2D sum{};
 
 		for (ForceVecIt begin = begin_map->second.vec_.begin(); begin != begin_map->second.vec_.end();) {
+
 			begin->age_ += frametime;
 
 			// Recompute forces for entity
