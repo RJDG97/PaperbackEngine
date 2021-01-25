@@ -1,0 +1,41 @@
+{
+    "Player": [
+        {
+            "component": "Transform",
+            "position": "-34.000000 23.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "3"
+        },
+        {
+            "component": "Scale",
+            "scale": "64.000000 128.000000"
+        },
+        {
+            "component": "InputController",
+            "size": "0"
+        },
+        {
+            "component": "ParentChild",
+            "elements": "1",
+            "to_clone": "Camera "
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "4",
+            "name": "Collectible",
+            "function": "Player_Collectible",
+            "name": "UpdateChildOffset",
+            "function": "Player_UpdateChildOffset",
+            "name": "UpdateInput",
+            "function": "Player_UpdateInput",
+            "name": "UpdateTexture",
+            "function": "Player_UpdateTexture"
+        }
+    ]
+}
