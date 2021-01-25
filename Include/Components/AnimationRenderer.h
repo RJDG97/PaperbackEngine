@@ -116,6 +116,8 @@ public:
 */
 /******************************************************************************/
 	std::string GetCurrentAnimation();
+
+	bool FinishedAnimating() const;
 };
 
 #endif

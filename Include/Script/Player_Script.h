@@ -253,28 +253,36 @@ namespace Player_Scripts
 			// Skills
 			if (controller->VerifyKey("burrow", m->input_)) {
 
-				if (CORE->GetSystem<Collision>()->BurrowReady() && VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::BURROW)) {
+				if (CORE->GetSystem<Collision>()->UnBurrowReady() && VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::BURROW)) {
 
 					m_PlayState.SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
 				}
 			}
 			else if (controller->VerifyKey("invisible", m->input_)) {
 
-				AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(id);
-
 				if (VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::INVISIBLE)) {
 
-					if (player_status->GetStatus() == StatusType::INVISIBLE) {
+					bool hide_ready = CORE->GetSystem<Collision>()->HideReady();
 
-						CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Idle");
+					//to pass, either
+					//1. collided with bush
+					//2. invisible (already invisible, can just resurface)
+					if (hide_ready || player_status->GetStatus() == StatusType::INVISIBLE) {
+
+						AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(id);
+
+						if (player_status->GetStatus() == StatusType::INVISIBLE) {
+
+							CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Idle");
+						}
+
+						else {
+
+							CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Hiding");
+						}
+
+						m_PlayState.SetStatus("Player", StatusType::INVISIBLE, 0.0f, &*CORE->GetSystem<Game>()); // "M"
 					}
-
-					else {
-
-						CORE->GetSystem<GraphicsSystem>()->ChangeAnimation(anim_renderer, "Player_Hiding");
-					}
-
-					m_PlayState.SetStatus("Player", StatusType::INVISIBLE, 0.0f, &*CORE->GetSystem<Game>()); // "M"
 				}
 			}
 			

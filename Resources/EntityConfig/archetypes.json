@@ -1291,5 +1291,84 @@
       "ui": "1",
       "alive": "0"
     }
+  ],
+  "MoveBlok": [
+    {
+      "component": "Name",
+      "name": "MoveBlok"
+    },
+    {
+      "component": "Transform",
+      "position": "-14.300272 -24.710081",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.5 0.5",
+      "layer": "11"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Environment_Tiles_20",
+      "layer": "1",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "Motion",
+      "mass": "0.2",
+      "force": "0.0",
+      "alive": "1.0"
+    }
+  ],
+  "Log": [
+    {
+      "component": "Name",
+      "name": "Log"
+    },
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0",
+      "offset": "0.0 0.0"
+    },
+    {
+      "component": "Scale",
+      "scale": "256.0 190.0"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "5",
+      "add animation": "Player_Hiding",
+      "add animation": "Player_Burrow_Walk",
+      "add animation": "Player_Burrow_Idle",
+      "add animation": "Player_Idle",
+      "add animation": "Player_Walk",
+      "set animation": "Player_Walk",
+      "play_animation": "1",
+      "has_finished_animating": "0",
+      "layer": "2",
+      "ui": "0",
+      "alive": "1"
+    },
+    {
+      "component": "AABB",
+      "scale": "1.0 3.0",
+      "layer": "12"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "Interactable",
+      "function": "Interactable_Response"
+    },
+    {
+      "component": "Interactable"
+    }
   ]
 }
