@@ -6,5 +6,6 @@
     "Torch": "Resources\\EntityConfig\\Level_1\\Torch.json",
     "Hole": "Resources\\EntityConfig\\Level_1\\Hole.json",
     "MoveBlok": "Resources\\EntityConfig\\Level_1\\MoveBlok.json",
-    "Floor": "Resources\\EntityConfig\\Level_1\\Floor.json"
+    "Floor": "Resources\\EntityConfig\\Level_1\\Floor.json",
+    "Player": "Resources\\EntityConfig\\Level_1\\Player.json"
 }
