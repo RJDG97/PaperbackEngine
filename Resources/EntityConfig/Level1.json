@@ -1,6 +1,5 @@
 {
     "Boundary": "Resources\\EntityConfig\\Level_1\\Boundary.json",
-    "Camera": "Resources\\EntityConfig\\Level_1\\Camera.json",
     "Goal": "Resources\\EntityConfig\\Level_1\\Goal.json",
     "Log": "Resources\\EntityConfig\\Level_1\\Log.json",
     "Torch": "Resources\\EntityConfig\\Level_1\\Torch.json",
