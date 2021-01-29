@@ -8,20 +8,9 @@
             "aabb offset": "0.000000 0.000000"
         },
         {
-            "component": "TextureRenderer",
-            "texture": "Environment_Tiles_20",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
             "component": "AABB",
             "scale": "0.500000 0.500000",
             "layer": "11"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
         }
     ],
     "MoveBlok": [
@@ -33,20 +22,9 @@
             "aabb offset": "0.000000 0.000000"
         },
         {
-            "component": "TextureRenderer",
-            "texture": "Environment_Tiles_20",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
             "component": "AABB",
             "scale": "0.500000 0.500000",
             "layer": "11"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
         }
     ]
 }
