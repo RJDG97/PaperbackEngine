@@ -21,10 +21,10 @@
 #include "Manager/ModelManager.h"
 #include "Manager/AnimationManager.h"
 #include "Manager/ShaderManager.h"
-#include "Components/IRenderer.h"
+#include "Components/SpriteRenderer.h"
 #include <glm/glm.hpp>
 
-class AnimationRenderer : public IRenderer {
+class AnimationRenderer : public SpriteRenderer {
 
 	std::vector<std::string> animation_names_;
 	std::map<std::string, Animation> obj_animations_;	// all possible animations that an object can switch between

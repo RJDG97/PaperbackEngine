@@ -564,7 +564,7 @@ void EntityWindow::AIComponent(Entity* entity) {
 void EntityWindow::AnimationRendererComponent(Entity* entity) {
 
 	std::shared_ptr<AnimationRenderer> entity_animation = std::dynamic_pointer_cast<AnimationRenderer>(entity->GetComponent(ComponentTypes::ANIMATIONRENDERER));
-	int input_layer = graphics_->GetLayer(&*entity_animation);
+	int input_layer = 1;//graphics_->GetLayer(&*entity_animation);
 
 	if (ImGui::CollapsingHeader("Animation Component")) {
 
@@ -1122,17 +1122,17 @@ void EntityWindow::TextureRendererComponent(Entity* entity) {
 
 	if (ImGui::CollapsingHeader("Texture Component")) {
 
-		int input_layer = graphics_->GetLayer(&*entity_texture);
+		int input_layer = 1;// graphics_->GetLayer(&*entity_texture);
 
 		ComponentInputInt("Texture Renderer Layer: ", "##texlayer", input_layer, 95.0f, 1, 1);
 
 		graphics_->ChangeLayer(&*entity_texture, input_layer);
 
-		int input_ui = entity_texture->GetUI();
+		int input_ui = 1;// entity_texture->GetUI();
 
 		ComponentInputInt("UI: ", "##uilayer", input_ui, 95.0f, 0, 1);
 
-		entity_texture->SetUI(input_ui);
+		//entity_texture->SetUI(input_ui);
 
 		std::string path = {};
 

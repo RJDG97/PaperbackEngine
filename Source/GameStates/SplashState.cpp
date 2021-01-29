@@ -32,6 +32,7 @@ void SplashState::Init(std::string) {
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();
 
+	CORE->GetManager<LayerManager>()->LoadLevelLayers("Splash");
 	FACTORY->LoadLevel("Splash");
 	CORE->GetManager<TransitionManager>()->ResetTransition("Splash", &m_MenuState);
 

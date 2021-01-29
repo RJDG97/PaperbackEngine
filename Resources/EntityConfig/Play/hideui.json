@@ -10,8 +10,7 @@
         {
             "component": "TextureRenderer",
             "texture": "HideSkill_UI_0",
-            "layer": "10",
-            "ui": "1"
+            "layer": "10"
         },
         {
             "component": "AABB",

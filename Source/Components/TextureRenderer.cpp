@@ -50,11 +50,19 @@ void TextureRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
     writer->Key("layer");
     writer->String(std::to_string(layer_).c_str());
 
-    writer->Key("ui");
-    writer->String(std::to_string(ui_).c_str());
+    writer->Key("order in layer");
+    writer->String(std::to_string(order_in_layer_).c_str());
 
     writer->Key("alive");
     writer->String(std::to_string(alive_).c_str());
+
+    writer->Key("opacity");
+    writer->String(std::to_string(opacity_).c_str());
+
+    writer->Key("tint");
+    writer->String((std::to_string(tint_.x) + " " +
+                    std::to_string(tint_.y) + " " +
+                    std::to_string(tint_.z)).c_str());
 
     writer->EndObject();
 }
@@ -66,7 +74,12 @@ void TextureRenderer::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBu
 
 void TextureRenderer::DeSerialize(std::stringstream& data) {
     
-    data >> texture_name_ >> layer_ >> ui_ >> alive_;
+    data >> texture_name_
+         >> layer_
+         >> order_in_layer_
+         >> alive_
+         >> opacity_
+         >> tint_.x >> tint_.y >> tint_.z;
 }
 
 void TextureRenderer::DeSerializeClone(std::stringstream& data) {
@@ -74,15 +87,7 @@ void TextureRenderer::DeSerializeClone(std::stringstream& data) {
     //remove existing entry before proceeding
     CORE->GetSystem<GraphicsSystem>()->RemoveTextureRendererComponent(Component::GetOwner()->GetID());
 
-    //int layer;
-
-    //data >> texture_name_ >> layer >> ui_;
     DeSerialize(data);
-
-    //if (layer != layer_) {
-
-    //    M_DEBUG->WriteDebugMessage("Layer is keyed in wrongly!");
-    //}
 
     //readd with new info
     CORE->GetSystem<GraphicsSystem>()->AddTextureRendererComponent(Component::GetOwner()->GetID(), this);
@@ -97,8 +102,12 @@ std::shared_ptr<Component> TextureRenderer::Clone() {
 
     // IRenderer
     cloned->layer_ = layer_;
-    cloned->ui_ = ui_;
+    cloned->order_in_layer_ = order_in_layer_;
     cloned->alive_ = alive_;
+    cloned->opacity_ = opacity_;
+
+    // SpriteRenderer
+    cloned->tint_ = tint_;
 
     // TextureRenderer
     cloned->texture_name_ = texture_name_;
@@ -117,13 +126,4 @@ void TextureRenderer::InitTextures() {
 std::string TextureRenderer::GetCurrentTextureName()
 {
     return texture_name_;
-}
-
-int TextureRenderer::GetUI() {
-
-    return ui_;
-}
-
-void TextureRenderer::SetUI(int ui) {
-    ui_ = ui;
 }

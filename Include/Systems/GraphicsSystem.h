@@ -28,19 +28,12 @@
 #include "Systems/CameraSystem.h"
 #include "Components/AnimationRenderer.h"
 #include "Components/TextRenderer.h"
+#include "Manager/LayerManager.h"
 #include <windows.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 class GraphicsSystem : public ISystem {
-
-    class RenderLayer {
-
-        std::string name_;
-        bool y_sorted;
-        std::multimap<int, IRenderer*> renderers_;
-
-    };
 
     bool debug_;
 
@@ -70,10 +63,13 @@ class GraphicsSystem : public ISystem {
 
     //for batching
     int batch_size_;
+    std::vector<glm::vec2> pos_vtx_sent;
+    std::vector<glm::vec3> color_sent;
     std::vector<glm::vec2> tex_vtx_sent;
     std::vector<glm::vec2> scaling_sent;
     std::vector<glm::vec2> rotation_sent;
     std::vector<glm::vec2> position_sent;
+    std::vector<float> opacity_sent;
     std::vector<float> texture_id_sent;
     std::map<GLuint, GLuint> texture_handles;
 
@@ -83,6 +79,10 @@ class GraphicsSystem : public ISystem {
     using Points = std::vector<std::pair<glm::vec2, glm::vec2>>;
 
     bool lighting_enabled_;
+
+    glm::mat3 world_to_ndc_xform_;
+
+    using RenderOrderIt = std::multimap<float, IRenderer*>::iterator;
 
 public:
 
@@ -176,7 +176,7 @@ public:
     \brief Adds a TextRenderer component to the text renderer map
 */
 /******************************************************************************/
-void AddTextRendererComponent(EntityID id, TextRenderer* text_renderer);
+    void AddTextRendererComponent(EntityID id, TextRenderer* text_renderer);
 
 /******************************************************************************/
 /*!
@@ -185,7 +185,7 @@ void AddTextRendererComponent(EntityID id, TextRenderer* text_renderer);
     \brief Removes a TextRenderer component from the text renderer map
 */
 /******************************************************************************/
-void RemoveTextRendererComponent(EntityID id);
+    void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
@@ -235,42 +235,68 @@ void RemoveTextRendererComponent(EntityID id);
     
 /******************************************************************************/
 /*!
-    \fn BatchWorldObject(IRenderer* i_renderer)
+    \fn UpdateRenderLayer(RenderLayer* render_layer)
+
+    \brief Updates render layer
+*/
+/******************************************************************************/
+    void UpdateRenderLayer(RenderLayer* render_layer);
+
+/******************************************************************************/
+/*!
+    \fn BatchSpriteObject(SpriteRenderer* spr_renderer, bool ui)
 
     \brief Inserts data of objects, that have a component that inherits from
            IRenderer, into batch.
 */
 /******************************************************************************/
-    void BatchWorldObject(IRenderer* i_renderer);
+    void BatchSpriteObject(SpriteRenderer* spr_renderer, bool ui);
 
 /******************************************************************************/
 /*!
-    \fn DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform)
+    \fn BatchTextObject(TextRenderer* text_renderer, bool ui)
+
+    \brief Inserts data of objects, that have a component that inherits from
+           IRenderer, into batch.
+*/
+/******************************************************************************/
+    void BatchTextObject(TextRenderer* text_renderer, bool ui, GLuint vbo_hdl);
+
+/******************************************************************************/
+/*!
+    \fn CheckDrawBatch(GLuint vbo_hdl, RenderLayer* render_layer, RenderOrderIt& it)
+
+    \brief Checks if need to draw the batch
+*/
+/******************************************************************************/
+    void CheckDrawBatch(GLuint vbo_hdl, RenderLayer* render_layer, RenderOrderIt& it);
+
+/******************************************************************************/
+/*!
+    \fn DrawSpriteBatch(GLuint vbo_hdl, LayerType layer_type)
 
     \brief Draw all objects in the batch
 */
 /******************************************************************************/
-    void DrawBatch(GLuint vbo_hdl, glm::mat3 world_to_ndc_xform);
+    void DrawSpriteBatch(GLuint vbo_hdl, LayerType layer_type);
 
 /******************************************************************************/
 /*!
-    \fn DrawTextObject(Shader* shader, Model* model,
-                       TextRenderer* text_renderer)
+    \fn DrawSpriteBatch(GLuint vbo_hdl)
 
-    \brief Draw objects that have a TextRenderer component
+    \brief Draw all objects in the batch
 */
 /******************************************************************************/
-    void DrawTextObject(Shader* shader, Model* model,
-                        TextRenderer* text_renderer);
+    void DrawTextBatch(GLuint vbo_hdl);
 
 /******************************************************************************/
 /*!
-    \fn DrawUIObject(Shader* shader, Model* model, IRenderer* i_renderer)
+    \fn DrawUIObject(Shader* shader, Model* model, SpriteRenderer* spr_renderer)
 
     \brief Draw UI objects that have a IRenderer component
 */
 /******************************************************************************/
-    void DrawUIObject(Shader* shader, Model* model, IRenderer* i_renderer);
+    void DrawUIObject(Shader* shader, Model* model, SpriteRenderer* spr_renderer);
 
 /******************************************************************************/
 /*!
@@ -283,66 +309,66 @@ void RemoveTextRendererComponent(EntityID id);
 
 /******************************************************************************/
 /*!
-    \fn ChangeLayer(AnimationRenderer* anim_renderer, int layer)
+    \fn GetAvailableLayers(IRenderer* i_renderer)
 
-    \brief Change layer of animation renderer
+    \brief Gets all layers that the renderer is able to be slotted into
 */
 /******************************************************************************/
-    void ChangeLayer(AnimationRenderer* anim_renderer, int layer);
+    std::vector<RenderLayer*> GetAvailableLayers(IRenderer* i_renderer);
 
 /******************************************************************************/
 /*!
-    \fn ChangeLayer(TextureRenderer* tex_renderer, int layer)
+    \fn GetLayersOfType(LayerType layer_type1, LayerType layer_type2)
 
-    \brief Change layer of texture renderer
+    \brief Gets all layers that the renderer is able to be slotted into
 */
 /******************************************************************************/
-    void ChangeLayer(TextureRenderer* tex_renderer, int layer);
+    std::vector<RenderLayer*> GetLayersOfType(LayerType layer_type1, LayerType layer_type2);
 
 /******************************************************************************/
 /*!
-    \fn FlipTextureX(IRenderer* i_renderer)
+    \fn ChangeLayer(IRenderer* i_renderer, int layer)
+
+    \brief Change layer of irenderer
+*/
+/******************************************************************************/
+    void ChangeLayer(IRenderer* i_renderer, int layer);
+
+/******************************************************************************/
+/*!
+    \fn FlipTextureX(SpriteRenderer* spr_renderer)
 
     \brief Flips the texture renderered in the x axis
 */
 /******************************************************************************/
-    void FlipTextureX(IRenderer* i_worldobj_renderer);
+    void FlipTextureX(SpriteRenderer* spr_renderer);
 
 /******************************************************************************/
 /*!
-\fn FlipTextureY(IRenderer* i_renderer)
+\fn FlipTextureY(SpriteRenderer* spr_renderer)
 
 \brief Flips the texture renderered in the y axis
 */
 /******************************************************************************/
-    void FlipTextureY(IRenderer* i_renderer);
+    void FlipTextureY(SpriteRenderer* spr_renderer);
 
 /******************************************************************************/
 /*!
-\fn GetLayer(IRenderer* i_renderer)
+    \fn FlipTextureY(SpriteRenderer* spr_renderer)
 
-\brief Gets the layer that the texture will be renderered on
+    \brief Checks if the texture vertices needs to be flipped
 */
 /******************************************************************************/
-    int GetLayer(IRenderer* i_renderer);
+    void CheckFlipTextureXY(SpriteRenderer* spr_renderer);
 
 /******************************************************************************/
 /*!
-\fn GetLayer(TextRenderer* text_renderer)
-
-\brief Gets the layer that the text will be renderered on
-*/
-/******************************************************************************/
-    int GetLayer(TextRenderer* text_renderer);
-
-/******************************************************************************/
-/*!
-\fn ChangeTexture(TextureRenderer* renderer, std::string texture_name)
+\fn ChangeTexture(TextureRenderer* texture_renderer, std::string texture_name)
 
 \brief Changes the texture rendered
 */
 /******************************************************************************/
-    void ChangeTexture(TextureRenderer* renderer, std::string texture_name);
+    void ChangeTexture(TextureRenderer* texture_renderer, std::string texture_name);
 
 /******************************************************************************/
 /*!
@@ -476,6 +502,8 @@ void RemoveTextRendererComponent(EntityID id);
 /******************************************************************************/
     std::vector<EntityID> EntitiesWithThisTexture(GLuint handle);
 
+    void DrawLayer(RenderLayer& render_layer);
+
     using TextRendererType = CMap<TextRenderer>;
     using TextRendererIt = TextRendererType::MapTypeIt;
     TextRendererType* text_renderer_arr_;
@@ -488,14 +516,14 @@ void RemoveTextRendererComponent(EntityID id);
     using AnimRendererIt = AnimationRendererType::MapTypeIt;
     AnimationRendererType* anim_renderer_arr_;
 
-    using IRenderOrderIt = std::multimap<int, IRenderer*>::iterator;
-    using TextRenderOrderIt = std::multimap<int, TextRenderer*>::iterator;
-    std::multimap<int, IRenderer*> worldobj_renderers_in_order_;
-    std::multimap<int, TextRenderer*> worldtext_renderers_in_order_;
-    std::multimap<int, IRenderer*> uirenderers_in_order_;
-    std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
+    //using IRenderOrderIt = std::multimap<int, IRenderer*>::iterator;
+    //using TextRenderOrderIt = std::multimap<int, TextRenderer*>::iterator;
+    //std::multimap<int, IRenderer*> worldobj_renderers_in_order_;
+    //std::multimap<int, TextRenderer*> worldtext_renderers_in_order_;
+    //std::multimap<int, IRenderer*> uirenderers_in_order_;
+    //std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
 
-    std::map<int, RenderLayer> render_layers_;
+    std::map<int, RenderLayer>* render_layers_;
 };
 
 #endif

@@ -10,8 +10,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -34,8 +33,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -58,8 +56,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -82,8 +79,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -106,8 +102,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -130,8 +125,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -154,8 +148,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -178,8 +171,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -202,8 +194,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -226,8 +217,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -250,8 +240,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -274,8 +263,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",
@@ -298,8 +286,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "3",
-            "ui": "0"
+            "layer": "3"
         },
         {
             "component": "AABB",
@@ -322,8 +309,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "2",
-            "ui": "0"
+            "layer": "2"
         },
         {
             "component": "AABB",

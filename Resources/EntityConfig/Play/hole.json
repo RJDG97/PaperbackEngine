@@ -10,8 +10,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Hole_0",
-            "layer": "1",
-            "ui": "0"
+            "layer": "1"
         },
         {
             "component": "AABB",
@@ -30,8 +29,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Hole_0",
-            "layer": "1",
-            "ui": "0"
+            "layer": "1"
         },
         {
             "component": "AABB",

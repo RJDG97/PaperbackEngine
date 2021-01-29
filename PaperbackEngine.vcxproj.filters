@@ -461,6 +461,9 @@
     <ClCompile Include="Source\Manager\BehaviourTree.cpp">
       <Filter>Systems\Behaviour System</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\LayerManager.cpp">
+      <Filter>ResourceManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -792,6 +795,12 @@
     </ClInclude>
     <ClInclude Include="Include\Script\Stag_Tree.h">
       <Filter>Scripts\StagBeetle</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Manager\LayerManager.h">
+      <Filter>ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\SpriteRenderer.h">
+      <Filter>Entity\Components\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

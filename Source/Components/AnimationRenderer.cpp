@@ -71,11 +71,19 @@ void AnimationRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffe
     writer->Key("layer");
     writer->String((std::to_string(layer_).c_str()));
 
-    writer->Key("ui");
-    writer->String(std::to_string(ui_).c_str());
+    writer->Key("order in layer");
+    writer->String(std::to_string(order_in_layer_).c_str());
 
     writer->Key("alive");
     writer->String(std::to_string(alive_).c_str());
+
+    writer->Key("opacity");
+    writer->String(std::to_string(opacity_).c_str());
+
+    writer->Key("tint");
+    writer->String((std::to_string(tint_.x) + " " +
+                    std::to_string(tint_.y) + " " +
+                    std::to_string(tint_.z)).c_str());
 
     writer->EndObject();
 }
@@ -98,7 +106,12 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     data >> current_animation_name_;
 
-    data >> play_animation_ >> has_finished_animating_ >> layer_ >> ui_ >> alive_;
+    data >> play_animation_
+         >> has_finished_animating_
+         >> layer_ >> order_in_layer_
+         >> alive_
+         >> opacity_
+         >> tint_.x >> tint_.y >> tint_.z;
 }
 
 void AnimationRenderer::DeSerializeClone(std::stringstream& data)
@@ -113,6 +126,12 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
 
     // IRenderer
     cloned->layer_ = layer_;
+    cloned->order_in_layer_ = order_in_layer_;
+    cloned->alive_ = alive_;
+    cloned->opacity_ = opacity_;
+
+    // Sprite Renderer
+    cloned->tint_ = tint_;
 
     // AnimationRenderer
 	cloned->obj_animations_ = obj_animations_;
@@ -121,8 +140,6 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
 	cloned->current_animation_ = current_animation_;
 	cloned->play_animation_ = play_animation_;
     cloned->has_finished_animating_ = has_finished_animating_;
-    cloned->ui_ = ui_;
-    cloned->alive_ = alive_;
 
 	return cloned;
 }

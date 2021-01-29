@@ -42,7 +42,6 @@
       "component": "TextureRenderer",
       "texture": "Temp_Background_0",
       "layer": "0",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -68,12 +67,13 @@
       "component": "TextRenderer",
       "font": "Grandstander-Medium",
       "sentence length": "4",
-      "text": "This is UI text.",
+      "text": "This is UI textasdfghjklqwertyuiopzxcvbnm1234567789.",
       "color": "1.0 0.5 1.0",
-      "scale": "1.0",
-      "layer": "10",
-      "ui": "1",
-      "alive": "1"
+      "scale": "0.5",
+      "layer": "1",
+      "order in layer": "0",
+      "alive": "1",
+      "opacity": "1.0"
     }
   ],
   "WorldText": [
@@ -95,7 +95,6 @@
       "color": "1.0 0.5 1.0",
       "scale": "1.0",
       "layer": "10",
-      "ui": "0",
       "alive": "1"
     }
   ],
@@ -136,7 +135,6 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -198,7 +196,6 @@
       "component": "TextureRenderer",
       "texture": "Rock_Three_0",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -245,7 +242,6 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "1",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -272,9 +268,11 @@
     {
       "component": "TextureRenderer",
       "texture": "Environment_Tiles_20",
-      "layer": "10",
-      "ui": "1",
-      "alive": "1"
+      "layer": "0",
+      "order in layer": "0",
+      "alive": "1",
+      "opacity": "1.0",
+      "tint": "1.0 1.0 1.0"
     },
     {
       "component": "AABB",
@@ -314,7 +312,6 @@
       "component": "TextureRenderer",
       "texture": "Hole_0",
       "layer": "1",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -373,7 +370,6 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -448,7 +444,6 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -509,8 +504,10 @@
       "component": "TextureRenderer",
       "texture": "Menu_Background_0",
       "layer": "0",
-      "ui": "1",
-      "alive": "1"
+      "order in layer": "0",
+      "alive": "1",
+      "opacity": "1.0",
+      "tint": "0.3 1.0 0.3"
     },
     {
       "component": "PointLight",
@@ -589,8 +586,10 @@
       "component": "TextureRenderer",
       "texture": "Menu_CloudOne_0",
       "layer": "0",
-      "ui": "1",
-      "alive": "1"
+      "order in layer": "1",
+      "alive": "1",
+      "opacity": "1.0",
+      "tint": "1.0 1.0 1.0"
     }
   ],
   "Watergauge": [
@@ -612,7 +611,6 @@
       "component": "TextureRenderer",
       "texture": "WaterGauge_Droplet_0",
       "layer": "10",
-      "ui": "1",
       "alive": "1"
     }
   ],
@@ -635,7 +633,6 @@
       "component": "TextureRenderer",
       "texture": "Rock_Three_0",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     }
   ],
@@ -658,7 +655,6 @@
       "component": "TextureRenderer",
       "texture": "Environment_Tiles_20",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     }
   ],
@@ -691,7 +687,6 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -728,7 +723,6 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -774,7 +768,6 @@
       "component": "TextureRenderer",
       "texture": "Puddle_0",
       "layer": "1",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -830,7 +823,6 @@
       "component": "TextureRenderer",
       "texture": "Key_One_0",
       "layer": "1",
-      "ui": "0",
       "alive": "0"
     },
     {
@@ -869,7 +861,6 @@
       "component": "TextureRenderer",
       "texture": "UI_Objectives_0",
       "layer": "10",
-      "ui": "1",
       "alive": "1"
     }
   ],
@@ -913,7 +904,6 @@
       "component": "TextureRenderer",
       "texture": "UI_DialogueBox_0",
       "layer": "10",
-      "ui": "1",
       "alive": "0"
     },
     {
@@ -945,7 +935,6 @@
       "color": "0.30 0.55 0.20",
       "scale": "0.35",
       "layer": "11",
-      "ui": "1",
       "alive": "0"
     }
   ],
@@ -968,7 +957,6 @@
       "component": "TextureRenderer",
       "texture": "BurrowSkill_UI_0",
       "layer": "10",
-      "ui": "1",
       "alive": "1"
     },
     {
@@ -1002,7 +990,6 @@
       "component": "TextureRenderer",
       "texture": "HideSkill_UI_0",
       "layer": "10",
-      "ui": "1",
       "alive": "1"
     },
     {
@@ -1033,7 +1020,6 @@
       "component": "TextureRenderer",
       "texture": "Bush_Two_0",
       "layer": "0",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -1062,7 +1048,6 @@
       "component": "TextureRenderer",
       "texture": "Bush_One_0",
       "layer": "0",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -1091,7 +1076,6 @@
       "component": "TextureRenderer",
       "texture": "Hill_One_0",
       "layer": "1",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -1120,7 +1104,6 @@
       "component": "TextureRenderer",
       "texture": "Hill_Two_0",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -1149,7 +1132,6 @@
       "component": "TextureRenderer",
       "texture": "Grass_One_0",
       "layer": "1",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -1178,7 +1160,6 @@
       "component": "TextureRenderer",
       "texture": "Grass_Two_0",
       "layer": "0",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -1239,7 +1220,6 @@
       "play_animation": "1",
       "has_finished_animating": "0",
       "layer": "2",
-      "ui": "0",
       "alive": "1"
     },
     {
@@ -1287,8 +1267,8 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_HowToPlay_0",
-      "layer": "2",
-      "ui": "1",
+      "layer": "0",
+	  "order in layer": "5",
       "alive": "0"
     }
   ]

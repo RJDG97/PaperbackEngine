@@ -17,13 +17,14 @@
 #define _TEXTURERENDERER_H_
 
 #include <windows.h>
-#include "Components/IRenderer.h"
+#include "Components/SpriteRenderer.h"
 #include "Entity/Entity.h"
 #include "Manager/TextureManager.h"
 #include <glm/glm.hpp>
 
-class TextureRenderer : public IRenderer {
+class TextureRenderer : public SpriteRenderer {
 
+	std::string texture_name_;
 	Texture* texture_;
 
 public:
@@ -123,23 +124,6 @@ public:
 /******************************************************************************/
 	std::string GetCurrentTextureName();
 
-/******************************************************************************/
-/*!
-	\fn GetUI()
-
-	\brief Get the ui variable of the texture component
-*/
-/******************************************************************************/
-	int GetUI();
-
-/******************************************************************************/
-/*!
-	\fn SetUI(int ui)
-
-	\brief Sets the ui variable of the texture component
-*/
-/******************************************************************************/
-	void SetUI(int ui);
 };
 
 #endif

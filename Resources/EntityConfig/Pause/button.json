@@ -25,7 +25,6 @@
       "component": "TextureRenderer",
       "texture": "UI_PauseButton_0",
       "layer": "10",
-      "ui": "1",
       "alive": "1"
     },
     {
@@ -60,8 +59,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_FullScreenButton_0",
-      "layer": "10",
-      "ui": "1"
+      "layer": "10"
     },
     {
       "component": "LogicComponent",
@@ -95,8 +93,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_PauseMenu_0",
-      "layer": "20",
-      "ui": "1"
+      "layer": "20"
     }
   ],
   "button": [
@@ -124,8 +121,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_Resume_0",
-      "layer": "20",
-      "ui": "1"
+      "layer": "20"
     },
     {
       "component": "LogicComponent",
@@ -159,8 +155,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_HowTo_0",
-      "layer": "20",
-      "ui": "1"
+      "layer": "20"
     },
     {
       "component": "LogicComponent",
@@ -199,8 +194,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_Return_0",
-      "layer": "20",
-      "ui": "1"
+      "layer": "20"
     },
     {
       "component": "LogicComponent",
@@ -234,8 +228,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_QuitGame_0",
-      "layer": "20",
-      "ui": "1"
+      "layer": "20"
     },
     {
       "component": "LogicComponent",

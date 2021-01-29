@@ -75,6 +75,8 @@ public:
 /******************************************************************************/
     Model* AddTristripsBatchModel(int batch_size, std::string model_name);
 
+    Model* AddTextBatchModel(int batch_size, std::string model_name);
+
 /******************************************************************************/
 /*!
     \fn AddTristripsModel(int slices, int stacks, std::string model_name)

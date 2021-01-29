@@ -23,17 +23,10 @@ class IRenderer : public Component {
 
 protected:
 
-	bool x_mirror_ = false;
-	bool y_mirror_ = false;
-
-	std::string texture_name_;
-	GLuint texture_handle_;
-	std::vector<glm::vec2> tex_vtx_;
-	
+	int order_in_layer_;
 	int layer_;
-	bool ui_; //if object is on UI or in the world
-
 	bool alive_;
+	float opacity_;
 
 public:
 
@@ -59,6 +52,33 @@ public:
 /******************************************************************************/
 	void SetAlive(bool life) { alive_ = life; }
 
+/******************************************************************************/
+/*!
+	\fn GetLayer()
+
+	\brief Get layer
+*/
+/******************************************************************************/
+	int GetLayer() { return layer_; }
+
+/******************************************************************************/
+/*!
+	\fn GetLayer()
+
+	\brief Get layer
+*/
+/******************************************************************************/
+	int GetOrderInLayer() { return order_in_layer_; }
+
+/******************************************************************************/
+/*!
+	\fn GetOpacity()
+
+	\brief Get opacity
+*/
+/******************************************************************************/
+
+	float GetOpacity() { return opacity_; }
 };
 
 #endif

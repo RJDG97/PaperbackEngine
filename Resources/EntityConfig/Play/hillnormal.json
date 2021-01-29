@@ -11,7 +11,6 @@
             "component": "TextureRenderer",
             "texture": "Hill_One_0",
             "layer": "1",
-            "ui": "0",
             "alive": "1"
         },
         {
@@ -36,7 +35,6 @@
             "component": "TextureRenderer",
             "texture": "Hill_One_0",
             "layer": "1",
-            "ui": "0",
             "alive": "1"
         },
         {
@@ -61,7 +59,6 @@
             "component": "TextureRenderer",
             "texture": "Hill_One_0",
             "layer": "1",
-            "ui": "0",
             "alive": "1"
         },
         {

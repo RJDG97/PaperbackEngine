@@ -104,6 +104,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddManager<TransitionManager>();
 		CORE->AddManager<DialogueManager>();
 		CORE->AddManager<LogicManager>();
+		CORE->AddManager<LayerManager>();
 
 		// Initialize all Systems & Managers that
 		// were added to the Core Engine

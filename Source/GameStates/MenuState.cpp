@@ -52,6 +52,7 @@ void MenuState::Init(std::string)
 
 	help_ = false;
 
+	CORE->GetManager<LayerManager>()->LoadLevelLayers("Menu");
 	FACTORY->LoadLevel("Menu");
 	CORE->GetSystem<GraphicsSystem>()->EnableLighting(false);
 

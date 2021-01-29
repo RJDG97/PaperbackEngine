@@ -62,11 +62,14 @@ void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
     writer->Key("layer");
     writer->String(std::to_string(layer_).c_str());
 
-    writer->Key("ui");
-    writer->String(std::to_string(ui_).c_str());
+    writer->Key("order in layer");
+    writer->String(std::to_string(order_in_layer_).c_str());
 
     writer->Key("alive");
     writer->String(std::to_string(alive_).c_str());
+
+    writer->Key("opacity");
+    writer->String(std::to_string(opacity_).c_str());
 
     writer->EndObject();
 }
@@ -90,8 +93,9 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
      data >> color_.x >> color_.y >> color_.z
           >> scale_
           >> layer_
-          >> ui_
-          >> alive_;
+          >> order_in_layer_
+          >> alive_
+          >> opacity_;
 }
 
 
@@ -105,14 +109,18 @@ std::shared_ptr<Component> TextRenderer::Clone() {
 
     std::shared_ptr<TextRenderer> cloned = std::make_shared<TextRenderer>();
 
+    // IRenderer
+    cloned->layer_ = layer_;
+    cloned->order_in_layer_ = order_in_layer_;
+    cloned->alive_ = alive_;
+    cloned->opacity_ = opacity_;
+
+    // TextRenderer
     cloned->font_name_ = font_name_;
     cloned->font_ = font_;
     cloned->text_ = text_;
     cloned->color_ = color_;
     cloned->scale_ = scale_;
-    cloned->layer_ = layer_;
-    cloned->ui_ = ui_;
-    cloned->alive_ = alive_;
 
     return cloned;
 }

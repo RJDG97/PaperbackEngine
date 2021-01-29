@@ -206,6 +206,7 @@
     <ClCompile Include="Source\Manager\EntityManager.cpp" />
     <ClCompile Include="Source\Manager\FontManager.cpp" />
     <ClCompile Include="Source\Manager\ForcesManager.cpp" />
+    <ClCompile Include="Source\Manager\LayerManager.cpp" />
     <ClCompile Include="Source\Manager\LogicManager.cpp" />
     <ClCompile Include="Source\Manager\ModelManager.cpp" />
     <ClCompile Include="Source\Manager\ParticleManager.cpp" />
@@ -263,6 +264,7 @@
     <ClInclude Include="Include\Components\Particle.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
     <ClInclude Include="Include\Components\SoundEmitter.h" />
+    <ClInclude Include="Include\Components\SpriteRenderer.h" />
     <ClInclude Include="Include\Components\TextRenderer.h" />
     <ClInclude Include="Include\Components\TextureRenderer.h" />
     <ClInclude Include="Include\Components\Scale.h" />
@@ -298,6 +300,7 @@
     <ClInclude Include="Include\Manager\FontManager.h" />
     <ClInclude Include="Include\Manager\ForcesManager.h" />
     <ClInclude Include="Include\Manager\IManager.h" />
+    <ClInclude Include="Include\Manager\LayerManager.h" />
     <ClInclude Include="Include\Manager\LogicManager.h" />
     <ClInclude Include="Include\Manager\ModelManager.h" />
     <ClInclude Include="Include\Manager\ParticleManager.h" />
