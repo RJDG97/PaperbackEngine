@@ -467,6 +467,12 @@
     <ClCompile Include="Source\Components\Interactable.cpp">
       <Filter>Entity\Components\Interactable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Script\Stag_Tree.cpp">
+      <Filter>Scripts\StagBeetle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\Mite_Tree.cpp">
+      <Filter>Scripts\Mite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -801,6 +807,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\Interactable.h">
       <Filter>Entity\Components\Interactable</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Mite_Tree.h">
+      <Filter>Scripts\Mite</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -219,7 +219,9 @@
     <ClCompile Include="Source\Script\GeneralScripts.cpp" />
     <ClCompile Include="Source\Script\HornetScript.cpp" />
     <ClCompile Include="Source\Script\MiteScript.cpp" />
+    <ClCompile Include="Source\Script\Mite_Tree.cpp" />
     <ClCompile Include="Source\Script\StagScript.cpp" />
+    <ClCompile Include="Source\Script\Stag_Tree.cpp" />
     <ClCompile Include="Source\Source.cpp" />
     <ClCompile Include="Source\Systems\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Collision.cpp" />

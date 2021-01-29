@@ -16,9 +16,7 @@ public:
 			setChild(new MiteSequence(id));
 		}
 
-		void CollisionResponse(EntityID obj) override{
-
-		}
+		void CollisionResponse(EntityID obj) override;
 	};
 
 	class MiteSequence : public Sequence
@@ -39,47 +37,9 @@ public:
 		ComponentManager* component_mgr;
 		Time_Channel respawn_timer_;
 	public:
-		CheckAlive(EntityID id) : id_(id) {
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
-			respawn_timer_.TimerReset();
-		}
+		CheckAlive(EntityID id);
 
-		bool run() override
-		{
-			if (ai_->GetLife()) {
-				return true;
-			}
-			else
-			{
-				// If Timer has not started, start
-				if (respawn_timer_.TimeElapsed(s) == 0)
-					respawn_timer_.TimerStart();
-				// Update Timer if timer has not reached respawn time
-				if (respawn_timer_.TimeElapsed(s) < 10.0f)
-				{
-					component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(false);
-					component_mgr->GetComponent<PointLight>(id_)->SetAlive(false);
-					component_mgr->GetComponent<ConeLight>(id_)->SetAlive(false);
-					respawn_timer_.TimerUpdate();
-				}
-				else // Stop timer and reset to 0
-				{
-					respawn_timer_.TimerStop();
-					respawn_timer_.TimerReset();
-					component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(true);
-					component_mgr->GetComponent<PointLight>(id_)->SetAlive(true);
-					component_mgr->GetComponent<ConeLight>(id_)->SetAlive(true);
-					obj_rigidbody_->SetPosition({
-						ai_->GetDestinations().begin()->x,
-						ai_->GetDestinations().begin()->y });
-					ai_->SetState(AI::AIState::Patrol);
-					ai_->SetLife(true);
-				}
-				return false;
-			}
-		}
+		bool run() override;
 	};
 
 	class ActionSelector : public Selector
@@ -121,19 +81,9 @@ public:
 		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
 	public:
-		AtWaypoint(EntityID id) : id_(id) {
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
-		}
+		AtWaypoint(EntityID id);
 
-		bool run() override {
-			float distance = Vector2DLength(*ai_->GetCurrentDes() - obj_rigidbody_->GetOffsetAABBPos());
-			// If object is at next path node
-			if (distance < 1.0f || ai_->GetPath().empty())
-				return false;
-			return true;
-		}
+		bool run() override;
 	};
 
 	class ChangeWaypoint :public Node
@@ -142,18 +92,9 @@ public:
 		AI* ai_;
 		ComponentManager* component_mgr;
 	public:
-		ChangeWaypoint(EntityID id) : id_(id) {
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai_ = component_mgr->GetComponent<AI>(id_);
-		}
+		ChangeWaypoint(EntityID id);
 
-		bool run() override {
-			DestinationIt next_it = ai_->GetCurrentDes();
-			if (++next_it == std::end(ai_->GetDestinations()))
-				next_it = std::begin(ai_->GetDestinations());
-			ai_->SetCurrentDes(next_it);
-			return true;
-		}
+		bool run() override;
 	};
 
 	class WalkAnim :public Node
@@ -167,35 +108,9 @@ public:
 		Name* name;
 		AI* ai;
 	public:
-		WalkAnim(EntityID id) :id_(id) {
-			graphics = CORE->GetSystem<GraphicsSystem>();
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
-			motion = component_mgr->GetComponent<Motion>(id_);
-			name = component_mgr->GetComponent<Name>(id_);
-			ai = component_mgr->GetComponent<AI>(id_);
-		}
+		WalkAnim(EntityID id);
 
-		bool run() override {
-			// If any pointers are invalid, return
-			if (!renderer || !ai || !motion || !name)
-				return false;
-			ai->SetState(AI::AIState::Patrol);
-			// If velocity is essentially 0, set player to idle
-			if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-				graphics->ChangeAnimation(renderer, "Mite_Idle");
-			graphics->ChangeAnimation(renderer, "Mite_Walk");
-
-			if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
-				graphics->FlipTextureY(renderer);
-				motion->SetIsLeft(false);
-			}
-			else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
-				graphics->FlipTextureY(renderer);
-				motion->SetIsLeft(true);
-			}
-			return true;
-		}
+		bool run() override;
 	};
 
 	class CheckPath :public Node
@@ -205,18 +120,11 @@ public:
 		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
 		AMap* map_;
+		Vector2D SetDes;
 	public:
-		CheckPath(EntityID id) : id_(id) {
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
-			map_ = &*CORE->GetManager<AMap>();
-		}
+		CheckPath(EntityID id);
 
-		bool run() override {
-			ai_->GetPath().clear();
-			return map_->Pathing(ai_->GetPath(), obj_rigidbody_->GetOffsetAABBPos(), *ai_->GetCurrentDes());
-		}
+		bool run() override;
 	};
 
 	class Move :public Node
@@ -228,36 +136,9 @@ public:
 		ForcesManager* forces_;
 		float Speed_;
 	public:
-		Move(EntityID id, float spd) : id_(id), Speed_(spd) {
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
-			forces_ = &*CORE->GetManager<ForcesManager>();
-		}
+		Move(EntityID id, float spd);
 
-		bool run() override {
-			// Calculate distance between ai and destination
-			float distance = Vector2DLength(ai_->GetPath().back() - obj_rigidbody_->GetOffsetAABBPos());
-
-			// If object is at next path node
-			if (distance < 1.0f)
-				// Remove node destination
-				ai_->GetPath().pop_back();
-			if (!ai_->GetPath().empty())
-			{
-				//get directional unit vector
-				Vector2D directional = ai_->GetPath().back() - obj_rigidbody_->GetOffsetAABBPos();
-				directional /= Vector2DLength(directional);
-
-				//multiply by speed
-				directional *= Speed_;
-
-				// Move AI
-				forces_->AddForce(id_, "movement", PE_FrameRate.GetFixedDelta(), directional);
-				return true;
-			}
-			return false;
-		}
+		bool run() override;
 	};
 
 	class DetectSequence :public Sequence
@@ -293,38 +174,11 @@ public:
 
 		float detectdistance_;
 	public:
-		PlayerWithinDistance(EntityID id, float dist)
-			: id_(id),
-			detectdistance_(dist) {
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
-		}
+		PlayerWithinDistance(EntityID id, float dist);
 
-		void PlayerInit() {
-			player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
-			player_status_ = component_mgr->GetComponent<Status>(player_id_);
-			player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
-		}
+		void PlayerInit();
 
-		bool run() override {
-			if (!player_id_)
-				PlayerInit();
-
-			if (player_status_->GetStatus() != StatusType::BURROW &&
-				player_status_->GetStatus() != StatusType::INVISIBLE)
-			{
-				ai_->SetPlayerLastPos(player_rigidbody_->GetOffsetAABBPos());
-
-				// Find current distance of player from obj
-				float distance = Vector2DDistance(player_rigidbody_->GetOffsetAABBPos(), obj_rigidbody_->GetOffsetAABBPos());
-				// If Player is very close, is detected
-				if (distance < detectdistance_) {
-					return true;
-				}
-			}
-			return false;
-		}
+		bool run() override;
 	};
 
 	class PlayerWithinVision : public Node
@@ -340,49 +194,11 @@ public:
 
 		float detectdistance_ = 10.0f;
 	public:
-		PlayerWithinVision(EntityID id) : id_(id) {
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
-		}
+		PlayerWithinVision(EntityID id);
 
-		void PlayerInit() {
-			player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
-			player_status_ = component_mgr->GetComponent<Status>(player_id_);
-			player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
-		}
+		void PlayerInit();
 
-		bool run() override {
-			if (!player_id_)
-				PlayerInit();
-
-			if (player_status_->GetStatus() != StatusType::BURROW &&
-				player_status_->GetStatus() != StatusType::INVISIBLE)
-			{
-				ai_->SetPlayerLastPos(player_rigidbody_->GetOffsetAABBPos());
-
-				// Find current distance of player from obj
-				float distance = Vector2DDistance(player_rigidbody_->GetOffsetAABBPos(), obj_rigidbody_->GetOffsetAABBPos());
-
-				if (distance < detectdistance_)
-				{
-					// Get current direction of object
-					Vector2D vector1 = *ai_->GetCurrentDes() - obj_rigidbody_->GetOffsetAABBPos();
-					// Get direction of player from object
-					Vector2D vector2 = player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos();
-					// Find the angle of player from current destination
-					float angle = std::atan2f(vector2.y, vector2.x) - std::atan2f(vector1.y, vector1.x);
-					// Change angle from rad to degrees
-					angle *= 180 / 3.14159f;
-					// If within view, return detected
-					if (angle > -45.0f && angle < 45.0f)
-						// Note: will have to check for object obstruction in the line of sight
-						ai_->GetPath().clear();
-					return true;
-				}
-			}
-			return false;
-		}
+		bool run() override;
 	};
 
 	class AttackSelector :public Selector
@@ -408,54 +224,9 @@ public:
 		AI* ai_;
 		Time_Channel Detect_timer_;
 	public:
-		DetectAnim(EntityID id) :id_(id) {
-			graphics = CORE->GetSystem<GraphicsSystem>();
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
-			motion = component_mgr->GetComponent<Motion>(id_);
-			name = component_mgr->GetComponent<Name>(id_);
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			Detect_timer_.TimerReset();
-		}
+		DetectAnim(EntityID id);
 
-		bool run() override {
-
-			// If any pointers are invalid, return
-			if (!renderer || !ai_ || !motion || !name)
-				return false;
-
-			if (ai_->GetState() == AI::AIState::Patrol) {
-				ai_->SetState(AI::AIState::Detected);
-				Detect_timer_.TimerReset();
-				Detect_timer_.TimerStart();
-				MessageBGM_Play msg{ "EnemyDetect" };
-				CORE->BroadcastMessage(&msg);
-				graphics->ChangeAnimation(renderer, "Mite_Alert");
-			}
-
-			if (ai_->GetState() == AI::AIState::Detected) {
-				// If velocity is essentially 0, set player to idle
-				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-					graphics->ChangeAnimation(renderer, "Mite_Idle");
-
-				if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
-					graphics->FlipTextureY(renderer);
-					motion->SetIsLeft(false);
-				}
-				else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
-					graphics->FlipTextureY(renderer);
-					motion->SetIsLeft(true);
-				}
-
-				Detect_timer_.TimerUpdate();
-				if (Detect_timer_.TimeElapsed(s) < 1.0f) {
-					return true;
-				}
-				Detect_timer_.TimerStop();
-				Detect_timer_.TimerReset();
-			}
-			return false;
-		}
+		bool run() override;
 	};
 
 	class ChaseSequence :public Sequence
@@ -489,26 +260,13 @@ public:
 
 		EntityID player_id_;
 		Transform* player_rigidbody_;
+		Vector2D SetDes;
 	public:
-		ChasePath(EntityID id) : id_(id) {
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
-			map_ = &*CORE->GetManager<AMap>();
-		}
+		ChasePath(EntityID id);
 
-		void PlayerInit() {
-			player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
-			player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
-		}
+		void PlayerInit();
 
-		bool run() override {
-			if (!player_id_)
-				PlayerInit();
-
-			ai_->GetPath().clear();
-			return map_->Pathing(ai_->GetPath(), obj_rigidbody_->GetOffsetAABBPos(), player_rigidbody_->GetOffsetAABBPos());
-		}
+		bool run() override;
 	};
 
 	class ChaseAnim :public Node
@@ -522,44 +280,9 @@ public:
 		Name* name;
 		AI* ai_;
 	public:
-		ChaseAnim(EntityID id) :id_(id) {
-			graphics = CORE->GetSystem<GraphicsSystem>();
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
-			motion = component_mgr->GetComponent<Motion>(id_);
-			name = component_mgr->GetComponent<Name>(id_);
-			ai_ = component_mgr->GetComponent<AI>(id_);
-		}
+		ChaseAnim(EntityID id);
 
-		bool run() override {
-
-			// If any pointers are invalid, return
-			if (!renderer || !ai_ || !motion || !name)
-				return false;
-
-			if (ai_->GetState() == AI::AIState::Detected) {
-				ai_->SetState(AI::AIState::Chase);
-				MessageBGM_Play msg{ "EnemyAttack" };
-				CORE->BroadcastMessage(&msg);
-				graphics->ChangeAnimation(renderer, "Mite_Walk");
-			}
-
-			if (ai_->GetState() == AI::AIState::Chase) {
-				// If velocity is essentially 0, set player to idle
-				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-					graphics->ChangeAnimation(renderer, "Mite_Idle");
-
-				if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
-					graphics->FlipTextureY(renderer);
-					motion->SetIsLeft(false);
-				}
-				else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
-					graphics->FlipTextureY(renderer);
-					motion->SetIsLeft(true);
-				}
-			}
-			return true;
-		}
+		bool run() override;
 	};
 
 	class AttackSequence :public Sequence
@@ -584,53 +307,9 @@ public:
 		AI* ai_;
 		Time_Channel Detect_timer_;
 	public:
-		AttackAnim(EntityID id) :id_(id) {
-			graphics = CORE->GetSystem<GraphicsSystem>();
-			component_mgr = &*CORE->GetManager<ComponentManager>();
-			renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
-			motion = component_mgr->GetComponent<Motion>(id_);
-			name = component_mgr->GetComponent<Name>(id_);
-			ai_ = component_mgr->GetComponent<AI>(id_);
-			Detect_timer_.TimerReset();
-		}
+		AttackAnim(EntityID id);
 
-		bool run() override {
-
-			// If any pointers are invalid, return
-			if (!renderer || !ai_ || !motion || !name)
-				return false;
-
-			if (ai_->GetState() == AI::AIState::Chase) {
-				ai_->SetState(AI::AIState::Attack);
-				Detect_timer_.TimerReset();
-				Detect_timer_.TimerStart();
-				graphics->ChangeAnimation(renderer, "Mite_Explode");
-			}
-
-			if (ai_->GetState() == AI::AIState::Attack) {
-				// If velocity is essentially 0, set player to idle
-				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-					graphics->ChangeAnimation(renderer, "Mite_Idle");
-
-				if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
-					graphics->FlipTextureY(renderer);
-					motion->SetIsLeft(false);
-				}
-				else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
-					graphics->FlipTextureY(renderer);
-					motion->SetIsLeft(true);
-				}
-
-				Detect_timer_.TimerUpdate();
-				if (Detect_timer_.TimeElapsed(s) > 1.0f) {
-					ai_->SetLife(false);
-					Detect_timer_.TimerReset();
-					Detect_timer_.TimerStop();
-					return true;
-				}
-			}
-			return true;
-		}
+		bool run() override;
 	};
 };
 
