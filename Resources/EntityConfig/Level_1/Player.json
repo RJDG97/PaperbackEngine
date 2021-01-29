@@ -5,7 +5,7 @@
             "position": "-28.900082 20.440069",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -1.000000"
         },
         {
             "component": "AABB",

@@ -1,0 +1,128 @@
+{
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "-16.000000 13.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "-38.000000 32.200001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "-39.000000 9.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "-31.000000 -6.400000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "-5.000000 -9.200000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "2.000000 -18.799999",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "19.000000 7.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "25.000000 -14.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "46.000000 -15.300000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        }
+    ]
+}

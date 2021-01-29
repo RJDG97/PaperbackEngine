@@ -6,5 +6,6 @@
     "Hole": "Resources\\EntityConfig\\Level_1\\Hole.json",
     "MoveBlok": "Resources\\EntityConfig\\Level_1\\MoveBlok.json",
     "Floor": "Resources\\EntityConfig\\Level_1\\Floor.json",
-    "Player": "Resources\\EntityConfig\\Level_1\\Player.json"
+    "Player": "Resources\\EntityConfig\\Level_1\\Player.json",
+    "LightSpot": "Resources\\EntityConfig\\Level_1\\lightspot.json"
 }
