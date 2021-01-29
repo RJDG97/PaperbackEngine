@@ -9,5 +9,11 @@
   
   "Torch Animations": "Resources/AssetsLoading/Animation/torch_animations.json",
   
-  "Gate Animations": "Resources/AssetsLoading/Animation/gate_animations.json"
+  "Gate Animations": "Resources/AssetsLoading/Animation/gate_animations.json",
+  
+  "Grass Animations": "Resources/AssetsLoading/Animation/grass_animations.json",
+  
+  "Rock Animations": "Resources/AssetsLoading/Animation/rock_animations.json",
+  
+  "Log Animations": "Resources/AssetsLoading/Animation/log_animations.json"
 }

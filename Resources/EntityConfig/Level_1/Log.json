@@ -2,19 +2,15 @@
     "Log": [
         {
             "component": "Transform",
-            "position": "7.000000 -28.000000",
+            "position": "7.200000 -23.800000",
             "rotation": "1.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -4.200000"
         },
         {
             "component": "AABB",
             "scale": "5.100000 1.000000",
             "layer": "12"
-        },
-        {
-            "component": "Scale",
-            "scale": "255.399994 190.000000"
         },
         {
             "component": "LogicComponent",
@@ -26,19 +22,15 @@
     "Log": [
         {
             "component": "Transform",
-            "position": "4.000000 4.000000",
+            "position": "3.500000 8.200000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -4.200000"
         },
         {
             "component": "AABB",
             "scale": "5.000000 1.000000",
             "layer": "12"
-        },
-        {
-            "component": "Scale",
-            "scale": "256.000000 190.000000"
         },
         {
             "component": "LogicComponent",
