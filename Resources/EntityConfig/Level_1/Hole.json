@@ -11,6 +11,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -25,6 +29,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -39,6 +47,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -53,6 +65,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -67,6 +83,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -81,6 +101,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -95,6 +119,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -109,6 +137,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -123,6 +155,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -137,6 +173,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -151,6 +191,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -165,6 +209,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -179,6 +227,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -193,6 +245,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -207,6 +263,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -221,6 +281,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -235,6 +299,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -249,6 +317,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ],
     "Hole": [
@@ -263,6 +335,10 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ]
 }

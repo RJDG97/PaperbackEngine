@@ -11,6 +11,10 @@
             "component": "AABB",
             "scale": "0.500000 0.500000",
             "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "128.000000 128.000000"
         }
     ],
     "MoveBlok": [
@@ -25,6 +29,10 @@
             "component": "AABB",
             "scale": "0.500000 0.500000",
             "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "128.000000 128.000000"
         }
     ]
 }

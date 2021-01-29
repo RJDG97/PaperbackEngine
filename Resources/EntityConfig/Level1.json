@@ -1,11 +1,13 @@
 {
-    "Boundary": "Resources\\EntityConfig\\Level_1\\Boundary.json",
-    "Goal": "Resources\\EntityConfig\\Level_1\\Goal.json",
-    "Log": "Resources\\EntityConfig\\Level_1\\Log.json",
-    "Torch": "Resources\\EntityConfig\\Level_1\\Torch.json",
-    "Hole": "Resources\\EntityConfig\\Level_1\\Hole.json",
-    "MoveBlok": "Resources\\EntityConfig\\Level_1\\MoveBlok.json",
-    "Floor": "Resources\\EntityConfig\\Level_1\\Floor.json",
-    "Player": "Resources\\EntityConfig\\Level_1\\Player.json",
-    "LightSpot": "Resources\\EntityConfig\\Level_1\\lightspot.json"
+  "Boundary": "Resources\\EntityConfig\\Level_1\\Boundary.json",
+  "Goal": "Resources\\EntityConfig\\Level_1\\Goal.json",
+  "Log": "Resources\\EntityConfig\\Level_1\\Log.json",
+  "Torch": "Resources\\EntityConfig\\Level_1\\Torch.json",
+  "Hole": "Resources\\EntityConfig\\Level_1\\Hole.json",
+  "MoveBlok": "Resources\\EntityConfig\\Level_1\\MoveBlok.json",
+  "Floor": "Resources\\EntityConfig\\Level_1\\Floor.json",
+  "Player": "Resources\\EntityConfig\\Level_1\\Player.json",
+  "LightSpot": "Resources\\EntityConfig\\Level_1\\lightspot.json",
+  "Mite": "Resources\\EntityConfig\\Level_1\\mite.json",
+  "StagBeetle": "Resources\\EntityConfig\\Level_1\\stagbeetle.json"
 }
