@@ -9,5 +9,13 @@
   "Player": "Resources\\EntityConfig\\Level_1\\Player.json",
   "LightSpot": "Resources\\EntityConfig\\Level_1\\lightspot.json",
   "Mite": "Resources\\EntityConfig\\Level_1\\mite.json",
-  "StagBeetle": "Resources\\EntityConfig\\Level_1\\stagbeetle.json"
+  "StagBeetle": "Resources\\EntityConfig\\Level_1\\stagbeetle.json",
+  "Watergauge": "Resources/EntityConfig/Play/watergauge.json",
+  "LightSpot": "Resources\\EntityConfig\\Level_1\\lightspot.json",
+  "BurrowIcon": "Resources/EntityConfig/Play/burrowui.json",
+  "HideIcon": "Resources/EntityConfig/Play/hideui.json",
+  "ParticleEmitter": "Resources/EntityConfig/Play/particleemitter.json",
+  "MyParticle": "Resources/EntityConfig/Play/myparticles.json",
+  "Objectives": "Resources/EntityConfig/Play/objectives.json",
+  "DialogueBox": "Resources/EntityConfig/Play/dialoguebox.json"
 }
