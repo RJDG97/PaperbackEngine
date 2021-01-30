@@ -1137,8 +1137,8 @@
     },
     {
       "component": "AABB",
-      "scale": "30.000000 30.000000",
-      "layer": "1"
+      "scale": "6.000000 3.500000",
+      "layer": "2"
     },
     {
       "component": "Scale",
