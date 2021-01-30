@@ -1,0 +1,11 @@
+{
+    "Camera": [
+        {
+            "component": "Transform",
+            "position": "-29.920002 16.469997",
+            "rotation": "0.000000",
+            "offset": "4.599998 -10.300003",
+            "aabb offset": "0.000000 0.000000"
+        }
+    ]
+}

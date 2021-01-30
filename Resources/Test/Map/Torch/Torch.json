@@ -1,0 +1,38 @@
+{
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "-28.318439 15.532497",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ],
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "-22.693439 15.493435",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ]
+}
