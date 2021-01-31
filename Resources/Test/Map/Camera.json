@@ -2,6 +2,15 @@
     "Camera": [
         {
             "component": "Transform",
+            "position": "9.719856 -8.600071",
+            "rotation": "0.000000",
+            "offset": "46.799858 -32.800072",
+            "aabb offset": "0.000000 0.000000"
+        }
+    ],
+    "Camera": [
+        {
+            "component": "Transform",
             "position": "7.719887 -7.200081",
             "rotation": "0.000000",
             "offset": "44.799889 -31.400082",

@@ -1,9 +1,9 @@
 {
     "Player": "Resources\\Test\\Player\\Player_Character.json",
     "Camera": "Resources\\Test\\Map\\Camera.json",
-    "BushLight": "Resources\\Test\\Map\\Bush\\LightBush.json",
-    "Floor": "Resources\\Test\\Map\\Floor_Layout.json",
     "Wall": "Resources\\Test\\Map\\Gravel\\Wall_Gravel.json",
+    "Floor": "Resources\\Test\\Map\\Floor_Layout.json",
+    "BushLight": "Resources\\Test\\Map\\Bush\\LightBush.json",
     "BushDark": "Resources\\Test\\Map\\Bush\\DarkBushes.json",
     "InputController": "Resources\\Test\\Player\\Player_Input_Controls.json",
     "Puddle": "Resources\\Test\\Player\\Player_Puddle.json",

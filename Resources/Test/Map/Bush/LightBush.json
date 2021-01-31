@@ -777,7 +777,7 @@
     "BushLight": [
         {
             "component": "Transform",
-            "position": "7.361613 -4.560477",
+            "position": "13.313606 -16.672989",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
