@@ -9,12 +9,138 @@
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "2.000000 0.500000",
             "layer": "4"
         },
         {
             "component": "Scale",
             "scale": "165.800003 151.600006"
+        }
+    ],
+    "Hole": [
+        {
+            "component": "Transform",
+            "position": "-12.600000 -17.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 0.500000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        }
+    ],
+    "Hole": [
+        {
+            "component": "Transform",
+            "position": "-12.227955 6.562466",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 0.500000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        }
+    ],
+    "Hole": [
+        {
+            "component": "Transform",
+            "position": "-8.944524 -2.164653",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 0.500000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        }
+    ],
+    "Hole": [
+        {
+            "component": "Transform",
+            "position": "16.715658 -1.877151",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 0.500000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        }
+    ],
+    "Hole": [
+        {
+            "component": "Transform",
+            "position": "13.121907 -4.481318",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 0.500000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        }
+    ],
+    "Hole": [
+        {
+            "component": "Transform",
+            "position": "32.580559 -22.693699",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 0.500000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        }
+    ],
+    "Hole": [
+        {
+            "component": "Transform",
+            "position": "35.627434 -22.654636",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 0.500000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
         }
     ]
 }
