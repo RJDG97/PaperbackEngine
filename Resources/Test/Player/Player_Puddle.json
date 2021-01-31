@@ -2,7 +2,7 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "-26.799685 19.040314",
+            "position": "-25.194603 19.029106",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -16,7 +16,38 @@
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "1.000000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 47.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-38.580021 1.529107",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.500000",
             "layer": "8"
         },
         {

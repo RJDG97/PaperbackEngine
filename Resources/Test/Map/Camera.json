@@ -2,27 +2,18 @@
     "Camera": [
         {
             "component": "Transform",
-            "position": "-26.830004 16.389997",
+            "position": "-28.600002 6.598593",
             "rotation": "0.000000",
-            "offset": "6.599996 -10.200003",
+            "offset": "6.199996 -19.700039",
             "aabb offset": "0.000000 0.000000"
         }
     ],
     "Camera": [
         {
             "component": "Transform",
-            "position": "-34.830002 25.889999",
+            "position": "-30.898769 13.868719",
             "rotation": "0.000000",
-            "offset": "-1.400000 -0.700000",
-            "aabb offset": "0.000000 0.000000"
-        }
-    ],
-    "Camera": [
-        {
-            "component": "Transform",
-            "position": "-31.720001 23.070002",
-            "rotation": "0.000000",
-            "offset": "2.800000 -3.699999",
+            "offset": "3.099999 -12.200008",
             "aabb offset": "0.000000 0.000000"
         }
     ]

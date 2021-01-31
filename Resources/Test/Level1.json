@@ -10,5 +10,7 @@
     "Torch": "Resources\\Test\\Map\\Torch\\Torch.json",
     "SingleHill": "Resources\\Test\\Map\\Hill\\SingleHill.json",
     "SoundEmitter": "Resources\\Test\\Map\\SoundEmitter.json",
-    "SolidEnvironment": "Resources\\Test\\Map\\Burrow\\Gravel_Floor.json"
+    "SolidEnvironment": "Resources\\Test\\Map\\Burrow\\Gravel_Floor.json",
+    "Boundary": "Resources\\Test\\Map\\Invisible_Collision.json",
+    "Burrowable": "Resources\\Test\\Map\\Burrow\\Invisible_Burrowable_Collision.json"
 }

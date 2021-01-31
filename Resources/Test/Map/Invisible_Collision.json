@@ -1,0 +1,38 @@
+{
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-23.100000 -4.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "9.500000 3.600000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "31.900000 32.000000"
+        }
+    ],
+    "Boundary": [
+        {
+            "component": "Transform",
+            "position": "-25.365438 -10.027149",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "7.200000 1.600000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        }
+    ]
+}
