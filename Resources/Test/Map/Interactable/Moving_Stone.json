@@ -1,0 +1,20 @@
+{
+    "MoveBlok": [
+        {
+            "component": "Transform",
+            "position": "-23.930000 -13.820000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "128.000000 128.000000"
+        }
+    ]
+}
