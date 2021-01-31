@@ -2,9 +2,27 @@
     "Camera": [
         {
             "component": "Transform",
-            "position": "-29.920002 16.469997",
+            "position": "-26.830004 16.389997",
             "rotation": "0.000000",
-            "offset": "4.599998 -10.300003",
+            "offset": "6.599996 -10.200003",
+            "aabb offset": "0.000000 0.000000"
+        }
+    ],
+    "Camera": [
+        {
+            "component": "Transform",
+            "position": "-34.830002 25.889999",
+            "rotation": "0.000000",
+            "offset": "-1.400000 -0.700000",
+            "aabb offset": "0.000000 0.000000"
+        }
+    ],
+    "Camera": [
+        {
+            "component": "Transform",
+            "position": "-31.720001 23.070002",
+            "rotation": "0.000000",
+            "offset": "2.800000 -3.699999",
             "aabb offset": "0.000000 0.000000"
         }
     ]

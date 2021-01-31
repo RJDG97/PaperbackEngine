@@ -402,8 +402,8 @@
         },
         {
             "component": "Collectible",
-            "count": "1",
-            "item name": "Key"
+            "item name": "1",
+            "item description": "Key"
         }
     ],
     "Goal": [
@@ -855,8 +855,8 @@
         },
         {
             "component": "AI",
-            "range": "3.000000",
-            "speed": "100.000000"
+            "range": "100.000000",
+            "speed": "-431602080.000000"
         },
         {
             "component": "Scale",
@@ -874,10 +874,10 @@
         },
         {
             "component": "ConeLight",
-            "color": "0.700000 1.000000 1.000000",
-            "radius": "900.000000",
-            "intensity": "0.900000",
-            "angle": "50.000000",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "0.900000",
+            "intensity": "50.000000",
+            "angle": "0.700000",
             "alive": "1"
         },
         {
@@ -1192,7 +1192,7 @@
             "texture": "Hill_Four_0",
             "layer": "2",
             "ui": "0",
-            "alive": "205"
+            "alive": "1"
         },
         {
             "component": "AABB",
@@ -1217,13 +1217,20 @@
             "aabb offset": "0.000000 0.000000"
         },
         {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "205"
+        },
+        {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "1.000000 1.000000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "32.000000 32.000000"
+            "scale": "100.000000 100.000000"
         }
     ],
     "SoundEmitter": [
@@ -1281,8 +1288,8 @@
         },
         {
             "component": "AI",
-            "range": "300.000000",
-            "speed": "3000.000000"
+            "range": "3000.000000",
+            "speed": "-431602080.000000"
         },
         {
             "component": "Scale",
@@ -1300,10 +1307,10 @@
         },
         {
             "component": "ConeLight",
-            "color": "1.000000 0.800000 0.800000",
-            "radius": "900.000000",
-            "intensity": "1.000000",
-            "angle": "50.000000",
+            "color": "0.800000 0.800000 0.800000",
+            "radius": "1.000000",
+            "intensity": "50.000000",
+            "angle": "1.000000",
             "alive": "1"
         },
         {

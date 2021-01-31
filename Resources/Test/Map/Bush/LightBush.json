@@ -98,5 +98,155 @@
             "component": "Scale",
             "scale": "137.399994 132.000000"
         }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
+            "position": "-30.980000 12.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_One_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
+            "position": "-28.990000 11.840000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_One_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
+            "position": "-28.751249 9.813736",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_One_0",
+            "layer": "3",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
+            "position": "-32.861664 12.750000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_One_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
+            "position": "-27.459999 11.870000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_One_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
+            "position": "-28.190001 10.880000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_One_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
     ]
 }

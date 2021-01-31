@@ -1,15 +1,15 @@
 {
-    "SingleHill": [
+    "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-29.969999 15.094986",
+            "position": "-36.080002 25.120001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "TextureRenderer",
-            "texture": "Hill_Four_0",
+            "texture": "Fake_Gravel_0",
             "layer": "1",
             "ui": "0",
             "alive": "1"
@@ -17,124 +17,24 @@
         {
             "component": "AABB",
             "scale": "1.000000 1.000000",
-            "layer": "0"
+            "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "100.000000 100.000000"
+            "scale": "90.000000 70.000000"
         }
     ],
-    "SingleHill": [
+    "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-19.376249 15.001236",
+            "position": "-36.500000 23.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "TextureRenderer",
-            "texture": "Hill_Four_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SingleHill": [
-        {
-            "component": "Transform",
-            "position": "-31.938749 10.938736",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Hill_Four_0",
-            "layer": "3",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SingleHill": [
-        {
-            "component": "Transform",
-            "position": "-31.907499 8.704361",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Hill_Four_0",
-            "layer": "3",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SingleHill": [
-        {
-            "component": "Transform",
-            "position": "-21.850000 8.751236",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Hill_Four_0",
-            "layer": "3",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SingleHill": [
-        {
-            "component": "Transform",
-            "position": "-26.900000 15.100000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Hill_Four_0",
+            "texture": "Fake_Gravel_0",
             "layer": "1",
             "ui": "0",
             "alive": "1"
@@ -142,11 +42,111 @@
         {
             "component": "AABB",
             "scale": "1.000000 1.000000",
-            "layer": "0"
+            "layer": "10"
         },
         {
             "component": "Scale",
             "scale": "100.000000 100.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-34.138039 22.860001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-19.400000 11.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "205"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.500000 1.500000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 123.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-21.900000 11.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "205"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.600000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 123.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-19.400000 9.200000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "205"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.200000 1.400000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.099998 123.000000"
         }
     ]
 }
