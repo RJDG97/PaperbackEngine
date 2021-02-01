@@ -222,7 +222,6 @@ public:
 		Motion* motion;
 		Name* name;
 		AI* ai_;
-		Time_Channel Detect_timer_;
 	public:
 		DetectAnim(EntityID id);
 
@@ -305,7 +304,6 @@ public:
 		Motion* motion;
 		Name* name;
 		AI* ai_;
-		Time_Channel Detect_timer_;
 	public:
 		AttackAnim(EntityID id);
 

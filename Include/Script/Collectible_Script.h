@@ -87,16 +87,19 @@ namespace Collectible_Script
 		AABB* aabb = component_mgr->GetComponent<AABB>(interactable_id);
 
 		// By right, switch case based on "enum" for animation changes
-		std::string col_name = interactable->GetAnimationName("Collided");
-		graphics_sys->ChangeAnimation(animation_renderer, col_name);
+		//std::string col_name = interactable->GetAnimationName("Collided");
+		//graphics_sys->ChangeAnimation(animation_renderer, col_name);
+
+		animation_renderer->SetAnimationStatus(true);
 
 		if (animation_renderer->FinishedAnimating()) {
 
 			if (aabb) {
 
 				aabb->SetAlive(false);
-				std::string def_name = interactable->GetAnimationName("Default");
-				graphics_sys->ChangeAnimation(animation_renderer, def_name);
+				animation_renderer->SetAnimationStatus(false);
+				//std::string def_name = interactable->GetAnimationName("Default");
+				//graphics_sys->ChangeAnimation(animation_renderer, def_name);
 			}
 		}
 	}

@@ -230,8 +230,6 @@ Stag_Tree::DetectAnim::DetectAnim(EntityID id) :id_(id) {
 	motion = component_mgr->GetComponent<Motion>(id_);
 	name = component_mgr->GetComponent<Name>(id_);
 	ai_ = component_mgr->GetComponent<AI>(id_);
-	Detect_timer_.TimerReset();
-	Detect_timer_.TimerStop();
 }
 
 bool Stag_Tree::DetectAnim::run() {
@@ -242,15 +240,12 @@ bool Stag_Tree::DetectAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Patrol) {
 		ai_->SetState(AI::AIState::Detected);
-		Detect_timer_.TimerStop();
-		Detect_timer_.TimerReset();
-		Detect_timer_.TimerStart();
 		MessageBGM_Play msg{ "EnemyDetect" };
 		CORE->BroadcastMessage(&msg);
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Alert");
 	}
 
-	if (ai_->GetState() == AI::AIState::Detected) {
+	if (ai_->GetState() == AI::AIState::Detected && !renderer->FinishedAnimating()) {
 		// If velocity is essentially 0, set player to idle
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
@@ -263,14 +258,8 @@ bool Stag_Tree::DetectAnim::run() {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
-
-		if (Detect_timer_.TimeElapsed(s) < 1.0f) {
-			Detect_timer_.TimerUpdate();
-			return true;
-		}
+		return true;
 	}
-	Detect_timer_.TimerStop();
-	Detect_timer_.TimerReset();
 	return false;
 }
 
@@ -411,4 +400,44 @@ bool Stag_Tree::AttackAnim::run() {
 		}
 	}
 	return true;
+}
+
+Stag_Tree::IdleAnim::IdleAnim(EntityID id) :id_(id) {
+	graphics = CORE->GetSystem<GraphicsSystem>();
+	component_mgr = &*CORE->GetManager<ComponentManager>();
+	renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
+	motion = component_mgr->GetComponent<Motion>(id_);
+	name = component_mgr->GetComponent<Name>(id_);
+	ai_ = component_mgr->GetComponent<AI>(id_);
+}
+
+bool Stag_Tree::IdleAnim::run() {
+
+	// If any pointers are invalid, return
+	if (!renderer || !ai_ || !motion || !name)
+		return false;
+
+	if (ai_->GetState() == AI::AIState::Attack) {
+		ai_->SetState(AI::AIState::Return);
+		MessageBGM_Play msg{ "EnemyLostSight" };
+		CORE->BroadcastMessage(&msg);
+		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
+	}
+
+	if (ai_->GetState() == AI::AIState::Return && !renderer->FinishedAnimating()) {
+		// If velocity is essentially 0, set player to idle
+		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
+			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
+
+		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+			graphics->FlipTextureY(renderer);
+			motion->SetIsLeft(false);
+		}
+		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+			graphics->FlipTextureY(renderer);
+			motion->SetIsLeft(true);
+		}
+		return true;
+	}
+	return false;
 }

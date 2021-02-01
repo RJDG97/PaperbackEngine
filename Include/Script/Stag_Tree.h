@@ -208,6 +208,7 @@ public:
 			addChild(new DetectAnim(id_));
 			addChild(new ChaseSequence(id_));
 			addChild(new AttackSequence(id_));
+			addChild(new IdleAnim(id_));
 		}
 	};
 
@@ -245,7 +246,7 @@ public:
 		EntityID id_;
 	public:
 		NotAtkRange(EntityID id) :id_(id) {
-			setChild(new PlayerWithinDistance(id_, 2.0f));
+			setChild(new PlayerWithinDistance(id_, 1.0f));
 		}
 	};
 
@@ -327,6 +328,22 @@ public:
 		AI* ai_;
 	public:
 		AttackAnim(EntityID id);
+
+		bool run() override;
+	};
+
+	class IdleAnim :public Node
+	{
+		EntityID id_;
+		std::shared_ptr<GraphicsSystem> graphics;
+		ComponentManager* component_mgr;
+
+		AnimationRenderer* renderer;
+		Motion* motion;
+		Name* name;
+		AI* ai_;
+	public:
+		IdleAnim(EntityID id);
 
 		bool run() override;
 	};

@@ -235,7 +235,6 @@ Mite_Tree::DetectAnim::DetectAnim(EntityID id) :id_(id) {
 	motion = component_mgr->GetComponent<Motion>(id_);
 	name = component_mgr->GetComponent<Name>(id_);
 	ai_ = component_mgr->GetComponent<AI>(id_);
-	Detect_timer_.TimerReset();
 }
 
 bool Mite_Tree::DetectAnim::run() {
@@ -246,14 +245,12 @@ bool Mite_Tree::DetectAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Patrol) {
 		ai_->SetState(AI::AIState::Detected);
-		Detect_timer_.TimerReset();
-		Detect_timer_.TimerStart();
 		MessageBGM_Play msg{ "EnemyDetect" };
 		CORE->BroadcastMessage(&msg);
 		graphics->ChangeAnimation(renderer, "Mite_Alert");
 	}
 
-	if (ai_->GetState() == AI::AIState::Detected) {
+	if (ai_->GetState() == AI::AIState::Detected && !renderer->FinishedAnimating()) {
 		// If velocity is essentially 0, set player to idle
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Mite_Idle");
@@ -266,13 +263,7 @@ bool Mite_Tree::DetectAnim::run() {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
-
-		Detect_timer_.TimerUpdate();
-		if (Detect_timer_.TimeElapsed(s) < 1.0f) {
-			return true;
-		}
-		Detect_timer_.TimerStop();
-		Detect_timer_.TimerReset();
+		return true;
 	}
 	return false;
 }
@@ -347,7 +338,6 @@ Mite_Tree::AttackAnim::AttackAnim(EntityID id) :id_(id) {
 	motion = component_mgr->GetComponent<Motion>(id_);
 	name = component_mgr->GetComponent<Name>(id_);
 	ai_ = component_mgr->GetComponent<AI>(id_);
-	Detect_timer_.TimerReset();
 }
 
 bool Mite_Tree::AttackAnim::run() {
@@ -358,12 +348,11 @@ bool Mite_Tree::AttackAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Attack);
-		Detect_timer_.TimerReset();
-		Detect_timer_.TimerStart();
+		MessageBGM_Play msg{ "EnemyExplode" };
 		graphics->ChangeAnimation(renderer, "Mite_Explode");
 	}
 
-	if (ai_->GetState() == AI::AIState::Attack) {
+	if (ai_->GetState() == AI::AIState::Attack && !renderer->FinishedAnimating()) {
 		// If velocity is essentially 0, set player to idle
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Mite_Idle");
@@ -376,14 +365,10 @@ bool Mite_Tree::AttackAnim::run() {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
-
-		Detect_timer_.TimerUpdate();
-		if (Detect_timer_.TimeElapsed(s) > 1.0f) {
-			ai_->SetLife(false);
-			Detect_timer_.TimerReset();
-			Detect_timer_.TimerStop();
-			return true;
-		}
+	}
+	if (renderer->FinishedAnimating()) {
+		graphics->ChangeAnimation(renderer, "Mite_Idle");
+		ai_->SetLife(false);
 	}
 	return true;
 }

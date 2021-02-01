@@ -123,9 +123,6 @@
     <Filter Include="Scripts\Mite">
       <UniqueIdentifier>{14dd206c-213e-4e65-becd-ecf60de6f434}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Hornet">
-      <UniqueIdentifier>{d4eeee00-a8bd-4393-9642-bb99abfccc74}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Systems\Lighting System">
       <UniqueIdentifier>{49e006f8-c914-4a2b-8cf1-32fe29d17c71}</UniqueIdentifier>
     </Filter>
@@ -346,9 +343,6 @@
     </ClCompile>
     <ClCompile Include="Source\Script\StagScript.cpp">
       <Filter>Scripts\StagBeetle</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Script\HornetScript.cpp">
-      <Filter>Scripts\Hornet</Filter>
     </ClCompile>
     <ClCompile Include="Source\Script\MiteScript.cpp">
       <Filter>Scripts\Mite</Filter>
@@ -651,9 +645,6 @@
     </ClInclude>
     <ClInclude Include="Include\Script\StagScript.h">
       <Filter>Scripts\StagBeetle</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\HornetScript.h">
-      <Filter>Scripts\Hornet</Filter>
     </ClInclude>
     <ClInclude Include="Include\Script\MiteScript.h">
       <Filter>Scripts\Mite</Filter>
