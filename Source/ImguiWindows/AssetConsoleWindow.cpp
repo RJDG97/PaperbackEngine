@@ -93,6 +93,27 @@ void AssetConsoleWindow::AddAssetSelection() {
 	ImGui::End();
 }
 
+void AssetConsoleWindow::SelectAssetJson() {
+
+	std::string filename = {};
+	std::string file = {};
+
+	if (ImGui::BeginCombo("##json", (chosen_json_.empty() ? "Choose Asset File" : chosen_json_.c_str()))) {
+
+		for (auto& assetjson : fs::directory_iterator("Resources/AssetsLoading")) {
+
+			if (fs::is_regular_file(assetjson) && assetjson.path().extension() == ".json") {
+
+				SelectTextureJson(assetjson.path());
+				SelectAnimationJson(assetjson.path());
+				SelectAudioJson(assetjson.path());
+
+			}
+		}
+		ImGui::EndCombo();
+	}
+}
+
 void AssetConsoleWindow::LoadTextureJson(std::string level_name) {
 
 	rapidjson::Document texture_doc;
@@ -209,27 +230,6 @@ void AssetConsoleWindow::LoadSoundJson(std::string level_name) {
 
 			audio_info_[audio_label] = aud;
 		}
-	}
-}
-
-void AssetConsoleWindow::SelectAssetJson() {
-
-	std::string filename = {};
-	std::string file = {};
-
-	if (ImGui::BeginCombo("##json", (chosen_json_.empty() ? "Choose Asset File" : chosen_json_.c_str()))) {
-
-		for (auto& assetjson : fs::directory_iterator("Resources/AssetsLoading")) {
-
-			if (fs::is_regular_file(assetjson) && assetjson.path().extension() == ".json") {
-
-				SelectTextureJson(assetjson.path());
-				SelectAnimationJson(assetjson.path());
-				SelectAudioJson(assetjson.path());
-
-			}
-		}
-		ImGui::EndCombo();
 	}
 }
 

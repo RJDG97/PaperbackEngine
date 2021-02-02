@@ -114,3 +114,13 @@ bool Inventory::HasItem(const std::string& name) {
 
 	return false;
 }
+
+std::unordered_map<std::string, ItemDescription> Inventory::GetInventory()
+{
+	return inventory_;
+}
+
+size_t Inventory::GetInventorySize()
+{
+	return current_capacity_;
+}

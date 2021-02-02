@@ -133,6 +133,24 @@ public:
 /******************************************************************************/
 	bool HasItem(const std::string& name);
 
+/******************************************************************************/
+/*!
+  \fn GetInventory()
+
+  \brief Gets the inventory of the entity
+*/
+/******************************************************************************/
+	std::unordered_map<ItemName, ItemDescription> GetInventory();
+
+/******************************************************************************/
+/*!
+  \fn GetInventorySize()
+
+  \brief Gets the inventory of the entity
+*/
+/******************************************************************************/
+	size_t GetInventorySize();
+
 private:
 
 	size_t current_capacity_;
