@@ -13,7 +13,6 @@
 
 #include "Components/AI.h"
 #include "Manager/ComponentManager.h"
-#include "Script/GeneralScripts.h"
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
 #include "Script/Stag_Tree.h"
@@ -96,8 +95,6 @@ AI::AIType AI::GetType(std::string type)
 		return StagBeetle;
 	else if (type == "Mite")
 		return Mite;
-	else if (type == "Hornet")
-		return Hornet;
 	// replace with exception
 	return StagBeetle;
 }

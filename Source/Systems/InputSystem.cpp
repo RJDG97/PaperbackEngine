@@ -19,7 +19,6 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/ImguiSystem.h"
 #include "Manager/AMap.h"
-#include "Script/GeneralScripts.h"
 
 InputSystem sys_input_;
 

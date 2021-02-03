@@ -29,8 +29,7 @@ public:
 	enum AIType
 	{
 		StagBeetle,
-		Mite,
-		Hornet
+		Mite
 	};
 
 	enum AIState
