@@ -1,13 +1,14 @@
 #include "Script/Mite_Tree.h"
 
 void Mite_Tree::MiteRoot::CollisionResponse(EntityID obj){
-
+	UNREFERENCED_PARAMETER(obj);
 }
 
 Mite_Tree::CheckAlive::CheckAlive(EntityID id) : id_(id) {
 	component_mgr = &*CORE->GetManager<ComponentManager>();
 	ai_ = component_mgr->GetComponent<AI>(id_);
 	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
+	respawn_timer_.TimerStop();
 	respawn_timer_.TimerReset();
 }
 
@@ -18,18 +19,17 @@ bool Mite_Tree::CheckAlive::run()
 	}
 	else
 	{
+		respawn_timer_.TimerUpdate();
 		// If Timer has not started, start
-		if (respawn_timer_.TimeElapsed(s) == 0)
+		if (respawn_timer_.TimeElapsed(s) == 0) {
+			respawn_timer_.TimerStop();
+			respawn_timer_.TimerReset();
 			respawn_timer_.TimerStart();
-		// Update Timer if timer has not reached respawn time
-		if (respawn_timer_.TimeElapsed(s) < 10.0f)
-		{
 			component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(false);
 			component_mgr->GetComponent<PointLight>(id_)->SetAlive(false);
 			component_mgr->GetComponent<ConeLight>(id_)->SetAlive(false);
-			respawn_timer_.TimerUpdate();
 		}
-		else // Stop timer and reset to 0
+		if (respawn_timer_.TimeElapsed(s) > 10.0f)
 		{
 			respawn_timer_.TimerStop();
 			respawn_timer_.TimerReset();
@@ -40,8 +40,10 @@ bool Mite_Tree::CheckAlive::run()
 				ai_->GetDestinations().begin()->x,
 				ai_->GetDestinations().begin()->y });
 			ai_->SetState(AI::AIState::Patrol);
+			ai_->GetPath().clear();
 			ai_->SetLife(true);
 		}
+		// Update Timer if timer has not reached respawn time
 		return false;
 	}
 }
@@ -112,7 +114,7 @@ Mite_Tree::CheckPath::CheckPath(EntityID id) : id_(id) {
 
 bool Mite_Tree::CheckPath::run() {
 	Vector2D CurrentDes = *ai_->GetCurrentDes();
-	if (CurrentDes.x != SetDes.x && CurrentDes.y != SetDes.y || ai_->GetPath().empty()) {
+	if (CurrentDes.x != SetDes.x && CurrentDes.y != SetDes.y) {
 		SetDes = *ai_->GetCurrentDes();
 		ai_->GetPath().clear();
 		return map_->Pathing(ai_->GetPath(), obj_rigidbody_->GetOffsetAABBPos(), *ai_->GetCurrentDes());
@@ -135,7 +137,7 @@ bool Mite_Tree::Move::run() {
 	if (distance < 1.0f)
 		// Remove node destination
 		ai_->GetPath().pop_back();
-	if (!ai_->GetPath().empty())
+	if (!ai_->GetPath().empty() && ai_->GetState() != AI::AIState::Attack)
 	{
 		//get directional unit vector
 		Vector2D directional = ai_->GetPath().back() - obj_rigidbody_->GetOffsetAABBPos();
@@ -284,7 +286,7 @@ bool Mite_Tree::ChasePath::run() {
 	if (!player_id_)
 		PlayerInit();
 	Vector2D CurrentDes = *ai_->GetCurrentDes();
-	if (CurrentDes.x != SetDes.x || CurrentDes.y != SetDes.y) {
+	if (CurrentDes.x != SetDes.x || CurrentDes.y != SetDes.y || ai_->GetPath().empty()) {
 		SetDes = *ai_->GetCurrentDes();
 		ai_->GetPath().clear();
 		return map_->Pathing(ai_->GetPath(), obj_rigidbody_->GetOffsetAABBPos(), player_rigidbody_->GetOffsetAABBPos());
@@ -318,6 +320,9 @@ bool Mite_Tree::ChaseAnim::run() {
 		// If velocity is essentially 0, set player to idle
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Mite_Idle");
+		else {
+			graphics->ChangeAnimation(renderer, "Mite_Walk");
+		}
 
 		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
 			graphics->FlipTextureY(renderer);
@@ -349,6 +354,7 @@ bool Mite_Tree::AttackAnim::run() {
 	if (ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Attack);
 		MessageBGM_Play msg{ "EnemyExplode" };
+		CORE->BroadcastMessage(&msg);
 		graphics->ChangeAnimation(renderer, "Mite_Explode");
 	}
 
@@ -367,7 +373,6 @@ bool Mite_Tree::AttackAnim::run() {
 		}
 	}
 	if (renderer->FinishedAnimating()) {
-		graphics->ChangeAnimation(renderer, "Mite_Idle");
 		ai_->SetLife(false);
 	}
 	return true;

@@ -34,6 +34,7 @@ public:
 	{
 		EntityID id_;
 		AI* ai_;
+		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
 		Time_Channel respawn_timer_;
 	public:

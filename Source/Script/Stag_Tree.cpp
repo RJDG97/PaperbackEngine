@@ -2,33 +2,46 @@
 
 void Stag_Tree::StagRoot::CollisionResponse(EntityID obj)
 {
-
+	UNREFERENCED_PARAMETER(obj);
 }
 
 Stag_Tree::CheckAlive::CheckAlive(EntityID id) : id_(id) {
 	component_mgr = &*CORE->GetManager<ComponentManager>();
 	ai_ = component_mgr->GetComponent<AI>(id_);
+	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
+	respawn_timer_.TimerStop();
 	respawn_timer_.TimerReset();
 }
 
 bool Stag_Tree::CheckAlive::run()
 {
-	if (ai_->GetLife())
+	if (ai_->GetLife()) {
 		return true;
+	}
 	else
 	{
 		// If Timer has not started, start
 		if (respawn_timer_.TimeElapsed(s) == 0)
 			respawn_timer_.TimerStart();
 		// Update Timer if timer has not reached respawn time
-		if (respawn_timer_.TimeElapsed(s) < 5.0f)
+		if (respawn_timer_.TimeElapsed(s) < 10.0f)
 		{
+			component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(false);
+			component_mgr->GetComponent<PointLight>(id_)->SetAlive(false);
+			component_mgr->GetComponent<ConeLight>(id_)->SetAlive(false);
 			respawn_timer_.TimerUpdate();
 		}
 		else // Stop timer and reset to 0
 		{
 			respawn_timer_.TimerStop();
 			respawn_timer_.TimerReset();
+			component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(true);
+			component_mgr->GetComponent<PointLight>(id_)->SetAlive(true);
+			component_mgr->GetComponent<ConeLight>(id_)->SetAlive(true);
+			obj_rigidbody_->SetPosition({
+				ai_->GetDestinations().begin()->x,
+				ai_->GetDestinations().begin()->y });
+			ai_->SetState(AI::AIState::Patrol);
 			ai_->SetLife(true);
 		}
 		return false;
@@ -343,24 +356,27 @@ bool Stag_Tree::Charge::run(){
 	if (!player_id_)
 		PlayerInit();
 
-	// Calculate distance between ai and destination
-	float distance = Vector2DLength(player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos());
+	if (ai_->GetState() == AI::AIState::Attack || ai_->GetState() == AI::AIState::Chase) {
+		// Calculate distance between ai and destination
+		float distance = Vector2DLength(player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos());
 
-	// If object is at dest node
-	if (distance < 1.0f)
-	{
-		return false;
+		// If object is at dest node
+		if (distance < 1.0f)
+		{
+			return false;
+		}
+		//get directional unit vector
+		Vector2D directional = player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos();
+		directional /= Vector2DLength(directional);
+
+		//multiply by speed
+		directional *= Speed_;
+
+		// Move AI
+		forces_->AddForce(id_, "movement", PE_FrameRate.GetFixedDelta(), directional);
+		return true;
 	}
-	//get directional unit vector
-	Vector2D directional = player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos();
-	directional /= Vector2DLength(directional);
-
-	//multiply by speed
-	directional *= Speed_;
-
-	// Move AI
-	forces_->AddForce(id_, "movement", PE_FrameRate.GetFixedDelta(), directional);
-	return true;
+	return false;
 }
 
 Stag_Tree::AttackAnim::AttackAnim(EntityID id) :id_(id) {
@@ -425,6 +441,7 @@ bool Stag_Tree::IdleAnim::run() {
 	}
 
 	if (ai_->GetState() == AI::AIState::Return && !renderer->FinishedAnimating()) {
+		motion->SetForce(0);
 		// If velocity is essentially 0, set player to idle
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");

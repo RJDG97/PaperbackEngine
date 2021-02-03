@@ -136,3 +136,7 @@ bool AnimationRenderer::FinishedAnimating() const {
 
     return has_finished_animating_;
 }
+
+void AnimationRenderer::SetAnimationStatus(bool status) {
+    play_animation_ = status;
+}

@@ -208,7 +208,7 @@ public:
 		AttackSelector(EntityID id) : id_(id) {
 			addChild(new DetectAnim(id_));
 			addChild(new ChaseSequence(id_));
-			addChild(new AttackSequence(id_));
+			addChild(new AttackAnim(id_));
 		}
 	};
 
@@ -245,7 +245,7 @@ public:
 		EntityID id_;
 	public:
 		NotAtkRange(EntityID id) :id_(id) {
-			setChild(new PlayerWithinDistance(id_, 1.0f));
+			setChild(new PlayerWithinDistance(id_, 0.5f));
 		}
 	};
 
@@ -282,16 +282,6 @@ public:
 		ChaseAnim(EntityID id);
 
 		bool run() override;
-	};
-
-	class AttackSequence :public Sequence
-	{
-		EntityID id_;
-	public:
-		AttackSequence(EntityID id) :id_(id) {
-			addChild(new AttackAnim(id_));
-			//addChild(new Explosion(id_));
-		}
 	};
 
 	class AttackAnim :public Node
