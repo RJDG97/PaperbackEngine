@@ -1483,6 +1483,17 @@
             "radius": "300.000000",
             "intensity": "0.700000",
             "alive": "1"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "Collectible",
+            "item name": "Spore",
+            "item description": "Wow"
         }
     ],
     "StagBeetle": [
