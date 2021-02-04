@@ -21,6 +21,122 @@
             "scale": "32.000000 32.000000"
         }
     ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Name",
+            "name": "Bug_Hill_1x1"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.700000 1.900000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 180.000000"
+        }
+    ],
+    "Bug_Hill_1x2": [
+        {
+            "component": "Name",
+            "name": "Bug_Hill_1x2"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x2_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 1.900000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 180.000000"
+        }
+    ],
+    "Bug_Hill_2x1": [
+        {
+            "component": "Name",
+            "name": "Bug_Hill_2x1"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_2x1_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.500000 2.300000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 170.000000"
+        }
+    ],
+    "Bug_Hill_2x2": [
+        {
+            "component": "Name",
+            "name": "Bug_Hill_2x2"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_2x2_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.600000 2.600000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 180.000000"
+        }
+    ],
     "BurrowIcon": [
         {
             "component": "Name",
@@ -283,6 +399,93 @@
             "alive": "0"
         }
     ],
+    "DriedBush_01": [
+        {
+            "component": "Name",
+            "name": "DriedBush_01"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "DriedBush_01_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "DriedBush_02": [
+        {
+            "component": "Name",
+            "name": "DriedBush_02"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "DriedBush_02_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_03": [
+        {
+            "component": "Name",
+            "name": "DriedBush_03"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "DriedBush_03_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
     "FakeWall": [
         {
             "component": "Name",
@@ -543,7 +746,7 @@
         {
             "component": "AABB",
             "scale": "6.000000 3.500000",
-            "layer": "2"
+            "layer": "1"
         },
         {
             "component": "Scale",
@@ -572,7 +775,7 @@
         {
             "component": "AABB",
             "scale": "6.000000 3.500000",
-            "layer": "2"
+            "layer": "1"
         },
         {
             "component": "Scale",
@@ -855,12 +1058,12 @@
         },
         {
             "component": "AI",
-            "range": "-431602080.000000",
-            "speed": "-431602080.000000"
+            "range": "0.000000",
+            "speed": "0.000000"
         },
         {
             "component": "Scale",
-            "scale": "256.000000 256.000000"
+            "scale": "150.000000 150.000000"
         },
         {
             "component": "Status"
@@ -875,8 +1078,8 @@
         {
             "component": "ConeLight",
             "color": "1.000000 1.000000 1.000000",
-            "radius": "50.000000",
-            "intensity": "0.700000",
+            "radius": "1.000000",
+            "intensity": "1.000000",
             "angle": "1.000000",
             "alive": "1"
         },
@@ -1242,6 +1445,43 @@
             "component": "SoundEmitter"
         }
     ],
+    "Spores": [
+        {
+            "component": "Name",
+            "name": "Spores"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "play_animation": "1",
+            "has_finished_animating": "0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "0"
+        },
+        {
+            "component": "Collectible",
+            "item name": "",
+            "item description": ""
+        },
+        {
+            "component": "Interactable",
+            "size": "0"
+        }
+    ],
     "StagBeetle": [
         {
             "component": "Name",
@@ -1288,12 +1528,12 @@
         },
         {
             "component": "AI",
-            "range": "-431602080.000000",
-            "speed": "-431602080.000000"
+            "range": "0.000000",
+            "speed": "0.000000"
         },
         {
             "component": "Scale",
-            "scale": "256.000000 256.000000"
+            "scale": "150.000000 150.000000"
         },
         {
             "component": "Status"
@@ -1308,8 +1548,8 @@
         {
             "component": "ConeLight",
             "color": "0.800000 0.800000 0.800000",
-            "radius": "50.000000",
-            "intensity": "1.000000",
+            "radius": "0.800000",
+            "intensity": "0.800000",
             "angle": "0.800000",
             "alive": "1"
         },
@@ -1318,6 +1558,12 @@
             "number_of_fns": "1",
             "name": "UpdateTexture",
             "function": "Stag_UpdateTexture"
+        }
+    ],
+    "Stone_Hole": [
+        {
+            "component": "Name",
+            "name": "Stone_Hole"
         }
     ],
     "Torch": [

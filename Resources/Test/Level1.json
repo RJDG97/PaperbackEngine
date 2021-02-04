@@ -12,7 +12,14 @@
     "SoundEmitter": "Resources\\Test\\Map\\SoundEmitter.json",
     "SolidEnvironment": "Resources\\Test\\Map\\Burrow\\Gravel_Floor.json",
     "Boundary": "Resources\\Test\\Map\\Invisible_Collision.json",
+    "Bug_Hill_1x1": "Resources\\Test\\Map\\Hill\\BugHill_1x1.json",
     "Burrowable": "Resources\\Test\\Map\\Burrow\\Invisible_Burrowable_Collision.json",
+    "DriedBush_03": "Resources\\Test\\Map\\Burrow\\DriedBush_03.json",
     "Hole": "Resources\\Test\\Map\\Grass\\Hole_Hide_Grass.json",
-    "MoveBlok": "Resources\\Test\\Map\\Interactable\\Moving_Stone.json"
+    "MoveBlok": "Resources\\Test\\Map\\Interactable\\Moving_Stone.json",
+    "Bug_Hill_1x2": "Resources\\Test\\Map\\Hill\\BugHill_1x2.json",
+    "Bug_Hill_2x1": "Resources\\Test\\Map\\Hill\\BugHill_2x1.json",
+    "Bug_Hill_2x2": "Resources\\Test\\Map\\Hill\\BugHill_2x2.json",
+    "DriedBush_01": "Resources\\Test\\Map\\Burrow\\DriedBush_01.json",
+    "DriedBush_02": "Resources\\Test\\Map\\Burrow\\DriedBush_02.json"
 }

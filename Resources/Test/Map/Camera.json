@@ -2,79 +2,124 @@
     "Camera": [
         {
             "component": "Transform",
-            "position": "9.719856 -8.600071",
+            "position": "-11.799978 -4.200052",
             "rotation": "0.000000",
-            "offset": "46.799858 -32.800072",
+            "offset": "15.200022 -23.200052",
             "aabb offset": "0.000000 0.000000"
         }
     ],
     "Camera": [
         {
             "component": "Transform",
-            "position": "7.719887 -7.200081",
+            "position": "-15.599993 1.999971",
             "rotation": "0.000000",
-            "offset": "44.799889 -31.400082",
+            "offset": "11.400007 -17.000029",
             "aabb offset": "0.000000 0.000000"
         }
     ],
     "Camera": [
         {
             "component": "Transform",
-            "position": "11.819824 -3.700068",
+            "position": "-4.877117 8.024651",
             "rotation": "0.000000",
-            "offset": "48.899826 -27.900068",
+            "offset": "26.400064 -17.100029",
             "aabb offset": "0.000000 0.000000"
         }
     ],
     "Camera": [
         {
             "component": "Transform",
-            "position": "-17.879965 9.299980",
+            "position": "-6.186499 3.627766",
             "rotation": "0.000000",
-            "offset": "19.200037 -14.900021",
+            "offset": "24.700058 -19.800037",
             "aabb offset": "0.000000 0.000000"
         }
     ],
     "Camera": [
         {
             "component": "Transform",
-            "position": "-7.299992 -28.699995",
+            "position": "-14.486530 5.427771",
             "rotation": "0.000000",
-            "offset": "11.700008 -8.699995",
+            "offset": "16.400026 -18.000032",
             "aabb offset": "0.000000 0.000000"
         }
     ],
     "Camera": [
         {
             "component": "Transform",
-            "position": "-14.679955 -12.300016",
+            "position": "-20.086552 -2.772261",
             "rotation": "0.000000",
-            "offset": "22.400047 -36.500015",
+            "offset": "10.800005 -26.200064",
             "aabb offset": "0.000000 0.000000"
         }
     ],
     "Camera": [
         {
             "component": "Transform",
-            "position": "-17.379963 -7.300085",
+            "position": "-14.887199 9.527786",
             "rotation": "0.000000",
-            "offset": "19.700039 -31.500084",
+            "offset": "4.899998 -13.900017",
             "aabb offset": "0.000000 0.000000"
         }
     ],
     "Camera": [
         {
             "component": "Transform",
-            "position": "-24.879992 2.299952",
+            "position": "-17.413130 9.719303",
             "rotation": "0.000000",
-            "offset": "12.200010 -21.900047",
+            "offset": "5.599997 -10.600004",
             "aabb offset": "0.000000 0.000000"
         }
     ],
     "Camera": [
         {
             "component": "Transform",
-            "position": "-37.080002 24.199999",
+            "position": "-9.913113 5.619287",
+            "rotation": "0.000000",
+            "offset": "13.100014 -14.700020",
+            "aabb offset": "0.000000 0.000000"
+        }
+    ],
+    "Camera": [
+        {
+            "component": "Transform",
+            "position": "-19.013128 15.719309",
+            "rotation": "0.000000",
+            "offset": "3.999999 -4.599998",
+            "aabb offset": "0.000000 0.000000"
+        }
+    ],
+    "Camera": [
+        {
+            "component": "Transform",
+            "position": "-11.315420 -0.180579",
+            "rotation": "0.000000",
+            "offset": "15.500021 -15.300022",
+            "aabb offset": "0.000000 0.000000"
+        }
+    ],
+    "Camera": [
+        {
+            "component": "Transform",
+            "position": "31.584240 -12.680627",
+            "rotation": "0.000000",
+            "offset": "58.399681 -27.800070",
+            "aabb offset": "0.000000 0.000000"
+        }
+    ],
+    "Camera": [
+        {
+            "component": "Transform",
+            "position": "-18.415445 9.519445",
+            "rotation": "0.000000",
+            "offset": "8.399996 -5.599997",
+            "aabb offset": "0.000000 0.000000"
+        }
+    ],
+    "Camera": [
+        {
+            "component": "Transform",
+            "position": "-26.815441 15.119443",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -83,9 +128,9 @@
     "Camera": [
         {
             "component": "Transform",
-            "position": "-28.680006 4.099958",
+            "position": "-12.015421 6.219445",
             "rotation": "0.000000",
-            "offset": "8.399996 -20.100040",
+            "offset": "14.800020 -8.899998",
             "aabb offset": "0.000000 0.000000"
         }
     ]

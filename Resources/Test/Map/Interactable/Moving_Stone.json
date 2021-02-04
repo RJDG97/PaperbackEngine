@@ -2,7 +2,7 @@
     "MoveBlok": [
         {
             "component": "Transform",
-            "position": "-22.095594 -13.862514",
+            "position": "-19.085917 -10.489718",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -20,7 +20,7 @@
     "MoveBlok": [
         {
             "component": "Transform",
-            "position": "-2.000000 -29.000000",
+            "position": "-2.000000 -29.517628",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"

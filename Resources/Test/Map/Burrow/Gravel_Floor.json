@@ -2,7 +2,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-36.694530 25.439257",
+            "position": "-17.343340 4.895322",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -16,18 +16,18 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "90.000000 70.000000"
+            "scale": "-60.000000 60.000000"
         }
     ],
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-36.500000 23.000000",
+            "position": "-16.727932 7.794446",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -41,32 +41,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "-34.217518 23.024979",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -77,7 +52,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-22.057072 10.589506",
+            "position": "-17.196682 6.794446",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -91,18 +66,18 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.400000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "100.000000 100.000000"
+            "scale": "-60.000000 60.000000"
         }
     ],
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-19.973738 10.329090",
+            "position": "-24.361561 14.492985",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -116,18 +91,18 @@
         },
         {
             "component": "AABB",
-            "scale": "1.400000 1.600000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "100.000000 100.000000"
+            "scale": "60.000000 60.000000"
         }
     ],
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-19.661238 8.089506",
+            "position": "-15.735657 6.947441",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -141,43 +116,18 @@
         },
         {
             "component": "AABB",
-            "scale": "1.400000 1.200000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "100.000000 100.000000"
+            "scale": "60.000000 60.000000"
         }
     ],
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-21.517504 7.706639",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.100000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.700000 1.200000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "-38.163353 -1.804227",
+            "position": "-14.195478 6.925119",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -191,18 +141,18 @@
         },
         {
             "component": "AABB",
-            "scale": "1.800000 1.600000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "120.400002 106.800003"
+            "scale": "60.000000 60.000000"
         }
     ],
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-34.895615 -1.806328",
+            "position": "-13.927622 5.853691",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -216,18 +166,18 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "106.699997 107.699997"
+            "scale": "-60.000000 60.000000"
         }
     ],
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-34.895615 -4.306328",
+            "position": "-15.155839 5.989072",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -241,18 +191,18 @@
         },
         {
             "component": "AABB",
-            "scale": "2.000000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "116.199997 118.099998"
+            "scale": "60.000000 60.000000"
         }
     ],
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-35.169052 -8.134453",
+            "position": "-16.509182 5.856946",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -266,18 +216,18 @@
         },
         {
             "component": "AABB",
-            "scale": "1.600000 1.700000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "124.800003 125.099998"
+            "scale": "60.000000 60.000000"
         }
     ],
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-18.500000 -11.000000",
+            "position": "-15.754798 4.791155",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -291,18 +241,18 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "70.000000 70.000000"
+            "scale": "60.000000 60.000000"
         }
     ],
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-18.500000 -14.000000",
+            "position": "-14.504798 4.765113",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -316,7 +266,482 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-27.431255 18.485931",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-27.529694 17.428123",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-27.582817 16.451559",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-27.509380 15.478119",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-27.562500 14.559372",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-26.315632 18.870312",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-26.106251 17.831253",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-26.314585 16.789587",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-26.273438 15.770309",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-25.980949 14.723099",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-25.179689 16.492189",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-24.900845 15.398341",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-23.571463 16.544312",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-3.044348 13.513052",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-4.426261 13.476231",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-3.575598 12.294302",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-2.200585 11.966848",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-23.494593 15.398341",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "60.000000 60.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-31.853210 -1.301417",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -327,7 +752,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-18.500000 -17.000000",
+            "position": "-31.749043 -2.655584",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -341,7 +766,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -352,7 +777,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-18.500000 -20.000000",
+            "position": "-30.342793 -0.936834",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -366,7 +791,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -377,7 +802,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-18.500000 -23.000000",
+            "position": "-30.186543 -2.238917",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -391,7 +816,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -402,7 +827,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-15.600000 -23.000000",
+            "position": "-28.519876 -1.197250",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -416,7 +841,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -427,7 +852,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-12.600000 -23.000000",
+            "position": "-27.009460 -6.301417",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -441,7 +866,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -452,7 +877,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-10.000000 -23.000000",
+            "position": "-25.313601 -6.136816",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -466,7 +891,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -477,7 +902,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-4.000000 -23.000000",
+            "position": "-25.186543 -4.843084",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -491,7 +916,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -502,7 +927,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-4.000000 -20.000000",
+            "position": "-26.853210 -4.947251",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -516,7 +941,32 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-80.000000 80.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-28.363626 -2.447250",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -527,7 +977,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-4.000000 -17.000000",
+            "position": "-27.165710 -3.436834",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -541,7 +991,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -552,7 +1002,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-4.000000 -14.000000",
+            "position": "-25.394876 -3.436834",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -566,7 +1016,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -577,7 +1027,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "1.000000 -26.000000",
+            "position": "-26.905293 -1.926417",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -591,7 +1041,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -602,7 +1052,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "1.000000 -29.000000",
+            "position": "-25.238626 -1.926417",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -616,7 +1066,32 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-80.000000 80.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-28.657373 0.200667",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -627,7 +1102,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "1.000000 -32.000000",
+            "position": "-28.692810 1.737126",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -641,7 +1116,32 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "-80.000000 80.000000"
+        }
+    ],
+    "SolidEnvironment": [
+        {
+            "component": "Transform",
+            "position": "-26.843853 -0.424333",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
@@ -652,7 +1152,7 @@
     "SolidEnvironment": [
         {
             "component": "Transform",
-            "position": "-1.000000 -32.000000",
+            "position": "-25.111542 -0.466005",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -666,362 +1166,12 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.500000",
+            "scale": "0.800000 0.800000",
             "layer": "10"
         },
         {
             "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "-4.000000 -32.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "-7.000000 -32.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "-3.836189 18.031219",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "-8.059107 -5.341737",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "-3.788274 15.018710",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "22.548992 0.674933",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "19.476074 0.727016",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "19.528158 -2.345901",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "22.496908 -2.293818",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "16.298992 0.727016",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "29.119560 -20.271824",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "32.072746 -20.271824",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "37.525894 -25.934376",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "SolidEnvironment": [
-        {
-            "component": "Transform",
-            "position": "37.447769 -28.668751",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.500000 1.500000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
+            "scale": "80.000000 80.000000"
         }
     ]
 }
