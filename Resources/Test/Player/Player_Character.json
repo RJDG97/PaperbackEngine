@@ -2,7 +2,7 @@
     "Player": [
         {
             "component": "Transform",
-            "position": "-25.532175 18.657713",
+            "position": "-27.091707 19.260361",
             "rotation": "0.000000",
             "offset": "0.000000 -1.000000",
             "aabb offset": "0.000000 -0.600000"
@@ -14,7 +14,7 @@
         },
         {
             "component": "Scale",
-            "scale": "64.000000 128.000000"
+            "scale": "40.000000 80.000000"
         },
         {
             "component": "InputController",
