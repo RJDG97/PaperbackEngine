@@ -301,7 +301,7 @@ public:
 		ChaseSequence(EntityID id) : id_(id) {
 			addChild(new NotAtkRange(id_));
 			addChild(new ChasePath(id_));
-			addChild(new Move(id_, 500.0f));
+			addChild(new Move(id_, 400.0f));
 			addChild(new ChaseAnim(id_));
 		}
 	};
