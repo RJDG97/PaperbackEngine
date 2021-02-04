@@ -71,7 +71,7 @@
             "loop": "1"
         }
     ],
-   /* "Fire": [
+    "Fire": [
         {
             "path": "Resources/SoundCache/Environment/FireCracking.mp3",
             "volume": "0.100000",
@@ -79,7 +79,7 @@
             "volume falloff": "0.050000",
             "loop": "1"
         }
-    ],*/
+    ],
     "River": [
         {
             "path": "Resources/SoundCache/Environment/River.mp3",
