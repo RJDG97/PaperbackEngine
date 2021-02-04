@@ -23,5 +23,11 @@
     "Bug_Hill_2x2": "Resources\\Test\\Map\\Hill\\BugHill_2x2.json",
     "DriedBush_01": "Resources\\Test\\Map\\Burrow\\DriedBush_01.json",
     "DriedBush_02": "Resources\\Test\\Map\\Burrow\\DriedBush_02.json",
-    "Spores": "Resources\\Test\\Map\\Spores.json"
+    "Spores": "Resources\\Test\\Map\\Spores.json",
+    "BurrowIcon": "Resources\\Test\\UI\\burrowui.json",
+    "DialogueBox": "Resources\\Test\\UI\\dialoguebox.json",
+    "HideIcon": "Resources\\Test\\UI\\hideui.json",
+    "Objectives": "Resources\\Test\\UI\\objectives.json",
+    "ParticleEmitter": "Resources\\Test\\UI\\particleemitter.json",
+    "Watergauge": "Resources\\Test\\UI\\watergauge.json"
 }
