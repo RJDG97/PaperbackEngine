@@ -314,7 +314,7 @@ public:
     \brief Gets all layers that the renderer is able to be slotted into
 */
 /******************************************************************************/
-    std::vector<RenderLayer*> GetAvailableLayers(IRenderer* i_renderer);
+    std::map<int, RenderLayer*> GetAvailableLayers(IRenderer* i_renderer);
 
 /******************************************************************************/
 /*!
@@ -323,7 +323,7 @@ public:
     \brief Gets all layers that the renderer is able to be slotted into
 */
 /******************************************************************************/
-    std::vector<RenderLayer*> GetLayersOfType(LayerType layer_type1, LayerType layer_type2);
+    std::map<int, RenderLayer*> GetLayersOfType(LayerType layer_type1, LayerType layer_type2);
 
 /******************************************************************************/
 /*!

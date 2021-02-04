@@ -9,6 +9,11 @@ RenderLayer::RenderLayer(std::string name, bool y_sorted, LayerType layer_type)
 {
 }
 
+std::string RenderLayer::GetName()
+{
+    return name_;
+}
+
 LayerType RenderLayer::GetLayerType()
 {
 	return layer_type_;

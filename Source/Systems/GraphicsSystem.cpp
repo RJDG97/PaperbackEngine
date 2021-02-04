@@ -794,7 +794,7 @@ void GraphicsSystem::ChangeLayer(IRenderer* i_renderer, int layer) {
     i_renderer->SetLayer(layer);
 }
 
-std::vector<RenderLayer*> GraphicsSystem::GetAvailableLayers(IRenderer* i_renderer) {
+std::map<int, RenderLayer*> GraphicsSystem::GetAvailableLayers(IRenderer* i_renderer) {
 
     TextRenderer* text_renderer = dynamic_cast<TextRenderer*>(i_renderer);
 
@@ -806,20 +806,20 @@ std::vector<RenderLayer*> GraphicsSystem::GetAvailableLayers(IRenderer* i_render
     return GetLayersOfType(UI_TEXT, WORLD_TEXT);
 }
 
-std::vector<RenderLayer*> GraphicsSystem::GetLayersOfType(LayerType layer_type1, LayerType layer_type2) {
+std::map<int, RenderLayer*> GraphicsSystem::GetLayersOfType(LayerType layer_type1, LayerType layer_type2) {
 
-    std::vector<RenderLayer*> render_layers;
+    std::map<int, RenderLayer*> render_layers;
 
     for (auto it = render_layers_->begin(); it != render_layers_->end(); ++it) {
 
         if (it->second.GetLayerType() == layer_type1) {
 
-            render_layers.push_back(&it->second);
+            render_layers[it->first] = &it->second;
         }
 
         else if (it->second.GetLayerType() == layer_type2) {
 
-            render_layers.push_back(&it->second);
+            render_layers[it->first] = &it->second;
         }
     }
 

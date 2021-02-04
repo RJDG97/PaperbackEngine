@@ -25,6 +25,7 @@ public:
     RenderLayer() = default;
     RenderLayer(std::string name, bool y_sorted, LayerType layer_type_);
 
+    std::string GetName();
     LayerType GetLayerType();
     bool GetVisible();
     void SetVisible(bool visible);
