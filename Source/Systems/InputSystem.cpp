@@ -187,7 +187,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		case GLFW_KEY_T:
 		{
 			//GeneralScripts::map_->Pathing({-5, 0}, {0, 0});
-			GeneralScripts::map_->DrawMap();
+			//GeneralScripts::map_->DrawMap();
 		}
 		}
 	}

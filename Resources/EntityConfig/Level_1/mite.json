@@ -1,0 +1,95 @@
+{
+  "Mite": [
+    {
+      "component": "Transform",
+      "position": "-43.0 -6.0",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 -2.000000"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.500000 0.500000",
+      "layer": "2"
+    },
+    {
+      "component": "AI",
+      "AIType": "Mite",
+      "range": "6.000000",
+      "speed": "200.000000",
+      "dest": "4",
+      "destination1": "-43.000000 -6.000000",
+      "destination2": "-43.000000 -2.000000",
+      "destination3": "-35.000000 -2.000000",
+      "destination4": "-35.000000 -6.000000"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "Mite_UpdateTexture"
+    }
+  ],
+  "Mite": [
+    {
+      "component": "Transform",
+      "position": "-29.0 7.0",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 -2.000000"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.500000 0.500000",
+      "layer": "2"
+    },
+    {
+      "component": "AI",
+      "AIType": "Mite",
+      "range": "6.000000",
+      "speed": "200.000000",
+      "dest": "4",
+      "destination1": "-29.000000 7.000000",
+      "destination2": "-16.000000 7.000000",
+      "destination3": "-16.000000 3.000000",
+      "destination4": "-29.000000 3.000000"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "Mite_UpdateTexture"
+    }
+  ],
+  "Mite": [
+    {
+      "component": "Transform",
+      "position": "8.0 -2.0",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 -2.000000"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.500000 0.500000",
+      "layer": "2"
+    },
+    {
+      "component": "AI",
+      "AIType": "Mite",
+      "range": "6.000000",
+      "speed": "200.000000",
+      "dest": "4",
+      "destination1": "8.000000 -2.000000",
+      "destination2": "21.000000 -2.000000",
+      "destination3": "21.000000 -8.000000",
+      "destination4": "8.000000 -8.000000"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "Mite_UpdateTexture"
+    }
+  ]
+}

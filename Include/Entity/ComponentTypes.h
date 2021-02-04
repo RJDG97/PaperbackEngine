@@ -44,6 +44,7 @@ enum class ComponentTypes {
 	SOUNDEMITTER,
 	COLLECTIBLE,
 	UNLOCKABLE,
+	INTERACTABLE,
 	MAX
 };
 

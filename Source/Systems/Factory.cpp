@@ -154,6 +154,7 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("SoundEmitter", new ComponentCreator<SoundEmitter>(ComponentTypes::SOUNDEMITTER));
 	comp_mgr_->AddComponentCreator("Collectible", new ComponentCreator<Collectible>(ComponentTypes::COLLECTIBLE));
 	comp_mgr_->AddComponentCreator("Unlockable", new ComponentCreator<Unlockable>(ComponentTypes::UNLOCKABLE));
+	comp_mgr_->AddComponentCreator("Interactable", new ComponentCreator<Interactable>(ComponentTypes::INTERACTABLE));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");

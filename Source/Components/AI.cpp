@@ -17,19 +17,17 @@
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
 #include "Script/Stag_Tree.h"
+#include "Script/Mite_Tree.h"
 
-AI::AI() : 
-	type_{}, state_{AI::AIState::Patrol}
-{}
+AI::AI() : root_(nullptr){}
 
 AI::~AI() {
-
-	//CORE->GetSystem<LogicSystem>()->RemoveAIComponent(Component::GetOwner()->GetID());
+	if (root_)
+		delete root_;
 	CORE->GetManager<ComponentManager>()->RemoveComponent<AI>(Component::GetOwner()->GetID());
 }
 
 void AI::Init() {
-	//CORE->GetSystem<LogicSystem>()->AddAIComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<AI>(Component::GetOwner()->GetID(), this);
 }
 
@@ -56,9 +54,6 @@ void AI::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer
 	writer->Key("component");
 	writer->String("AI");
 
-	writer->Key("AIType");
-	writer->String(GeneralScripts::ReturnStringType(type_).c_str());
-
 	writer->Key("range");
 	writer->String(std::to_string(range_).c_str());
 
@@ -83,16 +78,38 @@ void AI::DeSerialize(std::stringstream& data) {
 	data >> type >> range_ >> speed_;
 }
 
+void AI::SetRoot(AIType type){
+	switch (type) 
+	{
+	case StagBeetle:
+		root_ = new Stag_Tree::StagRoot(GetOwner()->GetID());
+		break;
+	case Mite:
+		root_ = new Mite_Tree::MiteRoot(GetOwner()->GetID());
+		break;
+	}
+}
+
+AI::AIType AI::GetType(std::string type)
+{
+	if (type == "Stag_Beetle")
+		return StagBeetle;
+	else if (type == "Mite")
+		return Mite;
+	else if (type == "Hornet")
+		return Hornet;
+	// replace with exception
+	return StagBeetle;
+}
+
 void AI::DeSerializeClone(std::stringstream& data) {
 
 	std::string type;
 
 	// clone data will be for number of destinations and destinations
 	data >> type >> range_ >> speed_ >> num_destinations_;
-	state_ = AIState::Patrol;
-	//root_.setChild(new Stag_Tree);
-	type_ = GeneralScripts::GetType(type);
-	alive_ = true;
+	type_ = GetType(type);
+	SetRoot(type_);
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
 
 	destinations_.resize(num_destinations_);
@@ -111,9 +128,7 @@ std::shared_ptr<Component> AI::Clone() {
 
 	std::shared_ptr<AI> cloned = std::make_shared<AI>();
 
-	cloned->root_ = root_;
-
-	cloned->alive_ = alive_;
+	cloned->alive_ = true;
 	cloned->type_ = type_;
 	cloned->range_ = range_;
 	cloned->attackpower_ = attackpower_;
@@ -195,15 +210,8 @@ DestinationIt AI::GetCurrentDes()
 	return current_destination_;
 }
 
-//Vector2D AI::GetCurrentDes()
-//{
-//	return current_destination_;
-//}
-
 void AI::SetCurrentDes(DestinationIt Cdes)
 {
-	//if(Cdes == destinations_.end())
-	//	current_destination_ = destinations_.begin();
 	current_destination_ = Cdes;
 }
 

@@ -146,6 +146,9 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 		}
 	}
 
+	if (!dialogue_box_renderer_)
+		return;
+
 	text_elapsed_time_ = 0.0f;
 	num_characters_ = 0;
 	dialogue_box_renderer_->SetAlive(true);

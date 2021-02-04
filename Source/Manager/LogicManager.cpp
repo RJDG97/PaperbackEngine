@@ -50,6 +50,7 @@ void LogicManager::Init() {
 
 	// Register Environment Collectible helper function
 	RegisterLogic("Environment_Collectible", &Collectible_Script::CollectedCollectible);
+	RegisterLogic("Interactable_Response", &Collectible_Script::InteractableResponse);
 
 	// Register MenuState Button helper functions
 	RegisterLogic("MenuState_EnterPlayState", &Button_Script::MenuEnterPlay);

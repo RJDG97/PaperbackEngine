@@ -1,13 +1,18 @@
 #include "Manager/BehaviourTree.h"
 
-#include <vector>
-
 const std::vector<Behaviour::Node*>& Behaviour::CompositeNode::getChildren() const {
 	return children;
 }
 
 void Behaviour::CompositeNode::addChild(Node* child) {
 	children.emplace_back(child);
+}
+
+Behaviour::CompositeNode::~CompositeNode(){
+	for (Node* child : getChildren()) {
+		if (child)
+			delete child;
+	}
 }
 
 bool Behaviour::Selector::run(){
@@ -26,14 +31,18 @@ bool Behaviour::Sequence::run() {
 	return true;
 }
 
-const Behaviour::Node& Behaviour::DecoratorNode::getChildren() const {
-	return *child;
-}
-
 void Behaviour::Root::setChild(Node* newchild) {
 	child = newchild;
 }
 
 bool Behaviour::Root::run() {
 	return child->run();
+}
+
+void Behaviour::Inverter::setChild(Node* newchild) {
+	child = newchild;
+}
+
+bool Behaviour::Inverter::run() {
+	return !child->run();
 }

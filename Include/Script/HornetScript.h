@@ -5,7 +5,8 @@
 //{
 //public:
 //
-//	void HornetHandler(AIIt ai)
+//	void HornetHandler(
+//ai)
 //	{
 //		std::cout << "Hornet" << std::endl;
 //		switch (ai->second->GetState())

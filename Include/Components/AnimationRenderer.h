@@ -125,6 +125,10 @@ public:
 */
 /******************************************************************************/
 	std::map<std::string, Animation> GetAvailableAnimation();
+	
+	bool FinishedAnimating() const;
+
+	void SetAnimationStatus(bool status);
 };
 
 #endif
