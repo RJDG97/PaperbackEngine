@@ -177,14 +177,15 @@ void AssetWindow::FileMenuBar() {
 	ImGui::MenuItem(ICON_FA_PLUS);
 	imgui_->ImguiHelp("Add in New Assets", 0);
 	if (ImGui::BeginDragDropTarget()) {
+
 		if (const ImGuiPayload* payLoadtex = ImGui::AcceptDragDropPayload("UPDATED_PATH")) {
 
 			if (payLoadtex->DataSize == sizeof(std::string)) {
 
 				path = *((std::string*)payLoadtex->Data);
 
-					imgui_->b_addtexture = true;
-					imgui_->SetAssetAdd(path);			
+				imgui_->b_add_texture = true;
+				imgui_->SetAssetAdd(path);			
 			}
 		}
 		ImGui::EndDragDropTarget();

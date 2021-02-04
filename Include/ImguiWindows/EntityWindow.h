@@ -35,7 +35,7 @@
 #include "Manager/ComponentManager.h"
 #include "Engine/Core.h"
 
-class EntityWindow : public IWindow{
+class EntityWindow : public IWindow {
 
 public:
 /******************************************************************************/
@@ -386,7 +386,7 @@ private:
 	ComponentManager* component_;
 	EntityManager::EntityIdMapTypeIt entityIT;
 
-	Vector2D originalVec_;
+	Vector2D originalVec_, mousePos_;
 
 	const char* AIstates_[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
 	const char* AItype_[3]{ "StagBeetle", "Mite", "Hornet"};

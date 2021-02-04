@@ -397,19 +397,27 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
     if (anim_renderer->play_animation_ == true) {
 
+        if (anim_renderer->has_finished_animating_ == true)
+        {
+            SetToFirstFrame(anim_renderer);
+        }
+
         anim_renderer->time_elapsed_ += frametime;
         anim_renderer->has_finished_animating_ = false;
 
         if (anim_renderer->time_elapsed_ >= anim_renderer->current_animation_->GetFrameDuration()) {
 
-            SetToNextFrame(anim_renderer);
             anim_renderer->total_time_elapsed_ += anim_renderer->time_elapsed_;
 
             if (IsLastFrame(anim_renderer)) {
 
                 anim_renderer->has_finished_animating_ = true;
                 anim_renderer->total_time_elapsed_ = 0.0f;
-                SetToFirstFrame(anim_renderer);
+            }
+
+            else
+            {
+                SetToNextFrame(anim_renderer);
             }
 
             anim_renderer->time_elapsed_ = 0.0f;

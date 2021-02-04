@@ -30,7 +30,7 @@ void EntityWindow::Init(){
 	camera_ = &*CORE->GetSystem<CameraSystem>();
 	sound_ = &*CORE->GetSystem<SoundSystem>();
 
-	originalVec_ = { 0,0 };	
+	originalVec_ = mousePos_ = { 0,0 };	
 	b_draw = false;
 	b_grid = false;
 	b_light = false;
@@ -39,9 +39,9 @@ void EntityWindow::Init(){
 void EntityWindow::Update() {
 	//ImGui::ShowDemoWindow();
 	//ImGui::ShowStyleEditor();
-	if (imgui_->b_entitywin) {
+	if (imgui_->b_entity_win) {
 
-		ImGui::Begin("Entity Inspector", &imgui_->b_entitywin);
+		ImGui::Begin("Entity Inspector", &imgui_->b_entity_win);
 
 		ImGui::Separator();
 
@@ -54,15 +54,17 @@ void EntityWindow::Update() {
 
 		ImGui::Begin("Component Inspector", &imgui_->b_component);
 
+		SelectEntityComponent();// to see the components
+		ImGui::End();
+	}
+
+	if (imgui_->b_settings) {
+
+		ImGui::Begin("Editor Settings", &imgui_->b_settings);
+
 		DragEntityCheckBox();
 
 		ImGui::SameLine(0, 3);
-
-		if (imgui_->GetCamera())
-			ImGui::Checkbox("Draw Grid", &b_grid);
-
-		if (b_grid)
-			imgui_->DrawGrid();
 
 		if (ImGui::Checkbox("Bounding Boxes", &b_draw)) {
 
@@ -74,7 +76,24 @@ void EntityWindow::Update() {
 
 		graphics_->EnableLighting(b_light);
 
-		SelectEntityComponent();// to see the components
+		ImGui::SameLine(0, 3);
+
+		if (imgui_->GetCamera()) {
+
+			ImGui::Checkbox("Draw Grid", &b_grid);
+
+			if (!imgui_->EditorMode()) {
+
+				if (input_->IsMousePressed(0))
+					mousePos_ = input_->GetUpdatedCoords();
+
+				ImGui::Text("Current Cursor Position: %.2f, %.2f", mousePos_.x, mousePos_.y);
+			}
+		}
+
+		if (b_grid)
+			imgui_->DrawGrid();
+
 		ImGui::End();
 	}
 
@@ -131,7 +150,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					break;
 
 				case ComponentTypes::AI:
-					AIComponent(entitycomponent.first);
+					//AIComponent(entitycomponent.first);
 					break;
 
 				case ComponentTypes::SCALE:
@@ -241,7 +260,7 @@ std::pair<Entity*, std::vector<ComponentTypes>> EntityWindow::GetEntityComponent
 
 void EntityWindow::SelectEntityComponent() {
 
-	if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_editcomp))) {
+	if ((imgui_->GetEntity() && imgui_->GetEntity()->GetID() || (imgui_->GetEntity() && !imgui_->GetEntity()->GetID() && imgui_->b_edit_comp))) {
 
 		std::pair<Entity*, std::vector<ComponentTypes>> entity = GetEntityComponents(imgui_->GetEntity());
 
@@ -564,21 +583,26 @@ void EntityWindow::AIComponent(Entity* entity) {
 void EntityWindow::AnimationRendererComponent(Entity* entity) {
 
 	std::shared_ptr<AnimationRenderer> entity_animation = std::dynamic_pointer_cast<AnimationRenderer>(entity->GetComponent(ComponentTypes::ANIMATIONRENDERER));
-	int input_layer = 1;//graphics_->GetLayer(&*entity_animation);
+	//int input_layer = graphics_->GetLayer(&*entity_animation);
 
 	if (ImGui::CollapsingHeader("Animation Component")) {
 
-		ComponentInputInt("Animation Renderer Layer: ", "##animlayer", input_layer, 95.0f, 1, 1);
+		//ComponentInputInt("Animation Renderer Layer: ", "##animlayer", input_layer, 95.0f, 1, 1);
 
-		graphics_->ChangeLayer(&*entity_animation, input_layer);
+		//graphics_->ChangeLayer(&*entity_animation, input_layer);
 
 		if (ImGui::BeginCombo("##Animation", entity_animation->GetCurrentAnimation().c_str())) {
-			for (auto it = animation_->GetAnimationMap().begin(); it != animation_->GetAnimationMap().end(); ++it)
-				if (ImGui::Selectable(it->first.c_str()))
+			for (auto it = animation_->GetAnimationMap().begin(); it != animation_->GetAnimationMap().end(); ++it) {
+				if (ImGui::Selectable(it->first.c_str())) {
+					if (entity_animation->GetAvailableAnimation().find(it->first.c_str()) == entity_animation->GetAvailableAnimation().end()) {
+
+						graphics_->AddAnimation(&(*entity_animation), it->first.c_str());
+					}
 					graphics_->ChangeAnimation(&(*entity_animation), it->first.c_str());
+				}
+			}
 			ImGui::EndCombo();
 		}
-
 		RemoveComponent("Delete Animation Renderer Component", std::string("Animation Renderer"), entity, entity_animation);
 	}
 }
@@ -1122,17 +1146,17 @@ void EntityWindow::TextureRendererComponent(Entity* entity) {
 
 	if (ImGui::CollapsingHeader("Texture Component")) {
 
-		int input_layer = 1;// graphics_->GetLayer(&*entity_texture);
+		//int input_layer = graphics_->GetLayer(&*entity_texture);
 
-		ComponentInputInt("Texture Renderer Layer: ", "##texlayer", input_layer, 95.0f, 1, 1);
+		//ComponentInputInt("Texture Renderer Layer: ", "##texlayer", input_layer, 95.0f, 1, 1);
 
-		graphics_->ChangeLayer(&*entity_texture, input_layer);
+		//graphics_->ChangeLayer(&*entity_texture, input_layer);
 
-		int input_ui = 1;// entity_texture->GetUI();
+		int input_ui = entity_texture->GetUI();
 
 		ComponentInputInt("UI: ", "##uilayer", input_ui, 95.0f, 0, 1);
 
-		//entity_texture->SetUI(input_ui);
+		entity_texture->SetUI(input_ui);
 
 		std::string path = {};
 

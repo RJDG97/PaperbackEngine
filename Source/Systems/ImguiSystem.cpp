@@ -56,17 +56,18 @@ void ImguiSystem::Init(){
     type = CloseApp::NONE;
 
     //Imgui Window Bools
-    b_archetypewin = true;
-    b_entitywin = true;
+    b_archetype_win = true;
+    b_entity_win = true;
     b_component = true;
     b_display = false;
-    b_editpath = false;
-    b_show_pop = false;
+    b_edit_path = false;
+    b_level_save = false;
     b_asset = false;
-    b_editcomp = false;
-    b_addtexture = false;
-    b_showtex = false;
+    b_edit_comp = false;
+    b_add_texture = false;
+    b_show_tex = false;
     b_add_path = false;
+    b_windows = true;
 
     b_lock_entity = false;
     b_imgui_mode = false;
@@ -75,13 +76,12 @@ void ImguiSystem::Init(){
     b_close_confirm = false;
 
     img_to_add_ = {};
-
     current_loaded_path_ = {};
+
     archetype_path_ = "Resources/EntityConfig/archetypes.json";
 
-    scene_filter_ =
-        "(*.json) Paperback Engine Scene\0*.json\0";
-
+    scene_filter_ = "(*.json) Paperback Engine Scene\0*.json\0";
+       
     generic_filter_ = "(*.*) All Files\0* *.*\0";
 
 //////////// Setup Dear ImGui context///////////////////////////
@@ -121,7 +121,8 @@ void ImguiSystem::Init(){
     ImFontConfig icons_config; icons_config.MergeMode = true; icons_config.PixelSnapH = true;
     img_font_ = io.Fonts->AddFontFromFileTTF(FONT_ICON_FILE_NAME_FAS, 14.0f, &icons_config, icon_ranges);
     bold_font_ = io.Fonts->AddFontFromFileTTF("Resources/Font/Grandstander-Bold.ttf", 16.0f);
-    // end of Imgui init
+
+    //////////// End iof ImGui Context Setup///////////////////////////
 
     b_dock_space_open = true;
     b_fullscreen_persistant = true;
@@ -185,12 +186,16 @@ void ImguiSystem::Update(float frametime) {
         	
             ImGuiCustomStyle();
 
-            for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
-                begin->second->Update();
+            if (b_windows) {
+
+                for (WindowIt begin = imgui_window_arr_.begin(); begin != imgui_window_arr_.end(); ++begin)
+                    begin->second->Update();
+            }
 
             ImGui::End(); // end of docking space
 
         }
+
         ImguiRender();
     }
 }
@@ -224,6 +229,7 @@ void ImguiSystem::ImGuiCustomStyle() {
 }
 
 void ImguiSystem::ImguiRender() {
+
     // Rendering
     ImGui::Render();
     int display_w, display_h;
@@ -250,6 +256,7 @@ void ImguiSystem::ImguiMenuBar() {
         ImGui::PushFont(img_font_);
 
         if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
+
             if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene")) {
                 selected_entity_ = {};
                 editor_->entity_paths_.clear();
@@ -265,7 +272,7 @@ void ImguiSystem::ImguiMenuBar() {
                     if (!current_loaded_path_.empty()) {
 
                         SaveFile(current_loaded_path_);
-                        b_show_pop = true;
+                        b_level_save = true;
                     }
                     else {
 
@@ -274,7 +281,7 @@ void ImguiSystem::ImguiMenuBar() {
 
                         if (!path.empty()) {
                             LoadJsonPaths(path);
-                            b_show_pop = true;
+                            b_level_save = true;
                         }
                     }
                 }
@@ -292,7 +299,7 @@ void ImguiSystem::ImguiMenuBar() {
                     if (!path.empty()) {
 
                         LoadJsonPaths(path);
-                        b_show_pop = true;
+                        b_level_save = true;
                     }
                 }
                 else
@@ -301,9 +308,15 @@ void ImguiSystem::ImguiMenuBar() {
 
             if (ImGui::MenuItem("Save Entity Path Only")) {
 
-                factory_->SerializeCurrentLevelEntities(); // save each entity to their respective path
+                if (!editor_->entity_paths_.empty()) {
+                    factory_->SerializeCurrentLevelEntities(); // save each entity to their respective path
 
+                    b_level_save = true;
+                }
+                else
+                    b_add_path = true;
             }
+
             ImguiHelp("This saves the individual paths of each type of entity in the scene.\nUser would have to manually update the scene json themselves.", 0);
 
             if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene")) {
@@ -347,29 +360,36 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Separator();
 
             if (ImGui::MenuItem(ICON_FA_EDIT " Edit Archetype Path"))
-                b_editpath = true;
+                b_edit_path = true;
 
             ImGui::Separator();
-            ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
+            ImGui::Checkbox("Toggle Archetype Window", &b_archetype_win);
 
             ImGui::EndMenu();
         }
 
         if (ImGui::BeginMenu(ICON_FA_WINDOW_RESTORE " Windows")) {
 
-            ImGui::Checkbox("Toggle Scene Hierachy", &b_entitywin);
+            ImGui::Checkbox("Toggle Visible Windows", &b_windows);
+            ImGui::Checkbox("Toggle Scene Hierachy", &b_entity_win);
             ImGui::Checkbox("Toggle Component Viewer", &b_component);
-            ImGui::Checkbox("Toggle Archetype Window", &b_archetypewin);
+            ImGui::Checkbox("Toggle Archetype Window", &b_archetype_win);
+            ImGui::Checkbox("Toggle Editor Settings", &b_settings);
             ImGui::Separator();
             ImGui::Checkbox("Toggle Asset Browser", & b_asset);
-            ImGui::Checkbox("Toggle Asset Console Window", &b_addtexture);
-            ImGui::Checkbox("Toggle Texture Window", &b_showtex);
+            ImGui::Checkbox("Toggle Asset Console Window", &b_add_texture);
+            ImGui::Checkbox("Toggle Texture Window", &b_show_tex);
             ImguiHelp("View All Loaded Textures", 0);
             ImGui::Separator();
             ImGui::Checkbox("See System Performance", &b_display);
 
             ImGui::EndMenu();
         }
+
+        if (ImGui::MenuItem(VisibleIcon().c_str()))
+            b_windows = !b_windows;
+
+        ImguiHelp("Toggle Visible Windows", 0);
 
         ImGui::PopFont();
     }
@@ -447,6 +467,7 @@ void ImguiSystem::SetAssetAdd(std::string image) {
 }
 
 std::string ImguiSystem::GetArchetypePath() {
+
     return archetype_path_;
 }
 
@@ -471,6 +492,7 @@ void ImguiSystem::SaveCheckPopUp(const char* window_name, int exit_type) {
                 selected_entity_ = {};
                 type = CloseApp::NONE;
                 NewScene();
+                sound_->StopSound("All", true);
                 ImGui::CloseCurrentPopup();
             }
             if (exit_type == CloseApp::RETURNMENU) { // return to menu
@@ -543,11 +565,11 @@ void ImguiSystem::LoadArchetype() {
 
         archetype_path_ = path;
     }
-
     selected_entity_ = {};
 }
 
 void ImguiSystem::OpenFile() {
+
     std::string path = OpenSaveDialog(scene_filter_, 0);
 
     if (!path.empty())
@@ -811,16 +833,16 @@ void ImguiSystem::SetPopupPosition() {
 
 void ImguiSystem::Popups() {
 
-    if (b_show_pop)
+    if (b_level_save)
         ImGui::OpenPopup("Save Confirmation");
 
-    PopUpMessage("Save Confirmation", "Level Entities have been saved \ninto the respective json files");
-    b_show_pop = false;
+    PopUpMessage("Save Confirmation", "Level Json & the individual Level Entity(ies) have been saved");
+    b_level_save = false;
 
     if (b_add_path)
         ImGui::OpenPopup("No Path Set");
 
-    PopUpMessage("No Path Set", "No Entity save path has been set\n'Archetype' >> 'Set Entity Path'");
+    PopUpMessage("No Path Set", "Individual Entity save path has NOT been set\n'Archetype' >> 'Set Entity Path'");
     b_add_path = false;
 
     if (b_close_confirm)
@@ -828,6 +850,19 @@ void ImguiSystem::Popups() {
 
     SaveCheckPopUp("Exit Confirmation", type);
     b_close_confirm = false;
+
+    if (b_entity_save)
+        ImGui::OpenPopup("Individual Entity(ies) Saved");
+    PopUpMessage("Individual Entity(ies) Saved", "Level Entities have been saved \ninto the respective json files.\nUpdate the Level Json File if needed");
+    b_entity_save = false;
+}
+
+std::string ImguiSystem::VisibleIcon() {
+
+    if (b_windows)
+        return ICON_FA_EYE;
+    else
+        return ICON_FA_EYE_SLASH;
 }
 
 ImguiSystem::~ImguiSystem() {

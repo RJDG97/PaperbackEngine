@@ -18,9 +18,7 @@
 #include "MathLib/Vector2D.h"
 #include "Systems/FrameRateController.h"
 #include "Manager/BehaviourTree.h"
-#include <iostream>
 #include <sstream>
-#include <vector>
 
 using DestinationIt = std::vector<Vector2D>::iterator;
 
@@ -121,6 +119,10 @@ public:
 	*/
 	/******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
+
+	void SetRoot(AIType type);
+
+	AIType GetType(std::string type);
 
 	/******************************************************************************/
 	/*!
@@ -338,9 +340,12 @@ public:
 	/******************************************************************************/
 	void SetLife(bool life);
 
+
+	Behaviour::Root* GetRoot() { return root_; };
+
 private:
 
-	Behaviour::Root root_;
+	Behaviour::Root* root_;
 	AIType type_;
 	
 	AIState state_;

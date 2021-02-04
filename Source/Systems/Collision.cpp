@@ -30,6 +30,8 @@
 #include "Components/Status.h"
 #include "Components/Scale.h"
 #include "Components/Inventory.h"
+#include "Script/Stag_Tree.h"
+#include "Script/Mite_Tree.h"
 #include <iostream>
 #include <assert.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -286,23 +288,6 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 			}
 		}
 	}
-	
-
-
-
-	//for (ClickableIt clickable = clickable_arr_->begin(); clickable != clickable_arr_->end(); ++clickable) {
-
-	//	// Only if clickable is set to active
-	//	if (clickable->second->active_) {
-
-	//		if (CheckCursorCollision(cursor_pos, clickable->second)) {
-
-	//			Message_Button msg{ clickable->second->index_ };
-	//			CORE->BroadcastMessage(&msg);
-	//			return;
-	//		}
-	//	}
-	//}
 }
 
 EntityID Collision::SelectEntity(Vector2D cursor_pos) {
@@ -319,9 +304,8 @@ EntityID Collision::SelectEntity(Vector2D cursor_pos) {
 	return 0;
 }
 
-void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first) {
+void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first, bool default_) {
 
-	//std::shared_ptr<ForcesManager> force_mgr = CORE->GetManager<ForcesManager>();
 	UNREFERENCED_PARAMETER(vel2);
 	Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
 	//Vector2D inverse_vector_2 = (-(*vel2)) * (frametime - t_first);
@@ -342,8 +326,30 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 	normal *= abs(penetration) * 0.7f;
 
 	// Reposition entity's position
-	transform1->position_ += inverse_vector_1;
-	transform2->position_ += normal; //inverse_vector_2;
+	if (default_) {
+
+		transform1->position_ += inverse_vector_1;
+		transform2->position_ += normal;
+	}
+	// If pushing entities...
+	else {
+
+		Vector2D push_force{};
+		ForcesManager* force_mgr = &*CORE->GetManager<ForcesManager>();
+
+		// Retrieve ids
+		//auto& [player_id, player_aabb] = *aabb1;
+		auto& [pushable_id, pushable_aabb] = *aabb2;
+
+		//// Retrieve player force & instantiate vector
+		//float player_f = component_mgr_->GetComponent<Motion>(player_id)->force_ * PE_FrameRate.GetFixedDelta();
+		//push_force.x = vel1->x < 0.0f ? -player_f : player_f;
+		//push_force.y = vel1->y < 0.0f ? -player_f : player_f;
+
+		transform1->position_ += inverse_vector_1;
+		force_mgr->AddForce(pushable_id, "PlayerForce", PE_FrameRate.GetFixedDelta(), *vel1 * 6.0f); // to be replaced
+	}
+	//transform2->position_ += normal; //inverse_vector_2;
 
 	// Toggle collision status (For debug boxes)
 	aabb1->second->collided = true;
@@ -360,28 +366,28 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 
 void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 
-	UNREFERENCED_PARAMETER(aabb1);
-	AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
-	switch (ai_state->GetType())
-	{
-	case AI::AIType::StagBeetle:
-		if (ai_state->GetState() == AI::AIState::Attack)
-		{
-			ai_state->SetState(AI::AIState::Withdraw);
-		}
-		break;
-	case AI::AIType::Mite:
-		if (ai_state->GetState() == AI::AIState::Chase)
-		{
-			ai_state->SetState(AI::AIState::Withdraw);
-		}
-		else if (ai_state->GetState() != AI::AIState::Attack)
-		{
-			ai_state->GetPath().clear();
-			ai_state->SetState(AI::AIState::Patrol);
-		}
-		break;
-	}
+	//UNREFERENCED_PARAMETER(aabb1);
+	//AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
+	//switch (ai_state->GetType())
+	//{
+	//case AI::AIType::StagBeetle:
+	//	if (ai_state->GetState() == AI::AIState::Attack)
+	//	{
+	//		ai_state->SetState(AI::AIState::Withdraw);
+	//	}
+	//	break;
+	//case AI::AIType::Mite:
+	//	//if (ai_state->GetState() == AI::AIState::Chase)
+	//	//{
+	//	//	ai_state->SetState(AI::AIState::Withdraw);
+	//	//}
+	//	//else if (ai_state->GetState() != AI::AIState::Attack)
+	//	//{
+	//	//	ai_state->GetPath().clear();
+	//	//	ai_state->SetState(AI::AIState::Patrol);
+	//	//}
+	//	break;
+	//}
 }
 
 
@@ -494,6 +500,24 @@ void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 	logic->Exec(player_collectible, player_id, collectible_id);
 }
 
+void Collision::PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2) {
+
+	LogicManager* logic = &*CORE->GetManager<LogicManager>();
+
+	auto& [player_id, player_aabb] = *aabb1;
+	auto& [interactable_id, interactable_aabb] = *aabb2;
+
+	LogicComponent* player_logic = component_mgr_->GetComponent<LogicComponent>(player_id);
+	LogicComponent* collectible_logic = component_mgr_->GetComponent<LogicComponent>(interactable_id);
+
+	std::string player_interactable = player_logic->GetLogic("Interactable");
+	std::string game_interactable = collectible_logic->GetLogic("Interactable");
+
+	// Execute player's logic script
+	logic->Exec(game_interactable, interactable_id);
+	logic->Exec(player_interactable, player_id, interactable_id);
+}
+
 void Collision::CollisionResponse(const CollisionLayer& layer_a, const CollisionLayer& layer_b,
 	AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2,
 	float frametime, float t_first) {
@@ -506,7 +530,8 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 		{
 			case CollisionLayer::ENEMY:
 			{
-				WallvEnemyResponse(aabb1, aabb2);
+				
+				//WallvEnemyResponse(aabb1, aabb2);
 			}
 		}
 		DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
@@ -514,9 +539,10 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	}
 	case CollisionLayer::ENEMY:
 	{
-		AI* ai_state = component_mgr_->GetComponent<AI>(aabb1->first);
-		if (!ai_state->GetLife())
+		AI* ai_ = component_mgr_->GetComponent<AI>(aabb1->first);
+		if (!ai_->GetLife())
 			break;
+		ai_->GetRoot()->CollisionResponse(aabb2->first);
 
 		switch (layer_b)
 		{
@@ -581,6 +607,16 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 
 					DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
 				}
+				break;
+			}
+			case CollisionLayer::PUSHABLE:
+			{
+				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first, false);
+				break;
+			}
+			case CollisionLayer::INTERACTABLE:
+			{
+				PlayerInteractableResponse(aabb1, aabb2);
 				break;
 			}
 		}
@@ -690,7 +726,7 @@ void Collision::UpdateClickableBB() {
 	}
 }
 
-bool Collision::BurrowReady() {
+bool Collision::CollisionReady(CollisionLayer col_layer) {
 	
 	Entity* player_entity = entity_mgr_->GetPlayerEntities().back();
 	Vector2D player_pos = transform_arr_->GetComponent(player_entity->GetID())->GetOffsetAABBPos();
@@ -708,11 +744,11 @@ bool Collision::BurrowReady() {
 	//hole layer == 4
 
 	if (col_map.find(CollisionLayer::PLAYER) != col_map.end() &&
-		col_map.find(CollisionLayer::HOLE) != col_map.end()) {
+		col_map.find(col_layer) != col_map.end()) {
 	
 		AABBIt player = col_map[CollisionLayer::PLAYER].find(player_entity->GetID());
 
-		AABBType* hole_map = &col_map[CollisionLayer::HOLE];
+		AABBType* hole_map = &col_map[col_layer];
 
 		for (AABBIt hole = hole_map->begin(); hole != hole_map->end(); ++hole) {
 
@@ -725,6 +761,16 @@ bool Collision::BurrowReady() {
 	}
 
 	return false;
+}
+
+bool Collision::HideReady() {
+
+	return CollisionReady(CollisionLayer::BIGKUSA);
+}
+
+bool Collision::UnBurrowReady() {
+
+	return !CollisionReady(CollisionLayer::BURROWABLE);
 }
 
 void Collision::ToggleClickables(size_t group) {
@@ -762,70 +808,82 @@ void Collision::Init() {
 		Parameter 1: Collision layer 0
 		Parameter 2: Collidable with nothing, does not collide with similar layer
 	*/
-	AddCollisionLayers(CollisionLayer::BACKGROUND, "00000000", false);
+	AddCollisionLayers(CollisionLayer::BACKGROUND, "0000000000000", false);
 
 	/*
 		Parameter 1: Collision layer 1
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER),
 					 does not collide with similar layer
 	*/
-	AddCollisionLayers(CollisionLayer::TILES, "00000010", false);
+	AddCollisionLayers(CollisionLayer::TILES, "0000000000010", false);
 
 	/*
 		Parameter 1: Collision layer 2
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER),
 					 does not collide with similar layer
 	*/
-	AddCollisionLayers(CollisionLayer::ENEMY, "00000110", false);
+	AddCollisionLayers(CollisionLayer::ENEMY, "0000000000110", false);
 
 	/*
 		Parameter 1: Collision layer 3
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::PLAYER, "00001110");
+	AddCollisionLayers(CollisionLayer::PLAYER, "1000000001110");
 
 	/*
 		Parameter 1: Collision layer 4
 		Parameter 2: Collidable with Layer 3 (PLAYER)
 		"THIS HOLE WAS MADE FOR ME"
 	*/
-	AddCollisionLayers(CollisionLayer::HOLE, "00001000", false);
+	AddCollisionLayers(CollisionLayer::BIGKUSA, "000000001000", false);
 
 	/*
 		Parameter 1: Collision layer 5
 		Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::GOAL, "00001000", false);
+	AddCollisionLayers(CollisionLayer::GOAL, "0000000001000", false);
 
 	/*
 		Parameter 1: Collision layer 6
 		Parameter 2: Collidable with nothing, does not collide with similar layer
 	*/
-	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "00000000", false);
+	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "0000000000000", false);
 
 	/*
 	Parameter 1: Collision layer 7
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::GATE, "00001000", false);
+	AddCollisionLayers(CollisionLayer::GATE, "0000000001000", false);
 
 	/*
 	Parameter 1: Collision layer 8
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::COLLECTIBLE, "00001000", false);
+	AddCollisionLayers(CollisionLayer::COLLECTIBLE, "0000000001000", false);
 
 	/*
 	Parameter 1: Collision layer 9
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::BURROWABLE, "00001000", false);
+	AddCollisionLayers(CollisionLayer::BURROWABLE, "0000000001000", false);
 
 	/*
-	Parameter 1: Collision layer 9
+	Parameter 1: Collision layer 10
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::SOLID_ENVIRONMENT, "00001000", false);
+	AddCollisionLayers(CollisionLayer::SOLID_ENVIRONMENT, "0000000001000", false);
+
+	/*
+	Parameter 1: Collision layer 11
+	Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::PUSHABLE, "0000000001010");
+
+	/*
+	Parameter 1: Collision layer 12
+	Parameter 2: Collidable with Layer 3 (PLAYER)
+	*/
+	AddCollisionLayers(CollisionLayer::INTERACTABLE, "0000000001000", false);
 
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }

@@ -148,3 +148,17 @@ std::string AnimationRenderer::GetCurrentAnimation() {
 
     return current_animation_name_;
 }
+
+std::map<std::string, Animation> AnimationRenderer::GetAvailableAnimation() {
+    
+    return obj_animations_;
+}
+bool AnimationRenderer::FinishedAnimating() const {
+
+    return has_finished_animating_;
+}
+
+void AnimationRenderer::SetAnimationStatus(bool status) {
+    
+    play_animation_ = status;
+}

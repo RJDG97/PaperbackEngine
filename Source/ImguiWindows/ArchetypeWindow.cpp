@@ -32,9 +32,9 @@ void ArchetypeWindow::Init() {
 
 void ArchetypeWindow::Update() {
 	
-	if (imgui_->b_archetypewin) {
+	if (imgui_->b_archetype_win) {
 
-		ImGui::Begin("Archetypes", &imgui_->b_archetypewin, ImGuiWindowFlags_MenuBar);
+		ImGui::Begin("Archetypes", &imgui_->b_archetype_win, ImGuiWindowFlags_MenuBar);
 
 		ArchetypeMenuBar();
 
@@ -124,7 +124,7 @@ void ArchetypeWindow::AvaliableArchetypes() {
 
 					imgui_->DeletePopUp(ICON_FA_TRASH " Delete Confirmation", entityIT->first);
 
-					ImGui::Checkbox("Add/Edit Components", &imgui_->b_editcomp); ImGui::SameLine(0, 3);
+					ImGui::Checkbox("Add/Edit Components", &imgui_->b_edit_comp); ImGui::SameLine(0, 3);
 					imgui_->ImguiHelp("Untick this whenever you are done");
 
 					ImGui::TreePop();
@@ -210,7 +210,7 @@ void ArchetypeWindow::AddArchetype(std::string archetypeName)
 
 void ArchetypeWindow::AddComponent() {
 
-	if (imgui_->b_editcomp) {
+	if (imgui_->b_edit_comp) {
 
 		ImGui::Begin("Add Components to Archetype");
 
@@ -238,7 +238,7 @@ void ArchetypeWindow::AddComponent() {
 
 		if (ImGui::Button("Close This Panel")) {
 
-			imgui_->b_editcomp = false;
+			imgui_->b_edit_comp = false;
 			imgui_->SetEntity({});
 			archetype_name = {};
 		}

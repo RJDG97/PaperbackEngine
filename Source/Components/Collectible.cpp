@@ -74,6 +74,11 @@ const CollectibleType& Collectible::GetItemType() const {
 	return item_type_;
 }
 
+std::string Collectible::GetItemName() const {
+
+	return item_name_;
+}
+
 
 
 const CollectibleType StringToCollectible(const std::string& type) {
