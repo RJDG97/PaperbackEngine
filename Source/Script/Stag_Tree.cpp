@@ -61,6 +61,20 @@ bool Stag_Tree::CheckSentry::run()
 	return false;
 }
 
+Stag_Tree::SentryReturn::SentryReturn(EntityID id) : id_(id) {
+	component_mgr = &*CORE->GetManager<ComponentManager>();
+	ai_ = component_mgr->GetComponent<AI>(id_);
+	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
+}
+
+bool Stag_Tree::SentryReturn::run()
+{
+	if (ai_->GetDestinations().begin()->x == obj_rigidbody_->GetOffsetAABBPos().x && 
+		ai_->GetDestinations().begin()->y == obj_rigidbody_->GetOffsetAABBPos().y)
+		return false;
+	return true;
+}
+
 Stag_Tree::SentryAnim::SentryAnim(EntityID id) :id_(id) {
 	graphics = CORE->GetSystem<GraphicsSystem>();
 	component_mgr = &*CORE->GetManager<ComponentManager>();

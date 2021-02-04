@@ -60,6 +60,7 @@ public:
 	public:
 		IdleSequence(EntityID id) : id_(id) {
 			addChild(new CheckSentry(id_));
+			addChild(new SentrySequence(id_));
 			addChild(new SentryAnim(id_));
 		}
 	};
@@ -72,6 +73,30 @@ public:
 		ComponentManager* component_mgr;
 	public:
 		CheckSentry(EntityID id);
+
+		bool run() override;
+	};
+
+	class SentrySequence : public Sequence
+	{
+		EntityID id_;
+	public:
+		SentrySequence(EntityID id) : id_(id) {
+			addChild(new SentryReturn(id_));
+			addChild(new CheckPath(id_));
+			addChild(new Move(id_, 300.0f));
+			addChild(new WalkAnim(id_));
+		}
+	};
+
+	class SentryReturn :public Node
+	{
+		EntityID id_;
+		AI* ai_;
+		Transform* obj_rigidbody_;
+		ComponentManager* component_mgr;
+	public:
+		SentryReturn(EntityID id);
 
 		bool run() override;
 	};
