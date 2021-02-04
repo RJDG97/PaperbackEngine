@@ -220,7 +220,7 @@ public:
 		EntityID id_;
 	public:
 		DetectPlayer(EntityID id) : id_(id) {
-			addChild(new PlayerWithinDistance(id_, 5.0f));
+			addChild(new PlayerWithinDistance(id_, 3.0f));
 			addChild(new PlayerWithinVision(id_));
 		}
 	};
@@ -256,7 +256,7 @@ public:
 		Status* player_status_;
 		Transform* player_rigidbody_;
 
-		float detectdistance_ = 10.0f;
+		float detectdistance_ = 5.0f;
 	public:
 		PlayerWithinVision(EntityID id);
 
