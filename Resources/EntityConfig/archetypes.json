@@ -1448,11 +1448,11 @@
     "Spores": [
         {
             "component": "Name",
-            "name": "Spores"
+            "name": "Spore"
         },
         {
             "component": "Transform",
-            "position": "0.000000 0.000000",
+            "position": "2.000000 0.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -1461,6 +1461,7 @@
             "component": "AnimationRenderer",
             "number of animations": "1",
             "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
             "play_animation": "1",
             "has_finished_animating": "0",
             "layer": "2",
@@ -1470,16 +1471,11 @@
         {
             "component": "AABB",
             "scale": "0.500000 0.500000",
-            "layer": "0"
+            "layer": "8"
         },
         {
-            "component": "Collectible",
-            "item name": "",
-            "item description": ""
-        },
-        {
-            "component": "Interactable",
-            "size": "0"
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
         }
     ],
     "StagBeetle": [
