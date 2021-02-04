@@ -18,6 +18,7 @@
 #include "Entity/Entity.h"
 #include "MathLib/Vector2D.h"
 #include "Components/IComponent.h"
+#include "Manager/ForcesManager.h"
 #include <sstream>
 #include <memory>
 
@@ -109,6 +110,35 @@ struct GenerateTexture
 	void Generate(std::shared_ptr<GraphicsSystem> graphics_system, TextureRenderer* texture);
 };
 
+struct GenerateDestination
+{
+	// Coordinate of End Destination
+	Vector2D destination_;
+	// Whether there is a destination
+	bool set_destination_;
+	// Time range it takes to reach destination
+	Vector2D time_range_;
+
+
+	/******************************************************************************/
+	/*!
+	  \fn Generate()
+
+	  \brief Generates a particle's force post initial lifetime
+	*/
+	/******************************************************************************/
+	void Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id);
+
+	/******************************************************************************/
+	/*!
+	  \fn Init()
+
+	  \brief Initializes the particle to contain a destination
+	*/
+	/******************************************************************************/
+	void Init(Particle* particle);
+};
+
 
 
 class Emitter : public Component {
@@ -126,6 +156,7 @@ class Emitter : public Component {
 	GenerateForce particle_force_;
 	GenerateRotation particle_rotation_;
 	GenerateTexture particle_texture_;
+	GenerateDestination particle_destination_;
 
 
 /******************************************************************************/

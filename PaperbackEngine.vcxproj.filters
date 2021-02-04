@@ -802,5 +802,8 @@
     <ClInclude Include="Include\Script\Mite_Tree.h">
       <Filter>Scripts\Mite</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Script\Movable_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

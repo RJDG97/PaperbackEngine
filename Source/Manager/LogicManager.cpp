@@ -19,6 +19,7 @@
 #include "Script/UI_Script.h"
 #include "Script/Collectible_Script.h"
 #include "Script/Button_Script.h"
+#include "Script/Movable_Script.h"
 #include "Systems/Message.h"
 
 
@@ -67,4 +68,7 @@ void LogicManager::Init() {
 	RegisterLogic("PauseState_QuitGame", &Button_Script::PauseQuitGame);
 	RegisterLogic("WinLoseState_EnterMenuState", &Button_Script::WinLoseReturnToMenu);
 	RegisterLogic("WinLoseState_QuitGame", &Button_Script::WinLoseReturnToQuit);
+
+	// Environmental entity helper functions
+	RegisterLogic("Environmental_AnimUpdate", &Movable_Script::UpdateMovable);
 }

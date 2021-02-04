@@ -92,11 +92,11 @@ bool Stag_Tree::SentryAnim::run() {
 	// If velocity is essentially 0, set player to idle
 	graphics->ChangeAnimation(renderer, "Stagbeetle_Idle");
 
-	if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+	if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 		graphics->FlipTextureY(renderer);
 		motion->SetIsLeft(false);
 	}
-	else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+	else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 		graphics->FlipTextureY(renderer);
 		motion->SetIsLeft(true);
 	}
@@ -152,11 +152,11 @@ bool Stag_Tree::WalkAnim::run(){
 	else
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Walk");
 
-	if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+	if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 		graphics->FlipTextureY(renderer);
 		motion->SetIsLeft(false);
 	}
-	else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+	else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 		graphics->FlipTextureY(renderer);
 		motion->SetIsLeft(true);
 	}
@@ -322,11 +322,11 @@ bool Stag_Tree::DetectAnim::run() {
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
@@ -386,11 +386,11 @@ bool Stag_Tree::ChaseAnim::run() {
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
@@ -465,11 +465,11 @@ bool Stag_Tree::AttackAnim::run() {
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
@@ -505,11 +505,11 @@ bool Stag_Tree::IdleAnim::run() {
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}

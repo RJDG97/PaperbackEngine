@@ -24,6 +24,7 @@
 class Particle : public Component {
 
 	bool alive_;
+	bool has_destination_;
 	float lifetime_;
 	float initial_lifetime_;
 	EntityID spawner_;
@@ -95,6 +96,24 @@ public:
 */
 /******************************************************************************/
 	bool IsAlive() const;
+
+/******************************************************************************/
+/*!
+  \fn SetAlive()
+
+  \brief Set alive status of particle
+*/
+/******************************************************************************/
+	void SetAlive(bool status);
+
+/******************************************************************************/
+/*!
+  \fn SetDestination()
+
+  \brief Set has destination status of particle
+*/
+/******************************************************************************/
+	void SetDestination(bool status);
 
 /******************************************************************************/
 /*!

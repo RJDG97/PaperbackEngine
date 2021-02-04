@@ -108,6 +108,15 @@ void Emitter::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
 		writer->String(name.c_str());
 	}
 
+	writer->Key("has_destination");
+	writer->String(std::to_string(particle_destination_.set_destination_).c_str());
+
+	writer->Key("destination");
+	writer->String((std::to_string(particle_destination_.destination_.x) + " " + std::to_string(particle_destination_.destination_.x)).c_str());
+
+	writer->Key("destination_time_range");
+	writer->String((std::to_string(particle_destination_.time_range_.x) + " " + std::to_string(particle_destination_.time_range_.y)).c_str());
+
 	writer->EndObject();
 }
 
@@ -149,6 +158,14 @@ void Emitter::DeSerializeClone(std::stringstream& data) {
 		particle_texture_.texture_names_.push_back(name);
 	}
 
+	// Initialize the particle's destination selection
+	data >> particle_destination_.set_destination_;
+	if (particle_destination_.set_destination_) {
+
+		data >> particle_destination_.destination_.x >> particle_destination_.destination_.y;
+		data >> particle_destination_.time_range_.x >> particle_destination_.time_range_.y;
+	}
+
 	alive_ = true;
 }
 
@@ -183,6 +200,7 @@ void Emitter::SetParticle(const EntityID& id) {
 	particle_force_.Generate(forces_manager, particle, id);
 	particle_rotation_.Generate(xform_p);
 	particle_texture_.Generate(graphics_system, texture_renderer);
+	particle_destination_.Init(particle);
 
 	// Set parent id
 	particle->spawner_ = GetOwner()->GetID();
@@ -405,3 +423,28 @@ void GenerateTexture::Generate(std::shared_ptr<GraphicsSystem> graphics_system, 
 	size_t index = number_of_textures_ == 1 ? 0 : glm::linearRand(0, static_cast<int>(number_of_textures_ - 1));	graphics_system->ChangeTexture(texture, texture_names_[index]);
 }
 
+void GenerateDestination::Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id) {
+
+	if (set_destination_) {
+		float zoom = *CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetCameraZoom();
+		Vector2D cam_pos = CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetVector2DCameraPosition();
+		Vector2D particle_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(particle_id)->GetOffsetAABBPos();
+
+		float travel_time = glm::linearRand(time_range_.x, time_range_.y);
+
+		Vector2D p_force = ((destination_ * CORE->GetGlobalScale() + cam_pos * zoom) - particle_pos * CORE->GetGlobalScale()) / travel_time;
+
+		particle->SetLifetime(travel_time);
+		particle->SetAlive(true);
+		particle->SetDestination(false);
+		force_manager->AddForce(particle_id, "Particle_To_Destination", travel_time, p_force);
+	}
+}
+
+void GenerateDestination::Init(Particle* particle) {
+
+	if (set_destination_)
+		particle->SetDestination(true);
+	else
+		particle->SetDestination(false);
+}

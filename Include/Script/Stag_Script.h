@@ -32,6 +32,7 @@ namespace Stag_Script
 	*/
 	/******************************************************************************/
 	void TextureUpdateScript(const EntityID& parent_id) {
+		(void)parent_id;
 		
 		//std::shared_ptr<GraphicsSystem> graphics = CORE->GetSystem<GraphicsSystem>();
 		//ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
@@ -84,12 +85,12 @@ namespace Stag_Script
 		//	}
 		//}
 
-		//if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		//if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 
 		//	graphics->FlipTextureY(renderer);
 		//	motion->SetIsLeft(false);
 		//}
-		//else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		//else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 
 		//	graphics->FlipTextureY(renderer);
 		//	motion->SetIsLeft(true);

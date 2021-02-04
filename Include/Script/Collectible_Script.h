@@ -87,7 +87,7 @@ namespace Collectible_Script
 
 		// Grab relevant components
 		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(interactable_id);
-		Interactable* interactable = component_mgr->GetComponent<Interactable>(interactable_id);
+		//Interactable* interactable = component_mgr->GetComponent<Interactable>(interactable_id);
 		AABB* aabb = component_mgr->GetComponent<AABB>(interactable_id);
 
 		// By right, switch case based on "enum" for animation changes

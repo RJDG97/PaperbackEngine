@@ -341,6 +341,10 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 		//auto& [player_id, player_aabb] = *aabb1;
 		auto& [pushable_id, pushable_aabb] = *aabb2;
 
+		AnimationRenderer* anim = component_mgr_->GetComponent<AnimationRenderer>(pushable_id);
+		if (anim)
+			anim->SetAnimationStatus(true);
+
 		//// Retrieve player force & instantiate vector
 		//float player_f = component_mgr_->GetComponent<Motion>(player_id)->force_ * PE_FrameRate.GetFixedDelta();
 		//push_force.x = vel1->x < 0.0f ? -player_f : player_f;
@@ -795,6 +799,7 @@ void Collision::Init() {
 	windows_ = &*CORE->GetSystem<WindowsSystem>();
 	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
+	logic_mgr_ = &*CORE->GetManager<LogicManager>();
 
 	clickable_arr_ = component_mgr_->GetComponentArray<Clickable>();
 	motion_arr_ = component_mgr_->GetComponentArray<Motion>();
@@ -942,7 +947,6 @@ void Collision::Update(float frametime) {
 
 
 	std::pair<size_t, size_t> sizes = partitioning_->GetAxisSizes();
-	std::vector<std::future<void>> futures{};
 
 	for (size_t i = 0; i < sizes.second; ++i) { // y-axis
 		for (size_t j = 0; j < sizes.first; ++j) { // x-axis
@@ -951,23 +955,36 @@ void Collision::Update(float frametime) {
 			if (!partitioning_->VerifyPartition(j, i))
 				continue;
 
-			//// Else perform collision checks on partition
-			//if (entity_mgr_->GetEntities().size() > 10) {
-
-			//	futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
-			//}
-			//else {
-
-			//	ProcessPartitionedEntities(i, j, frametime);
-			//}
 			ProcessPartitionedEntities(i, j, frametime);
 		}
 	}
-	
-	for (std::future<void>& future : futures) {
 
-		future.get();
+	//// To temporarily disable rolling if player is no longer colliding with the object
+	//// To potentially move elsewhere or shift into a function when the idea is solidified
+	auto boulder_layer = collision_map_.find(CollisionLayer::PUSHABLE);
+
+	if (boulder_layer != collision_map_.end()) {
+		for (auto& [id, boulder_collider] : boulder_layer->second) {
+
+			LogicComponent* logic = component_mgr_->GetComponent<LogicComponent>(id);
+			std::string update = logic->GetLogic("UpdateAnimation");
+			logic_mgr_->Exec(update, id);
+		}
 	}
+
+	//if (boulder_layer != collision_map_.end()) {
+	//	for (auto& [id, boulder_collider] : boulder_layer->second) {
+
+	//		if (!boulder_collider->collided) {
+
+	//			AnimationRenderer* anim = component_mgr_->GetComponent<AnimationRenderer>(id);
+	//			if (anim && anim->FinishedAnimating())
+	//				anim->SetAnimationStatus(false);
+	//		}
+	//	}
+	//}
+
+
 
 	ButtonStates state = ButtonStates::HOVERED;
 	CheckClickableCollision(state);

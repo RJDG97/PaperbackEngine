@@ -1,5 +1,5 @@
 {
-    "MoveBlok": [
+    "Boulder": [
         {
             "component": "Transform",
             "position": "-19.705627 -11.546721",
@@ -17,7 +17,7 @@
             "scale": "128.000000 128.000000"
         }
     ],
-    "MoveBlok": [
+    "Boulder": [
         {
             "component": "Transform",
             "position": "-2.000000 -29.517628",
@@ -35,7 +35,7 @@
             "scale": "128.000000 128.000000"
         }
     ],
-    "MoveBlok": [
+    "Boulder": [
         {
             "component": "Transform",
             "position": "-1.384768 -21.361317",

@@ -30,6 +30,7 @@
 #include "Components/InputController.h"
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
+#include "Manager/LogicManager.h"
 #include "Systems/WindowsSystem.h"
 #include "Systems/CameraSystem.h"
 #include <unordered_map>
@@ -122,6 +123,7 @@ private:
 	PartitioningSystem* partitioning_;
 	EntityManager* entity_mgr_;
 	ComponentManager* component_mgr_;
+	LogicManager* logic_mgr_;
 
 /******************************************************************************/
 /*!

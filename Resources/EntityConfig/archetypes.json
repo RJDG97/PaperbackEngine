@@ -1090,10 +1090,10 @@
             "function": "Mite_UpdateTexture"
         }
     ],
-    "MoveBlok": [
+    "Boulder": [
         {
             "component": "Name",
-            "name": "MoveBlok"
+            "name": "Boulder"
         },
         {
             "component": "Motion",
@@ -1114,7 +1114,7 @@
             "add animation": "Stone_Roll_One",
             "add animation": "Stone_Roll_Two",
             "set animation": "Stone_Roll_One",
-            "play_animation": "1",
+            "play_animation": "0",
             "has_finished_animating": "0",
             "layer": "2",
             "ui": "0",
@@ -1135,6 +1135,12 @@
             "radius": "550.000000",
             "intensity": "0.500000",
             "alive": "1"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
         }
     ],
     "MovingWall": [

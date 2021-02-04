@@ -147,12 +147,12 @@ namespace Player_Scripts
 
 		}
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);

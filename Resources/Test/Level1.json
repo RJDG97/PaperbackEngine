@@ -17,7 +17,7 @@
     "Burrowable": "Resources\\Test\\Map\\Burrow\\Invisible_Burrowable_Collision.json",
     "DriedBush_03": "Resources\\Test\\Map\\Burrow\\DriedBush_03.json",
     "Hole": "Resources\\Test\\Map\\Grass\\Hole_Hide_Grass.json",
-    "MoveBlok": "Resources\\Test\\Map\\Interactable\\Moving_Stone.json",
+    "Boulder": "Resources\\Test\\Map\\Interactable\\Boulder.json",
     "Bug_Hill_1x2": "Resources\\Test\\Map\\Hill\\BugHill_1x2.json",
     "Bug_Hill_2x1": "Resources\\Test\\Map\\Hill\\BugHill_2x1.json",
     "Bug_Hill_2x2": "Resources\\Test\\Map\\Hill\\BugHill_2x2.json",

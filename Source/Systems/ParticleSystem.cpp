@@ -72,6 +72,13 @@ void ParticleSystem::Update(float frametime) {
 
 		if (particle->lifetime_ < 0.0f) {
 
+			if (particle->has_destination_) {
+				
+				Emitter* emitter = component_manager_->GetComponent<Emitter>(particle->spawner_);
+				emitter->particle_destination_.Generate(CORE->GetManager<ForcesManager>(), particle, id);
+				continue;
+			}
+
 			particle->alive_ = false;
 			particle->lifetime_ = 0.0f;
 			component_manager_->GetComponent<Motion>(id)->alive_ = false;

@@ -108,3 +108,8 @@ bool AABB::GetAlive() const {
 
 	return alive_;
 }
+
+bool AABB::IsColliding() const {
+
+	return collided;
+}

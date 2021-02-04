@@ -94,11 +94,11 @@ bool Mite_Tree::WalkAnim::run() {
 		graphics->ChangeAnimation(renderer, "Mite_Idle");
 	graphics->ChangeAnimation(renderer, "Mite_Walk");
 
-	if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+	if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 		graphics->FlipTextureY(renderer);
 		motion->SetIsLeft(false);
 	}
-	else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+	else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 		graphics->FlipTextureY(renderer);
 		motion->SetIsLeft(true);
 	}
@@ -260,11 +260,11 @@ bool Mite_Tree::DetectAnim::run() {
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Mite_Idle");
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
@@ -327,11 +327,11 @@ bool Mite_Tree::ChaseAnim::run() {
 			graphics->ChangeAnimation(renderer, "Mite_Walk");
 		}
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
@@ -366,11 +366,11 @@ bool Mite_Tree::AttackAnim::run() {
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Mite_Idle");
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}

@@ -1,8 +1,8 @@
 {
-  "MoveBlok": [
+  "Boulder": [
     {
       "component": "Name",
-      "name": "MoveBlok"
+      "name": "Boulder"
     },
     {
       "component": "Transform",

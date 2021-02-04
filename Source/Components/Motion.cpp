@@ -101,7 +101,7 @@ void Motion::SetForce(float new_force) {
 	force_ = new_force;
 }
 
-bool Motion::GetIsLeft() {
+bool Motion::IsLeft() {
 
 	return is_left_;
 }
@@ -109,6 +109,16 @@ bool Motion::GetIsLeft() {
 void Motion::SetIsLeft(bool status) {
 
 	is_left_ = status;
+}
+
+bool Motion::IsTop() {
+
+	return is_top_;
+}
+
+void Motion::SetIsTop(bool status) {
+
+	is_top_= status;
 }
 
 Vector2D Motion::GetVelocity() {
