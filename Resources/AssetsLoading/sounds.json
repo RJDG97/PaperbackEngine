@@ -71,7 +71,7 @@
             "loop": "1"
         }
     ],
-    "Fire": [
+   "Fire": [
         {
             "path": "Resources/SoundCache/Environment/FireCracking.mp3",
             "volume": "0.100000",
