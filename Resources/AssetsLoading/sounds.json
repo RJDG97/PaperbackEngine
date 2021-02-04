@@ -143,9 +143,45 @@
             "loop": "0"
         }
     ],
-    "GrassMoves": [
+    "GrassMoves_0": [
+        {
+            "path": "Resources/SoundCache/Player/Grass_0.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "GrassMoves_1": [
+        {
+            "path": "Resources/SoundCache/Player/Grass_1.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "GrassMoves_2": [
         {
             "path": "Resources/SoundCache/Player/Grass_2.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "GrassMoves_3": [
+        {
+            "path": "Resources/SoundCache/Player/Grass_3.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "GrassMoves_4": [
+        {
+            "path": "Resources/SoundCache/Player/Grass_4.mp3",
             "volume": "1.000000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
@@ -170,9 +206,27 @@
             "loop": "0"
         }
     ],
-    "PlayerBurrowing": [
+    "PlayerBurrowing_0": [
+        {
+            "path": "Resources/SoundCache/Player/Burrowing_0.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerBurrowing_1": [
         {
             "path": "Resources/SoundCache/Player/Burrowing_1.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerBurrowing_2": [
+        {
+            "path": "Resources/SoundCache/Player/Burrowing_2.mp3",
             "volume": "1.000000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",

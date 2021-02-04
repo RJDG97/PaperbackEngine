@@ -39,6 +39,16 @@
 
 #define EPSILON 0.001f
 
+// Terrible...
+void PlayGrassRustle() {
+
+	int value = std::rand() % 5;
+	std::string sound{ "GrassMoves_" };
+	sound += std::to_string(value);
+	CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
+	
+}
+
 Collision* COLLISION;
 
 Collision::Collision() {
@@ -626,7 +636,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 			case CollisionLayer::BIGKUSA:
 			{
-				CORE->GetSystem<SoundSystem>()->PlaySounds("GrassMoves");
+				PlayGrassRustle();
 				break;
 			}
 		}
