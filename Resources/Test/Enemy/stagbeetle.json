@@ -60,33 +60,5 @@
       "name": "UpdateTexture",
       "function": "Stag_UpdateTexture"
     }
-  ],
-  "StagBeetle": [
-    {
-      "component": "Transform",
-      "position": "-30.8 0.2",
-      "rotation": "0.000000",
-      "offset": "0.000000 0.000000",
-      "aabb offset": "0.000000 -1.000000"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.500000 0.500000",
-      "layer": "2"
-    },
-    {
-      "component": "AI",
-      "AIType": "Stag_Beetle",
-      "range": "5.000000",
-      "speed": "200.000000",
-      "dest": "1",
-      "destination1": "-30.8 0.2"
-    },
-    {
-      "component": "LogicComponent",
-      "number_of_fns": "1",
-      "name": "UpdateTexture",
-      "function": "Stag_UpdateTexture"
-    }
   ]
 }
