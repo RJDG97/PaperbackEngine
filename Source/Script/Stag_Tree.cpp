@@ -195,7 +195,7 @@ bool Stag_Tree::Move::run() {
 	float distance = Vector2DLength(ai_->GetPath().back() - obj_rigidbody_->GetOffsetAABBPos());
 
 	// If object is at next path node
-	if (distance < 0.1f)
+	if (distance < 1.0f)
 		// Remove node destination
 		ai_->GetPath().pop_back();
 	if (!ai_->GetPath().empty())
