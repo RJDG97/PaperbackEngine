@@ -71,7 +71,7 @@
             "loop": "1"
         }
     ],
-    "Fire": [
+   /* "Fire": [
         {
             "path": "Resources/SoundCache/Environment/FireCracking.mp3",
             "volume": "0.100000",
@@ -79,33 +79,33 @@
             "volume falloff": "0.050000",
             "loop": "1"
         }
-    ],
+    ],*/
     "River": [
-      {
-          "path": "Resources/SoundCache/Environment/River.mp3",
-          "volume": "0.20000",
-          "min distance": "3.000000",
-          "volume falloff": "0.030000",
-          "loop": "1"
-      }
+        {
+            "path": "Resources/SoundCache/Environment/River.mp3",
+            "volume": "0.20000",
+            "min distance": "3.000000",
+            "volume falloff": "0.030000",
+            "loop": "1"
+        }
     ],
     "Tree": [
-      {
-          "path": "Resources/SoundCache/Environment/TreeRustle.mp3",
-          "volume": "0.100000",
-          "min distance": "3.000000",
-          "volume falloff": "0.050000",
-          "loop": "1"
-      }
+        {
+            "path": "Resources/SoundCache/Environment/TreeRustle.mp3",
+            "volume": "0.100000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "1"
+        }
     ],
     "WaterDropping": [
-      {
-          "path": "Resources/SoundCache/Environment/WaterDroplet.mp3",
-          "volume": "0.100000",
-          "min distance": "3.000000",
-          "volume falloff": "0.050000",
-          "loop": "1"
-      }
+        {
+            "path": "Resources/SoundCache/Environment/WaterDroplet.mp3",
+            "volume": "0.100000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "1"
+        }
     ],
     "PlayerDies": [
         {
@@ -143,6 +143,61 @@
             "loop": "0"
         }
     ],
+    "PlayerEntersGrass": [
+        {
+            "path": "Resources/SoundCache/Player/Grass_2.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerMovesStone": [
+        {
+            "path": "Resources/SoundCache/Player/Moving_Stone_1.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerPushTree": [
+        {
+            "path": "Resources/SoundCache/Player/Push_Tree.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerBurrowing": [
+        {
+            "path": "Resources/SoundCache/Player/Burrowing_1.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerBurrowIn": [
+        {
+            "path": "Resources/SoundCache/Player/BurrowIn.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerBurrowOut": [
+        {
+            "path": "Resources/SoundCache/Player/BurrowOut.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+
     "TextAdvancing": [
         {
             "path": "Resources/SoundCache/UI/TextAdvancing.mp3",
