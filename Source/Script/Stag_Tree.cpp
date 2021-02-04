@@ -48,6 +48,47 @@ bool Stag_Tree::CheckAlive::run()
 	}
 }
 
+Stag_Tree::CheckSentry::CheckSentry(EntityID id) : id_(id) {
+	component_mgr = &*CORE->GetManager<ComponentManager>();
+	ai_ = component_mgr->GetComponent<AI>(id_);
+	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
+}
+
+bool Stag_Tree::CheckSentry::run()
+{
+	if(ai_->GetNumDes() == 1)
+		return true;
+	return false;
+}
+
+Stag_Tree::SentryAnim::SentryAnim(EntityID id) :id_(id) {
+	graphics = CORE->GetSystem<GraphicsSystem>();
+	component_mgr = &*CORE->GetManager<ComponentManager>();
+	renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
+	motion = component_mgr->GetComponent<Motion>(id_);
+	name = component_mgr->GetComponent<Name>(id_);
+	ai = component_mgr->GetComponent<AI>(id_);
+}
+
+bool Stag_Tree::SentryAnim::run() {
+	// If any pointers are invalid, return
+	if (!renderer || !ai || !motion || !name)
+		return false;
+	ai->SetState(AI::AIState::Patrol);
+	// If velocity is essentially 0, set player to idle
+	graphics->ChangeAnimation(renderer, "Stagbeetle_Idle");
+
+	if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		graphics->FlipTextureY(renderer);
+		motion->SetIsLeft(false);
+	}
+	else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		graphics->FlipTextureY(renderer);
+		motion->SetIsLeft(true);
+	}
+	return true;
+}
+
 Stag_Tree::AtWaypoint::AtWaypoint(EntityID id) : id_(id) {
 	component_mgr = &*CORE->GetManager<ComponentManager>();
 	ai_ = component_mgr->GetComponent<AI>(id_);
@@ -94,7 +135,8 @@ bool Stag_Tree::WalkAnim::run(){
 	// If velocity is essentially 0, set player to idle
 	if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Idle");
-	graphics->ChangeAnimation(renderer, "Stagbeetle_Walk");
+	else
+		graphics->ChangeAnimation(renderer, "Stagbeetle_Walk");
 
 	if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
 		graphics->FlipTextureY(renderer);
@@ -139,7 +181,7 @@ bool Stag_Tree::Move::run() {
 	float distance = Vector2DLength(ai_->GetPath().back() - obj_rigidbody_->GetOffsetAABBPos());
 
 	// If object is at next path node
-	if (distance < 1.0f)
+	if (distance < 0.1f)
 		// Remove node destination
 		ai_->GetPath().pop_back();
 	if (!ai_->GetPath().empty())

@@ -49,8 +49,47 @@ public:
 	public:
 		ActionSelector(EntityID id) : id_(id) {
 			addChild(new DetectSequence(id_));
+			addChild(new IdleSequence(id_));
 			addChild(new PatrolSequence(id_));
 		}
+	};
+
+	class IdleSequence : public Sequence
+	{
+		EntityID id_;
+	public:
+		IdleSequence(EntityID id) : id_(id) {
+			addChild(new CheckSentry(id_));
+			addChild(new SentryAnim(id_));
+		}
+	};
+
+	class CheckSentry :public Node
+	{
+		EntityID id_;
+		AI* ai_;
+		Transform* obj_rigidbody_;
+		ComponentManager* component_mgr;
+	public:
+		CheckSentry(EntityID id);
+
+		bool run() override;
+	};
+
+	class SentryAnim :public Node
+	{
+		EntityID id_;
+		std::shared_ptr<GraphicsSystem> graphics;
+		ComponentManager* component_mgr;
+
+		AnimationRenderer* renderer;
+		Motion* motion;
+		Name* name;
+		AI* ai;
+	public:
+		SentryAnim(EntityID id);
+
+		bool run() override;
 	};
 
 	class PatrolSequence : public Sequence

@@ -24,10 +24,13 @@
     "DriedBush_01": "Resources\\Test\\Map\\Burrow\\DriedBush_01.json",
     "DriedBush_02": "Resources\\Test\\Map\\Burrow\\DriedBush_02.json",
     "Spores": "Resources\\Test\\Map\\Spores.json",
+    "StagBeetle": "Resources\\Test\\Enemy\\stagbeetle.json",
+    "Mite": "Resources\\Test\\Enemy\\mite.json",
     "BurrowIcon": "Resources\\Test\\UI\\burrowui.json",
     "DialogueBox": "Resources\\Test\\UI\\dialoguebox.json",
     "HideIcon": "Resources\\Test\\UI\\hideui.json",
     "Objectives": "Resources\\Test\\UI\\objectives.json",
     "ParticleEmitter": "Resources\\Test\\UI\\particleemitter.json",
+    "MyParticle": "Resources\\Test\\UI\\myparticles.json",
     "Watergauge": "Resources\\Test\\UI\\watergauge.json"
 }
