@@ -143,7 +143,7 @@
             "loop": "0"
         }
     ],
-    "PlayerEntersGrass": [
+    "GrassMoves": [
         {
             "path": "Resources/SoundCache/Player/Grass_2.mp3",
             "volume": "1.000000",
