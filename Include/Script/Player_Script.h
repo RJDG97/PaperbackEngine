@@ -173,6 +173,7 @@ namespace Player_Scripts
 
 		std::shared_ptr<EntityManager> entity_mgr = CORE->GetManager<EntityManager>();
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
+		std::shared_ptr<SoundSystem> sound_system = CORE->GetSystem<SoundSystem>();
 		std::shared_ptr<Game> game = CORE->GetSystem<Game>();
 
 		InputController* controller = component_mgr->GetComponent<InputController>(id);
@@ -257,6 +258,11 @@ namespace Player_Scripts
 
 					m_PlayState.SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
 				}
+
+				if (player_status->GetStatus() == StatusType::BURROW)
+					sound_system->PlaySounds("PlayerBurrowIn");
+				else
+					sound_system->PlaySounds("PlayerBurrowOut");
 			}
 			else if (controller->VerifyKey("invisible", m->input_)) {
 
@@ -294,18 +300,38 @@ namespace Player_Scripts
 				if (controller->VerifyKey("move_left", m->input_)) {
 
 					CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
+
+					// Find somewhere else or some way to put this...
+					if (player_status->GetStatus() == StatusType::BURROW) {
+						CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerBurrowing");
+					}
 				}
 				else if (controller->VerifyKey("move_right", m->input_)) {
 
 					CORE->GetManager<ForcesManager>()->AddForce(player_id, "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
+
+					// Find somewhere else or some way to put this...
+					if (player_status->GetStatus() == StatusType::BURROW) {
+						CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerBurrowing");
+					}
 				}
 				else if (controller->VerifyKey("move_up", m->input_)) {
 
 					CORE->GetManager<ForcesManager>()->AddForce(player_id, "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
+
+					// Find somewhere else or some way to put this...
+					if (player_status->GetStatus() == StatusType::BURROW) {
+						CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerBurrowing");
+					}
 				}
 				else if (controller->VerifyKey("move_down", m->input_)) {
 
 					CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
+
+					// Find somewhere else or some way to put this...
+					if (player_status->GetStatus() == StatusType::BURROW) {
+						CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerBurrowing");
+					}
 				}
 				else if (controller->VerifyKey("spin_left", m->input_)) {
 

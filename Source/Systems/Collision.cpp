@@ -334,16 +334,14 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 	// If pushing entities...
 	else {
 
+		CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerMovesStone");
+
 		Vector2D push_force{};
 		ForcesManager* force_mgr = &*CORE->GetManager<ForcesManager>();
 
 		// Retrieve ids
 		//auto& [player_id, player_aabb] = *aabb1;
 		auto& [pushable_id, pushable_aabb] = *aabb2;
-
-		AnimationRenderer* anim = component_mgr_->GetComponent<AnimationRenderer>(pushable_id);
-		if (anim)
-			anim->SetAnimationStatus(true);
 
 		//// Retrieve player force & instantiate vector
 		//float player_f = component_mgr_->GetComponent<Motion>(player_id)->force_ * PE_FrameRate.GetFixedDelta();
@@ -507,6 +505,7 @@ void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 void Collision::PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2) {
 
 	LogicManager* logic = &*CORE->GetManager<LogicManager>();
+	SoundSystem* sound_system = &*CORE->GetSystem<SoundSystem>();
 
 	auto& [player_id, player_aabb] = *aabb1;
 	auto& [interactable_id, interactable_aabb] = *aabb2;
@@ -516,6 +515,8 @@ void Collision::PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2) {
 
 	std::string player_interactable = player_logic->GetLogic("Interactable");
 	std::string game_interactable = collectible_logic->GetLogic("Interactable");
+
+	sound_system->PlaySounds("PlayerPushTree");
 
 	// Execute player's logic script
 	logic->Exec(game_interactable, interactable_id);
@@ -621,6 +622,11 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			case CollisionLayer::INTERACTABLE:
 			{
 				PlayerInteractableResponse(aabb1, aabb2);
+				break;
+			}
+			case CollisionLayer::BIGKUSA:
+			{
+				CORE->GetSystem<SoundSystem>()->PlaySounds("GrassMoves");
 				break;
 			}
 		}
