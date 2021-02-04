@@ -90,7 +90,7 @@ void PlayState::Init(std::string)
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.5f);
 
 	CORE->GetManager<DialogueManager>()->LoadDialogueSet("Play");
-	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("intro");
+	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("beginning");
 }
 
 void PlayState::Free()

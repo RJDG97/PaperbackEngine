@@ -26,6 +26,7 @@ enum class CollectibleType
 {
 	NONE = 0,
 	PUDDLE,
+	SPORE,
 	KEY
 };
 

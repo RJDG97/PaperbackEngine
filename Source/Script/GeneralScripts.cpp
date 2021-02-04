@@ -130,26 +130,14 @@ namespace GeneralScripts
 		switch (obj->second->GetType())
 		{
 		case AI::AIType::StagBeetle:
-			StagBeetle::Handler(obj);
+			//StagBeetle::Handler(obj);
 			break;
 		case AI::AIType::Mite:
-			Mite::Handler(obj);
+			//Mite::Handler(obj);
 			break;
 		case AI::AIType::Hornet:
 			break;
 		}
-	}
-
-	AI::AIType GetType(std::string type)
-	{
-		if (type == "Stag_Beetle")
-			return AI::AIType::StagBeetle;
-		else if (type == "Mite")
-			return AI::AIType::Mite;
-		else if (type == "Hornet")
-			return AI::AIType::Hornet;
-		// replace with exception
-		return AI::AIType::StagBeetle;
 	}
 
 	std::string ReturnStringType(const AI::AIType& type) {

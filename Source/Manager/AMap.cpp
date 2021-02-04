@@ -287,6 +287,7 @@ bool AMap::Pathing(std::vector<Vector2D>&  path,Vector2D start, Vector2D des)
 				nnode->parent_ = currentnode;
 				nnode->visited_ = true;
 
+				// Insert node into open list if not in list
 				if (!inlist(openlist, *nnode))
 					openlist.push_front(*nnode);
 			}

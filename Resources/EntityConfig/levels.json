@@ -1,16 +1,16 @@
 {
 
   "Splash": "Resources/EntityConfig/splash.json",
-  
+
   "Menu": "Resources/EntityConfig/menu.json",
-  
-  "Play": "Resources/EntityConfig/play.json",
-  
+
+  "Play": "Resources/Test/Level1.json",
+
   "Win": "Resources/EntityConfig/win.json",
-  
+
   "Lose": "Resources/EntityConfig/lose.json",
-  
+
   "Editor": "Resources/EntityConfig/editor.json",
-  
+
   "Pause": "Resources/EntityConfig/pause.json"
 }

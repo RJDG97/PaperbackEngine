@@ -1,0 +1,56 @@
+{
+    "MoveBlok": [
+        {
+            "component": "Transform",
+            "position": "-19.705627 -11.546721",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "128.000000 128.000000"
+        }
+    ],
+    "MoveBlok": [
+        {
+            "component": "Transform",
+            "position": "-2.000000 -29.517628",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "128.000000 128.000000"
+        }
+    ],
+    "MoveBlok": [
+        {
+            "component": "Transform",
+            "position": "-1.384768 -21.361317",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "128.000000 128.000000"
+        }
+    ]
+}

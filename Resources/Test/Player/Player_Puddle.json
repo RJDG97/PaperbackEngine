@@ -1,0 +1,157 @@
+{
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-19.601461 -14.150888",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 47.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-18.225843 11.220655",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 47.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "10.871519 4.490789",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 47.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "1.100708 -13.067566",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 47.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "34.557144 -26.090626",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_0",
+            "layer": "1",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 47.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ]
+}

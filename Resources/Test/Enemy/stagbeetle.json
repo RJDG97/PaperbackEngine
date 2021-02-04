@@ -1,0 +1,92 @@
+{
+  "StagBeetle": [
+    {
+      "component": "Transform",
+      "position": "-14.0 6.8",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 -1.000000"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.500000 0.500000",
+      "layer": "2"
+    },
+    {
+      "component": "AI",
+      "AIType": "Stag_Beetle",
+      "range": "5.000000",
+      "speed": "200.000000",
+      "dest": "4",
+      "destination1": "-14.00000 7.0000",
+      "destination2": "-14.000000 5.000000",
+      "destination3": "-18.000000 5.000000",
+      "destination4": "-18.000000 7.00000"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "Stag_UpdateTexture"
+    }
+  ],
+  "StagBeetle": [
+    {
+      "component": "Transform",
+      "position": "-22.0 2.6",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 -1.000000"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.500000 0.500000",
+      "layer": "2"
+    },
+    {
+      "component": "AI",
+      "AIType": "Stag_Beetle",
+      "range": "5.000000",
+      "speed": "200.000000",
+      "dest": "4",
+      "destination1": "-21.0 2.6",
+      "destination2": "-19.0 2.6",
+      "destination3": "-19.0 0.5",
+      "destination4": "-21.0 0.5"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "Stag_UpdateTexture"
+    }
+  ],
+  "StagBeetle": [
+    {
+      "component": "Transform",
+      "position": "-30.8 0.2",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 -1.000000"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.500000 0.500000",
+      "layer": "2"
+    },
+    {
+      "component": "AI",
+      "AIType": "Stag_Beetle",
+      "range": "5.000000",
+      "speed": "200.000000",
+      "dest": "1",
+      "destination1": "-30.8 0.2"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "Stag_UpdateTexture"
+    }
+  ]
+}

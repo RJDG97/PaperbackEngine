@@ -249,6 +249,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::COLLECTIBLE;
 	else if (str == "Unlockable")
 		return ComponentTypes::UNLOCKABLE;
+	else if (str == "Interactable")
+		return ComponentTypes::INTERACTABLE;
 	else
 		return ComponentTypes::NONE;
 }

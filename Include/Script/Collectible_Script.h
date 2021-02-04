@@ -54,6 +54,10 @@ namespace Collectible_Script
 
 		switch (collectible->GetItemType())
 		{
+			case CollectibleType::SPORE:
+			{
+				break;
+			}
 			case CollectibleType::PUDDLE:
 			{
 				MessageBGM_Play msg{ "PlayerDrink" };
@@ -64,6 +68,42 @@ namespace Collectible_Script
 			{
 				CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("keypickedup");
 				break;
+			}
+		}
+	}
+
+
+	/******************************************************************************/
+	/*!
+	  \fn InteractableResponse()
+
+	  \brief Interactable update script for Logs
+	*/
+	/******************************************************************************/
+	void InteractableResponse(const EntityID& interactable_id) {
+
+		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
+		std::shared_ptr<GraphicsSystem> graphics_sys = CORE->GetSystem<GraphicsSystem>();
+
+		// Grab relevant components
+		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(interactable_id);
+		Interactable* interactable = component_mgr->GetComponent<Interactable>(interactable_id);
+		AABB* aabb = component_mgr->GetComponent<AABB>(interactable_id);
+
+		// By right, switch case based on "enum" for animation changes
+		//std::string col_name = interactable->GetAnimationName("Collided");
+		//graphics_sys->ChangeAnimation(animation_renderer, col_name);
+
+		animation_renderer->SetAnimationStatus(true);
+
+		if (animation_renderer->FinishedAnimating()) {
+
+			if (aabb) {
+
+				aabb->SetAlive(false);
+				animation_renderer->SetAnimationStatus(false);
+				//std::string def_name = interactable->GetAnimationName("Default");
+				//graphics_sys->ChangeAnimation(animation_renderer, def_name);
 			}
 		}
 	}
