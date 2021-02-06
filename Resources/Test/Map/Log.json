@@ -41,5 +41,48 @@
             "component": "Interactable",
             "size": "0"
         }
+    ],
+    "Log": [
+        {
+            "component": "Name",
+            "name": "Log"
+        },
+        {
+            "component": "Transform",
+            "position": "5.06 -16.44",
+            "rotation": "0.000000",
+            "offset": "0.000000 -4.200000",
+            "aabb offset": "-1.100000 -3.500000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Tree_Fall",
+            "set animation": "Tree_Fall",
+            "play_animation": "0",
+            "has_finished_animating": "0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "4.900000 0.800000",
+            "layer": "12"
+        },
+        {
+            "component": "Scale",
+            "scale": "400.000000 400.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Interactable",
+            "function": "Interactable_Response"
+        },
+        {
+            "component": "Interactable",
+            "size": "0"
+        }
     ]
 }

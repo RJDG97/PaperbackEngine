@@ -33,5 +33,6 @@
     "ParticleEmitter": "Resources\\Test\\UI\\particleemitter.json",
     "MyParticle": "Resources\\Test\\UI\\myparticles.json",
     "Watergauge": "Resources\\Test\\UI\\watergauge.json",
-    "Log": "Resources\\Test\\Map\\Log.json"
+    "Log": "Resources\\Test\\Map\\Log.json",
+    "Goal": "Resources\\Test\\Map\\Goal.json"
 }

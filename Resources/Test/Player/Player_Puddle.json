@@ -95,7 +95,7 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "1.100708 -13.067566",
+            "position": "8.50 -13.77",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -126,7 +126,7 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "34.557144 -26.090626",
+            "position": "26.43 -18.34",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
