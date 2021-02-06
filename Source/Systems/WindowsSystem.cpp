@@ -73,7 +73,7 @@ void WindowsSystem::Init() {
 		std::exit(EXIT_FAILURE);
 	}
 
-	//glfwSetWindowMonitor(ptr_window, glfwGetPrimaryMonitor(), 0, 0, width_, height_, GLFW_DONT_CARE);
+	glfwSetWindowMonitor(ptr_window, glfwGetPrimaryMonitor(), 0, 0, width_, height_, GLFW_DONT_CARE);
 
 	M_DEBUG->WriteDebugMessage("Window System Init\n");
 }

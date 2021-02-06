@@ -790,7 +790,7 @@ bool Collision::HideReady() {
 
 bool Collision::UnBurrowReady() {
 
-	return !CollisionReady(CollisionLayer::BURROWABLE);
+	return !(CollisionReady(CollisionLayer::BURROWABLE) || CollisionReady(CollisionLayer::SOLID_ENVIRONMENT));
 }
 
 void Collision::ToggleClickables(size_t group) {

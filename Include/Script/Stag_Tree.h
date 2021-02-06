@@ -17,31 +17,78 @@
 #include "Systems/Physics.h"
 #include "Engine/Core.h"
 
+/******************************************************************************/
+/*!
+  \class Stag_Tree
+
+  \brief Class containing behaviour nodes for StagBeetle AI
+*/
+/******************************************************************************/
 class Stag_Tree: public Behaviour
 {
 public:
+	/******************************************************************************/
+	/*!
+	  \class StagRoot
 
+	  \brief StagRoot Node, Starting node that points to one child
+	*/
+	/******************************************************************************/
 	class StagRoot :public Root
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn StagRoot(EntityID id)
+
+		  \brief Constructor, setting child
+		*/
+		/******************************************************************************/
 		StagRoot(EntityID id) :id_(id) {
 			setChild(new StagSequence(id));
 		}
+		/******************************************************************************/
+		/*!
+		  \fn CollisionResponse(EntityID obj)
 
+		  \brief Stag response upon ai collision
+		*/
+		/******************************************************************************/
 		void CollisionResponse(EntityID obj) override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class StagSequence
+
+	  \brief Stag Sequence Node, Contains nodes for respawn and overall actions 
+	*/
+	/******************************************************************************/
 	class StagSequence : public Sequence
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn StagSequence(EntityID id)
+
+		  \brief Constructor, setting multiple children
+		*/
+		/******************************************************************************/
 		StagSequence(EntityID id) : id_(id) {
 			addChild(new CheckAlive(id));
 			addChild(new ActionSelector(id));
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class CheckAlive
+
+	  \brief Checks whether AI is alive, if not, run respawn
+	*/
+	/******************************************************************************/
 	class CheckAlive :public Node
 	{
 		EntityID id_;
@@ -49,16 +96,43 @@ public:
 		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
 		Time_Channel respawn_timer_;
-	public:
-		CheckAlive(EntityID id);
+	public:\
+		/******************************************************************************/
+		/*!
+		  \fn CheckAlive(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		CheckAlive(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Checks whether AI is alive, if not, run respawn
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class ActionSelector
+
+	  \brief ActionSelector Node, Contains nodes for overall AI actions
+	*/
+	/******************************************************************************/
 	class ActionSelector : public Selector
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn ActionSelector(EntityID id)
+
+		  \brief Constructor, setting multiple children
+		*/
+		/******************************************************************************/
 		ActionSelector(EntityID id) : id_(id) {
 			addChild(new DetectSequence(id_));
 			addChild(new IdleSequence(id_));
@@ -66,10 +140,24 @@ public:
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class IdleSequence
+
+	  \brief Idle Sequence Node, Contains nodes for Idle actions
+	*/
+	/******************************************************************************/
 	class IdleSequence : public Sequence
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn IdleSequence(EntityID id)
+
+		  \brief Constructor, setting multiple children related to Idle actions
+		*/
+		/******************************************************************************/
 		IdleSequence(EntityID id) : id_(id) {
 			addChild(new CheckSentry(id_));
 			addChild(new SentrySequence(id_));
@@ -77,6 +165,13 @@ public:
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class CheckSentry
+
+	  \brief CheckSentry Node, Checks whether AI has more than 1 destinations
+	*/
+	/******************************************************************************/
 	class CheckSentry :public Node
 	{
 		EntityID id_;
@@ -84,15 +179,43 @@ public:
 		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
 	public:
-		CheckSentry(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn CheckSentry(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		CheckSentry(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Checks whether AI has more than 1 destination
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class SentrySequence
+
+	  \brief Sentry Sequence Node, Contains nodes for Sentry and overall actions
+	*/
+	/******************************************************************************/
 	class SentrySequence : public Sequence
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn SentrySequence(EntityID id)
+
+		  \brief Constructor, setting multiple children related to Idle actions
+			and returning to destination
+		*/
+		/******************************************************************************/
 		SentrySequence(EntityID id) : id_(id) {
 			addChild(new SentryReturn(id_));
 			addChild(new CheckPath(id_));
@@ -101,6 +224,13 @@ public:
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class SentryReturn
+
+	  \brief Sentry Return Node, Checks if AI is at sentry position
+	*/
+	/******************************************************************************/
 	class SentryReturn :public Node
 	{
 		EntityID id_;
@@ -108,11 +238,31 @@ public:
 		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn SentryReturn(EntityID id)
+		
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
 		SentryReturn(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
 
+		  \brief Checks whether AI is at sentry position
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class SentryAnim
+
+	  \brief Sentry Anim Node, Runs Sentry animation (walk)
+	*/
+	/******************************************************************************/
 	class SentryAnim :public Node
 	{
 		EntityID id_;
@@ -124,15 +274,42 @@ public:
 		Name* name;
 		AI* ai;
 	public:
-		SentryAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn SentryAnim(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		SentryAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Runs animation for walking
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class PatrolSequence
+
+	  \brief Patrol Sequence Node, Contains nodes for Patrol and overall actions
+	*/
+	/******************************************************************************/
 	class PatrolSequence : public Sequence
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn PatrolSequence(EntityID id) : id_(id)
+
+		  \brief Constructor, setting multiple children related to Patrol actions
+		*/
+		/******************************************************************************/
 		PatrolSequence(EntityID id) : id_(id) {
 			addChild(new CheckWaypoint(id_));
 			addChild(new CheckPath(id_));
@@ -141,16 +318,37 @@ public:
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class CheckWaypoint
+
+	  \brief CheckWaypoint Node, Contains nodes for the waypoint system
+	*/
+	/******************************************************************************/
 	class CheckWaypoint :public Selector
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn CheckWaypoint(EntityID id)
+
+		  \brief Constructor, setting multiple children relating to the waypoint system
+		*/
+		/******************************************************************************/
 		CheckWaypoint(EntityID id) : id_(id) {
 			addChild(new AtWaypoint(id_));
 			addChild(new ChangeWaypoint(id_));
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class AtWaypoint
+
+	  \brief AtWaypoint Node, Checks if AI is at the waypoint
+	*/
+	/******************************************************************************/
 	class AtWaypoint :public Node
 	{
 		EntityID id_;
@@ -158,22 +356,62 @@ public:
 		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
 	public:
-		AtWaypoint(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn AtWaypoint(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		AtWaypoint(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Checks whether AI is at the waypoint
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class ChangeWaypoint
+
+	  \brief ChangeWaypoint Node, Change to the next waypoint
+	*/
+	/******************************************************************************/
 	class ChangeWaypoint :public Node
 	{
 		EntityID id_;
 		AI* ai_;
 		ComponentManager* component_mgr;
 	public:
-		ChangeWaypoint(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn ChangeWaypoint(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		ChangeWaypoint(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Change to the next waypoint
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class WalkAnim
+
+	  \brief Sentry Anim Node, Runs Sentry animation (walk)
+	*/
+	/******************************************************************************/
 	class WalkAnim :public Node
 	{
 		EntityID id_;
@@ -185,11 +423,31 @@ public:
 		Name* name;
 		AI* ai;
 	public:
-		WalkAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn WalkAnim(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		WalkAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Runs animation for walking
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class CheckPath
+
+	  \brief Check Path Node, check if pathfinding algorithm can find a path
+	*/
+	/******************************************************************************/
 	class CheckPath :public Node
 	{
 		EntityID id_;
@@ -199,10 +457,31 @@ public:
 		AMap* map_;
 		Vector2D SetDes;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn CheckPath(EntityID id)
+
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
 		CheckPath(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Check if pathfinding algorithm can find a path
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class Move
+
+	  \brief Move Node, Move towards destination
+	*/
+	/******************************************************************************/
 	class Move :public Node
 	{
 		EntityID id_;
@@ -212,31 +491,80 @@ public:
 		ForcesManager* forces_;
 		float Speed_;
 	public:
-		Move(EntityID id, float spd);
+		/******************************************************************************/
+		/*!
+		  \fn Move(EntityID id, float spd)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		Move(EntityID id, float spd);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Move towards destination
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class DetectSequence
+
+	  \brief Detect Sequence Node, containing nodes related to detection
+	*/
+	/******************************************************************************/
 	class DetectSequence :public Sequence
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn DetectSequence(EntityID id) : id_(id)
+
+		  \brief Constructor, sets children nodes relating to detection
+		*/
+		/******************************************************************************/
 		DetectSequence(EntityID id) : id_(id) {
 			addChild(new DetectPlayer(id_));
 			addChild(new AttackSelector(id_));
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class DetectPlayer
+
+	  \brief Detect Player Node, containing nodes related to detection
+	*/
+	/******************************************************************************/
 	class DetectPlayer : public Selector
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn DetectPlayer(EntityID id) : id_(id)
+
+		  \brief Constructor, sets children nodes relating to player detection
+		*/
+		/******************************************************************************/
 		DetectPlayer(EntityID id) : id_(id) {
 			addChild(new PlayerWithinDistance(id_, 2.0f));
 			addChild(new PlayerWithinVision(id_));
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class PlayerWithinDistance
+
+	  \brief PlayerWithinDistance Node, checks whether the player is within 
+		close proximity
+	*/
+	/******************************************************************************/
 	class PlayerWithinDistance :public Node 
 	{
 		EntityID id_;
@@ -250,13 +578,40 @@ public:
 
 		float detectdistance_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn PlayerWithinDistance(EntityID id, float dist)
+
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
 		PlayerWithinDistance(EntityID id, float dist);
+		/******************************************************************************/
+		/*!
+		  \fn PlayerInit()
 
+		  \brief Sets nodes private variables relating to the player
+		*/
+		/******************************************************************************/
 		void PlayerInit();
+		/******************************************************************************/
+		/*!
+		  \fn run()
 
+		  \brief Checks whether the player is within close proximity
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class PlayerWithinVision
+
+	  \brief PlayerWithinVision Node, checks whether the player is within
+		cone vision
+	*/
+	/******************************************************************************/
 	class PlayerWithinVision : public Node
 	{
 		EntityID id_;
@@ -270,17 +625,50 @@ public:
 
 		float detectdistance_ = 4.0f;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn CheckSentry(EntityID id)
+
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
 		PlayerWithinVision(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn PlayerInit()
 
+		  \brief Sets nodes private variables relating to the player
+		*/
+		/******************************************************************************/
 		void PlayerInit();
+		/******************************************************************************/
+		/*!
+		  \fn run()
 
+		  \brief Checks whether the player is within cone vision
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class AttackSelector
+
+	  \brief AttackSelector Node, contains nodes relating to attack
+	*/
+	/******************************************************************************/
 	class AttackSelector :public Selector
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn AttackSelector(EntityID id)
+
+		  \brief Constructor, sets nodes relating to attack
+		*/
+		/******************************************************************************/
 		AttackSelector(EntityID id) : id_(id) {
 			addChild(new DetectAnim(id_));
 			addChild(new ChaseSequence(id_));
@@ -289,6 +677,13 @@ public:
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class DetectAnim
+
+	  \brief DetectAnim Node, plays detected animation
+	*/
+	/******************************************************************************/
 	class DetectAnim :public Node
 	{
 		EntityID id_;
@@ -301,15 +696,42 @@ public:
 		AI* ai_;
 		Time_Channel Detect_timer_;
 	public:
-		DetectAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn DetectAnim(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		DetectAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Plays detected animation
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class ChaseSequence
+
+	  \brief ChaseSequence Node, contains nodes relating to the run sequence
+	*/
+	/******************************************************************************/
 	class ChaseSequence :public Sequence
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn ChaseSequence(EntityID id)
+
+		  \brief Constructor, sets nodes relating to the chase/attack sequence
+		*/
+		/******************************************************************************/
 		ChaseSequence(EntityID id) : id_(id) {
 			addChild(new NotAtkRange(id_));
 			addChild(new ChasePath(id_));
@@ -318,15 +740,36 @@ public:
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class NotAtkRange
+
+	  \brief NotAtkRange Node, inverts node relating to player detection
+	*/
+	/******************************************************************************/
 	class NotAtkRange :public Inverter
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn NotAtkRange(EntityID id) :id_(id)
+
+		  \brief Sets child node relating to AI proximity detection
+		*/
+		/******************************************************************************/
 		NotAtkRange(EntityID id) :id_(id) {
 			setChild(new PlayerWithinDistance(id_, 1.0f));
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class ChasePath
+
+	  \brief ChasePath Node, Checks whether path to player is viable and sets it
+	*/
+	/******************************************************************************/
 	class ChasePath :public Node
 	{
 		EntityID id_;
@@ -339,13 +782,40 @@ public:
 		Transform* player_rigidbody_;
 		Vector2D SetDes;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn ChasePath(EntityID id)
+
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
 		ChasePath(EntityID id);
 
-		void PlayerInit();
+		/******************************************************************************/
+		/*!
+		  \fn PlayerInit()
 
+		  \brief Sets nodes private variables relating to player
+		*/
+		/******************************************************************************/
+		void PlayerInit();
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Checks whether path to player is viable and sets it
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class ChaseAnim
+
+	  \brief ChaseAnim Node, plays run animation
+	*/
+	/******************************************************************************/
 	class ChaseAnim :public Node
 	{
 		EntityID id_;
@@ -357,21 +827,55 @@ public:
 		Name* name;
 		AI* ai_;
 	public:
-		ChaseAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn ChaseAnim(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		ChaseAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Plays run animation
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class AttackSequence
+
+	  \brief AttackSequence Node, contains nodes relating to attack/charge
+	*/
+	/******************************************************************************/
 	class AttackSequence :public Sequence
 	{
 		EntityID id_;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn AttackSequence(EntityID id)
+
+		  \brief Constructor, sets nodes relating to attack/charge
+		*/
+		/******************************************************************************/
 		AttackSequence(EntityID id) :id_(id) {
 			addChild(new Charge(id_));
 			addChild(new AttackAnim(id_));
 		}
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class Charge
+
+	  \brief Charge Node, Moves AI towards the player
+	*/
+	/******************************************************************************/
 	class Charge :public Node
 	{
 		EntityID id_;
@@ -386,13 +890,40 @@ public:
 		ForcesManager* forces_;
 		float Speed_ = 1000.0f;
 	public:
+		/******************************************************************************/
+		/*!
+		  \fn Charge(EntityID id)
+
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
 		Charge(EntityID id);
 		
-		void PlayerInit();
+		/******************************************************************************/
+		/*!
+		  \fn PlayerInit()
 
+		  \brief Sets nodes private variables relating to player
+		*/
+		/******************************************************************************/
+		void PlayerInit();
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Moves AI towards the player
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class AttackAnim
+
+	  \brief AttackAnim Node, plays chase/attack animation
+	*/
+	/******************************************************************************/
 	class AttackAnim :public Node
 	{
 		EntityID id_;
@@ -404,11 +935,31 @@ public:
 		Name* name;
 		AI* ai_;
 	public:
-		AttackAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn AttackAnim(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		AttackAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Plays attack animation
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 
+	/******************************************************************************/
+	/*!
+	  \class IdleAnim
+
+	  \brief IdleAnim Node, plays confused animation
+	*/
+	/******************************************************************************/
 	class IdleAnim :public Node
 	{
 		EntityID id_;
@@ -420,8 +971,21 @@ public:
 		Name* name;
 		AI* ai_;
 	public:
-		IdleAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn IdleAnim(EntityID id)
 
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		IdleAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Plays confused animation
+		*/
+		/******************************************************************************/
 		bool run() override;
 	};
 };
