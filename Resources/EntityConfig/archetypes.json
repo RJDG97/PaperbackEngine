@@ -1082,12 +1082,6 @@
             "intensity": "1.000000",
             "angle": "1.000000",
             "alive": "1"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateTexture",
-            "function": "Mite_UpdateTexture"
         }
     ],
     "Boulder": [
@@ -1572,12 +1566,6 @@
             "intensity": "0.800000",
             "angle": "0.800000",
             "alive": "1"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateTexture",
-            "function": "Stag_UpdateTexture"
         }
     ],
     "Stone_Hole": [

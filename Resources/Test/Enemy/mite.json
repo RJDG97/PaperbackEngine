@@ -22,12 +22,6 @@
       "destination2": "-2.000000 12.000000",
       "destination3": "-7.000000 12.000000",
       "destination4": "-7.000000 9.000000"
-    },
-    {
-      "component": "LogicComponent",
-      "number_of_fns": "1",
-      "name": "UpdateTexture",
-      "function": "Mite_UpdateTexture"
     }
   ]
 }

@@ -13,11 +13,9 @@
 
 #include "Components/AI.h"
 #include "Manager/ComponentManager.h"
-#include "Script/GeneralScripts.h"
+#include "Script/ScriptList.h"
 #include "Systems/LogicSystem.h"
 #include "Engine/Core.h"
-#include "Script/Stag_Tree.h"
-#include "Script/Mite_Tree.h"
 
 AI::AI() : root_(nullptr){}
 
