@@ -234,9 +234,6 @@ void GraphicsSystem::Draw() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(&final_texture_, 1.0f);
 
-    DrawVignette(1.0f);
-
-    /*
     if (lighting_enabled_)
     {
         glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
@@ -245,12 +242,7 @@ void GraphicsSystem::Draw() {
         DrawFinalTexture(addition_texture_, 0.6f);
     }
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    DrawFinalTexture(&final_texture_, 1.0f);
-
-    DrawVignette(1.0f);*/
+    DrawVignette(1.0f);
 
     if (debug_) { debug_ = !debug_; }
 }
@@ -1050,9 +1042,9 @@ void GraphicsSystem::DrawLayer(RenderLayer& render_layer)
             switch (layer_type)
             {
                 case UI_SPRITE: {
-                    
+                    /*
                     if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID()))
-                        continue;
+                        continue;*/
 
                     BatchSpriteObject(static_cast<SpriteRenderer*>(it->second), true); break;
                 }

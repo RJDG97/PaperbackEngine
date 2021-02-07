@@ -144,6 +144,33 @@ void LayerManager::DeserializeJSON(const std::string& filename, rapidjson::Docum
     doc.Parse(json_doc_buffer.str().c_str());
 }
 
+void LayerManager::AddLayer(std::string layer_name, LayerType layer_type)
+{
+    render_layers_[render_layers_.size()] = { layer_name, false, layer_type };
+}
+
+void LayerManager::DeleteLayer(int layer_position)
+{
+    std::map<int, RenderLayer> temp;
+    
+    for (auto it = render_layers_.begin(); it != render_layers_.end(); ++it)
+    {
+        if (it->first != layer_position)
+        {
+            temp[temp.size()] = it->second;
+        }
+    }
+
+    render_layers_ = temp;
+}
+
+void LayerManager::SwapLayer(int layer_position_1, int layer_position_2)
+{
+    RenderLayer temp = render_layers_[layer_position_1];
+    render_layers_[layer_position_1] = render_layers_[layer_position_2];
+    render_layers_[layer_position_2] = temp;
+}
+
 std::map<int, RenderLayer>* LayerManager::GetRenderLayers()
 {
 	return &render_layers_;

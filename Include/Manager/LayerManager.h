@@ -46,6 +46,9 @@ public:
     void Update(float frametime);
     void LoadLevelLayers(std::string level_name);
     void DeserializeJSON(const std::string& filename, rapidjson::Document& doc);
+    void AddLayer(std::string layer_name, LayerType layer_type);
+    void DeleteLayer(int layer_position);
+    void SwapLayer(int layer_position_1, int layer_position_2);
 
     std::map<int, RenderLayer>* GetRenderLayers();
 };
