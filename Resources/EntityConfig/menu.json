@@ -3,7 +3,5 @@
 
   "Button": "Resources/EntityConfig/Menu/button.json",
   
-  "Clouds": "Resources/EntityConfig/Menu/clouds.json",
-
-  "UIText": "Resources/EntityConfig/Menu/uitext.json"
+  "Clouds": "Resources/EntityConfig/Menu/clouds.json"
 }

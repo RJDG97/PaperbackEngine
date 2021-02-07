@@ -36,9 +36,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -65,9 +67,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x2_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -94,9 +98,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_2x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -123,9 +129,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_2x2_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -152,9 +160,11 @@
         {
             "component": "TextureRenderer",
             "texture": "BurrowSkill_UI_0",
-            "layer": "10",
-            "ui": "1",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -209,9 +219,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_Two_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -238,9 +250,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bush_One_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -267,9 +281,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Environment_Tiles_20",
-            "layer": "10",
-            "ui": "1",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -328,8 +344,10 @@
             "component": "TextureRenderer",
             "texture": "Menu_CloudOne_0",
             "layer": "0",
-            "ui": "1",
-            "alive": "1"
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -356,9 +374,11 @@
         {
             "component": "TextureRenderer",
             "texture": "UI_DialogueBox_0",
-            "layer": "10",
-            "ui": "1",
-            "alive": "0"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
@@ -394,9 +414,9 @@
             "text": "",
             "color": "0.300000 0.550000 0.200000",
             "scale": "0.350000",
-            "layer": "11",
-            "ui": "1",
-            "alive": "0"
+            "layer": "0",
+			"order in layer": "0",
+			"alive": "1"
         }
     ],
     "DriedBush_01": [
@@ -414,9 +434,11 @@
         {
             "component": "TextureRenderer",
             "texture": "DriedBush_01_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -443,9 +465,11 @@
         {
             "component": "TextureRenderer",
             "texture": "DriedBush_02_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -472,9 +496,11 @@
         {
             "component": "TextureRenderer",
             "texture": "DriedBush_03_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -501,9 +527,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Rock_Three_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
@@ -525,9 +553,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Environment_Tiles_20",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
@@ -550,8 +580,10 @@
             "component": "TextureRenderer",
             "texture": "Temp_Background_0",
             "layer": "0",
-            "ui": "0",
-            "alive": "1"
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -590,9 +622,11 @@
             "set animation": "Gate_Idle",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -646,9 +680,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Grass_One_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -676,8 +712,10 @@
             "component": "TextureRenderer",
             "texture": "Grass_Two_0",
             "layer": "0",
-            "ui": "0",
-            "alive": "1"
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -704,9 +742,11 @@
         {
             "component": "TextureRenderer",
             "texture": "HideSkill_UI_0",
-            "layer": "10",
-            "ui": "1",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -739,9 +779,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Hill_One_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -768,9 +810,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Hill_Two_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -802,9 +846,11 @@
             "set animation": "Grass_Heavy",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -838,9 +884,11 @@
         {
             "component": "TextureRenderer",
             "texture": "UI_HowToPlay_0",
-            "layer": "2",
-            "ui": "1",
-            "alive": "0"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "0",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
@@ -875,9 +923,11 @@
             "set animation": "Key_Idle",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -951,9 +1001,11 @@
             "set animation": "Tree_Fall",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -991,8 +1043,10 @@
             "component": "TextureRenderer",
             "texture": "Menu_Background_0",
             "layer": "0",
-            "ui": "1",
-            "alive": "1"
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1047,9 +1101,11 @@
             "set animation": "Mite_Idle",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1116,9 +1172,11 @@
             "set animation": "Stone_Roll_One",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1162,9 +1220,11 @@
             "set animation": "Mite_Walk",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1201,9 +1261,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Key_One_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "0"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
@@ -1228,9 +1290,11 @@
         {
             "component": "TextureRenderer",
             "texture": "UI_Objectives_0",
-            "layer": "10",
-            "ui": "1",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
@@ -1291,9 +1355,11 @@
             "set animation": "Player_Walk",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1353,9 +1419,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Puddle_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1393,9 +1461,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Hill_Four_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1422,9 +1492,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Fake_Gravel_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1463,9 +1535,11 @@
             "add animation": "Spore_Idle",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1517,9 +1591,11 @@
             "set animation": "Stagbeetle_Walk",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1585,9 +1661,11 @@
             "set animation": "Torch_Idle",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1618,9 +1696,9 @@
             "text": "This is UI text. ",
             "color": "1.000000 0.500000 1.000000",
             "scale": "1.000000",
-            "layer": "10",
-            "ui": "1",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+			"alive": "1"
         }
     ],
     "Wall": [
@@ -1638,9 +1716,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Rock_Three_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -1674,9 +1754,11 @@
         {
             "component": "TextureRenderer",
             "texture": "WaterGauge_Droplet_0",
-            "layer": "10",
-            "ui": "1",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
@@ -1702,9 +1784,9 @@
             "text": "This is World text. ",
             "color": "1.000000 0.500000 1.000000",
             "scale": "1.000000",
-            "layer": "10",
-            "ui": "0",
-            "alive": "1"
+            "layer": "0",
+			"order in layer": "0",
+			"alive": "1"
         }
     ]
 }
