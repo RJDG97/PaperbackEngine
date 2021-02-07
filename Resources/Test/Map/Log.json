@@ -6,10 +6,10 @@
         },
         {
             "component": "Transform",
-            "position": "3.560000 5.860000",
+            "position": "3.260000 4.660000",
             "rotation": "0.000000",
             "offset": "0.000000 -4.200000",
-            "aabb offset": "-0.400000 -3.500000"
+            "aabb offset": "-3.100000 -3.000000"
         },
         {
             "component": "AnimationRenderer",
@@ -24,7 +24,7 @@
         },
         {
             "component": "AABB",
-            "scale": "4.500000 0.800000",
+            "scale": "1.000000 1.000000",
             "layer": "12"
         },
         {
@@ -52,7 +52,7 @@
             "position": "5.06 -16.44",
             "rotation": "0.000000",
             "offset": "0.000000 -4.200000",
-            "aabb offset": "-1.100000 -3.500000"
+            "aabb offset": "-3.100000 -3.000000"
         },
         {
             "component": "AnimationRenderer",
@@ -67,7 +67,7 @@
         },
         {
             "component": "AABB",
-            "scale": "4.900000 0.800000",
+            "scale": "1.000000 1.000000",
             "layer": "12"
         },
         {

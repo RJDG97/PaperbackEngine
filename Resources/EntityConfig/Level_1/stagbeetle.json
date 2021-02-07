@@ -22,12 +22,6 @@
       "destination2": "-4.000000 19.000000",
       "destination3": "-4.000000 10.000000",
       "destination4": "-13.000000 10.000000"
-    },
-    {
-      "component": "LogicComponent",
-      "number_of_fns": "1",
-      "name": "UpdateTexture",
-      "function": "Stag_UpdateTexture"
     }
   ],
   "StagBeetle": [
@@ -53,12 +47,6 @@
       "destination2": "-17.0 -10.0",
       "destination3": "-17.0 -15.0 ",
       "destination4": "-9.0 -15.0"
-    },
-    {
-      "component": "LogicComponent",
-      "number_of_fns": "1",
-      "name": "UpdateTexture",
-      "function": "Stag_UpdateTexture"
     }
   ]
 }

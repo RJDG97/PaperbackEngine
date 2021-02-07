@@ -30,40 +30,37 @@ namespace Movable_Script
 
 		if (aabb->IsColliding()) {
 
-			if (animation_renderer) {
+			if (animation_renderer && motion) {
 
-				if (motion) {
+				Vector2D vec = motion->GetVelocity();
 
-					Vector2D vec = motion->GetVelocity();
-					
-					if (std::abs(vec.x) > std::abs(vec.y))
-						graphics->ChangeAnimation(animation_renderer, "Stone_Roll_Two");
-					else
+				if (std::abs(vec.x) < 0.1f && std::abs(vec.y) < 0.1f) {
+					animation_renderer->SetAnimationStatus(false);
+					return;
+				}
+
+				animation_renderer->SetAnimationStatus(true);
+
+				// Texture flipping for the x-axis
+				if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
+
+					graphics->FlipTextureY(animation_renderer);
+					motion->SetIsLeft(false);
+				}
+				else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
+
+					graphics->FlipTextureY(animation_renderer);
+					motion->SetIsLeft(true);
+				}
+
+				// Animation swapping for the boulder
+				if (std::abs(vec.x) > std::abs(vec.y))
+					graphics->ChangeAnimation(animation_renderer, "Stone_Roll_Two");
+				else {
+					if (motion->GetVelocity().y > 0)
 						graphics->ChangeAnimation(animation_renderer, "Stone_Roll_One");
-
-					animation_renderer->SetAnimationStatus(true);
-
-					if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
-
-						graphics->FlipTextureY(animation_renderer);
-						motion->SetIsLeft(false);
-					}
-					else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
-
-						graphics->FlipTextureY(animation_renderer);
-						motion->SetIsLeft(true);
-					}
-
-					//if (motion->GetVelocity().y > 0 && !motion->IsTop()) {
-
-					//	graphics->FlipTextureX(animation_renderer);
-					//	motion->SetIsTop(true);
-					//}
-					//else if (motion->GetVelocity().y < 0 && motion->IsTop()) {
-
-					//	graphics->FlipTextureX(animation_renderer);
-					//	motion->SetIsTop(false);
-					//}
+					else if (motion->GetVelocity().y < 0)
+						graphics->ChangeAnimation(animation_renderer, "Stone_Roll_Three");
 				}
 			}
 		}
