@@ -1,75 +1,125 @@
 {
-  "StagBeetle": [
-    {
-      "component": "Transform",
-      "position": "-14.0 6.8",
-      "rotation": "0.000000",
-      "offset": "0.000000 0.000000",
-      "aabb offset": "0.000000 -1.000000"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.500000 0.500000",
-      "layer": "2"
-    },
-    {
-      "component": "AI",
-      "AIType": "Stag_Beetle",
-      "range": "5.000000",
-      "speed": "200.000000",
-      "dest": "4",
-      "destination1": "-14.00000 7.0000",
-      "destination2": "-14.000000 5.000000",
-      "destination3": "-18.000000 5.000000",
-      "destination4": "-18.000000 7.00000"
-    }
-  ],
-  "StagBeetle": [
-    {
-      "component": "Transform",
-      "position": "-32.8 0.2",
-      "rotation": "0.000000",
-      "offset": "0.000000 0.000000",
-      "aabb offset": "0.000000 -1.000000"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.500000 0.500000",
-      "layer": "2"
-    },
-    {
-      "component": "AI",
-      "AIType": "Stag_Beetle",
-      "range": "5.000000",
-      "speed": "200.000000",
-      "dest": "2",
-      "destination1": "-32.8 0.2",
-      "destination2": "-22.8 0.2"
-    }
-  ],
-  "StagBeetle": [
-    {
-      "component": "Transform",
-      "position": "9.0 -23.0",
-      "rotation": "0.000000",
-      "offset": "0.000000 0.000000",
-      "aabb offset": "0.000000 -1.000000"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.500000 0.500000",
-      "layer": "2"
-    },
-    {
-      "component": "AI",
-      "AIType": "Stag_Beetle",
-      "range": "5.000000",
-      "speed": "200.000000",
-      "dest": "4",
-      "destination1": "9.0 -23.0",
-      "destination2": "9.0 -19.0",
-      "destination3": "12.0 -19.0",
-      "destination4": "12.0 -23.0"
-    }
-  ]
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "-14.0 6.8",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "4",
+            "destination1": "-14.00000 7.0000",
+            "destination2": "-14.000000 5.000000",
+            "destination3": "-18.000000 5.000000",
+            "destination4": "-18.000000 7.00000"
+        }
+    ],
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "-31.2 -1.0",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "2",
+            "destination1": "-31.2 -1.0",
+            "destination2": "-25.8 -1.0"
+        }
+    ],
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "10.0 -23.0",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "4",
+            "destination1": "10.0 -23.0",
+            "destination2": "10.0 -20.0",
+            "destination3": "15.0 -20.0",
+            "destination4": "15.0 -23.0"
+        }
+    ],
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "-2.0 9.0",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -2.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "4",
+            "destination1": "-2.000000 9.000000",
+            "destination2": "-2.000000 12.000000",
+            "destination3": "-7.000000 12.000000",
+            "destination4": "-7.000000 9.000000"
+        }
+    ],
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "9.0 -8.3",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -2.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "6.000000",
+            "speed": "200.000000",
+            "dest": "4",
+            "destination1": "9.000000 -8.300000",
+            "destination2": "9.000000 -6.000000",
+            "destination3": "4.800000 -6.000000",
+            "destination4": "4.800000 -8.300000"
+        }
+    ]
 }
