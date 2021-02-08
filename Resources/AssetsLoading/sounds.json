@@ -252,7 +252,42 @@
             "loop": "0"
         }
     ],
-
+    "PlayerDies_0": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Dies_0.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerDies_1": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Dies_1.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerDies_2": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Dies_2.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "PlayerDies_3": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Dies_3.mp3",
+            "volume": "1.000000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
     "TextAdvancing": [
         {
             "path": "Resources/SoundCache/UI/TextAdvancing.mp3",

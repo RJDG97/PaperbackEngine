@@ -178,6 +178,7 @@ void PlayState::Update(Game* game, float frametime)
 
 		if (health && health->GetCurrentHealth() <= 0) {
 
+			CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerDies_0");
 			game->ChangeState(&m_WinLoseState, "Lose");
 		}
 	}
