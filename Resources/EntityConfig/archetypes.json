@@ -1377,6 +1377,13 @@
             "component": "Collectible",
             "item name": "Puddle",
             "item description": "Wow"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
         }
     ],
     "SingleHill": [

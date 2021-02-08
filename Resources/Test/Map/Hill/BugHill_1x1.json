@@ -2,7 +2,7 @@
     "Bug_Hill_1x1": [
         {
             "component": "Transform",
-            "position": "-14.600615 9.084812",
+            "position": "-14.600615 10.08",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"

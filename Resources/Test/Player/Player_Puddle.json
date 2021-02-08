@@ -28,6 +28,13 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
         }
     ],
     "Puddle": [
@@ -59,6 +66,13 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
         }
     ],
     "Puddle": [
@@ -90,6 +104,13 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
         }
     ],
     "Puddle": [
@@ -121,6 +142,13 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
         }
     ]
 }
