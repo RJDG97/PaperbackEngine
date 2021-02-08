@@ -186,6 +186,9 @@
     <Filter Include="Entity\Components\Interactable">
       <UniqueIdentifier>{16ce9f60-6931-4650-82c1-f8abe7319b41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Dialogue">
+      <UniqueIdentifier>{797c3834-c781-49d9-b960-faa4c2978e1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -454,6 +457,9 @@
     </ClCompile>
     <ClCompile Include="Source\Script\Mite_Tree.cpp">
       <Filter>Scripts\Mite</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Dialogue.cpp">
+      <Filter>Entity\Components\Dialogue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -776,6 +782,12 @@
       <Filter>Scripts\Mite</Filter>
     </ClInclude>
     <ClInclude Include="Include\Script\Movable_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Dialogue.h">
+      <Filter>Entity\Components\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\DialogueTrigger_Script.h">
       <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
   </ItemGroup>

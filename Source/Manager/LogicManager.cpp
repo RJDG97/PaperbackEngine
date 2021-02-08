@@ -18,6 +18,7 @@
 #include "Script/Collectible_Script.h"
 #include "Script/Button_Script.h"
 #include "Script/Movable_Script.h"
+#include "Script/DialogueTrigger_Script.h"
 #include "Systems/Message.h"
 
 
@@ -63,4 +64,7 @@ void LogicManager::Init() {
 
 	// Environmental entity helper functions
 	RegisterLogic("Environmental_AnimUpdate", &Movable_Script::UpdateMovable);
+
+	// For Dialogue triggers
+	RegisterLogic("TriggerDialogue", &DialogueTrigger_Script::TriggerDialogue);
 }

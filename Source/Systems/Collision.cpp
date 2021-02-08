@@ -526,8 +526,6 @@ void Collision::PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2) {
 	std::string player_interactable = player_logic->GetLogic("Interactable");
 	std::string game_interactable = collectible_logic->GetLogic("Interactable");
 
-	sound_system->PlaySounds("PlayerPushTree");
-
 	// Execute player's logic script
 	logic->Exec(game_interactable, interactable_id);
 	logic->Exec(player_interactable, player_id, interactable_id);

@@ -34,5 +34,6 @@
     "MyParticle": "Resources\\Test\\UI\\myparticles.json",
     "Watergauge": "Resources\\Test\\UI\\watergauge.json",
     "Log": "Resources\\Test\\Map\\Log.json",
-    "Goal": "Resources\\Test\\Map\\Goal.json"
+    "Goal": "Resources\\Test\\Map\\Goal.json",
+    "DialogueTriggerBox": "Resources\\Test\\Dialogue\\dialogue_trigger.json"
 }
