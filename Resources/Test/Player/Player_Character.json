@@ -14,7 +14,7 @@
         },
         {
             "component": "Scale",
-            "scale": "40.000000 80.000000"
+            "scale": "80.000000 80.000000"
         },
         {
             "component": "InputController",

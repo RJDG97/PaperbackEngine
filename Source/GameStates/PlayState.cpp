@@ -61,7 +61,7 @@ void PlayState::Init(std::string)
 
 	help_ = false;
 	lose_ = false;
-	timer_ = 8.0f;
+	timer_ = 5.0f;
 
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
@@ -173,7 +173,7 @@ void PlayState::Update(Game* game, float frametime)
 
 			int new_hp = health->GetCurrentHealth() - 1;
 			health->SetCurrentHealth(new_hp);
-			timer_ = 8.0f;
+			timer_ = 5.0f;
 		}
 
 		if (health && health->GetCurrentHealth() <= 0) {

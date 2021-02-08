@@ -451,6 +451,15 @@ public:
 */
 /******************************************************************************/
 	void SetTextureStruct(size_t tex_num, std::vector<std::string> textures_);
+
+/******************************************************************************/
+/*!
+  \fn SetDestinationStruct()
+
+  \brief Set the variables for the GenerateTexture struct
+*/
+/******************************************************************************/
+	void SetDestinationStruct(Vector2D destination, Vector2D time, bool status);
 };
 
 

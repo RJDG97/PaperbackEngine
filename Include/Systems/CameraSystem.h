@@ -152,6 +152,10 @@ public:
 */
 /******************************************************************************/
 	Camera* GetMainCamera();
+
+	Vector2D UIToGameCoords(const Vector2D & ui_pos);
+
+	Vector2D GameCoordsToUI(const Vector2D & go_pos);
 };
 
 #endif

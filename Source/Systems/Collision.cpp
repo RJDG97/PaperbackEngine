@@ -414,6 +414,7 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 			aabb1->second->collided = true;
 			aabb2->second->collided = true;
 			Health* player_health = component_mgr_->GetComponent<Health>(aabb2->first);
+			AnimationRenderer* player_anim = component_mgr_->GetComponent<AnimationRenderer>(aabb2->first);
 
 			// Throw an exception if player does not have a health component
 			DEBUG_ASSERT(player_health, "Player does not have a health component!");
@@ -421,6 +422,8 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 			player_status->status_ = StatusType::HIT;
 			player_status->status_timer_ = 2.0f;
 			--(player_health->current_health_);
+
+			graphics_->ChangeAnimation(player_anim, "Player_Hit");
 
 			MessageBGM_Play msg{ "PlayerHurt" };
 			CORE->BroadcastMessage(&msg);
@@ -985,20 +988,6 @@ void Collision::Update(float frametime) {
 			logic_mgr_->Exec(update, id);
 		}
 	}
-
-	//if (boulder_layer != collision_map_.end()) {
-	//	for (auto& [id, boulder_collider] : boulder_layer->second) {
-
-	//		if (!boulder_collider->collided) {
-
-	//			AnimationRenderer* anim = component_mgr_->GetComponent<AnimationRenderer>(id);
-	//			if (anim && anim->FinishedAnimating())
-	//				anim->SetAnimationStatus(false);
-	//		}
-	//	}
-	//}
-
-
 
 	ButtonStates state = ButtonStates::HOVERED;
 	CheckClickableCollision(state);
