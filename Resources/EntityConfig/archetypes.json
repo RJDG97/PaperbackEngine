@@ -957,7 +957,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 3.000000",
+            "scale": "1.000000 1.000000",
             "layer": "12"
         },
         {
@@ -1047,7 +1047,7 @@
             "set animation": "Mite_Idle",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
+            "layer": "3",
             "ui": "0",
             "alive": "1"
         },
@@ -1104,9 +1104,10 @@
         },
         {
             "component": "AnimationRenderer",
-            "number of animations": "2",
+            "number of animations": "3",
             "add animation": "Stone_Roll_One",
             "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
             "set animation": "Stone_Roll_One",
             "play_animation": "0",
             "has_finished_animating": "0",
@@ -1531,7 +1532,7 @@
             "set animation": "Stagbeetle_Walk",
             "play_animation": "1",
             "has_finished_animating": "0",
-            "layer": "2",
+            "layer": "3",
             "ui": "0",
             "alive": "1"
         },

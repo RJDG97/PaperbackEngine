@@ -22,12 +22,6 @@
       "destination2": "-43.000000 -2.000000",
       "destination3": "-35.000000 -2.000000",
       "destination4": "-35.000000 -6.000000"
-    },
-    {
-      "component": "LogicComponent",
-      "number_of_fns": "1",
-      "name": "UpdateTexture",
-      "function": "Mite_UpdateTexture"
     }
   ],
   "Mite": [
@@ -53,12 +47,6 @@
       "destination2": "-16.000000 7.000000",
       "destination3": "-16.000000 3.000000",
       "destination4": "-29.000000 3.000000"
-    },
-    {
-      "component": "LogicComponent",
-      "number_of_fns": "1",
-      "name": "UpdateTexture",
-      "function": "Mite_UpdateTexture"
     }
   ],
   "Mite": [
@@ -84,12 +72,6 @@
       "destination2": "21.000000 -2.000000",
       "destination3": "21.000000 -8.000000",
       "destination4": "8.000000 -8.000000"
-    },
-    {
-      "component": "LogicComponent",
-      "number_of_fns": "1",
-      "name": "UpdateTexture",
-      "function": "Mite_UpdateTexture"
     }
   ]
 }
