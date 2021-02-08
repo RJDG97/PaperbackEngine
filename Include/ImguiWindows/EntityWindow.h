@@ -192,15 +192,6 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn DragEntityCheckBox()
-
-	\brief To enable or disable users to be able to drag entities around
-*/
-/******************************************************************************/
-	void DragEntityCheckBox();
-
-/******************************************************************************/
-/*!
 	\fn SelectEntityComponent()
 
 	\brief Gets the selected entity/archetype's component
@@ -384,16 +375,15 @@ private:
 	GraphicsSystem* graphics_;
 	AnimationManager* animation_;
 	ComponentManager* component_;
+	LayerManager* layer_;
 	EntityManager::EntityIdMapTypeIt entityIT;
 
-	Vector2D originalVec_, mousePos_;
+	Vector2D originalVec_;
 
 	const char* AIstates_[5]{ "Patrol", "Detected", "Chase", "Attack", "Return" };
 	const char* AItype_[3]{ "StagBeetle", "Mite", "Hornet"};
 	const char* Playerstatus_[4]{ "None", "Invisible", "Hit", "Burrow"};
 	const char* emiiterstatus_[2] = {"Dead", "Alive" };
-
-	bool b_draw, b_grid, b_light;
 
 };
 #endif

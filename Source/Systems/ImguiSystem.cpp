@@ -20,6 +20,7 @@
 #include "ImguiWindows/AssetWindow.h"
 #include "ImguiWindows/AssetConsoleWindow.h"
 #include "ImguiWindows/TextureTilesWindow.h"
+#include "ImguiWindows/MiscWindow.h"
 
 #include "GameStates/MenuState.h"
 
@@ -37,6 +38,7 @@ void ImguiSystem::Init(){
     AddWindow<AssetWindow>();
     AddWindow<AssetConsoleWindow>();
     AddWindow<TextureTilesWindow>();
+    AddWindow<MiscWindow>();
     AddWindow<SystemWindow>();
 
     win_ = &*CORE->GetSystem<WindowsSystem>();
@@ -68,6 +70,7 @@ void ImguiSystem::Init(){
     b_show_tex = false;
     b_add_path = false;
     b_windows = true;
+    b_layers = false;
 
     b_lock_entity = false;
     b_imgui_mode = false;
@@ -257,6 +260,11 @@ void ImguiSystem::ImguiMenuBar() {
 
         if (ImGui::BeginMenu(ICON_FA_FOLDER " File")) {
 
+            if (ImGui::MenuItem(ICON_FA_TIMES " New Scene")) {
+                b_close_confirm = true;
+                type = CloseApp::CREATENEWSCENE;
+            }
+
             if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene")) {
                 selected_entity_ = {};
                 editor_->entity_paths_.clear();
@@ -280,6 +288,7 @@ void ImguiSystem::ImguiMenuBar() {
                         SaveFile(path);
 
                         if (!path.empty()) {
+
                             LoadJsonPaths(path);
                             b_level_save = true;
                         }
@@ -291,6 +300,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImguiHelp(("Current Set Path " + current_loaded_path_).c_str(), 0);
 
             if (ImGui::MenuItem("Save Scene As...")) {
+
                 if (!editor_->entity_paths_.empty()) {
 
                     std::string path = OpenSaveDialog(scene_filter_, 1);
@@ -319,14 +329,10 @@ void ImguiSystem::ImguiMenuBar() {
 
             ImguiHelp("This saves the individual paths of each type of entity in the scene.\nUser would have to manually update the scene json themselves.", 0);
 
-            if (ImGui::MenuItem(ICON_FA_TIMES " Create New Scene")) {
-                b_close_confirm = true;
-                type = CloseApp::CREATENEWSCENE;
-            }
-
             ImGui::Separator();
 
             if (ImGui::MenuItem(ICON_FA_REPLY " Return to Menu")) {
+
                 b_close_confirm = true;
                 type = CloseApp::RETURNMENU;
             }
@@ -334,6 +340,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImguiHelp("Did you save?", 0);
 
             if (ImGui::MenuItem(ICON_FA_POWER_OFF " Exit")) {
+
                 b_close_confirm = true;
                 type = CloseApp::EXITAPP;
             }
@@ -345,13 +352,13 @@ void ImguiSystem::ImguiMenuBar() {
 
         if (ImGui::BeginMenu("Archetypes")) {
 
-            if (ImGui::MenuItem(ICON_FA_SAVE " Save Archetype List as")) {
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save Archetype List As...")) {
 
                 std::string path = OpenSaveDialog(scene_filter_, 0);
                 SaveArchetype(path);
             }
 
-            if (ImGui::MenuItem(ICON_FA_SAVE " Save Archetypes"))
+            if (ImGui::MenuItem(ICON_FA_SAVE " Save Archetypes List"))
                 SaveArchetype(archetype_path_);
 
             if (ImGui::MenuItem(ICON_FA_FILE_IMPORT " Load Archetypes"))
@@ -368,25 +375,34 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::EndMenu();
         }
 
-        if (ImGui::BeginMenu(ICON_FA_WINDOW_RESTORE " Windows")) {
+        if (ImGui::BeginMenu(ICON_FA_WINDOW_RESTORE " Editor Windows")) {
 
             ImGui::Checkbox("Toggle Visible Windows", &b_windows);
             ImGui::Checkbox("Toggle Scene Hierachy", &b_entity_win);
-            ImGui::Checkbox("Toggle Component Viewer", &b_component);
+            ImGui::Checkbox("Toggle Inspector", &b_component);
             ImGui::Checkbox("Toggle Archetype Window", &b_archetype_win);
+            ImGui::Checkbox("Toggle Layer Hierachy", &b_layers);
             ImGui::Checkbox("Toggle Editor Settings", &b_settings);
+
             ImGui::Separator();
-            ImGui::Checkbox("Toggle Asset Browser", & b_asset);
-            ImGui::Checkbox("Toggle Asset Console Window", &b_add_texture);
-            ImGui::Checkbox("Toggle Texture Window", &b_show_tex);
-            ImguiHelp("View All Loaded Textures", 0);
-            ImGui::Separator();
+
             ImGui::Checkbox("See System Performance", &b_display);
 
             ImGui::EndMenu();
         }
 
-        if (ImGui::MenuItem(VisibleIcon().c_str()))
+        if (ImGui::BeginMenu(ICON_FA_IMAGES " Assets")) {
+
+            ImGui::Checkbox("Toggle Asset Browser", & b_asset);
+            ImGui::Checkbox("Toggle Asset Console Window", &b_add_texture);
+            ImguiHelp("For adding/updating assets", 0);
+            ImGui::Checkbox("Toggle Texture Window", &b_show_tex);
+            ImguiHelp("View All Loaded Textures", 0);
+
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::MenuItem(VisibleIcon(b_windows).c_str()))
             b_windows = !b_windows;
 
         ImguiHelp("Toggle Visible Windows", 0);
@@ -549,6 +565,7 @@ void ImguiSystem::LoadJsonPaths(std::string path) {
 }
 
 void ImguiSystem::SaveArchetype(std::string path) {
+
     if (!path.empty())
         factory_->SerializeArchetypes(path);
 }
@@ -556,6 +573,7 @@ void ImguiSystem::SaveArchetype(std::string path) {
 void ImguiSystem::LoadArchetype() {
 
     std::string path = OpenSaveDialog(scene_filter_, 0);
+
     if (!path.empty()) {
 
         std::string file = EditString(path);
@@ -655,6 +673,7 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save, int multis
                 ofn.lpstrFile += len + 1;
 
                 while (ofn.lpstrFile[0]) {
+
                     data = data + "|" + ofn.lpstrFile;
 
                     len = strlen(ofn.lpstrFile);
@@ -712,7 +731,6 @@ void ImguiSystem::DrawGrid() {
    }
 
    if (points.size() > 0) {
-
        graphics_->DrawDebugLines(points, { 1.0f, 1.0f, 1.0f, 0.5f }, 1.0f);
    }
 }
@@ -737,6 +755,7 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
     std::string warning = {};
 
     if (entity) {
+        
         std::shared_ptr<Name> entityname = std::dynamic_pointer_cast<Name>(entity->GetComponent(ComponentTypes::NAME));
         warning = objName + " from " + entityname->GetName();
     }
@@ -857,9 +876,9 @@ void ImguiSystem::Popups() {
     b_entity_save = false;
 }
 
-std::string ImguiSystem::VisibleIcon() {
+std::string ImguiSystem::VisibleIcon(bool windowbool) {
 
-    if (b_windows)
+    if (windowbool)
         return ICON_FA_EYE;
     else
         return ICON_FA_EYE_SLASH;

@@ -470,6 +470,9 @@
     <ClCompile Include="Source\Script\Mite_Tree.cpp">
       <Filter>Scripts\Mite</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ImguiWindows\MiscWindow.cpp">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -810,6 +813,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\SpriteRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ImguiWindows\MiscWindow.h">
+      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
