@@ -1259,6 +1259,39 @@
             "component": "Emitter"
         }
     ],
+    "WaterParticleEmitter": [
+        {
+            "component": "Name",
+            "name": "WaterParticleEmitter"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "Emitter",
+            "emitter lifetime": "0.0",
+            "emitter spawn interval": "0.0",
+            "emitter request": "5",
+            "emitter maximum spawn": "5",
+            "particle lifetime range": "1.700000 1.700000",
+            "particle min pos": "0.000000 0.000000",
+            "particle max pos": "0.000000 0.000000",
+            "particle force range": "30.000000 40.000000",
+            "particle direction range": "180.000000 0.000000",
+            "particle rotation speed": "1.000000 2.000000",
+            "min rotation angle range": "0.000000 0.000000",
+            "max rotation angle range": "0.000000 0.000000",
+            "number of textures": "1",
+            "texture": "Puddle_0",
+            "has_destination": "1",
+            "destination": "-3.0 8.0",
+            "destination_time_range": "2.0 5.0"
+        }
+    ],
     "Player": [
         {
             "component": "Name",
@@ -1283,12 +1316,13 @@
         },
         {
             "component": "AnimationRenderer",
-            "number of animations": "5",
+            "number of animations": "6",
             "add animation": "Player_Hiding",
             "add animation": "Player_Burrow_Walk",
             "add animation": "Player_Burrow_Idle",
             "add animation": "Player_Idle",
             "add animation": "Player_Walk",
+            "add animation": "Player_Hit",
             "set animation": "Player_Walk",
             "play_animation": "1",
             "has_finished_animating": "0",
@@ -1303,7 +1337,7 @@
         },
         {
             "component": "Scale",
-            "scale": "64.000000 128.000000"
+            "scale": "128.000000 128.000000"
         },
         {
             "component": "Status"
@@ -1321,7 +1355,7 @@
         {
             "component": "ParentChild",
             "elements": "1",
-            "to_clone": "Camera "
+            "to_clone": "Camera"
         },
         {
             "component": "LogicComponent",
@@ -1379,11 +1413,7 @@
             "item description": "Wow"
         },
         {
-            "component": "PointLight",
-            "color": "0.4 0.850 0.8",
-            "radius": "300.000000",
-            "intensity": "0.650000",
-            "alive": "1"
+            "component": "PointLight"
         }
     ],
     "SingleHill": [

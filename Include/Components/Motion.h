@@ -172,6 +172,8 @@ public:
 */
 /******************************************************************************/
 	Vector2D GetVelocity();
+
+	void SetVelocity(const Vector2D& vec);
 };
 
 #endif

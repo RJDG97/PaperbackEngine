@@ -145,7 +145,7 @@ private:
 	bool lose_{ false };
 
 	// Health timer...
-	float timer_ = 8.0f;
+	float timer_ = 5.0f;
 };
 
 /******************************************************************************/

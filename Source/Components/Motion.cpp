@@ -124,3 +124,8 @@ void Motion::SetIsTop(bool status) {
 Vector2D Motion::GetVelocity() {
 	return velocity_;
 }
+
+void Motion::SetVelocity(const Vector2D& vec) {
+
+	velocity_ = vec;
+}

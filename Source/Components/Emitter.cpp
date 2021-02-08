@@ -356,6 +356,13 @@ void Emitter::SetTextureStruct(size_t tex_num, std::vector<std::string> textures
 	particle_texture_.texture_names_ = textures_;
 }
 
+void Emitter::SetDestinationStruct(Vector2D destination, Vector2D time, bool status) {
+
+	particle_destination_.destination_ = destination;
+	particle_destination_.time_range_ = time;
+	particle_destination_.set_destination_ = status;
+}
+
 
 
 
@@ -426,17 +433,18 @@ void GenerateTexture::Generate(std::shared_ptr<GraphicsSystem> graphics_system, 
 void GenerateDestination::Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id) {
 
 	if (set_destination_) {
-		float zoom = *CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetCameraZoom();
-		Vector2D cam_pos = CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetVector2DCameraPosition();
-		Vector2D particle_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(particle_id)->GetOffsetAABBPos();
-
+		//Motion* motion = CORE->GetManager<ComponentManager>()->GetComponent<Motion>(particle_id);
+		CameraSystem* cam_sys = &*CORE->GetSystem<CameraSystem>();
+		Vector2D particle_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(particle_id)->GetPosition();
+		Vector2D particle_des = cam_sys->UIToGameCoords(destination_);
 		float travel_time = glm::linearRand(time_range_.x, time_range_.y);
 
-		Vector2D p_force = ((destination_ * CORE->GetGlobalScale() + cam_pos * zoom) - particle_pos * CORE->GetGlobalScale()) / travel_time;
+		Vector2D p_force = (particle_des - particle_pos * CORE->GetGlobalScale()) / travel_time;
 
 		particle->SetLifetime(travel_time);
 		particle->SetAlive(true);
 		particle->SetDestination(false);
+		//motion->SetVelocity(p_force);
 		force_manager->AddForce(particle_id, "Particle_To_Destination", travel_time, p_force);
 	}
 }
