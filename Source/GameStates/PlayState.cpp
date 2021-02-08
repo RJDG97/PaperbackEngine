@@ -73,7 +73,7 @@ void PlayState::Init(std::string)
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();
 
-	CORE->GetManager<LayerManager>()->LoadLevelLayers("Menu");
+	CORE->GetManager<LayerManager>()->LoadLevelLayers("Play");
 	FACTORY->LoadLevel("Play");
 	FACTORY->LoadLevel("Pause");
 

@@ -1042,9 +1042,12 @@ void GraphicsSystem::DrawLayer(RenderLayer& render_layer)
             switch (layer_type)
             {
                 case UI_SPRITE: {
-                    /*
-                    if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID()))
-                        continue;*/
+                    
+                    if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID())) {
+                        
+                        CheckDrawBatch(model->vboid_, &render_layer, it);
+                        continue;
+                    }
 
                     BatchSpriteObject(static_cast<SpriteRenderer*>(it->second), true); break;
                 }

@@ -138,10 +138,17 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 			{
 				dialogue_box_renderer_ = it->second;
 				dialogue_box_scale_ = component_manager_->GetComponent<Scale>(it->first);
-				std::vector<Entity*> children = component_manager_->GetComponent<ParentChild>(it->first)->GetChildren();
-				dialogue_text_renderer_ = component_manager_->GetComponent<TextRenderer>(children[0]->GetID());
-
 				textbox_max_scale_ = component_manager_->GetComponent<Scale>(it->first)->GetScale();
+			}
+		}
+
+		CMap<TextRenderer>* text_renderer_arr_ = component_manager_->GetComponentArray<TextRenderer>();
+
+		for (auto it = text_renderer_arr_->begin(); it != text_renderer_arr_->end(); ++it)
+		{
+			if (component_manager_->GetComponent<Name>(it->first)->GetName() == "DialogueText")
+			{
+				dialogue_text_renderer_ = component_manager_->GetComponent<TextRenderer>(it->first);
 			}
 		}
 	}

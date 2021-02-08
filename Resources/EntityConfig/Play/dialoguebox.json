@@ -10,18 +10,11 @@
         {
             "component": "TextureRenderer",
             "texture": "UI_DialogueBox_0",
-            "layer": "10"
-        },
-        {
-            "component": "ParentChild",
-            "elements": "1",
-            "to_clone": "DialogueText "
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateChildOffset",
-            "function": "Player_UpdateChildOffset"
+            "layer": "2",
+			"order in layer": "0",
+            "alive": "0",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         }
     ]
 }

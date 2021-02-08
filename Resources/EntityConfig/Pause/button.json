@@ -24,8 +24,11 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_PauseButton_0",
-      "layer": "10",
-      "alive": "1"
+	  "layer": "2",
+	  "order in layer": "0",
+	  "alive": "1",
+	  "opacity": "1.0",
+	  "tint": "1.0 1.0 1.0"
     },
     {
       "component": "LogicComponent",
@@ -59,7 +62,11 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_FullScreenButton_0",
-      "layer": "10"
+	  "layer": "2",
+	  "order in layer": "0",
+	  "alive": "1",
+	  "opacity": "1.0",
+	  "tint": "1.0 1.0 1.0"
     },
     {
       "component": "LogicComponent",
@@ -92,8 +99,11 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "UI_PauseMenu_0",
-      "layer": "20"
+	  "layer": "2",
+	  "order in layer": "0",
+	  "alive": "1",
+	  "opacity": "1.0",
+	  "tint": "1.0 1.0 1.0"
     }
   ],
   "button": [
@@ -121,7 +131,11 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_Resume_0",
-      "layer": "20"
+	  "layer": "2",
+	  "order in layer": "0",
+	  "alive": "1",
+	  "opacity": "1.0",
+	  "tint": "1.0 1.0 1.0"
     },
     {
       "component": "LogicComponent",
@@ -155,7 +169,11 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_HowTo_0",
-      "layer": "20"
+	  "layer": "2",
+	  "order in layer": "0",
+	  "alive": "1",
+	  "opacity": "1.0",
+	  "tint": "1.0 1.0 1.0"
     },
     {
       "component": "LogicComponent",
@@ -194,7 +212,11 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_Return_0",
-      "layer": "20"
+	  "layer": "2",
+	  "order in layer": "0",
+	  "alive": "1",
+	  "opacity": "1.0",
+	  "tint": "1.0 1.0 1.0"
     },
     {
       "component": "LogicComponent",
@@ -228,7 +250,11 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_QuitGame_0",
-      "layer": "20"
+	  "layer": "0",
+	  "order in layer": "0",
+	  "alive": "1",
+	  "opacity": "1.0",
+	  "tint": "1.0 1.0 1.0"
     },
     {
       "component": "LogicComponent",

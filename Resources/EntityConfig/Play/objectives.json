@@ -10,7 +10,11 @@
         {
             "component": "TextureRenderer",
             "texture": "UI_Objectives_0",
-            "layer": "10"
+            "layer": "2",
+			"order in layer": "0",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         }
     ]
 }
