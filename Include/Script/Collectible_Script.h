@@ -124,6 +124,7 @@ namespace Collectible_Script
 		//graphics_sys->ChangeAnimation(animation_renderer, col_name);
 
 		animation_renderer->SetAnimationStatus(true);
+		CORE->SetMovementLock(true);
 
 		sound_sys->PlaySounds("PlayerPushTree");
 
@@ -133,8 +134,7 @@ namespace Collectible_Script
 
 				aabb->SetAlive(false);
 				animation_renderer->SetAnimationStatus(false);
-				//std::string def_name = interactable->GetAnimationName("Default");
-				//graphics_sys->ChangeAnimation(animation_renderer, def_name);
+				CORE->SetMovementLock(false);
 			}
 		}
 	}
