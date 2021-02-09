@@ -104,14 +104,17 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
         animation_names_.push_back(temp);
     }
 
-    data >> current_animation_name_;
+    int layer;
 
-    data >> play_animation_
+    data >> current_animation_name_
+         >> play_animation_
          >> has_finished_animating_
-         >> layer_ >> order_in_layer_
+         >> layer >> order_in_layer_
          >> alive_
          >> opacity_
          >> tint_.x >> tint_.y >> tint_.z;
+
+    CORE->GetSystem<GraphicsSystem>()->ChangeLayer(this, layer);
 }
 
 void AnimationRenderer::DeSerializeClone(std::stringstream& data)

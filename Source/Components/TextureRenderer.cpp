@@ -74,12 +74,16 @@ void TextureRenderer::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBu
 
 void TextureRenderer::DeSerialize(std::stringstream& data) {
     
+    int layer;
+
     data >> texture_name_
-         >> layer_
+         >> layer
          >> order_in_layer_
          >> alive_
          >> opacity_
          >> tint_.x >> tint_.y >> tint_.z;
+
+    CORE->GetSystem<GraphicsSystem>()->ChangeLayer(this, layer);
 }
 
 void TextureRenderer::DeSerializeClone(std::stringstream& data) {
