@@ -6,6 +6,7 @@
     "BushLight": "Resources\\Test\\Map\\Bush\\LightBush.json",
     "BushDark": "Resources\\Test\\Map\\Bush\\DarkBushes.json",
     "InputController": "Resources\\Test\\Player\\Player_Input_Controls.json",
+    "LightSpot": "Resources\\Test\\Map\\Torch\\lightspot.json",
     "Puddle": "Resources\\Test\\Player\\Player_Puddle.json",
     "Torch": "Resources\\Test\\Map\\Torch\\Torch.json",
     "SingleHill": "Resources\\Test\\Map\\Hill\\SingleHill.json",
@@ -21,5 +22,17 @@
     "Bug_Hill_2x1": "Resources\\Test\\Map\\Hill\\BugHill_2x1.json",
     "Bug_Hill_2x2": "Resources\\Test\\Map\\Hill\\BugHill_2x2.json",
     "DriedBush_01": "Resources\\Test\\Map\\Burrow\\DriedBush_01.json",
-    "DriedBush_02": "Resources\\Test\\Map\\Burrow\\DriedBush_02.json"
+    "DriedBush_02": "Resources\\Test\\Map\\Burrow\\DriedBush_02.json",
+    "Spores": "Resources\\Test\\Map\\Spores.json",
+    "StagBeetle": "Resources\\Test\\Enemy\\stagbeetle.json",
+    "Mite": "Resources\\Test\\Enemy\\mite.json",
+    "BurrowIcon": "Resources\\Test\\UI\\burrowui.json",
+    "DialogueBox": "Resources\\Test\\UI\\dialoguebox.json",
+    "DialogueText": "Resources\\Test\\UI\\dialoguetext.json",
+    "HideIcon": "Resources\\Test\\UI\\hideui.json",
+    "Objectives": "Resources\\Test\\UI\\objectives.json",
+    "ParticleEmitter": "Resources\\Test\\UI\\particleemitter.json",
+    "MyParticle": "Resources\\Test\\UI\\myparticles.json",
+    "Watergauge": "Resources\\Test\\UI\\watergauge.json",
+    "Log": "Resources\\Test\\Map\\Log.json"
 }

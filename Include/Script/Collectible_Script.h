@@ -54,6 +54,10 @@ namespace Collectible_Script
 
 		switch (collectible->GetItemType())
 		{
+			case CollectibleType::SPORE:
+			{
+				break;
+			}
 			case CollectibleType::PUDDLE:
 			{
 				MessageBGM_Play msg{ "PlayerDrink" };

@@ -1152,11 +1152,11 @@ void EntityWindow::TextureRendererComponent(Entity* entity) {
 
 		//graphics_->ChangeLayer(&*entity_texture, input_layer);
 
-		int input_ui = entity_texture->GetUI();
+		//int input_ui = entity_texture->GetUI();
 
-		ComponentInputInt("UI: ", "##uilayer", input_ui, 95.0f, 0, 1);
+		//ComponentInputInt("UI: ", "##uilayer", input_ui, 95.0f, 0, 1);
 
-		entity_texture->SetUI(input_ui);
+		//entity_texture->SetUI(input_ui);
 
 		std::string path = {};
 

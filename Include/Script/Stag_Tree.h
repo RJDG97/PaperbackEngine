@@ -49,8 +49,72 @@ public:
 	public:
 		ActionSelector(EntityID id) : id_(id) {
 			addChild(new DetectSequence(id_));
+			addChild(new IdleSequence(id_));
 			addChild(new PatrolSequence(id_));
 		}
+	};
+
+	class IdleSequence : public Sequence
+	{
+		EntityID id_;
+	public:
+		IdleSequence(EntityID id) : id_(id) {
+			addChild(new CheckSentry(id_));
+			addChild(new SentrySequence(id_));
+			addChild(new SentryAnim(id_));
+		}
+	};
+
+	class CheckSentry :public Node
+	{
+		EntityID id_;
+		AI* ai_;
+		Transform* obj_rigidbody_;
+		ComponentManager* component_mgr;
+	public:
+		CheckSentry(EntityID id);
+
+		bool run() override;
+	};
+
+	class SentrySequence : public Sequence
+	{
+		EntityID id_;
+	public:
+		SentrySequence(EntityID id) : id_(id) {
+			addChild(new SentryReturn(id_));
+			addChild(new CheckPath(id_));
+			addChild(new Move(id_, 300.0f));
+			addChild(new WalkAnim(id_));
+		}
+	};
+
+	class SentryReturn :public Node
+	{
+		EntityID id_;
+		AI* ai_;
+		Transform* obj_rigidbody_;
+		ComponentManager* component_mgr;
+	public:
+		SentryReturn(EntityID id);
+
+		bool run() override;
+	};
+
+	class SentryAnim :public Node
+	{
+		EntityID id_;
+		std::shared_ptr<GraphicsSystem> graphics;
+		ComponentManager* component_mgr;
+
+		AnimationRenderer* renderer;
+		Motion* motion;
+		Name* name;
+		AI* ai;
+	public:
+		SentryAnim(EntityID id);
+
+		bool run() override;
 	};
 
 	class PatrolSequence : public Sequence
@@ -156,7 +220,7 @@ public:
 		EntityID id_;
 	public:
 		DetectPlayer(EntityID id) : id_(id) {
-			addChild(new PlayerWithinDistance(id_, 5.0f));
+			addChild(new PlayerWithinDistance(id_, 2.0f));
 			addChild(new PlayerWithinVision(id_));
 		}
 	};
@@ -192,7 +256,7 @@ public:
 		Status* player_status_;
 		Transform* player_rigidbody_;
 
-		float detectdistance_ = 10.0f;
+		float detectdistance_ = 4.0f;
 	public:
 		PlayerWithinVision(EntityID id);
 
@@ -237,7 +301,7 @@ public:
 		ChaseSequence(EntityID id) : id_(id) {
 			addChild(new NotAtkRange(id_));
 			addChild(new ChasePath(id_));
-			addChild(new Move(id_, 500.0f));
+			addChild(new Move(id_, 400.0f));
 			addChild(new ChaseAnim(id_));
 		}
 	};

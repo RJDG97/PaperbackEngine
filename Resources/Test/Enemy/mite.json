@@ -1,0 +1,33 @@
+{
+  "Mite": [
+    {
+      "component": "Transform",
+      "position": "-2.0 9.0",
+      "rotation": "0.000000",
+      "offset": "0.000000 0.000000",
+      "aabb offset": "0.000000 -2.000000"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.500000 0.500000",
+      "layer": "2"
+    },
+    {
+      "component": "AI",
+      "AIType": "Mite",
+      "range": "6.000000",
+      "speed": "200.000000",
+      "dest": "4",
+      "destination1": "-2.000000 9.000000",
+      "destination2": "-2.000000 12.000000",
+      "destination3": "-7.000000 12.000000",
+      "destination4": "-7.000000 9.000000"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdateTexture",
+      "function": "Mite_UpdateTexture"
+    }
+  ]
+}

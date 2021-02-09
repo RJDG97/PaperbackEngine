@@ -90,12 +90,16 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
         text_ += temp + " ";
     }
 
+    int layer;
+
      data >> color_.x >> color_.y >> color_.z
           >> scale_
-          >> layer_
+          >> layer
           >> order_in_layer_
           >> alive_
           >> opacity_;
+
+     CORE->GetSystem<GraphicsSystem>()->ChangeLayer(this, layer);
 }
 
 

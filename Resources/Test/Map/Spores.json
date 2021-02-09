@@ -1,0 +1,154 @@
+{
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-1.350000 0.330000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "AnimationRenderer",
+        "number of animations": "1",
+        "add animation": "Spore_Idle",
+        "set animation": "Spore_Idle",
+        "play_animation": "1",
+        "has_finished_animating": "0",
+        "layer": "1",
+        "order in layer": "2",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-27.000000 16.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "AnimationRenderer",
+        "number of animations": "1",
+        "add animation": "Spore_Idle",
+        "set animation": "Spore_Idle",
+        "play_animation": "1",
+        "has_finished_animating": "0",
+        "layer": "1",
+        "order in layer": "2",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-25.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "AnimationRenderer",
+        "number of animations": "1",
+        "add animation": "Spore_Idle",
+        "set animation": "Spore_Idle",
+        "play_animation": "1",
+        "has_finished_animating": "0",
+        "layer": "1",
+        "order in layer": "2",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "35.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "AnimationRenderer",
+        "number of animations": "1",
+        "add animation": "Spore_Idle",
+        "set animation": "Spore_Idle",
+        "play_animation": "1",
+        "has_finished_animating": "0",
+        "layer": "1",
+        "order in layer": "2",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "0"
+        }
+    ]
+}

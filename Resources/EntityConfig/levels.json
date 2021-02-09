@@ -4,7 +4,7 @@
 
   "Menu": "Resources/EntityConfig/menu.json",
 
-  "Play": "Resources/EntityConfig/Level1.json",
+  "Play": "Resources/Test/Level1.json",
 
   "Win": "Resources/EntityConfig/win.json",
 

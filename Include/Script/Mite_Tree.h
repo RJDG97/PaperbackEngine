@@ -156,7 +156,7 @@ public:
 		EntityID id_;
 	public:
 		DetectPlayer(EntityID id) : id_(id) {
-			addChild(new PlayerWithinDistance(id_, 5.0f));
+			addChild(new PlayerWithinDistance(id_, 2.0f));
 			addChild(new PlayerWithinVision(id_));
 		}
 	};
@@ -192,7 +192,7 @@ public:
 		Status* player_status_;
 		Transform* player_rigidbody_;
 
-		float detectdistance_ = 10.0f;
+		float detectdistance_ = 4.0f;
 	public:
 		PlayerWithinVision(EntityID id);
 
@@ -235,7 +235,7 @@ public:
 		ChaseSequence(EntityID id) : id_(id) {
 			addChild(new NotAtkRange(id_));
 			addChild(new ChasePath(id_));
-			addChild(new Move(id_, 500.0f));
+			addChild(new Move(id_, 400.0f));
 			addChild(new ChaseAnim(id_));
 		}
 	};
