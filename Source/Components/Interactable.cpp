@@ -65,6 +65,7 @@ void Interactable::DeSerialize(std::stringstream& data) {
 	//	data >> key >> val;
 	//	event_animations_[key] = val;
 	//}
+	(void)data;
 }
 
 void Interactable::DeSerializeClone(std::stringstream& data) {

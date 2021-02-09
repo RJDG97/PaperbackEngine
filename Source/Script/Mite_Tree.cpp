@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         Mite_Tree.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the Mite AI
+*
+*\author	   Renzo Garcia, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #include "Script/Mite_Tree.h"
 
 void Mite_Tree::MiteRoot::CollisionResponse(EntityID obj){
@@ -94,11 +106,11 @@ bool Mite_Tree::WalkAnim::run() {
 		graphics->ChangeAnimation(renderer, "Mite_Idle");
 	graphics->ChangeAnimation(renderer, "Mite_Walk");
 
-	if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+	if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 		graphics->FlipTextureY(renderer);
 		motion->SetIsLeft(false);
 	}
-	else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+	else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 		graphics->FlipTextureY(renderer);
 		motion->SetIsLeft(true);
 	}
@@ -260,11 +272,11 @@ bool Mite_Tree::DetectAnim::run() {
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Mite_Idle");
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
@@ -327,11 +339,11 @@ bool Mite_Tree::ChaseAnim::run() {
 			graphics->ChangeAnimation(renderer, "Mite_Walk");
 		}
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
@@ -366,11 +378,11 @@ bool Mite_Tree::AttackAnim::run() {
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Mite_Idle");
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}

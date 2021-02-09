@@ -9,5 +9,7 @@
 
   "restarea01": "Resources/Test/Dialogue/Dialogue_Play/restarea01.json",
 
-  "restarea02": "Resources/Test/Dialogue/Dialogue_Play/restarea02.json"
+  "restarea02": "Resources/Test/Dialogue/Dialogue_Play/restarea02.json",
+  
+  "endlevel": "Resources/Test/Dialogue/Dialogue_Play/endlevel.json"
 }

@@ -13,12 +13,12 @@
 
 
 #include "Manager/LogicManager.h"
-#include "Script/Mite_Script.h"
-#include "Script/Stag_Script.h"
 #include "Script/Player_Script.h"
 #include "Script/UI_Script.h"
 #include "Script/Collectible_Script.h"
 #include "Script/Button_Script.h"
+#include "Script/Movable_Script.h"
+#include "Script/DialogueTrigger_Script.h"
 #include "Systems/Message.h"
 
 
@@ -35,12 +35,6 @@ void LogicManager::Init() {
 	RegisterLogic("Player_UpdateChildOffset", &Player_Scripts::UpdateChildOffset);
 	RegisterLogic("Player_UpdateInput", &Player_Scripts::PlayerControllerScript);
 	RegisterLogic("Player_Collectible", &Player_Scripts::CollectedCollectible);
-
-	// Register Stag helper functions
-	RegisterLogic("Stag_UpdateTexture", &Stag_Script::TextureUpdateScript);
-
-	// Register Mite helper functions
-	RegisterLogic("Mite_UpdateTexture", &Mite_Script::TextureUpdateScript);
 
 	// Register Burrow UI helper function
 	RegisterLogic("BurrowIcon_UpdateTexture", &UI_Script::BurrowUI_TextureUpdateScript);
@@ -67,4 +61,10 @@ void LogicManager::Init() {
 	RegisterLogic("PauseState_QuitGame", &Button_Script::PauseQuitGame);
 	RegisterLogic("WinLoseState_EnterMenuState", &Button_Script::WinLoseReturnToMenu);
 	RegisterLogic("WinLoseState_QuitGame", &Button_Script::WinLoseReturnToQuit);
+
+	// Environmental entity helper functions
+	RegisterLogic("Environmental_AnimUpdate", &Movable_Script::UpdateMovable);
+
+	// For Dialogue triggers
+	RegisterLogic("TriggerDialogue", &DialogueTrigger_Script::TriggerDialogue);
 }

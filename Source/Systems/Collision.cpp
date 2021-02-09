@@ -39,6 +39,16 @@
 
 #define EPSILON 0.001f
 
+// Terrible...
+void PlayGrassRustle() {
+
+	int value = std::rand() % 5;
+	std::string sound{ "GrassMoves_" };
+	sound += std::to_string(value);
+	CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
+	
+}
+
 Collision* COLLISION;
 
 Collision::Collision() {
@@ -334,6 +344,8 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 	// If pushing entities...
 	else {
 
+		CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerMovesStone");
+
 		Vector2D push_force{};
 		ForcesManager* force_mgr = &*CORE->GetManager<ForcesManager>();
 
@@ -402,6 +414,7 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 			aabb1->second->collided = true;
 			aabb2->second->collided = true;
 			Health* player_health = component_mgr_->GetComponent<Health>(aabb2->first);
+			AnimationRenderer* player_anim = component_mgr_->GetComponent<AnimationRenderer>(aabb2->first);
 
 			// Throw an exception if player does not have a health component
 			DEBUG_ASSERT(player_health, "Player does not have a health component!");
@@ -409,6 +422,8 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 			player_status->status_ = StatusType::HIT;
 			player_status->status_timer_ = 2.0f;
 			--(player_health->current_health_);
+
+			graphics_->ChangeAnimation(player_anim, "Player_Hit");
 
 			MessageBGM_Play msg{ "PlayerHurt" };
 			CORE->BroadcastMessage(&msg);
@@ -503,6 +518,7 @@ void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 void Collision::PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2) {
 
 	LogicManager* logic = &*CORE->GetManager<LogicManager>();
+	SoundSystem* sound_system = &*CORE->GetSystem<SoundSystem>();
 
 	auto& [player_id, player_aabb] = *aabb1;
 	auto& [interactable_id, interactable_aabb] = *aabb2;
@@ -617,6 +633,11 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			case CollisionLayer::INTERACTABLE:
 			{
 				PlayerInteractableResponse(aabb1, aabb2);
+				break;
+			}
+			case CollisionLayer::BIGKUSA:
+			{
+				PlayGrassRustle();
 				break;
 			}
 		}
@@ -770,7 +791,7 @@ bool Collision::HideReady() {
 
 bool Collision::UnBurrowReady() {
 
-	return !CollisionReady(CollisionLayer::BURROWABLE);
+	return !(CollisionReady(CollisionLayer::BURROWABLE) || CollisionReady(CollisionLayer::SOLID_ENVIRONMENT));
 }
 
 void Collision::ToggleClickables(size_t group) {
@@ -795,6 +816,7 @@ void Collision::Init() {
 	windows_ = &*CORE->GetSystem<WindowsSystem>();
 	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
+	logic_mgr_ = &*CORE->GetManager<LogicManager>();
 
 	clickable_arr_ = component_mgr_->GetComponentArray<Clickable>();
 	motion_arr_ = component_mgr_->GetComponentArray<Motion>();
@@ -942,7 +964,6 @@ void Collision::Update(float frametime) {
 
 
 	std::pair<size_t, size_t> sizes = partitioning_->GetAxisSizes();
-	std::vector<std::future<void>> futures{};
 
 	for (size_t i = 0; i < sizes.second; ++i) { // y-axis
 		for (size_t j = 0; j < sizes.first; ++j) { // x-axis
@@ -951,22 +972,21 @@ void Collision::Update(float frametime) {
 			if (!partitioning_->VerifyPartition(j, i))
 				continue;
 
-			//// Else perform collision checks on partition
-			//if (entity_mgr_->GetEntities().size() > 10) {
-
-			//	futures.push_back(std::async([this, i, j, frametime] { this->ProcessPartitionedEntities(i, j, frametime); }));
-			//}
-			//else {
-
-			//	ProcessPartitionedEntities(i, j, frametime);
-			//}
 			ProcessPartitionedEntities(i, j, frametime);
 		}
 	}
-	
-	for (std::future<void>& future : futures) {
 
-		future.get();
+	//// To temporarily disable rolling if player is no longer colliding with the object
+	//// To potentially move elsewhere or shift into a function when the idea is solidified
+	auto boulder_layer = collision_map_.find(CollisionLayer::PUSHABLE);
+
+	if (boulder_layer != collision_map_.end()) {
+		for (auto& [id, boulder_collider] : boulder_layer->second) {
+
+			LogicComponent* logic = component_mgr_->GetComponent<LogicComponent>(id);
+			std::string update = logic->GetLogic("UpdateAnimation");
+			logic_mgr_->Exec(update, id);
+		}
 	}
 
 	ButtonStates state = ButtonStates::HOVERED;

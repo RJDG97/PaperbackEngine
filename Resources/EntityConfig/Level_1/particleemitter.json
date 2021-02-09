@@ -27,7 +27,42 @@
             "min rotation angle range": "0.000000 45.000000",
             "max rotation angle range": "0.000000 45.000000",
             "number of textures": "1",
-            "texture": "Leaf_0"
+            "texture": "Leaf_0",
+            "has_destination": "0"
+        }
+    ],
+    "ParticleEmitter": [
+        {
+            "component": "Transform",
+            "position": "0.000000 -12.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Emitter",
+            "emitter lifetime": "10.0",
+            "emitter spawn interval": "2.0",
+            "emitter request": "5",
+            "emitter maximum spawn": "20",
+            "particle lifetime range": "3.000000 3.000000",
+            "particle min pos": "-49.000000 20.000000",
+            "particle max pos": "-49.000000 20.000000",
+            "particle force range": "5.000000 5.000000",
+            "particle direction range": "0.000000 0.000000",
+            "particle rotation speed": "1.000000 2.000000",
+            "min rotation angle range": "0.000000 0.000000",
+            "max rotation angle range": "0.000000 0.000000",
+            "number of textures": "1",
+            "texture": "Puddle_0",
+            "has_destination": "1",
+            "destination": "-8.7 3.7",
+            "destination_time_range": "2.0 5.0"
         }
     ]
 }

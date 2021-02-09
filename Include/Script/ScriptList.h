@@ -13,9 +13,7 @@
 #ifndef _SCRIPTLIST_H_
 #define _SCRIPTLIST_H_
 
-#include "StagScript.h"
-#include "HornetScript.h"
-#include "MiteScript.h"
-#include "GeneralScripts.h"
+#include "Stag_Tree.h"
+#include "Mite_Tree.h"
 
 #endif

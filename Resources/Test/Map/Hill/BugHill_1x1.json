@@ -2,7 +2,7 @@
     "Bug_Hill_1x1": [
         {
             "component": "Transform",
-            "position": "-14.600615 9.084812",
+            "position": "-14.600615 10.08",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -18,7 +18,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.500000",
             "layer": "1"
         },
         {
@@ -45,7 +45,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.500000",
             "layer": "1"
         },
         {
@@ -72,7 +72,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.500000",
             "layer": "1"
         },
         {
@@ -99,7 +99,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.500000",
             "layer": "1"
         },
         {
@@ -110,7 +110,7 @@
     "Bug_Hill_1x1": [
         {
             "component": "Transform",
-            "position": "-5.189617 5.628817",
+            "position": "-5.397225 5.505538",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -126,7 +126,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.500000",
             "layer": "1"
         },
         {
@@ -151,7 +151,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.500000",
             "layer": "1"
         },
         {
@@ -176,7 +176,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.500000",
             "layer": "1"
         },
         {
@@ -201,7 +201,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.500000",
             "layer": "1"
         },
         {
@@ -226,7 +226,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.500000",
             "layer": "1"
         },
         {
@@ -251,7 +251,157 @@
         },
         {
             "component": "AABB",
+            "scale": "1.500000 1.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 180.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "-5.57 -18.03",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
             "scale": "1.700000 1.900000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 180.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "11.84 -18.55",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.700000 1.900000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 180.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "28.66 -20.22",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.400000 1.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 180.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "28.13 -15.57",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.400000 1.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 180.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "25.16 -14.66",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.400000 1.500000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "180.000000 180.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "25.13 -12.45",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.400000 1.000000",
             "layer": "1"
         },
         {

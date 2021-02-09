@@ -27,7 +27,8 @@
             "min rotation angle range": "0.000000 45.000000",
             "max rotation angle range": "0.000000 45.000000",
             "number of textures": "1",
-            "texture": "Leaf_0"
+            "texture": "Leaf_0",
+            "has_destination": "0"
         }
     ]
 }

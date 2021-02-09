@@ -251,6 +251,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::UNLOCKABLE;
 	else if (str == "Interactable")
 		return ComponentTypes::INTERACTABLE;
+	else if (str == "DialogueTrigger")
+		return ComponentTypes::DIALOGUETRIGGER;
 	else
 		return ComponentTypes::NONE;
 }

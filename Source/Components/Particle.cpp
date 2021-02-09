@@ -65,6 +65,16 @@ bool Particle::IsAlive() const {
 	return alive_;
 }
 
+void Particle::SetAlive(bool status) {
+
+	alive_ = status;
+}
+
+void Particle::SetDestination(bool status) {
+
+	has_destination_ = status;
+}
+
 float Particle::GetLifetime() {
 
 	return lifetime_;

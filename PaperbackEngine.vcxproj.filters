@@ -114,9 +114,6 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{3a370a19-bd15-46bf-9e16-47cd2fc58c7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\GeneralScripts">
-      <UniqueIdentifier>{b17d9952-c5a1-4d6f-b24a-f1e38ab77227}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts\StagBeetle">
       <UniqueIdentifier>{ac0efd70-6e2e-4b50-a1bb-d65ff6b14e23}</UniqueIdentifier>
     </Filter>
@@ -188,6 +185,9 @@
     </Filter>
     <Filter Include="Entity\Components\Interactable">
       <UniqueIdentifier>{16ce9f60-6931-4650-82c1-f8abe7319b41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\Dialogue">
+      <UniqueIdentifier>{797c3834-c781-49d9-b960-faa4c2978e1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -338,15 +338,6 @@
     <ClCompile Include="Source\Manager\EntityManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Script\GeneralScripts.cpp">
-      <Filter>Scripts\GeneralScripts</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Script\StagScript.cpp">
-      <Filter>Scripts\StagBeetle</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Script\MiteScript.cpp">
-      <Filter>Scripts\Mite</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GameStates\EditorState.cpp">
       <Filter>Systems\Scene/State Manager\Test States</Filter>
     </ClCompile>
@@ -469,6 +460,9 @@
     </ClCompile>
     <ClCompile Include="Source\Script\Mite_Tree.cpp">
       <Filter>Scripts\Mite</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Dialogue.cpp">
+      <Filter>Entity\Components\Dialogue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -643,15 +637,6 @@
     <ClInclude Include="Include\Manager\ComponentManager.h">
       <Filter>ResourceManagers</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Script\GeneralScripts.h">
-      <Filter>Scripts\GeneralScripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\StagScript.h">
-      <Filter>Scripts\StagBeetle</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\MiteScript.h">
-      <Filter>Scripts\Mite</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Script\ScriptList.h">
       <Filter>Scripts</Filter>
     </ClInclude>
@@ -701,12 +686,6 @@
       <Filter>Entity\Components\Inventory</Filter>
     </ClInclude>
     <ClInclude Include="Include\Script\Player_Script.h">
-      <Filter>Entity\Components\Logic\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\Mite_Script.h">
-      <Filter>Entity\Components\Logic\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Script\Stag_Script.h">
       <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\ParticleManager.h">
@@ -804,6 +783,15 @@
     </ClInclude>
     <ClInclude Include="Include\Script\Mite_Tree.h">
       <Filter>Scripts\Mite</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Movable_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Dialogue.h">
+      <Filter>Entity\Components\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\DialogueTrigger_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Include\Manager\LayerManager.h">
       <Filter>ResourceManagers</Filter>

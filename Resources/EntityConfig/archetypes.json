@@ -999,7 +999,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 3.000000",
+            "scale": "1.000000 1.000000",
             "layer": "12"
         },
         {
@@ -1128,18 +1128,12 @@
             "intensity": "1.000000",
             "angle": "1.000000",
             "alive": "1"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateTexture",
-            "function": "Mite_UpdateTexture"
         }
     ],
-    "MoveBlok": [
+    "Boulder": [
         {
             "component": "Name",
-            "name": "MoveBlok"
+            "name": "Boulder"
         },
         {
             "component": "Motion",
@@ -1156,11 +1150,12 @@
         },
         {
             "component": "AnimationRenderer",
-            "number of animations": "2",
+            "number of animations": "3",
             "add animation": "Stone_Roll_One",
             "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
             "set animation": "Stone_Roll_One",
-            "play_animation": "1",
+            "play_animation": "0",
             "has_finished_animating": "0",
             "layer": "0",
 			"order in layer": "0",
@@ -1183,6 +1178,12 @@
             "radius": "550.000000",
             "intensity": "0.500000",
             "alive": "1"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
         }
     ],
     "MovingWall": [
@@ -1312,6 +1313,39 @@
             "component": "Emitter"
         }
     ],
+    "WaterParticleEmitter": [
+        {
+            "component": "Name",
+            "name": "WaterParticleEmitter"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "Emitter",
+            "emitter lifetime": "0.0",
+            "emitter spawn interval": "0.0",
+            "emitter request": "5",
+            "emitter maximum spawn": "5",
+            "particle lifetime range": "1.700000 1.700000",
+            "particle min pos": "0.000000 0.000000",
+            "particle max pos": "0.000000 0.000000",
+            "particle force range": "30.000000 40.000000",
+            "particle direction range": "180.000000 0.000000",
+            "particle rotation speed": "1.000000 2.000000",
+            "min rotation angle range": "0.000000 0.000000",
+            "max rotation angle range": "0.000000 0.000000",
+            "number of textures": "1",
+            "texture": "Puddle_0",
+            "has_destination": "1",
+            "destination": "-3.0 8.0",
+            "destination_time_range": "2.0 5.0"
+        }
+    ],
     "Player": [
         {
             "component": "Name",
@@ -1336,12 +1370,13 @@
         },
         {
             "component": "AnimationRenderer",
-            "number of animations": "5",
+            "number of animations": "6",
             "add animation": "Player_Hiding",
             "add animation": "Player_Burrow_Walk",
             "add animation": "Player_Burrow_Idle",
             "add animation": "Player_Idle",
             "add animation": "Player_Walk",
+            "add animation": "Player_Hit",
             "set animation": "Player_Walk",
             "play_animation": "1",
             "has_finished_animating": "0",
@@ -1358,7 +1393,7 @@
         },
         {
             "component": "Scale",
-            "scale": "64.000000 128.000000"
+            "scale": "128.000000 128.000000"
         },
         {
             "component": "Status"
@@ -1376,7 +1411,7 @@
         {
             "component": "ParentChild",
             "elements": "1",
-            "to_clone": "Camera "
+            "to_clone": "Camera"
         },
         {
             "component": "LogicComponent",
@@ -1434,6 +1469,9 @@
             "component": "Collectible",
             "item name": "Puddle",
             "item description": "Wow"
+        },
+        {
+            "component": "PointLight"
         }
     ],
     "SingleHill": [
@@ -1632,12 +1670,6 @@
             "intensity": "0.800000",
             "angle": "0.800000",
             "alive": "1"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateTexture",
-            "function": "Stag_UpdateTexture"
         }
     ],
     "Stone_Hole": [
@@ -1799,5 +1831,33 @@
 			"order in layer": "0",
 			"alive": "1"
         }
+    ],
+    "DialogueTriggerBox": [
+      {
+          "component": "Name",
+          "name": "DialogueTriggerBox"
+      },
+      {
+          "component": "Transform",
+          "position": "0.000000 0.000000",
+          "rotation": "0.000000",
+          "offset": "0.000000 0.000000",
+          "aabb offset": "0.000000 0.000000"
+      },
+      {
+          "component": "AABB",
+          "scale": "0.500000 0.500000",
+          "layer": "12"
+      },
+      {
+        "component": "DialogueTrigger",
+        "dialogue name": "keypickedup"
+      },
+      {
+          "component": "LogicComponent",
+          "number_of_fns": "1",
+          "name": "Interactable",
+          "function": "TriggerDialogue"
+      }
     ]
 }

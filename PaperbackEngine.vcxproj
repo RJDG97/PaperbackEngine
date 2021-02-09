@@ -166,6 +166,7 @@
     <ClCompile Include="Source\Components\Clickable.cpp" />
     <ClCompile Include="Source\Components\Collectible.cpp" />
     <ClCompile Include="Source\Components\ConeLight.cpp" />
+    <ClCompile Include="Source\Components\Dialogue.cpp" />
     <ClCompile Include="Source\Components\Emitter.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
     <ClCompile Include="Source\Components\InputController.cpp" />
@@ -217,10 +218,7 @@
     <ClCompile Include="Source\MathLib\MathHelper.cpp" />
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp" />
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
-    <ClCompile Include="Source\Script\GeneralScripts.cpp" />
-    <ClCompile Include="Source\Script\MiteScript.cpp" />
     <ClCompile Include="Source\Script\Mite_Tree.cpp" />
-    <ClCompile Include="Source\Script\StagScript.cpp" />
     <ClCompile Include="Source\Script\Stag_Tree.cpp" />
     <ClCompile Include="Source\Source.cpp" />
     <ClCompile Include="Source\Systems\CameraSystem.cpp" />
@@ -253,6 +251,7 @@
     <ClInclude Include="Include\Components\Clickable.h" />
     <ClInclude Include="Include\Components\Collectible.h" />
     <ClInclude Include="Include\Components\ConeLight.h" />
+    <ClInclude Include="Include\Components\Dialogue.h" />
     <ClInclude Include="Include\Components\Emitter.h" />
     <ClInclude Include="Include\Components\Health.h" />
     <ClInclude Include="Include\Components\IComponent.h" />
@@ -315,13 +314,10 @@
     <ClInclude Include="Include\MathLib\Vector2D.h" />
     <ClInclude Include="Include\Script\Button_Script.h" />
     <ClInclude Include="Include\Script\Collectible_Script.h" />
+    <ClInclude Include="Include\Script\DialogueTrigger_Script.h" />
     <ClInclude Include="Include\Script\Mite_Tree.h" />
-    <ClInclude Include="Include\Script\Stag_Script.h" />
-    <ClInclude Include="Include\Script\GeneralScripts.h" />
-    <ClInclude Include="Include\Script\MiteScript.h" />
-    <ClInclude Include="Include\Script\Mite_Script.h" />
+    <ClInclude Include="Include\Script\Movable_Script.h" />
     <ClInclude Include="Include\Script\ScriptList.h" />
-    <ClInclude Include="Include\Script\StagScript.h" />
     <ClInclude Include="Include\Script\Player_Script.h" />
     <ClInclude Include="Include\Script\Stag_Tree.h" />
     <ClInclude Include="Include\Script\UI_Script.h" />

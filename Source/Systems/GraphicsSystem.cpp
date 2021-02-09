@@ -879,6 +879,9 @@ void GraphicsSystem::ChangeAnimation(AnimationRenderer* anim_renderer, std::stri
     }
 
     SetAnimation(anim_renderer, animation_name);
+
+    anim_renderer->time_elapsed_ = 0.0f;
+    anim_renderer->total_time_elapsed_ = 0.0f;
     anim_renderer->play_animation_ = true;
 }
 

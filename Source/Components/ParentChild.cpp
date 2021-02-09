@@ -25,15 +25,6 @@ void ParentChild::Init() {
 ParentChild::~ParentChild() {
 
 	CORE->GetManager<ComponentManager>()->RemoveComponent<ParentChild>(Component::GetOwner()->GetID());
-
-	// Double check this whether its needed
-	//// Remove all entities attached to the parent
-	//std::shared_ptr<EntityFactory> factory = CORE->GetSystem<EntityFactory>();
-
-	//for (auto& entity : children_) {
-	//	
-	//	factory->Destroy(entity);
-	//}
 }
 
 

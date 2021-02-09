@@ -16,6 +16,8 @@
 #ifndef _PLAYER_SCRIPT_H_
 #define _PLAYER_SCRIPT_H_
 
+#include <cstdlib>
+
 #include "Entity/Entity.h"
 #include "Engine/Core.h"
 #include "Systems/Physics.h"
@@ -26,6 +28,17 @@
 #include "Components/LogicComponent.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/MenuState.h"
+
+void PlayBurrow(Status* status) {
+	
+	if (status->GetStatus() == StatusType::BURROW) {
+
+		int value = std::rand() % 3;
+		std::string sound{"PlayerBurrowing_"};
+		sound += std::to_string(value);
+		CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
+	}
+}
 
 
 namespace Player_Scripts
@@ -116,6 +129,8 @@ namespace Player_Scripts
 		{
 			case StatusType::BURROW:
 			{
+				renderer->SetAnimationStatus(true);
+
 				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
 
 					graphics->ChangeAnimation(renderer, "Player_Burrow_Idle");
@@ -128,31 +143,43 @@ namespace Player_Scripts
 			}
 			case StatusType::INVISIBLE:
 			{
-				graphics->ChangeAnimation(renderer, "Player_Hiding");
+				if (renderer->FinishedAnimating())
+					renderer->SetAnimationStatus(false);
+
 				break;
 			}
 			default:
 			{
-				// If velocity is essentially 0, set player to idle
-				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
+				// check if hit then reset accordingly based on the timer
 
-					graphics->ChangeAnimation(renderer, "Player_Idle");
-				}
-				// If velocity isn't 0 set to walk
-				else {
+				renderer->SetAnimationStatus(true);
 
-					graphics->ChangeAnimation(renderer, "Player_Walk");
+				if (renderer->FinishedAnimating()) {
+
+					// If velocity is essentially 0, set player to idle
+					if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
+
+						graphics->ChangeAnimation(renderer, "Player_Idle");
+					}
+					// If velocity isn't 0 set to walk
+					else {
+
+						graphics->ChangeAnimation(renderer, "Player_Walk");
+
+						if (renderer->FinishedAnimating())
+							CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerJump");
+					}
 				}
 			}
 
 		}
 
-		if (motion->GetVelocity().x > 0 && motion->GetIsLeft()) {
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(false);
 		}
-		else if (motion->GetVelocity().x < 0 && !motion->GetIsLeft()) {
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
 
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
@@ -173,6 +200,7 @@ namespace Player_Scripts
 
 		std::shared_ptr<EntityManager> entity_mgr = CORE->GetManager<EntityManager>();
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
+		std::shared_ptr<SoundSystem> sound_system = CORE->GetSystem<SoundSystem>();
 		std::shared_ptr<Game> game = CORE->GetSystem<Game>();
 
 		InputController* controller = component_mgr->GetComponent<InputController>(id);
@@ -218,6 +246,7 @@ namespace Player_Scripts
 			EntityID player_id = entity_mgr->GetPlayerEntities().back()->GetID();
 			Status* player_status = component_mgr->GetComponent<Status>(player_id);
 			Transform* player_transform = component_mgr->GetComponent<Transform>(player_id);
+			AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(player_id);
 			
 			//God Mode
 			if (controller->VerifyKey("god", m->input_)) {
@@ -256,6 +285,11 @@ namespace Player_Scripts
 				if (CORE->GetSystem<Collision>()->UnBurrowReady() && VerifyStatusNoneOrAlt(player_status->GetStatus(), StatusType::BURROW)) {
 
 					m_PlayState.SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
+
+					if (player_status->GetStatus() == StatusType::BURROW)
+						sound_system->PlaySounds("PlayerBurrowIn");
+					else
+						sound_system->PlaySounds("PlayerBurrowOut");
 				}
 			}
 			else if (controller->VerifyKey("invisible", m->input_)) {
@@ -268,8 +302,6 @@ namespace Player_Scripts
 					//1. collided with bush
 					//2. invisible (already invisible, can just resurface)
 					if (hide_ready || player_status->GetStatus() == StatusType::INVISIBLE) {
-
-						AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(id);
 
 						if (player_status->GetStatus() == StatusType::INVISIBLE) {
 
@@ -294,18 +326,22 @@ namespace Player_Scripts
 				if (controller->VerifyKey("move_left", m->input_)) {
 
 					CORE->GetManager<ForcesManager>()->AddForce(player_id, "left", PE_FrameRate.GetFixedDelta(), { -power, 0.0f });
+					PlayBurrow(player_status);
 				}
 				else if (controller->VerifyKey("move_right", m->input_)) {
 
 					CORE->GetManager<ForcesManager>()->AddForce(player_id, "right", PE_FrameRate.GetFixedDelta(), { power, 0.0f });
+					PlayBurrow(player_status);
 				}
 				else if (controller->VerifyKey("move_up", m->input_)) {
 
 					CORE->GetManager<ForcesManager>()->AddForce(player_id, "up", PE_FrameRate.GetFixedDelta(), { 0.0f, power });
+					PlayBurrow(player_status);
 				}
 				else if (controller->VerifyKey("move_down", m->input_)) {
 
 					CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
+					PlayBurrow(player_status);
 				}
 				else if (controller->VerifyKey("spin_left", m->input_)) {
 

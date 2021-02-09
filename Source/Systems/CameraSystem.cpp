@@ -153,3 +153,25 @@ Camera* CameraSystem::GetMainCamera()
 
     return camera_arr_->begin()->second;
 }
+
+Vector2D CameraSystem::UIToGameCoords(const Vector2D& ui_pos) {
+
+    float scale = CORE->GetGlobalScale();
+    Camera* cam = GetMainCamera();
+
+    if (cam)
+        return ui_pos * scale + cam->GetVector2DCameraPosition();
+
+    return {};
+}
+
+Vector2D CameraSystem::GameCoordsToUI(const Vector2D& go_pos) {
+
+    float scale = CORE->GetGlobalScale();
+    Camera* cam = GetMainCamera();
+
+    if (cam)
+        return go_pos / scale - cam->GetVector2DCameraPosition();
+
+    return {};
+}

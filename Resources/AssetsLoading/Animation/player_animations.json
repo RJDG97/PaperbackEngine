@@ -3,16 +3,17 @@
     {
 	  "Folder": "character_spritesheets",
 	  "Animation Batch Name": "Player_Animations",
-	  "Columns": "32",
-	  "Rows": "8",
-      "Animation Name, Number of Frames, Frame Duration": "Player_Burrow_Show 8 0.06",
+	  "Columns": "16",
+	  "Rows": "9",
+    "Animation Name, Number of Frames, Frame Duration": "Player_Burrow_Show 8 0.06",
 	  "Animation Name, Number of Frames, Frame Duration": "Player_Burrow_Enter 8 0.06",
 	  "Animation Name, Number of Frames, Frame Duration": "Player_Burrow_Idle 8 0.06",
 	  "Animation Name, Number of Frames, Frame Duration": "Player_Burrow_Walk 8 0.06",
-	  "Animation Name, Number of Frames, Frame Duration": "Player_Hiding_Enter 8 0.06",
+	  "Animation Name, Number of Frames, Frame Duration": "Player_Hiding 8 0.06",
 	  "Animation Name, Number of Frames, Frame Duration": "Player_Idle 8 0.06",
+	  "Animation Name, Number of Frames, Frame Duration": "Player_Hit 8 0.06",
 	  "Animation Name, Number of Frames, Frame Duration": "Player_Walk 8 0.06",
-	  "Animation Name, Number of Frames, Frame Duration": "Player_Hiding 1 0.06"
+    "Animation Name, Number of Frames, Frame Duration": "Empty 0 0"
     }
   ]
 }
