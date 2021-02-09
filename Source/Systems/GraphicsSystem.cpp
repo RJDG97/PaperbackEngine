@@ -216,6 +216,9 @@ void GraphicsSystem::Draw() {
 
     world_to_ndc_xform_ = *camera_system_->GetMainCamera()->GetCameraWorldToNDCTransform();
 
+    //temporary, will be removed after lighting layers is implemented!
+    bool render_lights_now = true;
+
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_);
@@ -223,8 +226,21 @@ void GraphicsSystem::Draw() {
 
     for (auto it = render_layers_->begin(); it != render_layers_->end(); ++it)
     {
-        if (it->second.GetVisible())
-        {
+        //temporary, will be removed after lighting layers is implemented!
+
+        if ((it->second.GetLayerType() == UI_TEXT || it->second.GetLayerType() == UI_SPRITE) &&
+            render_lights_now && lighting_enabled_) {
+
+            glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+            DrawFinalTexture(lighting_texture_, 1.0f);
+            glBlendFunc(GL_ONE, GL_ONE);
+            DrawFinalTexture(addition_texture_, 0.6f);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            render_lights_now = false;
+        }
+
+        if (it->second.GetVisible()) {
+
             DrawLayer(it->second);
         }
     }
@@ -233,16 +249,6 @@ void GraphicsSystem::Draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     DrawFinalTexture(&final_texture_, 1.0f);
-
-    if (lighting_enabled_)
-    {
-        glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-        DrawFinalTexture(lighting_texture_, 1.0f);
-        glBlendFunc(GL_ONE, GL_ONE);
-        DrawFinalTexture(addition_texture_, 0.6f);
-    }
-
-    DrawVignette(1.0f);
 
     if (debug_) { debug_ = !debug_; }
 }
@@ -469,10 +475,11 @@ void GraphicsSystem::BatchTextObject(TextRenderer* text_renderer, bool ui, GLuin
 
     Vector2D pos;
     float scale = text_renderer->scale_;
+    const float global_scale = CORE->GetGlobalScale();
 
     if (ui) {
 
-        pos = transform->GetPosition() + 0.5f * Vector2D{ win_size_.x, win_size_.y };
+        pos = transform->GetPosition() * global_scale + 0.5f * Vector2D{ win_size_.x, win_size_.y };
     }
 
     else {
@@ -481,7 +488,7 @@ void GraphicsSystem::BatchTextObject(TextRenderer* text_renderer, bool ui, GLuin
         glm::vec2 cam_pos = *camera_system_->GetMainCamera()->GetCameraPosition();
 
         glm::vec2 translation{ cam_pos * cam_zoom + 0.5f * win_size_ };
-        pos = transform->GetPosition() + Vector2D{ translation.x, translation.y };
+        pos = transform->GetPosition() * global_scale + Vector2D{ translation.x, translation.y };
         scale = text_renderer->scale_ * cam_zoom;
     }
 
@@ -1018,6 +1025,12 @@ void GraphicsSystem::DrawLayer(RenderLayer& render_layer)
             graphic_shaders_["TextShader"]->Use();
             model = graphic_models_["TextModel"];
             break;
+        }
+
+        case VIGNETTE: {
+
+            DrawVignette(1.0f);
+            return;
         }
     }
 

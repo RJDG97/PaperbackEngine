@@ -8,7 +8,8 @@ enum LayerType
     UI_SPRITE,
     UI_TEXT,
     WORLD_SPRITE,
-    WORLD_TEXT
+    WORLD_TEXT,
+    VIGNETTE              //used for vignettes, blurs, etc.
 };
 
 class RenderLayer {

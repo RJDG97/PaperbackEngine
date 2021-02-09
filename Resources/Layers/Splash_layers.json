@@ -1,3 +1,5 @@
 {
-  "Background": "0 UI_Sprite"
+  "Background": "0 UI_Sprite",
+
+  "Vignette": "0 Vignette"
 }

@@ -10,7 +10,7 @@
       {
         "component": "TextureRenderer",
         "texture": "UI_DialogueBox_0",
-        "layer": "2",
+        "layer": "3",
         "order in layer": "2",
         "alive": "1",
         "opacity": "1.0",
