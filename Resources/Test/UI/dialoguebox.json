@@ -12,7 +12,7 @@
         "texture": "UI_DialogueBox_0",
         "layer": "3",
         "order in layer": "2",
-        "alive": "1",
+        "alive": "0",
         "opacity": "1.0",
         "tint": "1.0 1.0 1.0"
       }
