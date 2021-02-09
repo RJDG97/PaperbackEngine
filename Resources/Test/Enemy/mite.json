@@ -22,7 +22,23 @@
       "destination2": "-6.500000 -11.000000",
       "destination3": "-3.500000 -11.000000",
       "destination4": "-3.500000 -15.000000"
-    }
+    },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "4",
+            "add animation": "Mite_Alert",
+            "add animation": "Mite_Explode",
+            "add animation": "Mite_Idle",
+            "add animation": "Mite_Walk",
+            "set animation": "Mite_Idle",
+            "play_animation": "1",
+            "has_finished_animating": "0",
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
+        }
   ],
   "Mite": [
     {
@@ -47,6 +63,22 @@
       "destination2": "14.200000 -4.500000",
       "destination3": "16.500000 -4.500000",
       "destination4": "16.500000 1.000000"
-    }
+    },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "4",
+            "add animation": "Mite_Alert",
+            "add animation": "Mite_Explode",
+            "add animation": "Mite_Idle",
+            "add animation": "Mite_Walk",
+            "set animation": "Mite_Idle",
+            "play_animation": "1",
+            "has_finished_animating": "0",
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
+        }
   ]
 }

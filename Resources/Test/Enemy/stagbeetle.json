@@ -22,6 +22,25 @@
             "destination2": "-14.4500000 6.000000",
             "destination3": "-18.000000 6.000000",
             "destination4": "-18.000000 8.00000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "7",
+            "add animation": "Stagbeetle_Charge",
+            "add animation": "Stagbeetle_Attack",
+            "add animation": "Stagbeetle_Run",
+            "add animation": "Stagbeetle_Alert",
+            "add animation": "Stagbeetle_Idle",
+            "add animation": "Stagbeetle_Confused",
+            "add animation": "Stagbeetle_Walk",
+            "set animation": "Stagbeetle_Walk",
+            "play_animation": "1",
+            "has_finished_animating": "0",
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         }
     ],
     "StagBeetle": [
@@ -45,6 +64,25 @@
             "dest": "2",
             "destination1": "-31.2 -1.0",
             "destination2": "-25.8 -1.0"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "7",
+            "add animation": "Stagbeetle_Charge",
+            "add animation": "Stagbeetle_Attack",
+            "add animation": "Stagbeetle_Run",
+            "add animation": "Stagbeetle_Alert",
+            "add animation": "Stagbeetle_Idle",
+            "add animation": "Stagbeetle_Confused",
+            "add animation": "Stagbeetle_Walk",
+            "set animation": "Stagbeetle_Walk",
+            "play_animation": "1",
+            "has_finished_animating": "0",
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         }
     ],
     "StagBeetle": [
@@ -70,6 +108,25 @@
             "destination2": "10.0 -20.0",
             "destination3": "15.0 -20.0",
             "destination4": "15.0 -23.0"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "7",
+            "add animation": "Stagbeetle_Charge",
+            "add animation": "Stagbeetle_Attack",
+            "add animation": "Stagbeetle_Run",
+            "add animation": "Stagbeetle_Alert",
+            "add animation": "Stagbeetle_Idle",
+            "add animation": "Stagbeetle_Confused",
+            "add animation": "Stagbeetle_Walk",
+            "set animation": "Stagbeetle_Walk",
+            "play_animation": "1",
+            "has_finished_animating": "0",
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         }
     ],
     "StagBeetle": [
@@ -95,6 +152,25 @@
             "destination2": "-2.000000 12.000000",
             "destination3": "-7.000000 12.000000",
             "destination4": "-7.000000 9.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "7",
+            "add animation": "Stagbeetle_Charge",
+            "add animation": "Stagbeetle_Attack",
+            "add animation": "Stagbeetle_Run",
+            "add animation": "Stagbeetle_Alert",
+            "add animation": "Stagbeetle_Idle",
+            "add animation": "Stagbeetle_Confused",
+            "add animation": "Stagbeetle_Walk",
+            "set animation": "Stagbeetle_Walk",
+            "play_animation": "1",
+            "has_finished_animating": "0",
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         }
     ],
     "StagBeetle": [
@@ -120,6 +196,25 @@
             "destination2": "9.000000 -6.000000",
             "destination3": "4.800000 -6.000000",
             "destination4": "4.800000 -8.300000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "7",
+            "add animation": "Stagbeetle_Charge",
+            "add animation": "Stagbeetle_Attack",
+            "add animation": "Stagbeetle_Run",
+            "add animation": "Stagbeetle_Alert",
+            "add animation": "Stagbeetle_Idle",
+            "add animation": "Stagbeetle_Confused",
+            "add animation": "Stagbeetle_Walk",
+            "set animation": "Stagbeetle_Walk",
+            "play_animation": "1",
+            "has_finished_animating": "0",
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         }
     ]
 }

@@ -145,9 +145,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -170,9 +172,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -195,9 +199,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -220,9 +226,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -245,9 +253,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -270,9 +280,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -295,9 +307,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -320,9 +334,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -345,9 +361,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -370,9 +388,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -395,9 +415,11 @@
         {
             "component": "TextureRenderer",
             "texture": "Bug_Hill_1x1_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
+            "layer": "1",
+			"order in layer": "1",
+            "alive": "1",
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
