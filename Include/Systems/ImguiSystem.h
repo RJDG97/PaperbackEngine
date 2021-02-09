@@ -65,7 +65,7 @@ public:
 	ImFont* bold_font_, *img_font_;
 
 	bool b_entity_win, b_archetype_win, b_component, b_display, b_edit_path, b_asset, b_edit_comp, b_add_texture;
-	bool b_show_tex, b_settings;
+	bool b_show_tex, b_settings, b_layers;
 
 	ImguiSystem() {};
 
@@ -516,9 +516,7 @@ public:
 	\brief Toggles the icon depending on the boolean
 */
 /******************************************************************************/
-	std::string VisibleIcon();
-
-
+	std::string VisibleIcon(bool windowbool);
 
 private:
 

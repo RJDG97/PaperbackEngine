@@ -29,16 +29,15 @@ void EntityWindow::Init(){
 	collision_ = &*CORE->GetSystem<Collision>();
 	camera_ = &*CORE->GetSystem<CameraSystem>();
 	sound_ = &*CORE->GetSystem<SoundSystem>();
+	layer_ = &*CORE->GetManager<LayerManager>();
 
-	originalVec_ = mousePos_ = { 0,0 };	
-	b_draw = false;
-	b_grid = false;
-	b_light = false;
+	originalVec_ = { 0,0 };	
 }
 
 void EntityWindow::Update() {
 	//ImGui::ShowDemoWindow();
 	//ImGui::ShowStyleEditor();
+
 	if (imgui_->b_entity_win) {
 
 		ImGui::Begin("Entity Inspector", &imgui_->b_entity_win);
@@ -58,45 +57,6 @@ void EntityWindow::Update() {
 		ImGui::End();
 	}
 
-	if (imgui_->b_settings) {
-
-		ImGui::Begin("Editor Settings", &imgui_->b_settings);
-
-		DragEntityCheckBox();
-
-		ImGui::SameLine(0, 3);
-
-		if (ImGui::Checkbox("Bounding Boxes", &b_draw)) {
-
-			Message msg(MessageIDTypes::DEBUG_ALL);
-			CORE->BroadcastMessage(&msg);
-		}
-
-		ImGui::Checkbox("Enable Lighting", &b_light);
-
-		graphics_->EnableLighting(b_light);
-
-		ImGui::SameLine(0, 3);
-
-		if (imgui_->GetCamera()) {
-
-			ImGui::Checkbox("Draw Grid", &b_grid);
-
-			if (!imgui_->EditorMode()) {
-
-				if (input_->IsMousePressed(0))
-					mousePos_ = input_->GetUpdatedCoords();
-
-				ImGui::Text("Current Cursor Position: %.2f, %.2f", mousePos_.x, mousePos_.y);
-			}
-		}
-
-		if (b_grid)
-			imgui_->DrawGrid();
-
-		ImGui::End();
-	}
-
 	DragEntity();
 }
 
@@ -106,7 +66,9 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 
 		imgui_->ImguiHelp("1.  For all components with sliders Ctrl + Click to type manually.\n2. Click on the side buttons to reset the value to default");
 		ImGui::SameLine(0, 3); ImGui::Text("-> Hover here for help :)");
+
 		!entitycomponent.first->GetID() ? ImGui::TextColored(GOLDENORANGE, "Type: Archetype/Prefab") : ImGui::TextColored(SKYBLUE, "Type: Entity");
+		
 		for (auto componenttype : entitycomponent.second) {
 
 			switch (componenttype)
@@ -150,7 +112,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					break;
 
 				case ComponentTypes::AI:
-					//AIComponent(entitycomponent.first);
+					AIComponent(entitycomponent.first);
 					break;
 
 				case ComponentTypes::SCALE:
@@ -266,15 +228,6 @@ void EntityWindow::SelectEntityComponent() {
 
 		CheckComponentType(entity);
 	}
-}
-
-void EntityWindow::DragEntityCheckBox() {
-
-	bool lock = imgui_->GetLockBool();
-	ImGui::Checkbox("Drag Entity", &lock);
-	ImGui::SameLine(); imgui_->ImguiHelp("Check this box\nto Drag Entities around");
-	imgui_->SetLockBool(lock);
-
 }
 
 void EntityWindow::DragEntity() {
@@ -468,12 +421,12 @@ void EntityWindow::AIComponent(Entity* entity) {
 
 	std::shared_ptr<AI> entity_AI = std::dynamic_pointer_cast<AI>(entity->GetComponent(ComponentTypes::AI));
 
-	const char* entity_State = GetAIState(entity_AI->GetState());
-	const char* entity_Type = GetAIType(entity_AI->GetType());
+	//const char* entity_State = GetAIState(entity_AI->GetState());
+	//const char* entity_Type = GetAIType(entity_AI->GetType());
 
-	float input_range = entity_AI->GetRange();
-	int input_Atk = entity_AI->GetAtk();
-	float input_speed = entity_AI->GetSpeed();
+	// float input_range = entity_AI->GetRange();
+	// int input_Atk = entity_AI->GetAtk();
+	// float input_speed = entity_AI->GetSpeed();
 
 	size_t input_num_des = entity_AI->GetNumDes();
 	std::vector<Vector2D> inputDes = entity_AI->GetDestinations();
@@ -482,50 +435,50 @@ void EntityWindow::AIComponent(Entity* entity) {
 
 	if (ImGui::CollapsingHeader("AI Components")) {
 
-		ImGui::Text("AI Type: ");
-		ImGui::SameLine(0, 2);
-		ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f, 1.0f }, entity_Type);
+		// ImGui::Text("AI Type: ");
+		// ImGui::SameLine(0, 2);
+		// ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f, 1.0f }, entity_Type);
 
-		if (ImGui::TreeNode("AI States")) {
-			ImGui::Text("Current AI State: ");
-			ImGui::SameLine(0, 2);
-			ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f, 1.0f }, entity_State);
+		// if (ImGui::TreeNode("AI States")) {
+		// 	ImGui::Text("Current AI State: ");
+		// 	ImGui::SameLine(0, 2);
+		// 	ImGui::TextColored(ImVec4{ 0.863f, 0.078f, 0.235f, 1.0f }, entity_State);
 
-			ImGui::PushItemWidth(130.0f);
-			if (ImGui::BeginCombo("##abc", "AI States")) {
-				for (int i = 0; i < IM_ARRAYSIZE(AIstates_); ++i)
-					if (ImGui::Selectable(AIstates_[i]))
-						entity_AI->SetState(static_cast<AI::AIState>(i));
+		// 	ImGui::PushItemWidth(130.0f);
+		// 	if (ImGui::BeginCombo("##abc", "AI States")) {
+		// 		for (int i = 0; i < IM_ARRAYSIZE(AIstates_); ++i)
+		// 			if (ImGui::Selectable(AIstates_[i]))
+		// 				entity_AI->SetState(static_cast<AI::AIState>(i));
 
-				ImGui::EndCombo();
-			}
-			ImGui::PopItemWidth();
+		// 		ImGui::EndCombo();
+		// 	}
+		// 	ImGui::PopItemWidth();
 
-			ImGui::TreePop();
-		}
+		// 	ImGui::TreePop();
+		// }
 
-		if (ImGui::TreeNode("AI Range")) {
+		// if (ImGui::TreeNode("AI Range")) {
 
-			ComponentInputFloat("Range", "##AIrange", input_range, 175.0f);
-			entity_AI->SetRange(input_range);
-			ImGui::TreePop();
-		}
+		// 	ComponentInputFloat("Range", "##AIrange", input_range, 175.0f);
+		// 	entity_AI->SetRange(input_range);
+		// 	ImGui::TreePop();
+		// }
 
-		if (ImGui::TreeNode("AI Attack Power")) {
+		// if (ImGui::TreeNode("AI Attack Power")) {
 
-			ComponentInputInt("Power", "##AIpower", input_Atk, 175.0f, 1, 2);
-			entity_AI->SetAtk(input_Atk);
+		// 	ComponentInputInt("Power", "##AIpower", input_Atk, 175.0f, 1, 2);
+		// 	entity_AI->SetAtk(input_Atk);
 
-			ImGui::TreePop();
-		}
+		// 	ImGui::TreePop();
+		// }
 
-		if (ImGui::TreeNode("AI Speed")) {
+		// if (ImGui::TreeNode("AI Speed")) {
 
-			ComponentInputFloat("Speed", "##AIspeed", input_speed, 175.0f, 0.1f, 1.0f);
-			entity_AI->SetSpeed(input_speed);
+		// 	ComponentInputFloat("Speed", "##AIspeed", input_speed, 175.0f, 0.1f, 1.0f);
+		// 	entity_AI->SetSpeed(input_speed);
 
-			ImGui::TreePop();
-		}
+		// 	ImGui::TreePop();
+		// }
 
 		if (ImGui::TreeNode("AI Destinations")) {
 
@@ -533,10 +486,13 @@ void EntityWindow::AIComponent(Entity* entity) {
 			ImGui::Text("Current Destinations: ");
 
 			for (std::vector<Vector2D>::iterator it = inputDes.begin(); it != inputDes.end(); ++it) {
+
 				++counter;
+
 				if (ImGui::TreeNodeEx((void*)(size_t)counter, 0, "%.2f, %.2f", (*it).x, (*it).y))
 				{
 					if (inputDes.size() > 1) {
+
 						if (ImGui::Button("Delete Node")) {
 							if (it == inputDes.begin())
 								it = inputDes.erase(it);
@@ -585,24 +541,51 @@ void EntityWindow::AnimationRendererComponent(Entity* entity) {
 	std::shared_ptr<AnimationRenderer> entity_animation = std::dynamic_pointer_cast<AnimationRenderer>(entity->GetComponent(ComponentTypes::ANIMATIONRENDERER));
 	//int input_layer = graphics_->GetLayer(&*entity_animation);
 
+	std::string animationLayer {};
+	
 	if (ImGui::CollapsingHeader("Animation Component")) {
 
-		//ComponentInputInt("Animation Renderer Layer: ", "##animlayer", input_layer, 95.0f, 1, 1);
+		auto layerList = graphics_->GetAvailableLayers(&(*entity_animation));
 
-		//graphics_->ChangeLayer(&*entity_animation, input_layer);
+		auto find = layer_->GetRenderLayers()->find(entity_animation->GetLayer());
+
+		if (find != layer_->GetRenderLayers()->end()) {
+
+			animationLayer = find->second.GetName();
+		}
+
+		ImGui::PushItemWidth(200.0f);
+
+		if (ImGui::BeginCombo("##layerchange", (animationLayer.empty() ? "Choose a layer" : animationLayer.c_str()))) {
+			
+			for (auto it = layerList.begin(); it != layerList.end(); ++it) {
+
+				if (ImGui::Selectable(it->second->GetName().c_str()))
+					graphics_->ChangeLayer(&(*entity_animation), it->first); //update the layer
+			}
+
+			ImGui::EndCombo();
+		}
 
 		if (ImGui::BeginCombo("##Animation", entity_animation->GetCurrentAnimation().c_str())) {
+
 			for (auto it = animation_->GetAnimationMap().begin(); it != animation_->GetAnimationMap().end(); ++it) {
+
 				if (ImGui::Selectable(it->first.c_str())) {
+
 					if (entity_animation->GetAvailableAnimation().find(it->first.c_str()) == entity_animation->GetAvailableAnimation().end()) {
 
 						graphics_->AddAnimation(&(*entity_animation), it->first.c_str());
 					}
+
 					graphics_->ChangeAnimation(&(*entity_animation), it->first.c_str());
 				}
 			}
 			ImGui::EndCombo();
 		}
+
+		ImGui::PopItemWidth();
+
 		RemoveComponent("Delete Animation Renderer Component", std::string("Animation Renderer"), entity, entity_animation);
 	}
 }
@@ -730,10 +713,8 @@ void EntityWindow::EmitterComponent(Entity* entity) {
 
 			for (int i = 0; i < 2; ++i) {
 
-				if (ImGui::Selectable(emiiterstatus_[i])) {
-
+				if (ImGui::Selectable(emiiterstatus_[i]))
 					entity_emitter->SetAlive(i);
-				}
 			}
 
 			ImGui::EndCombo();
@@ -1144,19 +1125,35 @@ void EntityWindow::TextureRendererComponent(Entity* entity) {
 
 	std::shared_ptr<TextureRenderer> entity_texture = std::dynamic_pointer_cast<TextureRenderer>(entity->GetComponent(ComponentTypes::TEXTURERENDERER));
 
+	std::string layerName {};
+	
 	if (ImGui::CollapsingHeader("Texture Component")) {
 
-		//int input_layer = graphics_->GetLayer(&*entity_texture);
+		auto layerList = graphics_->GetAvailableLayers(&(*entity_texture));
 
-		//ComponentInputInt("Texture Renderer Layer: ", "##texlayer", input_layer, 95.0f, 1, 1);
+		auto find = layer_->GetRenderLayers()->find(entity_texture->GetLayer());
 
-		//graphics_->ChangeLayer(&*entity_texture, input_layer);
+		if (find != layer_->GetRenderLayers()->end()) {
 
-		//int input_ui = entity_texture->GetUI();
+			layerName = find->second.GetName();
+		}
 
-		//ComponentInputInt("UI: ", "##uilayer", input_ui, 95.0f, 0, 1);
+		
 
-		//entity_texture->SetUI(input_ui);
+		ImGui::PushItemWidth(200.0f);
+
+		if (ImGui::BeginCombo("##layerchange", (layerName.empty() ? "Choose a layer" : layerName.c_str()))) {
+			
+			for (auto it = layerList.begin(); it != layerList.end(); ++it) {
+
+				if (ImGui::Selectable(it->second->GetName().c_str()))
+					graphics_->ChangeLayer(&(*entity_texture), it->first); //update the layer
+			}
+
+			ImGui::EndCombo();
+		}
+
+		ImGui::PopItemWidth();
 
 		std::string path = {};
 
