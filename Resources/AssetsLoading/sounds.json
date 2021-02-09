@@ -11,7 +11,7 @@
     "EnemyWalk": [
         {
             "path": "Resources/SoundCache/Enemy/Stagbettle_Walk_3.mp3",
-            "volume": "1.000000",
+            "volume": "0.600000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -92,7 +92,7 @@
     "MenuDefault": [
         {
             "path": "Resources/SoundCache/States/MM_BGM.mp3",
-            "volume": "0.300000",
+            "volume": "0.200000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "1"
@@ -111,7 +111,7 @@
     "PlayerDies": [
         {
             "path": "Resources/SoundCache/Player/Player_Dies_1.mp3",
-            "volume": "1.000000",
+            "volume": "0.700000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -129,7 +129,7 @@
     "PlayerHurt": [
         {
             "path": "Resources/SoundCache/Player/Player_Hurt.mp3",
-            "volume": "1.000000",
+            "volume": "0.600000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -137,8 +137,18 @@
     ],
     "PlayerJump": [
         {
-            "path": "Resources/SoundCache/Player/Player_Jump.mp3",
-            "volume": "1.000000",
+            "path": "Resources/SoundCache/Player/Player_Jump_3.mp3",
+            "volume": "0.200000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+
+    "PlayerWaterDepletes": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Depletes.mp3",
+            "volume": "0.600000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -192,7 +202,7 @@
     "PlayerMovesStone": [
         {
             "path": "Resources/SoundCache/Player/Moving_Stone_1.mp3",
-            "volume": "1.000000",
+            "volume": "0.600000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -210,7 +220,7 @@
     "PlayerBurrowing_0": [
         {
             "path": "Resources/SoundCache/Player/Burrowing_0.mp3",
-            "volume": "1.000000",
+            "volume": "0.400000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -219,7 +229,7 @@
     "PlayerBurrowing_1": [
         {
             "path": "Resources/SoundCache/Player/Burrowing_1.mp3",
-            "volume": "1.000000",
+            "volume": "0.400000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -228,7 +238,7 @@
     "PlayerBurrowing_2": [
         {
             "path": "Resources/SoundCache/Player/Burrowing_2.mp3",
-            "volume": "1.000000",
+            "volume": "0.400000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -291,7 +301,7 @@
     "TextAdvancing": [
         {
             "path": "Resources/SoundCache/UI/TextAdvancing.mp3",
-            "volume": "0.700000",
+            "volume": "0.500000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0"
@@ -373,7 +383,7 @@
     "River": [
         {
             "path": "Resources/SoundCache/Environment/Game_BGM.mp3",
-            "volume": "1.000000",
+            "volume": "0.600000",
             "min distance": "3.000000",
             "volume falloff": "0.030000",
             "loop": "1"
