@@ -378,7 +378,8 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 
 void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 
-	//UNREFERENCED_PARAMETER(aabb1);
+	UNREFERENCED_PARAMETER(aabb1);
+	UNREFERENCED_PARAMETER(aabb2);
 	//AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
 	//switch (ai_state->GetType())
 	//{
@@ -518,7 +519,6 @@ void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 void Collision::PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2) {
 
 	LogicManager* logic = &*CORE->GetManager<LogicManager>();
-	SoundSystem* sound_system = &*CORE->GetSystem<SoundSystem>();
 
 	auto& [player_id, player_aabb] = *aabb1;
 	auto& [interactable_id, interactable_aabb] = *aabb2;

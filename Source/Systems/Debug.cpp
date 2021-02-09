@@ -36,6 +36,8 @@ void EngineDebug::WriteDebugMessage(const std::string& str) {
 		my_file_ << str;
 	}
 	#endif
+
+	(void)str;
 }
 
 void EngineDebug::SaveDebug() {
