@@ -381,7 +381,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Scene Hierachy", &b_entity_win);
             ImGui::Checkbox("Toggle Inspector", &b_component);
             ImGui::Checkbox("Toggle Archetype Window", &b_archetype_win);
-            ImGui::Checkbox("Toggle Layer Hierachy", &b_layers);
+            //ImGui::Checkbox("Toggle Layer Hierachy", &b_layers);
             ImGui::Checkbox("Toggle Editor Settings", &b_settings);
 
             ImGui::Separator();
@@ -593,8 +593,18 @@ void ImguiSystem::OpenFile() {
     if (!path.empty())
     {
         std::string file = EditString(path);
+        std::string layertoload = {};
 
         factory_->DestroyAllEntities();
+
+        if (CheckString(file, "Level")) {
+
+            layertoload = "Play";
+        }
+        else if (CheckString(file, "Menu"))
+            layertoload = "Menu";
+
+        CORE->GetManager<LayerManager>()->LoadLevelLayers(layertoload);
         factory_->DeSerializeLevelEntities(file);
         CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
         CORE->GetSystem<PartitioningSystem>()->InitPartition();
