@@ -73,7 +73,7 @@ void PlayState::Init(std::string)
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();
 
-	CORE->GetManager<LayerManager>()->LoadLevelLayers("Menu");
+	CORE->GetManager<LayerManager>()->LoadLevelLayers("Play");
 	FACTORY->LoadLevel("Play");
 	FACTORY->LoadLevel("Pause");
 
@@ -88,10 +88,10 @@ void PlayState::Init(std::string)
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 
-	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.3f);
+	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.5f);
 
 	CORE->GetManager<DialogueManager>()->LoadDialogueSet("Play");
-	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("intro");
+	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("beginning");
 }
 
 void PlayState::Free()

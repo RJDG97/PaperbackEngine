@@ -1,344 +1,21 @@
 {
     "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-11.774031 5.677786",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-21.848141 19.740305",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-21.527824 17.184036",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-25.355949 13.629349",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-22.316887 14.413731",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-20.715324 15.312168",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-21.400593 6.951208",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-25.083401 7.302771",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "1",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-22.767790 4.586078",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-11.359442 2.871513",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-9.515703 13.979851",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-6.186517 13.688191",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-9.453684 11.171526",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "DriedBush_01": [
-        {
-            "component": "Transform",
-            "position": "-1.002117 5.212151",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_01_0",
-            "layer": "2",
-            "ui": "0",
-            "alive": "1"
-        },
+      {
+        "component": "Transform",
+        "position": "-22.230949 18.473099",
+        "rotation": "0.000000",
+        "offset": "0.000000 0.000000",
+        "aabb offset": "0.000000 0.000000"
+      },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
         {
             "component": "AABB",
             "scale": "1.000000 1.000000",
@@ -347,6 +24,546 @@
         {
             "component": "Scale",
             "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+      {
+        "component": "Transform",
+        "position": "-19.926262 17.652786",
+        "rotation": "0.000000",
+        "offset": "0.000000 0.000000",
+        "aabb offset": "0.000000 0.000000"
+      },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_02_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-27.035637 13.473099",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-20.480949 13.866856",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-22.746574 13.319981",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-21.099026 8.357458",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-23.509968 6.091833",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-20.775593 4.529333",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-12.194873 3.961078",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-11.046942 0.944430",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-11.828193 0.215263",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-7.773996 14.413714",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-9.884435 12.281941",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-9.336496 9.804338",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-2.852121 5.468401",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-5.283367 8.212151",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "-8.099371 -15.612876",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "4.975698 -0.744127",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "6.496519 -2.384211",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "4.621519 -4.102962",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ],
+    "DriedBush_01": [
+        {
+            "component": "Transform",
+            "position": "9.813158 -10.792549",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextureRenderer",
+        "texture": "DriedBush_01_0",
+        "layer": "1",
+        "order in layer": "1",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ]
 }

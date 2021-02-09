@@ -1,0 +1,24 @@
+{
+    "DialogueText": [
+        {
+            "component": "Transform",
+            "position": "-3.200000 -4.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "TextRenderer",
+        "font": "Grandstander-Medium",
+        "sentence length": "0",
+        "text": "",
+        "color": "0.300000 0.550000 0.200000",
+        "scale": "0.350000",
+        "layer": "4",
+        "order in layer": "0",
+        "alive": "0",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      }
+    ]
+}

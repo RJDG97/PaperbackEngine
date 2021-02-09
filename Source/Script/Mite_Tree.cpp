@@ -130,6 +130,9 @@ Mite_Tree::Move::Move(EntityID id, float spd) : id_(id), Speed_(spd) {
 }
 
 bool Mite_Tree::Move::run() {
+	if (ai_->GetPath().empty())
+		return false;
+
 	// Calculate distance between ai and destination
 	float distance = Vector2DLength(ai_->GetPath().back() - obj_rigidbody_->GetOffsetAABBPos());
 

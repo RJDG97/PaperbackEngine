@@ -115,6 +115,11 @@ void LayerManager::LoadLevelLayers(std::string level_name)
             render_layers_[static_cast<int>(render_layers_.size())] = { layer_name, y_sorted, WORLD_TEXT };
         }
 
+        else if (layer_type == "Vignette") {
+
+            render_layers_[static_cast<int>(render_layers_.size())] = { layer_name, y_sorted, VIGNETTE };
+        }
+
         else {
 
             invalid = true;
