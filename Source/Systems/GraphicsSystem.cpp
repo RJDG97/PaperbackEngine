@@ -434,7 +434,7 @@ void GraphicsSystem::UpdateRenderLayer(RenderLayer* render_layer) {
         Transform* transform =
             component_manager_->GetComponent<Transform>(it->second->GetOwner()->GetID());
         
-        new_order.insert({ transform->position_.y, it->second });
+        new_order.insert({ -transform->position_.y, it->second });
     }
 
     current_order->clear();

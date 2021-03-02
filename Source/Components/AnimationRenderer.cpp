@@ -39,8 +39,6 @@ void AnimationRenderer::Init() {
     }
     
     CORE->GetSystem<GraphicsSystem>()->SetAnimation(this, current_animation_name_);
-    texture_handle_ = current_animation_->GetAnimationFramesHandle();
-    tex_vtx_ = *current_animation_->GetTexVtx();
 }
 
 void AnimationRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {

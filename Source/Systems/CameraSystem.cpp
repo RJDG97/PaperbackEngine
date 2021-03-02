@@ -119,7 +119,7 @@ void CameraSystem::CameraUpdate(Camera* camera)
 
 void CameraSystem::CameraZoom(Camera* camera, float zoom)
 {
-    if (camera->cam_zoom_ + zoom < 0.0f)
+    if (zoom < 0.05f)
     {
         return;
     }
