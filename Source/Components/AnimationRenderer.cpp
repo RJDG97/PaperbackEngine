@@ -65,8 +65,14 @@ void AnimationRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffe
     writer->Key("play_animation");
     writer->String((std::to_string(play_animation_).c_str()));
 
+    writer->Key("reversed");
+    writer->String((std::to_string(reversed_).c_str()));
+
     writer->Key("has_finished_animating");
     writer->String((std::to_string(has_finished_animating_).c_str()));
+
+    writer->Key("animation_speed");
+    writer->String((std::to_string(animation_speed_).c_str()));
 
     writer->Key("layer");
     writer->String((std::to_string(layer_).c_str()));
@@ -108,7 +114,9 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     data >> current_animation_name_
          >> play_animation_
+         >> reversed_
          >> has_finished_animating_
+         >> animation_speed_
          >> layer >> order_in_layer_
          >> alive_
          >> opacity_
@@ -142,7 +150,9 @@ std::shared_ptr<Component> AnimationRenderer::Clone() {
     cloned->current_animation_name_ = current_animation_name_;
 	cloned->current_animation_ = current_animation_;
 	cloned->play_animation_ = play_animation_;
+    cloned->reversed_ = reversed_;
     cloned->has_finished_animating_ = has_finished_animating_;
+    cloned->animation_speed_ = animation_speed_;
 
 	return cloned;
 }

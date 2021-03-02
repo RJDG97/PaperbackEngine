@@ -395,7 +395,7 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
     if (anim_renderer->play_animation_ == true) {
 
-        anim_renderer->time_elapsed_ += frametime;
+        anim_renderer->time_elapsed_ += frametime * anim_renderer->animation_speed_;
         anim_renderer->has_finished_animating_ = false;
 
         if (anim_renderer->time_elapsed_ >= anim_renderer->current_animation_->GetFrameDuration()) {
@@ -407,7 +407,16 @@ void GraphicsSystem::UpdateAnimationFrame(AnimationRenderer* anim_renderer, floa
 
                 anim_renderer->has_finished_animating_ = true;
                 anim_renderer->total_time_elapsed_ = 0.0f;
-                SetToFirstFrame(anim_renderer);
+
+                if (anim_renderer->reversed_)
+                {
+                    SetToLastFrame(anim_renderer);
+                }
+
+                else
+                {
+                    SetToFirstFrame(anim_renderer);
+                }
             }
 
             anim_renderer->time_elapsed_ = 0.0f;
@@ -679,36 +688,6 @@ void GraphicsSystem::DrawTextBatch(GLuint vbo_hdl)
     opacity_sent.clear();
 }
 
-void GraphicsSystem::DrawUIObject(Shader* shader, Model* model, SpriteRenderer* spr_renderer)
-{
-    shader->SetUniform("uTex2d", 0);
-    shader->SetUniform("projection", projection);
-
-    Transform* xform = component_manager_->GetComponent<Transform>(spr_renderer->GetOwner()->GetID());
-    Scale* scale = component_manager_->GetComponent<Scale>(spr_renderer->GetOwner()->GetID());
-
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() + 0.5f * Vector2D{ win_size_.x, win_size_.y };
-    Vector2D obj_scale = scale->scale_;
-
-    std::vector<glm::vec2> vertices;
-    vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
-    vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y - obj_scale.y });
-    vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y + obj_scale.y });
-    vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y + obj_scale.y });
-    
-    for (int i = 0; i < 4; ++i) {
-
-        vertices.push_back(spr_renderer->tex_vtx_[i]);
-    }
-
-    glBindTextureUnit(0, spr_renderer->texture_handle_);
-    
-    glNamedBufferSubData(model->GetVBOHandle(), 0,
-                         sizeof(glm::vec2) * vertices.size(), vertices.data());
-    // render quad
-    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
-}
-
 void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_renderer)
 {
     /*
@@ -778,8 +757,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     glNamedBufferSubData(model->GetVBOHandle(), 0,
                          sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
     glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Shine_0")->GetTilesetHandle());
-    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
-    */
+    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);*/
 }
 
 void GraphicsSystem::ChangeLayer(IRenderer* i_renderer, int layer) {
@@ -901,23 +879,51 @@ void GraphicsSystem::SetAnimation(AnimationRenderer* anim_renderer, std::string 
     anim_renderer->time_elapsed_ = 0.0f;
 
     anim_renderer->texture_handle_ = anim_renderer->current_animation_->GetAnimationFramesHandle();
-    anim_renderer->tex_vtx_ = *anim_renderer->current_animation_->GetTexVtx();
 
-    CheckFlipTextureXY(anim_renderer);
+    if (anim_renderer->reversed_)
+    {
+        SetToLastFrame(anim_renderer);
+    }
+
+    else
+    {
+        SetToFirstFrame(anim_renderer);
+    }
 }
 
 void GraphicsSystem::SetToNextFrame(AnimationRenderer* anim_renderer) {
 
+    float offset = anim_renderer->current_animation_->GetOffsetX();
+
+    if (anim_renderer->reversed_)
+    {
+        offset *= -1;
+    }
+
     for (int i = 0; i < anim_renderer->tex_vtx_.size(); ++i) {
 
-        anim_renderer->tex_vtx_[i].x +=
-            anim_renderer->current_animation_->GetOffsetX();
+        anim_renderer->tex_vtx_[i].x += offset;
     }
 }
 
 void GraphicsSystem::SetToFirstFrame(AnimationRenderer* anim_renderer) {
 
     anim_renderer->tex_vtx_ = *(anim_renderer->current_animation_->GetTexVtx());
+    CheckFlipTextureXY(anim_renderer);
+}
+
+void GraphicsSystem::SetToLastFrame(AnimationRenderer* anim_renderer) {
+
+    anim_renderer->tex_vtx_ = *(anim_renderer->current_animation_->GetTexVtx());
+
+    float offset = anim_renderer->current_animation_->GetOffsetX() *
+                    (anim_renderer->current_animation_->GetNumFrames() - 1);
+    
+    for (size_t i = 0; i < anim_renderer->tex_vtx_.size(); ++i)
+    {
+        anim_renderer->tex_vtx_[i].x += offset;
+    }
+
     CheckFlipTextureXY(anim_renderer);
 }
 
@@ -1061,6 +1067,14 @@ void GraphicsSystem::DrawLayer(RenderLayer& render_layer)
                     
                     if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID())) {
                         
+                        CheckDrawBatch(model->vboid_, &render_layer, it);
+                        continue;
+                    }
+
+                    //Temporary healthbar rendering
+                    if (component_manager_->GetComponent<Name>(it->second->GetOwner()->GetID())->GetName() == "Watergauge")
+                    {
+                        DrawHealthbar(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
                         CheckDrawBatch(model->vboid_, &render_layer, it);
                         continue;
                     }

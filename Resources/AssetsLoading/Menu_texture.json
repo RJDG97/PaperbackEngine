@@ -127,5 +127,17 @@
   
   "UI_Objectives": "Resources/Sprites/UI_Elements/HowTo/UI_Objectives.png 1 1",
 
-  "UI_DialogueBox": "Resources/Sprites/UI_Elements/Dialogue/UI_DialogueBox.png 1 1"
+  "UI_DialogueBox": "Resources/Sprites/UI_Elements/Dialogue/UI_DialogueBox.png 1 1",
+  
+  "UI_HealthBar_Full": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Full.png 1 1",
+  
+  "UI_HealthBar_Half": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Half.png 1 1",
+
+  "UI_HealthBar_Low": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Low.png 1 1",
+  
+  "UI_HealthBar_Base": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Water_Base.png 1 1",
+
+  "UI_HealthBar_Shade": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Water_Shade.png 1 1"
+  
+  
 }

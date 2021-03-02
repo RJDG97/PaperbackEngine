@@ -27,7 +27,8 @@ void WinLoseState::Init(std::string level_name) {
 	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();
-
+	
+	CORE->GetManager<LayerManager>()->LoadLevelLayers(level_name);
 	FACTORY->LoadLevel(level_name);
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());

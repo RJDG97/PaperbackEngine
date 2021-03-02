@@ -90,9 +90,6 @@
     <Filter Include="Entity\Components\Clickable">
       <UniqueIdentifier>{f7a423a9-55e2-4154-a544-d78ac838822f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entity\Components\InputController">
-      <UniqueIdentifier>{8bdad12a-98c2-4e3d-9596-0c974f1871ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity\Components\AI">
       <UniqueIdentifier>{dba3004f-40e2-4f88-b68e-45f02c9ed111}</UniqueIdentifier>
     </Filter>
@@ -188,6 +185,9 @@
     </Filter>
     <Filter Include="Entity\Components\Dialogue">
       <UniqueIdentifier>{797c3834-c781-49d9-b960-faa4c2978e1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Components\InputController">
+      <UniqueIdentifier>{8bdad12a-98c2-4e3d-9596-0c974f1871ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
