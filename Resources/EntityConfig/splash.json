@@ -1,3 +1,4 @@
 {
-  "MenuBG": "Resources/EntityConfig/Splash/background.json"
+  "MenuBG": "Resources/EntityConfig/Splash/background.json",
+  "Camera": "Resources/EntityConfig/Splash/Camera.json"
 }

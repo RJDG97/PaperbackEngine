@@ -138,8 +138,8 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 			{
 				dialogue_box_renderer_ = it->second;
 				dialogue_box_scale_ = component_manager_->GetComponent<Scale>(it->first);
-				std::vector<Entity*> children = component_manager_->GetComponent<ParentChild>(it->first)->GetChildren();
-				dialogue_text_renderer_ = component_manager_->GetComponent<TextRenderer>(children[0]->GetID());
+				std::list<Entity*> children = component_manager_->GetComponent<ParentChild>(it->first)->GetChildren();
+				dialogue_text_renderer_ = component_manager_->GetComponent<TextRenderer>((*children.begin())->GetID());
 
 				textbox_max_scale_ = component_manager_->GetComponent<Scale>(it->first)->GetScale();
 			}

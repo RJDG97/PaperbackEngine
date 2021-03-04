@@ -28,6 +28,7 @@
     "Mite": "Resources\\Test\\Enemy\\mite.json",
     "BurrowIcon": "Resources\\Test\\UI\\burrowui.json",
     "DialogueBox": "Resources\\Test\\UI\\dialoguebox.json",
+    "DialogueText": "Resources\\Test\\UI\\dialoguetext.json",
     "HideIcon": "Resources\\Test\\UI\\hideui.json",
     "Objectives": "Resources\\Test\\UI\\objectives.json",
     "ParticleEmitter": "Resources\\Test\\UI\\particleemitter.json",

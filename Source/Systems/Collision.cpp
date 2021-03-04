@@ -1080,8 +1080,8 @@ void Collision::SendMessageD(Message* m) {
 			if (pc->GetChildren().empty())
 				continue;
 
-			std::vector<Entity*> children = pc->GetChildren();
-			EntityID howto_id = children[0]->GetID();
+			std::list<Entity*> children = pc->GetChildren();
+			EntityID howto_id = (*children.begin())->GetID();
 
 			TextureRenderer* pc_renderer = component_mgr_->GetComponent<TextureRenderer>(howto_id);
 
