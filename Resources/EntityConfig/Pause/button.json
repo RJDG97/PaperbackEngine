@@ -184,8 +184,7 @@
     },
     {
       "component": "ParentChild",
-      "counter": "1",
-      "child": "HowToPlay"
+      "my_name": "MenuHowToPlay"
     }
   ],
   "button": [

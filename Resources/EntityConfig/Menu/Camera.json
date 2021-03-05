@@ -19,7 +19,7 @@
         },
         {
             "component": "Child",
-            "parent_name": "Player"
+            "parent_name": "MenuBackground"
         }
     ]
 }
