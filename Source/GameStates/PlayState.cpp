@@ -148,12 +148,12 @@ void PlayState::Update(Game* game, float frametime)
 	}
 
 	// If there exists at least 1 player
-	if (entity_mgr_->GetPlayerEntities().size() > 0) {
+	if (entity_mgr_->GetPlayerEntities()) {
 
 		if (!component_mgr_)
 			component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
-		EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
+		EntityID player_id = entity_mgr_->GetPlayerEntities()->GetID();
 		Health* health = component_mgr_->GetComponent<Health>(player_id);
 		Status* status = component_mgr_->GetComponent<Status>(player_id);
 

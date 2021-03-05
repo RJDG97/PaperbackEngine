@@ -498,40 +498,26 @@ bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 	return true;
 }
 
-void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
+void Collision::PlayerScenarioResponse(AABBIt aabb1, AABBIt aabb2, std::string scenario) {
 
 	LogicManager* logic = &*CORE->GetManager<LogicManager>();
 	
 	auto& [player_id, player_aabb] = *aabb1;
-	auto& [collectible_id, collectible_aabb] = *aabb2;
+	auto& [scenario_id, scenario_aabb] = *aabb2;
+
+	Status* player_status = component_mgr_->GetComponent<Status>(player_id);
+	if (player_status->GetStatus() == StatusType::BURROW)
+		return;
 
 	LogicComponent* player_logic = component_mgr_->GetComponent<LogicComponent>(player_id);
-	LogicComponent* collectible_logic = component_mgr_->GetComponent<LogicComponent>(collectible_id);
+	LogicComponent* scenario_logic = component_mgr_->GetComponent<LogicComponent>(scenario_id);
 
-	std::string player_collectible = player_logic->GetLogic("Collectible");
-	std::string environment_collectible = collectible_logic->GetLogic("Collectible");
-
-	// Execute player's logic script
-	logic->Exec(environment_collectible, collectible_id);
-	logic->Exec(player_collectible, player_id, collectible_id);
-}
-
-void Collision::PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2) {
-
-	LogicManager* logic = &*CORE->GetManager<LogicManager>();
-
-	auto& [player_id, player_aabb] = *aabb1;
-	auto& [interactable_id, interactable_aabb] = *aabb2;
-
-	LogicComponent* player_logic = component_mgr_->GetComponent<LogicComponent>(player_id);
-	LogicComponent* collectible_logic = component_mgr_->GetComponent<LogicComponent>(interactable_id);
-
-	std::string player_interactable = player_logic->GetLogic("Interactable");
-	std::string game_interactable = collectible_logic->GetLogic("Interactable");
+	std::string player_scenario = player_logic->GetLogic(scenario);
+	std::string environment_scenario = scenario_logic->GetLogic(scenario);
 
 	// Execute player's logic script
-	logic->Exec(game_interactable, interactable_id);
-	logic->Exec(player_interactable, player_id, interactable_id);
+	logic->Exec(environment_scenario, scenario_id);
+	logic->Exec(player_scenario, player_id, scenario_id);
 }
 
 void Collision::CollisionResponse(const CollisionLayer& layer_a, const CollisionLayer& layer_b,
@@ -603,7 +589,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 			case CollisionLayer::COLLECTIBLE:
 			{
-				PlayerCollectibleResponse(aabb1, aabb2);
+				PlayerScenarioResponse(aabb1, aabb2, "Collectible");
 				break;
 			}
 			case CollisionLayer::BURROWABLE:
@@ -632,7 +618,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 			case CollisionLayer::INTERACTABLE:
 			{
-				PlayerInteractableResponse(aabb1, aabb2);
+				PlayerScenarioResponse(aabb1, aabb2, "Interactable");
 				break;
 			}
 			case CollisionLayer::BIGKUSA:
@@ -749,7 +735,7 @@ void Collision::UpdateClickableBB() {
 
 bool Collision::CollisionReady(CollisionLayer col_layer) {
 	
-	Entity* player_entity = entity_mgr_->GetPlayerEntities().back();
+	Entity* player_entity = entity_mgr_->GetPlayerEntities();
 	Vector2D player_pos = transform_arr_->GetComponent(player_entity->GetID())->GetOffsetAABBPos();
 	Vector2D grid_scale = partitioning_->ConvertTransformToGridScale(player_pos);
 	
@@ -899,7 +885,7 @@ void Collision::Init() {
 	Parameter 1: Collision layer 11
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::PUSHABLE, "0000000001010");
+	AddCollisionLayers(CollisionLayer::PUSHABLE, "0010000001010");
 
 	/*
 	Parameter 1: Collision layer 12
