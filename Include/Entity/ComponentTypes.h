@@ -46,6 +46,7 @@ enum class ComponentTypes {
 	UNLOCKABLE,
 	INTERACTABLE,
 	DIALOGUETRIGGER,
+	CHILD,
 	MAX
 };
 

@@ -33,6 +33,7 @@
 #include "Systems/Factory.h"
 #include "Systems/Collision.h"
 #include "Systems/ImguiSystem.h"
+#include "Systems/Parenting.h"
 
 #include "Components/Status.h"
 
@@ -44,12 +45,6 @@ MenuState m_MenuState;
 
 void MenuState::Init(std::string)
 {
-	std::cout << "-----------------------------" << std::endl << std::endl;
-	std::cout << "MenuState init Successful" << std::endl;
-	std::cout << "Press SPACE to START" << std::endl;
-	std::cout << "Press ESC to QUIT" << std::endl << std::endl;
-	std::cout << "-----------------------------" << std::endl << std::endl;
-
 	help_ = false;
 
 	CORE->GetManager<LayerManager>()->LoadLevelLayers("Menu");
@@ -65,7 +60,7 @@ void MenuState::Init(std::string)
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
-
+	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.8f);
 }
 

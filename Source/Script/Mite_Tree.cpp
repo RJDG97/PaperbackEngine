@@ -177,7 +177,7 @@ Mite_Tree::PlayerWithinDistance::PlayerWithinDistance(EntityID id, float dist)
 }
 
 void ::Mite_Tree::PlayerWithinDistance::PlayerInit() {
-	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
 	player_status_ = component_mgr->GetComponent<Status>(player_id_);
 	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }
@@ -208,7 +208,7 @@ Mite_Tree::PlayerWithinVision::PlayerWithinVision(EntityID id) : id_(id) {
 }
 
 void Mite_Tree::PlayerWithinVision::PlayerInit() {
-	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
 	player_status_ = component_mgr->GetComponent<Status>(player_id_);
 	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }
@@ -293,7 +293,7 @@ Mite_Tree::ChasePath::ChasePath(EntityID id) : id_(id) {
 }
 
 void Mite_Tree::ChasePath::PlayerInit() {
-	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
 	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }
 

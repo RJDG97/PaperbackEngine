@@ -241,9 +241,9 @@ namespace Player_Scripts
 		}
 
 
-		if (!entity_mgr->GetPlayerEntities().empty() && !CORE->GetCorePauseStatus()) {
+		if (entity_mgr->GetPlayerEntities() && !CORE->GetCorePauseStatus()) {
 
-			EntityID player_id = entity_mgr->GetPlayerEntities().back()->GetID();
+			EntityID player_id = entity_mgr->GetPlayerEntities()->GetID();
 			Status* player_status = component_mgr->GetComponent<Status>(player_id);
 			Transform* player_transform = component_mgr->GetComponent<Transform>(player_id);
 			AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(player_id);
