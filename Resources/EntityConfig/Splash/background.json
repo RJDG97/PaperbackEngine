@@ -16,7 +16,8 @@
     },
     {
       "component": "ParentChild",
-      "my_name": "SplashBackground"
+      "counter": "1",
+      "child": "Camera"
     },
     {
       "component": "Scale",

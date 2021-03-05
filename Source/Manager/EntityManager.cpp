@@ -18,8 +18,7 @@
 #include "Manager/ComponentManager.h"
 
 EntityManager::EntityManager() :
-	last_entity_id_{},
-	player_ptr_{ nullptr }
+	last_entity_id_{}
 {	}
 
 void EntityManager::Init() {
@@ -83,9 +82,9 @@ Entity* EntityManager::GetEntity(EntityID id) {
 	return nullptr;
 }
 
-Entity* EntityManager::GetPlayerEntities() const {
+std::vector<Entity*>& EntityManager::GetPlayerEntities() {
 	
-	return player_ptr_;
+	return player_list_;
 }
 
 void EntityManager::AddNewArchetype(std::string archetype_name, Entity* archetype) {
@@ -123,7 +122,7 @@ void EntityManager::DeleteEntity(Entity* entity) {
 
 void EntityManager::DeletePlayerEntities() {
 
-	player_ptr_ = nullptr;
+	player_list_.clear();
 }
 
 void EntityManager::DeleteAllEntities() {
@@ -212,9 +211,7 @@ void EntityManager::SortPlayerEntities() {
 	for (CMap<Name>::MapTypeIt it = name->begin(); it != name->end(); ++it) {
 		
 		if (it->second->GetEntityName() == "Player") {
-
-			player_ptr_ = it->second->GetOwner();
-			break;
+			player_list_.push_back(it->second->GetOwner());
 		}
 	}
 }

@@ -39,7 +39,6 @@
 #include "Manager/AMap.h"
 
 #include "Systems/DialogueSystem.h"
-#include "Systems/Parenting.h"
 
 #include <memory>
 
@@ -54,6 +53,12 @@ void RotateLeft(Transform* xform, bool yes);
 
 void PlayState::Init(std::string)
 {
+	std::cout << "-----------------------------" << std::endl << std::endl;
+	std::cout << "PlayState init Successful" << std::endl;
+	std::cout << "press SPACE to PAUSE" << std::endl;
+	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
+	std::cout << "-----------------------------" << std::endl << std::endl;
+
 	help_ = false;
 	lose_ = false;
 	timer_ = 5.0f;
@@ -77,9 +82,12 @@ void PlayState::Init(std::string)
 	MessageBGM_Play msg{ "River" };
 	CORE->BroadcastMessage(&msg);
 
+	//MessageBGM_Play m{ "Tree" };
+	//CORE->BroadcastMessage(&m);
+
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
-	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
+
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.5f);
 
 	CORE->GetManager<DialogueManager>()->LoadDialogueSet("Play");
@@ -149,12 +157,12 @@ void PlayState::Update(Game* game, float frametime)
 	}
 
 	// If there exists at least 1 player
-	if (entity_mgr_->GetPlayerEntities()) {
+	if (entity_mgr_->GetPlayerEntities().size() > 0) {
 
 		if (!component_mgr_)
 			component_mgr_ = &*CORE->GetManager<ComponentManager>();
 
-		EntityID player_id = entity_mgr_->GetPlayerEntities()->GetID();
+		EntityID player_id = entity_mgr_->GetPlayerEntities().back()->GetID();
 		Health* health = component_mgr_->GetComponent<Health>(player_id);
 		Status* status = component_mgr_->GetComponent<Status>(player_id);
 

@@ -197,7 +197,6 @@ void Entity::Destroy() {
 
 // Function that converts input string from JSON into an equivalent enum
 ComponentTypes StringToComponentType(const std::string str) {
-
 	if (str == "Name")
 		return ComponentTypes::NAME;
 	else if (str == "Motion")
@@ -254,8 +253,6 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::INTERACTABLE;
 	else if (str == "DialogueTrigger")
 		return ComponentTypes::DIALOGUETRIGGER;
-	else if (str == "Child")
-		return ComponentTypes::CHILD;
 	else
 		return ComponentTypes::NONE;
 }

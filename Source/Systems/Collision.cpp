@@ -378,8 +378,7 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 
 void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 
-	UNREFERENCED_PARAMETER(aabb1);
-	UNREFERENCED_PARAMETER(aabb2);
+	//UNREFERENCED_PARAMETER(aabb1);
 	//AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
 	//switch (ai_state->GetType())
 	//{
@@ -498,26 +497,41 @@ bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
 	return true;
 }
 
-void Collision::PlayerScenarioResponse(AABBIt aabb1, AABBIt aabb2, std::string scenario) {
+void Collision::PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2){
 
 	LogicManager* logic = &*CORE->GetManager<LogicManager>();
 	
 	auto& [player_id, player_aabb] = *aabb1;
-	auto& [scenario_id, scenario_aabb] = *aabb2;
-
-	Status* player_status = component_mgr_->GetComponent<Status>(player_id);
-	if (player_status->GetStatus() == StatusType::BURROW)
-		return;
+	auto& [collectible_id, collectible_aabb] = *aabb2;
 
 	LogicComponent* player_logic = component_mgr_->GetComponent<LogicComponent>(player_id);
-	LogicComponent* scenario_logic = component_mgr_->GetComponent<LogicComponent>(scenario_id);
+	LogicComponent* collectible_logic = component_mgr_->GetComponent<LogicComponent>(collectible_id);
 
-	std::string player_scenario = player_logic->GetLogic(scenario);
-	std::string environment_scenario = scenario_logic->GetLogic(scenario);
+	std::string player_collectible = player_logic->GetLogic("Collectible");
+	std::string environment_collectible = collectible_logic->GetLogic("Collectible");
 
 	// Execute player's logic script
-	logic->Exec(environment_scenario, scenario_id);
-	logic->Exec(player_scenario, player_id, scenario_id);
+	logic->Exec(environment_collectible, collectible_id);
+	logic->Exec(player_collectible, player_id, collectible_id);
+}
+
+void Collision::PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2) {
+
+	LogicManager* logic = &*CORE->GetManager<LogicManager>();
+	SoundSystem* sound_system = &*CORE->GetSystem<SoundSystem>();
+
+	auto& [player_id, player_aabb] = *aabb1;
+	auto& [interactable_id, interactable_aabb] = *aabb2;
+
+	LogicComponent* player_logic = component_mgr_->GetComponent<LogicComponent>(player_id);
+	LogicComponent* collectible_logic = component_mgr_->GetComponent<LogicComponent>(interactable_id);
+
+	std::string player_interactable = player_logic->GetLogic("Interactable");
+	std::string game_interactable = collectible_logic->GetLogic("Interactable");
+
+	// Execute player's logic script
+	logic->Exec(game_interactable, interactable_id);
+	logic->Exec(player_interactable, player_id, interactable_id);
 }
 
 void Collision::CollisionResponse(const CollisionLayer& layer_a, const CollisionLayer& layer_b,
@@ -589,7 +603,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 			case CollisionLayer::COLLECTIBLE:
 			{
-				PlayerScenarioResponse(aabb1, aabb2, "Collectible");
+				PlayerCollectibleResponse(aabb1, aabb2);
 				break;
 			}
 			case CollisionLayer::BURROWABLE:
@@ -618,7 +632,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 			case CollisionLayer::INTERACTABLE:
 			{
-				PlayerScenarioResponse(aabb1, aabb2, "Interactable");
+				PlayerInteractableResponse(aabb1, aabb2);
 				break;
 			}
 			case CollisionLayer::BIGKUSA:
@@ -735,7 +749,7 @@ void Collision::UpdateClickableBB() {
 
 bool Collision::CollisionReady(CollisionLayer col_layer) {
 	
-	Entity* player_entity = entity_mgr_->GetPlayerEntities();
+	Entity* player_entity = entity_mgr_->GetPlayerEntities().back();
 	Vector2D player_pos = transform_arr_->GetComponent(player_entity->GetID())->GetOffsetAABBPos();
 	Vector2D grid_scale = partitioning_->ConvertTransformToGridScale(player_pos);
 	
@@ -885,7 +899,7 @@ void Collision::Init() {
 	Parameter 1: Collision layer 11
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::PUSHABLE, "0010000001010");
+	AddCollisionLayers(CollisionLayer::PUSHABLE, "0000000001010");
 
 	/*
 	Parameter 1: Collision layer 12
@@ -1066,8 +1080,8 @@ void Collision::SendMessageD(Message* m) {
 			if (pc->GetChildren().empty())
 				continue;
 
-			std::list<Entity*> children = pc->GetChildren();
-			EntityID howto_id = (*children.begin())->GetID();
+			std::vector<Entity*> children = pc->GetChildren();
+			EntityID howto_id = children[0]->GetID();
 
 			TextureRenderer* pc_renderer = component_mgr_->GetComponent<TextureRenderer>(howto_id);
 

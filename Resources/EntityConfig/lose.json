@@ -1,7 +1,5 @@
 {
   "MenuBG": "Resources/EntityConfig/Lose/background.json",
 
-  "Button": "Resources/EntityConfig/Lose/button.json",
-  
-  "Camera": "Resources/EntityConfig/Win/camera.json"
+  "Button": "Resources/EntityConfig/Lose/button.json"
 }

@@ -302,7 +302,7 @@
         },
         {
             "component": "ParentChild",
-            "my_name": ""
+            "elements": "0"
         },
         {
             "component": "LogicComponent",
@@ -326,10 +326,6 @@
             "Camera Position": "0.000000 0.000000",
             "Camera Size": "1280.000000 720.000000",
             "Camera Zoom": "0.800000"
-        },
-        {
-            "component": "Child",
-            "parent_name": ""
         }
     ],
     "Clouds": [
@@ -387,16 +383,6 @@
         {
             "component": "Scale",
             "scale": "320.000000 160.000000"
-        },
-        {
-            "component": "ParentChild",
-            "my_name": "DialogueBox"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateChildOffset",
-            "function": "Player_UpdateChildOffset"
         }
     ],
     "DialogueText": [
@@ -419,12 +405,8 @@
             "color": "0.300000 0.550000 0.200000",
             "scale": "0.350000",
             "layer": "0",
-            "order in layer": "0",
-            "alive": "0"
-        },
-        {
-            "component": "Child",
-            "parent_name": "DialogueBox1"
+			      "order in layer": "0",
+			      "alive": "0"
         }
     ],
     "DriedBush_01": [
@@ -901,10 +883,6 @@
         {
             "component": "Scale",
             "scale": "312.000000 400.000000"
-        },
-        {
-            "component": "Child",
-            "parent_name": ""
         }
     ],
     "InputController": [

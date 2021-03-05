@@ -68,7 +68,7 @@ namespace Collectible_Script
 				//if (pc) {
 
 				//	// Grab the children (Emitter)
-				//	std::list<Entity*> child = pc->GetChildren();
+				//	std::vector<Entity*> child = pc->GetChildren();
 
 				//	if (child.empty())
 				//		return;

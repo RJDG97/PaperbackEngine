@@ -25,7 +25,6 @@
 struct Level {
 	std::string name_;
 	std::string path_;
-	std::string optional_next_; // used to set next "play"
 	using EntityPaths = std::unordered_map<std::string, std::string>;
 	using EntityPathsIt = EntityPaths::iterator;
 	EntityPaths entity_paths_;
@@ -46,7 +45,7 @@ struct Level {
 	  \brief Constructor for a level
 	*/
 	/******************************************************************************/
-	Level(const std::string name, const std::string path_name, const std::string next = "");
+	Level(const std::string name, const std::string path_name);
 
 	/******************************************************************************/
 	/*!
@@ -163,28 +162,10 @@ struct Levels {
 	/*!
 	  \fn GetPlayLevel()
 
-	  \brief Get a pointer to a play level, accepts index
+	  \brief Get a pointer to the current level
 	*/
 	/******************************************************************************/
 	Level* GetPlayLevel(size_t index = 0);
-
-	/******************************************************************************/
-	/*!
-	  \fn GetPlayLevel()
-
-	  \brief Get a pointer to a play level, accepts level name
-	*/
-	/******************************************************************************/
-	Level* GetPlayLevel(const std::string name);
-
-	/******************************************************************************/
-	/*!
-	  \fn GetLastPlayLevel()
-
-	  \brief Get a pointer to the last played play level
-	*/
-	/******************************************************************************/
-	Level* GetLastPlayLevel();
 
 	/******************************************************************************/
 	/*!
@@ -194,15 +175,6 @@ struct Levels {
 	*/
 	/******************************************************************************/
 	Level* GetNextPlayableLevel();
-
-	/******************************************************************************/
-	/*!
-	  \fn ResetPlayLevels()
-
-	  \brief Resets progression to initial state for playable levels
-	*/
-	/******************************************************************************/
-	void ResetPlayLevels();
 
 	/******************************************************************************/
 	/*!

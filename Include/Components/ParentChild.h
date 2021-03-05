@@ -16,16 +16,16 @@
 #ifndef _PARENT_CHILD_H_
 #define _PARENT_CHILD_H_
 
-#include <list>
+#include <vector>
 #include <string>
 #include "Components/IComponent.h"
 
 class ParentChild : public Component
 {
 private:
-	// Note that every parent should have a unique name
-	std::string name_; // Should be "" if the parent is not supposed to have a child
-	std::list<Entity*> children_;
+	size_t number_of_children_;
+	std::vector<std::string> to_clone_;
+	std::vector<Entity*> children_;
 
 public:
 	friend class LogicSystem;
@@ -93,34 +93,7 @@ public:
   \brief Return a reference to a vector of children
 */
 /******************************************************************************/
-	std::list<Entity*>& GetChildren(); // Update all instances of GetChildren
-
-/******************************************************************************/
-/*!
-  \fn GetName()
-
-  \brief Returns the name of the parent
-*/
-/******************************************************************************/
-	std::string GetName() const;
-
-/******************************************************************************/
-/*!
-  \fn AddChild()
-
-  \brief Attaches a child entity to parent
-*/
-/******************************************************************************/
-	void AddChild(const EntityID& id);
-
-/******************************************************************************/
-/*!
-  \fn RemoveChild()
-
-  \brief Attaches a child entity to parent
-*/
-/******************************************************************************/
-	void RemoveChild(const EntityID& id);
+	std::vector<Entity*>& GetChildren();
 
 /******************************************************************************/
 /*!

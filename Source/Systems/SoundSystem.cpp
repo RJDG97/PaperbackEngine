@@ -19,8 +19,7 @@
 #include "MathLib/MathHelper.h"
 #include "Systems/Debug.h"
 
-SoundSystem::SoundSystem() :
-	player_{ nullptr },
+SoundSystem::SoundSystem() : 
 	b_mute_{ false }, 
 	b_paused_{ false },
 	debug_{ false },
@@ -331,21 +330,18 @@ void SoundSystem::Init() {
 	component_manager_ = CORE->GetManager<ComponentManager>();
 	graphics_system_ = CORE->GetSystem<GraphicsSystem>();
 	sound_emitter_arr_ = component_manager_->GetComponentArray<SoundEmitter>();
-	player_ = CORE->GetManager<EntityManager>()->GetPlayerEntities();
+	players_ = &CORE->GetManager<EntityManager>()->GetPlayerEntities();
 
 	M_DEBUG->WriteDebugMessage("Sound System Init\n");
 }
 
 void SoundSystem::Update(float frametime) {
 
-	(void)frametime;
-
-	if (!player_)
-		player_ = CORE->GetManager<EntityManager>()->GetPlayerEntities();
+	(void)frametime;	
 	
-	if (player_) {
+	if (!players_->empty()) {
 
-		EntityID player_id = player_->GetID();
+		EntityID player_id = players_->back()->GetID();
 		Transform* player_transform = component_manager_->GetComponent<Transform>(player_id);
 
 		DEBUG_ASSERT(player_transform, "Player does not have a transform component!");

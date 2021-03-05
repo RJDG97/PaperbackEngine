@@ -20,8 +20,6 @@
 class WinLoseState : public GameState
 {
 	
-	bool is_win_ = false;
-
 public:
 	WinLoseState() = default;
 

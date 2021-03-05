@@ -4,9 +4,7 @@
 
   "Menu": "Resources/EntityConfig/menu.json",
 
-  "Tutorial": "Resources/Test/Level1.json LevelOne",
-  
-  "LevelOne": "Resources/Test/Level1.json",
+  "Play": "Resources/Test/Level1.json",
 
   "Win": "Resources/EntityConfig/win.json",
 

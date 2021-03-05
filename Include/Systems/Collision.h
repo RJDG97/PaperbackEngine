@@ -192,13 +192,21 @@ private:
 
 /******************************************************************************/
 /*!
-  \fn PlayerScenarioResponse()
+  \fn PlayerCollectibleResponse()
 
-  \brief Helper function to handle response of a player colliding with any
-		 interactable game entity
+  \brief Helper function to handle response of a player colliding with a collectible
 */
 /******************************************************************************/
-	void PlayerScenarioResponse(AABBIt aabb1, AABBIt aabb2, std::string scenario);
+	void PlayerCollectibleResponse(AABBIt aabb1, AABBIt aabb2);
+
+/******************************************************************************/
+/*!
+  \fn PlayerInteractableResponse()
+
+  \brief Helper function to handle response of a player colliding with a Interactable
+*/
+/******************************************************************************/
+	void PlayerInteractableResponse(AABBIt aabb1, AABBIt aabb2);
 
 /******************************************************************************/
 /*!

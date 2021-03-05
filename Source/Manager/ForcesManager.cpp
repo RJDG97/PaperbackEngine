@@ -12,38 +12,11 @@
 **********************************************************************************/
 
 
-#include "Engine/Core.h"
 #include "Manager/ForcesManager.h"
-#include "Manager/ComponentManager.h"
 #include "Systems/Debug.h"
 #include <iostream>
 #include <algorithm>
 #include <functional>
-
-void RemoveExpiredCollectibles(std::map<EntityID, ForcesManager::EntityForces>::iterator it) {
-	
-	ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
-	auto& [id, ptr] = *it;
-
-	Collectible* collectible = component_mgr->GetComponent<Collectible>(id);
-
-	if (collectible)
-	{
-		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(id);
-		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(id);
-		PointLight* point_light = component_mgr->GetComponent<PointLight>(id);
-		AABB* aabb = component_mgr->GetComponent<AABB>(id);
-
-		if (animation_renderer)
-			animation_renderer->SetAlive(false);
-		if (texture_renderer)
-			texture_renderer->SetAlive(false);
-		if (point_light)
-			point_light->SetAlive(false);
-		if (aabb)
-			aabb->SetAlive(false);
-	}
-}
 
 auto RemoveVecCheck = [](ForcesManager::ForceVecIt it) {
 	if (it->age_ >= it->lifespan_) {
@@ -108,9 +81,9 @@ void ForcesManager::Update(float frametime) {
 			// Recompute forces for entity
 			sum += begin->force_;
 
-			if (RemoveVecCheck(begin)) {
+			//M_DEBUG->WriteDebugMessage("Adding to sum of forces, current: " + std::to_string(sum.x) + ", " + std::to_string(sum.y) + "\n");
 
-				RemoveExpiredCollectibles(begin_map); // This might crash when removing expired moving Spores
+			if (RemoveVecCheck(begin)) {
 				begin = begin_map->second.vec_.erase(begin);
 				continue;
 			}

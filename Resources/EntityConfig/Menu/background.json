@@ -16,7 +16,8 @@
     },
     {
       "component": "ParentChild",
-      "my_name": "MenuBackground"
+      "counter": "1",
+      "child": "Camera"
     }
   ]
 }
