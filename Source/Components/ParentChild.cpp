@@ -35,8 +35,14 @@ void ParentChild::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* wr
 	writer->Key("component");
 	writer->String("ParentChild");
 
-	writer->Key("my_name");
-	writer->String(name_.c_str());
+	writer->Key("elements");
+	writer->String( std::to_string(to_clone_.size()).c_str() );
+
+	for (size_t i = 0; i < to_clone_.size(); ++i) {
+
+		writer->Key("to_clone");
+		writer->String( (to_clone_[i] + " ").c_str() );
+	}
 
 	writer->EndObject();
 }
@@ -44,58 +50,57 @@ void ParentChild::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* wr
 
 void ParentChild::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 	
-	Serialize(writer); // Might not need
+	// TBC
+	Serialize(writer);
 }
 
 
 void ParentChild::DeSerialize(std::stringstream& data) {
 
-	data >> name_;
+	// (void)data;
+	data >> number_of_children_;
+
+	to_clone_.resize(number_of_children_);
+
+	for (size_t i = 0; i < number_of_children_; ++i) {
+
+		data >> to_clone_[i];
+	}
 }
 
 void ParentChild::DeSerializeClone(std::stringstream& data) {
 	
-	DeSerialize(data);
+	data >> number_of_children_;
+
+	//DEBUG_ASSERT((number_of_children_ >= 1), "There are no children..");
+
+	to_clone_.resize(number_of_children_);
+
+	for (size_t i = 0; i < number_of_children_; ++i) {
+
+		data >> to_clone_[i];
+	}
+
+	// Resize the child vector
+	children_.resize(number_of_children_);
+
+	for (size_t i = 0; i < to_clone_.size(); ++i) {
+		// Clone a child archetype based on input string and insert it into the
+		// child vector
+		children_[i] = CORE->GetSystem<EntityFactory>()->CloneArchetype(to_clone_[i]);
+	}
 }
 
 std::shared_ptr<Component> ParentChild::Clone() {
 
 	std::shared_ptr<ParentChild> cloned = std::make_shared<ParentChild>();
-	cloned->name_ = name_;
+	cloned->number_of_children_ = number_of_children_;
+	cloned->to_clone_ = to_clone_;
 
 	return cloned;
 }
 
-std::list<Entity*>& ParentChild::GetChildren() {
+std::vector<Entity*>& ParentChild::GetChildren() {
 	
 	return children_;
-}
-
-std::string ParentChild::GetName() const {
-	
-	return name_;
-}
-
-void ParentChild::AddChild(const EntityID& id) {
-	
-	EntityManager* entity_mgr = &*CORE->GetManager<EntityManager>();
-	Entity* child = entity_mgr->GetEntity(id);
-
-	if (child)
-		children_.push_front(child);
-}
-
-void ParentChild::RemoveChild(const EntityID& id) {
-
-	EntityManager* entity_mgr = &*CORE->GetManager<EntityManager>();
-	Entity* child = entity_mgr->GetEntity(id);
-
-	for (auto begin = children_.begin(); begin != children_.end(); ++begin) {
-	
-		if (*begin == child) {
-			
-			children_.remove(child);
-			break;
-		}
-	}
 }

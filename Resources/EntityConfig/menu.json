@@ -1,11 +1,7 @@
 {
-  "Camera": "Resources/EntityConfig/Menu/Camera.json",
-
   "MenuBG": "Resources/EntityConfig/Menu/background.json",
 
   "Button": "Resources/EntityConfig/Menu/button.json",
   
-  "Clouds": "Resources/EntityConfig/Menu/clouds.json",
-  
-  "HowToPlay": "Resources/EntityConfig/Menu/howtoplay.json"
+  "Clouds": "Resources/EntityConfig/Menu/clouds.json"
 }

@@ -28,8 +28,6 @@ void WinLoseState::Init(std::string level_name) {
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();
 
-	is_win_ = (level_name == "Win") ? true : false;
-
 	FACTORY->LoadLevel(level_name);
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
@@ -76,36 +74,11 @@ void WinLoseState::StateInputHandler(Message* msg, Game* game) {
 
 			if (m->button_index_ == 1) {
 
-				//if win then either next stage or back to title
-				if (is_win_) {
-					
-					Levels* levels = CORE->GetSystem<EntityFactory>()->GetLevelsFile();
-					Level* curr_play = levels->GetLastPlayLevel();
-
-					if (curr_play->optional_next_ != "") {
-					
-						//there is successive level
-						levels->GetPlayLevel(curr_play->optional_next_);
-					}
-					else {
-
-						//last level
-						levels->ResetPlayLevels();
-						game->ChangeState(&m_MenuState);
-						return;
-					}
-				}
-
-				//else case of lose state, replay stage
-				game->ChangeState(&m_PlayState);
+				game->ChangeState(&m_MenuState);
 				return;
 			}
 			if (m->button_index_ == 2) {
-
-				//quitting, temporarily reset the play counter
-				Levels* levels = CORE->GetSystem<EntityFactory>()->GetLevelsFile();
-				//levels->ResetPlayLevels();
-
+				// "How to play" but currently return to menu
 				game->ChangeState(&m_MenuState);
 				return;
 			}

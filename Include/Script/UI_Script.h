@@ -39,13 +39,13 @@ namespace UI_Script
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
 
 		TextureRenderer* renderer = component_mgr->GetComponent<TextureRenderer>(parent_id);
-		Entity* player_ = entity_mgr->GetPlayerEntities();
+		std::vector<Entity*> player_arr = entity_mgr->GetPlayerEntities();
 
 		// If any pointers are invalid, return
-		if (!renderer || !player_)
+		if (!renderer || !player_arr.size())
 			return;
 
-		Status* player_status = component_mgr->GetComponent<Status>(player_->GetID());
+		Status* player_status = component_mgr->GetComponent<Status>(player_arr.back()->GetID());
 
 		// If player's status component does not exist, return
 		if (!player_status)
@@ -76,13 +76,13 @@ namespace UI_Script
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
 
 		TextureRenderer* renderer = component_mgr->GetComponent<TextureRenderer>(parent_id);
-		Entity* player_ = entity_mgr->GetPlayerEntities();
+		std::vector<Entity*> player_arr = entity_mgr->GetPlayerEntities();
 
 		// If any pointers are invalid, return
-		if (!renderer || !player_)
+		if (!renderer || !player_arr.size())
 			return;
 
-		Status* player_status = component_mgr->GetComponent<Status>(player_->GetID());
+		Status* player_status = component_mgr->GetComponent<Status>(player_arr.back()->GetID());
 
 		// If player's status component does not exist, return
 		if (!player_status)

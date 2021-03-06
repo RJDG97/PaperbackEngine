@@ -1,0 +1,11 @@
+{
+  "input": [
+    {
+      "component": "InputController",
+      "size": "3",
+      "debug": "debug 66",
+      "quit" : "quit 256",
+      "confirm" : "confirm 257"
+    }
+  ]
+}

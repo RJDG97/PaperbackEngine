@@ -106,8 +106,8 @@ namespace Button_Script
 
 				// Parent stuff
 				ParentChild* pc = component_mgr->GetComponent<ParentChild>(button_id);
-				std::list<Entity*> children = pc->GetChildren();
-				EntityID howtoplay_id = (*children.begin())->GetID();
+				std::vector<Entity*> children = pc->GetChildren();
+				EntityID howtoplay_id = children[0]->GetID();
 
 				// Child stuff
 				TextureRenderer* child_renderer = component_mgr->GetComponent<TextureRenderer>(howtoplay_id);
@@ -383,8 +383,8 @@ namespace Button_Script
 
 				// Parent stuff
 				ParentChild* pc = component_mgr->GetComponent<ParentChild>(button_id);
-				std::list<Entity*> children = pc->GetChildren();
-				EntityID howtoplay_id = (*children.begin())->GetID();
+				std::vector<Entity*> children = pc->GetChildren();
+				EntityID howtoplay_id = children[0]->GetID();
 
 				// Child stuff
 				TextureRenderer* child_renderer = component_mgr->GetComponent<TextureRenderer>(howtoplay_id);

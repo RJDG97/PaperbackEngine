@@ -49,7 +49,6 @@
 #include "Systems/ParticleSystem.h"
 #include "Systems/TransitionSystem.h"
 #include "Systems/Debug.h"
-#include "Systems/Parenting.h"
 #include <sstream>
 
 int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR cmdLine, INT cmdCount) {
@@ -90,7 +89,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<LogicSystem>();
 		CORE->AddSystem<TransitionSystem>();
 		CORE->AddSystem<DialogueSystem>();
-		CORE->AddSystem<ParentingSystem>();
 
 		// Add Managers to the Core Engine
 		CORE->AddManager<ComponentManager>();

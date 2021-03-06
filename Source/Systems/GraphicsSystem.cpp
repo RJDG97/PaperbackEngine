@@ -718,7 +718,7 @@ void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_re
     Transform* xform = component_manager_->GetComponent<Transform>(i_renderer->GetOwner()->GetID());
     Scale* scale = component_manager_->GetComponent<Scale>(i_renderer->GetOwner()->GetID());
 
-    Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
+    Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]->GetID());
 
     Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() + 0.5f * Vector2D{ win_size_.x, win_size_.y };
     Vector2D obj_scale = scale->scale_ * 0.7f;
