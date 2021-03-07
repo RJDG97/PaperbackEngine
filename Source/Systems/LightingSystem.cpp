@@ -116,9 +116,6 @@ void LightingSystem::Update(float frametime) {
 
 	UNREFERENCED_PARAMETER(frametime);
 
-	float cam_zoom = (*camera_system_->GetMainCamera()->GetCameraZoom());
-	glm::vec2 cam_pos = (*camera_system_->GetMainCamera()->GetCameraPosition());
-
 	for (PointLightIt it = point_light_arr_->begin(); it != point_light_arr_->end(); ++it) {
 
 		if (!it->second->alive_)
@@ -131,7 +128,7 @@ void LightingSystem::Update(float frametime) {
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Point light position updated)\n");
 		}
 
-		UpdateLightPosition(it->second, cam_zoom, cam_pos);
+		UpdateLightPosition(it->second);
 	}
 
 	for (ConeLightIt it = cone_light_arr_->begin(); it != cone_light_arr_->end(); ++it) {
@@ -146,7 +143,7 @@ void LightingSystem::Update(float frametime) {
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Point light position updated)\n");
 		}
 
-		UpdateLightPosition(it->second, cam_zoom, cam_pos);
+		UpdateLightPosition(it->second);
 	}
 }
 
@@ -228,7 +225,7 @@ GLuint* LightingSystem::GetAdditionTexture() {
 	return &addition_texture;
 }
 
-void LightingSystem::UpdateLightPosition(PointLight* point_light, float cam_zoom, glm::vec2 cam_pos) {
+void LightingSystem::UpdateLightPosition(PointLight* point_light) {
 
 	Transform* transform =
 		component_manager_->GetComponent<Transform>(point_light->GetOwner()->GetID());
@@ -240,13 +237,11 @@ void LightingSystem::UpdateLightPosition(PointLight* point_light, float cam_zoom
 		return;
 	}
 
-	Vector2D obj_pos_ = transform->position_;
-
-	point_light->pos_ = glm::vec2(obj_pos_.x * global_scale, obj_pos_.y * global_scale) * cam_zoom +
-						(cam_pos * cam_zoom + 0.5f * win_size_);
+	Vector2D light_pos = camera_system_->GameCoordsToUI(transform->position_);
+	point_light->pos_ = { light_pos.x, light_pos.y };
 }
 
-void LightingSystem::UpdateLightPosition(ConeLight* cone_light, float cam_zoom, glm::vec2 cam_pos) {
+void LightingSystem::UpdateLightPosition(ConeLight* cone_light) {
 
 	Transform* transform =
 		component_manager_->GetComponent<Transform>(cone_light->GetOwner()->GetID());
@@ -258,10 +253,8 @@ void LightingSystem::UpdateLightPosition(ConeLight* cone_light, float cam_zoom, 
 		return;
 	}
 
-	Vector2D obj_pos_ = transform->position_;
-
-	cone_light->pos_ = glm::vec2(obj_pos_.x * global_scale, obj_pos_.y * global_scale) * cam_zoom +
-					   (cam_pos * cam_zoom + 0.5f * win_size_);
+	Vector2D light_pos = camera_system_->GameCoordsToUI(transform->position_);
+	cone_light->pos_ = { light_pos.x, light_pos.y };
 }
 
 void LightingSystem::DrawPointLight(Shader* shader, PointLight* point_light, float cam_zoom) {

@@ -33,6 +33,8 @@ class CameraSystem : public ISystem {
 	WindowsSystem* windows_system_;
 	ComponentManager* component_manager_;
 
+	Vector2D win_size_;
+
 public:
 
 /******************************************************************************/
@@ -128,7 +130,7 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn CameraMove()
+	\fn CameraMove(Camera* camera, Vector2D displacement)
 
 	\brief Moves the camera
 */
@@ -137,12 +139,12 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn CameraSetPosition()
+	\fn CameraSetPosition(Camera* camera, Vector2D position)
 
 	\brief Sets postion of the camera
 */
 /******************************************************************************/
-	void CameraSetPosition(Camera* camera, Vector2D postion);
+	void CameraSetPosition(Camera* camera, Vector2D position);
 
 /******************************************************************************/
 /*!
@@ -152,6 +154,15 @@ public:
 */
 /******************************************************************************/
 	Camera* GetMainCamera();
+
+/******************************************************************************/
+/*!
+	\fn GetMainCameraPos()
+
+	\brief Gets the position of the main camera
+*/
+/******************************************************************************/
+	Vector2D GetMainCameraPos();
 
 	Vector2D UIToGameCoords(const Vector2D & ui_pos);
 

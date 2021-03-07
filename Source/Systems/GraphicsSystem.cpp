@@ -494,9 +494,9 @@ void GraphicsSystem::BatchTextObject(TextRenderer* text_renderer, bool ui, GLuin
     else {
 
         float cam_zoom = *camera_system_->GetMainCamera()->GetCameraZoom();
-        glm::vec2 cam_pos = *camera_system_->GetMainCamera()->GetCameraPosition();
+        Vector2D cam_pos = camera_system_->GetMainCameraPos();
 
-        glm::vec2 translation{ cam_pos * cam_zoom + 0.5f * win_size_ };
+        glm::vec2 translation{ glm::vec2{ cam_pos.x, cam_pos.y } * cam_zoom + 0.5f * win_size_ };
         pos = transform->GetPosition() * global_scale + Vector2D{ translation.x, translation.y };
         scale = text_renderer->scale_ * cam_zoom;
     }

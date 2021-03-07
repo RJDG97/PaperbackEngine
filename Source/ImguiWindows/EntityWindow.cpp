@@ -591,7 +591,7 @@ void EntityWindow::AnimationRendererComponent(Entity* entity) {
 }
 
 void EntityWindow::CameraComponent(Entity* entity) {
-
+	/*
 	std::shared_ptr<Camera> entity_camera = std::dynamic_pointer_cast<Camera>(entity->GetComponent(ComponentTypes::CAMERA));
 
 	Vector2D input_cam_pos = {};
@@ -623,7 +623,7 @@ void EntityWindow::CameraComponent(Entity* entity) {
 
 			RemoveComponent("Delete Camera Component", std::string("Camera Component"), entity, entity_camera);
 		}
-	}
+	}*/
 }
 
 void EntityWindow::ConeLightComponent(Entity* entity) {

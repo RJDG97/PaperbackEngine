@@ -313,7 +313,7 @@ void InputSystem::SendMessageD(Message* m) {
 Vector2D InputSystem::GetUpdatedCoords()
 {
 	Vector2D cursor_ = GetCursorPosition();
-	Vector2D cameraPos_ = CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetVector2DCameraPosition();
+	Vector2D cameraPos_ = CORE->GetSystem<CameraSystem>()->GetMainCameraPos();
 
 	float zoom_ = *CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetCameraZoom();
 	float Gscale = CORE->GetGlobalScale();

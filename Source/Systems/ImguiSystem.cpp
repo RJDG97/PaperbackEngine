@@ -711,6 +711,7 @@ void ImguiSystem::DrawGrid() {
 
     float global_scale = CORE->GetGlobalScale();
     float cam_zoom = *camera_->GetCameraZoom();
+    Vector2D cam_pos = CORE->GetSystem<CameraSystem>()->GetMainCameraPos();
 
     float grid_spacing = global_scale * std::max( 1, 4 * static_cast<int>( 0.5f / cam_zoom));
 
@@ -722,8 +723,8 @@ void ImguiSystem::DrawGrid() {
 
             Vector2D scaled_window_size{ win_->GetWinWidth() / cam_zoom, win_->GetWinHeight() / cam_zoom };
 
-            Vector2D bottom_left_edge = camera_->GetVector2DCameraPosition() - scaled_window_size;
-            Vector2D top_right_edge = camera_->GetVector2DCameraPosition() + scaled_window_size;
+            Vector2D bottom_left_edge = cam_pos - scaled_window_size;
+            Vector2D top_right_edge = cam_pos + scaled_window_size;
 
             if (i < bottom_left_edge.x || i > top_right_edge.x ||
                 j < bottom_left_edge.y || j > top_right_edge.y) {
