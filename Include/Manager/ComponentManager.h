@@ -52,6 +52,7 @@
 #include "Components/Unlockable.h"
 #include "Components/Interactable.h"
 #include "Components/Dialogue.h"
+#include "Components/Child.h"
 
 template <typename T>
 class CMap
@@ -257,7 +258,7 @@ private:
 using ComponentManager = CManager<
 	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight, Camera,
 	TextRenderer, InputController, TextureRenderer, AnimationRenderer, ParentChild, LogicComponent, Inventory,
-	Emitter, Particle, SoundEmitter, Collectible, Unlockable, Interactable, DialogueTrigger
+	Emitter, Particle, SoundEmitter, Collectible, Unlockable, Interactable, DialogueTrigger, Child
 >;
 
 

@@ -26,8 +26,6 @@
 class EntityManager : public IManager
 {
 public:
-	using PlayerEntityVec = std::vector<Entity*>;
-	using PlayerEntityVecIt = std::vector<Entity*>::iterator;
 
 	using EntityIdMapType = std::map<EntityID, Entity*>;
 	using EntityIdMapTypeIt = EntityIdMapType::iterator;
@@ -118,7 +116,7 @@ public:
   \brief Retrieves a vector of Entity* to players
 */
 /******************************************************************************/
-	std::vector<Entity*>& GetPlayerEntities();
+	Entity* GetPlayerEntities() const;
 
 /******************************************************************************/
 /*!
@@ -240,7 +238,7 @@ public:
 
 private:
 	size_t last_entity_id_;
-	PlayerEntityVec player_list_;
+	Entity* player_ptr_;
 	EntityIdMapType entity_id_map_;
 	EntityIDSetDelete entities_to_delete_;
 	EntityArchetypeMapType entity_archetype_map_;

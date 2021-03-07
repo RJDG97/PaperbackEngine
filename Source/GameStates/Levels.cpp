@@ -23,9 +23,10 @@ Level::Level() :
 {
 }
 
-Level::Level(const std::string name, const std::string path_name) :
+Level::Level(const std::string name, const std::string path_name, const std::string next) :
 	name_{ name },
-	path_{ path_name }
+	path_{ path_name },
+	optional_next_{ next }
 {	}
 
 void Level::DeSerialize() {
@@ -139,10 +140,6 @@ void Levels::DeSerialize(const std::string filepath) { //needs to directly load 
 			lose_.name_ = level_type;
 			lose_.path_ = path_name;
 		}
-		else if (level_type == "Play") {
-
-			plays_.push_back({level_type, path_name});
-		}
 		else if (level_type == "Editor") {
 
 			editor_.name_ = level_type;
@@ -152,6 +149,17 @@ void Levels::DeSerialize(const std::string filepath) { //needs to directly load 
 
 			pause_.name_ = level_type;
 			pause_.path_ = path_name;
+		}
+		/*else if (level_type == "Play") {
+
+			plays_.push_back({level_type, path_name});
+		}*/
+		else {
+			//any id that doesn't matches former counts as a "play"
+			std::stringstream ss{ path_name };
+			std::string path, next;
+			ss >> path >> next;
+			plays_.push_back({ level_type, path, next });
 		}
 	}
 }
@@ -263,6 +271,24 @@ Level* Levels::GetPlayLevel(size_t index) {
 	return nullptr;
 }
 
+Level* Levels::GetPlayLevel(const std::string name) {
+
+	for (size_t i = 0; i < plays_.size(); ++i) {
+
+		if (plays_[i].name_ == name) {
+
+			return GetPlayLevel(i);
+		}
+	}
+
+	return nullptr;
+}
+
+Level* Levels::GetLastPlayLevel() {
+
+	return &plays_[current_play_index_];
+}
+
 Level* Levels::GetNextPlayableLevel() {
 	
 	
@@ -273,6 +299,11 @@ Level* Levels::GetNextPlayableLevel() {
 
 	current_play_index_ = 0;
 	return &menu_;
+}
+
+void Levels::ResetPlayLevels() {
+
+	current_play_index_ = 0;
 }
 
 void Levels::AddNewPlayLevelEntry() {
