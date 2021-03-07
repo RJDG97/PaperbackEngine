@@ -23,8 +23,11 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_QuitYes_0",
-      "layer": "2",
-      "ui": "1"
+	  "layer": "0",
+	  "order in layer": "1",
+      "alive": "1",
+	  "opacity": "1.0",
+	  "tint": "1.0 1.0 1.0"
     },
     {
       "component": "LogicComponent",
@@ -57,8 +60,11 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_QuitNo_0",
-      "layer": "2",
-      "ui": "1"
+	  "layer": "0",
+	  "order in layer": "1",
+      "alive": "1",
+	  "opacity": "1.0",
+	  "tint": "1.0 1.0 1.0"
     },
     {
       "component": "LogicComponent",

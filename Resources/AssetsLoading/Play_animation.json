@@ -17,5 +17,9 @@
 
 	"Log Animations": "Resources/AssetsLoading/Animation/log_animations.json",
 
-	"Spore Animations": "Resources/AssetsLoading/Animation/spore_animations.json"
+	"Spore Animations": "Resources/AssetsLoading/Animation/spore_animations.json",
+
+	"Healthbar Water Animations": "Resources/AssetsLoading/Animation/healthbar_water_animations.json",
+
+	"Healthbar Bubble Animations": "Resources/AssetsLoading/Animation/healthbar_bubble_animations.json"
 }

@@ -32,7 +32,9 @@ class AnimationRenderer : public SpriteRenderer {
 	Animation* current_animation_;						// current animation playing (points to an animation inside obj_animations_)
 
 	bool play_animation_;								// true - play animation, false - stop playing animation
+	bool reversed_;										// animation is played in reverse order
 	bool has_finished_animating_;						// true - animation has not finished, false - still in middle of animation
+	float animation_speed_;								// speed of animation
 
 	float time_elapsed_ = 0.0f;							// time elapsed this frame
 	float total_time_elapsed_ = 0.0f;					// time elapsed this cycle
@@ -129,6 +131,42 @@ public:
 	bool FinishedAnimating() const;
 
 	void SetAnimationStatus(bool status);
+
+/******************************************************************************/
+/*!
+	\fn GetReversed()
+
+	\brief Gets the reversed bool
+*/
+/******************************************************************************/
+	bool GetReversed() { return reversed_; }
+
+/******************************************************************************/
+/*!
+	\fn SetReversed()
+
+	\brief Sets the reversed bool
+*/
+/******************************************************************************/
+	void SetReversed(bool value) { reversed_ = value; }
+
+/******************************************************************************/
+/*!
+	\fn GetAnimationSpeed()
+
+	\brief Gets the animation speed
+*/
+/******************************************************************************/
+	float GetAnimationSpeed() { return animation_speed_; }
+
+/******************************************************************************/
+/*!
+	\fn SetAnimationSpeed()
+
+	\brief Sets the animation speed
+*/
+/******************************************************************************/
+	void SetAnimationSpeed(float value) { animation_speed_ = value; }
 };
 
 #endif

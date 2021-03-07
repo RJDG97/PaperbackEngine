@@ -11,7 +11,7 @@
 **********************************************************************************/
 
 
-#include "Components\Camera.h"
+#include "Components/Camera.h"
 #include "Engine/Core.h"
 #include "Systems/CameraSystem.h"
 
@@ -28,15 +28,17 @@ void Camera::Init()
 {
     CORE->GetManager<ComponentManager>()->AddComponent<Camera>(Component::GetOwner()->GetID(), this);
 
-    glm::mat3 view_xform_ = { 1 , 0 , 0,
-                              0 , 1 , 0,
-                              cam_pos_.x , cam_pos_.y , 1 };
+    Vector2D cam_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(this->GetOwner()->GetID())->GetPosition();
 
-    glm::mat3 camwin_to_ndc_xform_ { 2 / cam_size_.x , 0 , 0,
-                                     0 , 2 / cam_size_.y , 0,
-                                     0 , 0 , 1 };
+    glm::mat3 view_xform = { 1 , 0 , 0,
+                             0 , 1 , 0,
+                             -cam_pos.x , -cam_pos.y , 1 };
 
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
+    glm::mat3 camwin_to_ndc_xform { 2 / cam_size_.x , 0 , 0,
+                                    0 , 2 / cam_size_.y , 0,
+                                    0 , 0 , 1 };
+
+    world_to_ndc_xform_ = camwin_to_ndc_xform * view_xform;
 }
 
 void Camera::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
@@ -45,9 +47,6 @@ void Camera::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 
     writer->Key("component");
     writer->String("Camera");
-
-    writer->Key("Camera Position");
-    writer->String((std::to_string(cam_pos_.x) + " " + std::to_string(cam_pos_.y)).c_str());
 
     writer->Key("Camera Size");
     writer->String((std::to_string(cam_size_.x) + " " + std::to_string(cam_size_.y)).c_str());
@@ -60,9 +59,8 @@ void Camera::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 
 void Camera::DeSerialize(std::stringstream& data)
 {
-    data >> cam_pos_.x >> cam_pos_.y
-        >> cam_size_.x >> cam_size_.y
-        >> cam_zoom_;
+    data >> cam_size_.x >> cam_size_.y
+         >> cam_zoom_;
 
 }
 
@@ -72,15 +70,17 @@ void Camera::DeSerializeClone(std::stringstream& data)
 
     cam_size_ /= cam_zoom_;
 
-    glm::mat3 view_xform_ = { 1 , 0 , 0,
-                              0 , 1 , 0,
-                              cam_pos_.x , cam_pos_.y , 1 };
+    Vector2D cam_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(this->GetOwner()->GetID())->GetPosition();
 
-    glm::mat3 camwin_to_ndc_xform_{ 2 / cam_size_.x , 0 , 0,
-                                     0 , 2 / cam_size_.y , 0,
-                                     0 , 0 , 1 };
+    glm::mat3 view_xform = { 1 , 0 , 0,
+                             0 , 1 , 0,
+                             -cam_pos.x , -cam_pos.y , 1 };
 
-    world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
+    glm::mat3 camwin_to_ndc_xform { 2 / cam_size_.x , 0 , 0,
+                                    0 , 2 / cam_size_.y , 0,
+                                    0 , 0 , 1 };
+
+    world_to_ndc_xform_ = camwin_to_ndc_xform * view_xform;
 }
 
 std::shared_ptr<Component> Camera::Clone()
@@ -89,31 +89,22 @@ std::shared_ptr<Component> Camera::Clone()
 
     std::shared_ptr<Camera> cloned = std::make_shared<Camera>();
 
-    cloned->cam_pos_ = cam_pos_;
+    Vector2D cam_pos = std::reinterpret_pointer_cast<Transform>(this->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->GetPosition();
+
     cloned->cam_zoom_ = cam_zoom_;
     cloned->cam_size_ = cam_size_ / cam_zoom_;
 
-    glm::mat3 view_xform_ = { 1 , 0 , 0,
-                              0 , 1 , 0,
-                              cam_pos_.x , cam_pos_.y , 1 };
+    glm::mat3 view_xform = { 1 , 0 , 0,
+                             0 , 1 , 0,
+                             -cam_pos.x , -cam_pos.y , 1 };
 
-    glm::mat3 camwin_to_ndc_xform_{ 2 / cam_size_.x , 0 , 0,
-                                     0 , 2 / cam_size_.y , 0,
-                                     0 , 0 , 1 };
+    glm::mat3 camwin_to_ndc_xform { 2 / cam_size_.x , 0 , 0,
+                                    0 , 2 / cam_size_.y , 0,
+                                    0 , 0 , 1 };
 
-    cloned->world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
+    cloned->world_to_ndc_xform_ = camwin_to_ndc_xform * view_xform;
 
     return cloned;
-}
-
-glm::vec2* Camera::GetCameraPosition()
-{
-    return &cam_pos_;
-}
-
-Vector2D Camera::GetVector2DCameraPosition() {
-    
-    return Vector2D{ -cam_pos_.x, -cam_pos_.y };
 }
 
 float* Camera::GetCameraZoom()

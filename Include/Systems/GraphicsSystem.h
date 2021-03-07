@@ -291,15 +291,6 @@ public:
 
 /******************************************************************************/
 /*!
-    \fn DrawUIObject(Shader* shader, Model* model, SpriteRenderer* spr_renderer)
-
-    \brief Draw UI objects that have a IRenderer component
-*/
-/******************************************************************************/
-    void DrawUIObject(Shader* shader, Model* model, SpriteRenderer* spr_renderer);
-
-/******************************************************************************/
-/*!
     \fn DrawHealthbar(Shader* shader, Model* model, IRenderer* i_renderer)
 
     \brief Draws the healthbar
@@ -420,6 +411,15 @@ public:
 */
 /******************************************************************************/
     void SetToFirstFrame(AnimationRenderer* anim_renderer);
+
+/******************************************************************************/
+/*!
+\fn SetToLastFrame(AnimationRenderer* anim_renderer)
+
+\brief Set current frame to the last frame of the current animation
+*/
+/******************************************************************************/
+    void SetToLastFrame(AnimationRenderer* anim_renderer);
 
 /******************************************************************************/
 /*!

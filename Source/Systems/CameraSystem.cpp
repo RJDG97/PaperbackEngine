@@ -20,6 +20,8 @@ void CameraSystem::Init()
     component_manager_ = &*CORE->GetManager<ComponentManager>();
     camera_arr_ = component_manager_->GetComponentArray<Camera>();
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
+
+    win_size_ = {static_cast<float>(windows_system_->GetWinWidth()), static_cast<float>(windows_system_->GetWinHeight())};
 }
 
 void CameraSystem::Update(float frametime)
@@ -102,24 +104,23 @@ void CameraSystem::SendMessageD(Message* m)
 void CameraSystem::CameraUpdate(Camera* camera)
 {
     const float global_scale = CORE->GetGlobalScale();
-    Vector2D position = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->GetPosition() * -1 * global_scale;
-    camera->cam_pos_ = glm::vec2{ position.x, position.y };
+    Vector2D position = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->GetPosition() * global_scale;
 
-    glm::mat3 view_xform_ { 1 , 0 , 0,
-                            0 , 1 , 0,
-                            camera->cam_pos_.x , camera->cam_pos_.y , 1 };
+    glm::mat3 view_xform { 1 , 0 , 0,
+                           0 , 1 , 0,
+                           -position.x , -position.y , 1 };
 
     // compute other matrices ...
-    glm::mat3 camwin_to_ndc_xform_ { 2 / camera->cam_size_.x , 0 , 0,
-                                     0 , 2 / camera->cam_size_.y , 0,
-                                     0 , 0 , 1 };
+    glm::mat3 camwin_to_ndc_xform { 2 / camera->cam_size_.x , 0 , 0,
+                                    0 , 2 / camera->cam_size_.y , 0,
+                                    0 , 0 , 1 };
 
-    camera->world_to_ndc_xform_ = camwin_to_ndc_xform_ * view_xform_;
+    camera->world_to_ndc_xform_ = camwin_to_ndc_xform * view_xform;
 }
 
 void CameraSystem::CameraZoom(Camera* camera, float zoom)
 {
-    if (camera->cam_zoom_ + zoom < 0.0f)
+    if (zoom < 0.05f)
     {
         return;
     }
@@ -139,9 +140,10 @@ void CameraSystem::CameraMove(Camera* camera, Vector2D displacement)
     //transform->SetPosition({ position.x + displacement.x * 0.05f, position.y + displacement.y * 0.05f });
 }
 
-void CameraSystem::CameraSetPosition(Camera* camera, Vector2D postion)
+void CameraSystem::CameraSetPosition(Camera* camera, Vector2D position)
 {
-    camera->cam_pos_ = glm::vec2{ postion.x, postion.y };
+    Transform* transform = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID());
+    transform->SetPosition({ position.x, position.y });
 }
 
 Camera* CameraSystem::GetMainCamera()
@@ -154,24 +156,43 @@ Camera* CameraSystem::GetMainCamera()
     return camera_arr_->begin()->second;
 }
 
+Vector2D CameraSystem::GetMainCameraPos()
+{
+    if (camera_arr_->size() == 0)
+    {
+        return {};
+    }
+
+    Camera* cam = GetMainCamera();
+    return CORE->GetManager<ComponentManager>()->
+            GetComponent<Transform>(cam->GetOwner()->GetID())->GetPosition();
+}
+
 Vector2D CameraSystem::UIToGameCoords(const Vector2D& ui_pos) {
 
-    float scale = CORE->GetGlobalScale();
     Camera* cam = GetMainCamera();
 
-    if (cam)
-        return ui_pos * scale + cam->GetVector2DCameraPosition();
+    if (cam) {
+
+        float global_scale = CORE->GetGlobalScale();
+        Vector2D cam_pos = GetMainCameraPos();
+        return ((ui_pos - 0.5f * win_size_) / *cam->GetCameraZoom() - cam_pos) / global_scale;
+    }
 
     return {};
 }
 
 Vector2D CameraSystem::GameCoordsToUI(const Vector2D& go_pos) {
 
-    float scale = CORE->GetGlobalScale();
     Camera* cam = GetMainCamera();
 
-    if (cam)
-        return go_pos / scale - cam->GetVector2DCameraPosition();
+    if (cam) {
+
+        float global_scale = CORE->GetGlobalScale();
+        Vector2D cam_pos = -GetMainCameraPos() * global_scale;
+        Vector2D translation{ cam_pos * *cam->GetCameraZoom() + 0.5f * win_size_ };
+        return (go_pos * global_scale * *cam->GetCameraZoom() + Vector2D{ translation.x, translation.y });
+    }
 
     return {};
 }

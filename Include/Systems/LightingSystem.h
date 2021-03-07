@@ -132,12 +132,12 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn UpdateLightPosition(PointLight* point_light, float cam_zoom, glm::vec2 cam_pos)
+	\fn UpdateLightPosition(PointLight* point_light)
 
 	\brief Updates the light position of a Light component from the Lighting Component's map
 */
 /******************************************************************************/
-	void UpdateLightPosition(PointLight* point_light, float cam_zoom, glm::vec2 cam_pos);
+	void UpdateLightPosition(PointLight* point_light);
 
 /******************************************************************************/
 /*!
@@ -146,7 +146,7 @@ public:
 	\brief Updates the light position of a Light component from the Lighting Component's map
 */
 /******************************************************************************/
-	void UpdateLightPosition(ConeLight* cone_light, float cam_zoom, glm::vec2 cam_pos);
+	void UpdateLightPosition(ConeLight* cone_light);
 
 /******************************************************************************/
 /*!

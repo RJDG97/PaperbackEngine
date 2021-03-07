@@ -24,7 +24,6 @@
 // Contains data about the health of an entity that the component will be attached to
 class Camera : public Component
 {
-	glm::vec2 cam_pos_;
 	float cam_zoom_;
 	glm::vec2 cam_size_;
 	glm::mat3 world_to_ndc_xform_;
@@ -97,24 +96,6 @@ public:
 */
 /******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
-
-/******************************************************************************/
-/*!
-	\fn  GetCameraPosition()
-
-	\brief Gets the camera position
-*/
-/******************************************************************************/
-	glm::vec2* GetCameraPosition();
-
-/******************************************************************************/
-/*!
-	\fn GetVector2DCameraPosition()
-
-	\brief gets the converted Vector2D camera position
-*/
-/******************************************************************************/
-	Vector2D GetVector2DCameraPosition();
 
 /******************************************************************************/
 /*!

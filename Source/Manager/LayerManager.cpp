@@ -151,7 +151,7 @@ void LayerManager::DeserializeJSON(const std::string& filename, rapidjson::Docum
 
 void LayerManager::AddLayer(std::string layer_name, LayerType layer_type)
 {
-    render_layers_[render_layers_.size()] = { layer_name, false, layer_type };
+    render_layers_[static_cast<int>(render_layers_.size())] = { layer_name, false, layer_type };
 }
 
 void LayerManager::DeleteLayer(int layer_position)
@@ -162,7 +162,7 @@ void LayerManager::DeleteLayer(int layer_position)
     {
         if (it->first != layer_position)
         {
-            temp[temp.size()] = it->second;
+            temp[static_cast<int>(temp.size())] = it->second;
         }
     }
 

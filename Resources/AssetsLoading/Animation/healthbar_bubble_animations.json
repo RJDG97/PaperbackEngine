@@ -1,0 +1,11 @@
+{
+  "UI_HealthBar_Bubbles_Spritesheet.png": [ 
+    {
+	  "Folder": "UI_Elements/Healthbar",
+	  "Animation Batch Name": "Healthbar_Bubbles",
+	  "Columns": "8",
+	  "Rows": "1",
+      "Animation Name, Number of Frames, Frame Duration": "HealthBar_Bubbles 7 0.06"
+    }
+  ]
+}

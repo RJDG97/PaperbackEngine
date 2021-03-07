@@ -1,0 +1,11 @@
+{
+  "UI_HealthBar_WaterFlow_Spritesheet.png": [ 
+    {
+	  "Folder": "UI_Elements/Healthbar",
+	  "Animation Batch Name": "Healthbar_Water",
+	  "Columns": "8",
+	  "Rows": "1",
+      "Animation Name, Number of Frames, Frame Duration": "HealthBar_Water 7 0.06"
+    }
+  ]
+}

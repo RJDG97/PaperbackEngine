@@ -27,6 +27,8 @@ void WinLoseState::Init(std::string level_name) {
 	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();
+	
+	CORE->GetManager<LayerManager>()->LoadLevelLayers(level_name);
 
 	is_win_ = (level_name == "Win") ? true : false;
 
