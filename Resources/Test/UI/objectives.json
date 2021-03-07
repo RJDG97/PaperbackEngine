@@ -10,7 +10,7 @@
       {
         "component": "TextureRenderer",
         "texture": "UI_Objectives_0",
-        "layer": "3",
+        "layer": "4",
         "order in layer": "0",
         "alive": "1",
         "opacity": "1.0",

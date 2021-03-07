@@ -21,6 +21,7 @@
 #include "Systems/WindowsSystem.h"
 #include "Manager/ComponentManager.h"
 #include <unordered_map>
+#include <random>
 
 class CameraSystem : public ISystem {
 
@@ -34,6 +35,24 @@ class CameraSystem : public ISystem {
 	ComponentManager* component_manager_;
 
 	Vector2D win_size_;
+
+	std::default_random_engine generator;
+	std::uniform_real_distribution<float> distribution { 0.0f, 60.0f };
+
+	struct Shake
+	{
+		float duration_;
+		float elapsed_time_;
+		float amplitude_;
+
+		Shake() = default;
+		Shake(float duration, float amplitude);
+	};
+
+	std::vector<Shake> shakes_; // first is duration and second is magnitude
+	float shake_angle;
+	float shake_angle_timer;					  // will change angle whenever when timer is 0
+	Vector2D shake_offset {0.0f, 0.0f};
 
 public:
 
@@ -167,6 +186,10 @@ public:
 	Vector2D UIToGameCoords(const Vector2D & ui_pos);
 
 	Vector2D GameCoordsToUI(const Vector2D & go_pos);
+
+	void ScreenShake(float duration, float magnitude);
+
+	void TargetPlayer();
 };
 
 #endif

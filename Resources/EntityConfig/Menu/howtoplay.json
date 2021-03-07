@@ -14,9 +14,11 @@
         {
             "component": "TextureRenderer",
             "texture": "UI_HowToPlay_0",
-            "layer": "2",
-            "ui": "1",
-            "alive": "0"
+            "layer": "0",
+            "order in layer": "3",
+            "alive": "0",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
