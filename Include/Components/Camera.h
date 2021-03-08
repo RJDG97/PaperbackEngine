@@ -28,6 +28,9 @@ class Camera : public Component
 	glm::vec2 cam_size_;
 	glm::mat3 world_to_ndc_xform_;
 
+	Transform* target_ = nullptr;
+	float speed_ = 0.05f;
+
 public:
 
 	friend class CameraSystem;

@@ -15,6 +15,14 @@
 #include "Engine/Core.h"
 #include "Manager/EntityManager.h"
 
+CameraSystem::Shake::Shake(float duration, float amplitude) :
+    duration_ { duration },
+    elapsed_time_ { 0.0f },
+    amplitude_ { amplitude }
+{
+
+}
+
 void CameraSystem::Init()
 {
     component_manager_ = &*CORE->GetManager<ComponentManager>();
@@ -22,15 +30,45 @@ void CameraSystem::Init()
     windows_system_ = &*CORE->GetSystem<WindowsSystem>();
 
     win_size_ = {static_cast<float>(windows_system_->GetWinWidth()), static_cast<float>(windows_system_->GetWinHeight())};
+    shake_angle_timer = 0.0f;
 }
 
 void CameraSystem::Update(float frametime)
 {
-    (void)frametime;
-
     for (CameraIt camera = camera_arr_->begin(); camera != camera_arr_->end(); ++camera) {
 
         CameraUpdate(camera->second);
+    }
+
+    if (shakes_.size() > 0)
+    {
+        float total_magnitude{};
+
+        for (auto it = shakes_.begin(); it != shakes_.end(); )
+        {
+            it->elapsed_time_ += frametime;
+            it->amplitude_ *= (1.0f - it->elapsed_time_ / it->duration_);
+            total_magnitude += it->amplitude_;
+
+            if (it->elapsed_time_ >= it->duration_)
+            {
+                it = shakes_.erase(it);
+            }
+
+            else
+            {
+                ++it;
+            }
+        }
+
+        shake_angle_timer -= frametime;
+
+        if (shake_angle_timer <= 0.0f)
+        {
+            shake_angle += 180.0f + distribution(generator);
+            shake_offset = { sin(shake_angle) * total_magnitude, cos(shake_angle) * total_magnitude };
+            shake_angle_timer = 0.06f;
+        }
     }
 }
 
@@ -72,18 +110,12 @@ void CameraSystem::SendMessageD(Message* m)
             break;
         }
 
-        /*
         case MessageIDTypes::CHANGE_ANIMATION_1: {
 
-            //Temporary
-            if (CORE->GetManager<EntityManager>()->GetPlayerEntities().size() > 0)
-            {
-                SetTarget(GetMainCamera(), CORE->GetManager<EntityManager>()->GetPlayerEntities()[0]);
-                ToggleTargeted(GetMainCamera());
-            }
-
+            //TargetPlayer();
+            ScreenShake(2.0f, 0.3f);
             break;
-        }*/
+        }
 
         case MessageIDTypes::CAM_ZOOM_IN: {
 
@@ -104,7 +136,16 @@ void CameraSystem::SendMessageD(Message* m)
 void CameraSystem::CameraUpdate(Camera* camera)
 {
     const float global_scale = CORE->GetGlobalScale();
-    Vector2D position = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->GetPosition() * global_scale;
+    Vector2D position = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->GetPosition();
+
+    if (camera->target_)
+    {
+        Vector2D target_position = camera->target_->GetPosition();
+        Vector2D move_dir = (target_position - position) * camera->speed_;
+        component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->SetPosition(position + move_dir + shake_offset);
+    }
+
+    position *= global_scale;
 
     glm::mat3 view_xform { 1 , 0 , 0,
                            0 , 1 , 0,
@@ -195,4 +236,24 @@ Vector2D CameraSystem::GameCoordsToUI(const Vector2D& go_pos) {
     }
 
     return {};
+}
+
+void CameraSystem::ScreenShake(float duration, float magnitude) {
+
+    shakes_.push_back({ duration, magnitude });
+
+    if (shakes_.size() == 0)
+    {
+        shake_angle_timer = 0.0f;
+    }
+}
+
+void CameraSystem::TargetPlayer()
+{
+    Entity* player = CORE->GetManager<EntityManager>()->GetPlayerEntities();
+
+    if (player)
+    {
+        GetMainCamera()->target_ = component_manager_->GetComponent<Transform>(player->GetID());
+    }
 }

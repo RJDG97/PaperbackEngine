@@ -13,13 +13,12 @@
         },
         {
             "component": "Camera",
-            "Camera Position": "0.000000 0.000000",
             "Camera Size": "1280.000000 720.000000",
             "Camera Zoom": "0.800000"
         },
         {
             "component": "Child",
-            "parent_name": "SplashBackground"
+            "parent_name": ""
         }
     ]
 }

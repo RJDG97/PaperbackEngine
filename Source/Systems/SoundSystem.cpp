@@ -173,6 +173,7 @@ void SoundSystem::StopSound(std::string fileID, bool stopAllChannels) {
 		for (auto& [name, sound_channel] : channel_library_) {
 
 			sound_channel->channel_->stop();
+			player_ = nullptr;
 		}
 	}
 }
