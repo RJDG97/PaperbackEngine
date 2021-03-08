@@ -14,6 +14,7 @@
 #define _STAG_TREE_H_
 
 #include "Manager/BehaviourTree.h"
+#include "Script/Common_Nodes.h"
 #include "Systems/Physics.h"
 #include "Engine/Core.h"
 
@@ -77,42 +78,9 @@ public:
 		*/
 		/******************************************************************************/
 		StagSequence(EntityID id) : id_(id) {
-			addChild(new CheckAlive(id));
+			addChild(new Common::CheckAlive(id));
 			addChild(new ActionSelector(id));
 		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class CheckAlive
-
-	  \brief Checks whether AI is alive, if not, run respawn
-	*/
-	/******************************************************************************/
-	class CheckAlive :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-		Time_Channel respawn_timer_;
-	public:\
-		/******************************************************************************/
-		/*!
-		  \fn CheckAlive(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		CheckAlive(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether AI is alive, if not, run respawn
-		*/
-		/******************************************************************************/
-		bool run() override;
 	};
 
 	/******************************************************************************/
@@ -159,42 +127,10 @@ public:
 		*/
 		/******************************************************************************/
 		IdleSequence(EntityID id) : id_(id) {
-			addChild(new CheckSentry(id_));
+			addChild(new Common::CheckSentry(id_));
 			addChild(new SentrySequence(id_));
 			addChild(new SentryAnim(id_));
 		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class CheckSentry
-
-	  \brief CheckSentry Node, Checks whether AI has more than 1 destinations
-	*/
-	/******************************************************************************/
-	class CheckSentry :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn CheckSentry(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		CheckSentry(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether AI has more than 1 destination
-		*/
-		/******************************************************************************/
-		bool run() override;
 	};
 
 	/******************************************************************************/
@@ -217,43 +153,11 @@ public:
 		*/
 		/******************************************************************************/
 		SentrySequence(EntityID id) : id_(id) {
-			addChild(new SentryReturn(id_));
-			addChild(new CheckPath(id_));
-			addChild(new Move(id_, 300.0f));
+			addChild(new Common::SentryReturn(id_));
+			addChild(new Common::CheckPath(id_));
+			addChild(new Common::Move(id_, 300.0f));
 			addChild(new WalkAnim(id_));
 		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class SentryReturn
-
-	  \brief Sentry Return Node, Checks if AI is at sentry position
-	*/
-	/******************************************************************************/
-	class SentryReturn :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn SentryReturn(EntityID id)
-		
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		SentryReturn(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether AI is at sentry position
-		*/
-		/******************************************************************************/
-		bool run() override;
 	};
 
 	/******************************************************************************/
@@ -311,98 +215,11 @@ public:
 		*/
 		/******************************************************************************/
 		PatrolSequence(EntityID id) : id_(id) {
-			addChild(new CheckWaypoint(id_));
-			addChild(new CheckPath(id_));
-			addChild(new Move(id_, 300.0f));
+			addChild(new Common::CheckWaypoint(id_));
+			addChild(new Common::CheckPath(id_));
+			addChild(new Common::Move(id_, 300.0f));
 			addChild(new WalkAnim(id_));
 		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class CheckWaypoint
-
-	  \brief CheckWaypoint Node, Contains nodes for the waypoint system
-	*/
-	/******************************************************************************/
-	class CheckWaypoint :public Selector
-	{
-		EntityID id_;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn CheckWaypoint(EntityID id)
-
-		  \brief Constructor, setting multiple children relating to the waypoint system
-		*/
-		/******************************************************************************/
-		CheckWaypoint(EntityID id) : id_(id) {
-			addChild(new AtWaypoint(id_));
-			addChild(new ChangeWaypoint(id_));
-		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class AtWaypoint
-
-	  \brief AtWaypoint Node, Checks if AI is at the waypoint
-	*/
-	/******************************************************************************/
-	class AtWaypoint :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn AtWaypoint(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		AtWaypoint(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether AI is at the waypoint
-		*/
-		/******************************************************************************/
-		bool run() override;
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class ChangeWaypoint
-
-	  \brief ChangeWaypoint Node, Change to the next waypoint
-	*/
-	/******************************************************************************/
-	class ChangeWaypoint :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		ComponentManager* component_mgr;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn ChangeWaypoint(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		ChangeWaypoint(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Change to the next waypoint
-		*/
-		/******************************************************************************/
-		bool run() override;
 	};
 
 	/******************************************************************************/
@@ -443,74 +260,6 @@ public:
 
 	/******************************************************************************/
 	/*!
-	  \class CheckPath
-
-	  \brief Check Path Node, check if pathfinding algorithm can find a path
-	*/
-	/******************************************************************************/
-	class CheckPath :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-		AMap* map_;
-		Vector2D SetDes;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn CheckPath(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		CheckPath(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Check if pathfinding algorithm can find a path
-		*/
-		/******************************************************************************/
-		bool run() override;
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class Move
-
-	  \brief Move Node, Move towards destination
-	*/
-	/******************************************************************************/
-	class Move :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-		ForcesManager* forces_;
-		float Speed_;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn Move(EntityID id, float spd)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		Move(EntityID id, float spd);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Move towards destination
-		*/
-		/******************************************************************************/
-		bool run() override;
-	};
-
-	/******************************************************************************/
-	/*!
 	  \class DetectSequence
 
 	  \brief Detect Sequence Node, containing nodes related to detection
@@ -543,6 +292,8 @@ public:
 	class DetectPlayer : public Selector
 	{
 		EntityID id_;
+		AI* ai_;
+		ComponentManager* component_mgr;
 	public:
 		/******************************************************************************/
 		/*!
@@ -552,103 +303,19 @@ public:
 		*/
 		/******************************************************************************/
 		DetectPlayer(EntityID id) : id_(id) {
-			addChild(new PlayerWithinDistance(id_, 2.0f));
-			addChild(new PlayerWithinVision(id_));
+			component_mgr = &*CORE->GetManager<ComponentManager>();
+			ai_ = component_mgr->GetComponent<AI>(id_);
+			switch (ai_->GetLevel()) {
+			case 1:
+				addChild(new Common::PlayerWithinDistance(id_, 2.0f));
+				addChild(new Common::PlayerWithinVision(id_, 4.0f));
+				break;
+			case 2:
+				addChild(new Common::PlayerWithinDistance(id_, 3.0f));
+				addChild(new Common::PlayerWithinVision(id_, 6.0f));
+				break;
+			}
 		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class PlayerWithinDistance
-
-	  \brief PlayerWithinDistance Node, checks whether the player is within 
-		close proximity
-	*/
-	/******************************************************************************/
-	class PlayerWithinDistance :public Node 
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-
-		EntityID player_id_;
-		Status* player_status_;
-		Transform* player_rigidbody_;
-
-		float detectdistance_;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn PlayerWithinDistance(EntityID id, float dist)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		PlayerWithinDistance(EntityID id, float dist);
-		/******************************************************************************/
-		/*!
-		  \fn PlayerInit()
-
-		  \brief Sets nodes private variables relating to the player
-		*/
-		/******************************************************************************/
-		void PlayerInit();
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether the player is within close proximity
-		*/
-		/******************************************************************************/
-		bool run() override;
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class PlayerWithinVision
-
-	  \brief PlayerWithinVision Node, checks whether the player is within
-		cone vision
-	*/
-	/******************************************************************************/
-	class PlayerWithinVision : public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-
-		EntityID player_id_;
-		Status* player_status_;
-		Transform* player_rigidbody_;
-
-		float detectdistance_ = 4.0f;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn CheckSentry(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		PlayerWithinVision(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn PlayerInit()
-
-		  \brief Sets nodes private variables relating to the player
-		*/
-		/******************************************************************************/
-		void PlayerInit();
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether the player is within cone vision
-		*/
-		/******************************************************************************/
-		bool run() override;
 	};
 
 	/******************************************************************************/
@@ -735,7 +402,7 @@ public:
 		ChaseSequence(EntityID id) : id_(id) {
 			addChild(new NotAtkRange(id_));
 			addChild(new ChasePath(id_));
-			addChild(new Move(id_, 400.0f));
+			addChild(new Common::Move(id_, 400.0f));
 			addChild(new ChaseAnim(id_));
 		}
 	};
@@ -759,7 +426,7 @@ public:
 		*/
 		/******************************************************************************/
 		NotAtkRange(EntityID id) :id_(id) {
-			setChild(new PlayerWithinDistance(id_, 1.0f));
+			setChild(new Common::PlayerWithinDistance(id_, 1.0f));
 		}
 	};
 
@@ -775,9 +442,11 @@ public:
 		EntityID id_;
 		AMap* map_;
 		AI* ai_;
+		Status* player_status_;
 		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
-
+		std::shared_ptr<GraphicsSystem> graphics;
+		AnimationRenderer* renderer;
 		EntityID player_id_;
 		Transform* player_rigidbody_;
 		Vector2D SetDes;

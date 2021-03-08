@@ -189,6 +189,9 @@
     <Filter Include="Entity\Components\Dialogue">
       <UniqueIdentifier>{797c3834-c781-49d9-b960-faa4c2978e1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Common">
+      <UniqueIdentifier>{427cb42c-d594-40f4-9422-c0cc4de20705}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -460,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\Dialogue.cpp">
       <Filter>Entity\Components\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\Common_Nodes.cpp">
+      <Filter>Scripts\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -789,6 +795,9 @@
     </ClInclude>
     <ClInclude Include="Include\Script\DialogueTrigger_Script.h">
       <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Common_Nodes.h">
+      <Filter>Scripts\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

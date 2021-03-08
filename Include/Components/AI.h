@@ -302,7 +302,7 @@ public:
 	  \brief Get new path
 	*/
 	/******************************************************************************/
-	std::vector<Vector2D>& GetPath();
+	std::vector<Vector2D>& GetPath() { return path_; }
 
 	/******************************************************************************/
 	/*!
@@ -311,7 +311,7 @@ public:
 	  \brief Set new path
 	*/
 	/******************************************************************************/
-	void SetPath(std::vector<Vector2D>& path);
+	void SetPath(std::vector<Vector2D>& path) { path_ = path; }
 
 	/******************************************************************************/
 	/*!
@@ -320,7 +320,7 @@ public:
 	  \brief Gets timer
 	*/
 	/******************************************************************************/
-	Time_Channel& GetTimer();
+	Time_Channel& GetTimer() { return recovery_timer_; }
 
 	/******************************************************************************/
 	/*!
@@ -329,7 +329,7 @@ public:
 	  \brief Returns life status
 	*/
 	/******************************************************************************/
-	bool GetLife();
+	bool GetLife() { return alive_; }
 
 	/******************************************************************************/
 	/*!
@@ -338,16 +338,18 @@ public:
 	  \brief Set life's status
 	*/
 	/******************************************************************************/
-	void SetLife(bool life);
-
+	void SetLife(bool life) { alive_ = life; }
 
 	Behaviour::Root* GetRoot() { return root_; };
+
+	int GetLevel() { return level_; }
 
 private:
 
 	Behaviour::Root* root_;
 	AIType type_;
 	
+	int level_;
 	AIState state_;
 	float range_;
 	int attackpower_;
