@@ -917,17 +917,17 @@ void EntityWindow::NameComponent(Entity* entity) {
 void EntityWindow::ParentChildComponent(Entity* entity) {
 
 	std::shared_ptr<ParentChild> entity_parent_child = std::dynamic_pointer_cast<ParentChild>(entity->GetComponent(ComponentTypes::PARENTCHILD));
-	std::vector<Entity*> input_child = entity_parent_child->GetChildren();
+	std::list<Entity*> input_child = entity_parent_child->GetChildren();
 	if (ImGui::CollapsingHeader("Parent Child")) {
 
 		ImGui::Text("Number of Children: %d", input_child.size());
 		ImGui::Text("Child(ren): ");
 		for (size_t i = 0; i < input_child.size(); ++i) {
 
-			if (ImGui::TreeNodeEx(CORE->GetManager<ComponentManager>()->GetComponent<Name>(input_child[i]->GetID())->GetName().c_str(), ImGuiTreeNodeFlags_NoTreePushOnOpen)) {
+			//if (ImGui::TreeNodeEx(CORE->GetManager<ComponentManager>()->GetComponent<Name>(input_child[i]->GetID())->GetName().c_str(), ImGuiTreeNodeFlags_NoTreePushOnOpen)) {
 
-				ImGui::TreePop();
-			}
+			//	ImGui::TreePop();
+			//}
 		}
 
 		RemoveComponent("Delete Parent Child Component", std::string("Parent Child Component"), entity, entity_parent_child);

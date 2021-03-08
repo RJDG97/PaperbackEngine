@@ -40,8 +40,7 @@
         },
         {
             "component": "ParentChild",
-            "elements": "1",
-            "to_clone": "Camera "
+            "my_name": "Player"
         },
         {
             "component": "LogicComponent",

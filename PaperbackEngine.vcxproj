@@ -163,6 +163,7 @@
     <ClCompile Include="Source\Components\Attack.cpp" />
     <ClCompile Include="Source\Components\BasicAI.cpp" />
     <ClCompile Include="Source\Components\Camera.cpp" />
+    <ClCompile Include="Source\Components\Child.cpp" />
     <ClCompile Include="Source\Components\Clickable.cpp" />
     <ClCompile Include="Source\Components\Collectible.cpp" />
     <ClCompile Include="Source\Components\ConeLight.cpp" />
@@ -234,6 +235,7 @@
     <ClCompile Include="Source\Systems\LightingSystem.cpp" />
     <ClCompile Include="Source\Systems\LogicSystem.cpp" />
     <ClCompile Include="Source\Systems\Message.cpp" />
+    <ClCompile Include="Source\Systems\Parenting.cpp" />
     <ClCompile Include="Source\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Source\Systems\Partitioning.cpp" />
     <ClCompile Include="Source\Systems\Physics.cpp" />
@@ -248,6 +250,7 @@
     <ClInclude Include="Include\Components\Attack.h" />
     <ClInclude Include="Include\Components\BasicAI.h" />
     <ClInclude Include="Include\Components\Camera.h" />
+    <ClInclude Include="Include\Components\Child.h" />
     <ClInclude Include="Include\Components\Clickable.h" />
     <ClInclude Include="Include\Components\Collectible.h" />
     <ClInclude Include="Include\Components\ConeLight.h" />
@@ -334,6 +337,7 @@
     <ClInclude Include="Include\Systems\LightingSystem.h" />
     <ClInclude Include="Include\Systems\LogicSystem.h" />
     <ClInclude Include="Include\Systems\Message.h" />
+    <ClInclude Include="Include\Systems\Parenting.h" />
     <ClInclude Include="Include\Systems\ParticleSystem.h" />
     <ClInclude Include="Include\Systems\Partitioning.h" />
     <ClInclude Include="Include\Systems\Physics.h" />

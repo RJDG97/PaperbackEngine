@@ -286,7 +286,7 @@
         },
         {
             "component": "ParentChild",
-            "elements": "0"
+            "my_name": ""
         },
         {
             "component": "LogicComponent",
@@ -310,6 +310,10 @@
             "Camera Position": "0.000000 0.000000",
             "Camera Size": "1280.000000 720.000000",
             "Camera Zoom": "0.800000"
+        },
+        {
+            "component": "Child",
+            "parent_name": ""
         }
     ],
     "Clouds": [
@@ -366,7 +370,7 @@
         },
         {
             "component": "ParentChild",
-            "elements": "0"
+            "my_name": "DialogueBox"
         },
         {
             "component": "LogicComponent",
@@ -397,6 +401,10 @@
             "layer": "11",
             "ui": "1",
             "alive": "0"
+        },
+        {
+            "component": "Child",
+            "parent_name": "DialogueBox1"
         }
     ],
     "DriedBush_01": [
@@ -845,6 +853,10 @@
         {
             "component": "Scale",
             "scale": "312.000000 400.000000"
+        },
+        {
+            "component": "Child",
+            "parent_name": ""
         }
     ],
     "InputController": [

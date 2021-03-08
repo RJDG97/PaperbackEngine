@@ -15,8 +15,7 @@
         },
         {
             "component": "ParentChild",
-            "elements": "1",
-            "to_clone": "DialogueText "
+            "my_name": "DialogueBox1"
         },
         {
             "component": "LogicComponent",

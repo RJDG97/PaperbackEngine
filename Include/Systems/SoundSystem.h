@@ -112,8 +112,7 @@ class SoundSystem : public ISystem
 	using SoundEmitterTypeIt = SoundEmitterType::MapTypeIt;
 	SoundEmitterType* sound_emitter_arr_;
 
-	using PlayerArr = std::vector<Entity*>;
-	PlayerArr* players_;
+	Entity* player_;
 
 	std::shared_ptr<ComponentManager> component_manager_;
 	std::shared_ptr<GraphicsSystem> graphics_system_;
