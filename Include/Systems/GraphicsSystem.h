@@ -291,12 +291,12 @@ public:
 
 /******************************************************************************/
 /*!
-    \fn DrawHealthbar(Shader* shader, Model* model, IRenderer* i_renderer)
+    \fn DrawHealthbar(Model* model, IRenderer* i_renderer)
 
     \brief Draws the healthbar
 */
 /******************************************************************************/
-    void DrawHealthbar(Shader* shader, Model* model, IRenderer* i_renderer);
+    void DrawHealthbar(Model* model, IRenderer* i_renderer);
 
 /******************************************************************************/
 /*!

@@ -34,6 +34,10 @@
     "ParticleEmitter": "Resources\\Test\\UI\\particleemitter.json",
     "MyParticle": "Resources\\Test\\UI\\myparticles.json",
     "Watergauge": "Resources\\Test\\UI\\watergauge.json",
+    "Watershade": "Resources\\Test\\UI\\watershade.json",
+    "Waterbase": "Resources\\Test\\UI\\waterbase.json",
+    "Waterbubbles": "Resources\\Test\\UI\\waterbubbles.json",
+    "Waterflow": "Resources\\Test\\UI\\waterflow.json",
     "Log": "Resources\\Test\\Map\\Log.json",
     "Goal": "Resources\\Test\\Map\\Goal.json",
     "DialogueTriggerBox": "Resources\\Test\\Dialogue\\dialogue_trigger.json"

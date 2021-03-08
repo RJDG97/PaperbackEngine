@@ -93,9 +93,9 @@ void GraphicsSystem::Init() {
 
     glGenRenderbuffers(1, &render_buffer_);
     glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT,
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8,
                           static_cast<GLsizei>(win_size_.x), static_cast<GLsizei>(win_size_.y));
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
 
     DEBUG_ASSERT(!(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE),
                  "Final framebuffer is not complete!");
@@ -220,7 +220,7 @@ void GraphicsSystem::Draw() {
     bool render_lights_now = true;
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
     glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -235,7 +235,7 @@ void GraphicsSystem::Draw() {
             DrawFinalTexture(lighting_texture_, 1.0f);
             glBlendFunc(GL_ONE, GL_ONE);
             DrawFinalTexture(addition_texture_, 0.6f);
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
             render_lights_now = false;
         }
 
@@ -246,8 +246,8 @@ void GraphicsSystem::Draw() {
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
     DrawFinalTexture(&final_texture_, 1.0f);
 
     if (debug_) { debug_ = !debug_; }
@@ -688,76 +688,72 @@ void GraphicsSystem::DrawTextBatch(GLuint vbo_hdl)
     opacity_sent.clear();
 }
 
-void GraphicsSystem::DrawHealthbar(Shader* shader, Model* model, IRenderer* i_renderer)
+void GraphicsSystem::DrawHealthbar(Model* model, IRenderer* i_renderer)
 {
-    /*
-    shader->SetUniform("uTex2d", 0);
-    shader->SetUniform("projection", projection);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-    Transform* xform = component_manager_->GetComponent<Transform>(i_renderer->GetOwner()->GetID());
-    Scale* scale = component_manager_->GetComponent<Scale>(i_renderer->GetOwner()->GetID());
+    std::list<Entity*> children = component_manager_->GetComponent<ParentChild>(
+                                    i_renderer->GetOwner()->GetID())->GetChildren();
 
-    Health* health = component_manager_->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
-
-    Vector2D obj_pos_ = xform->position_ * CORE->GetGlobalScale() + 0.5f * Vector2D{ win_size_.x, win_size_.y };
-    Vector2D obj_scale = scale->scale_ * 0.7f;
-
-    std::vector<glm::vec2> gauge_vertices;
-    std::vector<glm::vec2> water_vertices;
-
-    gauge_vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
-    gauge_vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y - obj_scale.y });
-    gauge_vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y + obj_scale.y });
-    gauge_vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y + obj_scale.y });
-
-    obj_pos_.y -= 1.5f * obj_scale.y * (1.0f - health->GetCurrentHealth() / static_cast<float>(health->GetMaxHealth()));
-
-    water_vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y - obj_scale.y });
-    water_vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y - obj_scale.y });
-    water_vertices.push_back({ obj_pos_.x - obj_scale.x, obj_pos_.y + obj_scale.y });
-    water_vertices.push_back({ obj_pos_.x + obj_scale.x, obj_pos_.y + obj_scale.y });
-
-    std::vector<glm::vec2> tex_vtx{ { 0.0f, 0.0f},
-                                    { 1.0f, 0.0f},
-                                    { 0.0f, 1.0f},
-                                    { 1.0f, 1.0f}, };
-
-    for (int i = 0; i < 4; ++i) {
-
-        gauge_vertices.push_back(tex_vtx[i]);
-        water_vertices.push_back(tex_vtx[i]);
-    }
-    
-    glNamedBufferSubData(model->GetVBOHandle(), 0,
-                         sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Leaves_0")->GetTilesetHandle());
-    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
-    glDisable(GL_DEPTH_TEST);
+    BatchSpriteObject(static_cast<SpriteRenderer*>(i_renderer), true);
+    DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE);
 
     glEnable(GL_STENCIL_TEST);
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
     glStencilFunc(GL_ALWAYS, 1, 0xFF);
     glStencilMask(0xFF);
-    glNamedBufferSubData(model->GetVBOHandle(), 0,
-                         sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Droplet_0")->GetTilesetHandle());
-    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
-    glDisable(GL_DEPTH_TEST);
+    
+    //draw base and make stencil
+    auto to_render = std::find_if(std::begin(children), std::end(children),
+                        [&](Entity* child) {
+                            if (component_manager_->GetComponent<Name>(child->GetID())->GetName() == "Waterbase") {
 
+                                return true;
+                            }
+                            
+                            return false;
+                        });
+    
+    BatchSpriteObject(static_cast<SpriteRenderer*>(component_manager_->GetComponent<TextureRenderer>((*to_render)->GetID())), true);
+    DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE);
+
+    glDisable(GL_DEPTH_TEST);
     glStencilFunc(GL_EQUAL, 1, 0xFF);
     glStencilMask(0x00);
-    glNamedBufferSubData(model->GetVBOHandle(), 0,
-                         sizeof(glm::vec2) * water_vertices.size(), water_vertices.data());
-    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Water_0")->GetTilesetHandle());
-    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
-    glDisable(GL_STENCIL_TEST);
 
-    glNamedBufferSubData(model->GetVBOHandle(), 0,
-                         sizeof(glm::vec2) * gauge_vertices.size(), gauge_vertices.data());
-    glBindTextureUnit(0, texture_manager_->GetTexture("WaterGauge_Shine_0")->GetTilesetHandle());
-    glDrawElements(GL_TRIANGLE_STRIP, model->draw_cnt_, GL_UNSIGNED_SHORT, NULL);*/
+    //draw water, use stencil and make stencil
+
+    to_render = std::find_if(std::begin(children), std::end(children),
+        [&](Entity* child) {
+            if (component_manager_->GetComponent<Name>(child->GetID())->GetName() == "Waterflow") {
+
+                return true;
+            }
+
+            return false;
+        });
+
+    BatchSpriteObject(static_cast<SpriteRenderer*>(component_manager_->GetComponent<AnimationRenderer>((*to_render)->GetID())), true);
+    DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE);
+
+    //draw bubbles, use stencil and addition
+
+    glStencilMask(0x00);
+
+    to_render = std::find_if(std::begin(children), std::end(children),
+        [&](Entity* child) {
+            if (component_manager_->GetComponent<Name>(child->GetID())->GetName() == "Waterbubbles") {
+
+                return true;
+            }
+
+            return false;
+        });
+
+    BatchSpriteObject(static_cast<SpriteRenderer*>(component_manager_->GetComponent<AnimationRenderer>((*to_render)->GetID())), true);
+    DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE);
+    glDisable(GL_STENCIL_TEST);
 }
 
 void GraphicsSystem::ChangeLayer(IRenderer* i_renderer, int layer) {
@@ -1063,18 +1059,26 @@ void GraphicsSystem::DrawLayer(RenderLayer& render_layer)
 
             switch (layer_type)
             {
-                case UI_SPRITE: {
-                    
+            case UI_SPRITE: {
+
                     if (!HasClickableAndActive(*component_manager_, it->second->GetOwner()->GetID())) {
-                        
+
                         CheckDrawBatch(model->vboid_, &render_layer, it);
                         continue;
                     }
 
+                    std::string name = component_manager_->GetComponent<Name>(it->second->GetOwner()->GetID())->GetName();
+
                     //Temporary healthbar rendering
-                    if (component_manager_->GetComponent<Name>(it->second->GetOwner()->GetID())->GetName() == "Watergauge")
+                    if (name == "Watergauge")
                     {
-                        DrawHealthbar(graphic_shaders_["UIShader"], graphic_models_["UIModel"], it->second);
+                        DrawHealthbar(graphic_models_["BatchModel"], it->second);
+                        CheckDrawBatch(model->vboid_, &render_layer, it);
+                        continue;
+                    }
+
+                    else if (name == "Waterbase" || name == "Waterbubbles" || name == "Waterflow")
+                    {
                         CheckDrawBatch(model->vboid_, &render_layer, it);
                         continue;
                     }

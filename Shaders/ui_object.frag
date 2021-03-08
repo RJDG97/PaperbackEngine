@@ -13,5 +13,11 @@ void main () {
     
     vec4 color =  texture(uTex2d[int(tex_id)], vTexCoord);
     color.a *= alpha;
+
+    if (color.a <= 0.4f)
+    {
+        discard;
+    }
+
     fFragClr = color * vec4(tint, 1.0);
 }
