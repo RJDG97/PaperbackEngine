@@ -305,6 +305,7 @@ public:
 		DetectPlayer(EntityID id) : id_(id) {
 			component_mgr = &*CORE->GetManager<ComponentManager>();
 			ai_ = component_mgr->GetComponent<AI>(id_);
+			std::cout << "Mite Level: " << ai_->GetLevel() << std::endl;
 			switch (ai_->GetLevel()) {
 			case 1:
 				addChild(new Common::PlayerWithinDistance(id_, 2.0f));

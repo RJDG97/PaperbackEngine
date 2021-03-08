@@ -158,7 +158,7 @@ Common::PlayerWithinDistance::PlayerWithinDistance(EntityID id, float dist)
 
 void Common::PlayerWithinDistance::PlayerInit()
 {
-	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
 	player_status_ = component_mgr->GetComponent<Status>(player_id_);
 	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }
@@ -193,7 +193,7 @@ Common::PlayerWithinVision::PlayerWithinVision(EntityID id, float dist)
 
 void Common::PlayerWithinVision::PlayerInit()
 {
-	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
 	player_status_ = component_mgr->GetComponent<Status>(player_id_);
 	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }

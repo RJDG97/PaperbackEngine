@@ -126,7 +126,7 @@ Stag_Tree::ChasePath::ChasePath(EntityID id) : id_(id) {
 }
 
 void Stag_Tree::ChasePath::PlayerInit() {
-	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
 	player_status_ = component_mgr->GetComponent<Status>(player_id_);
 	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }
@@ -196,7 +196,7 @@ Stag_Tree::Charge::Charge(EntityID id) :id_(id) {
 }
 
 void Stag_Tree::Charge::PlayerInit() {
-	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
 	player_status_ = component_mgr->GetComponent<Status>(player_id_);
 	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }

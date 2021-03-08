@@ -88,7 +88,6 @@ bool Mite_Tree::DetectAnim::run() {
 	// If any pointers are invalid, return
 	if (!renderer || !ai_ || !motion || !name)
 		return false;
-
 	if (ai_->GetState() == AI::AIState::Patrol) {
 		ai_->SetState(AI::AIState::Detected);
 		MessageBGM_Play msg{ "EnemyDetect" };
@@ -122,7 +121,7 @@ Mite_Tree::ChasePath::ChasePath(EntityID id) : id_(id) {
 }
 
 void Mite_Tree::ChasePath::PlayerInit() {
-	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities().back()->GetID();
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
 	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }
 

@@ -36,6 +36,9 @@ void AI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 	writer->Key("component");
 	writer->String("AI");
 
+	writer->Key("Level");
+	writer->String(std::to_string(range_).c_str());
+
 	writer->Key("range");
 	writer->String(std::to_string(range_).c_str());
 

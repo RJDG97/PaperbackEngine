@@ -15,6 +15,7 @@
     {
       "component": "AI",
       "AIType": "Mite",
+      "Level": "1",
       "range": "6.000000",
       "speed": "200.000000",
       "dest": "4",
@@ -40,6 +41,7 @@
     {
       "component": "AI",
       "AIType": "Mite",
+      "Level": "1",
       "range": "6.000000",
       "speed": "200.000000",
       "dest": "4",
