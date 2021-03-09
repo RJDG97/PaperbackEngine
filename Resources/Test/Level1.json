@@ -40,5 +40,6 @@
     "Waterflow": "Resources\\Test\\UI\\waterflow.json",
     "Log": "Resources\\Test\\Map\\Log.json",
     "Goal": "Resources\\Test\\Map\\Goal.json",
+    "PuzzleHole": "Resources\\Test\\Map\\Hole.json",
     "DialogueTriggerBox": "Resources\\Test\\Dialogue\\dialogue_trigger.json"
 }

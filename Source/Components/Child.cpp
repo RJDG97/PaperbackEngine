@@ -69,3 +69,13 @@ std::string Child::ParentName() const {
 
 	return parent_name_;
 }
+
+void Child::SetParentID(const EntityID& p_id) {
+
+	parent_id_ = p_id;
+}
+
+EntityID Child::ParentID() const {
+
+	return parent_id_;
+}

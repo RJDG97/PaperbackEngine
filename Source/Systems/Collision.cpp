@@ -626,8 +626,25 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				PlayGrassRustle();
 				break;
 			}
+			case CollisionLayer::HOLE:
+			{
+				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first, false);
+				break;
+			}
 		}
 		break;
+	}
+	case CollisionLayer::PUSHABLE:
+	{
+		switch (layer_b)
+		{
+			case CollisionLayer::HOLE:
+			{
+				// aabb1 = hole - Change animation
+				// aabb2 = boulder - Disable it
+				puzzle_->UpdatePuzzleEntities(aabb1->second, aabb2->second);
+			}
+		}
 	}
 	default:
 	{
@@ -801,6 +818,7 @@ void Collision::Init() {
 	camera_ = &*CORE->GetSystem<CameraSystem>();
 	windows_ = &*CORE->GetSystem<WindowsSystem>();
 	partitioning_ = &*CORE->GetSystem<PartitioningSystem>();
+	puzzle_ = &*CORE->GetSystem<PuzzleSystem>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
 	logic_mgr_ = &*CORE->GetManager<LogicManager>();
 
@@ -816,82 +834,88 @@ void Collision::Init() {
 		Parameter 1: Collision layer 0
 		Parameter 2: Collidable with nothing, does not collide with similar layer
 	*/
-	AddCollisionLayers(CollisionLayer::BACKGROUND, "0000000000000", false);
+	AddCollisionLayers(CollisionLayer::BACKGROUND, "00000000000000", false);
 
 	/*
 		Parameter 1: Collision layer 1
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER),
 					 does not collide with similar layer
 	*/
-	AddCollisionLayers(CollisionLayer::TILES, "0000000000010", false);
+	AddCollisionLayers(CollisionLayer::TILES, "00000000000010", false);
 
 	/*
 		Parameter 1: Collision layer 2
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER),
 					 does not collide with similar layer
 	*/
-	AddCollisionLayers(CollisionLayer::ENEMY, "0000000000110", false);
+	AddCollisionLayers(CollisionLayer::ENEMY, "00000000000110", false);
 
 	/*
 		Parameter 1: Collision layer 3
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::PLAYER, "1000000001110");
+	AddCollisionLayers(CollisionLayer::PLAYER, "11000000001110");
 
 	/*
 		Parameter 1: Collision layer 4
 		Parameter 2: Collidable with Layer 3 (PLAYER)
 		"THIS HOLE WAS MADE FOR ME"
 	*/
-	AddCollisionLayers(CollisionLayer::BIGKUSA, "000000001000", false);
+	AddCollisionLayers(CollisionLayer::BIGKUSA, "0100000001000", false);
 
 	/*
 		Parameter 1: Collision layer 5
 		Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::GOAL, "0000000001000", false);
+	AddCollisionLayers(CollisionLayer::GOAL, "00000000001000", false);
 
 	/*
 		Parameter 1: Collision layer 6
 		Parameter 2: Collidable with nothing, does not collide with similar layer
 	*/
-	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "0000000000000", false);
+	AddCollisionLayers(CollisionLayer::UI_ELEMENTS, "00000000000000", false);
 
 	/*
 	Parameter 1: Collision layer 7
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::GATE, "0000000001000", false);
+	AddCollisionLayers(CollisionLayer::GATE, "00000000001000", false);
 
 	/*
 	Parameter 1: Collision layer 8
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::COLLECTIBLE, "0000000001000", false);
+	AddCollisionLayers(CollisionLayer::COLLECTIBLE, "00000000001000", false);
 
 	/*
 	Parameter 1: Collision layer 9
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::BURROWABLE, "0000000001000", false);
+	AddCollisionLayers(CollisionLayer::BURROWABLE, "00000000001000", false);
 
 	/*
 	Parameter 1: Collision layer 10
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::SOLID_ENVIRONMENT, "0000000001000", false);
+	AddCollisionLayers(CollisionLayer::SOLID_ENVIRONMENT, "00000000001000", false);
 
 	/*
 	Parameter 1: Collision layer 11
-	Parameter 2: Collidable with Layer 3 (PLAYER)
+	Parameter 2: Collidable with Layer 3 (PLAYER), Layer 13 (HOLE)
 	*/
-	AddCollisionLayers(CollisionLayer::PUSHABLE, "0010000001010");
+	AddCollisionLayers(CollisionLayer::PUSHABLE, "00100000001010", false);
 
 	/*
 	Parameter 1: Collision layer 12
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::INTERACTABLE, "0000000001000", false);
+	AddCollisionLayers(CollisionLayer::INTERACTABLE, "00000000001000", false);
+
+	/*
+	Parameter 1: Collision layer 13
+	Parameter 2: Collidable with Layer 3 (PLAYER), Layer 11 (BOULDER)
+	*/
+	AddCollisionLayers(CollisionLayer::HOLE, "10100000001000", false);
 
 	M_DEBUG->WriteDebugMessage("Collision System Init\n");
 }

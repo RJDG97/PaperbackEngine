@@ -33,6 +33,7 @@
 #include "Manager/LogicManager.h"
 #include "Systems/WindowsSystem.h"
 #include "Systems/CameraSystem.h"
+#include "Systems/PuzzleSystem.h"
 #include <unordered_map>
 #include <bitset>
 #include <string>
@@ -52,6 +53,7 @@ enum class CollisionLayer
 	SOLID_ENVIRONMENT, // Player cannot burrow through this surface
 	PUSHABLE,
 	INTERACTABLE,
+	HOLE,
 	MAX
 };
 
@@ -121,6 +123,7 @@ private:
 	WindowsSystem* windows_;
 	CameraSystem* camera_;
 	PartitioningSystem* partitioning_;
+	PuzzleSystem* puzzle_;
 	EntityManager* entity_mgr_;
 	ComponentManager* component_mgr_;
 	LogicManager* logic_mgr_;

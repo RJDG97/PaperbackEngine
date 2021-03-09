@@ -26,6 +26,8 @@ void ParentingSystem::Init() {
 
 void ParentingSystem::Update(float frametime) {
 
+	(void)frametime;
+
 	if (CORE->GetCorePauseStatus())
 		return;
 
@@ -51,6 +53,7 @@ void ParentingSystem::LinkParentAndChild() {
 			if (childsparent == parent->GetName()) {
 			
 				parent->AddChild( child->GetOwner()->GetID() );
+				child->SetParentID(p_id);
 				break;
 			}
 		}
