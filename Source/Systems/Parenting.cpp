@@ -34,6 +34,11 @@ void ParentingSystem::Update(float frametime) {
 
 void ParentingSystem::LinkParentAndChild() {
 	
+	if (!child_arr_ || !parent_arr_) {
+
+		return;
+	}
+
 	for (auto& [id, child] : *child_arr_) {
 
 		std::string childsparent = child->ParentName();

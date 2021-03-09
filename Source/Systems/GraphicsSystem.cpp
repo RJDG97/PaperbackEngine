@@ -699,8 +699,7 @@ void GraphicsSystem::DrawHealthbar(Model* model, IRenderer* i_renderer)
     DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE);
 
     glEnable(GL_STENCIL_TEST);
-    glEnable(GL_DEPTH_TEST);
-    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
     glStencilFunc(GL_ALWAYS, 1, 0xFF);
     glStencilMask(0xFF);
     
@@ -718,12 +717,10 @@ void GraphicsSystem::DrawHealthbar(Model* model, IRenderer* i_renderer)
     BatchSpriteObject(static_cast<SpriteRenderer*>(component_manager_->GetComponent<TextureRenderer>((*to_render)->GetID())), true);
     DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE);
 
-    glDisable(GL_DEPTH_TEST);
     glStencilFunc(GL_EQUAL, 1, 0xFF);
-    glStencilMask(0x00);
+    glStencilMask(0xFF);
 
     //draw water, use stencil and make stencil
-
     to_render = std::find_if(std::begin(children), std::end(children),
         [&](Entity* child) {
             if (component_manager_->GetComponent<Name>(child->GetID())->GetName() == "Waterflow") {
@@ -737,7 +734,7 @@ void GraphicsSystem::DrawHealthbar(Model* model, IRenderer* i_renderer)
     BatchSpriteObject(static_cast<SpriteRenderer*>(component_manager_->GetComponent<AnimationRenderer>((*to_render)->GetID())), true);
     DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE);
 
-    //draw bubbles, use stencil and addition
+    //draw bubbles, use stencil
 
     glStencilMask(0x00);
 
@@ -753,6 +750,7 @@ void GraphicsSystem::DrawHealthbar(Model* model, IRenderer* i_renderer)
 
     BatchSpriteObject(static_cast<SpriteRenderer*>(component_manager_->GetComponent<AnimationRenderer>((*to_render)->GetID())), true);
     DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE);
+
     glDisable(GL_STENCIL_TEST);
 }
 

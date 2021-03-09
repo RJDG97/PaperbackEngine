@@ -13,6 +13,7 @@
 
 
 #include "Systems/Factory.h"
+#include "Systems/Parenting.h"
 #include "Engine/Core.h"
 #include "Entity/Entity.h"
 #include "Entity/ComponentCreator.h"
@@ -363,6 +364,7 @@ void EntityFactory::DeSerializeLevelEntities(const std::string& filename) {
 	}
 
 	entity_mgr_->SortPlayerEntities();
+	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 }
 
 void EntityFactory::SerializeArchetypes(const std::string& filename) {
