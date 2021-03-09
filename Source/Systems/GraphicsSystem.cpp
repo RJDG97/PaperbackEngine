@@ -247,7 +247,6 @@ void GraphicsSystem::Draw() {
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT);
-    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
     DrawFinalTexture(&final_texture_, 1.0f);
 
     if (debug_) { debug_ = !debug_; }
