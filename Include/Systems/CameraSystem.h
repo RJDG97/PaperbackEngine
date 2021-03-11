@@ -37,7 +37,7 @@ class CameraSystem : public ISystem {
 	Vector2D win_size_;
 
 	std::default_random_engine generator;
-	std::uniform_real_distribution<float> distribution { 0.0f, 60.0f };
+	std::uniform_real_distribution<float> distribution { -15.0f, 15.0f };
 
 	struct Shake
 	{
@@ -53,6 +53,7 @@ class CameraSystem : public ISystem {
 	float shake_angle;
 	float shake_angle_timer;					  // will change angle whenever when timer is 0
 	Vector2D shake_offset {0.0f, 0.0f};
+	float total_magnitude;
 
 public:
 

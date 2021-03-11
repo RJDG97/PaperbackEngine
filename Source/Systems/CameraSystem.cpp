@@ -31,6 +31,7 @@ void CameraSystem::Init()
 
     win_size_ = {static_cast<float>(windows_system_->GetWinWidth()), static_cast<float>(windows_system_->GetWinHeight())};
     shake_angle_timer = 0.0f;
+    total_magnitude = 0.0f;
 }
 
 void CameraSystem::Update(float frametime)
@@ -42,13 +43,11 @@ void CameraSystem::Update(float frametime)
 
     if (shakes_.size() > 0)
     {
-        float total_magnitude{};
-
         for (auto it = shakes_.begin(); it != shakes_.end(); )
         {
             it->elapsed_time_ += frametime;
             it->amplitude_ *= (1.0f - it->elapsed_time_ / it->duration_);
-            total_magnitude += it->amplitude_;
+            total_magnitude = it->amplitude_;
 
             if (it->elapsed_time_ >= it->duration_)
             {
@@ -66,9 +65,14 @@ void CameraSystem::Update(float frametime)
         if (shake_angle_timer <= 0.0f)
         {
             shake_angle += 180.0f + distribution(generator);
-            shake_offset = { sin(shake_angle) * total_magnitude, cos(shake_angle) * total_magnitude };
-            shake_angle_timer = 0.06f;
+            shake_offset = { sin(shake_angle), cos(shake_angle)};
+            shake_angle_timer = max(0.05f, total_magnitude * total_magnitude);
         }
+    }
+
+    else
+    {
+        total_magnitude = 0.0f;
     }
 }
 
@@ -113,7 +117,7 @@ void CameraSystem::SendMessageD(Message* m)
         case MessageIDTypes::CHANGE_ANIMATION_1: {
 
             //TargetPlayer();
-            ScreenShake(2.0f, 0.3f);
+            ScreenShake(3.0f, 0.3f);
             break;
         }
 
@@ -142,7 +146,8 @@ void CameraSystem::CameraUpdate(Camera* camera)
     {
         Vector2D target_position = camera->target_->GetPosition();
         Vector2D move_dir = (target_position - position) * camera->speed_;
-        component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->SetPosition(position + move_dir + shake_offset);
+        component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->SetPosition(
+                                                position + move_dir + shake_offset * total_magnitude);
     }
 
     position *= global_scale;

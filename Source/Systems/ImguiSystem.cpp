@@ -711,7 +711,7 @@ void ImguiSystem::DrawGrid() {
 
     float global_scale = CORE->GetGlobalScale();
     float cam_zoom = *camera_->GetCameraZoom();
-    Vector2D cam_pos = CORE->GetSystem<CameraSystem>()->GetMainCameraPos();
+    Vector2D cam_pos = CORE->GetSystem<CameraSystem>()->GetMainCameraPos() * global_scale;
 
     float grid_spacing = global_scale * std::max( 1, 4 * static_cast<int>( 0.5f / cam_zoom));
 

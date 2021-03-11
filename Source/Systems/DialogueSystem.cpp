@@ -34,7 +34,7 @@ void DialogueSystem::Update(float frametime)
 		return;
 	}
 
-	if (entire_speech_ == nullptr || dialogue_box_renderer_ == nullptr)
+	if (!entire_speech_ || !dialogue_box_renderer_ || !dialogue_text_renderer_)
 	{
 		return;
 	}
@@ -145,6 +145,12 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 			}
 		}
 
+		//if still no dialogue box renderer found
+		if (!dialogue_box_renderer_) {
+
+			return;
+		}
+
 		CMap<TextRenderer>* text_renderer_arr_ = component_manager_->GetComponentArray<TextRenderer>();
 
 		for (auto it = text_renderer_arr_->begin(); it != text_renderer_arr_->end(); ++it)
@@ -156,9 +162,6 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 		}
 	}
 
-	if (!dialogue_box_renderer_)
-		return;
-
 	text_elapsed_time_ = 0.0f;
 	num_characters_ = 0;
 	dialogue_box_renderer_->SetAlive(true);
@@ -166,8 +169,8 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 	dialogue_box_scale_->SetScale({ dialogue_box_scale_->GetScale().x, 0.0f });
 	current_dialogue_ = dialogue_manager_->GetDialogue(dialogue_name);
 
-	// Do replace this...
-	if (current_dialogue_->GetContents()->begin() == current_dialogue_->GetContents()->end()) {
+	// If dialogue is nullptr or empty
+	if (!current_dialogue_ || current_dialogue_->GetContents()->begin() == current_dialogue_->GetContents()->end()) {
 		entire_speech_ = nullptr;
 		return;
 	}

@@ -1,19 +1,19 @@
 {
-    "Watergauge": [
+    "Watershade": [
         {
             "component": "Transform",
-            "position": "-6.50000 4.100000",
+            "position": "-6.50000 4.10000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
       {
         "component": "TextureRenderer",
-        "texture": "UI_HealthBar_Full_0",
+        "texture": "UI_HealthBar_Shade_0",
         "layer": "4",
-        "order in layer": "0",
+        "order in layer": "4",
         "alive": "1",
-        "opacity": "1.0",
+        "opacity": "0.3",
         "tint": "1.0 1.0 1.0"
       }
     ]

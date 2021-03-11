@@ -5,7 +5,7 @@
 	  "Animation Batch Name": "Healthbar_Water",
 	  "Columns": "8",
 	  "Rows": "1",
-      "Animation Name, Number of Frames, Frame Duration": "HealthBar_Water 7 0.06"
+      "Animation Name, Number of Frames, Frame Duration": "HealthBar_Water 7 0.2"
     }
   ]
 }

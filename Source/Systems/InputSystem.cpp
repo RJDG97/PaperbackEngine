@@ -318,7 +318,7 @@ Vector2D InputSystem::GetUpdatedCoords()
 	float zoom_ = *CORE->GetSystem<CameraSystem>()->GetMainCamera()->GetCameraZoom();
 	float Gscale = CORE->GetGlobalScale();
 
-	return ((cursor_ / (zoom_)) + cameraPos_) / Gscale;
+	return (cursor_ / zoom_) / Gscale + cameraPos_;
 
 }
 

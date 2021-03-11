@@ -195,6 +195,12 @@
     <Filter Include="Systems\Scene/State Manager\Game States">
       <UniqueIdentifier>{c3996147-acc3-4e82-ac35-cade7a0fa0f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Puzzle">
+      <UniqueIdentifier>{a37a7195-f25b-485d-bfd0-a9eb53a5884d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\PuzzleSystem">
+      <UniqueIdentifier>{e2e0738d-6fd9-41b7-b36d-7a94044d2aef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -478,6 +484,12 @@
     </ClCompile>
     <ClCompile Include="Source\Systems\Parenting.cpp">
       <Filter>Systems\Parenting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Puzzle.cpp">
+      <Filter>Entity\Components\Puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\PuzzleSystem.cpp">
+      <Filter>Systems\PuzzleSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -822,6 +834,12 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\Parenting.h">
       <Filter>Systems\Parenting</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Puzzle.h">
+      <Filter>Entity\Components\Puzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\PuzzleSystem.h">
+      <Filter>Systems\PuzzleSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

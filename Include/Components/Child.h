@@ -97,6 +97,24 @@ public:
 
 	/******************************************************************************/
 	/*!
+	  \fn SetParentID()
+
+	  \brief Assigns the parent's id to the child
+	*/
+	/******************************************************************************/
+	void SetParentID(const EntityID& p_id);
+
+	/******************************************************************************/
+	/*!
+	  \fn ParentID()
+
+	  \brief Retrieves the parent's id
+	*/
+	/******************************************************************************/
+	EntityID ParentID() const;
+
+	/******************************************************************************/
+	/*!
 	  \fn ~Child()
 
 	  \brief Child's destructor to remove component from component manager

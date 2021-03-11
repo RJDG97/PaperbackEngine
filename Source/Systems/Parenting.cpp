@@ -26,6 +26,8 @@ void ParentingSystem::Init() {
 
 void ParentingSystem::Update(float frametime) {
 
+	(void)frametime;
+
 	if (CORE->GetCorePauseStatus())
 		return;
 
@@ -34,6 +36,11 @@ void ParentingSystem::Update(float frametime) {
 
 void ParentingSystem::LinkParentAndChild() {
 	
+	if (!child_arr_ || !parent_arr_) {
+
+		return;
+	}
+
 	for (auto& [id, child] : *child_arr_) {
 
 		std::string childsparent = child->ParentName();
@@ -46,6 +53,7 @@ void ParentingSystem::LinkParentAndChild() {
 			if (childsparent == parent->GetName()) {
 			
 				parent->AddChild( child->GetOwner()->GetID() );
+				child->SetParentID(p_id);
 				break;
 			}
 		}
