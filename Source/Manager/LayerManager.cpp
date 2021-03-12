@@ -174,6 +174,20 @@ void LayerManager::SwapLayer(int layer_position_1, int layer_position_2)
     RenderLayer temp = render_layers_[layer_position_1];
     render_layers_[layer_position_1] = render_layers_[layer_position_2];
     render_layers_[layer_position_2] = temp;
+
+    std::multimap<float, IRenderer*>* to_update = render_layers_[layer_position_1].GetRenderers();
+
+    for (auto it = to_update->begin(); it != to_update->end(); ++it)
+    {
+        it->second->SetLayer(layer_position_1);
+    }
+
+    to_update = render_layers_[layer_position_2].GetRenderers();
+
+    for (auto it = to_update->begin(); it != to_update->end(); ++it)
+    {
+        it->second->SetLayer(layer_position_2);
+    }
 }
 
 std::map<int, RenderLayer>* LayerManager::GetRenderLayers()
