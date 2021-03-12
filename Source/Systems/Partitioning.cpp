@@ -70,17 +70,17 @@ void PartitioningSystem::Update(float frametime) {
 		InitEntityInPartition(id);
 	}
 
-	for (auto& [id, texture] : *texture_map_) {
-		
-		if (texture->IsAlive())
-			InitRendererInPartition(id);
-	}
+	//for (auto& [id, texture] : *texture_map_) {
+	//	
+	//	if (texture->IsAlive())
+	//		InitRendererInPartition(id);
+	//}
 
-	for (auto& [id, animation] : *animation_map_) {
-		
-		if (animation->IsAlive())
-			InitRendererInPartition(id);
-	}
+	//for (auto& [id, animation] : *animation_map_) {
+	//	
+	//	if (animation->IsAlive())
+	//		InitRendererInPartition(id);
+	//}
 	
 	ComputePartitionedEntities();
 

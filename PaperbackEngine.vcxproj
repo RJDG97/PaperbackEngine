@@ -179,6 +179,7 @@
     <ClCompile Include="Source\Components\ParentChild.cpp" />
     <ClCompile Include="Source\Components\Particle.cpp" />
     <ClCompile Include="Source\Components\PointLight.cpp" />
+    <ClCompile Include="Source\Components\Puzzle.cpp" />
     <ClCompile Include="Source\Components\SoundEmitter.cpp" />
     <ClCompile Include="Source\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Components\TextureRenderer.cpp" />
@@ -240,6 +241,7 @@
     <ClCompile Include="Source\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Source\Systems\Partitioning.cpp" />
     <ClCompile Include="Source\Systems\Physics.cpp" />
+    <ClCompile Include="Source\Systems\PuzzleSystem.cpp" />
     <ClCompile Include="Source\Systems\SoundSystem.cpp" />
     <ClCompile Include="Source\Systems\TransitionSystem.cpp" />
     <ClCompile Include="Source\Systems\WindowsSystem.cpp" />
@@ -269,6 +271,7 @@
     <ClInclude Include="Include\Components\ParentChild.h" />
     <ClInclude Include="Include\Components\Particle.h" />
     <ClInclude Include="Include\Components\PointLight.h" />
+    <ClInclude Include="Include\Components\Puzzle.h" />
     <ClInclude Include="Include\Components\SoundEmitter.h" />
     <ClInclude Include="Include\Components\SpriteRenderer.h" />
     <ClInclude Include="Include\Components\TextRenderer.h" />
@@ -344,6 +347,7 @@
     <ClInclude Include="Include\Systems\ParticleSystem.h" />
     <ClInclude Include="Include\Systems\Partitioning.h" />
     <ClInclude Include="Include\Systems\Physics.h" />
+    <ClInclude Include="Include\Systems\PuzzleSystem.h" />
     <ClInclude Include="Include\Systems\SoundSystem.h" />
     <ClInclude Include="Include\Systems\TransitionSystem.h" />
     <ClInclude Include="Include\Systems\WindowsSystem.h" />

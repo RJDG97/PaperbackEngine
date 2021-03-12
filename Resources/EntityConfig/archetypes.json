@@ -880,6 +880,51 @@
             "alive": "1"
         }
     ],
+    "PuzzleHole": [
+        {
+            "component": "Name",
+            "name": "PuzzleHole"
+        },
+        {
+            "component": "Transform",
+            "position": "5.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Stone_Fall_One",
+            "add animation": "Hole_One",
+            "set animation": "Hole_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "13"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "550.000000",
+            "intensity": "0.500000",
+            "alive": "1"
+        }
+    ],
     "HowToPlay": [
         {
             "component": "Name",

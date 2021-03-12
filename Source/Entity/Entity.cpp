@@ -256,6 +256,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::DIALOGUETRIGGER;
 	else if (str == "Child")
 		return ComponentTypes::CHILD;
+	else if (str == "Puzzle")
+		return ComponentTypes::PUZZLE;
 	else
 		return ComponentTypes::NONE;
 }
