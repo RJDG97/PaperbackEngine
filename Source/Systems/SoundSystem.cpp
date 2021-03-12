@@ -88,7 +88,7 @@ void SoundSystem::LoadSound(std::string name, std::stringstream& data) {
 
 	// Read SoundFile data
 	data >> sf->volume_ >> sf->min_distance_ 
-		 >> sf->volume_falloff_ >> sf->loop_;
+		 >> sf->volume_falloff_ >> sf->loop_ >> sf->tag_;
 
 	sf->original_volume_ = sf->volume_;
 
@@ -151,6 +151,56 @@ void SoundSystem::PlaySounds(std::string fileID) {
 	}
 	else {
 		std::cout << fileID.c_str() << " does not exist!" << std::endl;
+		return;
+	}
+}
+
+void SoundSystem::PlayTaggedSounds(std::string file_tag) {
+
+	// Grab all files with tag in sound library
+	std::vector<SoundIt> list{};
+
+	for (SoundIt s_it = sound_library_.begin(); s_it != sound_library_.end(); ++s_it) {
+
+		if (s_it->second->tag_ == file_tag) {
+
+			list.push_back(s_it);
+		}
+	}
+
+	SoundIt it = (!list.empty()) ? list[rand() % list.size()] : sound_library_.end();
+
+	// If sound file exists within the sound library
+	if (it != sound_library_.end()) {
+
+		// Check whether current sound file is already playing
+		ChannelIt channelIT = channel_library_.find(it->first);
+
+		// If sound file is currently not playing
+		if (channelIT == channel_library_.end()) {
+
+			std::shared_ptr<SoundChannel> channel = std::make_shared<SoundChannel>();
+
+			// Load the channel with the sound file and play
+			if (CheckError(f_system_->playSound(it->second->sound_, 0, false, &channel->channel_))) {
+
+				// If channel is playing the sound file successfully
+				if (channel != nullptr) {
+
+					channel->volume_ = it->second->volume_;
+					channel->original_volume_ = it->second->original_volume_;
+					channel->min_distance_ = it->second->min_distance_;
+					channel->sqr_min_distance_ = it->second->min_distance_ * it->second->min_distance_;
+					channel->volume_falloff_ = it->second->volume_falloff_;
+
+					channel_library_[it->first] = channel;
+					//channel_library_.emplace(std::pair<std::string, SoundChannel*>(fileID, channel));
+				}
+			}
+		}
+	}
+	else {
+		std::cout << "File with tag " << file_tag.c_str() << " does not exist!" << std::endl;
 		return;
 	}
 }
@@ -480,6 +530,7 @@ void SoundSystem::SendMessageD(Message* m) {
 SoundFile::SoundFile() :
 	sound_{ nullptr },
 	path_{ },
+	tag_{ },
 	volume_{ 1.0f },
 	original_volume_{ 1.0f },
 	min_distance_{ },
@@ -487,9 +538,10 @@ SoundFile::SoundFile() :
 	loop_{ false }
 { }
 
-SoundFile::SoundFile(std::string path, float vol, float min_distance, float volume_falloff, bool loop) :
+SoundFile::SoundFile(std::string path, float vol, float min_distance, float volume_falloff, bool loop, const std::string& tag) :
 	sound_{ nullptr },
 	path_{ path },
+	tag_{ tag },
 	volume_{ vol },
 	original_volume_{ vol },
 	min_distance_{ min_distance },
@@ -516,6 +568,9 @@ void SoundFile::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writ
 	writer->Key("loop");
 	writer->String(std::to_string(loop_).c_str());
 
+	writer->Key("tag");
+	writer->String(tag_.c_str());
+
 	writer->EndObject();
 }
 
@@ -536,8 +591,9 @@ SoundChannel::SoundChannel() :
 	mute_{ false }
 { }
 
-SoundChannel::SoundChannel(float volume, float min_distance, float volume_falloff) :
+SoundChannel::SoundChannel(float volume, float min_distance, float volume_falloff, const std::string& tag) :
 	channel_{ nullptr },
+	tag_{ tag },
 	volume_{ volume },
 	original_volume_{ volume },
 	min_distance_{ min_distance },

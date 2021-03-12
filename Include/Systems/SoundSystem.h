@@ -37,13 +37,14 @@ class SoundFile
 
 public:
 	SoundFile();
-	SoundFile(std::string path, float vol, float min_distance, float volume_falloff, bool loop);
+	SoundFile(std::string path, float vol, float min_distance, float volume_falloff, bool loop, const std::string& tag = "");
 	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
 	~SoundFile();
 
 private:
 	FMOD::Sound* sound_;
 	std::string path_;
+	std::string tag_;
 	float volume_;
 	float original_volume_;
 	float min_distance_;
@@ -73,7 +74,7 @@ public:
 	  \brief Constructor for SoundChannel
 	*/
 	/******************************************************************************/
-	SoundChannel(float volume, float min_distance, float volume_falloff);
+	SoundChannel(float volume, float min_distance, float volume_falloff, const std::string& tag = "");
 
 	/******************************************************************************/
 	/*!
@@ -86,6 +87,7 @@ public:
 
 private:
 	FMOD::Channel* channel_;
+	std::string tag_;
 	float volume_;
 	float original_volume_;
 	float min_distance_;
@@ -205,6 +207,16 @@ public:
 */
 /******************************************************************************/
 	void PlaySounds(std::string file_id);
+
+/******************************************************************************/
+/*!
+  \fn PlaySound()
+
+  \brief Attaches the loaded sound file to an inactive channel to play the
+		 the sound file. File identified by tag
+*/
+/******************************************************************************/
+	void PlayTaggedSounds(std::string file_tag);
 
 /******************************************************************************/
 /*!

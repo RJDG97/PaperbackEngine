@@ -167,7 +167,7 @@ namespace Player_Scripts
 						graphics->ChangeAnimation(renderer, "Player_Walk");
 
 						if (renderer->FinishedAnimating())
-							CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerJump");
+							CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_jump");
 					}
 				}
 			}
