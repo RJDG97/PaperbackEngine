@@ -98,7 +98,7 @@ struct Levels {
 
 	std::string path_;
 	Level* current_state_;
-	Level splash_, menu_, credits_, editor_, win_, lose_, pause_;
+	Level splash_, menu_, credits_, editor_, win_, lose_, pause_, cutscene_;
 	using Plays = std::vector<Level>;
 	using PlaysIt = Plays::iterator;
 	Plays plays_;
@@ -221,6 +221,6 @@ struct Levels {
 	*/
 	/******************************************************************************/
 	void DeletePlayLevelEntry();
-}; 
+};
 
 #endif

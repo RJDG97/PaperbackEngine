@@ -14,5 +14,7 @@
 
   "Editor": "Resources/EntityConfig/editor.json",
 
-  "Pause": "Resources/EntityConfig/pause.json"
+  "Pause": "Resources/EntityConfig/pause.json",
+  
+  "Cutscene": "Resources/EntityConfig/cutscene.json"
 }

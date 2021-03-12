@@ -346,7 +346,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Menu_CloudOne_0",
-            "layer": "0",
+            "layer": "1",
 			"order in layer": "0",
             "alive": "1",
 			"opacity": "1.0",
@@ -2014,14 +2014,14 @@
             "add animation": "HealthBar_Water",
             "set animation": "HealthBar_Water",
             "play_animation": "1",
-			"reversed_": "0",
+            "reversed_": "0",
             "has_finished_animating": "0",
-			"animation_speed": "1.0",
+            "animation_speed": "1.0",
             "layer": "0",
-			"order in layer": "0",
+            "order in layer": "0",
             "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
@@ -2083,5 +2083,130 @@
           "name": "Interactable",
           "function": "TriggerDialogue"
       }
+    ],
+    "MenuTitleCard": [
+        {
+            "component": "Name",
+            "name": "MenuTitleCard"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 3.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "TitleCard",
+            "add animation": "TitleCard_2",
+            "set animation": "TitleCard",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "0",
+            "order in layer": "3",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.0000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "250.000000 250.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Title",
+            "function": "MenuState_TitleCard"
+        }
+    ],
+    "MenuTitle": [
+        {
+            "component": "Name",
+            "name": "MenuTitle"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 3.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "TitleText",
+            "add animation": "TitleText_2",
+            "set animation": "TitleText",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.3",
+            "layer": "0",
+            "order in layer": "5",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.0000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "250.000000 250.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Title",
+            "function": "MenuState_TitleText"
+        }
+    ],
+    "MenuRadish": [
+        {
+            "component": "Name",
+            "name": "MenuRadish"
+        },
+        {
+            "component": "Transform",
+            "position": "4.600000 -1.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Radish_Menu",
+            "set animation": "Radish_Menu",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.0000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "120.000000 120.000000"
+        }
     ]
 }

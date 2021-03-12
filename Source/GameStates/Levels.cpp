@@ -30,9 +30,9 @@ Level::Level(const std::string name, const std::string path_name, const std::str
 {	}
 
 void Level::DeSerialize() {
-	
+
 	if (path_ != "") {
-		
+
 		rapidjson::Document doc;
 		DeSerializeJSON(path_, doc);
 
@@ -56,7 +56,7 @@ void Level::Serialize() {
 }
 
 void Level::Serialize(const std::string filepath) {
-	
+
 	rapidjson::StringBuffer sb;
 	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
 
@@ -67,7 +67,7 @@ void Level::Serialize(const std::string filepath) {
 		writer.StartObject();
 
 		for (EntityPathsIt it = entity_paths_.begin(); it != entity_paths_.end(); ++it) {
-			
+
 			writer.Key(it->first.c_str());
 			writer.String(it->second.c_str());
 		}
@@ -81,8 +81,8 @@ void Level::Serialize(const std::string filepath) {
 }
 
 void Level::AddNewEntityPath(const std::string& name, const std::string& path) {
-	
-	entity_paths_.insert({name, path});
+
+	entity_paths_.insert({ name, path });
 }
 
 void Level::DeleteEntityPath(const std::string& name) {
@@ -99,7 +99,7 @@ Levels::Levels() :
 }
 
 void Levels::DeSerialize(const std::string filepath) { //needs to directly load from doc format
-	
+
 	rapidjson::Document doc;
 	DeSerializeJSON(filepath, doc);
 
@@ -150,10 +150,11 @@ void Levels::DeSerialize(const std::string filepath) { //needs to directly load 
 			pause_.name_ = level_type;
 			pause_.path_ = path_name;
 		}
-		/*else if (level_type == "Play") {
+		else if (level_type == "Cutscene") {
 
-			plays_.push_back({level_type, path_name});
-		}*/
+			cutscene_.name_ = level_type;
+			cutscene_.path_ = path_name;
+		}
 		else {
 			//any id that doesn't matches former counts as a "play"
 			std::stringstream ss{ path_name };
@@ -183,7 +184,7 @@ void Levels::Serialize() {
 }
 
 void Levels::Serialize(const std::string filename) {
-	
+
 	rapidjson::StringBuffer sb;
 	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
 
@@ -229,8 +230,14 @@ void Levels::Serialize(const std::string filename) {
 			writer.String(editor_.path_.c_str());
 		}
 
+		if (cutscene_.name_ != "") {
+
+			writer.Key(cutscene_.name_.c_str());
+			writer.String(cutscene_.path_.c_str());
+		}
+
 		for (PlaysIt it = plays_.begin(); it != plays_.end(); ++it) {
-			
+
 			writer.Key(it->name_.c_str());
 			writer.String(it->path_.c_str());
 		}
@@ -254,7 +261,8 @@ void Levels::SerializeLevels() {
 	credits_.Serialize();
 	win_.Serialize();
 	lose_.Serialize();
-	
+	cutscene_.Serialize();
+
 	for (PlaysIt it = plays_.begin(); it != plays_.end(); ++it) {
 		it->Serialize();
 	}
@@ -290,8 +298,8 @@ Level* Levels::GetLastPlayLevel() {
 }
 
 Level* Levels::GetNextPlayableLevel() {
-	
-	
+
+
 	if (++current_play_index_ <= plays_.size()) {
 
 		return &plays_[current_play_index_];
@@ -307,11 +315,11 @@ void Levels::ResetPlayLevels() {
 }
 
 void Levels::AddNewPlayLevelEntry() {
-	
+
 	plays_.push_back({});
 }
 
 void Levels::DeletePlayLevelEntry() {
-	
+
 	plays_.pop_back();
 }
