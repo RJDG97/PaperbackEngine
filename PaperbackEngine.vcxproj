@@ -322,6 +322,7 @@
     <ClInclude Include="Include\Script\ScriptList.h" />
     <ClInclude Include="Include\Script\Player_Script.h" />
     <ClInclude Include="Include\Script\Stag_Tree.h" />
+    <ClInclude Include="Include\Script\TitleCard_Script.h" />
     <ClInclude Include="Include\Script\UI_Script.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\Collision.h" />

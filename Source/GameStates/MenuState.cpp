@@ -61,6 +61,10 @@ void MenuState::Init(std::string)
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.8f);
+
+	component_mgr_ = &*CORE->GetManager<ComponentManager>();
+	logic_mgr_ = &*CORE->GetManager<LogicManager>();
+	logic_arr_ = component_mgr_->GetComponentArray<LogicComponent>();
 }
 
 void MenuState::Free()
@@ -83,6 +87,12 @@ void MenuState::Update(Game* game, float frametime)
 {
 	UNREFERENCED_PARAMETER(game);
 	UNREFERENCED_PARAMETER(frametime);
+
+	for (LogicIt it = logic_arr_->begin(); it != logic_arr_->end(); ++it) {
+
+		std::string scr = it->second->GetLogic("Title");
+		logic_mgr_->Exec(scr, it->first);
+	}
 }
 
 void MenuState::Draw(Game* game)

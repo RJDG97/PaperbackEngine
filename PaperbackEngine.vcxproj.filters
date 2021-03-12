@@ -473,6 +473,9 @@
     <ClCompile Include="Source\Systems\Parenting.cpp">
       <Filter>Systems\Parenting</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Script\Common_Nodes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -807,6 +810,10 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\Parenting.h">
       <Filter>Systems\Parenting</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Common_Nodes.h" />
+    <ClInclude Include="Include\Script\TitleCard_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

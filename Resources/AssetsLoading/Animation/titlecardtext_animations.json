@@ -1,0 +1,14 @@
+{
+  "UI_Gamelogo_Spritesheet_02.png": [ 
+    {
+	  "Folder": "UI_Elements/Menu/Animations",
+	  "Animation Batch Name": "TitleText_Animations",
+	  "Columns": "8",
+	  "Rows": "4",
+      "Animation Name, Number of Frames, Frame Duration": "TitleText 8 0.11",
+      "Animation Name, Number of Frames, Frame Duration": "TitleText_2 4 0.11",
+      "Animation Name, Number of Frames, Frame Duration": "Empty 0 0",
+      "Animation Name, Number of Frames, Frame Duration": "Empty 0 0"
+    }
+  ]
+}
