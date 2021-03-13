@@ -2151,7 +2151,7 @@
             "has_finished_animating": "0",
             "animation_speed": "1.3",
             "layer": "0",
-            "order in layer": "5",
+            "order in layer": "4",
             "alive": "1",
             "opacity": "1.0",
             "tint": "1.0 1.0 1.0"
