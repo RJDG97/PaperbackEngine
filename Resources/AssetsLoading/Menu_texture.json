@@ -1,143 +1,161 @@
-{ 
-  "Environment_Tiles": "Resources/Sprites/tiles.png 3 7",
-  
-  "Temp_Background": "Resources/Sprites/Background.png 1 1",
+{
+    "Environment_Tiles": "Resources/Sprites/tiles.png 3 7",
 
-  "Menu_Background": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen.png 1 1",
-  
-  "Menu_Start": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play.png 1 1",
-  
-  "Menu_Start_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Hover.png 1 1",
-  
-  "Menu_Start_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Clicked.png 1 1",
-  
-  "Menu_HowToPlay": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay.png 1 1",
-  
-  "Menu_HowToPlay_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay_Hover.png 1 1",
-  
-  "Menu_HowToPlay_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay_Clicked.png 1 1",
-  
-  "Menu_Editor": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor.png 1 1",
-  
-  "Menu_Editor_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Hover.png 1 1",
-  
-  "Menu_Editor_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Clicked.png 1 1",
-  
-  "Menu_Quit": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit.png 1 1",
-  
-  "Menu_Quit_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit_Hover.png 1 1",
-  
-  "Menu_Quit_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit_Clicked.png 1 1",
-  
-  "Lose_Background": "Resources/Sprites/UI_Elements/Lose/UI_Defeat.png 1 1",
-  
-  "Menu_CloudOne": "Resources/Sprites/UI_Elements/Menu/Clouds_01.png 1 1",
-  
-  "Menu_CloudTwo": "Resources/Sprites/UI_Elements/Menu/Clouds_02.png 1 1",
-  
-  "HowTo_Ability": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Ability.png 1 1",
-  
-  "HowTo_Movement": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Movement.png 1 1",
-  
-  "HowTo_Pause": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Pause.png 1 1",
-  
-  "HowTo_WaterGauge": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_WaterGauge.png 1 1",
-  
-  "UI_LeftButton": "Resources/Sprites/UI_Elements/HowTo/UI_LeftButton.png 1 1",
-  
-  "UI_RightButton": "Resources/Sprites/UI_Elements/HowTo/UI_RightButton.png 1 1",
-  
-  "UI_QuitGame": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame.png 1 1",
-  
-  "UI_QuitNo": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton.png 1 1",
-  
-  "UI_QuitNo_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton_Clicked.png 1 1",
-  
-  "UI_QuitNo_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton_Hover.png 1 1",
-  
-  "UI_QuitYes": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes.png 1 1",
-  
-  "UI_QuitYes_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Clicked.png 1 1",
-  
-  "UI_QuitYes_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Hover.png 1 1",
-  
-  "UI_Win": "Resources/Sprites/UI_Elements/Win/UI_Win.png 1 1",
-  
-  "WaterGauge_Leaves": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Leaves.png 1 1",
-  
-  "WaterGauge_Droplet": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Droplet.png 1 1",
-  
-  "WaterGauge_Shine": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Shine.png 1 1",
-  
-  "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1",
-  
-  "UI_PauseButton": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton.png 1 1",
-  
-  "UI_PauseButton_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton_Clicked.png 1 1",
-  
-  "UI_PauseButton_Hover": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton_Hover.png 1 1",
-  
-  "UI_FullScreenButton": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton.png 1 1",
-  
-  "UI_FullScreenButton_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton_Clicked.png 1 1",
-  
-  "UI_FullScreenButton_Hover": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton_Hover.png 1 1",
-  
-  "UI_Paused_HowTo": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo.png 1 1",
-  
-  "UI_Paused_HowTo_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo_Clicked.png 1 1",
-  
-  "UI_Paused_HowTo_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo_Hover.png 1 1",
-  
-  "UI_Paused_Quit": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit.png 1 1",
-  
-  "UI_Paused_Quit_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit_Clicked.png 1 1",
-  
-  "UI_Paused_Quit_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit_Hover.png 1 1",
-  
-  "UI_Paused_QuitGame": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame.png 1 1",
-  
-  "UI_Paused_QuitGame_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame_Clicked.png 1 1",
-  
-  "UI_Paused_QuitGame_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame_Hover.png 1 1",
-  
-  "UI_Paused_Return": "Resources/Sprites/UI_Elements/Pause/UI_Return.png 1 1",
-  
-  "UI_Paused_Return_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Return_Clicked.png 1 1",
-  
-  "UI_Paused_Return_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Return_Hover.png 1 1",
-  
-  "UI_Paused_Restart": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart.png 1 1",
-  
-  "UI_Paused_Restart_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart_Clicked.png 1 1",
-  
-  "UI_Paused_Restart_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart_Hover.png 1 1",
-  
-  "UI_Paused_Resume": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume.png 1 1",
-  
-  "UI_Paused_Resume_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume_Clicked.png 1 1",
-  
-  "UI_Paused_Resume_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume_Hover.png 1 1",
-  
-  "UI_Paused_Settings": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Settings.png 1 1",
-  
-  "UI_PauseMenu": "Resources/Sprites/UI_Elements/Pause/UI_PauseMenu.png 1 1",
-  
-  "UI_HowToPlay": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay.png 1 1",
-  
-  "UI_Objectives": "Resources/Sprites/UI_Elements/HowTo/UI_Objectives.png 1 1",
+    "Temp_Background": "Resources/Sprites/Background.png 1 1",
 
-  "UI_DialogueBox": "Resources/Sprites/UI_Elements/Dialogue/UI_DialogueBox.png 1 1",
-  
-  "UI_HealthBar_Full": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Full.png 1 1",
-  
-  "UI_HealthBar_Half": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Half.png 1 1",
+    "Level2_Background01": "Resources/Sprites/Level2_Background/Level_02_01.png 1 1",
 
-  "UI_HealthBar_Low": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Low.png 1 1",
-  
-  "UI_HealthBar_Base": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Water_Base.png 1 1",
+    "Level2_Background02": "Resources/Sprites/Level2_Background/Level_02_02.png 1 1",
 
-  "UI_HealthBar_Shade": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Water_Shade.png 1 1"
-  
-  
+    "Level2_Background03": "Resources/Sprites/Level2_Background/Level_02_03.png 1 1",
+
+    "Level2_Background04": "Resources/Sprites/Level2_Background/Level_02_04.png 1 1",
+
+    "Level2_Background05": "Resources/Sprites/Level2_Background/Level_02_05.png 1 1",
+
+    "Level2_Background06": "Resources/Sprites/Level2_Background/Level_02_06.png 1 1",
+
+    "Level2_Background07": "Resources/Sprites/Level2_Background/Level_02_07.png 1 1",
+
+    "Level2_Background08": "Resources/Sprites/Level2_Background/Level_02_08.png 1 1",
+
+    "Level2_Background09": "Resources/Sprites/Level2_Background/Level_02_09.png 1 1",
+
+    "Menu_Background": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen.png 1 1",
+
+    "Menu_Start": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play.png 1 1",
+
+    "Menu_Start_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Hover.png 1 1",
+
+    "Menu_Start_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Clicked.png 1 1",
+
+    "Menu_HowToPlay": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay.png 1 1",
+
+    "Menu_HowToPlay_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay_Hover.png 1 1",
+
+    "Menu_HowToPlay_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_HowToPlay_Clicked.png 1 1",
+
+    "Menu_Editor": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor.png 1 1",
+
+    "Menu_Editor_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Hover.png 1 1",
+
+    "Menu_Editor_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Clicked.png 1 1",
+
+    "Menu_Quit": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit.png 1 1",
+
+    "Menu_Quit_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit_Hover.png 1 1",
+
+    "Menu_Quit_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Quit_Clicked.png 1 1",
+
+    "Lose_Background": "Resources/Sprites/UI_Elements/Lose/UI_Defeat.png 1 1",
+
+    "Menu_CloudOne": "Resources/Sprites/UI_Elements/Menu/Clouds_01.png 1 1",
+
+    "Menu_CloudTwo": "Resources/Sprites/UI_Elements/Menu/Clouds_02.png 1 1",
+
+    "HowTo_Ability": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Ability.png 1 1",
+
+    "HowTo_Movement": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Movement.png 1 1",
+
+    "HowTo_Pause": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Pause.png 1 1",
+
+    "HowTo_WaterGauge": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_WaterGauge.png 1 1",
+
+    "UI_LeftButton": "Resources/Sprites/UI_Elements/HowTo/UI_LeftButton.png 1 1",
+
+    "UI_RightButton": "Resources/Sprites/UI_Elements/HowTo/UI_RightButton.png 1 1",
+
+    "UI_QuitGame": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame.png 1 1",
+
+    "UI_QuitNo": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton.png 1 1",
+
+    "UI_QuitNo_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton_Clicked.png 1 1",
+
+    "UI_QuitNo_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_CloseButton_Hover.png 1 1",
+
+    "UI_QuitYes": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes.png 1 1",
+
+    "UI_QuitYes_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Clicked.png 1 1",
+
+    "UI_QuitYes_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Hover.png 1 1",
+
+    "UI_Win": "Resources/Sprites/UI_Elements/Win/UI_Win.png 1 1",
+
+    "WaterGauge_Leaves": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Leaves.png 1 1",
+
+    "WaterGauge_Droplet": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Droplet.png 1 1",
+
+    "WaterGauge_Shine": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Shine.png 1 1",
+
+    "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1",
+
+    "UI_PauseButton": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton.png 1 1",
+
+    "UI_PauseButton_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton_Clicked.png 1 1",
+
+    "UI_PauseButton_Hover": "Resources/Sprites/UI_Elements/Pause/UI_PauseButton_Hover.png 1 1",
+
+    "UI_FullScreenButton": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton.png 1 1",
+
+    "UI_FullScreenButton_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton_Clicked.png 1 1",
+
+    "UI_FullScreenButton_Hover": "Resources/Sprites/UI_Elements/Pause/UI_FullScreenButton_Hover.png 1 1",
+
+    "UI_Paused_HowTo": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo.png 1 1",
+
+    "UI_Paused_HowTo_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo_Clicked.png 1 1",
+
+    "UI_Paused_HowTo_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_HowTo_Hover.png 1 1",
+
+    "UI_Paused_Quit": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit.png 1 1",
+
+    "UI_Paused_Quit_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit_Clicked.png 1 1",
+
+    "UI_Paused_Quit_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Quit_Hover.png 1 1",
+
+    "UI_Paused_QuitGame": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame.png 1 1",
+
+    "UI_Paused_QuitGame_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame_Clicked.png 1 1",
+
+    "UI_Paused_QuitGame_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_QuitGame_Hover.png 1 1",
+
+    "UI_Paused_Return": "Resources/Sprites/UI_Elements/Pause/UI_Return.png 1 1",
+
+    "UI_Paused_Return_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Return_Clicked.png 1 1",
+
+    "UI_Paused_Return_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Return_Hover.png 1 1",
+
+    "UI_Paused_Restart": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart.png 1 1",
+
+    "UI_Paused_Restart_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart_Clicked.png 1 1",
+
+    "UI_Paused_Restart_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Restart_Hover.png 1 1",
+
+    "UI_Paused_Resume": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume.png 1 1",
+
+    "UI_Paused_Resume_Clicked": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume_Clicked.png 1 1",
+
+    "UI_Paused_Resume_Hover": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Resume_Hover.png 1 1",
+
+    "UI_Paused_Settings": "Resources/Sprites/UI_Elements/Pause/UI_Paused_Settings.png 1 1",
+
+    "UI_PauseMenu": "Resources/Sprites/UI_Elements/Pause/UI_PauseMenu.png 1 1",
+
+    "UI_HowToPlay": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay.png 1 1",
+
+    "UI_Objectives": "Resources/Sprites/UI_Elements/HowTo/UI_Objectives.png 1 1",
+
+    "UI_DialogueBox": "Resources/Sprites/UI_Elements/Dialogue/UI_DialogueBox.png 1 1",
+
+    "UI_HealthBar_Full": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Full.png 1 1",
+
+    "UI_HealthBar_Half": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Half.png 1 1",
+
+    "UI_HealthBar_Low": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Low.png 1 1",
+
+    "UI_HealthBar_Base": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Water_Base.png 1 1",
+
+    "UI_HealthBar_Shade": "Resources/Sprites/UI_Elements/Healthbar/UI_HealthBar_Water_Shade.png 1 1"
+
+
 }

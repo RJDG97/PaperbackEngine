@@ -2,7 +2,6 @@
     "Player": "Resources\\Level2\\Player\\Player_Character.json",
     "Camera": "Resources\\Level2\\Map\\Camera.json",
     "Wall": "Resources\\Level2\\Map\\Gravel\\Wall_Gravel.json",
-    "Floor": "Resources\\Level2\\Map\\Floor_Layout.json",
     "BushLight": "Resources\\Level2\\Map\\Bush\\LightBush.json",
     "BushDark": "Resources\\Level2\\Map\\Bush\\DarkBushes.json",
     "InputController": "Resources\\Level2\\Player\\Player_Input_Controls.json",
@@ -41,5 +40,14 @@
     "Log": "Resources\\Level2\\Map\\Log.json",
     "Goal": "Resources\\Level2\\Map\\Goal.json",
     "PuzzleHole": "Resources\\Level2\\Map\\Hole.json",
-    "DialogueTriggerBox": "Resources\\Level2\\Dialogue\\dialogue_trigger.json"
+    "DialogueTriggerBox": "Resources\\Level2\\Dialogue\\dialogue_trigger.json",
+    "Level2Floor_01": "Resources\\Level2\\Map\\Floor\\Floor_Layout_01.json",
+    "Level2Floor_02": "Resources\\Level2\\Map\\Floor\\Floor_Layout_02.json",
+    "Level2Floor_03": "Resources\\Level2\\Map\\Floor\\Floor_Layout_03.json",
+    "Level2Floor_04": "Resources\\Level2\\Map\\Floor\\Floor_Layout_04.json",
+    "Level2Floor_05": "Resources\\Level2\\Map\\Floor\\Floor_Layout_05.json",
+    "Level2Floor_06": "Resources\\Level2\\Map\\Floor\\Floor_Layout_06.json",
+    "Level2Floor_07": "Resources\\Level2\\Map\\Floor\\Floor_Layout_07.json",
+    "Level2Floor_08": "Resources\\Level2\\Map\\Floor\\Floor_Layout_08.json",
+    "Level2Floor_09": "Resources\\Level2\\Map\\Floor\\Floor_Layout_09.json"
 }
