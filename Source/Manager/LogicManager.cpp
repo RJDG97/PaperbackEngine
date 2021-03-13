@@ -19,6 +19,7 @@
 #include "Script/Button_Script.h"
 #include "Script/Movable_Script.h"
 #include "Script/DialogueTrigger_Script.h"
+#include "Script/TitleCard_Script.h"
 #include "Systems/Message.h"
 
 
@@ -51,6 +52,8 @@ void LogicManager::Init() {
 	RegisterLogic("MenuState_HowToPlay", &Button_Script::MenuHowToPlay);
 	RegisterLogic("MenuState_EnterEditorState", &Button_Script::MenuEnterEditor);
 	RegisterLogic("MenuState_QuitGame", &Button_Script::MenuQuitGame);
+	RegisterLogic("MenuState_TitleCard", &TitleCard_Script::TitleCardAnim);
+	RegisterLogic("MenuState_TitleText", &TitleCard_Script::TitleTextAnim);
 
 	// Register PauseState Button helper functions
 	RegisterLogic("PlayState_PauseGame", &Button_Script::PlayPauseGame);

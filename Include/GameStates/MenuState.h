@@ -15,12 +15,20 @@
 #define MENUSTATE_H
 
 #include "GameStates/GameState.h"
+#include "Manager/LogicManager.h"
 
 // Menu State Test
 class MenuState : public GameState
 {
 
+	using LogicType = CMap<LogicComponent>;
+	using LogicIt = LogicType::MapTypeIt;
 	bool help_{ false };
+
+	LogicType* logic_arr_;
+	
+	ComponentManager* component_mgr_;
+	LogicManager* logic_mgr_;
 public:
 	friend class Game;
 

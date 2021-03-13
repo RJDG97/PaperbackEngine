@@ -141,10 +141,30 @@
             "volume": "0.200000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
-            "loop": "0"
+            "loop": "0",
+            "tag": "player_jump"
         }
     ],
-
+    "PlayerJump_1": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump_2.mp3",
+            "volume": "0.500000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_jump"
+        }
+    ],
+    "PlayerJump_2": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump_1.mp3",
+            "volume": "0.200000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_jump"
+        }
+    ],
     "PlayerWaterDepletes": [
         {
             "path": "Resources/SoundCache/Player/Player_Depletes.mp3",

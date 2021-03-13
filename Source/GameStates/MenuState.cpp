@@ -15,7 +15,7 @@
 
 #include "Systems/Game.h"
 #include "GameStates/MenuState.h"
-#include "GameStates/PlayState.h"
+#include "GameStates/CutSceneState.h"
 #include "GameStates/EditorState.h"
 #include "GameStates/WinLoseState.h"
 
@@ -62,6 +62,10 @@ void MenuState::Init(std::string)
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.8f);
+
+	component_mgr_ = &*CORE->GetManager<ComponentManager>();
+	logic_mgr_ = &*CORE->GetManager<LogicManager>();
+	logic_arr_ = component_mgr_->GetComponentArray<LogicComponent>();
 }
 
 void MenuState::Free()
@@ -84,6 +88,12 @@ void MenuState::Update(Game* game, float frametime)
 {
 	UNREFERENCED_PARAMETER(game);
 	UNREFERENCED_PARAMETER(frametime);
+
+	for (LogicIt it = logic_arr_->begin(); it != logic_arr_->end(); ++it) {
+
+		std::string scr = it->second->GetLogic("Title");
+		logic_mgr_->Exec(scr, it->first);
+	}
 }
 
 void MenuState::Draw(Game* game)
@@ -119,7 +129,8 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				CORE->BroadcastMessage(&button);
 
 				// Enter play state
-				CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_PlayState);
+				//CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_CutSceneState);
+				CORE->GetSystem<Game>()->ChangeState(&m_CutSceneState);
 				return;
 				break;
 			}
@@ -139,7 +150,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				return;
 				break;
 			}
-			case 3: 
+			case 3:
 			{
 
 				if (help_)
@@ -154,7 +165,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				return;
 				break;
 			}
-			case 4: 
+			case 4:
 			{
 
 				if (help_)
@@ -167,7 +178,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				return;
 				break;
 			}
-			case 7: 
+			case 7:
 			{
 
 				if (!help_)

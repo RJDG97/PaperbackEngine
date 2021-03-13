@@ -21,7 +21,7 @@
 
 SoundSystem::SoundSystem() :
 	player_{ nullptr },
-	b_mute_{ false }, 
+	b_mute_{ false },
 	b_paused_{ false },
 	debug_{ false },
 	volume_{ 0.3f }
@@ -53,27 +53,27 @@ bool SoundSystem::CheckError(FMOD_RESULT fResult) {
 }
 
 SoundSystem::SoundMap& SoundSystem::GetSoundLibrary() {
-	
+
 	return sound_library_;
 }
 
 SoundSystem::ChannelMap& SoundSystem::GetChannelLibrary() {
-	
+
 	return channel_library_;
 }
 
 void SoundSystem::SetVolume(std::string fileID, const float& vol) {
-	
+
 	auto s_it = sound_library_.find(fileID);
 
 	if (s_it != sound_library_.end()) {
-		
+
 		s_it->second->volume_ = vol;
 
 		auto c_it = channel_library_.find(fileID);
 
 		if (c_it != channel_library_.end()) {
-			
+
 			c_it->second->volume_ = vol;
 		}
 	}
@@ -87,8 +87,8 @@ void SoundSystem::LoadSound(std::string name, std::stringstream& data) {
 	data >> sf->path_;
 
 	// Read SoundFile data
-	data >> sf->volume_ >> sf->min_distance_ 
-		 >> sf->volume_falloff_ >> sf->loop_;
+	data >> sf->volume_ >> sf->min_distance_
+		>> sf->volume_falloff_ >> sf->loop_ >> sf->tag_;
 
 	sf->original_volume_ = sf->volume_;
 
@@ -155,6 +155,56 @@ void SoundSystem::PlaySounds(std::string fileID) {
 	}
 }
 
+void SoundSystem::PlayTaggedSounds(std::string file_tag) {
+
+	// Grab all files with tag in sound library
+	std::vector<SoundIt> list{};
+
+	for (SoundIt s_it = sound_library_.begin(); s_it != sound_library_.end(); ++s_it) {
+
+		if (s_it->second->tag_ == file_tag) {
+
+			list.push_back(s_it);
+		}
+	}
+
+	SoundIt it = (!list.empty()) ? list[rand() % list.size()] : sound_library_.end();
+
+	// If sound file exists within the sound library
+	if (it != sound_library_.end()) {
+
+		// Check whether current sound file is already playing
+		ChannelIt channelIT = channel_library_.find(it->first);
+
+		// If sound file is currently not playing
+		if (channelIT == channel_library_.end()) {
+
+			std::shared_ptr<SoundChannel> channel = std::make_shared<SoundChannel>();
+
+			// Load the channel with the sound file and play
+			if (CheckError(f_system_->playSound(it->second->sound_, 0, false, &channel->channel_))) {
+
+				// If channel is playing the sound file successfully
+				if (channel != nullptr) {
+
+					channel->volume_ = it->second->volume_;
+					channel->original_volume_ = it->second->original_volume_;
+					channel->min_distance_ = it->second->min_distance_;
+					channel->sqr_min_distance_ = it->second->min_distance_ * it->second->min_distance_;
+					channel->volume_falloff_ = it->second->volume_falloff_;
+
+					channel_library_[it->first] = channel;
+					//channel_library_.emplace(std::pair<std::string, SoundChannel*>(fileID, channel));
+				}
+			}
+		}
+	}
+	else {
+		std::cout << "File with tag " << file_tag.c_str() << " does not exist!" << std::endl;
+		return;
+	}
+}
+
 void SoundSystem::StopSound(std::string fileID, bool stopAllChannels) {
 
 	// Stop a single channel
@@ -174,6 +224,7 @@ void SoundSystem::StopSound(std::string fileID, bool stopAllChannels) {
 
 			sound_channel->channel_->stop();
 		}
+
 		player_ = nullptr;
 	}
 }
@@ -189,16 +240,16 @@ void SoundSystem::MuteSound(std::string file_id, bool status, bool all) {
 		auto it = channel_library_.find(file_id);
 
 		if (it != channel_library_.end()) {
-			
+
 			it->second->channel_->setMute(status);
 		}
 	}
 	else {
-		
+
 		b_mute_ = !b_mute_;
 
 		for (auto& [name, sound_channel] : channel_library_) {
-			
+
 			sound_channel->mute_ = b_mute_;
 			sound_channel->channel_->setMute(b_mute_);
 		}
@@ -238,11 +289,11 @@ void SoundSystem::RemoveSound(std::string name) {
 	auto sound_it = sound_library_.find(name);
 
 	if (channel_it != channel_library_.end()) {
-		
+
 		channel_library_.erase(channel_it);
 	}
 	if (sound_it != sound_library_.end()) {
-		
+
 		sound_library_.erase(sound_it);
 	}
 }
@@ -300,7 +351,7 @@ void SoundSystem::DeSerialize(const std::string& filepath) {
 }
 
 void SoundSystem::Serialize(const std::string& filepath) {
-	
+
 	std::ofstream file(filepath);
 
 	DEBUG_ASSERT(file.is_open(), "File does not exist");
@@ -311,7 +362,7 @@ void SoundSystem::Serialize(const std::string& filepath) {
 	writer.StartObject();
 
 	for (auto& [name, soundfile] : sound_library_) {
-		
+
 		writer.Key(name.c_str());
 		writer.StartArray();
 		soundfile->Serialize(&writer);
@@ -343,13 +394,16 @@ void SoundSystem::Update(float frametime) {
 
 	if (!player_)
 		player_ = CORE->GetManager<EntityManager>()->GetPlayerEntities();
-	
+
 	if (player_) {
 
 		EntityID player_id = player_->GetID();
 		Transform* player_transform = component_manager_->GetComponent<Transform>(player_id);
 
-		DEBUG_ASSERT(player_transform, "Player does not have a transform component!");
+		//DEBUG_ASSERT(player_transform, "Player does not have a transform component!");
+		if (!player_transform) {
+			return;
+		}
 
 		for (auto& [id, sound_emitter] : *sound_emitter_arr_) {
 
@@ -379,39 +433,39 @@ void SoundSystem::Update(float frametime) {
 	}
 
 	for (auto channel = channel_library_.begin(); channel != channel_library_.end(); ++channel) {
-		
+
 		bool b_playing = false;
-		
+
 		// Get status of channel
 		channel->second->channel_->setVolume(channel->second->volume_);
 		channel->second->channel_->isPlaying(&b_playing);
-	
+
 		if (!b_playing) {
-			
+
 			completed_channel_.push_back(channel);
 		}
 	}
-	
+
 	if (completed_channel_.size() > 0) {
 
 		RemoveCompletedChannel();
 	}
-	
+
 }
 
 void SoundSystem::Draw() {
 
 	if (debug_) {
-		
+
 		std::vector<std::pair<glm::vec2, glm::vec2>> points;
 
 		for (auto& [id, sound_emitter] : *sound_emitter_arr_) {
 
 			for (size_t i = 0; i < sound_emitter->GetSoundLines().size(); ++i) {
-				
+
 				std::vector<glm::vec2> line{};
 				SoundLineToGLM(sound_emitter->GetSoundLines()[i], line);
-				points.push_back({line[0], line[1]});
+				points.push_back({ line[0], line[1] });
 
 				if (points.size() == graphics_system_->GetBatchSize())
 				{
@@ -429,7 +483,7 @@ void SoundSystem::Draw() {
 }
 
 std::string SoundSystem::GetName() {
-	
+
 	return { "SoundSystem" };
 }
 
@@ -481,6 +535,7 @@ void SoundSystem::SendMessageD(Message* m) {
 SoundFile::SoundFile() :
 	sound_{ nullptr },
 	path_{ },
+	tag_{ },
 	volume_{ 1.0f },
 	original_volume_{ 1.0f },
 	min_distance_{ },
@@ -488,9 +543,10 @@ SoundFile::SoundFile() :
 	loop_{ false }
 { }
 
-SoundFile::SoundFile(std::string path, float vol, float min_distance, float volume_falloff, bool loop) :
+SoundFile::SoundFile(std::string path, float vol, float min_distance, float volume_falloff, bool loop, const std::string& tag) :
 	sound_{ nullptr },
 	path_{ path },
+	tag_{ tag },
 	volume_{ vol },
 	original_volume_{ vol },
 	min_distance_{ min_distance },
@@ -517,6 +573,9 @@ void SoundFile::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writ
 	writer->Key("loop");
 	writer->String(std::to_string(loop_).c_str());
 
+	writer->Key("tag");
+	writer->String(tag_.c_str());
+
 	writer->EndObject();
 }
 
@@ -537,8 +596,9 @@ SoundChannel::SoundChannel() :
 	mute_{ false }
 { }
 
-SoundChannel::SoundChannel(float volume, float min_distance, float volume_falloff) :
+SoundChannel::SoundChannel(float volume, float min_distance, float volume_falloff, const std::string& tag) :
 	channel_{ nullptr },
+	tag_{ tag },
 	volume_{ volume },
 	original_volume_{ volume },
 	min_distance_{ min_distance },
@@ -549,6 +609,6 @@ SoundChannel::SoundChannel(float volume, float min_distance, float volume_fallof
 { }
 
 SoundChannel::~SoundChannel() {
-	
+
 	channel_->stop();
 }

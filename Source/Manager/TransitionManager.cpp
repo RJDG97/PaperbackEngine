@@ -17,7 +17,7 @@
 #include "Manager/TransitionManager.h"
 
 
-TransitionManager::TransitionManager() : 
+TransitionManager::TransitionManager() :
 	transition_speed_{ },
 	max_size_{ 800.0f, 450.0f },
 	max_clear_size_{ 320.0f, 180.0f },
@@ -26,13 +26,13 @@ TransitionManager::TransitionManager() :
 	next_state_{ nullptr },
 	begin_{ false },
 	end_{ false }
-{ 
+{
 
 }
 
 
 void TransitionManager::Init() {
-	
+
 	current_transition_ = nullptr;
 	begin_ = false;
 
@@ -43,19 +43,24 @@ void TransitionManager::Init() {
 	DeSerialize("Resources/AssetsLoading/Scene_transition.json");
 }
 
-
-void TransitionManager::ResetTransition(const std::string& id, GameState* next_state) {
+void TransitionManager::ResetCurrentTransitionTimer() {
 
 	if (current_transition_)
-		return;
-	
+		current_transition_->timer_ = -0.2f;
+}
+
+bool TransitionManager::ResetTransition(const std::string& id, GameState* next_state) {
+
+	/*if (current_transition_)
+		return false;
+	*/
 	SceneTransitionsIt it = transition_map_.find(id);
 
 	// This works based on the assumption that there is at least 1 texture name loaded in from the json
 	// and there is only 1 texture renderer component (Single entity)
 
 	if (it != transition_map_.end()) {
-	
+
 		current_size_ = {};
 		clear_current_size_ = {};
 		graphics_system_->SetVignetteSize(clear_current_size_);
@@ -64,11 +69,11 @@ void TransitionManager::ResetTransition(const std::string& id, GameState* next_s
 		transition_speed_ = max_size_ / current_transition_->default_transition_timer_;
 
 		if (current_transition_->skip_) {
-			
+
 			end_ = true;
 			next_state_ = next_state;
 			current_transition_->current_texture_ = current_transition_->texture_sequence_.begin();
-			return;
+			return true;
 		}
 
 		current_transition_->current_texture_ = current_transition_->texture_sequence_.begin();
@@ -77,12 +82,16 @@ void TransitionManager::ResetTransition(const std::string& id, GameState* next_s
 
 		// Set initial texture
 		graphics_system_->ChangeTexture(texture_arr_->GetComponent(1), *current_transition_->current_texture_);
+
+		return true;
 	}
+
+	return false;
 }
 
 
 bool TransitionManager::DelayTransition(const float& frametime) {
-	
+
 	if (current_transition_->dark_timer_ > 0.0f) {
 
 		current_transition_->dark_timer_ -= frametime;
@@ -118,7 +127,7 @@ void TransitionManager::OpenTransition(const float& frametime) {
 
 		// If the current transition is null, reset
 		if (current_transition_->current_texture_ == current_transition_->texture_sequence_.end()) {
-		
+
 			current_transition_ = nullptr;
 			next_state_ = nullptr;
 		}
@@ -147,13 +156,13 @@ void TransitionManager::CloseTransition(const float& frametime) {
 
 		if (current_transition_->current_texture_ != current_transition_->texture_sequence_.end() &&
 			++current_transition_->current_texture_ != current_transition_->texture_sequence_.end()) {
-			
+
 			graphics_system_->ChangeTexture(texture_arr_->GetComponent(1), *current_transition_->current_texture_);
 			current_transition_->dark_timer_ = current_transition_->default_dark_timer_;
 		}
 
 		else {
-			
+
 			// change state
 			CORE->GetSystem<Game>()->ChangeState(next_state_);
 
@@ -168,7 +177,7 @@ void TransitionManager::CloseTransition(const float& frametime) {
 
 
 void TransitionManager::LoadTransition(std::string name, std::stringstream& data) {
-	
+
 	std::shared_ptr<SceneTransition> scene = std::make_shared<SceneTransition>();
 
 	// Read in data from the stream
@@ -178,12 +187,14 @@ void TransitionManager::LoadTransition(std::string name, std::stringstream& data
 
 	// Initialize vector of textures to be changed in sequence
 	for (size_t i = 0; i < scene->size_; ++i) {
-		
+
 		std::string texture_name{};
 		data >> texture_name;
 
 		scene->texture_sequence_.push_back(texture_name);
 	}
+
+	data >> scene->cutscene_;
 
 	transition_map_[name] = scene;
 }

@@ -21,6 +21,16 @@
       "name": "Splash_MonkeyLogo_0"
     }
   ],
+  "Tutorial": [
+    {
+      "size": "1",
+      "default timer": "2.0",
+      "default transition timer": "2.0",
+      "dark timer": "2.0",
+      "name": "Splash_MonkeyLogo_0",
+      "cutscene": "1"
+    }
+  ],
   "Default": [
     {
       "size": "0",

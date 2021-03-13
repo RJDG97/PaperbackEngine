@@ -491,6 +491,9 @@
     <ClCompile Include="Source\Systems\PuzzleSystem.cpp">
       <Filter>Systems\PuzzleSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameStates\CutSceneState.cpp">
+      <Filter>Systems\Scene/State Manager\Game States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity\Entity.h">
@@ -840,6 +843,12 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\PuzzleSystem.h">
       <Filter>Systems\PuzzleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\TitleCard_Script.h">
+      <Filter>Entity\Components\Logic\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameStates\CutSceneState.h">
+      <Filter>Systems\Scene/State Manager\Game States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

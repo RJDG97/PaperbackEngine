@@ -7,5 +7,11 @@
   
   "Clouds": "Resources/EntityConfig/Menu/clouds.json",
   
-  "HowToPlay": "Resources/EntityConfig/Menu/howtoplay.json"
+  "HowToPlay": "Resources/EntityConfig/Menu/howtoplay.json",
+  
+  "MenuTitleCard": "Resources/EntityConfig/Menu/titlecard.json",
+  
+  "MenuTitle": "Resources/EntityConfig/Menu/titlecardtext.json",
+  
+  "MenuRadish": "Resources/EntityConfig/Menu/menuradish.json"
 }

@@ -30,11 +30,11 @@
 #include "GameStates/MenuState.h"
 
 void PlayBurrow(Status* status) {
-	
+
 	if (status->GetStatus() == StatusType::BURROW) {
 
 		int value = std::rand() % 3;
-		std::string sound{"PlayerBurrowing_"};
+		std::string sound{ "PlayerBurrowing_" };
 		sound += std::to_string(value);
 		CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
 	}
@@ -44,35 +44,35 @@ void PlayBurrow(Status* status) {
 namespace Player_Scripts
 {
 	void CollectedCollectible(const EntityID& player_id, const EntityID& collectible_id) {
-		
+
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
 		Collectible* collectible = component_mgr->GetComponent<Collectible>(collectible_id);
 
 		if (!collectible)
 			return;
-		
+
 		switch (collectible->GetItemType())
 		{
-			case CollectibleType::PUDDLE:
-			{
-				Health* health = component_mgr->GetComponent<Health>(player_id);
+		case CollectibleType::PUDDLE:
+		{
+			Health* health = component_mgr->GetComponent<Health>(player_id);
 
-				if (health) {
-					health->IncrementHealth();
-				}
-
-				break;
+			if (health) {
+				health->IncrementHealth();
 			}
-			case CollectibleType::KEY:
-			{
-				Inventory* inventory = component_mgr->GetComponent<Inventory>(player_id);
 
-				if (inventory) {
-					inventory->InsertItem(*collectible);
-				}
+			break;
+		}
+		case CollectibleType::KEY:
+		{
+			Inventory* inventory = component_mgr->GetComponent<Inventory>(player_id);
 
-				break;
+			if (inventory) {
+				inventory->InsertItem(*collectible);
 			}
+
+			break;
+		}
 		}
 	}
 
@@ -112,7 +112,7 @@ namespace Player_Scripts
 	*/
 	/******************************************************************************/
 	void TextureUpdateScript(const EntityID& parent_id) {
-		
+
 		std::shared_ptr<GraphicsSystem> graphics = CORE->GetSystem<GraphicsSystem>();
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 
@@ -127,50 +127,50 @@ namespace Player_Scripts
 
 		switch (status->GetStatus())
 		{
-			case StatusType::BURROW:
-			{
-				renderer->SetAnimationStatus(true);
+		case StatusType::BURROW:
+		{
+			renderer->SetAnimationStatus(true);
 
+			if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
+
+				graphics->ChangeAnimation(renderer, "Player_Burrow_Idle");
+			}
+			else {
+
+				graphics->ChangeAnimation(renderer, "Player_Burrow_Walk");
+			}
+			break;
+		}
+		case StatusType::INVISIBLE:
+		{
+			if (renderer->FinishedAnimating())
+				renderer->SetAnimationStatus(false);
+
+			break;
+		}
+		default:
+		{
+			// check if hit then reset accordingly based on the timer
+
+			renderer->SetAnimationStatus(true);
+
+			if (renderer->FinishedAnimating()) {
+
+				// If velocity is essentially 0, set player to idle
 				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
 
-					graphics->ChangeAnimation(renderer, "Player_Burrow_Idle");
+					graphics->ChangeAnimation(renderer, "Player_Idle");
 				}
+				// If velocity isn't 0 set to walk
 				else {
 
-					graphics->ChangeAnimation(renderer, "Player_Burrow_Walk");
-				}
-				break;
-			}
-			case StatusType::INVISIBLE:
-			{
-				if (renderer->FinishedAnimating())
-					renderer->SetAnimationStatus(false);
+					graphics->ChangeAnimation(renderer, "Player_Walk");
 
-				break;
-			}
-			default:
-			{
-				// check if hit then reset accordingly based on the timer
-
-				renderer->SetAnimationStatus(true);
-
-				if (renderer->FinishedAnimating()) {
-
-					// If velocity is essentially 0, set player to idle
-					if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
-
-						graphics->ChangeAnimation(renderer, "Player_Idle");
-					}
-					// If velocity isn't 0 set to walk
-					else {
-
-						graphics->ChangeAnimation(renderer, "Player_Walk");
-
-						if (renderer->FinishedAnimating())
-							CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerJump");
-					}
+					if (renderer->FinishedAnimating())
+						CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_jump");
 				}
 			}
+		}
 
 		}
 
@@ -204,11 +204,11 @@ namespace Player_Scripts
 		std::shared_ptr<Game> game = CORE->GetSystem<Game>();
 
 		InputController* controller = component_mgr->GetComponent<InputController>(id);
-		
+
 		if (!m || !component_mgr || !entity_mgr || !game || !controller)
 			return;
 
-		
+
 
 		if (controller->VerifyKey("pause", m->input_)) { // "Esc" key
 			CORE->ToggleCorePauseStatus(); // Disable physics update
@@ -247,7 +247,7 @@ namespace Player_Scripts
 			Status* player_status = component_mgr->GetComponent<Status>(player_id);
 			Transform* player_transform = component_mgr->GetComponent<Transform>(player_id);
 			AnimationRenderer* anim_renderer = CORE->GetManager<ComponentManager>()->GetComponent<AnimationRenderer>(player_id);
-			
+
 			//God Mode
 			if (controller->VerifyKey("god", m->input_)) {
 
@@ -270,12 +270,12 @@ namespace Player_Scripts
 
 				if (controller->VerifyKey("teleport_key", m->input_)) {
 
-					player_transform->SetPosition( { 24.8f, 31.0f } );
+					player_transform->SetPosition({ 24.8f, 31.0f });
 				}
 
 				if (controller->VerifyKey("teleport_house", m->input_)) {
 
-					player_transform->SetPosition( { -23.5f, 23.0f } );
+					player_transform->SetPosition({ -23.5f, 23.0f });
 				}
 			}
 
@@ -317,7 +317,7 @@ namespace Player_Scripts
 					}
 				}
 			}
-			
+
 
 			if (player_status && player_status->GetStatus() != StatusType::INVISIBLE && !CORE->GetMovementLock()) {
 				//input group
