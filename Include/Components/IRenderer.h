@@ -34,6 +34,8 @@ public:
 	friend class ParticleSystem;
 	friend class Emitter;
 
+    IRenderer(): order_in_layer_{0}, layer_{0}, alive_{1}, opacity_{1} {}
+
 /******************************************************************************/
 /*!
   \fn IsAlive()

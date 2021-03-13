@@ -1126,8 +1126,6 @@ void EntityWindow::TextureRendererComponent(Entity* entity) {
 			layerName = find->second.GetName();
 		}
 
-		
-
 		ImGui::PushItemWidth(200.0f);
 
 		if (ImGui::BeginCombo("##layerchange", (layerName.empty() ? "Choose a layer" : layerName.c_str()))) {

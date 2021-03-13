@@ -17,7 +17,7 @@
 #include "Engine/Core.h"
 #include "Systems/Debug.h"
 
-Scale::Scale() : scale_{}
+Scale::Scale() : scale_{0.0f, 0.0f}
 {}
 
 Scale::~Scale() {
