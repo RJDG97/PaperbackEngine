@@ -94,6 +94,8 @@ void MiscWindow::GraphicsLayerWindow() {
 
         LayerDropDown();
 
+        ImGui::NewLine();
+
         ImGui::Separator();
         
         LayerList();
@@ -133,6 +135,7 @@ void MiscWindow::LayerWindowMenuBar() {
                     if (CheckLayerEmpty(del)) {
 
                         layer_->DeleteLayer(del);
+                        SerializeLayers();
                         b_remove = true;
                     }
                     else
@@ -217,6 +220,7 @@ void MiscWindow::LayerList() {
 
                     layer_->SwapLayer(it->first, next);
                     ImGui::ResetMouseDragDelta();
+                    SerializeLayers();
                 }
             }
 

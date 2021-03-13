@@ -13,9 +13,9 @@
   "Splash": [
     {
       "size": "3",
-      "default timer": "0.1",
-      "default transition timer": "0.1",
-      "dark timer": "0.1",
+      "default timer": "2.0",
+      "default transition timer": "2.0",
+      "dark timer": "2.0",
       "name": "Splash_DigipenLogo_0",
       "name": "Splash_FmodLogo_0",
       "name": "Splash_MonkeyLogo_0"
