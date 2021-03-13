@@ -1,0 +1,480 @@
+{
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-1.350000 0.330000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "AnimationRenderer",
+        "number of animations": "1",
+        "add animation": "Spore_Idle",
+        "set animation": "Spore_Idle",
+        "play_animation": "1",
+		"reversed_": "0",
+		"has_finished_animating": "0",
+		"animation_speed": "1.0",
+        "layer": "1",
+        "order in layer": "2",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-24.00 18.20",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "AnimationRenderer",
+        "number of animations": "1",
+        "add animation": "Spore_Idle",
+        "set animation": "Spore_Idle",
+        "play_animation": "1",
+		"reversed_": "0",
+		"has_finished_animating": "0",
+		"animation_speed": "1.0",
+        "layer": "1",
+        "order in layer": "2",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-25.700000 -10.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "AnimationRenderer",
+        "number of animations": "1",
+        "add animation": "Spore_Idle",
+        "set animation": "Spore_Idle",
+        "play_animation": "1",
+		"reversed_": "0",
+		"has_finished_animating": "0",
+		"animation_speed": "1.0",
+        "layer": "1",
+        "order in layer": "2",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "36.100000 -15.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+      {
+        "component": "AnimationRenderer",
+        "number of animations": "1",
+        "add animation": "Spore_Idle",
+        "set animation": "Spore_Idle",
+        "play_animation": "1",
+		"reversed_": "0",
+		"has_finished_animating": "0",
+		"animation_speed": "1.0",
+        "layer": "1",
+        "order in layer": "2",
+        "alive": "1",
+        "opacity": "1.0",
+        "tint": "1.0 1.0 1.0"
+      },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "36.900000 -17.800000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
+            "play_animation": "1",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
+            "layer": "2",
+            "ui": "0",
+            "alive": "1"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-8.30 4.50",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
+            "play_animation": "1",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-28.40 2.50",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
+            "play_animation": "1",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-12.10 -11.00",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
+            "play_animation": "1",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "-1.00 -18.40",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
+            "play_animation": "1",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "10.80 1.50",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
+            "play_animation": "1",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "9.80 -8.60",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
+            "play_animation": "1",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Spores": [
+        {
+            "component": "Transform",
+            "position": "18.30 -17.40",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
+            "play_animation": "1",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ]
+}
