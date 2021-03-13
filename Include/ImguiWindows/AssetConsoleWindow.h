@@ -75,6 +75,8 @@ class AssetConsoleWindow : public IWindow {
 
 public:
 
+bool b_load;
+
 	/******************************************************************************/
 	/*!
 		\fn Init()
@@ -421,7 +423,7 @@ private:
 	std::string animation_json_; // name of the upper 'layer' animation json file
 	std::string animation_batch_label_, animation_json_key_;
 
-	bool b_unload, b_wrong_type, b_load, b_new_json, b_missing_input;
+	bool b_unload, b_wrong_type, b_new_json, b_missing_input;
 
 	ImGuiInputTextFlags input_flags_;
 

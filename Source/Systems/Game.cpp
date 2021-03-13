@@ -50,15 +50,11 @@ void Game::Init()
 
 	files_to_load_ = LoadAllTextureJson();
 
-	//CORE->GetManager<TextureManager>()->TextureBatchLoad("Menu");
 	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Menu");
 	CORE->GetManager<FontManager>()->FontBatchLoad("Menu");
 
-	//CORE->GetManager<TextureManager>()->TextureBatchLoad("Play");
 	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
 	CORE->GetManager<FontManager>()->FontBatchLoad("Play");
-
-	//CORE->GetManager<TextureManager>()->TextureBatchLoad("UIProps");
 
 	// to load all the files for textures
 	for (int i = 0; i < files_to_load_.size(); ++i)

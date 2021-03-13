@@ -1,13 +1,8 @@
 {
-  "Background": "0 World_Sprite",
-
-  "Props": "1 World_Sprite",
-
-  "Particles": "0 World_Sprite",
-
-  "Vignette": "0 Vignette",
-
-  "UI": "0 UI_Sprite",
-
-  "Dialogue Text": "0 UI_Text"
+    "Background": "0 World_Sprite",
+    "Props": "1 World_Sprite",
+    "Particles": "0 World_Sprite",
+    "Vignette": "0 Vignette",
+    "UI": "0 UI_Sprite",
+    "Dialogue Text": "0 UI_Text"
 }

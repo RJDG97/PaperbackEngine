@@ -80,12 +80,15 @@ void ImguiSystem::Init(){
 
     img_to_add_ = {};
     current_loaded_path_ = {};
+    
 
     archetype_path_ = "Resources/EntityConfig/archetypes.json";
 
     scene_filter_ = "(*.json) Paperback Engine Scene\0*.json\0";
        
     generic_filter_ = "(*.*) All Files\0* *.*\0";
+
+    chosenlayer_ = "Resources/Layers/Play_layers.json";
 
 //////////// Setup Dear ImGui context///////////////////////////
 
@@ -198,7 +201,6 @@ void ImguiSystem::Update(float frametime) {
             ImGui::End(); // end of docking space
 
         }
-
         ImguiRender();
     }
 }
@@ -266,11 +268,9 @@ void ImguiSystem::ImguiMenuBar() {
             }
 
             if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN " Open Scene")) {
-                selected_entity_ = {};
-                editor_->entity_paths_.clear();
-                OpenFile();
-                if (!current_loaded_path_.empty())
-                    LoadJsonPaths(current_loaded_path_);
+
+                b_close_confirm = true;
+                type = CloseApp::OPENSCENE;
             }
 
             if (ImGui::MenuItem(ICON_FA_SAVE " Save")) {
@@ -375,13 +375,13 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::EndMenu();
         }
 
-        if (ImGui::BeginMenu(ICON_FA_WINDOW_RESTORE " Editor Windows")) {
+        if (ImGui::BeginMenu(ICON_FA_WINDOW_RESTORE " Windows")) {
 
             ImGui::Checkbox("Toggle Visible Windows", &b_windows);
             ImGui::Checkbox("Toggle Scene Hierachy", &b_entity_win);
             ImGui::Checkbox("Toggle Inspector", &b_component);
             ImGui::Checkbox("Toggle Archetype Window", &b_archetype_win);
-            //ImGui::Checkbox("Toggle Layer Hierachy", &b_layers);
+            ImGui::Checkbox("Toggle Layer Hierachy", &b_layers);
             ImGui::Checkbox("Toggle Editor Settings", &b_settings);
 
             ImGui::Separator();
@@ -402,7 +402,7 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::EndMenu();
         }
 
-        if (ImGui::MenuItem(VisibleIcon(b_windows).c_str()))
+        if (ImGui::MenuItem(VisibleIcon(b_windows, ICON_FA_EYE, ICON_FA_EYE_SLASH).c_str()))
             b_windows = !b_windows;
 
         ImguiHelp("Toggle Visible Windows", 0);
@@ -498,11 +498,20 @@ void ImguiSystem::SaveCheckPopUp(const char* window_name, int exit_type) {
 
     if (ImGui::BeginPopupModal(window_name, NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
-        ImGui::TextColored(REDDEFAULT, "Have you save whatever you've been working on ?");
-        ImGui::Text("There's no turning back if you leave !");
+        ImGui::TextColored(REDDEFAULT, "Have you save whatever you've been working on?");
+        ImGui::Text("There's no turning back if you leave!");
 
         if (ImGui::Button("Yep I Did")) {
+            if (exit_type == CloseApp::OPENSCENE) {
 
+                selected_entity_ = {};
+                editor_->entity_paths_.clear();
+                OpenFile();
+                if (!current_loaded_path_.empty())
+                    LoadJsonPaths(current_loaded_path_);
+                type = CloseApp::NONE;
+                ImGui::CloseCurrentPopup();
+            }
             if (exit_type == CloseApp::CREATENEWSCENE) { // create new scene
 
                 selected_entity_ = {};
@@ -535,11 +544,6 @@ void ImguiSystem::SaveCheckPopUp(const char* window_name, int exit_type) {
 
         ImGui::EndPopup();
     }
-}
-
-const char* ImguiSystem::GetSceneFilter() { 
-
-    return scene_filter_;
 }
 
 const char* ImguiSystem::GetGenericFilter() { 
@@ -593,18 +597,15 @@ void ImguiSystem::OpenFile() {
     if (!path.empty())
     {
         std::string file = EditString(path);
+
         std::string layertoload = {};
 
         factory_->DestroyAllEntities();
-
-        if (CheckString(file, "Level")) {
-
-            layertoload = "Play";
-        }
-        else if (CheckString(file, "Menu"))
-            layertoload = "Menu";
+        layertoload = LayertoLoad(file.c_str());
 
         CORE->GetManager<LayerManager>()->LoadLevelLayers(layertoload);
+        chosenlayer_ = "Resources/Layers/" + layertoload + "_layers.json"; //edit this
+
         factory_->DeSerializeLevelEntities(file);
         CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
         CORE->GetSystem<PartitioningSystem>()->InitPartition();
@@ -650,6 +651,7 @@ void ImguiSystem::NewScene() {
 }
 
 std::string ImguiSystem::OpenSaveDialog(const char* filter, int save, int multiselect) {
+
     OPENFILENAMEA ofn;
     CHAR szFile[2048] = { 0 };
     std::string data = {};
@@ -676,7 +678,7 @@ std::string ImguiSystem::OpenSaveDialog(const char* filter, int save, int multis
             size_t len = strlen(ofn.lpstrFile);
 
             if (ofn.lpstrFile[len + 1] == 0)
-                return ofn.lpstrFile;
+                return ofn.lpstrFile; //no multiselect
             else
             {
                 data = ofn.lpstrFile;
@@ -788,6 +790,7 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
         CustomImGuiButton((ImVec4)ImColor::HSV(0 / 7.0f, 0.6f, 0.6f), (ImVec4)ImColor::HSV(0 / 7.0f, 0.7f, 0.7f), (ImVec4)ImColor::HSV(0 / 7.0f, 0.8f, 0.8f));
 
         if (ImGui::Button("OK")) {
+
             if (!selected_entity_->GetID() && !entity) {
                 entities_->DeleteArchetype(selected_entity_); //delete archetype
                 selected_entity_ = nullptr;
@@ -799,7 +802,6 @@ void ImguiSystem::DeletePopUp(const char* windowName, std::string objName, Entit
             else if (!selected_entity_->GetID() && entity)
                 entity->RemoveComponent(component); // delete component from archetype
 
-            
             ImGui::CloseCurrentPopup();
         }
 
@@ -826,6 +828,23 @@ bool ImguiSystem::EditorMode() {
         return false;
 }
 
+std::string ImguiSystem::LayertoLoad(const char* filename) {
+
+    std::string toCheck = GetWindow<AssetConsoleWindow>()->GetFileName(filename);
+    if (CheckString(toCheck, "Level") || CheckString(toCheck, "level"))
+        return "Play";
+    else if (CheckString(toCheck, "menu") || CheckString(toCheck, "Menu"))
+        return "Menu";
+    else if (CheckString(toCheck, "win") || CheckString(toCheck, "Win"))
+        return "win";
+    else if (CheckString(toCheck, "lose") || CheckString(toCheck, "Lose"))
+        return "lose";
+    else if (CheckString(toCheck, "Splash") || CheckString(toCheck, "splash"))
+        return "Splash";
+    else
+        return std::string{};
+}
+
 void ImguiSystem::CustomImGuiButton(ImVec4 ButtonCol, ImVec4 HoveredCol, ImVec4 SelectCol) {
 
     ImGui::PushStyleColor(ImGuiCol_Button, ButtonCol);
@@ -849,7 +868,6 @@ void ImguiSystem::ImguiHelp(const char* description, int symbol) {
 }
 
 bool ImguiSystem::CheckString(std::string path, const char* key) {
-
     if (path.find(key) != path.npos)
         return true;
     return false;
@@ -887,12 +905,12 @@ void ImguiSystem::Popups() {
     b_entity_save = false;
 }
 
-std::string ImguiSystem::VisibleIcon(bool windowbool) {
+std::string ImguiSystem::VisibleIcon(bool windowbool, const char* trueicon, const char* falseicon) {
 
     if (windowbool)
-        return ICON_FA_EYE;
+        return trueicon;
     else
-        return ICON_FA_EYE_SLASH;
+        return falseicon;
 }
 
 ImguiSystem::~ImguiSystem() {

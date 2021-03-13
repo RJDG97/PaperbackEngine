@@ -138,7 +138,7 @@ void EntityWindow::CheckComponentType(std::pair<Entity*, std::vector<ComponentTy
 					break;
 
 				case ComponentTypes::PARENTCHILD: 
-					ParentChildComponent(entitycomponent.first);
+					//ParentChildComponent(entitycomponent.first);
 					break;
 
 				case ComponentTypes::LOGICCOMPONENT:
@@ -181,7 +181,7 @@ void EntityWindow::ShowEntityList() {
 
 			if (filter.PassFilter(entityname->GetName().c_str())) {
 
-				std::string label = entityname->GetName() + " (" + std::to_string(entityIT->second->GetID()) + ")";
+				std::string label = ICON_FA_CUBE  + (" " + entityname->GetName()) + " (" + std::to_string(entityIT->second->GetID()) + ")";
 
 				ImGuiTreeNodeFlags flags = ((imgui_->GetEntity() == entityIT->second) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
 
@@ -539,7 +539,6 @@ void EntityWindow::AIComponent(Entity* entity) {
 void EntityWindow::AnimationRendererComponent(Entity* entity) {
 
 	std::shared_ptr<AnimationRenderer> entity_animation = std::dynamic_pointer_cast<AnimationRenderer>(entity->GetComponent(ComponentTypes::ANIMATIONRENDERER));
-	//int input_layer = graphics_->GetLayer(&*entity_animation);
 
 	std::string animationLayer {};
 	
@@ -554,8 +553,9 @@ void EntityWindow::AnimationRendererComponent(Entity* entity) {
 			animationLayer = find->second.GetName();
 		}
 
-		ImGui::PushItemWidth(200.0f);
+        ImGui::Text("Select Layer");
 
+		ImGui::PushItemWidth(200.0f);
 		if (ImGui::BeginCombo("##layerchange", (animationLayer.empty() ? "Choose a layer" : animationLayer.c_str()))) {
 			
 			for (auto it = layerList.begin(); it != layerList.end(); ++it) {
@@ -566,6 +566,8 @@ void EntityWindow::AnimationRendererComponent(Entity* entity) {
 
 			ImGui::EndCombo();
 		}
+
+        ImGui::Text("Select Animation");
 
 		if (ImGui::BeginCombo("##Animation", entity_animation->GetCurrentAnimation().c_str())) {
 
@@ -591,11 +593,9 @@ void EntityWindow::AnimationRendererComponent(Entity* entity) {
 }
 
 void EntityWindow::CameraComponent(Entity* entity) {
-	/*
+	
 	std::shared_ptr<Camera> entity_camera = std::dynamic_pointer_cast<Camera>(entity->GetComponent(ComponentTypes::CAMERA));
-
-	Vector2D input_cam_pos = {};
-
+    
 	if (ImGui::CollapsingHeader("Camera Component")) {
 
 		if (imgui_->GetExistingSceneCamera()) {
@@ -609,21 +609,9 @@ void EntityWindow::CameraComponent(Entity* entity) {
 			if (ImGui::Button("-", SetButtonSize()))
 				entity_camera->SetCameraZoom(&*entity_camera, 1.1f);
 
-			ImGui::Text("Camera Position: %.2f, %.2f", entity_camera->GetVector2DCameraPosition().x, entity_camera->GetVector2DCameraPosition().y);
-
-			ImGui::Text("Camera Offset");
-			ImGui::PushItemWidth(90.0f);
-			ImGui::DragFloat("##cameraposX", &input_cam_pos.x, 0.5f, 0.0f, 0.0f, "%.2f");
-			ImGui::SameLine(0, 7);
-			ImGui::DragFloat("##cameraposY", &input_cam_pos.y, 0.5f, 0.0f, 0.0f, "%.2f");
-
-			ImGui::PopItemWidth();
-
-			camera_->CameraMove(&*entity_camera, input_cam_pos);
-
 			RemoveComponent("Delete Camera Component", std::string("Camera Component"), entity, entity_camera);
 		}
-	}*/
+	}
 }
 
 void EntityWindow::ConeLightComponent(Entity* entity) {
