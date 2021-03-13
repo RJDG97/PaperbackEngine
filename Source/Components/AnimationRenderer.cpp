@@ -20,7 +20,7 @@
 
 #define M_PI       3.14159265358979323846
 
-AnimationRenderer::AnimationRenderer() {
+AnimationRenderer::AnimationRenderer():current_animation_name_{"Key_Idle"}, play_animation_{1}, animation_speed_{0.35}  {
 
 }
 

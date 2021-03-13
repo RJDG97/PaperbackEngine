@@ -85,6 +85,16 @@ void ArchetypeWindow::AvaliableArchetypes() {
 								else
 									b_missingcomp = true;
 							}
+                            else if (entityIT->second->GetComponent(ComponentTypes::CAMERA) || entityIT->second->GetComponent(ComponentTypes::TEXTRENDERER)) {
+
+                                if (entityIT->second->GetComponent(ComponentTypes::TRANSFORM)) {
+
+                                    entities_->CloneArchetype(entityIT->first);
+                                    imgui_->SetEntity(nullptr);
+                                }
+                                else
+                                    b_missingcomp = true;
+                            }
 							else {
 								entities_->CloneArchetype(entityIT->first);
 								imgui_->SetEntity(nullptr);
@@ -336,15 +346,15 @@ void ArchetypeWindow::MissingComponentPopUp() {
 
 		ImGui::TextColored(REDHOVERED, "Error!!!!!");
 		if (b_notrans && b_noscale)
-			ImGui::Text("Trying to add an entity with a Texture without Scale & Transform Components");
+			ImGui::Text("Trying to add an entity that needs both Scale & Transform Components");
 		else if (b_notrans)
-			ImGui::Text("Trying to add an entity with a Texture with no Transform Component");
+			ImGui::Text("Trying to add an entity that needs a Transform Component");
 		else if (b_noscale)
-			ImGui::Text("Trying to add an entity with a Texture with no have Scale Component");
+			ImGui::Text("Trying to add an entity that needs a Scale Component");
 
-		ImGui::Text("Want to add in the missing component? Or Remove the texture component?");
+        ImGui::Text("Want to Add In?");
 
-		if (ImGui::Button("Add")) {
+		if (ImGui::Button("Yes")) {
 
 			if (b_notrans && b_noscale) {
 
@@ -394,20 +404,20 @@ void ArchetypeWindow::MissingComponentPopUp() {
 			archetype_name = {};
 		}
 
-		ImGui::SameLine(0, 10);
+		// ImGui::SameLine(0, 10);
 
-		if (ImGui::Button("Remove Texture")) {
+		// if (ImGui::Button("Remove Texture")) {
 
-			std::shared_ptr<TextureRenderer> entitytexture = std::dynamic_pointer_cast<TextureRenderer>(imgui_->GetEntity()->GetComponent(ComponentTypes::TEXTURERENDERER));
-			imgui_->GetEntity()->RemoveComponent(entitytexture);
+		// 	std::shared_ptr<TextureRenderer> entitytexture = std::dynamic_pointer_cast<TextureRenderer>(imgui_->GetEntity()->GetComponent(ComponentTypes::TEXTURERENDERER));
+		// 	imgui_->GetEntity()->RemoveComponent(entitytexture);
 
-			b_notrans = false;
-			b_noscale = false;
-			b_missingcomp = false;
-			archetype_name = {};
+		// 	b_notrans = false;
+		// 	b_noscale = false;
+		// 	b_missingcomp = false;
+		// 	archetype_name = {};
 
-			ImGui::CloseCurrentPopup();
-		}
+		// 	ImGui::CloseCurrentPopup();
+		// }
 
 		imgui_->SetEntity({});
 		ImGui::EndPopup();

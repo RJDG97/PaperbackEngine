@@ -611,7 +611,7 @@ void AssetConsoleWindow::DisplayAnimationBatchJson() {
 			if (ImGui::BeginPopupModal("Remove Animation?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 
 				std::string del = it->first;
-				ImGui::Text("Removing Texture: %s\nMake Sure no object is using this Animation?", it->first.c_str());
+				ImGui::Text("Removing Animation: %s\nMake Sure no object is using this Animation?", it->first.c_str());
 				//add the checks later
 
 				imgui_->CustomImGuiButton(REDDEFAULT, REDHOVERED, REDACTIVE);
@@ -820,10 +820,8 @@ void AssetConsoleWindow::AddNewIndividualAnimation() {
 
 			for (auto animit = general_anim_info_.begin(); animit != general_anim_info_.end(); ++animit) {
 
-				if (ImGui::Selectable(animit->first.c_str())) {
-
+				if (ImGui::Selectable(animit->first.c_str()))
 					animation_batch_label_ = animit->first.c_str();
-				}
 			}
 
 			ImGui::EndCombo();
@@ -831,10 +829,8 @@ void AssetConsoleWindow::AddNewIndividualAnimation() {
 
 		if (ImGui::InputTextWithHint("##newAnimationsname", "Enter the Individual Animation Name (Eg. Player_Burrow)", buffer, sizeof(buffer), input_flags_)) {
 
-			if (!std::string(buffer).empty()) {
-
+			if (!std::string(buffer).empty()) 
 				anim_info_.anim_name_ = buffer;
-			}
 		}
 
 		ImGui::Text(anim_info_.anim_name_.c_str());
@@ -939,15 +935,11 @@ void AssetConsoleWindow::UpdatePath() {
 
 void AssetConsoleWindow::SerializeJson() {
 
-	if (type == AddFile::ADDTEXTURE) {
-
+	if (type == AddFile::ADDTEXTURE)
 		SerializeTextureJson();
-	}
 
-	if (type == AddFile::ADDAUDIO) {
-
+	if (type == AddFile::ADDAUDIO)
 		SerializeAudioJson();
-	}
 
 	if (type == AddFile::ADDANIMATION) {
 
@@ -1361,10 +1353,11 @@ std::string AssetConsoleWindow::GetFolder(std::string filename) {
 
 std::string AssetConsoleWindow::GetFileName(std::string filename) {
 
-	if (imgui_->CheckString(filename, "/")) {
-
+	if (imgui_->CheckString(filename, "/")) 
 		return filename.substr(filename.find_last_of("/") + 1);
-	}
+	else if (imgui_->CheckString(filename, "\\"))
+		return filename.substr(filename.find_last_of("\\") + 1);
+
 	return std::string();
 }
 

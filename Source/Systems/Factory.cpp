@@ -93,6 +93,9 @@ std::string EntityFactory::GetLevelPath(const std::string& name) {
 	else if (name == "Pause") {
 		return levels_.pause_.path_;
 	}
+	else if (name == "Cutscene") {
+		return levels_.cutscene_.path_;
+	}
 
 	return {};
 }
@@ -116,6 +119,9 @@ Level* EntityFactory::GetLevel(const std::string& name) {
 	}
 	else if (name == "Pause") {
 		return &levels_.pause_;
+	}
+	else if (name == "Cutscene") {
+		return &levels_.cutscene_;
 	}
 	return nullptr;
 }

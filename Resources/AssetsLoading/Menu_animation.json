@@ -1,3 +1,7 @@
 {
-	
+	"TitleCard Animations": "Resources/AssetsLoading/Animation/titlecard_animations.json",
+  
+	"TitleText Animations": "Resources/AssetsLoading/Animation/titlecardtext_animations.json",
+  
+	"RadishMenu Animations": "Resources/AssetsLoading/Animation/radish_menu_animations.json"
 }

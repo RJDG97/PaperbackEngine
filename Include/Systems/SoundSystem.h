@@ -37,13 +37,14 @@ class SoundFile
 
 public:
 	SoundFile();
-	SoundFile(std::string path, float vol, float min_distance, float volume_falloff, bool loop);
+	SoundFile(std::string path, float vol, float min_distance, float volume_falloff, bool loop, const std::string& tag = "");
 	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer);
 	~SoundFile();
 
 private:
 	FMOD::Sound* sound_;
 	std::string path_;
+	std::string tag_;
 	float volume_;
 	float original_volume_;
 	float min_distance_;
@@ -73,7 +74,7 @@ public:
 	  \brief Constructor for SoundChannel
 	*/
 	/******************************************************************************/
-	SoundChannel(float volume, float min_distance, float volume_falloff);
+	SoundChannel(float volume, float min_distance, float volume_falloff, const std::string& tag = "");
 
 	/******************************************************************************/
 	/*!
@@ -86,6 +87,7 @@ public:
 
 private:
 	FMOD::Channel* channel_;
+	std::string tag_;
 	float volume_;
 	float original_volume_;
 	float min_distance_;
@@ -130,190 +132,200 @@ class SoundSystem : public ISystem
 
 public:
 
-/******************************************************************************/
-/*!
-  \fn SoundSystem()
+	/******************************************************************************/
+	/*!
+	  \fn SoundSystem()
 
-  \brief Constructor for SoundSystem, ensures that fmod is initialised for use
-*/
-/******************************************************************************/
+	  \brief Constructor for SoundSystem, ensures that fmod is initialised for use
+	*/
+	/******************************************************************************/
 	SoundSystem();
 
-/******************************************************************************/
-/*!
-  \fn ~SoundSystem()
+	/******************************************************************************/
+	/*!
+	  \fn ~SoundSystem()
 
-  \brief Desstructor for SoundSystem, ensures that fmod assigned resources
-		 have been released
-*/
-/******************************************************************************/
+	  \brief Desstructor for SoundSystem, ensures that fmod assigned resources
+			 have been released
+	*/
+	/******************************************************************************/
 	~SoundSystem();
 
-/******************************************************************************/
-/*!
-  \fn SetVolume()
+	/******************************************************************************/
+	/*!
+	  \fn SetVolume()
 
-  \brief Set volume for a sound channel
-*/
-/******************************************************************************/
+	  \brief Set volume for a sound channel
+	*/
+	/******************************************************************************/
 	void SetVolume(std::string fileID, const float& vol);
 
-/******************************************************************************/
-/*!
-  \fn GetSoundLibrary()
+	/******************************************************************************/
+	/*!
+	  \fn GetSoundLibrary()
 
-  \brief Return reference to sound library
-*/
-/******************************************************************************/
+	  \brief Return reference to sound library
+	*/
+	/******************************************************************************/
 	SoundMap& GetSoundLibrary();
 
-/******************************************************************************/
-/*!
-  \fn GetChannelLibrary()
+	/******************************************************************************/
+	/*!
+	  \fn GetChannelLibrary()
 
-  \brief Return reference to channel library
-*/
-/******************************************************************************/
+	  \brief Return reference to channel library
+	*/
+	/******************************************************************************/
 	ChannelMap& GetChannelLibrary();
 
-/******************************************************************************/
-/*!
-  \fn CheckError()
+	/******************************************************************************/
+	/*!
+	  \fn CheckError()
 
-  \brief Checks if the FMOD sound file has been successfully loaded, 
-		 returning a true if it is so
-*/
-/******************************************************************************/
+	  \brief Checks if the FMOD sound file has been successfully loaded,
+			 returning a true if it is so
+	*/
+	/******************************************************************************/
 	bool CheckError(FMOD_RESULT f_result);
 
-/******************************************************************************/
-/*!
-  \fn LoadSound()
+	/******************************************************************************/
+	/*!
+	  \fn LoadSound()
 
-  \brief Given a file location and id, passes on the variables to an FMOD 
-		 API to load the sound file
-*/
-/******************************************************************************/
+	  \brief Given a file location and id, passes on the variables to an FMOD
+			 API to load the sound file
+	*/
+	/******************************************************************************/
 	void LoadSound(std::string name, std::stringstream& data);
 
-/******************************************************************************/
-/*!
-  \fn PlaySound()
+	/******************************************************************************/
+	/*!
+	  \fn PlaySound()
 
-  \brief Attaches the loaded sound file to an inactive channel to play the
-		 the sound file
-*/
-/******************************************************************************/
+	  \brief Attaches the loaded sound file to an inactive channel to play the
+			 the sound file
+	*/
+	/******************************************************************************/
 	void PlaySounds(std::string file_id);
 
-/******************************************************************************/
-/*!
-  \fn StopSound()
+	/******************************************************************************/
+	/*!
+	  \fn PlaySound()
 
-  \brief Stops a particular channel from playing or stop all active channels
-*/
-/******************************************************************************/
+	  \brief Attaches the loaded sound file to an inactive channel to play the
+			 the sound file. File identified by tag
+	*/
+	/******************************************************************************/
+	void PlayTaggedSounds(std::string file_tag);
+
+	/******************************************************************************/
+	/*!
+	  \fn StopSound()
+
+	  \brief Stops a particular channel from playing or stop all active channels
+	*/
+	/******************************************************************************/
 	void StopSound(std::string file_id, bool stop_all_channels = 0);
 
-/******************************************************************************/
-/*!
-  \fn MuteSound()
+	/******************************************************************************/
+	/*!
+	  \fn MuteSound()
 
-  \brief Mutes all sound channels that are currently active
-*/
-/******************************************************************************/
+	  \brief Mutes all sound channels that are currently active
+	*/
+	/******************************************************************************/
 	void MuteSound(std::string file_id, bool status, bool all = 0);
 
-/******************************************************************************/
-/*!
-  \fn PauseSound()
+	/******************************************************************************/
+	/*!
+	  \fn PauseSound()
 
-  \brief Pauses all sound channels that are currently active
-*/
-/******************************************************************************/
+	  \brief Pauses all sound channels that are currently active
+	*/
+	/******************************************************************************/
 	void PauseSound(std::string file_id, bool status, bool all = 0);
 
-/******************************************************************************/
-/*!
-  \fn RemoveSound()
+	/******************************************************************************/
+	/*!
+	  \fn RemoveSound()
 
-  \brief Removes a sound file that is currently loaded
-*/
-/******************************************************************************/
+	  \brief Removes a sound file that is currently loaded
+	*/
+	/******************************************************************************/
 	void RemoveSound(std::string name);
 
-/******************************************************************************/
-/*!
-  \fn RemoveCompletedChannel()
+	/******************************************************************************/
+	/*!
+	  \fn RemoveCompletedChannel()
 
-  \brief Helper function that checks for channels that are completed and removes
-         them from the map of currently active sound channels
-*/
-/******************************************************************************/
+	  \brief Helper function that checks for channels that are completed and removes
+			 them from the map of currently active sound channels
+	*/
+	/******************************************************************************/
 	void RemoveCompletedChannel();
 
-/******************************************************************************/
-/*!
-  \fn Init()
+	/******************************************************************************/
+	/*!
+	  \fn Init()
 
-  \brief Initializes all sound files that are to be loaded into the game
-*/
-/******************************************************************************/
+	  \brief Initializes all sound files that are to be loaded into the game
+	*/
+	/******************************************************************************/
 	void Init() override;
 
-/******************************************************************************/
-/*!
-  \fn Update()
+	/******************************************************************************/
+	/*!
+	  \fn Update()
 
-  \brief Updates all sound channels and removes channels that are done playing
-         their sound files
-*/
-/******************************************************************************/
+	  \brief Updates all sound channels and removes channels that are done playing
+			 their sound files
+	*/
+	/******************************************************************************/
 	void Update(float frametime) override;
 
-/******************************************************************************/
-/*!
-  \fn Draw()
+	/******************************************************************************/
+	/*!
+	  \fn Draw()
 
-  \brief Draws sound lines
-*/
-/******************************************************************************/
+	  \brief Draws sound lines
+	*/
+	/******************************************************************************/
 	void Draw() override;
 
-/******************************************************************************/
-/*!
-  \fn GetName()
+	/******************************************************************************/
+	/*!
+	  \fn GetName()
 
-  \brief Returns the system's name
-*/
-/******************************************************************************/
+	  \brief Returns the system's name
+	*/
+	/******************************************************************************/
 	virtual std::string GetName() override;
 
-/******************************************************************************/
-/*!
-  \fn SendMessageD()
+	/******************************************************************************/
+	/*!
+	  \fn SendMessageD()
 
-  \brief Receives messages broadcasted from Core Engine and processes it
-*/
-/******************************************************************************/
+	  \brief Receives messages broadcasted from Core Engine and processes it
+	*/
+	/******************************************************************************/
 	virtual void SendMessageD(Message* m) override;
 
-/******************************************************************************/
-/*!
-  \fn DeSerialize()
+	/******************************************************************************/
+	/*!
+	  \fn DeSerialize()
 
-  \brief Initializes data members of sound system
-*/
-/******************************************************************************/
+	  \brief Initializes data members of sound system
+	*/
+	/******************************************************************************/
 	void DeSerialize(const std::string& filepath);
 
-/******************************************************************************/
-/*!
-  \fn Serialize()
+	/******************************************************************************/
+	/*!
+	  \fn Serialize()
 
-  \brief Saves all sound files that have been loaded into the sound system
-*/
-/******************************************************************************/
+	  \brief Saves all sound files that have been loaded into the sound system
+	*/
+	/******************************************************************************/
 	void Serialize(const std::string& filepath);
 };
 

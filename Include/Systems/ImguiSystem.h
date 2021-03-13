@@ -55,6 +55,7 @@ enum CloseApp {
 
 	NONE = 0,
 	CREATENEWSCENE,
+    OPENSCENE,
 	RETURNMENU,
 	EXITAPP
 };
@@ -66,6 +67,8 @@ public:
 
 	bool b_entity_win, b_archetype_win, b_component, b_display, b_edit_path, b_asset, b_edit_comp, b_add_texture;
 	bool b_show_tex, b_settings, b_layers;
+
+    std::string chosenlayer_;
 
 	ImguiSystem() {};
 
@@ -252,15 +255,6 @@ public:
 */
 /******************************************************************************/
 	void SetImguiBool(bool mode);
-
-/******************************************************************************/
-/*!
-	\fn GetSceneFilter()
-
-	\brief Get the Json Filter for the filedialog
-*/
-/******************************************************************************/
-	const char* GetSceneFilter();
 
 /******************************************************************************/
 /*!
@@ -516,7 +510,16 @@ public:
 	\brief Toggles the icon depending on the boolean
 */
 /******************************************************************************/
-	std::string VisibleIcon(bool windowbool);
+	std::string VisibleIcon(bool windowbool, const char* trueicon, const char* falseicon);
+
+/******************************************************************************/
+/*!
+	\fn LayertoLoad()
+
+	\brief Handles the pop ups
+*/
+/******************************************************************************/	
+	std::string LayertoLoad(const char* filename);
 
 private:
 
@@ -537,6 +540,7 @@ private:
 	Entity* selected_entity_; // entity* to store selected entity
 	EntityManager* entities_;
 	EntityFactory* factory_;
+    
 
 	CMap<Camera>* cam_arr_;
 	Camera* camera_;
@@ -544,11 +548,7 @@ private:
 	Level* editor_;
 	AMap* amap_;
 
-	std::string img_to_add_;
-
-	std::string current_loaded_path_;
-
-	std::string archetype_path_;
+	std::string img_to_add_, current_loaded_path_, archetype_path_;
 
 	const char* scene_filter_, *generic_filter_;
 

@@ -21,9 +21,7 @@
 
 #define M_PI       3.14159265358979323846
 
-TextureRenderer::TextureRenderer() {
-    
-}
+TextureRenderer::TextureRenderer(): texture_name_{"Bug_Hill_2x1_0"}  {}
 
 TextureRenderer::~TextureRenderer() {
     

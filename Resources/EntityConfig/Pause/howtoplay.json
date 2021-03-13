@@ -15,7 +15,7 @@
             "component": "TextureRenderer",
             "texture": "UI_HowToPlay_0",
             "layer": "4",
-            "order in layer": "3",
+            "order in layer": "5",
             "alive": "0",
             "opacity": "1.0",
             "tint": "1.0 1.0 1.0"

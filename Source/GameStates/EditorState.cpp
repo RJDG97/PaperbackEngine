@@ -44,11 +44,11 @@ void EditorState::Init(std::string)
 {
 	std::cout << "-----------------------------" << std::endl << std::endl;
 	std::cout << "EditorState init Successful" << std::endl;
-	std::cout << "press SPACE to PAUSE" << std::endl;
-	std::cout << "press ESCAPE to return to MAIN MENU" << std::endl << std::endl;
 	std::cout << "-----------------------------" << std::endl << std::endl;
 	
 	CORE->ResetCorePauseStatus();
+	CORE->GetManager<LayerManager>()->GetRenderLayers()->clear();
+	CORE->GetManager<LayerManager>()->LoadLevelLayers("Play");
 	FACTORY->LoadLevel("Editor");
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());

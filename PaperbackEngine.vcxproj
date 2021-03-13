@@ -190,6 +190,7 @@
     <ClCompile Include="Source\Engine\Core.cpp" />
     <ClCompile Include="Source\Entity\Entity.cpp" />
     <ClCompile Include="Source\GameStates\CreditsState.cpp" />
+    <ClCompile Include="Source\GameStates\CutSceneState.cpp" />
     <ClCompile Include="Source\GameStates\EditorState.cpp" />
     <ClCompile Include="Source\GameStates\Levels.cpp" />
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="Include\Entity\ComponentTypes.h" />
     <ClInclude Include="Include\Entity\Entity.h" />
     <ClInclude Include="Include\GameStates\CreditsState.h" />
+    <ClInclude Include="Include\GameStates\CutSceneState.h" />
     <ClInclude Include="Include\GameStates\EditorState.h" />
     <ClInclude Include="Include\GameStates\GameState.h" />
     <ClInclude Include="Include\GameStates\Levels.h" />
@@ -328,6 +330,7 @@
     <ClInclude Include="Include\Script\ScriptList.h" />
     <ClInclude Include="Include\Script\Player_Script.h" />
     <ClInclude Include="Include\Script\Stag_Tree.h" />
+    <ClInclude Include="Include\Script\TitleCard_Script.h" />
     <ClInclude Include="Include\Script\UI_Script.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\Collision.h" />

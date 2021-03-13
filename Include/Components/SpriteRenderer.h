@@ -20,6 +20,8 @@ protected:
 
 	glm::vec3 tint_;
 
+    SpriteRenderer(): tint_{1.0f, 1.0f, 1.0f} {}
+
 public:
 
 	friend class GraphicsSystem;

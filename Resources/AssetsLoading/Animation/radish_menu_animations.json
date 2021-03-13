@@ -1,0 +1,11 @@
+{
+  "UI_Radish_Spritesheet.png": [ 
+    {
+	  "Folder": "UI_Elements/Menu/Animations",
+	  "Animation Batch Name": "RadishMenu_Animations",
+	  "Columns": "8",
+	  "Rows": "1",
+      "Animation Name, Number of Frames, Frame Duration": "Radish_Menu 8 0.11"
+    }
+  ]
+}

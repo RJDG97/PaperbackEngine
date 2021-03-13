@@ -31,6 +31,7 @@ struct SceneTransition
 
 	size_t size_;
 	bool skip_;
+	bool cutscene_;
 	float timer_;
 	float default_timer_;
 	float default_transition_timer_;
@@ -55,76 +56,85 @@ public:
 	using TextureRendererTypeIt = TextureRendererType::MapTypeIt;
 
 
-/******************************************************************************/
-/*!
-  \fn TransitionManager()
+	/******************************************************************************/
+	/*!
+	  \fn TransitionManager()
 
-  \brief Transition manager constructor
-*/
-/******************************************************************************/
+	  \brief Transition manager constructor
+	*/
+	/******************************************************************************/
 	TransitionManager();
 
-/******************************************************************************/
-/*!
-  \fn Init()
+	/******************************************************************************/
+	/*!
+	  \fn Init()
 
-  \brief Init transition manager
-*/
-/******************************************************************************/
+	  \brief Init transition manager
+	*/
+	/******************************************************************************/
 	void Init() override;
 
-/******************************************************************************/
-/*!
-  \fn ResetTransition()
+	/******************************************************************************/
+	/*!
+	  \fn ResetCurrentTransitionTimer()
 
-  \brief Resets the transition to a closed type and sets the transition type
-*/
-/******************************************************************************/
-	void ResetTransition(const std::string& id, GameState* state);
+	  \brief Resets the timer of the current transition
+	*/
+	/******************************************************************************/
+	void ResetCurrentTransitionTimer();
 
-/******************************************************************************/
-/*!
-  \fn DelayTransition()
+	/******************************************************************************/
+	/*!
+	  \fn ResetTransition()
 
-  \brief Delays the opening transition
-*/
-/******************************************************************************/
+	  \brief Resets the transition to a closed type and sets the transition type
+	*/
+	/******************************************************************************/
+	bool ResetTransition(const std::string& id, GameState* state);
+
+	/******************************************************************************/
+	/*!
+	  \fn DelayTransition()
+
+	  \brief Delays the opening transition
+	*/
+	/******************************************************************************/
 	bool DelayTransition(const float& frametime);
 
-/******************************************************************************/
-/*!
-  \fn OpenTransition()
+	/******************************************************************************/
+	/*!
+	  \fn OpenTransition()
 
-  \brief Does the opening transition
-*/
-/******************************************************************************/
+	  \brief Does the opening transition
+	*/
+	/******************************************************************************/
 	void OpenTransition(const float& frametime);
 
-/******************************************************************************/
-/*!
-  \fn CloseTransition()
+	/******************************************************************************/
+	/*!
+	  \fn CloseTransition()
 
-  \brief Does the closing transition
-*/
-/******************************************************************************/
+	  \brief Does the closing transition
+	*/
+	/******************************************************************************/
 	void CloseTransition(const float& frametime);
 
-/******************************************************************************/
-/*!
-  \fn LoadTransition()
+	/******************************************************************************/
+	/*!
+	  \fn LoadTransition()
 
-  \brief Given a transition name and a stream, initialize a transition scene
-*/
-/******************************************************************************/
+	  \brief Given a transition name and a stream, initialize a transition scene
+	*/
+	/******************************************************************************/
 	void LoadTransition(std::string name, std::stringstream& data);
 
-/******************************************************************************/
-/*!
-  \fn DeSerialize()
+	/******************************************************************************/
+	/*!
+	  \fn DeSerialize()
 
-  \brief Initializes data members of transition manager
-*/
-/******************************************************************************/
+	  \brief Initializes data members of transition manager
+	*/
+	/******************************************************************************/
 	void DeSerialize(const std::string& filepath);
 
 private:
