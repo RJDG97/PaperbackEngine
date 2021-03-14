@@ -2,7 +2,7 @@
     "DriedBush_03": [
         {
             "component": "Transform",
-            "position": "-20.199699 18.746536",
+            "position": "33.10 -78.45",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -83,7 +83,7 @@
     "DriedBush_03": [
         {
             "component": "Transform",
-            "position": "-19.99 15.75",
+            "position": "29.21 -77.95",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -137,7 +137,7 @@
     "DriedBush_03": [
         {
             "component": "Transform",
-            "position": "-20.424040 5.783995",
+            "position": "3.81 -39.42",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -164,37 +164,10 @@
     "DriedBush_03": [
         {
             "component": "Transform",
-            "position": "-8.086496 13.280901",
+            "position": "32.71 -76.21",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-      {
-        "component": "TextureRenderer",
-        "texture": "DriedBush_03_0",
-        "layer": "1",
-        "order in layer": "1",
-        "alive": "1",
-        "opacity": "1.0",
-        "tint": "1.0 1.0 1.0"
-      },
-        {
-            "component": "AABB",
-            "scale": "0.600000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "80.000000 80.000000"
-        }
-    ],
-    "DriedBush_03": [
-        {
-            "component": "Transform",
-            "position": "6.809019 -0.613378",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -0.100000"
         },
         {
             "component": "TextureRenderer",
@@ -207,34 +180,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "80.000000 80.000000"
-        }
-    ],
-    "DriedBush_03": [
-        {
-            "component": "Transform",
-            "position": "7.988207 -3.179156",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "DriedBush_03_0",
-            "layer": "1",
-			"order in layer": "1",
-            "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.000000 1.200000",
             "layer": "9"
         },
         {
@@ -272,7 +218,7 @@
     "DriedBush_03": [
         {
             "component": "Transform",
-            "position": "6.37 -4.30",
+            "position": "25.07 -80.50",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -326,7 +272,7 @@
     "DriedBush_03": [
         {
             "component": "Transform",
-            "position": "7.96 -16.47",
+            "position": "7.06 -52.47",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -351,7 +297,7 @@
     "DriedBush_03": [
         {
             "component": "Transform",
-            "position": "13.19 -14.83",
+            "position": "15.49 -66.03",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -365,7 +311,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.000000 1.300000",
             "layer": "9"
         },
         {
