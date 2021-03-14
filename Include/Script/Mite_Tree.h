@@ -13,9 +13,7 @@
 #ifndef _MITE_TREE_H_
 #define _MITE_TREE_H_
 
-#include "Manager/BehaviourTree.h"
-#include "Systems/Physics.h"
-#include "Engine/Core.h"
+#include "Script/Common_Nodes.h"
 
 /******************************************************************************/
 /*!
@@ -46,6 +44,7 @@ public:
 		*/
 		/******************************************************************************/
 		MiteRoot(EntityID id) : id_(id) {
+			Alert::level = 0;
 			setChild(new MiteSequence(id));
 		}
 		/******************************************************************************/
@@ -77,42 +76,9 @@ public:
 		*/
 		/******************************************************************************/
 		MiteSequence(EntityID id) : id_(id) {
-			addChild(new CheckAlive(id));
+			addChild(new Common::CheckAlive(id));
 			addChild(new ActionSelector(id));
 		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class CheckAlive
-
-	  \brief Checks whether AI is alive, if not, run respawn
-	*/
-	/******************************************************************************/
-	class CheckAlive :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-		Time_Channel respawn_timer_;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn CheckAlive(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		CheckAlive(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether AI is alive, if not, run respawn
-		*/
-		/******************************************************************************/
-		bool run() override;
 	};
 
 	/******************************************************************************/
@@ -135,225 +101,24 @@ public:
 		/******************************************************************************/
 		ActionSelector(EntityID id) : id_(id) {
 			addChild(new DetectSequence(id_));
-			addChild(new PatrolSequence(id_));
+			addChild(new IdleSequence(id_));
 		}
 	};
 
-	/******************************************************************************/
-	/*!
-	  \class PatrolSequence
-
-	  \brief Patrol Sequence Node, Contains nodes for Patrol and overall actions
-	*/
-	/******************************************************************************/
-	class PatrolSequence : public Sequence
+	class IdleSequence : public Sequence
 	{
 		EntityID id_;
+		ComponentManager* component_mgr;
+		AI* ai_;
 	public:
-		/******************************************************************************/
-		/*!
-		  \fn PatrolSequence(EntityID id) : id_(id)
-
-		  \brief Constructor, setting multiple children related to Patrol actions
-		*/
-		/******************************************************************************/
-		PatrolSequence(EntityID id) : id_(id) {
-			addChild(new CheckWaypoint(id_));
-			addChild(new CheckPath(id_));
-			addChild(new Move(id_, 300.0f));
-			addChild(new WalkAnim(id_));
+		IdleSequence(EntityID id) : id_(id) {
+			component_mgr = &*CORE->GetManager<ComponentManager>();
+			ai_ = component_mgr->GetComponent<AI>(id_);
+			if (ai_->GetNumDes())
+				addChild(new PatrolSequence(id_));
+			else
+				addChild(new SentrySelector(id_));
 		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class CheckWaypoint
-
-	  \brief CheckWaypoint Node, Contains nodes for the waypoint system
-	*/
-	/******************************************************************************/
-	class CheckWaypoint :public Selector
-	{
-		EntityID id_;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn CheckWaypoint(EntityID id)
-
-		  \brief Constructor, setting multiple children relating to the waypoint system
-		*/
-		/******************************************************************************/
-		CheckWaypoint(EntityID id) : id_(id) {
-			addChild(new AtWaypoint(id_));
-			addChild(new ChangeWaypoint(id_));
-		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class AtWaypoint
-
-	  \brief AtWaypoint Node, Checks if AI is at the waypoint
-	*/
-	/******************************************************************************/
-	class AtWaypoint :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn AtWaypoint(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		AtWaypoint(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether AI is at the waypoint
-		*/
-		/******************************************************************************/
-		bool run() override;
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class ChangeWaypoint
-
-	  \brief ChangeWaypoint Node, Change to the next waypoint
-	*/
-	/******************************************************************************/
-	class ChangeWaypoint :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		ComponentManager* component_mgr;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn ChangeWaypoint(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		ChangeWaypoint(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Change to the next waypoint
-		*/
-		/******************************************************************************/
-		bool run() override;
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class WalkAnim
-
-	  \brief Sentry Anim Node, Runs Sentry animation (walk)
-	*/
-	/******************************************************************************/
-	class WalkAnim :public Node
-	{
-		EntityID id_;
-		std::shared_ptr<GraphicsSystem> graphics;
-		ComponentManager* component_mgr;
-
-		AnimationRenderer* renderer;
-		Motion* motion;
-		Name* name;
-		AI* ai;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn WalkAnim(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		WalkAnim(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Runs animation for walking
-		*/
-		/******************************************************************************/
-		bool run() override;
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class CheckPath
-
-	  \brief Check Path Node, check if pathfinding algorithm can find a path
-	*/
-	/******************************************************************************/
-	class CheckPath :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-		AMap* map_;
-		Vector2D SetDes;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn CheckPath(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		CheckPath(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Check if pathfinding algorithm can find a path
-		*/
-		/******************************************************************************/
-		bool run() override;
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class Move
-
-	  \brief Move Node, Move towards destination
-	*/
-	/******************************************************************************/
-	class Move :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-		ForcesManager* forces_;
-		float Speed_;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn Move(EntityID id, float spd)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		Move(EntityID id, float spd);
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Move towards destination
-		*/
-		/******************************************************************************/
-		bool run() override;
 	};
 
 	/******************************************************************************/
@@ -390,6 +155,8 @@ public:
 	class DetectPlayer : public Selector
 	{
 		EntityID id_;
+		ComponentManager* component_mgr;
+		AI* ai_;
 	public:
 		/******************************************************************************/
 		/*!
@@ -399,103 +166,17 @@ public:
 		*/
 		/******************************************************************************/
 		DetectPlayer(EntityID id) : id_(id) {
-			addChild(new PlayerWithinDistance(id_, 2.0f));
-			addChild(new PlayerWithinVision(id_));
+			component_mgr = &*CORE->GetManager<ComponentManager>();
+			ai_ = component_mgr->GetComponent<AI>(id_);
+			if (ai_->GetLevel()) {
+				addChild(new Common::PlayerWithinDistance(id_, 2.0f));
+				addChild(new Common::PlayerWithinVision(id_, 4.0f));
+			}
+			else {
+				addChild(new Common::PlayerWithinDistance(id_, 3.0f));
+				addChild(new Common::PlayerWithinVision(id_, 5.0f));
+			}
 		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class PlayerWithinDistance
-
-	  \brief PlayerWithinDistance Node, checks whether the player is within
-		close proximity
-	*/
-	/******************************************************************************/
-	class PlayerWithinDistance :public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-
-		EntityID player_id_;
-		Status* player_status_;
-		Transform* player_rigidbody_;
-
-		float detectdistance_;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn PlayerWithinDistance(EntityID id, float dist)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		PlayerWithinDistance(EntityID id, float dist);
-		/******************************************************************************/
-		/*!
-		  \fn PlayerInit()
-
-		  \brief Sets nodes private variables relating to the player
-		*/
-		/******************************************************************************/
-		void PlayerInit();
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether the player is within close proximity
-		*/
-		/******************************************************************************/
-		bool run() override;
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class PlayerWithinVision
-
-	  \brief PlayerWithinVision Node, checks whether the player is within
-		cone vision
-	*/
-	/******************************************************************************/
-	class PlayerWithinVision : public Node
-	{
-		EntityID id_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-
-		EntityID player_id_;
-		Status* player_status_;
-		Transform* player_rigidbody_;
-
-		float detectdistance_ = 4.0f;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn CheckSentry(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		PlayerWithinVision(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn PlayerInit()
-
-		  \brief Sets nodes private variables relating to the player
-		*/
-		/******************************************************************************/
-		void PlayerInit();
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether the player is within cone vision
-		*/
-		/******************************************************************************/
-		bool run() override;
 	};
 
 	/******************************************************************************/
@@ -579,8 +260,8 @@ public:
 		/******************************************************************************/
 		ChaseSequence(EntityID id) : id_(id) {
 			addChild(new NotAtkRange(id_));
-			addChild(new ChasePath(id_));
-			addChild(new Move(id_, 400.0f));
+			addChild(new Common::ChasePath(id_));
+			addChild(new Common::Move(id_, 400.0f));
 			addChild(new ChaseAnim(id_));
 		}
 	};
@@ -604,53 +285,8 @@ public:
 		*/
 		/******************************************************************************/
 		NotAtkRange(EntityID id) :id_(id) {
-			setChild(new PlayerWithinDistance(id_, 0.5f));
+			setChild(new Common::PlayerWithinDistance(id_, 0.5f));
 		}
-	};
-
-	/******************************************************************************/
-	/*!
-	  \class ChasePath
-
-	  \brief ChasePath Node, Checks whether path to player is viable and sets it
-	*/
-	/******************************************************************************/
-	class ChasePath :public Node
-	{
-		EntityID id_;
-		AMap* map_;
-		AI* ai_;
-		Transform* obj_rigidbody_;
-		ComponentManager* component_mgr;
-
-		EntityID player_id_;
-		Transform* player_rigidbody_;
-		Vector2D SetDes;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn ChasePath(EntityID id)
-
-		  \brief Constructor, sets nodes private variables
-		*/
-		/******************************************************************************/
-		ChasePath(EntityID id);
-		/******************************************************************************/
-		/*!
-		  \fn PlayerInit()
-
-		  \brief Sets nodes private variables relating to player
-		*/
-		/******************************************************************************/
-		void PlayerInit();
-		/******************************************************************************/
-		/*!
-		  \fn run()
-
-		  \brief Checks whether path to player is viable and sets it
-		*/
-		/******************************************************************************/
-		bool run() override;
 	};
 
 	/******************************************************************************/
@@ -723,6 +359,151 @@ public:
 		*/
 		/******************************************************************************/
 		bool run() override;
+	};
+
+	/******************************************************************************/
+	/*!
+	  \class ConfusedAnim
+
+	  \brief ConfusedAnim Node, plays confused animation
+	*/
+	/******************************************************************************/
+	class ConfusedAnim :public Node
+	{
+		EntityID id_;
+		std::shared_ptr<GraphicsSystem> graphics;
+		ComponentManager* component_mgr;
+
+		AnimationRenderer* renderer;
+		Motion* motion;
+		Name* name;
+		AI* ai_;
+	public:
+		/******************************************************************************/
+		/*!
+		  \fn ConfusedAnim(EntityID id)
+
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		ConfusedAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Plays confused animation
+		*/
+		/******************************************************************************/
+		bool run() override;
+	};
+
+	/******************************************************************************/
+	/*!
+	  \class PatrolSequence
+
+	  \brief Patrol Sequence Node, Contains nodes for Patrol and overall actions
+	*/
+	/******************************************************************************/
+	class PatrolSequence : public Sequence
+	{
+		EntityID id_;
+	public:
+		/******************************************************************************/
+		/*!
+		  \fn PatrolSequence(EntityID id) : id_(id)
+
+		  \brief Constructor, setting multiple children related to Patrol actions
+		*/
+		/******************************************************************************/
+		PatrolSequence(EntityID id) : id_(id) {
+			addChild(new Common::CheckWaypoint(id_));
+			addChild(new Common::CheckPath(id_));
+			addChild(new Common::Move(id_, 300.0f));
+			addChild(new WalkAnim(id_));
+		}
+	};
+
+	/******************************************************************************/
+	/*!
+	  \class WalkAnim
+
+	  \brief Sentry Anim Node, Runs Sentry animation (walk)
+	*/
+	/******************************************************************************/
+	class WalkAnim :public Node
+	{
+		EntityID id_;
+		std::shared_ptr<GraphicsSystem> graphics;
+		ComponentManager* component_mgr;
+
+		AnimationRenderer* renderer;
+		Motion* motion;
+		Name* name;
+		AI* ai;
+	public:
+		/******************************************************************************/
+		/*!
+		  \fn WalkAnim(EntityID id)
+
+		  \brief Constructor, sets nodes private variables
+		*/
+		/******************************************************************************/
+		WalkAnim(EntityID id);
+		/******************************************************************************/
+		/*!
+		  \fn run()
+
+		  \brief Runs animation for walking
+		*/
+		/******************************************************************************/
+		bool run() override;
+	};
+
+	class SentrySelector : public Selector
+	{
+	public:
+		SentrySelector(EntityID id)
+		{
+			addChild(new SentrySequence(id));
+			addChild(new SentryReturn(id));
+		}
+	};
+
+	class SentrySequence : public Sequence
+	{
+	public:
+		SentrySequence(EntityID id)
+		{
+			addChild(new Common::AtWaypoint(id));
+			addChild(new IdleAnim(id));
+		}
+	};
+
+	class IdleAnim : public Node
+	{
+		EntityID id_;
+		std::shared_ptr<GraphicsSystem> graphics;
+		ComponentManager* component_mgr;
+
+		AnimationRenderer* renderer;
+		Motion* motion;
+		Name* name;
+		AI* ai_;
+	public:
+		IdleAnim(EntityID id);
+		bool run() override;
+	};
+
+	class SentryReturn : public Sequence
+	{
+	public:
+		SentryReturn(EntityID id)
+		{
+			addChild(new Common::SentryReturn(id));
+			addChild(new Common::CheckPath(id));
+			addChild(new Common::Move(id, 300.0f));
+			addChild(new WalkAnim(id));
+		}
 	};
 };
 
