@@ -2,14 +2,14 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "-19.601461 -14.150888",
+            "position": "-18.10 -71.71",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -0.200000"
         },
         {
             "component": "TextureRenderer",
-            "texture": "Puddle_0",
+            "texture": "Puddle_01_0",
             "layer": "1",
             "order in layer": "2",
             "alive": "1",
@@ -18,12 +18,12 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.000000 0.600000",
             "layer": "8"
         },
         {
             "component": "Scale",
-            "scale": "100.000000 47.000000"
+            "scale": "100.000000 100.000000"
         },
         {
             "component": "LogicComponent",
@@ -42,28 +42,28 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "-18.225843 11.220655",
+            "position": "-34.13 -25.08",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
-      {
-        "component": "TextureRenderer",
-        "texture": "Puddle_0",
-        "layer": "1",
-        "order in layer": "2",
-        "alive": "1",
-        "opacity": "1.0",
-        "tint": "1.0 1.0 1.0"
-      },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.000000 0.600000",
             "layer": "8"
         },
         {
             "component": "Scale",
-            "scale": "100.000000 47.000000"
+            "scale": "80.000000 80.000000"
         },
         {
             "component": "LogicComponent",
@@ -82,28 +82,28 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "10.871519 4.490789",
+            "position": "-48.33 -18.31",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
-      {
-        "component": "TextureRenderer",
-        "texture": "Puddle_0",
-        "layer": "1",
-        "order in layer": "2",
-        "alive": "1",
-        "opacity": "1.0",
-        "tint": "1.0 1.0 1.0"
-      },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.000000 0.600000",
             "layer": "8"
         },
         {
             "component": "Scale",
-            "scale": "100.000000 47.000000"
+            "scale": "80.000000 80.000000"
         },
         {
             "component": "LogicComponent",
@@ -122,28 +122,428 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "8.50 -13.77",
+            "position": "-29.70 -29.27",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -0.200000"
         },
-      {
-        "component": "TextureRenderer",
-        "texture": "Puddle_0",
-        "layer": "1",
-        "order in layer": "2",
-        "alive": "1",
-        "opacity": "1.0",
-        "tint": "1.0 1.0 1.0"
-      },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_01_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.000000 0.600000",
             "layer": "8"
         },
         {
             "component": "Scale",
-            "scale": "100.000000 47.000000"
+            "scale": "100.000000 100.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-30.00 -14.07",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-40.30 -19.37",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.200000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_01_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-32.60 -5.07",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-17.60 -14.97",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.200000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_01_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-9.70 -0.67",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-13.40 -21.17",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "-1.90 -51.77",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.200000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_01_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "17.50 -64.37",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.200000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_01_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "25.30 -85.87",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.200000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_01_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.4 0.850 0.8",
+            "radius": "300.000000",
+            "intensity": "0.650000",
+            "alive": "1"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "45.50 -68.67",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
         },
         {
             "component": "LogicComponent",
