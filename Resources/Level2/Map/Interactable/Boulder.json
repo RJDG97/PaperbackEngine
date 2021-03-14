@@ -2,19 +2,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "27.27 -17.72",
+            "position": "-36.44 -17.34",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -26,19 +43,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "26.02 -16.86",
+            "position": "-40.44 -15.34",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "120.000000 120.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -50,19 +84,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "23.48 -17.05",
+            "position": "-40.34 -13.64",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -74,19 +125,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "25 -17.87",
+            "position": "-46.34 -17.14",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -98,19 +166,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "26.23 -18.72",
+            "position": "-46.34 -15.44",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -122,19 +207,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "23.7 -18.882959",
+            "position": "-46.34 -15.44",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -146,19 +248,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "24.98 -19.846500",
+            "position": "-44.34 -9.34",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -170,19 +289,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "23.70 -20.92",
+            "position": "-44.34 -11.22",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.500000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "120.000000 120.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -194,19 +330,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "26.414747 -20.82",
+            "position": "-38.47 -13.64",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.700000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -218,19 +371,36 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "26.414747 -19.81",
+            "position": "-48.44 -11.42",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.700000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",
@@ -242,19 +412,651 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "-18.296961 13.232500",
+            "position": "-36.07 -11.32",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "0.700000 0.500000",
+            "scale": "0.600000 0.600000",
             "layer": "11"
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-38.37 -9.52",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-31.97 -13.92",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-46.44 -13.42",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-42.34 -4.84",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-40.64 -4.94",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-40.64 -3.04",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-34.44 -3.04",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-36.44 -3.04",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-36.44 -4.94",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-21.88 -66.61",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-22.08 -64.81",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-18.08 -64.81",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-18.08 -66.61",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-18.08 -10.71",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "120.000000 120.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
+    "Boulder": [
+        {
+            "component": "Transform",
+            "position": "-15.98 -12.91",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.600000 0.600000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "120.000000 120.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "LogicComponent",

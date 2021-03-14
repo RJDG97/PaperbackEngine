@@ -13,7 +13,7 @@
     "Boundary": "Resources\\Level2\\Map\\Invisible_Collision.json",
     "Bug_Hill_1x1": "Resources\\Level2\\Map\\Hill\\BugHill_1x1.json",
     "DriedBush_03": "Resources\\Level2\\Map\\Burrow\\DriedBush_03.json",
-    "Hole": "Resources\\Level2\\Map\\Grass\\Hole_Hide_Grass.json",
+    "Grass": "Resources\\Level2\\Map\\Grass\\Hole_Hide_Grass.json",
     "Boulder": "Resources\\Level2\\Map\\Interactable\\Boulder.json",
     "Bug_Hill_1x2": "Resources\\Level2\\Map\\Hill\\BugHill_1x2.json",
     "Bug_Hill_2x1": "Resources\\Level2\\Map\\Hill\\BugHill_2x1.json",

@@ -31,7 +31,7 @@
             "position": "0.000000 0.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 0.400000"
         },
         {
             "component": "TextureRenderer",
@@ -44,7 +44,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.700000 1.900000",
+            "scale": "1.500000 1.400000",
             "layer": "1"
         },
         {
@@ -830,10 +830,10 @@
             "scale": "250.000000 250.000000"
         }
     ],
-    "Hole": [
+    "Grass": [
         {
             "component": "Name",
-            "name": "Hole"
+            "name": "Grass"
         },
         {
             "component": "Transform",
@@ -1230,7 +1230,7 @@
             "reversed_": "0",
             "has_finished_animating": "0",
             "animation_speed": "1.0",
-            "layer": "0",
+            "layer": "1",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.0",
@@ -1780,7 +1780,7 @@
             "reversed_": "0",
             "has_finished_animating": "0",
             "animation_speed": "1.0",
-            "layer": "0",
+            "layer": "1",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.0",

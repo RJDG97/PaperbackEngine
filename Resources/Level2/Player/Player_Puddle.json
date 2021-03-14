@@ -82,7 +82,7 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "-48.33 -18.31",
+            "position": "-48.33 -18.91",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -202,7 +202,7 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "-40.30 -19.37",
+            "position": "-41.20 -19.07",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -0.200000"
@@ -242,7 +242,7 @@
     "Puddle": [
         {
             "component": "Transform",
-            "position": "-32.60 -5.07",
+            "position": "-32.30 -5.07",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
