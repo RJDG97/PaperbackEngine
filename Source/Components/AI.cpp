@@ -36,6 +36,9 @@ void AI::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 	writer->Key("component");
 	writer->String("AI");
 
+	writer->Key("level");
+	writer->String(std::to_string(level_).c_str());
+
 	writer->Key("range");
 	writer->String(std::to_string(range_).c_str());
 
@@ -51,6 +54,9 @@ void AI::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer
 
 	writer->Key("component");
 	writer->String("AI");
+
+	writer->Key("level");
+	writer->String(std::to_string(level_).c_str());
 
 	writer->Key("range");
 	writer->String(std::to_string(range_).c_str());
@@ -73,7 +79,7 @@ void AI::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer
 void AI::DeSerialize(std::stringstream& data) {
 
 	std::string type;
-	data >> type >> range_ >> speed_;
+	data >> type >> level_ >> range_ >> speed_;
 }
 
 void AI::SetRoot(AIType type){
@@ -105,7 +111,7 @@ void AI::DeSerializeClone(std::stringstream& data) {
 	std::string type;
 
 	// clone data will be for number of destinations and destinations
-	data >> type >> range_ >> speed_ >> num_destinations_;
+	data >> type >> level_ >> range_ >> speed_ >> num_destinations_;
 	type_ = GetType(type);
 	SetRoot(type_);
 	//DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");
@@ -128,6 +134,7 @@ std::shared_ptr<Component> AI::Clone() {
 
 	cloned->alive_ = true;
 	cloned->type_ = type_;
+	cloned->level_ = level_;
 	cloned->range_ = range_;
 	cloned->attackpower_ = attackpower_;
 	cloned->state_ = state_;

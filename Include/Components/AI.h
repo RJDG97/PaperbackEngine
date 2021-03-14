@@ -39,8 +39,8 @@ public:
 		Detected,
 		Chase,
 		Attack,
-		Withdraw,
-		Return
+		Confused,
+		Search
 	};
 
 	friend class LogicSystem;
@@ -340,6 +340,7 @@ public:
 	/******************************************************************************/
 	void SetLife(bool life);
 
+	int GetLevel() { return level_; }
 
 	Behaviour::Root* GetRoot() { return root_; };
 
@@ -360,6 +361,7 @@ private:
 	std::vector<Vector2D> path_;
 	Time_Channel recovery_timer_;
 	bool alive_;
+	int level_;
 };
 
 #endif

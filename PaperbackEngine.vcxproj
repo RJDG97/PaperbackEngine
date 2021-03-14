@@ -222,6 +222,7 @@
     <ClCompile Include="Source\MathLib\MathHelper.cpp" />
     <ClCompile Include="Source\MathLib\Matrix3x3.cpp" />
     <ClCompile Include="Source\MathLib\Vector2D.cpp" />
+    <ClCompile Include="Source\Script\Common_Nodes.cpp" />
     <ClCompile Include="Source\Script\Mite_Tree.cpp" />
     <ClCompile Include="Source\Script\Stag_Tree.cpp" />
     <ClCompile Include="Source\Source.cpp" />
@@ -324,6 +325,7 @@
     <ClInclude Include="Include\MathLib\Vector2D.h" />
     <ClInclude Include="Include\Script\Button_Script.h" />
     <ClInclude Include="Include\Script\Collectible_Script.h" />
+    <ClInclude Include="Include\Script\Common_Nodes.h" />
     <ClInclude Include="Include\Script\DialogueTrigger_Script.h" />
     <ClInclude Include="Include\Script\Mite_Tree.h" />
     <ClInclude Include="Include\Script\Movable_Script.h" />

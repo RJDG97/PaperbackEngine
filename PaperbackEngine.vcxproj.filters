@@ -201,6 +201,9 @@
     <Filter Include="Systems\PuzzleSystem">
       <UniqueIdentifier>{e2e0738d-6fd9-41b7-b36d-7a94044d2aef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Common">
+      <UniqueIdentifier>{8a4d7504-25f0-478d-b6d8-c8ac5ead3979}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -493,6 +496,9 @@
     </ClCompile>
     <ClCompile Include="Source\GameStates\CutSceneState.cpp">
       <Filter>Systems\Scene/State Manager\Game States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\Common_Nodes.cpp">
+      <Filter>Scripts\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -849,6 +855,9 @@
     </ClInclude>
     <ClInclude Include="Include\GameStates\CutSceneState.h">
       <Filter>Systems\Scene/State Manager\Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Common_Nodes.h">
+      <Filter>Scripts\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
