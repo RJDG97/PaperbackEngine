@@ -81,6 +81,7 @@ bool Common::PlayerWithinDistance::run()
 		// Find current distance of player from obj
 		float distance = Vector2DDistance(player_rigidbody_->GetOffsetAABBPos(), obj_rigidbody_->GetOffsetAABBPos());
 		// If Player is very close, is detected
+
 		if (ai_->GetLevel()) {
 			if (distance < (detectdistance_ + (Alert::level * 0.2f))) {
 				Alert::increment();
@@ -190,6 +191,7 @@ Common::AtWaypoint::AtWaypoint(EntityID id) : id_(id) {
 
 bool Common::AtWaypoint::run()
 {
+	ai_->SetState(AI::AIState::Patrol);
 	float distance = Vector2DLength(*ai_->GetCurrentDes() - obj_rigidbody_->GetOffsetAABBPos());
 	// If object is at next path node
 	if (distance < 1.0f || ai_->GetPath().empty())

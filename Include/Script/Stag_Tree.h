@@ -101,7 +101,7 @@ public:
 		/******************************************************************************/
 		ActionSelector(EntityID id) : id_(id) {
 			addChild(new DetectSequence(id_));
-			addChild(new ConfusedAnim(id_));
+			//addChild(new ConfusedAnim(id_));
 			addChild(new IdleSequence(id_));
 		}
 	};
@@ -180,12 +180,12 @@ public:
 			component_mgr = &*CORE->GetManager<ComponentManager>();
 			ai_ = component_mgr->GetComponent<AI>(id_);
 			if (ai_->GetLevel()) {
-				addChild(new Common::PlayerWithinDistance(id_, 2.0f));
-				addChild(new Common::PlayerWithinVision(id_, 4.0f));
-			}
-			else {
 				addChild(new Common::PlayerWithinDistance(id_, 3.0f));
 				addChild(new Common::PlayerWithinVision(id_, 5.0f));
+			}
+			else {
+				addChild(new Common::PlayerWithinDistance(id_, 2.0f));
+				addChild(new Common::PlayerWithinVision(id_, 4.0f));
 			}
 		}
 	};
@@ -212,7 +212,7 @@ public:
 			addChild(new DetectAnim(id_));
 			addChild(new ChaseSequence(id_));
 			addChild(new AttackSequence(id_));
-			//addChild(new ConfusedAnim(id_));
+			addChild(new ConfusedAnim(id_));
 		}
 	};
 
