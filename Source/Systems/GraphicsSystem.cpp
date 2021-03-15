@@ -427,13 +427,17 @@ void GraphicsSystem::UpdateRenderLayer(RenderLayer* render_layer) {
 
     std::multimap<float, IRenderer*>* current_order = render_layer->GetRenderers();
     std::multimap<float, IRenderer*> new_order;
+    const float global_scale = CORE->GetGlobalScale();
 
     for (auto it = current_order->begin(); it != current_order->end(); ++it)
     {
         Transform* transform =
             component_manager_->GetComponent<Transform>(it->second->GetOwner()->GetID());
+
+        Scale* scale =
+            component_manager_->GetComponent<Scale>(it->second->GetOwner()->GetID());
         
-        new_order.insert({ -transform->position_.y, it->second });
+        new_order.insert({ -(transform->position_.y - scale->GetScale().y / global_scale), it->second });
     }
 
     current_order->clear();
