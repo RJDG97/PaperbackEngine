@@ -110,7 +110,7 @@
     "DriedBush_03": [
         {
             "component": "Transform",
-            "position": "-23.041218 7.576208",
+            "position": "-24.54 7.28",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -137,61 +137,7 @@
     "DriedBush_03": [
         {
             "component": "Transform",
-            "position": "-20.424040 5.783995",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-      {
-        "component": "TextureRenderer",
-        "texture": "DriedBush_03_0",
-        "layer": "1",
-        "order in layer": "1",
-        "alive": "1",
-        "opacity": "1.0",
-        "tint": "1.0 1.0 1.0"
-      },
-        {
-            "component": "AABB",
-            "scale": "0.600000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "80.000000 80.000000"
-        }
-    ],
-    "DriedBush_03": [
-        {
-            "component": "Transform",
-            "position": "-12.73 2.04",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-      {
-        "component": "TextureRenderer",
-        "texture": "DriedBush_03_0",
-        "layer": "1",
-        "order in layer": "1",
-        "alive": "1",
-        "opacity": "1.0",
-        "tint": "1.0 1.0 1.0"
-      },
-        {
-            "component": "AABB",
-            "scale": "0.600000 1.000000",
-            "layer": "9"
-        },
-        {
-            "component": "Scale",
-            "scale": "-80.000000 80.000000"
-        }
-    ],
-    "DriedBush_03": [
-        {
-            "component": "Transform",
-            "position": "-8.086496 13.280901",
+            "position": "-24.69 3.58",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"

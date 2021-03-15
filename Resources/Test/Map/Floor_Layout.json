@@ -1,6 +1,10 @@
 {
     "Floor": [
         {
+            "component": "Name",
+            "name": "Floor"
+        },
+        {
             "component": "Transform",
             "position": "0.000000 0.000000",
             "rotation": "0.000000",
@@ -11,19 +15,21 @@
             "component": "TextureRenderer",
             "texture": "Temp_Background_0",
             "layer": "0",
-			"order in layer": "0",
+            "order in layer": "0",
             "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.300000 0.300000",
-            "layer": "0"
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "Scale",
             "scale": "3520.000000 3520.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.000000 0.000000 0.000000",
+            "radius": "0.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ]
 }
