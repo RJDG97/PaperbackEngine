@@ -101,29 +101,33 @@ public:
 		/******************************************************************************/
 		ActionSelector(EntityID id) : id_(id) {
 			addChild(new DetectSequence(id_));
-			//addChild(new ConfusedSequence(id_));
-			addChild(new ConfusedAnim(id_));
+			addChild(new ConfusedSelector(id_));
 			addChild(new IdleSequence(id_));
 		}
 	};
 
-	class ConfusedSequence : public Sequence
+	class ConfusedSelector : public Sequence
 	{
 		EntityID id_;
 	public:
-		ConfusedSequence(EntityID id) : id_(id) {
-			addChild(new CheckPatrol(id_));
+		ConfusedSelector(EntityID id) : id_(id) {
 			addChild(new ConfusedAnim(id_));
+			addChild(new SearchCheck(id_));
 		}
 	};
 
-	class CheckPatrol : public Node
+	class SearchCheck : public Node
 	{
 		EntityID id_;
+		std::shared_ptr<GraphicsSystem> graphics;
 		ComponentManager* component_mgr;
+		AnimationRenderer* renderer;
+		Motion* motion;
+		Name* name;
 		AI* ai_;
+		bool pass;
 	public:
-		CheckPatrol(EntityID id);
+		SearchCheck(EntityID id);
 
 		bool run() override;
 	};
