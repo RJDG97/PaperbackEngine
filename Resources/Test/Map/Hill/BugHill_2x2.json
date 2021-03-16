@@ -2,7 +2,7 @@
     "Bug_Hill_2x2": [
         {
             "component": "Transform",
-            "position": "-6.08 10.00",
+            "position": "-6.08 10.40",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -18,12 +18,12 @@
         },
         {
             "component": "AABB",
-            "scale": "2.600000 2.600000",
+            "scale": "2.300000 2.300000",
             "layer": "1"
         },
         {
             "component": "Scale",
-            "scale": "180.000000 180.000000"
+            "scale": "165.000000 165.000000"
         }
     ]
 }
