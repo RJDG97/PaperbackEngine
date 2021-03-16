@@ -1,28 +1,28 @@
 {
-  "Mite": [
-    {
-      "component": "Transform",
-      "position": "-7.0 -15.0",
-      "rotation": "0.000000",
-      "offset": "0.000000 0.000000",
-      "aabb offset": "0.000000 -2.000000"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.500000 0.500000",
-      "layer": "2"
-    },
-    {
-      "component": "AI",
-      "AIType": "Mite",
-      "range": "6.000000",
-      "speed": "200.000000",
-      "dest": "4",
-      "destination1": "-6.500000 -15.000000",
-      "destination2": "-6.500000 -11.000000",
-      "destination3": "-3.500000 -11.000000",
-      "destination4": "-3.500000 -15.000000"
-    },
+    "Mite": [
+        {
+            "component": "Transform",
+            "position": "-20.15 -12.76",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -2.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Mite",
+            "range": "6.000000",
+            "speed": "200.000000",
+            "dest": "4",
+            "destination1": "-19.89 -12.59",
+            "destination2": "-25.00 -12.59",
+            "destination3": "-25.00 -8.38",
+            "destination4": "-20.15 -8.58"
+        },
         {
             "component": "AnimationRenderer",
             "number of animations": "4",
@@ -32,40 +32,40 @@
             "add animation": "Mite_Walk",
             "set animation": "Mite_Idle",
             "play_animation": "1",
-			"reversed_": "0",
+            "reversed_": "0",
             "has_finished_animating": "0",
-			"animation_speed": "1.0",
+            "animation_speed": "1.0",
             "layer": "1",
-			"order in layer": "1",
+            "order in layer": "1",
             "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         }
-  ],
-  "Mite": [
-    {
-      "component": "Transform",
-      "position": "14.2 1.0",
-      "rotation": "0.000000",
-      "offset": "0.000000 0.000000",
-      "aabb offset": "0.000000 -2.000000"
-    },
-    {
-      "component": "AABB",
-      "scale": "0.500000 0.500000",
-      "layer": "2"
-    },
-    {
-      "component": "AI",
-      "AIType": "Mite",
-      "range": "6.000000",
-      "speed": "200.000000",
-      "dest": "4",
-      "destination1": "14.200000 1.000000",
-      "destination2": "14.200000 -4.500000",
-      "destination3": "16.500000 -4.500000",
-      "destination4": "16.500000 1.000000"
-    },
+    ],
+    "Mite": [
+        {
+            "component": "Transform",
+            "position": "4.64 -33.67",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -2.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Mite",
+            "range": "6.000000",
+            "speed": "200.000000",
+            "dest": "4",
+            "destination1": "4.64 -33.67",
+            "destination2": "0.27 -33.67",
+            "destination3": "0.27 -37.32",
+            "destination4": "4.64 -37.32"
+        },
         {
             "component": "AnimationRenderer",
             "number of animations": "4",
@@ -75,14 +75,106 @@
             "add animation": "Mite_Walk",
             "set animation": "Mite_Idle",
             "play_animation": "1",
-			"reversed_": "0",
+            "reversed_": "0",
             "has_finished_animating": "0",
-			"animation_speed": "1.0",
+            "animation_speed": "1.0",
             "layer": "1",
-			"order in layer": "1",
+            "order in layer": "1",
             "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         }
-  ]
+    ],
+    "Mite": [
+        {
+            "component": "Transform",
+            "position": "31.98 -82.11",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -2.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Mite",
+            "range": "6.000000",
+            "speed": "200.000000",
+            "dest": "4",
+            "destination1": "31.98 -82.11",
+            "destination2": "31.98 -80.00",
+            "destination3": "38.40 -82.60",
+            "destination4": "37.51 -86.41",
+            "destination5": "33.95 -86.41",
+            "destination6": "33.95 -82.11"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "4",
+            "add animation": "Mite_Alert",
+            "add animation": "Mite_Explode",
+            "add animation": "Mite_Idle",
+            "add animation": "Mite_Walk",
+            "set animation": "Mite_Idle",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ],
+    "Mite": [
+        {
+            "component": "Transform",
+            "position": "37.28 -70.72",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -2.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Mite",
+            "range": "6.000000",
+            "speed": "200.000000",
+            "dest": "8",
+            "destination1": "37.28 -70.72",
+            "destination2": "31.33 -70.96",
+            "destination3": "31.33 -74.31",
+            "destination4": "37.55 -74.58",
+            "destination5": "37.55 -72.54",
+            "destination6": "31.33 -72.54",
+            "destination7": "31.33 -74.31",
+            "destination8": "37.55 -74.58"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "4",
+            "add animation": "Mite_Alert",
+            "add animation": "Mite_Explode",
+            "add animation": "Mite_Idle",
+            "add animation": "Mite_Walk",
+            "set animation": "Mite_Idle",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ]
 }

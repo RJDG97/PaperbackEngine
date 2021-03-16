@@ -2,7 +2,105 @@
     "StagBeetle": [
         {
             "component": "Transform",
-            "position": "-14.45 6.0",
+            "position": "-26.13 -59.00",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "6",
+            "destination1": "-26.13 -59.00",
+            "destination2": "-18.50 -59.00",
+            "destination3": "-18.50 -53.75",
+            "destination4": "-23.94 -53.75",
+            "destination5": "-23.94 -49.72",
+            "destination6": "-26.03 -49.72"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "7",
+            "add animation": "Stagbeetle_Charge",
+            "add animation": "Stagbeetle_Attack",
+            "add animation": "Stagbeetle_Run",
+            "add animation": "Stagbeetle_Alert",
+            "add animation": "Stagbeetle_Idle",
+            "add animation": "Stagbeetle_Confused",
+            "add animation": "Stagbeetle_Walk",
+            "set animation": "Stagbeetle_Walk",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ],
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "-21.97 -35.64",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "8",
+            "destination1": "-21.97 -35.64",
+            "destination2": "-21.97 -37.52",
+            "destination3": "-17.16 -36.70",
+            "destination4": "-17.16 -39.40",
+            "destination5": "-15.93 -39.24",
+            "destination6": "-15.78 -33.66",
+            "destination7": "-17.86 -33.66",
+            "destination8": "-17.86 -35.69"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "7",
+            "add animation": "Stagbeetle_Charge",
+            "add animation": "Stagbeetle_Attack",
+            "add animation": "Stagbeetle_Run",
+            "add animation": "Stagbeetle_Alert",
+            "add animation": "Stagbeetle_Idle",
+            "add animation": "Stagbeetle_Confused",
+            "add animation": "Stagbeetle_Walk",
+            "set animation": "Stagbeetle_Walk",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ],
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "-28.81 -33.41",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.000000"
@@ -18,10 +116,10 @@
             "range": "5.000000",
             "speed": "200.000000",
             "dest": "4",
-            "destination1": "-14.450000 8.0000",
-            "destination2": "-14.4500000 6.000000",
-            "destination3": "-18.000000 6.000000",
-            "destination4": "-18.000000 8.00000"
+            "destination1": "-28.81 -33.41",
+            "destination2": "-26.12 -33.21",
+            "destination3": "-26.04 -35.71",
+            "destination4": "-30.02 -35.95"
         },
         {
             "component": "AnimationRenderer",
@@ -35,64 +133,20 @@
             "add animation": "Stagbeetle_Walk",
             "set animation": "Stagbeetle_Walk",
             "play_animation": "1",
-			"reversed_": "0",
+            "reversed_": "0",
             "has_finished_animating": "0",
-			"animation_speed": "1.0",
+            "animation_speed": "1.0",
             "layer": "1",
-			"order in layer": "1",
+            "order in layer": "1",
             "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         }
     ],
     "StagBeetle": [
         {
             "component": "Transform",
-            "position": "-31.2 -1.0",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -1.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "2"
-        },
-        {
-            "component": "AI",
-            "AIType": "Stag_Beetle",
-            "range": "5.000000",
-            "speed": "200.000000",
-            "dest": "2",
-            "destination1": "-31.2 -1.0",
-            "destination2": "-25.8 -1.0"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "7",
-            "add animation": "Stagbeetle_Charge",
-            "add animation": "Stagbeetle_Attack",
-            "add animation": "Stagbeetle_Run",
-            "add animation": "Stagbeetle_Alert",
-            "add animation": "Stagbeetle_Idle",
-            "add animation": "Stagbeetle_Confused",
-            "add animation": "Stagbeetle_Walk",
-            "set animation": "Stagbeetle_Walk",
-            "play_animation": "1",
-			"reversed_": "0",
-            "has_finished_animating": "0",
-			"animation_speed": "1.0",
-            "layer": "1",
-			"order in layer": "1",
-            "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
-        }
-    ],
-    "StagBeetle": [
-        {
-            "component": "Transform",
-            "position": "10.0 -23.0",
+            "position": "-29.60 -39.40",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.000000"
@@ -108,10 +162,10 @@
             "range": "5.000000",
             "speed": "200.000000",
             "dest": "4",
-            "destination1": "10.0 -23.0",
-            "destination2": "10.0 -20.0",
-            "destination3": "15.0 -20.0",
-            "destination4": "15.0 -23.0"
+            "destination1": "-29.60 -38.60",
+            "destination2": "-29.60 -42.60",
+            "destination3": "-24.14 -42.60",
+            "destination4": "-24.02 -38.60"
         },
         {
             "component": "AnimationRenderer",
@@ -125,23 +179,23 @@
             "add animation": "Stagbeetle_Walk",
             "set animation": "Stagbeetle_Walk",
             "play_animation": "1",
-			"reversed_": "0",
+            "reversed_": "0",
             "has_finished_animating": "0",
-			"animation_speed": "1.0",
+            "animation_speed": "1.0",
             "layer": "1",
-			"order in layer": "1",
+            "order in layer": "1",
             "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         }
     ],
     "StagBeetle": [
         {
             "component": "Transform",
-            "position": "-2.0 9.0",
+            "position": "-24.02 -4.33",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -2.000000"
+            "aabb offset": "0.000000 -1.000000"
         },
         {
             "component": "AABB",
@@ -151,13 +205,15 @@
         {
             "component": "AI",
             "AIType": "Stag_Beetle",
-            "range": "5.000000",
+            "range": "6.000000",
             "speed": "200.000000",
-            "dest": "4",
-            "destination1": "-2.000000 9.000000",
-            "destination2": "-2.000000 12.000000",
-            "destination3": "-7.000000 12.000000",
-            "destination4": "-7.000000 9.000000"
+            "dest": "6",
+            "destination1": "-23.91 -4.33",
+            "destination2": "-19.29 -4.33",
+            "destination3": "-19.29 -1.79",
+            "destination4": "-17.33 -1.4",
+            "destination5": "-18.08 3.07",
+            "destination6": "-23.91 3.07"
         },
         {
             "component": "AnimationRenderer",
@@ -171,23 +227,71 @@
             "add animation": "Stagbeetle_Walk",
             "set animation": "Stagbeetle_Walk",
             "play_animation": "1",
-			"reversed_": "0",
+            "reversed_": "0",
             "has_finished_animating": "0",
-			"animation_speed": "1.0",
+            "animation_speed": "1.0",
             "layer": "1",
-			"order in layer": "1",
+            "order in layer": "1",
             "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         }
     ],
     "StagBeetle": [
         {
             "component": "Transform",
-            "position": "9.0 -8.3",
+            "position": "-7.83 -8.16",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -2.000000"
+            "aabb offset": "0.000000 -1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "6.000000",
+            "speed": "200.000000",
+            "dest": "6",
+            "destination1": "-7.83 -8.16",
+            "destination2": "-7.83 -4.93",
+            "destination3": "-11.84 -4.93",
+            "destination4": "-11.84 -10.46",
+            "destination5": "-9.80 -10.46",
+            "destination6": "-10.28 -8.27"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "7",
+            "add animation": "Stagbeetle_Charge",
+            "add animation": "Stagbeetle_Attack",
+            "add animation": "Stagbeetle_Run",
+            "add animation": "Stagbeetle_Alert",
+            "add animation": "Stagbeetle_Idle",
+            "add animation": "Stagbeetle_Confused",
+            "add animation": "Stagbeetle_Walk",
+            "set animation": "Stagbeetle_Walk",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ],
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "12.60 -61.91",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -1.000000"
         },
         {
             "component": "AABB",
@@ -200,10 +304,10 @@
             "range": "6.000000",
             "speed": "200.000000",
             "dest": "4",
-            "destination1": "9.000000 -8.300000",
-            "destination2": "9.000000 -6.000000",
-            "destination3": "4.800000 -6.000000",
-            "destination4": "4.800000 -8.300000"
+            "destination1": "13.07 -61.31",
+            "destination2": "13.07 -57.96",
+            "destination3": "7.34 -57.96",
+            "destination4": "7.34 -61.31"
         },
         {
             "component": "AnimationRenderer",
@@ -217,14 +321,62 @@
             "add animation": "Stagbeetle_Walk",
             "set animation": "Stagbeetle_Walk",
             "play_animation": "1",
-			"reversed_": "0",
+            "reversed_": "0",
             "has_finished_animating": "0",
-			"animation_speed": "1.0",
+            "animation_speed": "1.0",
             "layer": "1",
-			"order in layer": "1",
+            "order in layer": "1",
             "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ],
+    "StagBeetle": [
+        {
+            "component": "Transform",
+            "position": "19.66 -70.66",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "2"
+        },
+        {
+            "component": "AI",
+            "AIType": "Stag_Beetle",
+            "range": "6.000000",
+            "speed": "200.000000",
+            "dest": "6",
+            "destination1": "19.66 -70.66",
+            "destination2": "26.16 -70.66",
+            "destination3": "26.16 -76.17",
+            "destination4": "22.91 -76.17",
+            "destination5": "22.91 -73.31",
+            "destination6": "19.66 -73.31"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "7",
+            "add animation": "Stagbeetle_Charge",
+            "add animation": "Stagbeetle_Attack",
+            "add animation": "Stagbeetle_Run",
+            "add animation": "Stagbeetle_Alert",
+            "add animation": "Stagbeetle_Idle",
+            "add animation": "Stagbeetle_Confused",
+            "add animation": "Stagbeetle_Walk",
+            "set animation": "Stagbeetle_Walk",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         }
     ]
 }
