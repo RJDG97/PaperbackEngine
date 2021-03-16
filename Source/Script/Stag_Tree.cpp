@@ -30,19 +30,25 @@ bool Stag_Tree::IdleAnim::run() {
 	// If any pointers are invalid, return
 	if (!renderer || !ai || !motion || !name)
 		return false;
-	ai->SetState(AI::AIState::Patrol);
-	// If velocity is essentially 0, set player to idle
-	graphics->ChangeAnimation(renderer, "Stagbeetle_Idle");
+	if (ai->GetNumDes() > 1) {
+		
+	}
+	else
+	{
+		ai->SetState(AI::AIState::Patrol);
+		// If velocity is essentially 0, set player to idle
+		graphics->ChangeAnimation(renderer, "Stagbeetle_Idle");
 
-	if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
-		graphics->FlipTextureY(renderer);
-		motion->SetIsLeft(false);
+		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
+			graphics->FlipTextureY(renderer);
+			motion->SetIsLeft(false);
+		}
+		else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
+			graphics->FlipTextureY(renderer);
+			motion->SetIsLeft(true);
+		}
+		return true;
 	}
-	else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
-		graphics->FlipTextureY(renderer);
-		motion->SetIsLeft(true);
-	}
-	return true;
 }
 
 Stag_Tree::WalkAnim::WalkAnim(EntityID id) :id_(id) {
@@ -58,12 +64,11 @@ bool Stag_Tree::WalkAnim::run(){
 	// If any pointers are invalid, return
 	if (!renderer || !ai || !motion || !name)
 		return false;
+	graphics->ChangeAnimation(renderer, "Stagbeetle_Walk");
 	ai->SetState(AI::AIState::Patrol);
 	// If velocity is essentially 0, set player to idle
 	if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Idle");
-	else
-		graphics->ChangeAnimation(renderer, "Stagbeetle_Walk");
 
 	if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 		graphics->FlipTextureY(renderer);
@@ -247,17 +252,17 @@ bool Stag_Tree::ConfusedAnim::run() {
 	// If any pointers are invalid, return
 	if (!renderer || !ai_ || !motion || !name || ai_->GetState() == AI::AIState::Patrol)
 		return false;
+	if (ai_->GetState() == AI::AIState::Search)
+		return true;
 
 	if (ai_->GetState() == AI::AIState::Attack || ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Confused);
 		MessageBGM_Play msg{ "EnemyLostSight" };
 		CORE->BroadcastMessage(&msg);
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
+		return true;
 	}
 	if (ai_->GetState() == AI::AIState::Confused && !renderer->FinishedAnimating()) {
-		 //If velocity is essentially 0, set player to idle
-		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
 
 		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
@@ -269,5 +274,40 @@ bool Stag_Tree::ConfusedAnim::run() {
 		}
 		return true;
 	}
-	return false;
+	if(renderer->FinishedAnimating()){
+		ai_->SetState(AI::AIState::Search);
+		return true;
+	}
+}
+
+Stag_Tree::SearchCheck::SearchCheck(EntityID id) :id_(id) {
+	graphics = CORE->GetSystem<GraphicsSystem>();
+	component_mgr = &*CORE->GetManager<ComponentManager>();
+	renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
+	motion = component_mgr->GetComponent<Motion>(id_);
+	name = component_mgr->GetComponent<Name>(id_);
+	ai_ = component_mgr->GetComponent<AI>(id_);
+	pass = false;
+}
+
+bool Stag_Tree::SearchCheck::run()
+{
+	if (ai_->GetState() == AI::AIState::Patrol)
+		return false;
+	if (ai_->GetState() == AI::AIState::Confused)
+		return true;
+	if (!pass && ai_->GetState() == AI::AIState::Search) {
+		pass = true;
+		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
+		graphics->FlipTextureY(renderer);
+		motion->SetIsLeft(!motion->IsLeft());
+		ai_->SetState(AI::AIState::Confused);
+		return true;
+	}
+	if(pass)
+	{
+		ai_->SetState(AI::AIState::Patrol);
+		pass = false;
+		return false;
+	}
 }

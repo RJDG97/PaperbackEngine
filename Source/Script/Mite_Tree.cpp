@@ -180,22 +180,20 @@ Mite_Tree::ConfusedAnim::ConfusedAnim(EntityID id) :id_(id) {
 }
 
 bool Mite_Tree::ConfusedAnim::run() {
-
 	// If any pointers are invalid, return
-	if (!renderer || !ai_ || !motion || !name)
+	if (!renderer || !ai_ || !motion || !name || ai_->GetState() == AI::AIState::Patrol)
 		return false;
+	if (ai_->GetState() == AI::AIState::Search)
+		return true;
 
-	if (ai_->GetState() == AI::AIState::Attack) {
+	if (ai_->GetState() == AI::AIState::Attack || ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Confused);
 		MessageBGM_Play msg{ "EnemyLostSight" };
 		CORE->BroadcastMessage(&msg);
-		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
+		graphics->ChangeAnimation(renderer, "Mite_Alert");
+		return true;
 	}
-	motion->SetForce(0);
 	if (ai_->GetState() == AI::AIState::Confused && !renderer->FinishedAnimating()) {
-		// If velocity is essentially 0, set player to idle
-		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
 
 		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
@@ -207,7 +205,10 @@ bool Mite_Tree::ConfusedAnim::run() {
 		}
 		return true;
 	}
-	return false;
+	if (renderer->FinishedAnimating()) {
+		ai_->SetState(AI::AIState::Search);
+		return true;
+	}
 }
 
 Mite_Tree::IdleAnim::IdleAnim(EntityID id) :id_(id) {
@@ -236,4 +237,36 @@ bool Mite_Tree::IdleAnim::run() {
 		motion->SetIsLeft(true);
 	}
 	return true;
+}
+
+Mite_Tree::SearchCheck::SearchCheck(EntityID id) :id_(id) {
+	graphics = CORE->GetSystem<GraphicsSystem>();
+	component_mgr = &*CORE->GetManager<ComponentManager>();
+	renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
+	motion = component_mgr->GetComponent<Motion>(id_);
+	name = component_mgr->GetComponent<Name>(id_);
+	ai_ = component_mgr->GetComponent<AI>(id_);
+	pass = false;
+}
+
+bool Mite_Tree::SearchCheck::run()
+{
+	if (ai_->GetState() == AI::AIState::Patrol)
+		return false;
+	if (ai_->GetState() == AI::AIState::Confused)
+		return true;
+	if (!pass && ai_->GetState() == AI::AIState::Search) {
+		pass = true;
+		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
+		graphics->FlipTextureY(renderer);
+		motion->SetIsLeft(!motion->IsLeft());
+		ai_->SetState(AI::AIState::Confused);
+		return true;
+	}
+	if (pass)
+	{
+		ai_->SetState(AI::AIState::Patrol);
+		pass = false;
+		return false;
+	}
 }
