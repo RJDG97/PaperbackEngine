@@ -101,9 +101,31 @@ public:
 		/******************************************************************************/
 		ActionSelector(EntityID id) : id_(id) {
 			addChild(new DetectSequence(id_));
-			//addChild(new ConfusedAnim(id_));
+			//addChild(new ConfusedSequence(id_));
+			addChild(new ConfusedAnim(id_));
 			addChild(new IdleSequence(id_));
 		}
+	};
+
+	class ConfusedSequence : public Sequence
+	{
+		EntityID id_;
+	public:
+		ConfusedSequence(EntityID id) : id_(id) {
+			addChild(new CheckPatrol(id_));
+			addChild(new ConfusedAnim(id_));
+		}
+	};
+
+	class CheckPatrol : public Node
+	{
+		EntityID id_;
+		ComponentManager* component_mgr;
+		AI* ai_;
+	public:
+		CheckPatrol(EntityID id);
+
+		bool run() override;
 	};
 
 	class IdleSequence : public Sequence
