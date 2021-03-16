@@ -359,7 +359,7 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 		//push_force.y = vel1->y < 0.0f ? -player_f : player_f;
 
 		transform1->position_ += inverse_vector_1;
-		force_mgr->AddForce(pushable_id, "PlayerForce", PE_FrameRate.GetFixedDelta(), *vel1 * 6.0f); // to be replaced
+		force_mgr->AddForce(pushable_id, "PlayerForce", PE_FrameRate.GetFixedDelta(), *vel1 * 5.0f); // to be replaced
 	}
 	//transform2->position_ += normal; //inverse_vector_2;
 
@@ -563,8 +563,13 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 		}
 		case CollisionLayer::TILES:
 		{
-
 			DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
+			break;
+		}
+		case CollisionLayer::BURROWABLE:
+		{
+			DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
+			break;
 		}
 		}
 		break;
@@ -633,6 +638,16 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 		}
 		break;
+	}
+	case CollisionLayer::SOLID_ENVIRONMENT:
+	{
+		switch (layer_b)
+		{
+		case CollisionLayer::PUSHABLE:
+		{
+			DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
+		}
+		}
 	}
 	case CollisionLayer::PUSHABLE:
 	{
@@ -848,7 +863,7 @@ void Collision::Init() {
 		Parameter 2: Collidable with Layer 2 (ENEMY) and Layer 3 (PLAYER),
 					 does not collide with similar layer
 	*/
-	AddCollisionLayers(CollisionLayer::ENEMY, "00000000000110", false);
+	AddCollisionLayers(CollisionLayer::ENEMY, "00001000000110", false);
 
 	/*
 		Parameter 1: Collision layer 3
@@ -891,19 +906,19 @@ void Collision::Init() {
 	Parameter 1: Collision layer 9
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::BURROWABLE, "00000000001000", false);
+	AddCollisionLayers(CollisionLayer::BURROWABLE, "00001000001100", false);
 
 	/*
 	Parameter 1: Collision layer 10
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::SOLID_ENVIRONMENT, "00000000001000", false);
+	AddCollisionLayers(CollisionLayer::SOLID_ENVIRONMENT, "00010000011000", false);
 
 	/*
 	Parameter 1: Collision layer 11
 	Parameter 2: Collidable with Layer 3 (PLAYER), Layer 13 (HOLE)
 	*/
-	AddCollisionLayers(CollisionLayer::PUSHABLE, "00100000001010", false);
+	AddCollisionLayers(CollisionLayer::PUSHABLE, "00110000001010", false);
 
 	/*
 	Parameter 1: Collision layer 12
