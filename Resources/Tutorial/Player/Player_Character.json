@@ -1,0 +1,78 @@
+{
+    "Player": [
+        {
+            "component": "Transform",
+            "position": "22.41 -103.75",
+            "rotation": "0.000000",
+            "offset": "0.000000 -1.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "3"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "InputController",
+            "size": "18",
+            "advance_text": "advance_text 257",
+            "burrow": "burrow 69",
+            "debug": "debug 66",
+            "expand": "expand 39",
+            "god": "god 53",
+            "invisible": "invisible 32",
+            "lose": "lose 55",
+            "move_down": "move_down 83",
+            "move_left": "move_left 65",
+            "move_right": "move_right 68",
+            "move_up": "move_up 87",
+            "pause": "pause 256",
+            "shrink": "shrink 59",
+            "spin_left": "spin_left 44",
+            "spin_right": "spin_right 46",
+            "teleport_house": "teleport_house 57",
+            "teleport_key": "teleport_key 56",
+            "win": "win 54"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "6",
+            "add animation": "Player_Hiding",
+            "add animation": "Player_Burrow_Walk",
+            "add animation": "Player_Burrow_Idle",
+            "add animation": "Player_Idle",
+            "add animation": "Player_Walk",
+            "add animation": "Player_Hit",
+            "set animation": "Player_Walk",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Player"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "4",
+            "name": "Collectible",
+            "function": "Player_Collectible",
+            "name": "UpdateChildOffset",
+            "function": "Player_UpdateChildOffset",
+            "name": "UpdateInput",
+            "function": "Player_UpdateInput",
+            "name": "UpdateTexture",
+            "function": "Player_UpdateTexture"
+        }
+    ]
+}
