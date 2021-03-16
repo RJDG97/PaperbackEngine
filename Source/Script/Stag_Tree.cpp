@@ -131,7 +131,7 @@ bool Stag_Tree::ChaseAnim::run() {
 	if (!renderer || !ai_ || !motion || !name)
 		return false;
 
-	if (ai_->GetState() == AI::AIState::Detected) {
+	if (ai_->GetState() == AI::AIState::Detected || ai_->GetState() == AI::AIState::Confused) {
 		ai_->SetState(AI::AIState::Chase);
 		MessageBGM_Play msg{ "EnemyAttack" };
 		CORE->BroadcastMessage(&msg);
@@ -245,7 +245,7 @@ Stag_Tree::ConfusedAnim::ConfusedAnim(EntityID id) :id_(id) {
 
 bool Stag_Tree::ConfusedAnim::run() {
 	// If any pointers are invalid, return
-	if (!renderer || !ai_ || !motion || !name)
+	if (!renderer || !ai_ || !motion || !name || ai_->GetState() == AI::AIState::Patrol)
 		return false;
 
 	if (ai_->GetState() == AI::AIState::Attack || ai_->GetState() == AI::AIState::Chase) {
@@ -255,7 +255,7 @@ bool Stag_Tree::ConfusedAnim::run() {
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
 	}
 	if (ai_->GetState() == AI::AIState::Confused && !renderer->FinishedAnimating()) {
-		// If velocity is essentially 0, set player to idle
+		 //If velocity is essentially 0, set player to idle
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
 			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
 

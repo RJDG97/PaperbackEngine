@@ -1,0 +1,31 @@
+{
+    "PotatoHouse": [
+        {
+            "component": "Name",
+            "name": "PotatoHouse"
+        },
+        {
+            "component": "Transform",
+            "position": "22.41 -103.75",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Potato_House",
+            "layer": "0",
+            "ui": "205"
+        },
+        {
+            "component": "AABB",
+            "scale": "30.000000 30.000000",
+            "layer": "14829735431805717965"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        }
+    ]
+
+}

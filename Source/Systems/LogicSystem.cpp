@@ -26,7 +26,6 @@ void LogicSystem::Update(float frametime)
 {
 	(void)frametime;
 	for (AIIt ai = ai_arr_->begin(); ai != ai_arr_->end(); ++ai) {
-
 		// Run AI Behaviour Tree
 		if(ai->second->root_)
 			ai->second->root_->run();
