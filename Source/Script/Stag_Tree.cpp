@@ -24,14 +24,35 @@ Stag_Tree::IdleAnim::IdleAnim(EntityID id) :id_(id) {
 	motion = component_mgr->GetComponent<Motion>(id_);
 	name = component_mgr->GetComponent<Name>(id_);
 	ai = component_mgr->GetComponent<AI>(id_);
+	running = false;
 }
 
 bool Stag_Tree::IdleAnim::run() {
 	// If any pointers are invalid, return
 	if (!renderer || !ai || !motion || !name)
 		return false;
-	if (ai->GetNumDes() > 1) {
-		
+	if (ai->GetNumDes() > 1 && ai->GetLevel()) {
+		if (!running) {
+			graphics->ChangeAnimation(renderer, "Stagbeetle_Idle");
+			running = true;
+			return false;
+		}
+		else {
+			if (renderer->FinishedAnimating()) {
+				running = false;
+				return true;
+			}
+
+			if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
+				graphics->FlipTextureY(renderer);
+				motion->SetIsLeft(false);
+			}
+			else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
+				graphics->FlipTextureY(renderer);
+				motion->SetIsLeft(true);
+			}
+			return false;
+		}
 	}
 	else
 	{
