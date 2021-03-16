@@ -1,9 +1,8 @@
 {
     "BushDark": [
-
         {
             "component": "Transform",
-            "position": "28.900000 -112.900000",
+            "position": "28.900000 -112.900002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -28,10 +27,9 @@
         }
     ],
     "BushDark": [
-
         {
             "component": "Transform",
-            "position": "38.600000 -105.300000",
+            "position": "38.599998 -105.300003",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -56,10 +54,9 @@
         }
     ],
     "BushDark": [
-
         {
             "component": "Transform",
-            "position": "23.400000 -62.200000",
+            "position": "23.400000 -62.200001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -84,7 +81,6 @@
         }
     ],
     "BushDark": [
-
         {
             "component": "Transform",
             "position": "15.200000 -60.500000",
@@ -111,12 +107,10 @@
             "scale": "200.000000 200.000000"
         }
     ],
-
     "BushDark": [
-
         {
             "component": "Transform",
-            "position": "28.900000 -110.400000",
+            "position": "28.900000 -110.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -141,10 +135,9 @@
         }
     ],
     "BushDark": [
-
         {
             "component": "Transform",
-            "position": "50.900000 -110.400000",
+            "position": "50.900002 -110.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -169,10 +162,9 @@
         }
     ],
     "BushDark": [
-
         {
             "component": "Transform",
-            "position": "16.600000 -85.600000",
+            "position": "16.600000 -85.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -197,10 +189,9 @@
         }
     ],
     "BushDark": [
-
         {
             "component": "Transform",
-            "position": "28.900000 -110.400000",
+            "position": "28.900000 -110.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -225,7 +216,6 @@
         }
     ],
     "BushDark": [
-
         {
             "component": "Transform",
             "position": "25.400000 -61.000000",
@@ -253,10 +243,9 @@
         }
     ],
     "BushDark": [
-
         {
             "component": "Transform",
-            "position": "19.300000 -60.500000",
+            "position": "19.299999 -60.500000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -280,5 +269,4 @@
             "scale": "200.000000 200.000000"
         }
     ]
-
 }

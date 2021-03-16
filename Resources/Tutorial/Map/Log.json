@@ -1,1 +1,26 @@
-{}
+{
+    "Log": [
+        {
+            "component": "Transform",
+            "position": "62.599998 -96.400002",
+            "rotation": "0.000000",
+            "offset": "0.000000 -4.200000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "12"
+        },
+        {
+            "component": "Scale",
+            "scale": "512.000000 512.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Interactable",
+            "function": "Interactable_Response"
+        }
+    ]
+}

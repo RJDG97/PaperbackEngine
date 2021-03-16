@@ -1,13 +1,8 @@
 {
-   
     "Floor": [
         {
-            "component": "Name",
-            "name": "Floor"
-        },
-        {
             "component": "Transform",
-            "position": "43.100000 -86.200000",
+            "position": "43.099998 -86.199997",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -18,19 +13,12 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
             "scale": "3520.000000 3520.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "0.000000 0.000000 0.000000",
-            "radius": "0.000000",
-            "intensity": "0.000000",
-            "alive": "1"
         }
     ]
 }

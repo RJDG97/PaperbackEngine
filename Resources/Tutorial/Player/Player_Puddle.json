@@ -1,9 +1,8 @@
 {
-
     "Puddle": [
         {
             "component": "Transform",
-            "position": "46.00 -68.47",
+            "position": "37.099998 -101.769997",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -14,8 +13,8 @@
             "layer": "1",
             "order in layer": "2",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -31,13 +30,171 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "34.400002 -112.370003",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
         },
         {
-            "component": "PointLight",
-            "color": "0.4 0.850 0.8",
-            "radius": "300.000000",
-            "intensity": "0.650000",
-            "alive": "1"
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "59.599998 -108.970001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "41.000000 -93.769997",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "30.400000 -88.169998",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
+        }
+    ],
+    "Puddle": [
+        {
+            "component": "Transform",
+            "position": "13.090000 -84.769997",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_02_0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "8"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Collectible",
+            "function": "Environment_Collectible"
         }
     ]
 }

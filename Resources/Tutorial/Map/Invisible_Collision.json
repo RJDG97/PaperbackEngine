@@ -2,19 +2,19 @@
     "Boundary": [
         {
             "component": "Transform",
-            "position": "43.209148 -13.440011",
+            "position": "31.600000 -75.970001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "10.800000 1.800000",
+            "scale": "1.900000 9.300000",
             "layer": "1"
         },
         {
             "component": "Scale",
-            "scale": "32.000000 32.000000"
+            "scale": "34.599998 32.000000"
         }
     ]
 }

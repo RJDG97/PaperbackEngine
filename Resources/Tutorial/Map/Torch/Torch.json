@@ -2,7 +2,151 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "-12.000000 10.000000",
+            "position": "14.000000 103.699997",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ],
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "30.900000 -95.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ],
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "41.799999 -103.199997",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ],
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "53.500000 -98.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ],
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "58.700001 -84.400002",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ],
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "75.500000 -92.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ],
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "40.900002 -88.099998",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ],
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "5.800000 -85.199997",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
+        }
+    ],
+    "Torch": [
+        {
+            "component": "Transform",
+            "position": "18.100000 -63.799999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
