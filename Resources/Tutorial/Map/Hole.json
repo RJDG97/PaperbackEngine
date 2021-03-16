@@ -1,20 +1,3 @@
 {
-    "PuzzleHole": [
-        {
-            "component": "Transform",
-            "position": "43.900002 -78.570000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -0.600000"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 0.600000",
-            "layer": "13"
-        },
-        {
-            "component": "Scale",
-            "scale": "120.000000 120.000000"
-        }
-    ]
+   
 }
