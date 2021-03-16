@@ -1,4 +1,62 @@
 {
+    "Boulder": [
+        {
+            "component": "Name",
+            "name": "Boulder"
+        },
+        {
+            "component": "Motion",
+            "mass": "0.200000",
+            "force": "0.000000",
+            "alive": "1"
+        },
+        {
+            "component": "Transform",
+            "position": "-14.300272 -24.710081",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "3",
+            "add animation": "Stone_Roll_One",
+            "add animation": "Stone_Roll_Two",
+            "add animation": "Stone_Roll_Three",
+            "set animation": "Stone_Roll_One",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "11"
+        },
+        {
+            "component": "Scale",
+            "scale": "128.000000 128.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "550.000000",
+            "intensity": "0.500000",
+            "alive": "1"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "UpdateAnimation",
+            "function": "Environmental_AnimUpdate"
+        }
+    ],
     "Boundary": [
         {
             "component": "Name",
@@ -39,8 +97,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -70,8 +128,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -101,8 +159,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -132,8 +190,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -163,8 +221,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -222,8 +280,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -253,8 +311,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -284,8 +342,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -349,8 +407,8 @@
             "layer": "1",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -380,8 +438,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "0",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -419,11 +477,40 @@
             "scale": "0.350000",
             "layer": "0",
             "order in layer": "0",
-            "alive": "0"
+            "alive": "0",
+            "opacity": "1.000000"
         },
         {
             "component": "Child",
             "parent_name": "DialogueBox1"
+        }
+    ],
+    "DialogueTriggerBox": [
+        {
+            "component": "Name",
+            "name": "DialogueTriggerBox"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "12"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Interactable",
+            "function": "TriggerDialogue"
+        },
+        {
+            "component": "DialogueTrigger",
+            "dialogue name": "keypickedup"
         }
     ],
     "DriedBush_01": [
@@ -444,8 +531,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -475,8 +562,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -506,8 +593,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -537,8 +624,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -563,8 +650,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -589,8 +676,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -623,14 +710,14 @@
             "add animation": "Gate_Opening",
             "set animation": "Gate_Idle",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -669,6 +756,51 @@
             "scale": "32.000000 32.000000"
         }
     ],
+    "Grass": [
+        {
+            "component": "Name",
+            "name": "Grass"
+        },
+        {
+            "component": "Transform",
+            "position": "5.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Grass_Light",
+            "add animation": "Grass_Heavy",
+            "set animation": "Grass_Light",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "550.000000",
+            "intensity": "0.500000",
+            "alive": "1"
+        }
+    ],
     "GrassDark": [
         {
             "component": "Name",
@@ -687,8 +819,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -718,8 +850,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -729,6 +861,37 @@
         {
             "component": "Scale",
             "scale": "50.000000 50.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Name",
+            "name": "Gravel"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
         }
     ],
     "HideIcon": [
@@ -749,8 +912,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -786,8 +949,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -817,8 +980,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -828,96 +991,6 @@
         {
             "component": "Scale",
             "scale": "250.000000 250.000000"
-        }
-    ],
-    "Grass": [
-        {
-            "component": "Name",
-            "name": "Grass"
-        },
-        {
-            "component": "Transform",
-            "position": "5.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Grass_Light",
-            "add animation": "Grass_Heavy",
-            "set animation": "Grass_Light",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "4"
-        },
-        {
-            "component": "Scale",
-            "scale": "140.000000 140.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
-        }
-    ],
-    "PuzzleHole": [
-        {
-            "component": "Name",
-            "name": "PuzzleHole"
-        },
-        {
-            "component": "Transform",
-            "position": "5.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -0.600000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Stone_Fall_One",
-            "add animation": "Hole_One",
-            "set animation": "Hole_One",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 0.600000",
-            "layer": "13"
-        },
-        {
-            "component": "Scale",
-            "scale": "120.000000 120.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
         }
     ],
     "HowToPlay": [
@@ -938,8 +1011,8 @@
             "layer": "0",
             "order in layer": "20",
             "alive": "0",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -977,14 +1050,14 @@
             "add animation": "Key_Idle",
             "set animation": "Key_Idle",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1057,14 +1130,14 @@
             "add animation": "Tree_Fall",
             "set animation": "Tree_Fall",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1104,8 +1177,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1125,7 +1198,132 @@
         },
         {
             "component": "ParentChild",
-            "elements": "0"
+            "my_name": "0"
+        }
+    ],
+    "MenuRadish": [
+        {
+            "component": "Name",
+            "name": "MenuRadish"
+        },
+        {
+            "component": "Transform",
+            "position": "4.600000 -1.900000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Radish_Menu",
+            "set animation": "Radish_Menu",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "120.000000 120.000000"
+        }
+    ],
+    "MenuTitle": [
+        {
+            "component": "Name",
+            "name": "MenuTitle"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 3.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "TitleText",
+            "add animation": "TitleText_2",
+            "set animation": "TitleText",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.300000",
+            "layer": "0",
+            "order in layer": "4",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "250.000000 250.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Title",
+            "function": "MenuState_TitleText"
+        }
+    ],
+    "MenuTitleCard": [
+        {
+            "component": "Name",
+            "name": "MenuTitleCard"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 3.500000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "TitleCard",
+            "add animation": "TitleCard_2",
+            "set animation": "TitleCard",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "0",
+            "order in layer": "3",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "250.000000 250.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Title",
+            "function": "MenuState_TitleCard"
         }
     ],
     "Mite": [
@@ -1159,14 +1357,14 @@
             "add animation": "Mite_Walk",
             "set animation": "Mite_Idle",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1175,6 +1373,7 @@
         },
         {
             "component": "AI",
+            "level": "0",
             "range": "0.000000",
             "speed": "0.000000"
         },
@@ -1201,64 +1400,6 @@
             "alive": "1"
         }
     ],
-    "Boulder": [
-        {
-            "component": "Name",
-            "name": "Boulder"
-        },
-        {
-            "component": "Motion",
-            "mass": "0.200000",
-            "force": "0.000000",
-            "alive": "1"
-        },
-        {
-            "component": "Transform",
-            "position": "-14.300272 -24.710081",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "3",
-            "add animation": "Stone_Roll_One",
-            "add animation": "Stone_Roll_Two",
-            "add animation": "Stone_Roll_Three",
-            "set animation": "Stone_Roll_One",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "1",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "11"
-        },
-        {
-            "component": "Scale",
-            "scale": "128.000000 128.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateAnimation",
-            "function": "Environmental_AnimUpdate"
-        }
-    ],
     "MovingWall": [
         {
             "component": "Name",
@@ -1283,14 +1424,14 @@
             "add animation": "Mite_Walk",
             "set animation": "Mite_Walk",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1330,8 +1471,8 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "0",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -1359,8 +1500,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -1386,39 +1527,6 @@
         },
         {
             "component": "Emitter"
-        }
-    ],
-    "WaterParticleEmitter": [
-        {
-            "component": "Name",
-            "name": "WaterParticleEmitter"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "Emitter",
-            "emitter lifetime": "0.0",
-            "emitter spawn interval": "0.0",
-            "emitter request": "5",
-            "emitter maximum spawn": "5",
-            "particle lifetime range": "1.700000 1.700000",
-            "particle min pos": "0.000000 0.000000",
-            "particle max pos": "0.000000 0.000000",
-            "particle force range": "30.000000 40.000000",
-            "particle direction range": "180.000000 0.000000",
-            "particle rotation speed": "1.000000 2.000000",
-            "min rotation angle range": "0.000000 0.000000",
-            "max rotation angle range": "0.000000 0.000000",
-            "number of textures": "1",
-            "texture": "Puddle_01_0",
-            "has_destination": "1",
-            "destination": "-3.0 8.0",
-            "destination_time_range": "2.0 5.0"
         }
     ],
     "Player": [
@@ -1454,14 +1562,14 @@
             "add animation": "Player_Hit",
             "set animation": "Player_Walk",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1487,8 +1595,7 @@
         },
         {
             "component": "ParentChild",
-            "elements": "1",
-            "to_clone": "Camera"
+            "my_name": "1"
         },
         {
             "component": "LogicComponent",
@@ -1524,8 +1631,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1537,6 +1644,13 @@
             "scale": "32.000000 32.000000"
         },
         {
+            "component": "PointLight",
+            "color": "73604148164365473808384.000000 0.000000 0.000000",
+            "radius": "0.000000",
+            "intensity": "0.000000",
+            "alive": "100"
+        },
+        {
             "component": "LogicComponent",
             "number_of_fns": "1",
             "name": "Collectible",
@@ -1546,9 +1660,51 @@
             "component": "Collectible",
             "item name": "Puddle",
             "item description": "Wow"
+        }
+    ],
+    "PuzzleHole": [
+        {
+            "component": "Name",
+            "name": "PuzzleHole"
         },
         {
-            "component": "PointLight"
+            "component": "Transform",
+            "position": "5.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Stone_Fall_One",
+            "add animation": "Hole_One",
+            "set animation": "Hole_One",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "13"
+        },
+        {
+            "component": "Scale",
+            "scale": "120.000000 120.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "550.000000",
+            "intensity": "0.500000",
+            "alive": "1"
         }
     ],
     "SingleHill": [
@@ -1569,44 +1725,13 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
             "scale": "2.000000 2.000000",
             "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "100.000000 100.000000"
-        }
-    ],
-    "Gravel": [
-        {
-            "component": "Name",
-            "name": "Gravel"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "10"
         },
         {
             "component": "Scale",
@@ -1640,14 +1765,14 @@
             "add animation": "Spore_Idle",
             "set animation": "Spore_Idle",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1711,14 +1836,14 @@
             "add animation": "Stagbeetle_Walk",
             "set animation": "Stagbeetle_Walk",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1727,6 +1852,7 @@
         },
         {
             "component": "AI",
+            "level": "0",
             "range": "0.000000",
             "speed": "0.000000"
         },
@@ -1777,14 +1903,14 @@
             "add animation": "Torch_Idle",
             "set animation": "Torch_Idle",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "1",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1824,7 +1950,8 @@
             "scale": "1.000000",
             "layer": "0",
             "order in layer": "0",
-            "alive": "1"
+            "alive": "1",
+            "opacity": "1.000000"
         }
     ],
     "Wall": [
@@ -1845,8 +1972,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1865,64 +1992,20 @@
             "alive": "1"
         }
     ],
-    "Watergauge": [
+    "WaterParticleEmitter": [
         {
             "component": "Name",
-            "name": "Watergauge"
+            "name": "WaterParticleEmitter"
         },
         {
             "component": "Transform",
-            "position": "-6.50000 4.100000",
+            "position": "0.000000 0.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
         },
         {
-            "component": "TextureRenderer",
-            "texture": "UI_HealthBar_Full_0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "Scale",
-            "scale": "200.000000 100.000000"
-        },
-        {
-            "component": "ParentChild",
-            "my_name": "Watergauge"
-        }
-    ],
-    "Watershade": [
-        {
-            "component": "Name",
-            "name": "Watershade"
-        },
-        {
-            "component": "Transform",
-            "position": "-6.50000 4.100000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "UI_HealthBar_Shade_0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "0.3",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "Scale",
-            "scale": "200.000000 100.000000"
-        },
-        {
-            "component": "Child",
-            "parent_name": "Watergauge"
+            "component": "Emitter"
         }
     ],
     "Waterbase": [
@@ -1932,7 +2015,7 @@
         },
         {
             "component": "Transform",
-            "position": "-6.50000 4.100000",
+            "position": "-6.500000 4.100000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -1943,8 +2026,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -1962,7 +2045,7 @@
         },
         {
             "component": "Transform",
-            "position": "-6.50000 4.100000",
+            "position": "-6.500000 4.100000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -1973,14 +2056,14 @@
             "add animation": "HealthBar_Bubbles",
             "set animation": "HealthBar_Bubbles",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -1998,7 +2081,7 @@
         },
         {
             "component": "Transform",
-            "position": "-6.50000 4.100000",
+            "position": "-6.500000 4.100000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -2009,14 +2092,74 @@
             "add animation": "HealthBar_Water",
             "set animation": "HealthBar_Water",
             "play_animation": "1",
-            "reversed_": "0",
+            "reversed": "0",
             "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "animation_speed": "1.000000",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "Scale",
+            "scale": "200.000000 100.000000"
+        },
+        {
+            "component": "Child",
+            "parent_name": "Watergauge"
+        }
+    ],
+    "Watergauge": [
+        {
+            "component": "Name",
+            "name": "Watergauge"
+        },
+        {
+            "component": "Transform",
+            "position": "-6.500000 4.100000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "UI_HealthBar_Full_0",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "Scale",
+            "scale": "200.000000 100.000000"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Watergauge"
+        }
+    ],
+    "Watershade": [
+        {
+            "component": "Name",
+            "name": "Watershade"
+        },
+        {
+            "component": "Transform",
+            "position": "-6.500000 4.100000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "UI_HealthBar_Shade_0",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "0.300000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "Scale",
@@ -2048,160 +2191,39 @@
             "scale": "1.000000",
             "layer": "0",
             "order in layer": "0",
-            "alive": "1"
+            "alive": "1",
+            "opacity": "1.000000"
         }
     ],
-    "DialogueTriggerBox": [
+    "VillageHouse": [
         {
             "component": "Name",
-            "name": "DialogueTriggerBox"
+            "name": "VillageHouse"
         },
         {
             "component": "Transform",
             "position": "0.000000 0.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 0.400000"
         },
         {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "12"
-        },
-        {
-            "component": "DialogueTrigger",
-            "dialogue name": "keypickedup"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "Interactable",
-            "function": "TriggerDialogue"
-        }
-    ],
-    "MenuTitleCard": [
-        {
-            "component": "Name",
-            "name": "MenuTitleCard"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 3.500000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "TitleCard",
-            "add animation": "TitleCard_2",
-            "set animation": "TitleCard",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "3",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.0000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "250.000000 250.000000"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "Title",
-            "function": "MenuState_TitleCard"
-        }
-    ],
-    "MenuTitle": [
-        {
-            "component": "Name",
-            "name": "MenuTitle"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 3.500000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "TitleText",
-            "add animation": "TitleText_2",
-            "set animation": "TitleText",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.3",
-            "layer": "0",
-            "order in layer": "4",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.0000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "250.000000 250.000000"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "Title",
-            "function": "MenuState_TitleText"
-        }
-    ],
-    "MenuRadish": [
-        {
-            "component": "Name",
-            "name": "MenuRadish"
-        },
-        {
-            "component": "Transform",
-            "position": "4.600000 -1.900000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "1",
-            "add animation": "Radish_Menu",
-            "set animation": "Radish_Menu",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
+            "component": "TextureRenderer",
+            "texture": "Potato_House_0",
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.0000",
-            "layer": "0"
+            "scale": "1.500000 1.400000",
+            "layer": "1"
         },
         {
             "component": "Scale",
-            "scale": "120.000000 120.000000"
+            "scale": "180.000000 180.000000"
         }
     ]
 }
