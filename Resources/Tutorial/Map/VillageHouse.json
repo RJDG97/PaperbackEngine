@@ -1,20 +1,16 @@
 {
     "VillageHouse": [
         {
-            "component": "Name",
-            "name": "VillageHouse"
-        },
-        {
             "component": "Transform",
-            "position": "0.000000 0.000000",
+            "position": "22.500000 -73.099998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
+            "aabb offset": "0.000000 -0.900000"
         },
         {
             "component": "TextureRenderer",
             "texture": "Potato_House_0",
-            "layer": "0",
+            "layer": "1",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000",
@@ -22,30 +18,26 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.400000",
+            "scale": "4.900000 2.800000",
             "layer": "1"
         },
         {
             "component": "Scale",
-            "scale": "180.000000 180.000000"
+            "scale": "430.000000 430.000000"
         }
     ],
     "VillageHouse": [
         {
-            "component": "Name",
-            "name": "VillageHouse"
-        },
-        {
             "component": "Transform",
-            "position": "0.000000 0.000000",
+            "position": "49.500000 -83.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
+            "aabb offset": "0.000000 -0.900000"
         },
         {
             "component": "TextureRenderer",
             "texture": "Carrot_House_0",
-            "layer": "0",
+            "layer": "1",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000",
@@ -53,30 +45,26 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.400000",
+            "scale": "4.900000 2.800000",
             "layer": "1"
         },
         {
             "component": "Scale",
-            "scale": "180.000000 180.000000"
+            "scale": "430.000000 430.000000"
         }
     ],
     "VillageHouse": [
         {
-            "component": "Name",
-            "name": "VillageHouse"
-        },
-        {
             "component": "Transform",
-            "position": "0.000000 0.000000",
+            "position": "22.000000 -98.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
+            "aabb offset": "0.000000 -1.500000"
         },
         {
             "component": "TextureRenderer",
             "texture": "Radish_House_0",
-            "layer": "0",
+            "layer": "1",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000",
@@ -84,30 +72,26 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.400000",
+            "scale": "4.900000 2.800000",
             "layer": "1"
         },
         {
             "component": "Scale",
-            "scale": "180.000000 180.000000"
+            "scale": "430.000000 430.000000"
         }
     ],
     "VillageHouse": [
         {
-            "component": "Name",
-            "name": "VillageHouse"
-        },
-        {
             "component": "Transform",
-            "position": "0.000000 0.000000",
+            "position": "69.199997 -96.800003",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
+            "aabb offset": "0.000000 -1.500000"
         },
         {
             "component": "TextureRenderer",
             "texture": "Mushroom_House_0",
-            "layer": "0",
+            "layer": "1",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000",
@@ -115,12 +99,12 @@
         },
         {
             "component": "AABB",
-            "scale": "1.500000 1.400000",
+            "scale": "4.900000 2.800000",
             "layer": "1"
         },
         {
             "component": "Scale",
-            "scale": "180.000000 180.000000"
+            "scale": "430.000000 430.000000"
         }
     ]
 }
