@@ -1,59 +1,38 @@
 {
-  "beginning": [
-    {
-        "component": "Transform",
-        "position": "-23.296961 16.232500",
-        "rotation": "0.000000",
-        "offset": "0.000000 -1.000000",
-        "aabb offset": "0.000000 -0.600000"
-    },
-    {
-      "component": "DialogueTrigger",
-      "dialogue name": "beginning"
-    },
-    {
-        "component": "AABB",
-        "scale": "2.000000 4.000000",
-        "layer": "12"
-    }
-  ],
-  "restarea01": [
-    {
-        "component": "Transform",
-        "position": "-21.296961 -11.232500",
-        "rotation": "0.000000",
-        "offset": "0.000000 -1.000000",
-        "aabb offset": "0.000000 -0.600000"
-    },
-    {
-      "component": "DialogueTrigger",
-      "dialogue name": "restarea01"
-    }
-  ],
-  "restarea02": [
-    {
-        "component": "Transform",
-        "position": "-3.296961 -19.232500",
-        "rotation": "0.000000",
-        "offset": "0.000000 -1.000000",
-        "aabb offset": "0.000000 -0.600000"
-    },
-    {
-      "component": "DialogueTrigger",
-      "dialogue name": "restarea02"
-    }
-  ],
-  "endlevel": [
-    {
-        "component": "Transform",
-        "position": "36.296961 -16.232500",
-        "rotation": "0.000000",
-        "offset": "0.000000 -1.000000",
-        "aabb offset": "0.000000 -0.600000"
-    },
-    {
-      "component": "DialogueTrigger",
-      "dialogue name": "endlevel"
-    }
-  ]
+    "tutorial01": [
+        {
+            "component": "Transform",
+            "position": "22.0 -103.7",
+            "rotation": "0.000000",
+            "offset": "0.000000 -1.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "DialogueTrigger",
+            "dialogue name": "tutorial01"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 1.300000",
+            "layer": "12"
+        }
+    ],
+    "tutorial01": [
+        {
+            "component": "Transform",
+            "position": "22.0 -107.1",
+            "rotation": "0.000000",
+            "offset": "0.000000 -1.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "DialogueTrigger",
+            "dialogue name": "tutorial01"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 1.300000",
+            "layer": "12"
+        }
+    ]
 }
