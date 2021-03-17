@@ -114,7 +114,7 @@ Stag_Tree::DetectAnim::DetectAnim(EntityID id) :id_(id) {
 bool Stag_Tree::DetectAnim::run() {
 
 	// If any pointers are invalid, return
-	if (!renderer || !ai_ || !motion || !name)
+	if (!renderer || !ai_ || !motion || !name || ai_->GetState() == AI::AIState::Attack)
 		return false;
 
 	if (ai_->GetState() == AI::AIState::Patrol) {
@@ -123,7 +123,6 @@ bool Stag_Tree::DetectAnim::run() {
 		CORE->BroadcastMessage(&msg);
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Alert");
 	}
-
 	if (ai_->GetState() == AI::AIState::Detected && !renderer->FinishedAnimating()) {
 		// If velocity is essentially 0, set player to idle
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
@@ -236,7 +235,7 @@ bool Stag_Tree::AttackAnim::run() {
 	if (!renderer || !ai_ || !motion || !name)
 		return false;
 
-	if (ai_->GetState() == AI::AIState::Chase) {
+	if (ai_->GetState() == AI::AIState::Chase || ai_->GetState() == AI::AIState::Detected) {
 		ai_->SetState(AI::AIState::Attack);
 		MessageBGM_Play msg{ "EnemyAttack" };
 		CORE->BroadcastMessage(&msg);
@@ -278,7 +277,7 @@ bool Stag_Tree::ConfusedAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Attack || ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Confused);
-		MessageBGM_Play msg{ "EnemyLostSight" };
+ 		MessageBGM_Play msg{ "EnemyLostSight" };
 		CORE->BroadcastMessage(&msg);
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
 		return true;
@@ -327,6 +326,7 @@ bool Stag_Tree::SearchCheck::run()
 	}
 	if(pass)
 	{
+		graphics->ChangeAnimation(renderer, "Stagbeetle_Walk");
 		ai_->SetState(AI::AIState::Patrol);
 		pass = false;
 		return false;
