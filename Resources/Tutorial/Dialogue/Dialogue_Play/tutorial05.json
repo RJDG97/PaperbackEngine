@@ -5,17 +5,26 @@
 
     "Portrait": "Mushroom_Girl_0",
 
-    "Radish Boy": "By the way, are you still up to sneaking out at night?",
+    "Mushroom Girl": "By the way, are you still up to sneaking out at night to play?",
 
     "Portrait": "Radish_Boy_0",
 
-    "Radish Boy": "Of course! I won't ever break my promise with my friends.",
+    "Radish Boy": "Of course! I'm even here to see whether you guys are still up for it!",
 
     "Portrait": "Mushroom_Girl_0",
 
-    "Mushroom Girl": "He he, I just to be sure of that! Alright, I'll head to the village exit now. Why don't you visit Carrot Boy's house to check whether he's ready?",
+    "Mushroom Girl": "He he, alright! I'll go fetch my ball first then.",
+
+    "Portrait": "Mushroom_Girl_0",
+
+    "Mushroom Girl": "Why don't you pay a visit to Carrot Boy's home to see whether he's ready? I'll wait for you guys at the village exit.",
 
     "Portrait": "Radish_Boy_0",
 
-    "Radish Boy": "Sure thing! Carrot Boy's house is nearby. I just have to head up and turn right to reach his home."
+    "Radish Boy": "Sure! Then I'll be heading to the north east side of town. See ya later!",
+   
+    "Portrait": "Mushroom_Girl_0",
+
+    "Mushroom Girl": "Bye!"
+
 }
