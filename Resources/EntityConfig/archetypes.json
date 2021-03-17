@@ -1129,7 +1129,7 @@
             "number of animations": "1",
             "add animation": "Tree_Fall",
             "set animation": "Tree_Fall",
-            "play_animation": "1",
+            "play_animation": "0",
             "reversed": "0",
             "has_finished_animating": "0",
             "animation_speed": "1.000000",

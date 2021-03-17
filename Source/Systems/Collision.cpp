@@ -330,8 +330,6 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 
 	inverse_vector_1.x *= abs(normal.x);
 	inverse_vector_1.y *= abs(normal.y);
-	//inverse_vector_2.x *= abs(normal.x);
-	//inverse_vector_2.y *= abs(normal.y);
 
 	normal *= abs(penetration) * 0.7f;
 
@@ -344,19 +342,18 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 	// If pushing entities...
 	else {
 
+		Status* player_status = component_mgr_->GetComponent<Status>(aabb1->first);
+
+		if (player_status->GetStatus() == StatusType::BURROW)
+			return;
+
 		CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerMovesStone");
 
 		Vector2D push_force{};
 		ForcesManager* force_mgr = &*CORE->GetManager<ForcesManager>();
 
 		// Retrieve ids
-		//auto& [player_id, player_aabb] = *aabb1;
 		auto& [pushable_id, pushable_aabb] = *aabb2;
-
-		//// Retrieve player force & instantiate vector
-		//float player_f = component_mgr_->GetComponent<Motion>(player_id)->force_ * PE_FrameRate.GetFixedDelta();
-		//push_force.x = vel1->x < 0.0f ? -player_f : player_f;
-		//push_force.y = vel1->y < 0.0f ? -player_f : player_f;
 
 		transform1->position_ += inverse_vector_1;
 		force_mgr->AddForce(pushable_id, "PlayerForce", PE_FrameRate.GetFixedDelta(), *vel1 * 5.0f); // to be replaced
@@ -633,7 +630,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 			case CollisionLayer::HOLE:
 			{
-				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first, false);
+				DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
 				break;
 			}
 		}
@@ -643,10 +640,11 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	{
 		switch (layer_b)
 		{
-		case CollisionLayer::PUSHABLE:
-		{
-			DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
-		}
+			case CollisionLayer::PUSHABLE:
+			{
+				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
+				break;
+			}
 		}
 	}
 	case CollisionLayer::PUSHABLE:
@@ -658,6 +656,12 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				// aabb1 = hole - Change animation
 				// aabb2 = boulder - Disable it
 				puzzle_->UpdatePuzzleEntities(aabb1->second, aabb2->second);
+				break;
+			}
+			case CollisionLayer::BURROWABLE:
+			{
+				DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
+				break;
 			}
 		}
 	}
@@ -876,7 +880,7 @@ void Collision::Init() {
 		Parameter 2: Collidable with Layer 3 (PLAYER)
 		"THIS HOLE WAS MADE FOR ME"
 	*/
-	AddCollisionLayers(CollisionLayer::BIGKUSA, "0100000001000", false);
+	AddCollisionLayers(CollisionLayer::BIGKUSA, "0100000011000", false);
 
 	/*
 		Parameter 1: Collision layer 5
@@ -906,7 +910,7 @@ void Collision::Init() {
 	Parameter 1: Collision layer 9
 	Parameter 2: Collidable with Layer 3 (PLAYER)
 	*/
-	AddCollisionLayers(CollisionLayer::BURROWABLE, "00001000001100", false);
+	AddCollisionLayers(CollisionLayer::BURROWABLE, "00101000001100", false);
 
 	/*
 	Parameter 1: Collision layer 10
@@ -918,7 +922,7 @@ void Collision::Init() {
 	Parameter 1: Collision layer 11
 	Parameter 2: Collidable with Layer 3 (PLAYER), Layer 13 (HOLE)
 	*/
-	AddCollisionLayers(CollisionLayer::PUSHABLE, "00110000001010", false);
+	AddCollisionLayers(CollisionLayer::PUSHABLE, "00111000001010", false);
 
 	/*
 	Parameter 1: Collision layer 12
