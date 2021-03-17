@@ -69,9 +69,6 @@ bool Mite_Tree::DetectAnim::run() {
 	}
 
 	if (ai_->GetState() == AI::AIState::Detected && !renderer->FinishedAnimating()) {
-		// If velocity is essentially 0, set player to idle
-		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-			graphics->ChangeAnimation(renderer, "Mite_Idle");
 
 		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
@@ -145,14 +142,12 @@ bool Mite_Tree::AttackAnim::run() {
 
 	if (ai_->GetState() != AI::AIState::Attack) {
 		ai_->SetState(AI::AIState::Attack);
-		MessageBGM_Play msg{ "EnemyExplode" };
-		CORE->BroadcastMessage(&msg);
 		graphics->ChangeAnimation(renderer, "Mite_Explode");
+		return true;
 	}
 	if (ai_->GetState() == AI::AIState::Attack && !renderer->FinishedAnimating()) {
-		// If velocity is essentially 0, set player to idle
-		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-			graphics->ChangeAnimation(renderer, "Mite_Idle");
+		motion->SetForce(0);
+		motion->SetVelocity({0.0f, 0.0f});
 
 		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
@@ -163,7 +158,10 @@ bool Mite_Tree::AttackAnim::run() {
 			motion->SetIsLeft(true);
 		}
 	}
-	else{
+	else if (renderer->FinishedAnimating()) {
+		MessageBGM_Play msg{ "EnemyExplode" };
+		CORE->BroadcastMessage(&msg);
+		renderer->SetAnimationStatus(false);
 		ai_->SetLife(false);
 	}
 	return true;
