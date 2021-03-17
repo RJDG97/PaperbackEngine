@@ -1,11 +1,22 @@
 {
+    "Portrait": "Elder_Potato_0",
+
+    "Mayor": "Splendid! I see you've been practicing! But remember, you can't burrow yourself too long down there. The longer you're burrowed, the more drain you'll be!",
+
+    "Portrait": "Elder_Potato_0",
+
+    "Mayor": "You don't want to end up fainting due to a lack of water!",
+
     "Portrait": "Radish_Boy_0",
 
-    "Radish Boy": "Whew thankfully the mayor believed! Or I won't hear the end of his lecture if I was cuaght lying.",
+    "Radish Boy": "Alright! I'll take note of that. I'll make sure to drink plenty of water puddles once I'm done burrowing.",
+
+    "Portrait": "Elder_Potato_0",
+
+    "Mayor": "*cough* *cough* Good, good! Well,I'll be heading home now, it's getting late.",
 
     "Portrait": "Radish_Boy_0",
 
-    "Radish Boy": "Carrot Boy might still be busy with his execise. I guess It's best to visit mushroom girl's home first, her house is located east side of town."
-
+    "Radish Boy": "Okay, good bye!"
 
 }

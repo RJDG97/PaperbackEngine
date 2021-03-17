@@ -1,22 +1,35 @@
 {
     "Portrait": "Radish_Boy_0",
 
-    "Radish Boy": "Hey Mushroom Girl, what are you doing?",
+    "Radish Boy": "Hey Mushroom Girl, are you ready to play outside?",
 
     "Portrait": "Mushroom_Girl_0",
 
-    "Radish Boy": "Oh Radish Boy! It's terrible! One of my spores blew away and got stuck on the tree.",
+    "Radish Boy": "Oh Radish Boy! It's you!",
 
     "Portrait": "Radish_Boy_0",
 
-    "Radish Boy": "Oh! Do you mean those magical glowing spore?",
+    "Radish Boy": "Mushroom Girl, what's wrong? Why are you shivering all over.",
+
 
     "Portrait": "Mushroom_Girl_0",
 
-    "Mushroom Girl": "Yes, those! You know how I can't stand being out here in the dark without them. Can you help me fetch the spore?",
+    "Mushroom Girl": "Oh Radish Boy! It's terrible. One of my glowing spore got blown away by the wind.",
 
     "Portrait": "Mushroom_Girl_0",
 
-    "Mushroom Girl": "Oh! But you might want to be careful of the tree. It look like it might fall at any moment!",
+    "Mushroom Girl": "It's now stuck on that tree! But... I can't bring myself to move from my spot. I'm too scared of the lingering shadows...",
+
+    "Portrait": "Radish Boy_0",
+
+    "Radish Boy": "Oh, that's alright! I'll get it for you. You just wait here...",
+
+    "Portrait": "Radish Boy_0",
+
+    "Radish Boy": "Hmmm...that withered tree look like it might fall if I get too close to it.",
+
+    "Portrait": "Radish Boy_0",
+
+    "Radish Boy": "It might block my way, so I should be careful of where I push it."
 
 }
