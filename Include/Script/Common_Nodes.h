@@ -175,30 +175,6 @@ public:
 
 	/******************************************************************************/
 	/*!
-	  \class CheckWaypoint
-
-	  \brief CheckWaypoint Node, Contains nodes for the waypoint system
-	*/
-	/******************************************************************************/
-	class CheckWaypoint :public Selector
-	{
-		EntityID id_;
-	public:
-		/******************************************************************************/
-		/*!
-		  \fn CheckWaypoint(EntityID id)
-
-		  \brief Constructor, setting multiple children relating to the waypoint system
-		*/
-		/******************************************************************************/
-		CheckWaypoint(EntityID id) : id_(id) {
-			addChild(new AtWaypoint(id_));
-			addChild(new ChangeWaypoint(id_));
-		}
-	};
-
-	/******************************************************************************/
-	/*!
 	  \class AtWaypoint
 
 	  \brief AtWaypoint Node, Checks if AI is at the waypoint

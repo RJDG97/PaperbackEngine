@@ -218,25 +218,35 @@ Mite_Tree::IdleAnim::IdleAnim(EntityID id) :id_(id) {
 	motion = component_mgr->GetComponent<Motion>(id_);
 	name = component_mgr->GetComponent<Name>(id_);
 	ai_ = component_mgr->GetComponent<AI>(id_);
+	running = false;
 }
 
 bool Mite_Tree::IdleAnim::run() {
-	// If any pointers are invalid, return
 	if (!renderer || !ai_ || !motion || !name)
 		return false;
-	ai_->SetState(AI::AIState::Patrol);
-	// If velocity is essentially 0, set player to idle
-	graphics->ChangeAnimation(renderer, "Mite_Idle");
+	if (ai_->GetNumDes() > 1 && ai_->GetLevel()) {
+		if (!running) {
+			graphics->ChangeAnimation(renderer, "Mite_Idle");
+			running = true;
+			return false;
+		}
+		else {
+			if (renderer->FinishedAnimating()) {
+				running = false;
+				return true;
+			}
 
-	if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
-		graphics->FlipTextureY(renderer);
-		motion->SetIsLeft(false);
+			if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
+				graphics->FlipTextureY(renderer);
+				motion->SetIsLeft(false);
+			}
+			else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
+				graphics->FlipTextureY(renderer);
+				motion->SetIsLeft(true);
+			}
+			return false;
+		}
 	}
-	else if (motion->GetVelocity().x < 0 && !motion->IsLeft()) {
-		graphics->FlipTextureY(renderer);
-		motion->SetIsLeft(true);
-	}
-	return true;
 }
 
 Mite_Tree::SearchCheck::SearchCheck(EntityID id) :id_(id) {

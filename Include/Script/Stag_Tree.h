@@ -547,6 +547,7 @@ public:
 		Motion* motion;
 		Name* name;
 		AI* ai;
+		bool running;
 	public:
 		/******************************************************************************/
 		/*!
@@ -585,7 +586,7 @@ public:
 		*/
 		/******************************************************************************/
 		PatrolSequence(EntityID id) : id_(id) {
-			addChild(new Common::CheckWaypoint(id_));
+			addChild(new CheckWaypoint(id_));
 			addChild(new Common::CheckPath(id_));
 			addChild(new Common::Move(id_, 300.0f));
 			addChild(new WalkAnim(id_));
@@ -626,6 +627,40 @@ public:
 		*/
 		/******************************************************************************/
 		bool run() override;
+	};
+
+	/******************************************************************************/
+	/*!
+	  \class CheckWaypoint
+
+	  \brief CheckWaypoint Node, Contains nodes for the waypoint system
+	*/
+	/******************************************************************************/
+	class CheckWaypoint :public Selector
+	{
+		EntityID id_;
+	public:
+		/******************************************************************************/
+		/*!
+		  \fn CheckWaypoint(EntityID id)
+
+		  \brief Constructor, setting multiple children relating to the waypoint system
+		*/
+		/******************************************************************************/
+		CheckWaypoint(EntityID id) : id_(id) {
+			addChild(new Common::AtWaypoint(id_));
+			addChild(new CheckIdle(id_));
+		}
+	};
+
+	class CheckIdle : public Sequence
+	{
+		EntityID id_;
+	public:
+		CheckIdle(EntityID id) : id_(id) {
+			addChild(new IdleAnim(id_));
+			addChild(new Common::ChangeWaypoint(id_));
+		}
 	};
 };
 
