@@ -1,0 +1,11 @@
+{
+	"Mushroom_Idle.png": [
+		{
+			"Folder": "character_spritesheets",
+			"Animation Batch Name": "Mushroomgirl_Animations",
+			"Columns": "16",
+			"Rows": "1",
+			"Animation Name, Number of Frames, Frame Duration": "Mushroom_Idle 12 0.06"
+		}
+	]
+}
