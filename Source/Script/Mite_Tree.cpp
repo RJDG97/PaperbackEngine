@@ -224,7 +224,7 @@ Mite_Tree::IdleAnim::IdleAnim(EntityID id) :id_(id) {
 bool Mite_Tree::IdleAnim::run() {
 	if (!renderer || !ai_ || !motion || !name)
 		return false;
-	if (ai_->GetNumDes() > 1 && ai->GetLevel()) {
+	if (ai_->GetNumDes() > 1 && ai_->GetLevel()) {
 		if (!running) {
 			graphics->ChangeAnimation(renderer, "Mite_Idle");
 			running = true;
