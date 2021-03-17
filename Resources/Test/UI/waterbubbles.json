@@ -13,14 +13,14 @@
             "add animation": "HealthBar_Bubbles",
             "set animation": "HealthBar_Bubbles",
             "play_animation": "1",
-			"reversed_": "0",
+            "reversed_": "0",
             "has_finished_animating": "0",
-			"animation_speed": "1.0",
+            "animation_speed": "1.0",
             "layer": "4",
-			"order in layer": "3",
+            "order in layer": "3",
             "alive": "1",
-			"opacity": "1.0",
-			"tint": "1.0 1.0 1.0"
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         }
     ]
 }

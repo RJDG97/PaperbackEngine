@@ -46,11 +46,6 @@ void Name::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 }
 
 void Name::DeSerialize(std::stringstream& data) {
-	/*
-	rapidjson::Value::ConstMemberIterator it2 = member.MemberBegin()
-	it2->name.GetString() << ": " << it2->value.GetString()
-	*/
-	std::cout << "Entered Serialize Name w/ stream" << std::endl;
 	
 	data >> name_;
 }

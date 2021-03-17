@@ -55,8 +55,6 @@ void AABB::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 }
 
 void AABB::DeSerialize(std::stringstream& data) {
-	// Not required since it's going to be computed
-	std::cout << "Serializing AABB Component" << std::endl;
 	
 	data >> scale_.x >> scale_.y >> layer_;
 }

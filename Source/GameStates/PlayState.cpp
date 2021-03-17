@@ -89,8 +89,6 @@ void PlayState::Init(std::string)
 
 void PlayState::Free()
 {
-	std::cout << "PlayState clean Successful" << std::endl;
-
 	CORE->GetSystem<SoundSystem>()->StopSound("All", true);
 
 	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
@@ -122,7 +120,6 @@ void PlayState::Update(Game* game, float frametime)
 		game->ChangeState(&m_WinLoseState, "Lose");
 		return;
 	}
-	entity_mgr_->GetEntities();
 
 	// To use in play state, in menu state for testing
 	// meant to handle game logic components like Status
@@ -136,7 +133,6 @@ void PlayState::Update(Game* game, float frametime)
 				status->second->status_timer_ -= frametime;
 			}
 			else {
-				std::cout << "Resetting status type to none" << std::endl;
 				status->second->status_timer_ = 0.0f;
 				status->second->status_ = StatusType::NONE;
 			}
