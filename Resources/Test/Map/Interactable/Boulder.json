@@ -62,7 +62,7 @@
         },
         {
             "component": "Scale",
-            "scale": "128.000000 128.000000"
+            "scale": "120.000000 120.000000"
         },
         {
             "component": "LogicComponent",
@@ -77,7 +77,7 @@
             "position": "-7.68 1.63",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -1.000000"
+            "aabb offset": "0.000000 -0.800000"
         },
         {
             "component": "AABB",
@@ -86,7 +86,7 @@
         },
         {
             "component": "Scale",
-            "scale": "155.000000 155.000000"
+            "scale": "120.000000 120.000000"
         },
         {
             "component": "LogicComponent",
@@ -101,7 +101,7 @@
             "position": "-5.38 -0.47",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -1.000000"
+            "aabb offset": "0.000000 -0.800000"
         },
         {
             "component": "AABB",
@@ -110,7 +110,7 @@
         },
         {
             "component": "Scale",
-            "scale": "155.000000 155.000000"
+            "scale": "120.000000 120.000000"
         },
         {
             "component": "LogicComponent",
@@ -122,7 +122,7 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "1.66 2.20",
+            "position": "1.66 1.90",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.000000"

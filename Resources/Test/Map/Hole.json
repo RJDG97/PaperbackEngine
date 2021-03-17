@@ -9,7 +9,7 @@
             "position": "-15.40 -9.20",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -1.400000"
+            "aabb offset": "0.000000 -1.200000"
         },
         {
             "component": "AnimationRenderer",
@@ -29,12 +29,12 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 0.600000",
+            "scale": "0.100000 1.100000",
             "layer": "13"
         },
         {
             "component": "Scale",
-            "scale": "120.000000 120.000000"
+            "scale": "155.000000 155.000000"
         },
         {
             "component": "PointLight",
@@ -186,7 +186,7 @@
         },
         {
             "component": "Transform",
-            "position": "-9.66 4.82",
+            "position": "-9.66 3.52",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.400000"
@@ -234,7 +234,7 @@
             "position": "5.15 2.33",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -1.400000"
+            "aabb offset": "0.000000 -1.600000"
         },
         {
             "component": "AnimationRenderer",
@@ -254,12 +254,12 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 0.600000",
+            "scale": "0.050000 1.200000",
             "layer": "13"
         },
         {
             "component": "Scale",
-            "scale": "120.000000 120.000000"
+            "scale": "155.000000 155.000000"
         },
         {
             "component": "PointLight",
@@ -304,7 +304,7 @@
         },
         {
             "component": "Scale",
-            "scale": "120.000000 120.000000"
+            "scale": "155.000000 155.000000"
         },
         {
             "component": "PointLight",
