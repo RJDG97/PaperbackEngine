@@ -2,7 +2,7 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "-12.000000 10.000000",
+            "position": "-13.02 -33.80",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -14,7 +14,7 @@
         },
         {
             "component": "Scale",
-            "scale": "256.000000 190.000000"
+            "scale": "180.000000 180.000000"
         },
         {
             "component": "AnimationRenderer",
@@ -42,7 +42,7 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "-28.000000 23.000000",
+            "position": "-45.13 -22.10",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -54,7 +54,7 @@
         },
         {
             "component": "Scale",
-            "scale": "256.000000 190.000000"
+            "scale": "180.000000 180.000000"
         },
         {
             "component": "AnimationRenderer",
@@ -82,7 +82,7 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "-29.000000 7.000000",
+            "position": "-32.05 7.69",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -94,7 +94,7 @@
         },
         {
             "component": "Scale",
-            "scale": "256.000000 190.000000"
+            "scale": "180.000000 180.000000"
         },
         {
             "component": "AnimationRenderer",
@@ -122,7 +122,7 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "-5.600000 -5.000000",
+            "position": "20.41 -82.33",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -134,7 +134,7 @@
         },
         {
             "component": "Scale",
-            "scale": "256.000000 190.000000"
+            "scale": "180.000000 180.000000"
         },
         {
             "component": "AnimationRenderer",
@@ -162,7 +162,7 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "-4.000000 -6.000000",
+            "position": "1.08 -24.05",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -174,7 +174,7 @@
         },
         {
             "component": "Scale",
-            "scale": "256.000000 190.000000"
+            "scale": "180.000000 180.000000"
         },
         {
             "component": "AnimationRenderer",
@@ -202,7 +202,7 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "0.000000 -14.000000",
+            "position": "41.49 -55.64",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -214,7 +214,7 @@
         },
         {
             "component": "Scale",
-            "scale": "256.000000 190.000000"
+            "scale": "180.000000 180.000000"
         },
         {
             "component": "AnimationRenderer",
@@ -242,7 +242,7 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "14.000000 5.000000",
+            "position": "18.19 -46.44",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -254,87 +254,7 @@
         },
         {
             "component": "Scale",
-            "scale": "256.000000 190.000000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "1",
-            "add animation": "Torch_Idle",
-            "set animation": "Torch_Idle",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "1",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "PointLight",
-            "color": "0.500000 1.000000 1.000000",
-            "radius": "200.000000",
-            "intensity": "2.000000",
-            "alive": "0"
-        }
-    ],
-    "Torch": [
-        {
-            "component": "Transform",
-            "position": "19.000000 -11.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 3.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "256.000000 190.000000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "1",
-            "add animation": "Torch_Idle",
-            "set animation": "Torch_Idle",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "1",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "PointLight",
-            "color": "0.500000 1.000000 1.000000",
-            "radius": "200.000000",
-            "intensity": "2.000000",
-            "alive": "0"
-        }
-    ],
-    "Torch": [
-        {
-            "component": "Transform",
-            "position": "34.000000 -12.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 3.000000",
-            "layer": "0"
-        },
-        {
-            "component": "Scale",
-            "scale": "256.000000 190.000000"
+            "scale": "180.000000 180.000000"
         },
         {
             "component": "AnimationRenderer",
