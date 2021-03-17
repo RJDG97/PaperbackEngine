@@ -9,7 +9,7 @@
 	  "Animation Name, Number of Frames, Frame Duration": "Mite_Explode 14 0.05",
 	  "Animation Name, Number of Frames, Frame Duration": "Mite_Idle 8 0.05",
 	  "Animation Name, Number of Frames, Frame Duration": "Mite_Walk 11 0.05",
-	  "Animation Name, Number of Frames, Frame Duration": "Empty 0 0",
+	  "Animation Name, Number of Frames, Frame Duration": "Mite_Confused 6 0.05",
 	  "Animation Name, Number of Frames, Frame Duration": "Empty 0 0",
 	  "Animation Name, Number of Frames, Frame Duration": "Empty 0 0",
 	  "Animation Name, Number of Frames, Frame Duration": "Empty 0 0"

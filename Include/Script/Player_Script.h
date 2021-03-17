@@ -343,36 +343,36 @@ namespace Player_Scripts
 					CORE->GetManager<ForcesManager>()->AddForce(player_id, "down", PE_FrameRate.GetFixedDelta(), { 0.0f, -power });
 					PlayBurrow(player_status);
 				}
-				else if (controller->VerifyKey("spin_left", m->input_)) {
-
-					Transform* player_xform = component_mgr->GetComponent<Transform>(id);
-					if (player_xform) {
-						RotateLeft(player_xform, true);
-					}
-				}
-				else if (controller->VerifyKey("spin_right", m->input_)) {
-
-					Transform* player_xform = component_mgr->GetComponent<Transform>(id);
-					if (player_xform) {
-						RotateLeft(player_xform, false);
-					}
-				}
-				else if (controller->VerifyKey("shrink", m->input_)) {
-
-					Scale* player_scale = component_mgr->GetComponent<Scale>(id);
-					if (player_scale) {
-						ScaleEntityBig(player_scale, false);
-					}
-				}
-				else if (controller->VerifyKey("expand", m->input_)) {
-
-					Scale* player_scale = component_mgr->GetComponent<Scale>(id);
-					if (player_scale) {
-						ScaleEntityBig(player_scale, true);
-					}
-				}
 			}
 		}
+	}
+	
+
+	/******************************************************************************/
+	/*!
+	  \fn UpdatePlayerHealth()
+
+	  \brief Update player healthbar
+	*/
+	/******************************************************************************/
+	void UpdatePlayerHealth(const EntityID& player_id, const EntityID& parent_id) {
+
+		ComponentManager* c_mgr = &*CORE->GetManager<ComponentManager>();
+		Name* name = c_mgr->GetComponent<Name>(parent_id);
+	
+		if (name->GetEntityName() != "Watergauge") return;
+		
+		Transform* xform = c_mgr->GetComponent<Transform>(parent_id);
+		Scale* scale = c_mgr->GetComponent<Scale>(parent_id);
+		Health* health = c_mgr->GetComponent<Health>(player_id);
+		
+		if (!xform || !scale || !health) return;
+
+		int mod = health->GetMaxHealth() - health->GetCurrentHealth();
+		Vector2D hp_scale = scale->GetScale() / health->GetMaxHealth();
+		hp_scale.y = 0.0f;
+
+		xform->SetOffset(mod * -hp_scale / CORE->GetGlobalScale());
 	}
 }
 

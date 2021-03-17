@@ -16,6 +16,8 @@
 #define _PARENTING_SYSTEM_H_
 
 #include "Systems/ISystem.h"
+#include "Manager/LogicManager.h"
+#include "Manager/EntityManager.h"
 #include "Manager/ComponentManager.h"
 
 class ParentingSystem : public ISystem
@@ -76,6 +78,15 @@ public:
 
 	/******************************************************************************/
 	/*!
+	  \fn UpdateChildOffset()
+
+	  \brief Update child entity offset
+	*/
+	/******************************************************************************/
+	void UpdateChildOffset(const EntityID& parent_id);
+
+	/******************************************************************************/
+	/*!
 	  \fn GetName()
 
 	  \brief Returns the name of the system
@@ -94,6 +105,8 @@ public:
 
 
 private:
+	std::shared_ptr<LogicManager> logic_manager_;
+	std::shared_ptr<EntityManager> entity_manager_;
 	std::shared_ptr<ComponentManager> component_manager_;
 	ChildMap* child_arr_;
 	ParentMap* parent_arr_;
