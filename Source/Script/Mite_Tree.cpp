@@ -149,8 +149,6 @@ bool Mite_Tree::AttackAnim::run() {
 		CORE->BroadcastMessage(&msg);
 		graphics->ChangeAnimation(renderer, "Mite_Explode");
 	}
-	motion->SetForce(0);
-	motion->SetVelocity({ 0.0f, 0.0f });
 	if (ai_->GetState() == AI::AIState::Attack && !renderer->FinishedAnimating()) {
 		// If velocity is essentially 0, set player to idle
 		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
