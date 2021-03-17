@@ -15,7 +15,7 @@
         },
         {
             "component": "Scale",
-            "scale": "100.000000 100.000000"
+            "scale": "-100.000000 100.000000"
         },
         {
             "component": "AnimationRenderer",
