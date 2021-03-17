@@ -1350,11 +1350,12 @@
         },
         {
             "component": "AnimationRenderer",
-            "number of animations": "4",
+            "number of animations": "5",
             "add animation": "Mite_Alert",
             "add animation": "Mite_Explode",
             "add animation": "Mite_Idle",
             "add animation": "Mite_Walk",
+            "add animation": "Mite_Confused",
             "set animation": "Mite_Idle",
             "play_animation": "1",
             "reversed": "0",
