@@ -2,7 +2,7 @@
     "tutorial01": [
         {
             "component": "Transform",
-            "position": "22.0 -103.7",
+            "position": "22.0 -107.10",
             "rotation": "0.000000",
             "offset": "0.000000 -1.000000",
             "aabb offset": "0.000000 -0.600000"
@@ -17,21 +17,111 @@
             "layer": "12"
         }
     ],
-    "tutorial01": [
+    "tutorial02": [
         {
             "component": "Transform",
-            "position": "22.0 -107.1",
+            "position": "22.6 -111.70",
             "rotation": "0.000000",
             "offset": "0.000000 -1.000000",
             "aabb offset": "0.000000 -0.600000"
         },
         {
             "component": "DialogueTrigger",
-            "dialogue name": "tutorial01"
+            "dialogue name": "tutorial02"
         },
         {
             "component": "AABB",
             "scale": "2.000000 1.300000",
+            "layer": "12"
+        }
+    ],
+    "tutorial03": [
+        {
+            "component": "Transform",
+            "position": "33.2 -111.70",
+            "rotation": "0.000000",
+            "offset": "0.000000 -1.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "DialogueTrigger",
+            "dialogue name": "tutorial03"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.000000 2.700000",
+            "layer": "12"
+        }
+    ],
+    "tutorial04": [
+        {
+            "component": "Transform",
+            "position": "59.7 -103.70",
+            "rotation": "0.000000",
+            "offset": "0.000000 -1.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "DialogueTrigger",
+            "dialogue name": "tutorial04"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.500000 0.800000",
+            "layer": "12"
+        }
+    ],
+    "tutorial05": [
+        {
+            "component": "Transform",
+            "position": "63.5 -102.00",
+            "rotation": "0.000000",
+            "offset": "0.000000 -1.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "DialogueTrigger",
+            "dialogue name": "tutorial05"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 1.700000",
+            "layer": "12"
+        }
+    ],
+    "tutorial06": [
+        {
+            "component": "Transform",
+            "position": "41.1 -95.00",
+            "rotation": "0.000000",
+            "offset": "0.000000 -1.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "DialogueTrigger",
+            "dialogue name": "tutorial06"
+        },
+        {
+            "component": "AABB",
+            "scale": "2.600000 2.600000",
+            "layer": "12"
+        }
+    ],
+    "tutorial07": [
+        {
+            "component": "Transform",
+            "position": "31.10 -86.40",
+            "rotation": "0.000000",
+            "offset": "0.000000 -1.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "DialogueTrigger",
+            "dialogue name": "tutorial06"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.500000 4.200000",
             "layer": "12"
         }
     ]
