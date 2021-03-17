@@ -1,0 +1,11 @@
+{
+  "Potato_Idle.png": [
+	{
+		"Folder": "character_spritesheets",
+		"Animation Batch Name": "Potato_Animations",
+		"Columns": "16",
+		"Rows": "1",
+		"Animation Name, Number of Frames, Frame Duration": "Potato_Idle 12 0.06"
+	}
+  ]
+}

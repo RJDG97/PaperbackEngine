@@ -76,8 +76,6 @@ void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
 
 void TextRenderer::DeSerialize(std::stringstream& data) {
 
-    std::cout << "Serializing AnimationRenderer" << std::endl;
-
     int sentence_length;
 
     data >> font_name_

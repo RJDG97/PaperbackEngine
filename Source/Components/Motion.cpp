@@ -59,7 +59,6 @@ void Motion::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 }
 
 void Motion::DeSerialize(std::stringstream& data) {
-	std::cout << "Entered DeSerialize Motion w/ stream" << std::endl;
 	
 	data >> mass_ >> force_ >> alive_;
 

@@ -47,7 +47,7 @@ void DialogueTrigger::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
 
 void DialogueTrigger::DeSerialize(std::stringstream& data) {
 
-	std::cout << "Serializing Dialogue Component" << std::endl;
+	//std::cout << "Serializing Dialogue Component" << std::endl;
 	
 	data >> dialogue_name_;
 }

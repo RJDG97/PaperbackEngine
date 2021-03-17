@@ -1,6 +1,9 @@
 {
     "Player": "Resources\\Tutorial\\Player\\Player_Character.json",
     "Camera": "Resources\\Tutorial\\Map\\Camera.json",
+    "CarrotNPC": "Resources\\Tutorial\\Map\\CarrotNPC.json",
+    "MushroomNPC": "Resources\\Tutorial\\Map\\MushroomNPC.json",
+    "PotatoNPC": "Resources\\Tutorial\\Map\\PotatoNPC.json",
     "BushLight": "Resources\\Tutorial\\Map\\Bush\\LightBush.json",
     "BushDark": "Resources\\Tutorial\\Map\\Bush\\DarkBushes.json",
     "Waterbubbles": "Resources\\Tutorial\\UI\\waterbubbles.json",

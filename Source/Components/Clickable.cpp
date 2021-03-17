@@ -83,8 +83,7 @@ void Clickable::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>*
 }
 
 void Clickable::DeSerialize(std::stringstream& data) {
-	// Not required since it's going to be computed
-	std::cout << "Serializing Clickable Component" << std::endl;
+
 	data >> scale_.x >> scale_.y >> active_ >> group_;
 }
 

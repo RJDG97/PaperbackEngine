@@ -10,14 +10,14 @@
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
 
-
 #include "Engine/Core.h"
 #include "Systems/Parenting.h"
 #include "Manager/ComponentManager.h"
 
 
 void ParentingSystem::Init() {
-
+	logic_manager_ = CORE->GetManager<LogicManager>();
+	entity_manager_ = CORE->GetManager<EntityManager>();
 	component_manager_ = CORE->GetManager<ComponentManager>();
 	child_arr_ = component_manager_->GetComponentArray<Child>();
 	parent_arr_ = component_manager_->GetComponentArray<ParentChild>();
@@ -30,9 +30,38 @@ void ParentingSystem::Update(float frametime) {
 
 	if (CORE->GetCorePauseStatus())
 		return;
+	
+	const EntityID playerid = entity_manager_->GetPlayerEntities() ? entity_manager_->GetPlayerEntities()->GetID() : 0;
 
+	for (auto& [p_id, parent] : *parent_arr_) {
+
+		UpdateChildOffset(p_id);
+		logic_manager_->Exec("Player_UpdateHealth", playerid, p_id);
+	}
 }
 
+void ParentingSystem::UpdateChildOffset(const EntityID& parent_id) {
+
+	ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+	ParentChild* pc = component_mgr->GetComponent<ParentChild>(parent_id);
+	Transform* parent_xform = component_mgr->GetComponent<Transform>(parent_id);
+
+	if (!pc || !parent_xform) return;
+
+	for (auto& child : pc->GetChildren()) {
+
+		Transform* child_xform = component_mgr->GetComponent<Transform>(child->GetID());
+		Name* name = component_mgr->GetComponent<Name>(child->GetID());
+
+		if (child_xform && name) {
+
+			if (name->GetName() == "Waterbase" || name->GetName() == "Watershade") continue;
+
+			Vector2D updated_pos = child_xform->GetOffset() + parent_xform->GetPosition() + parent_xform->GetOffset();
+			child_xform->SetPosition(updated_pos);
+		}
+	}
+}
 
 void ParentingSystem::LinkParentAndChild() {
 	
@@ -85,7 +114,6 @@ void ParentingSystem::RemoveChildFromParent(const EntityID& parent_id, const Ent
 
 	parent->RemoveChild( child->GetOwner()->GetID() );
 }
-
 
 void ParentingSystem::SendMessageD(Message* m) {
 

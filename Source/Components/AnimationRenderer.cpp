@@ -94,8 +94,6 @@ void AnimationRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffe
 
 void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
-    std::cout << "Serializing AnimationRenderer" << std::endl;
-
     int num_animations;
 
     data >> num_animations;
