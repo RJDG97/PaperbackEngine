@@ -71,6 +71,9 @@ bool Common::PlayerWithinDistance::run()
 	if (!player_id_)
 		PlayerInit();
 
+	if (ai_->GetType() == AI::AIType::Mite && ai_->GetState() == AI::AIState::Attack)
+		return true;
+
 	if (player_status_->GetStatus() != StatusType::INVISIBLE)
 	{
 		if (!ai_->GetLevel() && player_status_->GetStatus() == StatusType::BURROW)

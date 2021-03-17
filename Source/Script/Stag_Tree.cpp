@@ -273,7 +273,7 @@ bool Stag_Tree::ConfusedAnim::run() {
 	if (!renderer || !ai_ || !motion || !name || ai_->GetState() == AI::AIState::Patrol)
 		return false;
 	if (ai_->GetState() == AI::AIState::Search)
-		return true;
+		return false;
 
 	if (ai_->GetState() == AI::AIState::Attack || ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Confused);
