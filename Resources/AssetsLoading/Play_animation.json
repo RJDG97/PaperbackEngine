@@ -1,6 +1,12 @@
 {
 	"Player Animations": "Resources/AssetsLoading/Animation/player_animations.json",
 
+	"Carrot Boy Animations": "Resources/AssetsLoading/Animation/carrotboy_animations.json",
+
+	"Mushroom Girl Animations": "Resources/AssetsLoading/Animation/mushroomgirl_animations.json",
+
+	"Potato Animations": "Resources/AssetsLoading/Animation/potato_animations.json",
+
 	"Mite Animations": "Resources/AssetsLoading/Animation/mite_animations.json",
 
 	"Stagbeetle Animations": "Resources/AssetsLoading/Animation/stagbeetle_animations.json",

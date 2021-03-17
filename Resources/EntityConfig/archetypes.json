@@ -1133,7 +1133,7 @@
             "reversed": "0",
             "has_finished_animating": "0",
             "animation_speed": "1.000000",
-            "layer": "0",
+            "layer": "1",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000",
@@ -1350,11 +1350,12 @@
         },
         {
             "component": "AnimationRenderer",
-            "number of animations": "4",
+            "number of animations": "5",
             "add animation": "Mite_Alert",
             "add animation": "Mite_Explode",
             "add animation": "Mite_Idle",
             "add animation": "Mite_Walk",
+            "add animation": "Mite_Confused",
             "set animation": "Mite_Idle",
             "play_animation": "1",
             "reversed": "0",
@@ -2226,6 +2227,121 @@
             "scale": "180.000000 180.000000"
         }
     ],
+
+    "CarrotNPC": [
+        {
+            "component": "Name",
+            "name": "CarrotNPC"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.400000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.500000 1.400000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "-100.000000 100.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Carrot_Idle",
+            "set animation": "Carrot_Idle",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        }
+    ],
+    "MushroomNPC": [
+        {
+            "component": "Name",
+            "name": "MushroomNPC"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.400000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.500000 1.400000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "-100.000000 100.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Mushroom_Idle",
+            "set animation": "Mushroom_Idle",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        }
+    ],
+
+    "PotatoNPC": [
+        {
+            "component": "Name",
+            "name": "PotatoNPC"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.400000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.500000 1.400000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "100.000000 100.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Potato_Idle",
+            "set animation": "Potato_Idle",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        }
+    ],
+
+
     "StagTarget": [
         {
             "component": "Name",
