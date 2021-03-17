@@ -46,14 +46,16 @@ void CutSceneState::Init(std::string) {
 
 		CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_PlayState);
 	}
+	else {
 
-	/*MessageBGM_Play msg{ "MenuDefault" };
-	CORE->BroadcastMessage(&msg);*/
+		/*MessageBGM_Play msg{ "MenuDefault" };
+		CORE->BroadcastMessage(&msg);*/
 
-	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
+		CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 
-	CORE->GetManager<DialogueManager>()->LoadDialogueSet("Cutscene_" + name);
-	CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("text");
+		CORE->GetManager<DialogueManager>()->LoadDialogueSet("Cutscene_" + name);
+		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("text");
+	}
 }
 
 
