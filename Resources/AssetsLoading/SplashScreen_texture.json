@@ -1,5 +1,11 @@
 {
     "Cutscene_Start_1": "Resources/Sprites/splash_screens/Cutscene_Start_01.png 1 1",
+    "Cutscene_Start_2": "Resources/Sprites/splash_screens/Cutscene_Start_02.png 1 1",
+    "Cutscene_Start_3": "Resources/Sprites/splash_screens/Cutscene_Start_03.png 1 1",
+    "Cutscene_Start_4": "Resources/Sprites/splash_screens/Cutscene_Start_04.png 1 1",
+    "Cutscene_Start_5": "Resources/Sprites/splash_screens/Cutscene_Start_05.png 1 1",
+    "Cutscene_Start_6": "Resources/Sprites/splash_screens/Cutscene_Start_06.png 1 1",
+    "Cutscene_Start_7": "Resources/Sprites/splash_screens/Cutscene_Start_07.png 1 1",
     "Splash_DigipenLogo": "Resources/Sprites/splash_screens/DigiPen_Singapore_White.png 1 1",
     "Splash_FmodLogo": "Resources/Sprites/splash_screens/Fmod_Logo.png 1 1",
     "Splash_MonkeyLogo": "Resources/Sprites/splash_screens/MonkeyTypewriter_Logo.png 1 1"
