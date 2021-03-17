@@ -48,7 +48,8 @@ void TransitionSystem::Update(float frametime) {
 		return;
 	}
 
-	transition_manager_->current_transition_->timer_ -= frametime;
+	if (!transition_manager_->current_transition_->cutscene_)
+		transition_manager_->current_transition_->timer_ -= frametime;
 
 	if (transition_manager_->current_transition_->timer_ < 0.0f) {
 

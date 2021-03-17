@@ -55,6 +55,10 @@ void CutSceneState::Init(std::string) {
 
 		CORE->GetManager<DialogueManager>()->LoadDialogueSet("Cutscene_" + name);
 		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("text");
+
+		timer_ = set_time_ / 2;
+
+		exiting_ = true;
 	}
 }
 
@@ -76,7 +80,16 @@ void CutSceneState::Free() {
 
 void CutSceneState::Update(Game* game, float frametime) {
 	
-	(void)frametime;
+	(void)game;
+	if (exiting_) {
+
+		timer_ -= frametime;
+
+		if (timer_ < 0.0f) {
+
+			exiting_ = false;
+		}
+	}
 }
 
 
@@ -102,6 +115,7 @@ void CutSceneState::StateInputHandler(Message* msg, Game* game) {
 			{
 
 				CORE->GetManager<TransitionManager>()->ResetCurrentTransitionTimer();
+				CORE->GetSystem<DialogueSystem>()->AdvanceText();
 				exiting_ = true;
 				break;
 			}
