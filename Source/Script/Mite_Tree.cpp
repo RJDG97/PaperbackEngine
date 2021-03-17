@@ -143,12 +143,13 @@ bool Mite_Tree::AttackAnim::run() {
 	if (!renderer || !ai_ || !motion || !name)
 		return false;
 
-	if (ai_->GetState() == AI::AIState::Chase) {
+	if (ai_->GetState() != AI::AIState::Attack) {
 		ai_->SetState(AI::AIState::Attack);
 		MessageBGM_Play msg{ "EnemyExplode" };
 		CORE->BroadcastMessage(&msg);
 		graphics->ChangeAnimation(renderer, "Mite_Explode");
 	}
+	motion->SetForce(0);
 	motion->SetVelocity({ 0.0f, 0.0f });
 	if (ai_->GetState() == AI::AIState::Attack && !renderer->FinishedAnimating()) {
 		// If velocity is essentially 0, set player to idle
@@ -164,7 +165,7 @@ bool Mite_Tree::AttackAnim::run() {
 			motion->SetIsLeft(true);
 		}
 	}
-	if (renderer->FinishedAnimating()) {
+	else{
 		ai_->SetLife(false);
 	}
 	return true;

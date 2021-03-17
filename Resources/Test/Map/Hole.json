@@ -1,31 +1,11 @@
 {
     "PuzzleHole": [
         {
-            "component": "Name",
-            "name": "PuzzleHole"
-        },
-        {
             "component": "Transform",
-            "position": "-15.40 -9.20",
+            "position": "-15.400000 -9.200000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.200000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Stone_Fall_One",
-            "add animation": "Hole_One",
-            "set animation": "Hole_One",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -35,42 +15,15 @@
         {
             "component": "Scale",
             "scale": "155.000000 155.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
         }
     ],
     "PuzzleHole": [
         {
-            "component": "Name",
-            "name": "PuzzleHole"
-        },
-        {
             "component": "Transform",
-            "position": "-3.36 -15.38",
+            "position": "-3.360000 -15.380000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.400000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Stone_Fall_One",
-            "add animation": "Hole_One",
-            "set animation": "Hole_One",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -80,177 +33,69 @@
         {
             "component": "Scale",
             "scale": "120.000000 120.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
         }
     ],
     "PuzzleHole": [
         {
-            "component": "Name",
-            "name": "PuzzleHole"
-        },
-        {
             "component": "Transform",
-            "position": "-5.86 -4.08",
+            "position": "-5.860000 -4.080000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.400000"
         },
         {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Stone_Fall_One",
-            "add animation": "Hole_One",
-            "set animation": "Hole_One",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
             "component": "AABB",
-            "scale": "1.700000 0.600000",
+            "scale": "1.000000 0.300000",
             "layer": "13"
         },
         {
             "component": "Scale",
             "scale": "120.000000 120.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
         }
     ],
     "PuzzleHole": [
         {
-            "component": "Name",
-            "name": "PuzzleHole"
-        },
-        {
             "component": "Transform",
-            "position": "-5.46 1.82",
+            "position": "-5.460000 1.820000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.400000"
         },
         {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Stone_Fall_One",
-            "add animation": "Hole_One",
-            "set animation": "Hole_One",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
             "component": "AABB",
-            "scale": "1.000000 0.600000",
+            "scale": "0.800000 0.300000",
             "layer": "13"
         },
         {
             "component": "Scale",
             "scale": "120.000000 120.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
         }
     ],
     "PuzzleHole": [
         {
-            "component": "Name",
-            "name": "PuzzleHole"
-        },
-        {
             "component": "Transform",
-            "position": "-9.66 3.52",
+            "position": "-9.660000 3.520000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.400000"
         },
         {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Stone_Fall_One",
-            "add animation": "Hole_One",
-            "set animation": "Hole_One",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
             "component": "AABB",
-            "scale": "1.000000 0.600000",
+            "scale": "1.000000 0.200000",
             "layer": "13"
         },
         {
             "component": "Scale",
             "scale": "120.000000 120.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
         }
     ],
     "PuzzleHole": [
         {
-            "component": "Name",
-            "name": "PuzzleHole"
-        },
-        {
             "component": "Transform",
-            "position": "5.15 2.33",
+            "position": "5.150000 2.330000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.600000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Stone_Fall_One",
-            "add animation": "Hole_One",
-            "set animation": "Hole_One",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -260,58 +105,24 @@
         {
             "component": "Scale",
             "scale": "155.000000 155.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
         }
     ],
     "PuzzleHole": [
         {
-            "component": "Name",
-            "name": "PuzzleHole"
-        },
-        {
             "component": "Transform",
-            "position": "7.85 -8.97",
+            "position": "7.850000 -8.970000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -1.400000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Stone_Fall_One",
-            "add animation": "Hole_One",
-            "set animation": "Hole_One",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "aabb offset": "0.000000 -1.800000"
         },
         {
             "component": "AABB",
-            "scale": "1.000000 0.600000",
+            "scale": "1.000000 0.300000",
             "layer": "13"
         },
         {
             "component": "Scale",
             "scale": "155.000000 155.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "550.000000",
-            "intensity": "0.500000",
-            "alive": "1"
         }
     ]
 }

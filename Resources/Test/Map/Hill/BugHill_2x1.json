@@ -2,7 +2,7 @@
     "Bug_Hill_2x1": [
         {
             "component": "Transform",
-            "position": "-11.88 1.45",
+            "position": "-11.880000 1.450000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -13,8 +13,8 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -29,7 +29,7 @@
     "Bug_Hill_2x1": [
         {
             "component": "Transform",
-            "position": "-5.28 3.75",
+            "position": "-5.280000 3.750000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -40,8 +40,8 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -56,7 +56,7 @@
     "Bug_Hill_2x1": [
         {
             "component": "Transform",
-            "position": "16.48 -4.65",
+            "position": "16.480000 -4.650000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -67,8 +67,8 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -83,7 +83,7 @@
     "Bug_Hill_2x1": [
         {
             "component": "Transform",
-            "position": "16.43 -0.77",
+            "position": "16.430000 -0.770000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -94,8 +94,8 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -110,7 +110,7 @@
     "Bug_Hill_2x1": [
         {
             "component": "Transform",
-            "position": "11.98 -16.35",
+            "position": "11.980000 -16.350000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -121,8 +121,8 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
