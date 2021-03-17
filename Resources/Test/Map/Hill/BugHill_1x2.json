@@ -56,10 +56,10 @@
     "Bug_Hill_1x2": [
         {
             "component": "Transform",
-            "position": "-28.25 -3.92",
+            "position": "-28.25 -4.72",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 0.400000"
         },
         {
             "component": "TextureRenderer",
@@ -72,7 +72,7 @@
         },
         {
             "component": "AABB",
-            "scale": "2.000000 1.500000",
+            "scale": "2.000000 1.000000",
             "layer": "1"
         },
         {

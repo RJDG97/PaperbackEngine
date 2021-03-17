@@ -66,10 +66,10 @@
             "range": "5.000000",
             "speed": "200.000000",
             "dest": "4",
-            "destination1": "-31.70 -6.34",
-            "destination2": "-24.90 -6.34",
-            "destination2": "-24.90 -1.33",
-            "destination2": "-31.70 -1.33"
+            "destination1": "-31.26 -6.16",
+            "destination2": "-24.50 -6.16",
+            "destination3": "-24.50 -1.58",
+            "destination4": "-31.26 -0.85"
         },
         {
             "component": "AnimationRenderer",
