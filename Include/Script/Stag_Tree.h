@@ -236,9 +236,9 @@ public:
 		/******************************************************************************/
 		AttackSelector(EntityID id) : id_(id) {
 			addChild(new DetectAnim(id_));
-			//addChild(new ChaseSequence(id_));
-			//addChild(new AttackSequence(id_));
-			//addChild(new ConfusedAnim(id_));
+			addChild(new ChaseSequence(id_));
+			addChild(new AttackSequence(id_));
+			addChild(new ConfusedAnim(id_));
 		}
 	};
 
