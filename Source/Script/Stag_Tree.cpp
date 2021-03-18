@@ -86,6 +86,7 @@ bool Stag_Tree::WalkAnim::run(){
 	// If any pointers are invalid, return
 	if (!renderer || !ai || !motion || !name)
 		return false;
+	CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_walk");
 	graphics->ChangeAnimation(renderer, "Stagbeetle_Walk");
 	ai->SetState(AI::AIState::Patrol);
 	// If velocity is essentially 0, set player to idle
@@ -295,7 +296,7 @@ bool Stag_Tree::ConfusedAnim::run() {
 		else {
 			//MessageBGM_Play msg{ "EnemyLostSight" };
 			//CORE->BroadcastMessage(&msg);
-			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_lost");
+			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_confused");
 			graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
 			return true;
 		}

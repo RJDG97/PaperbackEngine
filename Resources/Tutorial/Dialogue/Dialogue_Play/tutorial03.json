@@ -1,39 +1,38 @@
 {
 
-    "Portrait": "Radish_Boy_0",
+    "Portrait": "Radish_Idle_0 Potato_Happy_0 0 1",
 
     "Mayor": "Splendid! I see that you've been practicing!",
 
-    "Portrait": "Radish_Boy_0",
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
     "Mayor": "It's good practice to burrow...",
 
-    "Portrait": "Radish_Boy_0",
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
     "Mayor": "..but not for too long.",
 
-    "Portrait": "Radish_Boy_0",
+    "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
 
-    "Radish Boy": "Burrowing takes up a lot of water!",
+    "Mayor": "Burrowing takes up a lot of water!",
 
-    "Portrait": "Radish_Boy_0",
+    "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
 
-    "Radish Boy": "You don't want to end up fainting!",
+    "Mayor": "You don't want to end up fainting!",
 
-    "Portrait": "Radish_Boy_0",
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
     "Mayor": "*Yawn*",
 
-    "Portrait": "Radish_Boy_0",
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
     "Mayor": "I think it's time for me to leave.",
 
-    "Portrait": "Radish_Boy_0",
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
     "Mayor": "I'll see you tomorrow morning.",
 
+    "Portrait": "Radish_Happy_0 Potato_Default_0 1 0",
 
-    "Portrait": "Radish_Boy_0",
-
-    "Mayor": "Okay, goodnight!"
+    "Radish Boy": "Okay, goodnight!"
 }

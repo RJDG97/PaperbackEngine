@@ -163,7 +163,7 @@
     "Mite_Walk_1": [
         {
             "path": "Resources/SoundCache/Enemy/Mite_Walk/Mite_Walk_1.wav",
-            "volume": "0.400000",
+            "volume": "0.050000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -173,7 +173,7 @@
     "Mite_Walk_2": [
         {
             "path": "Resources/SoundCache/Enemy/Mite_Walk/Mite_Walk_2.wav",
-            "volume": "0.400000",
+            "volume": "0.050000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -183,7 +183,7 @@
     "Mite_Walk_3": [
         {
             "path": "Resources/SoundCache/Enemy/Mite_Walk/Mite_Walk_3.wav",
-            "volume": "0.400000",
+            "volume": "0.050000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -193,7 +193,7 @@
     "Mite_Walk_4": [
         {
             "path": "Resources/SoundCache/Enemy/Mite_Walk/Mite_Walk_4.wav",
-            "volume": "0.400000",
+            "volume": "0.050000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -203,7 +203,7 @@
     "Stagbeetle_Walk_1": [
         {
             "path": "Resources/SoundCache/Enemy/Stagbeetle_Walk/Stagbeetle_Walk_1.wav",
-            "volume": "0.400000",
+            "volume": "0.050000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -213,7 +213,7 @@
     "Stagbeetle_Walk_2": [
         {
             "path": "Resources/SoundCache/Enemy/Stagbeetle_Walk/Stagbeetle_Walk_2.wav",
-            "volume": "0.400000",
+            "volume": "0.050000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -223,7 +223,7 @@
     "Stagbeetle_Walk_3": [
         {
             "path": "Resources/SoundCache/Enemy/Stagbeetle_Walk/Stagbeetle_Walk_3.wav",
-            "volume": "0.400000",
+            "volume": "0.050000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -233,7 +233,7 @@
     "Stagbeetle_Walk_4": [
         {
             "path": "Resources/SoundCache/Enemy/Stagbeetle_Walk/Stagbeetle_Walk_4.wav",
-            "volume": "0.400000",
+            "volume": "0.050000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",

@@ -31,9 +31,8 @@ bool Mite_Tree::WalkAnim::run() {
 	if (!renderer || !ai || !motion || !name)
 		return false;
 	ai->SetState(AI::AIState::Patrol);
-	// If velocity is essentially 0, set player to idle
-	if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-		graphics->ChangeAnimation(renderer, "Mite_Idle");
+
+	CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_walk");
 	graphics->ChangeAnimation(renderer, "Mite_Walk");
 
 	if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
@@ -66,7 +65,7 @@ bool Mite_Tree::DetectAnim::run() {
 		ai_->SetState(AI::AIState::Detected);
 		//MessageBGM_Play msg{ "EnemyDetect" };
 		//CORE->BroadcastMessage(&msg);
-		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("EnemyDetect");
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_detect");
 		graphics->ChangeAnimation(renderer, "mite_detect");
 	}
 
@@ -104,7 +103,7 @@ bool Mite_Tree::ChaseAnim::run() {
 		ai_->SetState(AI::AIState::Chase);
 		//MessageBGM_Play msg{ "EnemyAttack" };
 		//CORE->BroadcastMessage(&msg);
-		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_attack");
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_surprise");
 		graphics->ChangeAnimation(renderer, "Mite_Walk");
 	}
 
