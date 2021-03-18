@@ -1,22 +1,51 @@
 {
     "Portrait": "Radish_Boy_0",
 
-    "Radish Boy": "Oh, good evening mayor! Why are you outside so late at night?",
-    
+    "Radish Boy": "Oh, good evening mayor!",
+
     "Portrait": "Radish_Boy_0",
 
-    "Mayor": "*cough* *cough* I would say the same to you young lad! Anyways, I'm practicing my workout routine.",
+    "Radish Boy": "What are you doing outside so late at night?",
+
+    "Portrait": "Radish_Boy_0",
+
+    "Mayor": "*cough* *cough*",
+
+    "Portrait": "Radish_Boy_0",
+    "Mayor": "I should be the one to say that to you young lad!",
+
+    "Portrait": "Radish_Boy_0",
+    "Mayor": "...Anyways I'm here to do my workout routine.",
 
     "Portrait": "Radish_Boy_0",
 
     "Radish Boy": "Work out routine...?",
-    
-    "Portrait": "Radish_Boy_0",
 
-    "Mayor": "*cough* *cough* You see those bushes there? I'll burrow myself underground to pass through, and then unburrow myself out.",
-    
     "Portrait": "Radish_Boy_0",
+    "Mayor": "*cough* *cough*",
 
-    "Mayor": "It's a good workout! And it keeps you hidden from bugs. Oh, I know! Why don't you give it a try too?"
+    "Portrait": "Radish_Boy_0",
+    "Mayor": "You see those bushes there? ",
+
+    "Portrait": "Radish_Boy_0",
+    "Mayor": " I work out by burrowing myself through the bushes..",
+
+    "Portrait": "Radish_Boy_0",
+    "Mayor": "..and unburrowing myself out on the other side.",
+
+    "Portrait": "Radish_Boy_0",
+    "Mayor": "It's a good workout that keeps me hidden from bugs.",
+
+    "Portrait": "Radish_Boy_0",
+    "Mayor": "Oh, I know! Why don't you give it a try too?",
+
+    "Portrait": "Radish_Boy_0",
+    "Mayor": "Just burrow yourself through the bush..",
+
+    "Portrait": "Radish_Boy_0",
+    "Mayor": "..And unburrow once you pass it.",
+
+    "Portrait": "Radish_Boy_0",
+    "Mayor": "[Press E to burrow/unburrow]"
 
 }
