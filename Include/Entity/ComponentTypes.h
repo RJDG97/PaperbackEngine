@@ -49,6 +49,7 @@ enum class ComponentTypes {
 	CHILD,
 	PUZZLE,
 	STOPANIMATION,
+	DESTINATION,
 	MAX
 };
 

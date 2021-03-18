@@ -48,6 +48,7 @@
 #include "Components/SoundEmitter.h"
 #include "Components/Collectible.h"
 #include "Components/Unlockable.h"
+#include "Components/Destination.h"
 
 #include "Components/AI.h"
 
@@ -165,6 +166,7 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("DialogueTrigger", new ComponentCreator<DialogueTrigger>(ComponentTypes::DIALOGUETRIGGER));
 	comp_mgr_->AddComponentCreator("Child", new ComponentCreator<Child>(ComponentTypes::CHILD));
 	comp_mgr_->AddComponentCreator("StopAnimation", new ComponentCreator<StopAnimation>(ComponentTypes::STOPANIMATION));
+	comp_mgr_->AddComponentCreator("Destination", new ComponentCreator<Destination>(ComponentTypes::DESTINATION));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");
