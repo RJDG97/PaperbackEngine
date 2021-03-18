@@ -132,9 +132,23 @@ Mite_Tree::AttackAnim::AttackAnim(EntityID id) :id_(id) {
 	motion = component_mgr->GetComponent<Motion>(id_);
 	name = component_mgr->GetComponent<Name>(id_);
 	ai_ = component_mgr->GetComponent<AI>(id_);
+	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
+}
+
+
+void Mite_Tree::AttackAnim::PlayerInit()
+{
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
+	player_status_ = component_mgr->GetComponent<Status>(player_id_);
+	player_renderer_ = component_mgr->GetComponent<AnimationRenderer>(player_id_);
+	player_health_ = component_mgr->GetComponent<Health>(player_id_);
+	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }
 
 bool Mite_Tree::AttackAnim::run() {
+
+	if (!player_id_)
+		PlayerInit();
 
 	// If any pointers are invalid, return
 	if (!renderer || !ai_ || !motion || !name)
@@ -159,6 +173,18 @@ bool Mite_Tree::AttackAnim::run() {
 		}
 	}
 	else if (renderer->FinishedAnimating()) {
+		float distance = Vector2DDistance(player_rigidbody_->GetOffsetAABBPos(), obj_rigidbody_->GetOffsetAABBPos());
+
+		if (distance < 2.0f && player_status_->GetStatus() != StatusType::BURROW); {
+			player_status_->SetStatus(StatusType::HIT);
+			player_health_->SetCurrentHealth(player_health_->GetCurrentHealth() - 1);
+
+			graphics->ChangeAnimation(player_renderer_, "Player_Hit");
+
+			MessageBGM_Play player_msg{ "PlayerHurt" };
+			CORE->BroadcastMessage(&player_msg);
+		}
+
 		MessageBGM_Play msg{ "EnemyExplode" };
 		CORE->BroadcastMessage(&msg);
 		renderer->SetAnimationStatus(false);

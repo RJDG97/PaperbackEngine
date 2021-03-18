@@ -369,6 +369,13 @@ public:
 		Motion* motion;
 		Name* name;
 		AI* ai_;
+		Transform* obj_rigidbody_;
+
+		EntityID player_id_;
+		Status* player_status_;
+		Health* player_health_;
+		AnimationRenderer* player_renderer_;
+		Transform* player_rigidbody_;
 	public:
 		/******************************************************************************/
 		/*!
@@ -378,6 +385,8 @@ public:
 		*/
 		/******************************************************************************/
 		AttackAnim(EntityID id);
+
+		void PlayerInit();
 		/******************************************************************************/
 		/*!
 		  \fn run()
