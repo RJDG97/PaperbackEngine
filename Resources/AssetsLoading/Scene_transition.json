@@ -23,9 +23,9 @@
   ],
   "Tutorial": [
     {
-      "size": "1",
-      "default timer": "0.1",
-      "default transition timer": "0.1",
+      "size": "7",
+      "default timer": "2.0",
+      "default transition timer": "2.0",
       "dark timer": "2.0",
       "name": "Cutscene_Start_1_0",
       "name": "Cutscene_Start_2_0",

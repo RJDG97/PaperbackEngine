@@ -19,6 +19,7 @@
 
 class DialogueSystem : public ISystem
 {
+public:
 	enum DialogueStatus {
 
 		INACTIVE,
@@ -29,6 +30,7 @@ class DialogueSystem : public ISystem
 
 	};
 
+private:
 	DialogueManager* dialogue_manager_;
 	SoundSystem* sound_system_;
 	ComponentManager* component_manager_;
@@ -113,4 +115,13 @@ public:
 */
 /******************************************************************************/
 	void TempCleanup();
+
+/******************************************************************************/
+/*!
+	\fn GetCurrentDialogueStatus()
+
+	\brief Returns the current dialogue status
+*/
+/******************************************************************************/
+	DialogueStatus GetCurrentDialogueStatus() const;
 };

@@ -229,3 +229,8 @@ void DialogueSystem::TempCleanup()
 	dialogue_box_renderer_ = nullptr;
 	dialogue_text_renderer_ = nullptr;
 }
+
+DialogueSystem::DialogueStatus DialogueSystem::GetCurrentDialogueStatus() const {
+
+	return dialogue_status_;
+}
