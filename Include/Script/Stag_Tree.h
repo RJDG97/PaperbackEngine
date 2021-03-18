@@ -126,8 +126,13 @@ public:
 		Name* name;
 		AI* ai_;
 		bool pass;
+		Transform* obj_rigidbody_;
+		EntityID player_id_;
+		Transform* player_rigidbody_;
 	public:
 		SearchCheck(EntityID id);
+
+		void PlayerInit();
 
 		bool run() override;
 	};
@@ -405,6 +410,7 @@ public:
 		EntityID player_id_;
 		Status* player_status_;
 		Transform* player_rigidbody_;
+		Motion* motion;
 
 		ForcesManager* forces_;
 		float Speed_ = 1000.0f;
@@ -453,6 +459,7 @@ public:
 		Motion* motion;
 		Name* name;
 		AI* ai_;
+		bool running;
 	public:
 		/******************************************************************************/
 		/*!
@@ -484,11 +491,14 @@ public:
 		EntityID id_;
 		std::shared_ptr<GraphicsSystem> graphics;
 		ComponentManager* component_mgr;
-
+		Transform* obj_rigidbody_;
 		AnimationRenderer* renderer;
 		Motion* motion;
 		Name* name;
 		AI* ai_;
+
+		EntityID player_id_;
+		Transform* player_rigidbody_;
 	public:
 		/******************************************************************************/
 		/*!
@@ -498,6 +508,8 @@ public:
 		*/
 		/******************************************************************************/
 		ConfusedAnim(EntityID id);
+
+		void PlayerInit();
 		/******************************************************************************/
 		/*!
 		  \fn run()
