@@ -410,7 +410,7 @@
             "position": "28.90 -70.92",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
+            "aabb offset": "0.000000 0.100000"
         },
         {
             "component": "TextureRenderer",
@@ -423,7 +423,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.30000 1.00000",
+            "scale": "1.30000 1.30000",
             "layer": "1"
         },
         {
