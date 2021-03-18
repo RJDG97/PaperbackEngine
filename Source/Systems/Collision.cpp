@@ -42,11 +42,12 @@
 // Terrible...
 void PlayGrassRustle() {
 
-	int value = std::rand() % 5;
-	std::string sound{ "GrassMoves_" };
-	sound += std::to_string(value);
-	CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
+	//int value = std::rand() % 5;
+	//std::string sound{ "GrassMoves_" };
+	//sound += std::to_string(value);
+	//CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
 	
+	CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("grass");
 }
 
 Collision* COLLISION;
@@ -347,7 +348,8 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 		if (player_status->GetStatus() == StatusType::BURROW)
 			return;
 
-		CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerMovesStone");
+		//CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerMovesStone");
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stone_roll");
 
 		Vector2D push_force{};
 		ForcesManager* force_mgr = &*CORE->GetManager<ForcesManager>();
@@ -451,8 +453,9 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 
 			graphics_->ChangeAnimation(player_anim, "Player_Hit");
 
-			MessageBGM_Play msg{ "PlayerHurt" };
-			CORE->BroadcastMessage(&msg);
+			//MessageBGM_Play msg{ "PlayerHurt" };
+			//CORE->BroadcastMessage(&msg);
+			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_hurt");
 
 			return true;
 		}

@@ -33,10 +33,11 @@ void PlayBurrow(Status* status) {
 
 	if (status->GetStatus() == StatusType::BURROW) {
 
-		int value = std::rand() % 3;
-		std::string sound{ "PlayerBurrowing_" };
-		sound += std::to_string(value);
-		CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
+		//int value = std::rand() % 3;
+		//std::string sound{ "PlayerBurrowing_" };
+		//sound += std::to_string(value);
+		//CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("burrow");
 	}
 }
 
@@ -286,10 +287,14 @@ namespace Player_Scripts
 
 					m_PlayState.SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
 
-					if (player_status->GetStatus() == StatusType::BURROW)
-						sound_system->PlaySounds("PlayerBurrowIn");
-					else
-						sound_system->PlaySounds("PlayerBurrowOut");
+					if (player_status->GetStatus() == StatusType::BURROW) {
+						//sound_system->PlaySounds("PlayerBurrowIn");
+						sound_system->PlayTaggedSounds("burrow_in");
+					}
+					else {
+						//sound_system->PlaySounds("PlayerBurrowOut");
+						sound_system->PlayTaggedSounds("burrow_out");
+					}
 				}
 			}
 			else if (controller->VerifyKey("invisible", m->input_)) {

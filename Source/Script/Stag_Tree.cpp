@@ -11,6 +11,7 @@
 **********************************************************************************/
 
 #include "Script/Stag_Tree.h"
+#include "Systems/SoundSystem.h"
 
 void Stag_Tree::StagRoot::CollisionResponse(EntityID obj)
 {
@@ -119,8 +120,9 @@ bool Stag_Tree::DetectAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Patrol) {
 		ai_->SetState(AI::AIState::Detected);
-		MessageBGM_Play msg{ "EnemyDetect" };
-		CORE->BroadcastMessage(&msg);
+		//MessageBGM_Play msg{ "EnemyDetect" };
+		//CORE->BroadcastMessage(&msg);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_detect");
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Alert");
 	}
 	if (ai_->GetState() == AI::AIState::Detected && !renderer->FinishedAnimating()) {
@@ -158,8 +160,9 @@ bool Stag_Tree::ChaseAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Detected || ai_->GetState() == AI::AIState::Confused) {
 		ai_->SetState(AI::AIState::Chase);
-		MessageBGM_Play msg{ "EnemyAttack" };
-		CORE->BroadcastMessage(&msg);
+		//MessageBGM_Play msg{ "EnemyAttack" };
+		//CORE->BroadcastMessage(&msg);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_attack");
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Run");
 	}
 
@@ -238,8 +241,9 @@ bool Stag_Tree::AttackAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Attack);
-		MessageBGM_Play msg{ "EnemyAttack" };
-		CORE->BroadcastMessage(&msg);
+		//MessageBGM_Play msg{ "EnemyAttack" };
+		//CORE->BroadcastMessage(&msg);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_attack");
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Attack");
 	}
 
@@ -289,8 +293,9 @@ bool Stag_Tree::ConfusedAnim::run() {
 			graphics->ChangeAnimation(renderer, "Stagbeetle_Alert");
 		}
 		else {
-			MessageBGM_Play msg{ "EnemyLostSight" };
-			CORE->BroadcastMessage(&msg);
+			//MessageBGM_Play msg{ "EnemyLostSight" };
+			//CORE->BroadcastMessage(&msg);
+			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_lost");
 			graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
 			return true;
 		}
