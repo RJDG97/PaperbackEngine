@@ -2,7 +2,7 @@
     "LightSpot": [
         {
             "component": "Transform",
-            "position": "33.799999 -9.700000",
+            "position": "17.98 -62.10",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -11,6 +11,235 @@
             "component": "AABB",
             "scale": "1.000000 1.000000",
             "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.900000 0.500000 0.100000",
+            "radius": "500.000000",
+            "intensity": "0.750000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "5.58 -83.20",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.900000 0.500000 0.100000",
+            "radius": "500.000000",
+            "intensity": "0.750000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "30.78 -92.80",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.900000 0.500000 0.100000",
+            "radius": "500.000000",
+            "intensity": "0.750000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "40.98 -86.80",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.900000 0.500000 0.100000",
+            "radius": "500.000000",
+            "intensity": "0.750000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "58.68 -83.00",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.900000 0.500000 0.100000",
+            "radius": "500.000000",
+            "intensity": "0.750000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "53.98 -96.70",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.900000 0.500000 0.100000",
+            "radius": "500.000000",
+            "intensity": "0.750000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "75.48 -91.40",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.900000 0.500000 0.100000",
+            "radius": "500.000000",
+            "intensity": "0.750000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Transform",
+            "position": "41.48 -101.20",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.900000 0.500000 0.100000",
+            "radius": "500.000000",
+            "intensity": "0.750000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Name",
+            "name": "LightSpot"
+        },
+        {
+            "component": "Transform",
+            "position": "65.03 -102.63",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "600.000000",
+            "intensity": "0.60000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Name",
+            "name": "LightSpot"
+        },
+        {
+            "component": "Transform",
+            "position": "40.92 -95.56",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "600.000000",
+            "intensity": "0.60000",
+            "alive": "1"
+        }
+    ],
+    "LightSpot": [
+        {
+            "component": "Name",
+            "name": "LightSpot"
+        },
+        {
+            "component": "Transform",
+            "position": "22.60 -111.70",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "0"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "600.000000",
+            "intensity": "0.60000",
+            "alive": "1"
         }
     ]
 }
