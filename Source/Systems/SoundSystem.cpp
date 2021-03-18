@@ -379,7 +379,7 @@ void SoundSystem::Serialize(const std::string& filepath) {
 void SoundSystem::Init() {
 
 	// Load all sound files
-	DeSerialize("Resources/AssetsLoading/sounds.json");
+	DeSerialize("Resources/AssetsLoading/Play_sounds.json");
 	component_manager_ = CORE->GetManager<ComponentManager>();
 	graphics_system_ = CORE->GetSystem<GraphicsSystem>();
 	sound_emitter_arr_ = component_manager_->GetComponentArray<SoundEmitter>();
