@@ -494,7 +494,7 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "-31.97 -13.92",
+            "position": "-31.97 -13.22",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -0.900000"
