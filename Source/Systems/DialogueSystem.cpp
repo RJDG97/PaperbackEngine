@@ -19,6 +19,7 @@ void DialogueSystem::Init()
 	dialogue_manager_ = &*CORE->GetManager<DialogueManager>();
 	sound_system_ = &*CORE->GetSystem<SoundSystem>();
 	component_manager_ = &*CORE->GetManager<ComponentManager>();
+	graphics_system_ = &*CORE->GetSystem<GraphicsSystem>();
 
 	text_speed_ = 0.0f; //speed
 	//text_speed_ = 0.02f; //normal
@@ -48,6 +49,9 @@ void DialogueSystem::Update(float frametime)
 
 				dialogue_box_renderer_->SetAlive(false);
 				dialogue_text_renderer_->SetAlive(false);
+				dialogue_portrait_renderer_left_->SetAlive(false);
+				dialogue_portrait_renderer_right_->SetAlive(false);
+				dialogue_speakername_renderer_->SetAlive(false);
 				return;
 			}
 
@@ -61,6 +65,8 @@ void DialogueSystem::Update(float frametime)
 					new_scale = textbox_max_scale_.y;
 					dialogue_box_scale_->SetScale({ textbox_max_scale_.x, new_scale });
 					dialogue_status_ = DialogueStatus::ADVANCING;
+					dialogue_speakername_renderer_->SetText(current_dialogue_content_->GetName());
+					UpdatePortraits();
 				}
 
 				break;
@@ -141,9 +147,64 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 				dialogue_box_renderer_ = it->second;
 				dialogue_box_scale_ = component_manager_->GetComponent<Scale>(it->first);
 				std::list<Entity*> children = component_manager_->GetComponent<ParentChild>(it->first)->GetChildren();
-				dialogue_text_renderer_ = component_manager_->GetComponent<TextRenderer>((*children.begin())->GetID());
-
 				textbox_max_scale_ = component_manager_->GetComponent<Scale>(it->first)->GetScale();
+
+				auto text = std::find_if(std::begin(children), std::end(children),
+										 [&](Entity* child) {
+											 if (component_manager_->GetComponent<Name>(
+												 child->GetID())->GetName() == "DialogueText") {
+
+												 return true;
+											 }
+
+											 return false;
+										 });
+
+				dialogue_text_renderer_ = component_manager_->GetComponent<TextRenderer>((*text)->GetID());
+
+				auto speaker_name = std::find_if(std::begin(children), std::end(children),
+												 [&](Entity* child) {
+													 if (component_manager_->GetComponent<Name>(
+														 child->GetID())->GetName() == "DialogueSpeakerName") {
+
+														 return true;
+													 }
+
+													 return false;
+												 });
+
+				dialogue_speakername_renderer_ =
+					component_manager_->GetComponent<TextRenderer>((*speaker_name)->GetID());
+
+				auto portrait = std::find_if(std::begin(children), std::end(children),
+											 [&](Entity* child) {
+												 if (component_manager_->GetComponent<Name>(
+													child->GetID())->GetName() == "DialoguePortraitLeft") {
+
+													 return true;
+												 }
+
+												 return false;
+											 });
+
+				dialogue_portrait_renderer_left_ =
+					component_manager_->GetComponent<TextureRenderer>((*portrait)->GetID());
+
+				portrait = std::find_if(std::begin(children), std::end(children),
+										[&](Entity* child) {
+											if (component_manager_->GetComponent<Name>(
+												child->GetID())->GetName() == "DialoguePortraitRight") {
+
+												return true;
+											}
+
+											return false;
+										});
+
+				dialogue_portrait_renderer_right_ =
+					component_manager_->GetComponent<TextureRenderer>((*portrait)->GetID());
+
+				graphics_system_->FlipTextureY(dialogue_portrait_renderer_right_);
 			}
 		}
 
@@ -152,22 +213,13 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 
 			return;
 		}
-
-		CMap<TextRenderer>* text_renderer_arr_ = component_manager_->GetComponentArray<TextRenderer>();
-
-		for (auto it = text_renderer_arr_->begin(); it != text_renderer_arr_->end(); ++it)
-		{
-			if (component_manager_->GetComponent<Name>(it->first)->GetName() == "DialogueText")
-			{
-				dialogue_text_renderer_ = component_manager_->GetComponent<TextRenderer>(it->first);
-			}
-		}
 	}
 
 	text_elapsed_time_ = 0.0f;
 	num_characters_ = 0;
 	dialogue_box_renderer_->SetAlive(true);
 	dialogue_text_renderer_->SetAlive(true);
+	dialogue_speakername_renderer_->SetAlive(true);
 	dialogue_box_scale_->SetScale({ dialogue_box_scale_->GetScale().x, 0.0f });
 	current_dialogue_ = dialogue_manager_->GetDialogue(dialogue_name);
 
@@ -217,6 +269,8 @@ void DialogueSystem::AdvanceText()
 				num_characters_ = 0;
 				++current_dialogue_content_;
 				entire_speech_ = current_dialogue_content_->GetSpeech();
+				dialogue_speakername_renderer_->SetText(current_dialogue_content_->GetName());
+				UpdatePortraits();
 				dialogue_status_ = DialogueStatus::ADVANCING;
 			}
 
@@ -239,4 +293,50 @@ void DialogueSystem::TempCleanup()
 DialogueSystem::DialogueStatus DialogueSystem::GetCurrentDialogueStatus() const {
 
 	return dialogue_status_;
+}
+
+void DialogueSystem::UpdatePortraits()
+{
+	if (current_dialogue_content_->GetPortraitLeft() == "None")
+	{
+		dialogue_portrait_renderer_left_->SetAlive(false);
+	}
+
+	else
+	{
+		dialogue_portrait_renderer_left_->SetAlive(true);
+		graphics_system_->ChangeTexture(dialogue_portrait_renderer_left_, current_dialogue_content_->GetPortraitLeft());
+
+		if (current_dialogue_content_->GetLeftDarken())
+		{
+			dialogue_portrait_renderer_left_->SetTint({0.4f, 0.4f, 0.4f});
+		}
+
+		else
+		{
+			dialogue_portrait_renderer_left_->SetTint({ 1.0f, 1.0f, 1.0f });
+		}
+	}
+
+	if (current_dialogue_content_->GetPortraitRight() == "None")
+	{
+		dialogue_portrait_renderer_right_->SetAlive(false);
+	}
+
+	else
+	{
+
+		dialogue_portrait_renderer_right_->SetAlive(true);
+		graphics_system_->ChangeTexture(dialogue_portrait_renderer_right_, current_dialogue_content_->GetPortraitRight());
+
+		if (current_dialogue_content_->GetRightDarken())
+		{
+			dialogue_portrait_renderer_right_->SetTint({ 0.4f, 0.4f, 0.4f });
+		}
+
+		else
+		{
+			dialogue_portrait_renderer_right_->SetTint({ 1.0f, 1.0f, 1.0f });
+		}
+	}
 }

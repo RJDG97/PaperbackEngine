@@ -26,6 +26,8 @@ public:
 
 	friend class GraphicsSystem;
 
+	void SetTint(glm::vec3 tint) { tint_ = tint; }
+
 };
 
 #endif

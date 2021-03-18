@@ -26,6 +26,8 @@
     "BurrowIcon": "Resources\\Level2\\UI\\burrowui.json",
     "DialogueBox": "Resources\\Level2\\UI\\dialoguebox.json",
     "DialogueText": "Resources\\Level2\\UI\\dialoguetext.json",
+    "DialogueSpeakerName": "Resources\\Level2\\UI\\dialoguespeakername.json",
+    "DialoguePortrait": "Resources\\Level2\\UI\\dialogueportrait.json",
     "HideIcon": "Resources\\Level2\\UI\\hideui.json",
     "Objectives": "Resources\\Level2\\UI\\objectives.json",
     "ParticleEmitter": "Resources\\Level2\\UI\\particleemitter.json",
