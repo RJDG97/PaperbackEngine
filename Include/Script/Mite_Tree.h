@@ -101,7 +101,7 @@ public:
 		/******************************************************************************/
 		ActionSelector(EntityID id) : id_(id) {
 			addChild(new DetectSequence(id_));
-			//addChild(new ConfusedSelector(id_));
+			addChild(new ConfusedSelector(id_));
 			addChild(new IdleSequence(id_));
 		}
 	};
