@@ -181,6 +181,7 @@
     <ClCompile Include="Source\Components\PointLight.cpp" />
     <ClCompile Include="Source\Components\Puzzle.cpp" />
     <ClCompile Include="Source\Components\SoundEmitter.cpp" />
+    <ClCompile Include="Source\Components\StopAnimation.cpp" />
     <ClCompile Include="Source\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Components\TextureRenderer.cpp" />
     <ClCompile Include="Source\Components\Scale.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="Include\Components\Puzzle.h" />
     <ClInclude Include="Include\Components\SoundEmitter.h" />
     <ClInclude Include="Include\Components\SpriteRenderer.h" />
+    <ClInclude Include="Include\Components\StopAnimation.h" />
     <ClInclude Include="Include\Components\TextRenderer.h" />
     <ClInclude Include="Include\Components\TextureRenderer.h" />
     <ClInclude Include="Include\Components\Scale.h" />

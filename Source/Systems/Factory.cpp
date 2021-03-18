@@ -164,6 +164,7 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("Interactable", new ComponentCreator<Interactable>(ComponentTypes::INTERACTABLE));
 	comp_mgr_->AddComponentCreator("DialogueTrigger", new ComponentCreator<DialogueTrigger>(ComponentTypes::DIALOGUETRIGGER));
 	comp_mgr_->AddComponentCreator("Child", new ComponentCreator<Child>(ComponentTypes::CHILD));
+	comp_mgr_->AddComponentCreator("StopAnimation", new ComponentCreator<StopAnimation>(ComponentTypes::STOPANIMATION));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");

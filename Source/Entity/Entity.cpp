@@ -258,6 +258,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::CHILD;
 	else if (str == "Puzzle")
 		return ComponentTypes::PUZZLE;
+	else if (str == "StopAnimation")
+		return ComponentTypes::STOPANIMATION;
 	else
 		return ComponentTypes::NONE;
 }

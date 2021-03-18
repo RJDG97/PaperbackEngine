@@ -158,6 +158,16 @@ private:
 
 /******************************************************************************/
 /*!
+  \fn PlayerVsHoleResponse()
+
+  \brief Helper function to handle response of a dynamic entity colliding
+		 with a hole
+*/
+/******************************************************************************/
+	void PlayerVsHoleResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first);
+
+/******************************************************************************/
+/*!
   \fn WallvEnemyResponse()
 
   \brief Helper function to handle response of an enemy colliding

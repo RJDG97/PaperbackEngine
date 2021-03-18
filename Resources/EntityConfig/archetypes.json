@@ -1706,6 +1706,10 @@
             "radius": "550.000000",
             "intensity": "0.500000",
             "alive": "1"
+        },
+        {
+            "component": "StopAnimation",
+            "stop_anim_name": "Stone_Fall_One"
         }
     ],
     "SingleHill": [

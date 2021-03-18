@@ -1,7 +1,7 @@
 /**********************************************************************************
-*\file         PuzzleSystem.h
+*\file         Puzzle.h
 *\brief        Contains declaration of functions and variables used for
-*			   the Puzzle System
+*			   the Puzzle Component
 *
 *\author	   Jun Pu, Lee, 100% Code Contribution
 *
@@ -11,74 +11,81 @@
 **********************************************************************************/
 
 
-#pragma once
-#ifndef _PUZZLE_SYSTEM_H_
-#define _PUZZLE_SYSTEM_H_
+#ifndef _STOP_ANIMATION_H_
+#define _STOP_ANIMATION_H_
 
-#include "Systems/GraphicsSystem.h"
-#include "Manager/ComponentManager.h"
+#include "Entity/Entity.h"
+#include "Components/IComponent.h"
+#include <sstream>
+#include <memory>
 
-class PuzzleSystem : public ISystem
-{
+class StopAnimation : public Component {
+
+	std::string name_;
+
 public:
-	using PuzzleMap = CMap<Puzzle>;
-	using PuzzleMapIt = PuzzleMap::MapTypeIt;
 
-	using StopAnimMap = CMap<StopAnimation>;
-	using StopAnimMapIt = StopAnimMap::MapTypeIt;
+	/******************************************************************************/
+	/*!
+	  \fn StopAnimation()
+
+	  \brief Constructor for StopAnimation
+	*/
+	/******************************************************************************/
+	StopAnimation();
+
+	/******************************************************************************/
+	/*!
+	  \fn ~StopAnimation()
+
+	  \brief Destructor for StopAnimation
+	*/
+	/******************************************************************************/
+	~StopAnimation();
 
 	/******************************************************************************/
 	/*!
 	  \fn Init()
 
-	  \brief Used to initialise a system if required;
+	  \brief Initialize the StopAnimation component
 	*/
 	/******************************************************************************/
 	void Init();
 
 	/******************************************************************************/
 	/*!
-	  \fn Update()
+	  \fn DeSerialize()
 
-	  \brief Used to run logic that is required every game loop.
+	  \brief Reads data from a stringstream and stores them into the data members
 	*/
 	/******************************************************************************/
-	void Update(float frametime);
+	void DeSerialize(std::stringstream& data) override;
 
 	/******************************************************************************/
 	/*!
-	  \fn UpdatePuzzleEntities()
+	  \fn Serialize()
 
-	  \brief Used update the stats of both the "Puzzle" and "PuzzlePiece"
+	  \brief Write a component into JSON format
 	*/
 	/******************************************************************************/
-	void UpdatePuzzleEntities(AABB* aabb1, AABB* aabb2);
+	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
 
 	/******************************************************************************/
 	/*!
-	  \fn GetName()
+	  \fn Clone()
 
-	  \brief Returns the name of the system
+	  \brief Clones the existing component
 	*/
 	/******************************************************************************/
-	std::string GetName() { return "PuzzleSystem"; }
+	std::shared_ptr<Component> Clone() override;
 
 	/******************************************************************************/
 	/*!
-	  \fn SendMessageD()
+	  \fn Name()
 
-	  \brief Handles incoming messages and sorts based on message id
+	  \brief Get the name of the animation that is to be stopped at
 	*/
 	/******************************************************************************/
-	void SendMessageD(Message* m);
-
-
-private:
-	ComponentManager* component_manager_;
-	GraphicsSystem* graphics_system_;
-	StopAnimMap* stop_anim_arr_;
-	PuzzleMap* puzzle_arr_;
+	std::string Name() const;
 };
-
-
 #endif
