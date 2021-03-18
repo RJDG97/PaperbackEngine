@@ -615,7 +615,15 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 			case CollisionLayer::PUSHABLE:
 			{
-				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first, false);
+				Status* player_status = status_arr_->GetComponent(aabb1->first);
+				if (player_status && player_status->GetStatus() != StatusType::BURROW) {
+
+					DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first, false);
+				}
+				else {
+
+					DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
+				}
 				break;
 			}
 			case CollisionLayer::INTERACTABLE:
