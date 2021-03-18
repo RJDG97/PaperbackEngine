@@ -129,7 +129,7 @@ void DialogueSystem::Update(float frametime)
 
 				if (dialogue_text_renderer_)
 				{
-					dialogue_text_renderer_
+					dialogue_text_renderer_->SetText(" ");
 				}
 
 				float new_scale = dialogue_box_scale_->GetScale().y - textbox_scale_speed_ * frametime;
