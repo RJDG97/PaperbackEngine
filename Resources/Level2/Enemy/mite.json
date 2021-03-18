@@ -40,6 +40,10 @@
             "alive": "1",
             "opacity": "1.0",
             "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Mite1"
         }
     ],
     "Mite": [
@@ -83,6 +87,10 @@
             "alive": "1",
             "opacity": "1.0",
             "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Mite2"
         }
     ],
     "Mite": [
@@ -128,6 +136,10 @@
             "alive": "1",
             "opacity": "1.0",
             "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Mite3"
         }
     ],
     "Mite": [
@@ -175,6 +187,10 @@
             "alive": "1",
             "opacity": "1.0",
             "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Mite4"
         }
     ]
 }

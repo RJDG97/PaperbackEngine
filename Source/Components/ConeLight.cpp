@@ -63,9 +63,8 @@ void ConeLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writ
 
 void ConeLight::DeSerialize(std::stringstream& data) {
 
-	data >> angle_
-		 >> color_.x >> color_.y >> color_.z
-		 >> radius_ >> intensity_
+	data >> color_.x >> color_.y >> color_.z
+		 >> radius_ >> intensity_ >> angle_
 		 >> alive_;
 }
 

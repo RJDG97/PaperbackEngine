@@ -1,0 +1,394 @@
+{
+    "EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "1.400000 -1.10000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "0.500000 0.850000 0.200000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 0.850000 0.200000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "Mite1"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "0.400000 -1.10000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "0.500000 0.850000 0.200000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 0.850000 0.200000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "Mite1"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "1.400000 -1.10000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "0.500000 0.850000 0.200000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 0.850000 0.200000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "Mite2"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "0.400000 -1.10000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "0.500000 0.850000 0.200000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 0.850000 0.200000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "Mite2"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "0.700000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle1"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "-0.200000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle1"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "0.700000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle2"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "-0.200000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle2"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "0.700000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle3"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "-0.200000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle3"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "0.700000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle4"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "-0.200000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle4"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "0.700000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle5"
+        }
+    ],
+	"EyeLights": [
+        {
+            "component": "Transform",
+            "position": "0.0 0.00",
+            "rotation": "0.000000",
+            "offset": "-0.200000 0.30000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "570.000000",
+            "intensity": "2.300000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 0.30000 0.450000",
+            "radius": "110.000000",
+            "intensity": "0.85000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "my_name": "StagBeetle5"
+        }
+    ]
+}

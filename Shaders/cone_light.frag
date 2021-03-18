@@ -21,12 +21,12 @@ void main () {
 	float dist = distance(gl_FragCoord.xy, light_center);
 	float attenuation = max(0, 1 - dist/radius);
 
-	attenuation *= attenuation;
+	attenuation *= attenuation * attenuation;
 	float alpha = 1.0 - (current_angle/angle) * (current_angle/angle);
 
-	if (dist < 20)
+	if (dist < 5)
 	{
-		alpha *= dist/20 * dist/20;
+		alpha *= dist/5 * dist/5;
 	}
 
 	fFragClr = alpha * intensity * attenuation * vec4(light_color, 1.0f);

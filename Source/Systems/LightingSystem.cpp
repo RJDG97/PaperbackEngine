@@ -269,8 +269,9 @@ void LightingSystem::DrawPointLight(Shader* shader, PointLight* point_light, flo
 
 void LightingSystem::DrawConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom) {
 
-	Motion* motion =
-		component_manager_->GetComponent<Motion>(cone_light->GetOwner()->GetID());
+	EntityID parent = component_manager_->GetComponent<Child>(cone_light->GetOwner()->GetID())->ParentID();
+
+	Motion* motion = component_manager_->GetComponent<Motion>(parent);
 
 	if (motion == nullptr)
 	{

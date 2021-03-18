@@ -1452,12 +1452,8 @@
             "alive": "1"
         },
         {
-            "component": "ConeLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "1.000000",
-            "intensity": "1.000000",
-            "angle": "1.000000",
-            "alive": "1"
+            "component": "ParentChild",
+            "my_name": ""
         }
     ],
     "MovingWall": [
@@ -1946,12 +1942,8 @@
             "alive": "1"
         },
         {
-            "component": "ConeLight",
-            "color": "0.800000 0.800000 0.800000",
-            "radius": "0.800000",
-            "intensity": "0.800000",
-            "angle": "0.800000",
-            "alive": "1"
+            "component": "ParentChild",
+            "my_name": ""
         }
     ],
     "Stone_Hole": [
@@ -2446,6 +2438,38 @@
         {
             "component": "Scale",
             "scale": "180.000000 180.000000"
+        }
+    ],
+    "EyeLights": [
+        {
+            "component": "Name",
+            "name": "EyeLights"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "ConeLight",
+            "color": "1.000000 0.400000 0.400000",
+            "radius": "300.000000",
+            "intensity": "1.000000",
+            "angle": "35.000000",
+            "alive": "1"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "500.000000",
+            "intensity": "0.850000",
+            "alive": "1"
+        },
+        {
+            "component": "Child",
+            "parent_name": ""
         }
     ]
 }

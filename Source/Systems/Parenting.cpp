@@ -45,6 +45,7 @@ void ParentingSystem::UpdateChildOffset(const EntityID& parent_id) {
 	ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
 	ParentChild* pc = component_mgr->GetComponent<ParentChild>(parent_id);
 	Transform* parent_xform = component_mgr->GetComponent<Transform>(parent_id);
+	AnimationRenderer* parent_renderer = component_mgr->GetComponent<AnimationRenderer>(parent_id);
 
 	if (!pc || !parent_xform) return;
 
@@ -57,7 +58,19 @@ void ParentingSystem::UpdateChildOffset(const EntityID& parent_id) {
 
 			if (name->GetName() == "Waterbase" || name->GetName() == "Watershade") continue;
 
-			Vector2D updated_pos = child_xform->GetOffset() + parent_xform->GetPosition() + parent_xform->GetOffset();
+			Vector2D updated_pos{};
+
+			if (parent_renderer && parent_renderer->GetYFlipped())
+			{
+				Vector2D offset = child_xform->GetOffset();
+				updated_pos = Vector2D{ -offset.x, offset.y } + parent_xform->GetPosition() + parent_xform->GetOffset();
+			}
+
+			else
+			{
+				updated_pos = child_xform->GetOffset() + parent_xform->GetPosition() + parent_xform->GetOffset();
+			}
+
 			child_xform->SetPosition(updated_pos);
 		}
 	}

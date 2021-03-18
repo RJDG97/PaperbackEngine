@@ -41,5 +41,6 @@
     "Watershade": "Resources\\Test\\UI\\watershade.json",
     "Waterbase": "Resources\\Test\\UI\\waterbase.json",
     "Goal": "Resources\\Test\\Map\\Goal.json",
-    "PuzzleHole": "Resources\\Test\\Map\\Hole.json"
+    "PuzzleHole": "Resources\\Test\\Map\\Hole.json",
+    "EyeLights": "Resources\\Test\\Enemy\\eyelights.json"
 }

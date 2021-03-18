@@ -28,6 +28,9 @@ public:
 
 	void SetTint(glm::vec3 tint) { tint_ = tint; }
 
+	bool GetYFlipped() { return y_mirror_; }
+
+	bool GetXFlipped() { return x_mirror_; }
 };
 
 #endif

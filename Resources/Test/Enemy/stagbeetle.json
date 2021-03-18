@@ -44,7 +44,11 @@
             "alive": "1",
 			"opacity": "1.0",
 			"tint": "1.0 1.0 1.0"
-        }
+        },
+		{
+			"component": "ParentChild",
+			"my_name": "StagBeetle1"
+		}
     ],
     "StagBeetle": [
         {
@@ -91,7 +95,11 @@
             "alive": "1",
 			"opacity": "1.0",
 			"tint": "1.0 1.0 1.0"
-        }
+        },
+		{
+			"component": "ParentChild",
+			"my_name": "StagBeetle2"
+		}
     ],
     "StagBeetle": [
         {
@@ -140,7 +148,11 @@
             "alive": "1",
 			"opacity": "1.0",
 			"tint": "1.0 1.0 1.0"
-        }
+        },
+		{
+			"component": "ParentChild",
+			"my_name": "StagBeetle3"
+		}
     ],
     "StagBeetle": [
         {
@@ -187,7 +199,11 @@
             "alive": "1",
 			"opacity": "1.0",
 			"tint": "1.0 1.0 1.0"
-        }
+        },
+		{
+			"component": "ParentChild",
+			"my_name": "StagBeetle4"
+		}
     ],
     "StagBeetle": [
         {
@@ -234,6 +250,10 @@
             "alive": "1",
 			"opacity": "1.0",
 			"tint": "1.0 1.0 1.0"
-        }
+        },
+		{
+			"component": "ParentChild",
+			"my_name": "StagBeetle5"
+		}
     ]
 }
