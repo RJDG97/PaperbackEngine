@@ -20,7 +20,8 @@ void DialogueSystem::Init()
 	sound_system_ = &*CORE->GetSystem<SoundSystem>();
 	component_manager_ = &*CORE->GetManager<ComponentManager>();
 
-	text_speed_ = 0.02f;
+	text_speed_ = 0.0f; //speed
+	//text_speed_ = 0.02f; //normal
 	textbox_max_scale_ = { 0.0f, 0.0f };
 	textbox_scale_speed_ = 2000.0f;
 	dialogue_status_ = DialogueStatus::INACTIVE;

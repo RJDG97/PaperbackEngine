@@ -88,7 +88,7 @@ void CutSceneState::Update(Game* game, float frametime) {
 		if (timer_ < 0.0f) {
 
 			exiting_ = false;
-			timer_ = set_time_;
+			timer_ = set_time_ / 4;
 		}
 	}
 }
