@@ -202,10 +202,10 @@ bool Stag_Tree::Charge::run(){
 		float distance = Vector2DLength(player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos());
 
 		// If object is at dest node
-		//if (distance < 0.5f)
-		//{
-		//	return false;
-		//}
+		if (distance < 0.5f)
+		{
+			return false;
+		}
 		//get directional unit vector
 		Vector2D directional = player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos();
 		directional /= Vector2DLength(directional);
