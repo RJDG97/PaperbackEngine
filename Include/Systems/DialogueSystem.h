@@ -34,6 +34,7 @@ private:
 	DialogueManager* dialogue_manager_;
 	SoundSystem* sound_system_;
 	ComponentManager* component_manager_;
+	GraphicsSystem* graphics_system_;
 
 	Dialogue* current_dialogue_;
 	std::vector<DialogueContent>::iterator current_dialogue_content_;
@@ -50,6 +51,9 @@ private:
 	Scale* dialogue_box_scale_;
 	TextureRenderer* dialogue_box_renderer_;
 	TextRenderer* dialogue_text_renderer_;
+	TextureRenderer* dialogue_portrait_renderer_left_;
+	TextureRenderer* dialogue_portrait_renderer_right_;
+	TextRenderer* dialogue_speakername_renderer_;
 
 public:
 
@@ -124,4 +128,13 @@ public:
 */
 /******************************************************************************/
 	DialogueStatus GetCurrentDialogueStatus() const;
+
+/******************************************************************************/
+/*!
+	\fn UpdatePortraits()
+
+	\brief Handles the updating of portrait textures and alive bool
+*/
+/******************************************************************************/
+	void UpdatePortraits();
 };

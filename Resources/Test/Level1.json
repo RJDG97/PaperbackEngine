@@ -30,6 +30,8 @@
     "Mite": "Resources\\Test\\Enemy\\mite.json",
     "DialogueText": "Resources\\Test\\UI\\dialoguetext.json",
     "DialogueBox": "Resources\\Test\\UI\\dialoguebox.json",
+    "DialogueSpeakerName": "Resources\\Test\\UI\\dialoguespeakername.json",
+    "DialoguePortrait": "Resources\\Test\\UI\\dialogueportrait.json",
     "HideIcon": "Resources\\Test\\UI\\hideui.json",
     "Log": "Resources\\Test\\Map\\Log.json",
     "Objectives": "Resources\\Test\\UI\\objectives.json",

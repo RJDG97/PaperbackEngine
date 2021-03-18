@@ -33,6 +33,8 @@
     "Spores": "Resources\\Tutorial\\Map\\Spores.json",
     "DialogueText": "Resources\\Tutorial\\UI\\dialoguetext.json",
     "DialogueBox": "Resources\\Tutorial\\UI\\dialoguebox.json",
+    "DialogueSpeakerName": "Resources\\Tutorial\\UI\\dialoguespeakername.json",
+    "DialoguePortrait": "Resources\\Tutorial\\UI\\dialogueportrait.json",
     "HideIcon": "Resources\\Tutorial\\UI\\hideui.json",
     "Log": "Resources\\Tutorial\\Map\\Log.json",
     "Objectives": "Resources\\Tutorial\\UI\\objectives.json",

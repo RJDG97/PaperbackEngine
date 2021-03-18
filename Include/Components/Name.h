@@ -70,6 +70,10 @@ public:
 /******************************************************************************/
 	void DeSerialize(std::stringstream& data) override;
 
+	void DeSerializeClone(std::stringstream& data) {
+		DeSerialize(data);
+	}
+
 /******************************************************************************/
 /*!
   \fn GetEntityName()

@@ -443,11 +443,11 @@
         },
         {
             "component": "Scale",
-            "scale": "320.000000 160.000000"
+            "scale": "340.000000 170.000000"
         },
         {
             "component": "ParentChild",
-            "my_name": "DialogueBox"
+            "my_name": ""
         },
         {
             "component": "LogicComponent",
@@ -482,7 +482,66 @@
         },
         {
             "component": "Child",
-            "parent_name": "DialogueBox1"
+            "parent_name": ""
+        }
+    ],
+    "DialogueSpeakerName": [
+        {
+            "component": "Name",
+            "name": "DialogueSpeakerName"
+        },
+        {
+            "component": "Transform",
+            "position": "-3.200000 -4.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextRenderer",
+            "font": "Grandstander-Medium",
+            "sentence length": "0",
+            "text": "",
+            "color": "1.000000 1.000000 1.000000",
+            "scale": "0.350000",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "0",
+            "opacity": "1.000000"
+        },
+        {
+            "component": "Child",
+            "parent_name": ""
+        }
+    ],
+    "DialoguePortrait": [
+        {
+            "component": "Name",
+            "name": "DialoguePortrait"
+        },
+        {
+            "component": "Scale",
+            "scale": "151.000000 110.000000"
+        },
+        {
+            "component": "Transform",
+            "position": "-3.200000 -4.600000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "0",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "Child",
+            "parent_name": ""
         }
     ],
     "DialogueTriggerBox": [

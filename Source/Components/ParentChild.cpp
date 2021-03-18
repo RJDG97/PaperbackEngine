@@ -81,6 +81,11 @@ void ParentChild::AddChild(const EntityID& id) {
 	EntityManager* entity_mgr = &*CORE->GetManager<EntityManager>();
 	Entity* child = entity_mgr->GetEntity(id);
 
+	for (auto& a_child : children_) {
+		if (a_child->GetID() == id)
+			return;
+	}
+
 	if (child)
 		children_.push_front(child);
 }

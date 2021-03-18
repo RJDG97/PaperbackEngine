@@ -14,10 +14,18 @@
 #include "Manager/DialogueManager.h"
 #include "Systems/Game.h"
 
-DialogueContent::DialogueContent(std::string portrait, std::string name, std::string speech)
-    : portrait_ {portrait},
-      name_ {name},
-      speech_ {speech}
+DialogueContent::DialogueContent(std::string left_portrait,
+                                 std::string right_portrait,
+                                 std::string name,
+                                 std::string speech,
+					             bool left_darken,
+					             bool right_darken)
+    : left_portrait_ { left_portrait },
+      right_portrait_{ right_portrait },
+      name_{ name },
+      speech_ {speech},
+      left_darken_ { left_darken },
+      right_darken_ { right_darken }
 {
 
 }
@@ -32,6 +40,31 @@ Dialogue::Dialogue(std::vector<DialogueContent> contents)
 std::string* DialogueContent::GetSpeech()
 {
     return &speech_;
+}
+
+std::string DialogueContent::GetName()
+{
+    return name_;
+}
+
+std::string DialogueContent::GetPortraitLeft()
+{
+    return left_portrait_;
+}
+
+std::string DialogueContent::GetPortraitRight()
+{
+    return right_portrait_;
+}
+
+bool DialogueContent::GetLeftDarken()
+{
+    return left_darken_;
+}
+
+bool DialogueContent::GetRightDarken()
+{
+    return right_darken_;
 }
 
 void DialogueManager::Init()
@@ -71,13 +104,21 @@ void DialogueManager::LoadDialogue(std::string dialogue_name, std::string path)
 
     for (rapidjson::Value::ConstMemberIterator file_it = files_arr.MemberBegin(); file_it != files_arr.MemberEnd(); ++file_it) {
 
-        std::string portrait = file_it->value.GetString();
+        std::stringstream portrait;
+        portrait << file_it->value.GetString();
+
+        std::string left_portrait;
+        std::string right_portrait;
+        bool left_darken;
+        bool right_darken;
+
+        portrait >> left_portrait >> right_portrait >> left_darken >> right_darken;
+
         ++file_it;
         std::string name = file_it->name.GetString();
         std::string speech = file_it->value.GetString();
-
-        contents.push_back({ portrait, name, speech });
-
+        
+        contents.push_back({ left_portrait, right_portrait, name, speech, !left_darken, !right_darken });
     }
 
     dialogues_[dialogue_name] = { contents };

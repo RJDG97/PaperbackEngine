@@ -22,9 +22,12 @@
 
 class DialogueContent
 {
-	std::string portrait_;
+	std::string left_portrait_;
+	std::string right_portrait_;
 	std::string name_;
 	std::string speech_;
+	bool left_darken_;
+	bool right_darken_;
 
 public:
 
@@ -41,10 +44,15 @@ public:
 /*!
   \fn DialogueContent()
 
-  \brief Constructor for DiglogueContent
+  \brief Constructor for DialogueContent
 */
 /******************************************************************************/
-	DialogueContent(std::string portrait, std::string name, std::string speech);
+	DialogueContent(std::string left_portrait,
+					std::string right_portrait,
+					std::string name,
+					std::string speech,
+					bool left_darken,
+					bool right_darken);
 
 /******************************************************************************/
 /*!
@@ -54,6 +62,51 @@ public:
 */
 /******************************************************************************/
 	std::string* GetSpeech();
+
+/******************************************************************************/
+/*!
+  \fn GetNameLeft()
+
+  \brief Get left name of speech
+*/
+/******************************************************************************/
+	std::string GetName();
+
+/******************************************************************************/
+/*!
+	\fn GetPortraitLeft()
+
+	\brief Get right name of speech
+*/
+/******************************************************************************/
+	std::string GetPortraitLeft();
+
+/******************************************************************************/
+/*!
+  \fn GetPortraitRight()
+
+  \brief Gets portrait
+*/
+/******************************************************************************/
+	std::string GetPortraitRight();
+
+/******************************************************************************/
+/*!
+  \fn GetLeftDarken()
+
+  \brief Checks if left portrait needs to be darkened
+*/
+/******************************************************************************/
+	bool GetLeftDarken();
+
+/******************************************************************************/
+/*!
+	\fn GetRightDarken()
+
+	\brief Checks if right portrait needs to be darkened
+*/
+/******************************************************************************/
+	bool GetRightDarken();
 };
 
 class Dialogue
