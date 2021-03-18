@@ -1,7 +1,7 @@
 /**********************************************************************************
-*\file         StopAnimation.h
+*\file         Destination.h
 *\brief        Contains declaration of functions and variables used for
-*			   the StopAnimation Component
+*			   the Destination Component
 *
 *\author	   Jun Pu, Lee, 100% Code Contribution
 *
@@ -11,46 +11,67 @@
 **********************************************************************************/
 
 
-#ifndef _STOP_ANIMATION_H_
-#define _STOP_ANIMATION_H_
+#pragma once
+#ifndef _DESTINATION_H_
+#define _DESTINATION_H_
 
-#include "Entity/Entity.h"
-#include "Components/IComponent.h"
-#include <sstream>
-#include <memory>
+#include "MathLib/Vector2D.h"
+#include "IComponent.h"
 
-class StopAnimation : public Component {
-
-	std::string name_;
+// Contains data about the health of an entity that the component will be attached to
+class Destination : public Component
+{
+	Vector2D destination_;
+	bool ui_layer_;
 
 public:
 
 	/******************************************************************************/
 	/*!
-	  \fn StopAnimation()
+	  \fn Destination()
 
-	  \brief Constructor for StopAnimation
+	  \brief Constructor for Destination component
 	*/
 	/******************************************************************************/
-	StopAnimation();
+	Destination();
 
 	/******************************************************************************/
 	/*!
-	  \fn ~StopAnimation()
+	  \fn ~Destination()
 
-	  \brief Destructor for StopAnimation
+	  \brief Destructor for Destination component that removes the component from 
+			 the component map
 	*/
 	/******************************************************************************/
-	~StopAnimation();
+	~Destination();
 
 	/******************************************************************************/
 	/*!
 	  \fn Init()
 
-	  \brief Initialize the StopAnimation component
+	  \brief Logic where the component will add itself to a system's map will
+			 be placed here
 	*/
 	/******************************************************************************/
 	void Init();
+
+	/******************************************************************************/
+	/*!
+	  \fn Serialize()
+
+	  \brief Serialises a component into JSON format
+	*/
+	/******************************************************************************/
+	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+
+	/******************************************************************************/
+	/*!
+	  \fn Serialize()
+
+	  \brief Serialises a component into JSON format
+	*/
+	/******************************************************************************/
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
 
 	/******************************************************************************/
 	/*!
@@ -63,12 +84,12 @@ public:
 
 	/******************************************************************************/
 	/*!
-	  \fn Serialize()
+	  \fn DeSerializeClone()
 
-	  \brief Write a component into JSON format
+	  \brief Deserializes data members within the Component
 	*/
 	/******************************************************************************/
-	void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+	void DeSerializeClone(std::stringstream& data);
 
 	/******************************************************************************/
 	/*!
@@ -79,13 +100,7 @@ public:
 	/******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
-	/******************************************************************************/
-	/*!
-	  \fn Name()
-
-	  \brief Get the name of the animation that is to be stopped at
-	*/
-	/******************************************************************************/
-	std::string Name() const;
+	const Vector2D& GetDestination() const;
 };
+
 #endif

@@ -98,10 +98,12 @@ void WinLoseState::StateInputHandler(Message* msg, Game* game) {
 					return;
 				}
 			}
-
-			//else case of lose state, replay stage
-			game->ChangeState(&m_PlayState);
-			return;
+			// Lose state
+			else {
+				std::string previous_state = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
+				game->ChangeState(&m_PlayState, previous_state);
+				return;
+			}
 		}
 		if (m->button_index_ == 2) {
 

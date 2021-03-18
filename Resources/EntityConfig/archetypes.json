@@ -1765,6 +1765,12 @@
             "aabb offset": "0.000000 0.000000"
         },
         {
+            "component": "Motion",
+            "mass": "1.0",
+            "force": "50.000000",
+            "alive": "1"
+        },
+        {
             "component": "AnimationRenderer",
             "number of animations": "1",
             "add animation": "Spore_Idle",
@@ -1805,6 +1811,11 @@
             "component": "Collectible",
             "item name": "Spore",
             "item description": "Wow"
+        },
+        {
+            "component": "Destination",
+            "destination": "36.25 -16.80",
+            "is_ui_layer": "0"
         }
     ],
     "StagBeetle": [

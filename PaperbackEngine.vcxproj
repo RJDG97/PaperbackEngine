@@ -167,6 +167,7 @@
     <ClCompile Include="Source\Components\Clickable.cpp" />
     <ClCompile Include="Source\Components\Collectible.cpp" />
     <ClCompile Include="Source\Components\ConeLight.cpp" />
+    <ClCompile Include="Source\Components\Destination.cpp" />
     <ClCompile Include="Source\Components\Dialogue.cpp" />
     <ClCompile Include="Source\Components\Emitter.cpp" />
     <ClCompile Include="Source\Components\Health.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="Include\Components\Clickable.h" />
     <ClInclude Include="Include\Components\Collectible.h" />
     <ClInclude Include="Include\Components\ConeLight.h" />
+    <ClInclude Include="Include\Components\Destination.h" />
     <ClInclude Include="Include\Components\Dialogue.h" />
     <ClInclude Include="Include\Components\Emitter.h" />
     <ClInclude Include="Include\Components\Health.h" />

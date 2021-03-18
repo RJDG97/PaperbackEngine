@@ -207,6 +207,9 @@
     <Filter Include="Entity\Components\StopAnimation">
       <UniqueIdentifier>{79cc722f-3abf-4764-8172-156d86e9d0eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\Destination">
+      <UniqueIdentifier>{645bae6a-eaa6-45aa-b141-07177de2f866}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -505,6 +508,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\StopAnimation.cpp">
       <Filter>Entity\Components\StopAnimation</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Destination.cpp">
+      <Filter>Entity\Components\Destination</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -867,6 +873,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\StopAnimation.h">
       <Filter>Entity\Components\StopAnimation</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\Destination.h">
+      <Filter>Entity\Components\Destination</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
