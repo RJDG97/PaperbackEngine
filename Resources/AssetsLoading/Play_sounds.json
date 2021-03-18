@@ -1,0 +1,1481 @@
+{
+    "Mite_Surprise_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Confuse/Mite_Surprise_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_surprise"
+        }
+    ],
+    "Mite_Surprise_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Confuse/Mite_Surprise_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_surprise"
+        }
+    ],
+    "Mite_Surprise_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Confuse/Mite_Surprise_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_surprise"
+        }
+    ],
+    "Mite_Detect_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Confuse/Mite_Detect_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_detect"
+        }
+    ],
+    "Mite_Detect_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Confuse/Mite_Detect_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_detect"
+        }
+    ],
+    "Mite_Detect_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Confuse/Mite_Detect_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_detect"
+        }
+    ],
+    "Mite_Explode_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Explode/Mite_Explode_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_explode"
+        }
+    ],
+    "Mite_Explode_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Explode/Mite_Explode_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_explode"
+        }
+    ],
+    "Mite_Explode_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Explode/Mite_Explode_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_explode"
+        }
+    ],
+    "Mite_Explode_4": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Explode/Mite_Explode_4.wav",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.040000",
+            "loop": "0",
+            "tag": "mite_explode"
+        }
+    ],
+    "Mite_Explode_5": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Explode/Mite_Explode_5.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_explode"
+        }
+    ],
+
+    "Mite_Lost_Sight_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Lost_Sight/Mite_Lost_Sight_1.wav",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "0",
+            "tag": "mite_lost"
+        }
+    ],
+    "Mite_Lost_Sight_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Lost_Sight/Mite_Lost_Sight_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_lost"
+        }
+    ],
+    "Mite_Lost_Sight_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Lost_Sight/Mite_Lost_Sight_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_lost"
+        }
+    ],
+    "Mite_Lost_Sight_4": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Lost_Sight/Mite_Lost_Sight_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_lost"
+        }
+    ],
+    "Mite_Lost_Sight_5": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Lost_Sight/Mite_Lost_Sight_5.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_lost"
+        }
+    ],
+    "Mite_Walk_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Walk/Mite_Walk_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_walk"
+        }
+    ],
+    "Mite_Walk_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Walk/Mite_Walk_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_walk"
+        }
+    ],
+    "Mite_Walk_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Walk/Mite_Walk_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_walk"
+        }
+    ],
+    "Mite_Walk_4": [
+        {
+            "path": "Resources/SoundCache/Enemy/Mite_Walk/Mite_Walk_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "mite_walk"
+        }
+    ],
+    "Stagbeetle_Walk_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Walk/Stagbeetle_Walk_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_walk"
+        }
+    ],
+    "Stagbeetle_Walk_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Walk/Stagbeetle_Walk_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_walk"
+        }
+    ],
+    "Stagbeetle_Walk_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Walk/Stagbeetle_Walk_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_walk"
+        }
+    ],
+    "Stagbeetle_Walk_4": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Walk/Stagbeetle_Walk_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_walk"
+        }
+    ],
+    "Stagbeetle_Attack_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Attack/Stagbeetle_Attack_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_attack"
+        }
+    ],
+    "Stagbeetle_Attack_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Attack/Stagbeetle_Attack_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_attack"
+        }
+    ],
+    "Stagbeetle_Attack_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Attack/Stagbeetle_Attack_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_attack"
+        }
+    ],
+    "Stagbeetle_Attack_4": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Attack/Stagbeetle_Attack_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_attack"
+        }
+    ],
+    "Stagbeetle_Attack_5": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Attack/Stagbeetle_Attack_5.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_attack"
+        }
+    ],
+    "Stagbeetle_Confuse_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Confuse/Stagbeetle_Confuse_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_confused"
+        }
+    ],
+    "Stagbeetle_Confuse_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Confuse/Stagbeetle_Confuse_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_confused"
+        }
+    ],
+    "Stagbeetle_Confuse_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Confuse/Stagbeetle_Confuse_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_confused"
+        }
+    ],
+    "Stagbeetle_Detect_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Detect/Stagbeetle_Detect_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_detect"
+        }
+    ],
+    "Stagbeetle_Detect_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Detect/Stagbeetle_Detect_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_detect"
+        }
+    ],
+    "Stagbeetle_Detect_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Detect/Stagbeetle_Detect_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_detect"
+        }
+    ],
+    "Stagbeetle_Lost_Sight_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Lost_Sight/Stagbeetle_Lost_Sight_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_lost"
+        }
+    ],
+    "Stagbeetle_Lost_Sight_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Lost_Sight/Stagbeetle_Lost_Sight_2.wav",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "0",
+            "tag": "stag_lost"
+        }
+    ],
+    "Stagbeetle_Lost_Sight_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Lost_Sight/Stagbeetle_Lost_Sight_3.wav",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "0",
+            "tag": "stag_lost"
+        }
+    ],
+    "Stagbeetle_Convo_1": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Talking/Stagbeetle_Convo_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_convo"
+        }
+    ],
+    "Stagbeetle_Convo_2": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Talking/Stagbeetle_Convo_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_convo"
+        }
+    ],
+    "Stagbeetle_Convo_3": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Talking/Stagbeetle_Convo_3.wav",
+            "volume": "0.250000",
+            "min distance": "3.500000",
+            "volume falloff": "0.030000",
+            "loop": "0",
+            "tag": "stag_convo"
+        }
+    ],
+    "Stagbeetle_Convo_4": [
+        {
+            "path": "Resources/SoundCache/Enemy/Stagbeetle_Talking/Stagbeetle_Convo_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stag_convo"
+        }
+    ],
+    "Drop_Stone_1_L": [
+        {
+            "path": "Resources/SoundCache/Environment/Drop_Stone/Drop_Stone_1_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stone_drop"
+        }
+    ],
+    "Drop_Stone_2_L": [
+        {
+            "path": "Resources/SoundCache/Environment/Drop_Stone/Drop_Stone_2_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stone_drop"
+        }
+    ],
+    "Drop_Stone_3_L": [
+        {
+            "path": "Resources/SoundCache/Environment/Drop_Stone/Drop_Stone_3_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stone_drop"
+        }
+    ],
+    "Fire_1": [
+        {
+            "path": "Resources/SoundCache/Environment/Fire/Fire_1.wav",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "1",
+            "tag": "fire"
+        }
+    ],
+    "Fire_2": [
+        {
+            "path": "Resources/SoundCache/Environment/Fire/Fire_2.wav",
+            "volume": "1.000000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "1",
+            "tag": "fire"
+        }
+    ],
+    "Fire_3": [
+        {
+            "path": "Resources/SoundCache/Environment/Fire/Fire_3.wav",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "1",
+            "tag": "fire"
+        }
+    ],
+    "Fire_4": [
+        {
+            "path": "Resources/SoundCache/Environment/Fire/Fire_4.wav",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "1",
+            "tag": "fire"
+        }
+    ],
+    "Grass_1": [
+        {
+            "path": "Resources/SoundCache/Environment/Grass_Rustle/Grass_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ],
+    "Grass_2": [
+        {
+            "path": "Resources/SoundCache/Environment/Grass_Rustle/Grass_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "grass"
+        }
+    ],
+    "Grass_3": [
+        {
+            "path": "Resources/SoundCache/Environment/Grass_Rustle/Grass_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "grass"
+        }
+    ],
+    "Grass_4": [
+        {
+            "path": "Resources/SoundCache/Environment/Grass_Rustle/Grass_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "grass"
+        }
+    ],
+    "Moving_Stone_1": [
+        {
+            "path": "Resources/SoundCache/Environment/Moving_Stone/Moving_Stone_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stone_roll"
+        }
+    ],
+    "Moving_Stone_2": [
+        {
+            "path": "Resources/SoundCache/Environment/Moving_Stone/Moving_Stone_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stone_roll"
+        }
+    ],
+    "Moving_Stone_3": [
+        {
+            "path": "Resources/SoundCache/Environment/Moving_Stone/Moving_Stone_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stone_roll"
+        }
+    ],
+    "Moving_Stone_4": [
+        {
+            "path": "Resources/SoundCache/Environment/Moving_Stone/Moving_Stone_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "stone_roll"
+        }
+    ],
+    "Push_Tree_1": [
+        {
+            "path": "Resources/SoundCache/Environment/Tree_Drop/Push_Tree_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "tree_fall"
+        }
+    ],
+    "Push_Tree_2": [
+        {
+            "path": "Resources/SoundCache/Environment/Tree_Drop/Push_Tree_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "tree_fall"
+        }
+    ],
+    "Push_Tree_3": [
+        {
+            "path": "Resources/SoundCache/Environment/Tree_Drop/Push_Tree_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "tree_fall"
+        }
+    ],
+    "Push_Tree_4": [
+        {
+            "path": "Resources/SoundCache/Player/Tree_Drop/Push_Tree_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "tree_fall"
+        }
+    ],
+    "BurrowIn_1_L": [
+        {
+            "path": "Resources/SoundCache/Player/Burrow_In/BurrowIn_1_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "burrow_in"
+        }
+    ],
+    "BurrowIn_2_L": [
+        {
+            "path": "Resources/SoundCache/Player/Burrow_In/BurrowIn_2_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "burrow_in"
+        }
+    ],
+    "BurrowOut_1_L": [
+        {
+            "path": "Resources/SoundCache/Player/Burrow_Out/BurrowOut_1_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "burrow_out"
+        }
+    ],
+    "BurrowOut_2_L": [
+        {
+            "path": "Resources/SoundCache/Player/Burrow_Out/BurrowOut_2_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "burrow_out"
+        }
+    ],
+    "Burrowing_1_L": [
+        {
+            "path": "Resources/SoundCache/Player/Burrowing/Burrowing_1_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "burrowing"
+        }
+    ],
+    "Burrowing_2_L": [
+        {
+            "path": "Resources/SoundCache/Player/Burrowing/Burrowing_2_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "burrowing"
+        }
+    ],
+    "Burrowing_3_L": [
+        {
+            "path": "Resources/SoundCache/Player/Burrowing/Burrowing_3_L.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "burrowing"
+        }
+    ],
+    "Player_Drink_1": [
+        {
+            "path": "Resources/SoundCache/Player/Drink_Water/Player_Drink_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "drink"
+        }
+    ],
+    "Player_Drink_2": [
+        {
+            "path": "Resources/SoundCache/Player/Drink_Water/Player_Drink_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "drink"
+        }
+    ],
+    "Player_Drink_3": [
+        {
+            "path": "Resources/SoundCache/Player/Drink_Water/Player_Drink_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "drink"
+        }
+    ],
+    "Player_Jump_1": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump/Player_Jump_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_jump"
+        }
+    ],
+    "Player_Jump_2": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump/Player_Jump_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_jump"
+        }
+    ],
+    "Player_Jump_3": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump/Player_Jump_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_jump"
+        }
+    ],
+    "Player_Jump_4": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump/Player_Jump_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_jump"
+        }
+    ],
+    "Player_Jump_5": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump/Player_Jump_5.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_jump"
+        }
+    ],
+    "Player_Jump_6": [
+        {
+            "path": "Resources/SoundCache/Player/Player_Jump/Player_Jump_6.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_jump"
+        }
+    ],
+    "AfterDrinking_1": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_After_Drinking_Water/AfterDrinking_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "drink_after"
+        }
+    ],
+    "AfterDrinking_2": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_After_Drinking_Water/AfterDrinking_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "drink_after"
+        }
+    ],
+    "Escape_1": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_After_Losing_Enemy/Escape_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_escaped"
+        }
+    ],
+    "Escape_2": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_After_Losing_Enemy/Escape_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_escaped"
+        }
+    ],
+    "Escape_3": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_After_Losing_Enemy/Escape_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_escaped"
+        }
+    ],
+    "Escape_4": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_After_Losing_Enemy/Escape_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_escaped"
+        }
+    ],
+    "CannotBurrow_1": [
+        {
+            "path": "Resources/SoundCache/Player/Raddish_Cannot_Burrow/CannotBurrow_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "cannot_burrow"
+        }
+    ],
+    "CannotBurrow_2": [
+        {
+            "path": "Resources/SoundCache/Player/Raddish_Cannot_Burrow/CannotBurrow_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "cannot_burrow"
+        }
+    ],
+    "CannotBurrow_3": [
+        {
+            "path": "Resources/SoundCache/Player/Raddish_Cannot_Burrow/CannotBurrow_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "cannot_burrow"
+        }
+    ],
+    "CannotBurrow_4": [
+        {
+            "path": "Resources/SoundCache/Player/Raddish_Cannot_Burrow/CannotBurrow_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "cannot_burrow"
+        }
+    ],
+    "CannotBurrow_5": [
+        {
+            "path": "Resources/SoundCache/Player/Raddish_Cannot_Burrow/CannotBurrow_5.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "cannot_burrow"
+        }
+    ],
+    "Tired_1": [
+        {
+            "path": "Resources/SoundCache/Player/Raddish_Water_Low/Tired_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "tired"
+        }
+    ],
+    "Tired_2": [
+        {
+            "path": "Resources/SoundCache/Player/Raddish_Water_Low/Tired_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "tired"
+        }
+    ],
+    "Tired_3": [
+        {
+            "path": "Resources/SoundCache/Player/Raddish_Water_Low/Tired_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "tired"
+        }
+    ],
+    "Died_1": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Died/Died_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_dead"
+        }
+    ],
+    "Died_2": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Died/Died_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_dead"
+        }
+    ],
+    "Died_3": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Died/Died_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_dead"
+        }
+    ],
+    "Hurt_1": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Hurt/Hurt_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_hurt"
+        }
+    ],
+    "Hurt_2": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Hurt/Hurt_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_hurt"
+        }
+    ],
+    "Hurt_3": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Hurt/Hurt_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_hurt"
+        }
+    ],
+    "Hurt_4": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Hurt/Hurt_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_hurt"
+        }
+    ],
+    "Radish_Gravel_1": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Jump_On_Gravel/Radish_Gravel_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_gravel"
+        }
+    ],
+    "Radish_Gravel_2": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Jump_On_Gravel/Radish_Gravel_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_gravel"
+        }
+    ],
+    "Radish_Gravel_3": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Jump_On_Gravel/Radish_Gravel_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_gravel"
+        }
+    ],
+    "Radish_Gravel_4": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Jump_On_Gravel/Radish_Gravel_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_gravel"
+        }
+    ],
+    "Sprout_1": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Pick_Up_Sprout/Sprout_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_sprout"
+        }
+    ],
+    "Sprout_2": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Pick_Up_Sprout/Sprout_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_sprout"
+        }
+    ],
+    "Sprout_3": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Pick_Up_Sprout/Sprout_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_sprout"
+        }
+    ],
+    "Struggle_1": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Pushing_Stone/Struggle_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_push_stone"
+        }
+    ],
+    "Struggle_2": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Pushing_Stone/Struggle_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_push_stone"
+        }
+    ],
+    "Struggle_3": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Pushing_Stone/Struggle_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_push_stone"
+        }
+    ],
+    "Struggle_4": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Pushing_Stone/Struggle_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_push_stone"
+        }
+    ],
+    "Struggle_5": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Pushing_Stone/Struggle_5.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_push_stone"
+        }
+    ],
+    "Spotted_1": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Spotted/Spotted_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_spotted"
+        }
+    ],
+    "Spotted_2": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Spotted/Spotted_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_spotted"
+        }
+    ],
+    "Spotted_3": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Spotted/Spotted_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_spotted"
+        }
+    ],
+    "Spotted_4": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Spotted/Spotted_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_spotted"
+        }
+    ],
+    "Spotted_5": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Spotted/Spotted_5.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_spotted"
+        }
+    ],
+    "Spotted_6": [
+        {
+            "path": "Resources/SoundCache/Player/Radish_Spotted/Spotted_6.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_spotted"
+        }
+    ],
+    "Player_Depletes_1": [
+        {
+            "path": "Resources/SoundCache/Player/Water_Depletes/Player_Depletes_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_deplete"
+        }
+    ],
+    "Player_Depletes_2": [
+        {
+            "path": "Resources/SoundCache/Player/Water_Depletes/Player_Depletes_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_deplete"
+        }
+    ],
+    "Player_Depletes_3": [
+        {
+            "path": "Resources/SoundCache/Player/Water_Depletes/Player_Depletes_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_deplete"
+        }
+    ],
+    "Player_Depletes_4": [
+        {
+            "path": "Resources/SoundCache/Player/Water_Depletes/Player_Depletes_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_deplete"
+        }
+    ],
+    "Player_Depletes_5": [
+        {
+            "path": "Resources/SoundCache/Player/Water_Depletes/Player_Depletes_5.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "player_deplete"
+        }
+    ],
+    "Fireflies_1": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Fireflies/Fireflies_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "firefly"
+        }
+    ],
+    "Fireflies_2": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Fireflies/Fireflies_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "firefly"
+        }
+    ],
+    "Fireflies_3": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Fireflies/Fireflies_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "firefly"
+        }
+    ],
+    "Fireflies_4": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Fireflies/Fireflies_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "firefly"
+        }
+    ],
+    "Swamp_1": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Swamp/Swamp_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "swamp"
+        }
+    ],
+    "Swamp_2": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Swamp/Swamp_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "swamp"
+        }
+    ],
+    "Swamp_3": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Swamp/Swamp_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "swamp"
+        }
+    ],
+    "Wind_1": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Wind/Wind_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "wind"
+        }
+    ],
+    "Wind_2": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Wind/Wind_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "wind"
+        }
+    ],
+    "Wind_3": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Wind/Wind_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "wind"
+        }
+    ],
+    "Game_BGM": [
+        {
+            "path": "Resources/SoundCache/States/Game_Mode/Game_BGM.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "game_BGM"
+        }
+    ],
+    "Bird_1": [
+        {
+            "path": "Resources/SoundCache/States/Tutorial_Mode/Bird/Bird_1.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "bird"
+        }
+    ],
+    "Bird_2": [
+        {
+            "path": "Resources/SoundCache/States/Tutorial_Mode/Bird/Bird_2.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "bird"
+        }
+    ],
+    "Bird_3": [
+        {
+            "path": "Resources/SoundCache/States/Tutorial_Mode/Bird/Bird_3.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "bird"
+        }
+    ],
+    "Bird_4": [
+        {
+            "path": "Resources/SoundCache/States/Tutorial_Mode/Bird/Bird_4.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "bird"
+        }
+    ],
+    "Tutorial_BGM": [
+        {
+            "path": "Resources/SoundCache/States/Tutorial_Mode/Tutorial_BGM.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "tutorial_BGM"
+        }
+    ],
+    "Click_Btn": [
+        {
+            "path": "Resources/SoundCache/UI/Click_Button/Click_Btn.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "click_button"
+        }
+    ],
+    "Close_Btn": [
+        {
+            "path": "Resources/SoundCache/UI/Close_Button/Close_Btn.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "close_button"
+        }
+    ],
+    "Window_Close": [
+        {
+            "path": "Resources/SoundCache/UI/Menu_Click_Sounds/Window_Close.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "window_close"
+        }
+    ],
+    "Window_Pop_Out": [
+        {
+            "path": "Resources/SoundCache/Player/Window_Pop_Out.wav",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0",
+            "tag": "window_pop"
+        }
+    ],
+    "River_1": [
+        {
+            "path": "Resources/SoundCache/Environment/River/River_1.mp3",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.030000",
+            "loop": "1",
+            "tag": "river"
+        }
+    ],
+    "River_2": [
+        {
+            "path": "Resources/SoundCache/Environment/River/River_2.mp3",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.030000",
+            "loop": "1",
+            "tag": "river"
+        }
+    ],
+    "River_3": [
+        {
+            "path": "Resources/SoundCache/Environment/River/River_3.mp3",
+            "volume": "0.250000",
+            "min distance": "3.000000",
+            "volume falloff": "0.030000",
+            "loop": "1",
+            "tag": "river"
+        }
+    ],
+    "Lake_1": [
+        {
+            "path": "Resources/SoundCache/Environment/Lake/Lake_1.mp3",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "lake"
+        }
+    ],
+    "Lake_2": [
+        {
+            "path": "Resources/SoundCache/Environment/Lake/Lake_2.mp3",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "lake"
+        }
+    ],
+    "Lake_3": [
+        {
+            "path": "Resources/SoundCache/Environment/Lake/Lake_3.mp3",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "lake"
+        }
+    ],
+    "TextAdvancing": [
+        {
+            "path": "Resources/SoundCache/UI/TextAdvancing.mp3",
+            "volume": "0.250000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "0"
+        }
+    ]
+}
