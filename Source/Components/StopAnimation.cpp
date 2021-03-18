@@ -1,3 +1,15 @@
+/**********************************************************************************
+*\file         StopAnimation.cpp
+*\brief        Contains definition of functions and variables used for
+*			   the StopAnimation Component
+*
+*\author	   Jun Pu, Lee, 100% Code Contribution
+*
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
+			   or disclosure of this file or its contents without the prior
+			   written consent of DigiPen Institute of Technology is prohibited.
+**********************************************************************************/
+
 #include "Engine/Core.h"
 #include "Components/StopAnimation.h"
 #include "Manager/ComponentManager.h"

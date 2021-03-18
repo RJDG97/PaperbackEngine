@@ -34,6 +34,7 @@ namespace Collectible_Script
 	void CollectedCollectible(const EntityID& collectible_id) {
 
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		ForcesManager* forces_mgr = &*CORE->GetManager<ForcesManager>();
 
 		// Grab relevant components
 		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(collectible_id);
@@ -44,8 +45,8 @@ namespace Collectible_Script
 		AABB* aabb = component_mgr->GetComponent<AABB>(collectible_id);
 
 		// Toggle to inactive (Potentially delete them)
-		if (animation_renderer)
-			animation_renderer->SetAlive(false);
+		//if (animation_renderer)
+		//	animation_renderer->SetAlive(false);
 		if (texture_renderer)
 			texture_renderer->SetAlive(false);
 		if (point_light)
@@ -57,6 +58,17 @@ namespace Collectible_Script
 		{
 			case CollectibleType::SPORE:
 			{
+				Motion* motion = component_mgr->GetComponent<Motion>(collectible_id);
+				Transform* xform = component_mgr->GetComponent<Transform>(collectible_id);
+				Destination* des = component_mgr->GetComponent<Destination>(collectible_id);
+
+				Vector2D direction = des->GetDestination() - xform->GetOffsetAABBPos();
+				Vector2DNormalize(direction, direction);
+				
+				//// This dialogue does not exist yet, add in your own version if you are interested wheeeee
+				//CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("Spore_Collected");
+				forces_mgr->AddForce(collectible_id, "Collected", 3.0f, direction * motion->GetForce());
+
 				break;
 			}
 			case CollectibleType::PUDDLE:
@@ -64,31 +76,7 @@ namespace Collectible_Script
 				MessageBGM_Play msg{ "PlayerDrink" };
 				CORE->BroadcastMessage(&msg);
 
-				//ParentChild* pc = component_mgr->GetComponent<ParentChild>(collectible_id);
-				//if (pc) {
-
-				//	// Grab the children (Emitter)
-				//	std::list<Entity*> child = pc->GetChildren();
-
-				//	if (child.empty())
-				//		return;
-
-				//	EntityID emitter_id = child.back()->GetID();
-				//	Emitter* emitter = component_mgr->GetComponent<Emitter>(emitter_id);
-				//	Vector2D pos = xform->GetOffsetAABBPos();
-
-				//	emitter->SetAlive(true);
-				//	emitter->SetLifeTime(2.0f);
-				//	emitter->SetPositionStruct(pos, pos);
-				//	emitter->SetForceStruct({ 10.0f, 30.0f }, { 60.0f, -60.0f });
-				//	emitter->SetLifeTimeStruct({ 1.7f, 1.7f });
-				//	emitter->SetMaxNumberParticles(5);
-				//	emitter->SetRequest(5);
-				//	emitter->SetRotationStruct({ 1.0f, 2.0f }, {}, {});
-				//	emitter->SetSpawnInterval(1.7f);
-				//	emitter->SetTextureStruct(1, {"Puddle_0"});
-				//	emitter->SetDestinationStruct({ -8.7f, 3.7f }, { 2.0f, 4.0f }, true);
-				//}
+				// Do the UI emitter stuff here
 
 				break;
 			}

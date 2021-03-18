@@ -87,7 +87,8 @@ const CollectibleType StringToCollectible(const std::string& type) {
 		return CollectibleType::KEY;
 	else if (type == "Puddle")
 		return CollectibleType::PUDDLE;
-	
+	else if (type == "Spore")
+		return CollectibleType::SPORE;
 
 	else
 		return CollectibleType::NONE;
