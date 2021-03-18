@@ -55,7 +55,7 @@ void MenuState::Init(std::string)
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();
 
-	MessageBGM_Play msg{ "MenuDefault" };
+	MessageBGM_Play msg{ "Game_BGM" };
 	CORE->BroadcastMessage(&msg);
 
 	CORE->GetManager<AMap>()->InitAMap(CORE->GetManager<EntityManager>()->GetEntities());
@@ -125,7 +125,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				if (help_)
 					break;
 
-				MessageBGM_Play button{ "ButtonPress" };
+				MessageBGM_Play button{ "Click_Btn" };
 				CORE->BroadcastMessage(&button);
 
 				// Enter play state
@@ -140,7 +140,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				if (help_)
 					break;
 
-				MessageBGM_Play button{ "ButtonPress" };
+				MessageBGM_Play button{ "Click_Btn" };
 				CORE->BroadcastMessage(&button);
 
 				// "How to play"
@@ -156,7 +156,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				if (help_)
 					break;
 
-				MessageBGM_Play button{ "ButtonPress" };
+				MessageBGM_Play button{ "Click_Btn" };
 				CORE->BroadcastMessage(&button);
 
 				// Editor mode
@@ -171,7 +171,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				if (help_)
 					break;
 
-				MessageBGM_Play button{ "ButtonPress" };
+				MessageBGM_Play button{ "Click_Btn" };
 				CORE->BroadcastMessage(&button);
 				// Toggle off game
 				CORE->SetGameActiveStatus(false);
@@ -184,7 +184,7 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 				if (!help_)
 					break;
 
-				MessageBGM_Play button{ "ButtonPress" };
+				MessageBGM_Play button{ "Click_Btn" };
 				CORE->BroadcastMessage(&button);
 
 				CORE->GetSystem<Collision>()->ToggleClickables(2);

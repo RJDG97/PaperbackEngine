@@ -11,6 +11,7 @@
 **********************************************************************************/
 
 #include "Script/Mite_Tree.h"
+#include "Systems/SoundSystem.h"
 
 void Mite_Tree::MiteRoot::CollisionResponse(EntityID obj){
 	UNREFERENCED_PARAMETER(obj);
@@ -63,9 +64,10 @@ bool Mite_Tree::DetectAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Patrol) {
 		ai_->SetState(AI::AIState::Detected);
-		MessageBGM_Play msg{ "EnemyDetect" };
-		CORE->BroadcastMessage(&msg);
-		graphics->ChangeAnimation(renderer, "Mite_Alert");
+		//MessageBGM_Play msg{ "EnemyDetect" };
+		//CORE->BroadcastMessage(&msg);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("EnemyDetect");
+		graphics->ChangeAnimation(renderer, "mite_detect");
 	}
 
 	if (ai_->GetState() == AI::AIState::Detected && !renderer->FinishedAnimating()) {
@@ -100,8 +102,9 @@ bool Mite_Tree::ChaseAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Detected) {
 		ai_->SetState(AI::AIState::Chase);
-		MessageBGM_Play msg{ "EnemyAttack" };
-		CORE->BroadcastMessage(&msg);
+		//MessageBGM_Play msg{ "EnemyAttack" };
+		//CORE->BroadcastMessage(&msg);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_attack");
 		graphics->ChangeAnimation(renderer, "Mite_Walk");
 	}
 
@@ -181,12 +184,15 @@ bool Mite_Tree::AttackAnim::run() {
 
 			graphics->ChangeAnimation(player_renderer_, "Player_Hit");
 
-			MessageBGM_Play player_msg{ "PlayerHurt" };
-			CORE->BroadcastMessage(&player_msg);
+			//MessageBGM_Play player_msg{ "PlayerHurt" };
+			//CORE->BroadcastMessage(&player_msg);
+			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_hurt");
 		}
 
-		MessageBGM_Play msg{ "EnemyExplode" };
-		CORE->BroadcastMessage(&msg);
+		//MessageBGM_Play msg{ "EnemyExplode" };
+		//CORE->BroadcastMessage(&msg);
+
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_explode");
 		renderer->SetAnimationStatus(false);
 		ai_->SetLife(false);
 		return true;
@@ -214,8 +220,9 @@ bool Mite_Tree::ConfusedAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Chase || ai_->GetState() == AI::AIState::Detected) {
 		ai_->SetState(AI::AIState::Confused);
-		MessageBGM_Play msg{ "EnemyLostSight" };
-		CORE->BroadcastMessage(&msg);
+		//MessageBGM_Play msg{ "EnemyLostSight" };
+		//CORE->BroadcastMessage(&msg);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_lost");
 		graphics->ChangeAnimation(renderer, "Mite_Confused");
 		return true;
 	}
