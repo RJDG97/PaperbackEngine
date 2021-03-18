@@ -726,6 +726,33 @@
     "Gravel": [
         {
             "component": "Transform",
+            "position": "-48.30 -18.90",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.0800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
             "position": "-29.80 -13.20",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
@@ -1645,6 +1672,222 @@
         {
             "component": "Transform",
             "position": "41.60 -68.00",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-46.34 -17.55",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-48.25 -17.53",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-48.25 -13.73",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-48.25 -11.53",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-40.45 -2.93",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-38.25 -2.93",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-34.15 -2.93",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-36.45 -9.33",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
