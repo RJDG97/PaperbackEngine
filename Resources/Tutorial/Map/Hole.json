@@ -1,3 +1,70 @@
 {
-   
+    "PuzzleHole": [
+        {
+            "component": "Transform",
+            "position": "32.70 -86.90",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.100000 -1.400000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.600000",
+            "layer": "13"
+        },
+        {
+            "component": "Scale",
+            "scale": "120.000000 120.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Stone_Fall_One",
+            "add animation": "Hole_One",
+            "set animation": "Hole_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ],
+    "PuzzleHole": [
+        {
+            "component": "Transform",
+            "position": "44.30 -96.30",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -1.400000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.100000 0.600000",
+            "layer": "13"
+        },
+        {
+            "component": "Scale",
+            "scale": "120.000000 120.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Stone_Fall_One",
+            "add animation": "Hole_One",
+            "set animation": "Hole_One",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ]
 }

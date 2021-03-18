@@ -2,14 +2,14 @@
     "Goal": [
         {
             "component": "Transform",
-            "position": "39.10 -17.00",
+            "position": "22.90 -51.10",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.200000 0.000000"
         },
         {
             "component": "AABB",
-            "scale": "1.900000 2.100000",
+            "scale": "3.600000 2.100000",
             "layer": "5"
         },
         {
