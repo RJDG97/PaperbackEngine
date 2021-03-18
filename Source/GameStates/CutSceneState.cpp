@@ -48,8 +48,8 @@ void CutSceneState::Init(std::string) {
 	}
 	else {
 
-		/*MessageBGM_Play msg{ "MenuDefault" };
-		CORE->BroadcastMessage(&msg);*/
+		MessageBGM_Play msg{ "Tutorial_BGM" };
+		CORE->BroadcastMessage(&msg);
 
 		CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 
