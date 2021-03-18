@@ -15,6 +15,13 @@
         {
             "component": "Scale",
             "scale": "256.000000 190.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 1.000000 1.000000",
+            "radius": "200.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ],
     "Torch": [
@@ -33,6 +40,13 @@
         {
             "component": "Scale",
             "scale": "256.000000 190.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 1.000000 1.000000",
+            "radius": "200.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ],
     "Torch": [
@@ -51,6 +65,13 @@
         {
             "component": "Scale",
             "scale": "256.000000 190.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 1.000000 1.000000",
+            "radius": "200.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ],
     "Torch": [
@@ -69,6 +90,13 @@
         {
             "component": "Scale",
             "scale": "256.000000 190.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 1.000000 1.000000",
+            "radius": "200.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ],
     "Torch": [
@@ -87,6 +115,13 @@
         {
             "component": "Scale",
             "scale": "256.000000 190.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 1.000000 1.000000",
+            "radius": "200.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ],
     "Torch": [
@@ -105,6 +140,13 @@
         {
             "component": "Scale",
             "scale": "256.000000 190.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 1.000000 1.000000",
+            "radius": "200.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ],
     "Torch": [
@@ -123,6 +165,13 @@
         {
             "component": "Scale",
             "scale": "256.000000 190.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 1.000000 1.000000",
+            "radius": "200.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ],
     "Torch": [
@@ -141,6 +190,13 @@
         {
             "component": "Scale",
             "scale": "256.000000 190.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 1.000000 1.000000",
+            "radius": "200.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ],
     "Torch": [
@@ -159,6 +215,13 @@
         {
             "component": "Scale",
             "scale": "256.000000 190.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.500000 1.000000 1.000000",
+            "radius": "200.000000",
+            "intensity": "0.000000",
+            "alive": "1"
         }
     ]
 }
