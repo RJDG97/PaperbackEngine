@@ -49,9 +49,22 @@ void DialogueSystem::Update(float frametime)
 
 				dialogue_box_renderer_->SetAlive(false);
 				dialogue_text_renderer_->SetAlive(false);
-				dialogue_portrait_renderer_left_->SetAlive(false);
-				dialogue_portrait_renderer_right_->SetAlive(false);
-				dialogue_speakername_renderer_->SetAlive(false);
+
+				if (dialogue_portrait_renderer_left_)
+				{
+					dialogue_portrait_renderer_left_->SetAlive(false);
+				}
+
+				if (dialogue_portrait_renderer_right_)
+				{
+					dialogue_portrait_renderer_right_->SetAlive(false);
+				}
+
+				if (dialogue_speakername_renderer_)
+				{
+					dialogue_speakername_renderer_->SetAlive(false);
+				}
+
 				return;
 			}
 
@@ -65,7 +78,12 @@ void DialogueSystem::Update(float frametime)
 					new_scale = textbox_max_scale_.y;
 					dialogue_box_scale_->SetScale({ textbox_max_scale_.x, new_scale });
 					dialogue_status_ = DialogueStatus::ADVANCING;
-					dialogue_speakername_renderer_->SetText(current_dialogue_content_->GetName());
+					
+					if (dialogue_speakername_renderer_)
+					{
+						dialogue_speakername_renderer_->SetText(current_dialogue_content_->GetName());
+					}
+
 					UpdatePortraits();
 				}
 
@@ -173,6 +191,11 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 													 return false;
 												 });
 
+				if (speaker_name == std::end(children))
+				{
+					break;
+				}
+
 				dialogue_speakername_renderer_ =
 					component_manager_->GetComponent<TextRenderer>((*speaker_name)->GetID());
 
@@ -205,6 +228,8 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 					component_manager_->GetComponent<TextureRenderer>((*portrait)->GetID());
 
 				graphics_system_->FlipTextureY(dialogue_portrait_renderer_right_);
+
+				break;
 			}
 		}
 
@@ -219,7 +244,12 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 	num_characters_ = 0;
 	dialogue_box_renderer_->SetAlive(true);
 	dialogue_text_renderer_->SetAlive(true);
-	dialogue_speakername_renderer_->SetAlive(true);
+
+	if (dialogue_speakername_renderer_)
+	{
+		dialogue_speakername_renderer_->SetAlive(true);
+	}
+
 	dialogue_box_scale_->SetScale({ dialogue_box_scale_->GetScale().x, 0.0f });
 	current_dialogue_ = dialogue_manager_->GetDialogue(dialogue_name);
 
@@ -269,7 +299,12 @@ void DialogueSystem::AdvanceText()
 				num_characters_ = 0;
 				++current_dialogue_content_;
 				entire_speech_ = current_dialogue_content_->GetSpeech();
-				dialogue_speakername_renderer_->SetText(current_dialogue_content_->GetName());
+
+				if (dialogue_speakername_renderer_)
+				{
+					dialogue_speakername_renderer_->SetText(current_dialogue_content_->GetName());
+				}
+
 				UpdatePortraits();
 				dialogue_status_ = DialogueStatus::ADVANCING;
 			}
@@ -297,6 +332,11 @@ DialogueSystem::DialogueStatus DialogueSystem::GetCurrentDialogueStatus() const 
 
 void DialogueSystem::UpdatePortraits()
 {
+	if (!dialogue_portrait_renderer_left_ || !dialogue_portrait_renderer_right_)
+	{
+		return;
+	}
+
 	if (current_dialogue_content_->GetPortraitLeft() == "None")
 	{
 		dialogue_portrait_renderer_left_->SetAlive(false);
