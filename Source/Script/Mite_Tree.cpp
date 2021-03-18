@@ -183,11 +183,11 @@ bool Mite_Tree::ConfusedAnim::run() {
 	if (ai_->GetState() == AI::AIState::Search)
 		return true;
 
-	if (ai_->GetState() == AI::AIState::Chase) {
+	if (ai_->GetState() == AI::AIState::Chase || ai_->GetState() == AI::AIState::Detected) {
 		ai_->SetState(AI::AIState::Confused);
 		MessageBGM_Play msg{ "EnemyLostSight" };
 		CORE->BroadcastMessage(&msg);
-		graphics->ChangeAnimation(renderer, "Mite_Alert");
+		graphics->ChangeAnimation(renderer, "Mite_Confused");
 		return true;
 	}
 	if (ai_->GetState() == AI::AIState::Confused && !renderer->FinishedAnimating()) {
@@ -264,9 +264,6 @@ bool Mite_Tree::SearchCheck::run()
 		return true;
 	if (!pass && ai_->GetState() == AI::AIState::Search) {
 		pass = true;
-		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
-		graphics->FlipTextureY(renderer);
-		motion->SetIsLeft(!motion->IsLeft());
 		ai_->SetState(AI::AIState::Confused);
 		return true;
 	}
