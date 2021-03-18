@@ -4,17 +4,19 @@
 
   "Menu": "Resources/EntityConfig/menu.json",
 
-  "Tutorial": "Resources/Test/Level1.json LevelOne",
+  "Tutorial": "Resources/Tutorial/TutorialLevel.json LevelOne",
   
-  "LevelOne": "Resources/Test/Level1.json",
+  "Cutscene": "Resources/EntityConfig/cutscene.json",
+  
+  "LevelOne": "Resources/Test/Level1.json LevelTwo",
 
+  "LevelTwo": "Resources/Level2/Level2.json",
+  
   "Win": "Resources/EntityConfig/win.json",
 
   "Lose": "Resources/EntityConfig/lose.json",
 
   "Editor": "Resources/EntityConfig/editor.json",
 
-  "Pause": "Resources/EntityConfig/pause.json",
-  
-  "Cutscene": "Resources/EntityConfig/cutscene.json"
+  "Pause": "Resources/EntityConfig/pause.json"
 }
