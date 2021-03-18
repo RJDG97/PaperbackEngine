@@ -2,7 +2,7 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "-13.02 -33.80",
+            "position": "-13.02 -36.60",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -82,7 +82,7 @@
     "Torch": [
         {
             "component": "Transform",
-            "position": "-32.05 7.69",
+            "position": "-30.05 7.69",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
