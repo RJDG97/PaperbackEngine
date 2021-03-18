@@ -373,6 +373,34 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 	}
 }
 
+void Collision::PlayerVsHoleResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* vel2, float frametime, float t_first) {
+
+	UNREFERENCED_PARAMETER(vel2);
+	Vector2D inverse_vector_1 = (-(*vel1)) * (frametime - t_first);
+
+	Transform* transform1 = transform_arr_->GetComponent(aabb1->first);
+	Transform* transform2 = transform_arr_->GetComponent(aabb2->first);
+	Status* status = component_mgr_->GetComponent<Status>(aabb2->first);
+	AnimationRenderer* anim = component_mgr_->GetComponent<AnimationRenderer>(aabb1->first);
+
+	float penetration{};
+
+	if (anim->GetCurrentAnimation() == "Stone_Fall_One" && status->GetStatus() != StatusType::BURROW) return;
+
+	// Get "normal" to colliding side
+	Vector2D normal = SATNormal(aabb1, aabb2, transform1, transform2, penetration);
+
+	inverse_vector_1.x *= abs(normal.x);
+	inverse_vector_1.y *= abs(normal.y);
+
+	normal *= abs(penetration) * 0.7f;
+
+	// Reposition entity's position
+
+	transform1->position_ += inverse_vector_1;
+	transform2->position_ += normal;
+}
+
 void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 
 	UNREFERENCED_PARAMETER(aabb1);
@@ -638,7 +666,8 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 			case CollisionLayer::HOLE:
 			{
-				DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
+				//DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
+				PlayerVsHoleResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
 				break;
 			}
 		}
@@ -654,6 +683,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				break;
 			}
 		}
+		break;
 	}
 	case CollisionLayer::PUSHABLE:
 	{
@@ -672,6 +702,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 				break;
 			}
 		}
+		break;
 	}
 	default:
 	{

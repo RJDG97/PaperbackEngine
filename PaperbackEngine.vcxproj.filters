@@ -204,6 +204,9 @@
     <Filter Include="Scripts\Common">
       <UniqueIdentifier>{8a4d7504-25f0-478d-b6d8-c8ac5ead3979}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\StopAnimation">
+      <UniqueIdentifier>{79cc722f-3abf-4764-8172-156d86e9d0eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -499,6 +502,9 @@
     </ClCompile>
     <ClCompile Include="Source\Script\Common_Nodes.cpp">
       <Filter>Scripts\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\StopAnimation.cpp">
+      <Filter>Entity\Components\StopAnimation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -858,6 +864,9 @@
     </ClInclude>
     <ClInclude Include="Include\Script\Common_Nodes.h">
       <Filter>Scripts\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\StopAnimation.h">
+      <Filter>Entity\Components\StopAnimation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

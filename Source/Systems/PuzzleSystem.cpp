@@ -6,6 +6,7 @@ void PuzzleSystem::Init() {
 	
 	component_manager_ = &*CORE->GetManager<ComponentManager>();
 	graphics_system_ = &*CORE->GetSystem<GraphicsSystem>();
+	stop_anim_arr_ = component_manager_->GetComponentArray<StopAnimation>();
 	puzzle_arr_ = component_manager_->GetComponentArray<Puzzle>();
 }
 
@@ -20,6 +21,17 @@ void PuzzleSystem::Update(float frametime) {
 			// Activate whatever puzzle stuff was intended (E.g. gate open, etc)
 			// By activating some logic script
 		}
+	}
+
+	for (auto& [id, stop] : *stop_anim_arr_) {
+		
+		AnimationRenderer* anim = component_manager_->GetComponent<AnimationRenderer>(id);
+
+		if (!anim) return;
+		if (!anim->IsAlive()) return;
+
+		if (stop->Name() == anim->GetCurrentAnimation() && anim->FinishedAnimating())
+			anim->SetAnimationStatus(false);
 	}
 }
 
@@ -37,14 +49,17 @@ void PuzzleSystem::UpdatePuzzleEntities(AABB* aabb1, AABB* aabb2) {
 	// Initial setting of animation
 	if (aabb1->GetAlive() && aabb2->GetAlive() && b_anim->IsAlive()) {
 
+		if (anim->GetCurrentAnimation() == "Stone_Fall_One") return;
+
 		graphics_system_->ChangeAnimation(anim, "Stone_Fall_One");
 		b_anim->SetAlive(false);
+		aabb1->SetAlive(false);
 
-		CORE->SetMovementLock(true);
+		//CORE->SetMovementLock(true);
 	}
 	// After animation has been set once already
 	else {
-		if (anim && anim->FinishedAnimating()) {
+		if (anim && anim->GetCurrentAnimation() == "Stone_Fall_One" && anim->FinishedAnimating()) {
 
 			Child* child = component_manager_->GetComponent<Child>(hole_id);
 			if (child) {
@@ -54,11 +69,13 @@ void PuzzleSystem::UpdatePuzzleEntities(AABB* aabb1, AABB* aabb2) {
 				++puzzle->current_;
 			}
 
-			// Disable both colliders
+			// Disable boulder collider
 			aabb1->SetAlive(false);
-			aabb2->SetAlive(false);
 
-			CORE->SetMovementLock(false);
+			// Disable hole collider
+			//aabb2->SetAlive(false);
+
+			//CORE->SetMovementLock(false);
 			anim->SetAnimationStatus(false);
 		}
 	}

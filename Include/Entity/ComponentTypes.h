@@ -48,6 +48,7 @@ enum class ComponentTypes {
 	DIALOGUETRIGGER,
 	CHILD,
 	PUZZLE,
+	STOPANIMATION,
 	MAX
 };
 
