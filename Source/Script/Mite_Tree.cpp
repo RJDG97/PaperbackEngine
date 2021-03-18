@@ -135,7 +135,6 @@ Mite_Tree::AttackAnim::AttackAnim(EntityID id) :id_(id) {
 	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
 }
 
-
 void Mite_Tree::AttackAnim::PlayerInit()
 {
 	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
@@ -154,7 +153,7 @@ bool Mite_Tree::AttackAnim::run() {
 	if (!renderer || !ai_ || !motion || !name)
 		return false;
 
-	if (ai_->GetState() != AI::AIState::Attack) {
+	if (ai_->GetState() != AI::AIState::Attack && player_status_->GetStatus() != StatusType::BURROW) {
 		ai_->SetState(AI::AIState::Attack);
 		graphics->ChangeAnimation(renderer, "Mite_Explode");
 		return true;
@@ -171,8 +170,9 @@ bool Mite_Tree::AttackAnim::run() {
 			graphics->FlipTextureY(renderer);
 			motion->SetIsLeft(true);
 		}
+		return true;
 	}
-	else if (renderer->FinishedAnimating()) {
+	else if (ai_->GetState() == AI::AIState::Attack && renderer->FinishedAnimating()) {
 		float distance = Vector2DDistance(player_rigidbody_->GetOffsetAABBPos(), obj_rigidbody_->GetOffsetAABBPos());
 
 		if (distance < 2.0f && player_status_->GetStatus() != StatusType::BURROW); {
@@ -189,7 +189,10 @@ bool Mite_Tree::AttackAnim::run() {
 		CORE->BroadcastMessage(&msg);
 		renderer->SetAnimationStatus(false);
 		ai_->SetLife(false);
+		return true;
 	}
+	if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
+		graphics->ChangeAnimation(renderer, "Mite_Idle");
 	return true;
 }
 
