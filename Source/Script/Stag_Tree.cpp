@@ -202,10 +202,10 @@ bool Stag_Tree::Charge::run(){
 		float distance = Vector2DLength(player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos());
 
 		// If object is at dest node
-		if (distance < 1.0f)
-		{
-			return false;
-		}
+		//if (distance < 0.5f)
+		//{
+		//	return false;
+		//}
 		//get directional unit vector
 		Vector2D directional = player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos();
 		directional /= Vector2DLength(directional);
@@ -217,7 +217,7 @@ bool Stag_Tree::Charge::run(){
 		forces_->AddForce(id_, "movement", PE_FrameRate.GetFixedDelta(), directional);
 		return true;
 	}
-	return false;
+	return true;
 }
 
 Stag_Tree::AttackAnim::AttackAnim(EntityID id) :id_(id) {
@@ -235,7 +235,7 @@ bool Stag_Tree::AttackAnim::run() {
 	if (!renderer || !ai_ || !motion || !name)
 		return false;
 
-	if (ai_->GetState() == AI::AIState::Chase || ai_->GetState() == AI::AIState::Detected) {
+	if (ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Attack);
 		MessageBGM_Play msg{ "EnemyAttack" };
 		CORE->BroadcastMessage(&msg);

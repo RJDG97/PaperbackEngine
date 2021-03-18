@@ -195,6 +195,7 @@ public:
 		DetectPlayer(EntityID id) : id_(id) {
 			component_mgr = &*CORE->GetManager<ComponentManager>();
 			ai_ = component_mgr->GetComponent<AI>(id_);
+			ai_->SetState(AI::AIState::Patrol);
 			if (ai_->GetLevel()) {
 				addChild(new Common::PlayerWithinDistance(id_, 2.0f));
 				addChild(new Common::PlayerWithinVision(id_, 4.0f));
