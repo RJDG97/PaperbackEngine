@@ -11,5 +11,19 @@
 
   "restarea02": "Resources/Test/Dialogue/Dialogue_Play/restarea02.json",
   
-  "endlevel": "Resources/Test/Dialogue/Dialogue_Play/endlevel.json"
+  "endlevel": "Resources/Test/Dialogue/Dialogue_Play/endlevel.json",
+  
+  "tutorial01": "Resources/Tutorial/Dialogue/Dialogue_Play/tutorial01.json",
+  
+  "tutorial02": "Resources/Tutorial/Dialogue/Dialogue_Play/tutorial02.json",
+  
+  "tutorial03": "Resources/Tutorial/Dialogue/Dialogue_Play/tutorial03.json",
+  
+  "tutorial04": "Resources/Tutorial/Dialogue/Dialogue_Play/tutorial04.json",
+  
+  "tutorial05": "Resources/Tutorial/Dialogue/Dialogue_Play/tutorial05.json",
+  
+  "tutorial06": "Resources/Tutorial/Dialogue/Dialogue_Play/tutorial06.json",
+  
+  "tutorial07": "Resources/Tutorial/Dialogue/Dialogue_Play/tutorial07.json"
 }
