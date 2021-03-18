@@ -6,7 +6,7 @@
         },
         {
             "component": "Transform",
-            "position": "-26.296961 19.232500",
+            "position": "-20.07 -72.49",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -14,7 +14,7 @@
         {
             "component": "Camera",
             "Camera Size": "1280.000000 720.000000",
-            "Camera Zoom": "0.900000"
+            "Camera Zoom": "0.600000"
         },
         {
             "component": "Child",
