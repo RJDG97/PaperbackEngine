@@ -81,6 +81,7 @@ void DialogueSystem::Update(float frametime)
 					++num_characters_;
 					text_elapsed_time_ = 0.0f;
 					sound_system_->PlaySounds("TextAdvancing");
+					//sound_system_->PlayTaggedSounds("TextAdvancing");
 
 					if (num_characters_ > entire_speech_->size())
 					{

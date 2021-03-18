@@ -515,7 +515,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "5.260000 -8.260000",
+            "position": "5.760000 -8.260000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 -0.100000"
@@ -542,7 +542,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "6.560000 -6.360000",
+            "position": "7.960000 -6.360000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.100000"

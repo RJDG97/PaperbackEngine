@@ -11,6 +11,7 @@
 **********************************************************************************/
 
 #include "Script/Stag_Tree.h"
+#include "Systems/SoundSystem.h"
 
 void Stag_Tree::StagRoot::CollisionResponse(EntityID obj)
 {
@@ -119,8 +120,9 @@ bool Stag_Tree::DetectAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Patrol) {
 		ai_->SetState(AI::AIState::Detected);
-		MessageBGM_Play msg{ "EnemyDetect" };
-		CORE->BroadcastMessage(&msg);
+		//MessageBGM_Play msg{ "EnemyDetect" };
+		//CORE->BroadcastMessage(&msg);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_detect");
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Alert");
 	}
 	if (ai_->GetState() == AI::AIState::Detected && !renderer->FinishedAnimating()) {
@@ -158,8 +160,9 @@ bool Stag_Tree::ChaseAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Detected || ai_->GetState() == AI::AIState::Confused) {
 		ai_->SetState(AI::AIState::Chase);
-		MessageBGM_Play msg{ "EnemyAttack" };
-		CORE->BroadcastMessage(&msg);
+		//MessageBGM_Play msg{ "EnemyAttack" };
+		//CORE->BroadcastMessage(&msg);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_attack");
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Run");
 	}
 
@@ -185,6 +188,7 @@ Stag_Tree::Charge::Charge(EntityID id) :id_(id) {
 	ai_ = component_mgr->GetComponent<AI>(id_);
 	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
 	forces_ = &*CORE->GetManager<ForcesManager>();
+	motion = component_mgr->GetComponent<Motion>(id_);
 }
 
 void Stag_Tree::Charge::PlayerInit() {
@@ -202,10 +206,9 @@ bool Stag_Tree::Charge::run(){
 		float distance = Vector2DLength(player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos());
 
 		// If object is at dest node
-		if (distance < 0.5f)
-		{
+		if (distance < 0.1f)
 			return false;
-		}
+
 		//get directional unit vector
 		Vector2D directional = player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos();
 		directional /= Vector2DLength(directional);
@@ -227,6 +230,7 @@ Stag_Tree::AttackAnim::AttackAnim(EntityID id) :id_(id) {
 	motion = component_mgr->GetComponent<Motion>(id_);
 	name = component_mgr->GetComponent<Name>(id_);
 	ai_ = component_mgr->GetComponent<AI>(id_);
+	running = false;
 }
 
 bool Stag_Tree::AttackAnim::run() {
@@ -237,15 +241,13 @@ bool Stag_Tree::AttackAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Attack);
-		MessageBGM_Play msg{ "EnemyAttack" };
-		CORE->BroadcastMessage(&msg);
+		//MessageBGM_Play msg{ "EnemyAttack" };
+		//CORE->BroadcastMessage(&msg);
+		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_attack");
 		graphics->ChangeAnimation(renderer, "Stagbeetle_Attack");
 	}
 
 	if (ai_->GetState() == AI::AIState::Attack) {
-		// If velocity is essentially 0, set player to idle
-		if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-			graphics->ChangeAnimation(renderer, "Stagbeetlee_Idle");
 
 		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
@@ -266,9 +268,18 @@ Stag_Tree::ConfusedAnim::ConfusedAnim(EntityID id) :id_(id) {
 	motion = component_mgr->GetComponent<Motion>(id_);
 	name = component_mgr->GetComponent<Name>(id_);
 	ai_ = component_mgr->GetComponent<AI>(id_);
+	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
+}
+
+void Stag_Tree::ConfusedAnim::PlayerInit() {
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
+	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }
 
 bool Stag_Tree::ConfusedAnim::run() {
+	if (!player_id_)
+		PlayerInit();
+
 	// If any pointers are invalid, return
 	if (!renderer || !ai_ || !motion || !name || ai_->GetState() == AI::AIState::Patrol)
 		return false;
@@ -277,10 +288,17 @@ bool Stag_Tree::ConfusedAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Attack || ai_->GetState() == AI::AIState::Chase) {
 		ai_->SetState(AI::AIState::Confused);
- 		MessageBGM_Play msg{ "EnemyLostSight" };
-		CORE->BroadcastMessage(&msg);
-		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
-		return true;
+		float distance = Vector2DLength(player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos());
+		if (distance < 0.1f) {
+			graphics->ChangeAnimation(renderer, "Stagbeetle_Alert");
+		}
+		else {
+			//MessageBGM_Play msg{ "EnemyLostSight" };
+			//CORE->BroadcastMessage(&msg);
+			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stag_lost");
+			graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
+			return true;
+		}
 	}
 	if (ai_->GetState() == AI::AIState::Confused && !renderer->FinishedAnimating()) {
 
@@ -307,20 +325,35 @@ Stag_Tree::SearchCheck::SearchCheck(EntityID id) :id_(id) {
 	motion = component_mgr->GetComponent<Motion>(id_);
 	name = component_mgr->GetComponent<Name>(id_);
 	ai_ = component_mgr->GetComponent<AI>(id_);
+	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
 	pass = false;
+}
+
+void Stag_Tree::SearchCheck::PlayerInit() {
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
+	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
 }
 
 bool Stag_Tree::SearchCheck::run()
 {
+	if (!player_id_)
+		PlayerInit();
+
 	if (ai_->GetState() == AI::AIState::Patrol)
 		return false;
 	if (ai_->GetState() == AI::AIState::Confused)
 		return true;
 	if (!pass && ai_->GetState() == AI::AIState::Search) {
 		pass = true;
-		graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
-		graphics->FlipTextureY(renderer);
-		motion->SetIsLeft(!motion->IsLeft());
+		float distance = Vector2DLength(player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos());
+		if (distance < 0.1f) {
+			graphics->ChangeAnimation(renderer, "Stagbeetle_Alert");
+		}
+		else {
+			graphics->ChangeAnimation(renderer, "Stagbeetle_Confused");
+			graphics->FlipTextureY(renderer);
+			motion->SetIsLeft(!motion->IsLeft());
+		}
 		ai_->SetState(AI::AIState::Confused);
 		return true;
 	}

@@ -73,9 +73,9 @@ namespace Collectible_Script
 			}
 			case CollectibleType::PUDDLE:
 			{
-				MessageBGM_Play msg{ "PlayerDrink" };
-				CORE->BroadcastMessage(&msg);
-
+				//MessageBGM_Play msg{ "PlayerDrink" };
+				//CORE->BroadcastMessage(&msg);
+				CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("drink");
 				// Do the UI emitter stuff here
 
 				break;
@@ -114,7 +114,8 @@ namespace Collectible_Script
 		animation_renderer->SetAnimationStatus(true);
 		CORE->SetMovementLock(true);
 
-		sound_sys->PlaySounds("PlayerPushTree");
+		//sound_sys->PlaySounds("PlayerPushTree");
+		sound_sys->PlayTaggedSounds("tree_fall");
 
 		if (animation_renderer->FinishedAnimating()) {
 

@@ -74,7 +74,9 @@ void PlayState::Init(std::string)
 
 	CORE->GetSystem<GraphicsSystem>()->EnableLighting(true);
 	
-	MessageBGM_Play msg{ "River" };
+	//MessageBGM_Play msg{ "River_1" };
+	std::string name = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
+	MessageBGM_Play msg{ name + "_BGM" };
 	CORE->BroadcastMessage(&msg);
 
 	CORE->GetManager<AMap>()->InitAMap( CORE->GetManager<EntityManager>()->GetEntities() );
@@ -168,7 +170,7 @@ void PlayState::Update(Game* game, float frametime)
 
 		if (health && health->GetCurrentHealth() <= 0) {
 
-			CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerDies_0");
+			//CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerDies_0");
 			game->ChangeState(&m_WinLoseState, "Lose");
 		}
 	}
@@ -291,7 +293,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 				case 2:
 				{
 					
-					MessageBGM_Play button{ "ButtonPress" };
+					MessageBGM_Play button{ "Click_Btn" };
 					CORE->BroadcastMessage(&button);
 
 					CORE->GetSystem<Collision>()->ToggleClickables(2);
@@ -304,7 +306,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 					if (help_)
 						break;
 
-					MessageBGM_Play button{ "ButtonPress" };
+					MessageBGM_Play button{ "Click_Btn" };
 					CORE->BroadcastMessage(&button);
 					CORE->GetSystem<DialogueSystem>()->TempCleanup();
 					CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
