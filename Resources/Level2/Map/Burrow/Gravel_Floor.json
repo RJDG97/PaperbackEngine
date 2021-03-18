@@ -2,7 +2,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-19.59 -58.05",
+            "position": "-19.590000 -58.049999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -13,8 +13,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -29,7 +29,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-19.59 -59.91",
+            "position": "-19.590000 -59.910000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -40,8 +40,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -56,7 +56,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-21.68 -59.91",
+            "position": "-21.680000 -59.910000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.100000 -0.100000"
@@ -67,8 +67,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -83,7 +83,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-24.01 -41.45",
+            "position": "-24.010000 -41.450001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -94,8 +94,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -110,7 +110,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-23.86 -52.26",
+            "position": "-23.860001 -52.259998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -121,35 +121,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.00000 1.000000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "80.000000 80.000000"
-        }
-    ],
-    "Gravel": [
-        {
-            "component": "Transform",
-            "position": "-25.60 -52.26",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "-0.200000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "0",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -164,7 +137,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-25.60 -50.36",
+            "position": "-25.600000 -52.259998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -175,8 +148,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -191,7 +164,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-25.60 -54.16",
+            "position": "-25.600000 -50.360001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -202,8 +175,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -218,7 +191,34 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-23.86 -54.16",
+            "position": "-25.600000 -54.160000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-23.860001 -54.160000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -229,62 +229,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.00000 1.000000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "80.000000 80.000000"
-        }
-    ],
-    "Gravel": [
-        {
-            "component": "Transform",
-            "position": "-23.86 -50.36",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "0",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.00000 1.000000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "80.000000 80.000000"
-        }
-    ],
-    "Gravel": [
-        {
-            "component": "Transform",
-            "position": "-25.60 -56.06",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "-0.200000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "0",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -299,7 +245,61 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-24.45 -39.46",
+            "position": "-23.860001 -50.360001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-25.600000 -56.060001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-24.450001 -39.459999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 -0.100000"
@@ -310,8 +310,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -326,7 +326,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-18.20 -39.16",
+            "position": "-18.200001 -39.160000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -337,30 +337,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "Scale",
-            "scale": "80.000000 80.000000"
-        }
-    ],
-    "Gravel": [
-        {
-            "component": "Transform",
-            "position": "-16.16 -39.36",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "-0.200000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "0",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -375,7 +353,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-21.30 -37.40",
+            "position": "-16.160000 -39.360001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -386,8 +364,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -402,7 +380,34 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-18.75 -37.40",
+            "position": "-21.299999 -37.400002",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-18.750000 -37.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.300000 0.000000"
@@ -413,8 +418,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -429,7 +434,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-16.26 -37.40",
+            "position": "-16.260000 -37.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.100000 0.000000"
@@ -440,8 +445,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -456,7 +461,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-26.95 -39.40",
+            "position": "-26.950001 -39.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -467,8 +472,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -483,7 +488,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-29.60 -39.40",
+            "position": "-29.600000 -39.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -494,8 +499,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -510,7 +515,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-29.60 -41.30",
+            "position": "-29.600000 -41.299999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -521,8 +526,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -537,7 +542,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-29.60 -43.25",
+            "position": "-29.600000 -43.250000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -548,8 +553,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -564,7 +569,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-27.05 -43.30",
+            "position": "-27.049999 -43.299999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.100000"
@@ -575,8 +580,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -591,7 +596,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-24.70 -43.30",
+            "position": "-24.700001 -43.299999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -602,8 +607,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -618,7 +623,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-29.90 -37.50",
+            "position": "-29.900000 -37.500000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -629,8 +634,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -645,7 +650,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-25.70 -37.50",
+            "position": "-25.700001 -37.500000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -656,8 +661,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -672,7 +677,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-31.90 -19.30",
+            "position": "-31.900000 -19.299999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.100000 0.000000"
@@ -683,35 +688,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.200000 1.000000",
-            "layer": "10"
-        },
-        {
-            "component": "Scale",
-            "scale": "80.000000 80.000000"
-        }
-    ],
-    "Gravel": [
-        {
-            "component": "Transform",
-            "position": "-29.70 -21.00",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "-0.200000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Fake_Gravel_0",
-            "layer": "0",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -726,7 +704,34 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-48.30 -18.90",
+            "position": "-29.700001 -21.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 -0.100000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Fake_Gravel_0",
+            "layer": "0",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.800000",
+            "layer": "10"
+        },
+        {
+            "component": "Scale",
+            "scale": "80.000000 80.000000"
+        }
+    ],
+    "Gravel": [
+        {
+            "component": "Transform",
+            "position": "-48.299999 -18.900000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -737,12 +742,12 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
-            "scale": "1.000000 0.0800000",
+            "scale": "1.000000 0.080000",
             "layer": "10"
         },
         {
@@ -753,7 +758,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-29.80 -13.20",
+            "position": "-29.799999 -13.200000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -764,8 +769,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -780,7 +785,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-29.80 -15.10",
+            "position": "-29.799999 -15.100000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 -0.200000"
@@ -791,8 +796,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -807,7 +812,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-25.30 -12.80",
+            "position": "-25.299999 -12.800000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -818,8 +823,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -834,7 +839,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-22.80 -12.80",
+            "position": "-22.799999 -12.800000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -845,8 +850,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -861,10 +866,10 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-20.20 -12.80",
+            "position": "-20.200001 -12.800000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.10000 0.000000"
+            "aabb offset": "0.100000 0.000000"
         },
         {
             "component": "TextureRenderer",
@@ -872,8 +877,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -888,7 +893,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-25.40 -10.90",
+            "position": "-25.400000 -10.900000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -899,8 +904,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -915,7 +920,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-22.80 -10.90",
+            "position": "-22.799999 -10.900000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.100000 0.000000"
@@ -926,8 +931,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -942,7 +947,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-20.20 -10.90",
+            "position": "-20.200001 -10.900000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.100000 0.000000"
@@ -953,8 +958,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -969,7 +974,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-11.10 -6.10",
+            "position": "-11.100000 -6.100000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -980,8 +985,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -996,7 +1001,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-8.50 -6.10",
+            "position": "-8.500000 -6.100000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.100000 0.000000"
@@ -1007,8 +1012,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1023,7 +1028,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "3.44 -35.62",
+            "position": "3.440000 -35.619999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1034,8 +1039,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1050,7 +1055,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "5.30 -35.60",
+            "position": "5.300000 -35.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1061,8 +1066,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1077,7 +1082,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "4.00 -37.50",
+            "position": "4.000000 -37.500000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -1088,8 +1093,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1104,7 +1109,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "6.30 -37.30",
+            "position": "6.300000 -37.299999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1115,8 +1120,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1131,7 +1136,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "0.80 -41.10",
+            "position": "0.800000 -41.099998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1142,8 +1147,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1158,7 +1163,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "3.00 -43.80",
+            "position": "3.000000 -43.799999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1169,8 +1174,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1185,7 +1190,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "5.30 -58.40",
+            "position": "5.300000 -58.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1196,8 +1201,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1212,7 +1217,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "3.20 -58.40",
+            "position": "3.200000 -58.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1223,8 +1228,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1239,7 +1244,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-1.60 -58.30",
+            "position": "-1.600000 -58.299999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -1250,8 +1255,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1266,7 +1271,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-1.60 -60.20",
+            "position": "-1.600000 -60.200001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -1277,8 +1282,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1293,7 +1298,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "3.00 -62.00",
+            "position": "3.000000 -62.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1304,8 +1309,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1320,7 +1325,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "0.90 -62.00",
+            "position": "0.900000 -62.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1331,8 +1336,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1347,7 +1352,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "9.70 -60.10",
+            "position": "9.700000 -60.099998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.200000 0.000000"
@@ -1358,8 +1363,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1374,7 +1379,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "12.20 -60.10",
+            "position": "12.200000 -60.099998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1385,8 +1390,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1401,7 +1406,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "24.80 -74.60",
+            "position": "24.799999 -74.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1412,8 +1417,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1428,7 +1433,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "26.70 -72.60",
+            "position": "26.700001 -72.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1439,8 +1444,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1455,7 +1460,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "31.40 -72.60",
+            "position": "31.400000 -72.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1466,8 +1471,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1482,7 +1487,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "33.90 -72.60",
+            "position": "33.900002 -72.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1493,8 +1498,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1509,7 +1514,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "37.80 -74.80",
+            "position": "37.799999 -74.800003",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1520,8 +1525,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1536,7 +1541,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "38.40 -82.60",
+            "position": "38.400002 -82.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1547,8 +1552,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1563,7 +1568,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "40.90 -82.60",
+            "position": "40.900002 -82.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1574,8 +1579,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1590,7 +1595,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "43.30 -82.60",
+            "position": "43.299999 -82.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.100000 0.000000"
@@ -1601,8 +1606,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1617,7 +1622,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "33.60 -84.40",
+            "position": "33.599998 -84.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -1628,8 +1633,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1644,7 +1649,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "36.00 -84.40",
+            "position": "36.000000 -84.400002",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1655,8 +1660,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1671,7 +1676,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "41.60 -68.00",
+            "position": "41.599998 -68.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1682,8 +1687,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1698,7 +1703,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-46.34 -17.55",
+            "position": "-46.340000 -17.549999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1709,8 +1714,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1725,7 +1730,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-48.25 -17.53",
+            "position": "-48.250000 -17.530001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1736,8 +1741,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1752,7 +1757,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-48.25 -13.73",
+            "position": "-48.250000 -13.730000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1763,8 +1768,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1779,7 +1784,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-48.25 -11.53",
+            "position": "-48.250000 -11.530000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1790,8 +1795,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1806,7 +1811,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-40.45 -2.93",
+            "position": "-40.450001 -2.930000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1817,8 +1822,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1833,7 +1838,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-38.25 -2.93",
+            "position": "-38.250000 -2.930000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1844,8 +1849,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1860,7 +1865,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-34.15 -2.93",
+            "position": "-34.150002 -2.930000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1871,8 +1876,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
@@ -1887,7 +1892,7 @@
     "Gravel": [
         {
             "component": "Transform",
-            "position": "-36.45 -9.33",
+            "position": "-36.450001 -9.330000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 0.000000"
@@ -1898,8 +1903,8 @@
             "layer": "0",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",

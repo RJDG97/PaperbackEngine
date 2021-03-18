@@ -2,10 +2,10 @@
     "Bug_Hill_1x1": [
         {
             "component": "Transform",
-            "position": "-19.71 -39.62",
+            "position": "-19.709999 -39.619999",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
+            "aabb offset": "0.000000 -0.100000"
         },
         {
             "component": "TextureRenderer",
@@ -13,12 +13,12 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
-            "scale": "1.30000 1.00000",
+            "scale": "1.100000 1.000000",
             "layer": "1"
         },
         {
@@ -29,385 +29,7 @@
     "Bug_Hill_1x1": [
         {
             "component": "Transform",
-            "position": "-21.51 -56.52",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-23.71 -58.32",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-27.80 -41.52",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-38.70 -19.42",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-18.00 -13.12",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-26.00 -0.92",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-21.80 -2.52",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-17.30 -4.72",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-11.80 -3.02",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-9.50 -12.92",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "-3.50 -33.32",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "5.30 -56.62",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.200000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.30000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "9.30 -54.72",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "13.30 -64.32",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.400000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Bug_Hill_1x1_0",
-            "layer": "1",
-            "order in layer": "1",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.30000 1.00000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "145.000000 145.000000"
-        }
-    ],
-    "Bug_Hill_1x1": [
-        {
-            "component": "Transform",
-            "position": "28.90 -70.92",
+            "position": "-21.510000 -56.520000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.100000"
@@ -418,12 +40,12 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
-            "scale": "1.30000 1.30000",
+            "scale": "1.100000 1.000000",
             "layer": "1"
         },
         {
@@ -434,7 +56,34 @@
     "Bug_Hill_1x1": [
         {
             "component": "Transform",
-            "position": "29.30 -80.32",
+            "position": "-23.709999 -58.320000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.200000 0.900000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "-27.799999 -41.520000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.100000"
@@ -445,12 +94,12 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
-            "scale": "1.30000 1.30000",
+            "scale": "1.200000 1.000000",
             "layer": "1"
         },
         {
@@ -461,7 +110,7 @@
     "Bug_Hill_1x1": [
         {
             "component": "Transform",
-            "position": "27.50 -86.72",
+            "position": "-38.700001 -19.420000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.400000"
@@ -472,12 +121,12 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
-            "scale": "1.30000 1.00000",
+            "scale": "1.300000 1.000000",
             "layer": "1"
         },
         {
@@ -488,7 +137,7 @@
     "Bug_Hill_1x1": [
         {
             "component": "Transform",
-            "position": "37.20 -77.12",
+            "position": "-18.000000 -13.120000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.400000"
@@ -499,12 +148,12 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
-            "scale": "1.30000 1.00000",
+            "scale": "1.300000 1.000000",
             "layer": "1"
         },
         {
@@ -515,7 +164,7 @@
     "Bug_Hill_1x1": [
         {
             "component": "Transform",
-            "position": "43.60 -68.42",
+            "position": "-26.000000 -0.920000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.400000"
@@ -526,12 +175,363 @@
             "layer": "1",
             "order in layer": "1",
             "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
         },
         {
             "component": "AABB",
-            "scale": "1.30000 1.00000",
+            "scale": "1.100000 0.800000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "-21.799999 -2.520000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.200000 1.000000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "-17.299999 -4.720000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.100000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.100000 1.000000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "-11.800000 -3.020000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.200000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.100000 0.900000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "-9.500000 -12.920000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.100000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.900000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "-3.500000 -33.320000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.100000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.200000 0.900000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "5.300000 -56.619999",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.100000 1.100000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "9.300000 -54.720001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.100000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.100000 1.000000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "13.300000 -64.320000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.100000 1.000000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "28.900000 -70.919998",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.100000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.300000 1.300000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "29.299999 -80.320000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.100000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.200000 1.300000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "27.500000 -86.720001",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.400000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.300000 1.000000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "37.200001 -77.120003",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.100000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.200000 0.800000",
+            "layer": "1"
+        },
+        {
+            "component": "Scale",
+            "scale": "145.000000 145.000000"
+        }
+    ],
+    "Bug_Hill_1x1": [
+        {
+            "component": "Transform",
+            "position": "43.599998 -68.419998",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.400000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bug_Hill_1x1_0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.300000 1.000000",
             "layer": "1"
         },
         {
