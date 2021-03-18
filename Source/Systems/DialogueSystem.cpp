@@ -229,6 +229,10 @@ void DialogueSystem::TempCleanup()
 	dialogue_box_scale_ = nullptr;
 	dialogue_box_renderer_ = nullptr;
 	dialogue_text_renderer_ = nullptr;
+
+	num_characters_ = 0;
+	current_speech_ = {};
+	dialogue_status_ = DialogueStatus::INACTIVE;
 }
 
 DialogueSystem::DialogueStatus DialogueSystem::GetCurrentDialogueStatus() const {
