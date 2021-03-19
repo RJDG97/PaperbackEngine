@@ -317,6 +317,8 @@ bool Stag_Tree::ConfusedAnim::run() {
 		ai_->SetState(AI::AIState::Search);
 		return true;
 	}
+
+	return false;
 }
 
 Stag_Tree::SearchCheck::SearchCheck(EntityID id) :id_(id) {
@@ -365,4 +367,6 @@ bool Stag_Tree::SearchCheck::run()
 		pass = false;
 		return false;
 	}
+
+	return false;
 }

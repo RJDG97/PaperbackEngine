@@ -249,7 +249,7 @@ void Emitter::Spawn(float frametime) {
 	if (!request_)
 		return;
 
-	size_t rand_val = rand() % request_;
+	size_t rand_val = ui_ ? request_ : rand() % request_;
 	size_t count_to_request_ = max_spawn_ > current_spawn_ + rand_val ? 
 		rand_val : 0;
 

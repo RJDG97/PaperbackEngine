@@ -500,9 +500,9 @@ void Collision::PlayerScenarioResponse(AABBIt aabb1, AABBIt aabb2, std::string s
 	auto& [player_id, player_aabb] = *aabb1;
 	auto& [scenario_id, scenario_aabb] = *aabb2;
 
-	Status* player_status = component_mgr_->GetComponent<Status>(player_id);
+	/*Status* player_status = component_mgr_->GetComponent<Status>(player_id);
 	if (player_status->GetStatus() == StatusType::BURROW)
-		return;
+		return;*/
 
 	LogicComponent* player_logic = component_mgr_->GetComponent<LogicComponent>(player_id);
 	LogicComponent* scenario_logic = component_mgr_->GetComponent<LogicComponent>(scenario_id);

@@ -158,10 +158,10 @@ void PlayState::Update(Game* game, float frametime)
 		Status* status = component_mgr_->GetComponent<Status>(player_id);
 
 		// Only decrement timer when player is burrowed
-		if (status->GetStatus() == StatusType::BURROW)
+		if (status->GetStatus() == StatusType::BURROW && !CORE->GetMovementLock())
 			timer_ -= frametime;
 
-		if (!CORE->GetGodMode() && timer_ < 0.0f) {
+		if ((!CORE->GetGodMode() && !CORE->GetMovementLock()) && timer_ < 0.0f) {
 
 			int new_hp = health->GetCurrentHealth() - 1;
 			health->SetCurrentHealth(new_hp);

@@ -45,7 +45,8 @@ private:
 	size_t num_characters_;
 
 	Vector2D textbox_max_scale_;
-	float textbox_scale_speed_;
+	Vector2D textbox_current_scale_;
+	float transition_speed_;
 	DialogueStatus dialogue_status_;
 
 	Scale* dialogue_box_scale_;
@@ -137,4 +138,13 @@ public:
 */
 /******************************************************************************/
 	void UpdatePortraits();
+
+/******************************************************************************/
+/*!
+	\fn FadeInPortraitName()
+
+	\brief Fades in both portraits and name
+*/
+/******************************************************************************/
+	void FadePortraitName(float frametime, bool in);
 };
