@@ -57,7 +57,7 @@ void LightingSystem::Init() {
 																	  "Shaders/cone_light.frag",
 																	  "ConeLightShader");
 
-	batch_size = 2;
+	batch_size = 200;
 
 	point_light_model_ = CORE->GetManager<ModelManager>()->AddPointLightBatchModel(batch_size, "PointLightModel");
 	cone_light_model_ = CORE->GetManager<ModelManager>()->AddConeLightBatchModel(batch_size, "ConeLightModel");
@@ -291,6 +291,11 @@ void LightingSystem::BatchPointLight(PointLight* point_light, float cam_zoom) {
 
 void LightingSystem::DrawPointLight() {
 
+	if (pos_sent.size() == 0)
+	{
+		return;
+	}
+
 	size_t offset = sizeof(glm::vec2) * 4 * batch_size;
 
 	glNamedBufferSubData(point_light_model_->vboid_, offset,
@@ -367,6 +372,11 @@ void LightingSystem::BatchConeLight(ConeLight* cone_light, float cam_zoom) {
 }
 
 void LightingSystem::DrawConeLight() {
+
+	if (pos_sent.size() == 0)
+	{
+		return;
+	}
 
 	size_t offset = sizeof(glm::vec2) * 4 * batch_size;
 
