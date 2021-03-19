@@ -1,26 +1,17 @@
 {
     "Portrait": "Radish_Shocked_0 None 1 0",
 
-    "Radish Boy": "Oh! I almost forgot to practice hiding.",
+    "Radish Boy": "Whoa! Are those cutouts of insects?",
 
     "Portrait": "Radish_Idle_0 None 1 0",
 
-    "Radish Boy": "I should practice first before I leave.",
+    "Radish Boy": "I remember being taught that we could hide from them.",
 
     "Portrait": "Radish_Idle_0 None 1 0",
 
-    "Radish Boy": "I just need to hide myself in those grass..",
+    "Radish Boy": "Maybe I could try that in the grass here.",
 
     "Portrait": "Radish_Idle_0 None 1 0",
 
-    "Radish Boy": "before I get spotted by the stagbeetle.",
-
-    "Portrait": "Radish_Idle_0 None 1 0",
-
-    "Radish Boy": "Once I'm done training, I can leave.",
-    
-    "Portrait": "Radish_Idle_0 None 1 0",
-
-    "Radish Boy": "[Press Space to hide/unhide]"
-
+    "Radish Boy": "[Press Space to toggle hiding while in grass.]"
 }

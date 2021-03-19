@@ -1,9 +1,8 @@
 {
     "MushroomNPC": [
-     
         {
             "component": "Transform",
-            "position": "60.500000 -92.600000",
+            "position": "64.800000 -102.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -0.200000"
@@ -15,7 +14,7 @@
         },
         {
             "component": "Scale",
-            "scale": "100.000000 100.000000"
+            "scale": "-100.000000 100.000000"
         },
         {
             "component": "AnimationRenderer",

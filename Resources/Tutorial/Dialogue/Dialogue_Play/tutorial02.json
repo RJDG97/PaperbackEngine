@@ -1,51 +1,41 @@
 {
-    "Portrait": "Radish_Idle_0 Potato_Default_0 1 0",
+    "Portrait": "Radish_Shocked_0 Potato_Default_0 1 0",
 
-    "Radish Boy": "Oh, good evening mayor!",
+    "Radish Boy": "Oh, Grandpa Potato! What are you doing out so late?",
 
-    "Portrait": "Radish_Confused_0 Potato_Default_0 1 0",
+    "Portrait": "Radish_Shocked_0 Potato_Default_0 0 1",
 
-    "Radish Boy": "What are you doing outside so late at night?",
+    "Potato Elder": "I should be the one saying that young 'un!",
 
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
+    "Portrait": "Radish_Shocked_0  Potato_Happy_0 0 1",
 
-    "Mayor": "*cough* *cough*",
-
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": "I should be the one to say that to you young lad!",
-
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": "...Anyways I'm here to do my workout routine.",
+    "Potato Elder": "Anyway, I'm in the middle of my workout.",
 
     "Portrait": "Radish_Confused_0 Potato_Default_0 1 0",
 
-    "Radish Boy": "Work out routine...?",
+    "Radish Boy": "Work out?",
 
     "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": "*cough* *cough*",
+
+    "Potato Elder": "*cough* *cough* You see those bushes there?",
 
     "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": "You see those bushes there? ",
+
+    "Potato Elder": " I work out by burrowing through them..",
 
     "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": " I work out by burrowing myself through the bushes..",
 
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": "..and unburrowing myself out on the other side.",
+    "Potato Elder": "..and burrowing out from the other side.",
 
     "Portrait": "Radish_Confused_0 Potato_Happy_0 0 1",
-    "Mayor": "It's a good workout that keeps me hidden from bugs.",
+
+    "Potato Elder": "It helps to keep me hidden from dangerous bugs too.",
 
     "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": "Oh, I know! Why don't you give it a try too?",
+
+    "Potato Elder": "*cough* *cough* Why don't you give it a try?",
 
     "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": "Just burrow yourself through the bush..",
 
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": "..And unburrow once you pass it.",
-
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
-    "Mayor": "[Press E to burrow/unburrow]"
-
+    "Potato Elder": "[Press E to burrow in and out.]"
 }

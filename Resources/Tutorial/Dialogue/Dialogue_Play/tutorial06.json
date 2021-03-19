@@ -1,45 +1,33 @@
 {
-    "Portrait": "Radish_Idle_0 Carrot_Happy_0 0 1",
-
-    "Carrot Boy": "Heya Radish Boy!",
-
     "Portrait": "Radish_Happy_0 Carrot_Default_0 1 0",
 
-    "Radish Boy": "Hey Carrot! What're doing?",
+    "Radish Boy": "Hey Carrot Boy! What are you doing?",
 
-    "Portrait": "Radish_Idle_0 Carrot_Determined_0 0 1",
+    "Portrait": "Radish_Happy_0 Carrot_Determined_0 0 1",
 
-    "Carrot Boy": "He he! Well I've being training.",
+    "Carrot Boy": "Hehe! I was buildling these muscles of mine.",
 
-    "Portrait": "Radish_Idle_0 Carrot_Determined_0 0 1",
+    "Portrait": "Radish_Happy_0 Carrot_Determined_0 0 1",
 
-    "Carrot Boy": "Ya see all of these awesome muscles...",
-
-    "Portrait": "Radish_Idle_0 Carrot_Determined_0 0 1",
-
-    "Carrot Boy": "I built them by pushing these bouldars!",
-
+    "Carrot Boy": "I've been pushing boulders into the holes nearby.",
+    
     "Portrait": "Radish_Shocked_0 Carrot_Determined_0 1 0",
 
-    "Radish Boy": "Oh, Wow!",
+    "Radish Boy": "It sure looks like it's working!",
+    
+    "Portrait": "Radish_Idle_0 Carrot_Determined_0 1 0",
+
+    "Radish Boy": "By the way, are you ready to go play?",
 
     "Portrait": "Radish_Idle_0 Carrot_Happy_0 0 1",
 
-    "Carrot Boy": "Ye! Oh, why don't you give it a try too?",
+    "Carrot Boy": "Hmm, I need to go get the ball and net first.",
 
     "Portrait": "Radish_Idle_0 Carrot_Determined_0 0 1",
 
-    "Carrot Boy": "I need to head back inside.",
+    "Carrot Boy": "In the meantime, why don't you try the boulders out?",
 
-    "Portrait": "Radish_Idle_0 Carrot_Happy_0 0 1",
+    "Portrait": "Radish_Happy_0 Carrot_Determined_0 1 0",
 
-    "Carrot Boy": "I forogt to fetch the ball & net.",
-
-    "Portrait": "Radish_Idle_0 Carrot_Happy_0 0 1",
-
-    "Carrot Boy": "I'll meet you guys at the village exit.",
-
-    "Portrait": "Radish_Happy_0 Carrot_Happy_0 1 0",
-
-    "Radish Boy": "Okay, goodbye!"
+    "Carrot Boy": "Ooh alright, looks like fun!"
 }

@@ -1,47 +1,33 @@
 {
-
-    "Portrait": "Radish_Happy_0 Mushroom_Happy_0 0 1",
+    "Portrait": "Radish_Idle_0 Mushroom_Happy_0 0 1",
 
     "Mushroom Girl": "Thank you, Radish Boy!",
 
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
-
-    "Mushroom Girl": "But...Oh! I forgot to catch it again.",
-
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
-
-    "Mushroom Girl": "My spores always flies back to me..",
-
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
-
-    "Mushroom Girl": "...But only towards my direction.",
-
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
-
-    "Mushroom Girl": "So I'll need to catch it every time.",
-
     "Portrait": "Radish_Idle_0 Mushroom_Happy_0 0 1",
 
-    "Mushroom Girl": "Let me fetch my spore first.",
-
-    "Portrait": "Radish_Idle_0 Mushroom_Determined_0 0 1",
-
-    "Mushroom Girl": "Why don't you visit Carrot Boy?",
-
-    "Portrait": "Radish_Idle_0 Mushroom_Determined_0 0 1",
-
-    "Mushroom Girl": "I'll wait for you guys at the exit.",
+    "Mushroom Girl": "It's a relief to have my spores come back to me!",
 
     "Portrait": "Radish_Happy_0 Mushroom_Happy_0 1 0",
+
+    "Radish Boy": "You're welcome! Do you wanna go play yet?",
+
+    "Portrait": "Radish_Happy_0 Mushroom_Default_0 0 1",
+
+    "Mushroom Girl": "Ehehe, I still have to get ready.",
+
+    "Portrait": "Radish_Happy_0 Mushroom_Determined_0 0 1",
+
+    "Mushroom Girl": "Why don't you check on Carrot Boy first?",
+
+    "Portrait": "Radish_Happy_0 Mushroom_Determined_0 0 1",
+
+    "Mushroom Girl": "I'll wait for you guys at the village exit.",
+
+    "Portrait": "Radish_Happy_0 Mushroom_Determined_0 1 0",
 
     "Radish Boy": "Okay, see ya!",
 
     "Portrait": "Radish_Idle_0 None 1 0",
 
-    "Radish Boy": "Time to head to the north-east side of town.",
-
-    "Portrait": "Radish_Idle_0 None 1 0",
-
-    "Radish Boy": "Carrot Boy's house is located there."
-
+    "Radish Boy": "Time to head to Carrot Boy's house nearby."
 }

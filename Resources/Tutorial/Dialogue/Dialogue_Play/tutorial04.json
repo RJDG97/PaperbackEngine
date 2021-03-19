@@ -3,68 +3,27 @@
 
     "Radish Boy": "Hey Mushroom Girl!",
 
-    "Portrait": "Radish_Happy_0 Mushroom_Default_0 1 0",
+    "Portrait": "Radish_Happy_0 Mushroom_Default_0 0 1",
 
-    "Radish Boy": "Are you ready to go out and play?",
-
-    "Portrait": "Radish_Idle_0 Mushroom_Happy_0 0 1",
-
-    "Mushroom Girl": "Oh Radish Boy! It's you!",
+    "Mushroom Girl": "Radish Boy! Oh no, it's terrible!",
 
     "Portrait": "Radish_Confused_0 Mushroom_Default_0 1 0",
 
     "Radish Boy": "What's wrong?",
 
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 1 0",
+    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
 
-    "Radish Boy": "You look upset?",
+    "Mushroom Girl": "One of my spores got stuck on that tree!",
 
     "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
 
-    "Mushroom Girl": "Oh Radish Boy! It's terrible.",
+    "Mushroom Girl": "I'm afraid the tree will fall on me if I tried to get it.",
 
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
+    "Portrait": "Radish_Angry_0 Mushroom_Default_0 1 0",
 
-    "Mushroom Girl": " One of my glowing spore got blown away by the wind!",
+    "Radish Boy": "Don't worry Mushroom Girl, I'll get it for you.",
 
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
+    "Portrait": "Radish_Angry_0 Mushroom_Default_0 1 0",
 
-    "Mushroom Girl": "It's now stuck on that tree!",
-
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
-
-    "Mushroom Girl": "I want to get it but...",
-
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
-
-    "Mushroom Girl": "I'm afraid that tree might fall on me.",
-
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
-
-    "Mushroom Girl": "So I've being wondering what to do..",
-
-    "Portrait": "Radish_Idle_0 Mushroom_Default_0 1 0",
-
-    "Radish Boy": "Oh, that's alright!",
-
-    "Portrait": "Radish_Happy_0 Mushroom_Default_0 1 0",
-
-    "Radish Boy": "I'll get it for you! Stay here.",
-
-    "Portrait": "Radish_Happy_0 Mushroom_Default_0 0 1",
-
-    "Mushroom Girl": "Okay, but be careful!",
-
-    "Portrait": "Radish_Happy_0 Mushroom_Default_0 1 0",
-
-    "Radish Boy": "Oh, don't worry!",
-
-    "Portrait": "Radish_Happy_0 Mushroom_Default_0 1 0",
-
-    "Radish Boy": "The tree won't be able to hit me.",
-
-    "Portrait": "Radish_Happy_0 Mushroom_Default_0 1 0",
-
-    "Radish Boy": "At most it'll just block my way."
-
+    "Radish Boy": "The tree may fall and block my way, but I'll be careful."
 }
