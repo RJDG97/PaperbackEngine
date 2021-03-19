@@ -2,7 +2,7 @@
     "tutorial01": [
         {
             "component": "Transform",
-            "position": "22.0 -105.90",
+            "position": "22.0 -105.00",
             "rotation": "0.000000",
             "offset": "0.000000 -1.000000",
             "aabb offset": "0.000000 -0.600000"
@@ -38,7 +38,7 @@
     "tutorial03": [
         {
             "component": "Transform",
-            "position": "32.7 -108.10",
+            "position": "32.7 -111.30",
             "rotation": "0.000000",
             "offset": "0.000000 -1.000000",
             "aabb offset": "0.000000 -0.600000"
@@ -56,7 +56,7 @@
     "tutorial04": [
         {
             "component": "Transform",
-            "position": "59.7 -97.80",
+            "position": "59.7 -101.60",
             "rotation": "0.000000",
             "offset": "0.000000 -1.000000",
             "aabb offset": "0.000000 -0.600000"
@@ -74,10 +74,10 @@
     "tutorial05": [
         {
             "component": "Transform",
-            "position": "63.2 -95.70",
+            "position": "63.3 -98.40",
             "rotation": "0.000000",
             "offset": "0.000000 -1.000000",
-            "aabb offset": "0.000000 -0.600000"
+            "aabb offset": "-0.400000 -1.400000"
         },
         {
             "component": "DialogueTrigger",
@@ -85,7 +85,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.400000 0.500000",
             "layer": "12"
         }
     ],

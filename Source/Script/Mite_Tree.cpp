@@ -241,6 +241,8 @@ bool Mite_Tree::ConfusedAnim::run() {
 		ai_->SetState(AI::AIState::Search);
 		return true;
 	}
+
+	return false;
 }
 
 Mite_Tree::IdleAnim::IdleAnim(EntityID id) :id_(id) {
@@ -279,6 +281,8 @@ bool Mite_Tree::IdleAnim::run() {
 			return false;
 		}
 	}
+
+	return false;
 }
 
 Mite_Tree::SearchCheck::SearchCheck(EntityID id) :id_(id) {
@@ -308,4 +312,6 @@ bool Mite_Tree::SearchCheck::run()
 		pass = false;
 		return false;
 	}
+
+	return false;
 }

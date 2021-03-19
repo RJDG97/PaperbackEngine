@@ -47,6 +47,11 @@ namespace Player_Scripts
 	void CollectedCollectible(const EntityID& player_id, const EntityID& collectible_id) {
 
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+
+		Status* player_status = component_mgr->GetComponent<Status>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
+		if (player_status->GetStatus() == StatusType::BURROW)
+			return;
+
 		Collectible* collectible = component_mgr->GetComponent<Collectible>(collectible_id);
 
 		if (!collectible)

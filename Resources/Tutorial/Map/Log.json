@@ -2,10 +2,10 @@
     "Log": [
         {
             "component": "Transform",
-            "position": "69.03 -91.65",
+            "position": "58.93 -97.45",
             "rotation": "0.000000",
             "offset": "0.000000 -4.200000",
-            "aabb offset": "-5.700000 -4.600000"
+            "aabb offset": "3.500000 -2.200000"
         },
         {
             "component": "AABB",
@@ -14,7 +14,7 @@
         },
         {
             "component": "Scale",
-            "scale": "512.000000 512.000000"
+            "scale": "-300.000000 300.000000"
         },
         {
             "component": "LogicComponent",

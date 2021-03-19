@@ -5,18 +5,17 @@
 
     "Portrait": "Radish_Happy_0 None 1 0",
 
-    "Radish Boy": "I need to meet my friends later.",
-
-    "Portrait": "Radish_Happy_0 None 1 0",
-
-    "Radish Boy": "We promised to play together tonight.",
+    "Radish Boy": "I promised to go play with my friends tonight.",
 
     "Portrait": "Radish_Idle_0 None 1 0",
 
-    "Radish Boy": "Let's head over to Mushroom Girl's house.",
+    "Radish Boy": "I'll go see if Mushroom Girl's ready first.",
 
     "Portrait": "Radish_Idle_0 None 1 0",
 
-    "Radish Boy": "Her house is located at the east side of town."
+    "Radish Boy": "Her house is located at the east side of town.",
 
+    "Portrait": "Radish_Idle_0 None 1 0",
+
+    "Radish Boy": "[Use WASD to move.]"
 }

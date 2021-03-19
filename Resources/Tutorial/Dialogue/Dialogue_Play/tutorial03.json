@@ -1,38 +1,29 @@
 {
+    "Portrait": "Radish_Idle_0 Potato_Happy_0 0 1",
+
+    "Potato Elder": "Splendid work with that burrowing!",
+
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
+
+    "Potato Elder": "However, don't do it for too long.",
+
+    "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
+
+    "Potato Elder": "It takes up a lot of water from you.",
+
+    "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
+
+    "Potato Elder": "You may faint from dehydration!",
+
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
+
+    "Potato Elder": "*yawn* It's getting late.",
 
     "Portrait": "Radish_Idle_0 Potato_Happy_0 0 1",
 
-    "Mayor": "Splendid! I see that you've been practicing!",
+    "Potato Elder": "I'll see you around. Take care, young 'un.",
 
-    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
-
-    "Mayor": "It's good practice to burrow...",
-
-    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
-
-    "Mayor": "..but not for too long.",
-
-    "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
-
-    "Mayor": "Burrowing takes up a lot of water!",
-
-    "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
-
-    "Mayor": "You don't want to end up fainting!",
-
-    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
-
-    "Mayor": "*Yawn*",
-
-    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
-
-    "Mayor": "I think it's time for me to leave.",
-
-    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
-
-    "Mayor": "I'll see you tomorrow morning.",
-
-    "Portrait": "Radish_Idle_0 Potato_Default_0 1 0",
+    "Portrait": "Radish_Happy_0 Potato_Happy_0 1 0",
 
     "Radish Boy": "Okay, goodnight!"
 }

@@ -3,7 +3,7 @@
     "Spores": [
         {
             "component": "Transform",
-            "position": "62.700000 -96.60000",
+            "position": "62.700000 -99.30000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -31,6 +31,11 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "Destination",
+            "destination": "64.800000 -102.000000",
+            "is_ui_layer": "0"
         },
         {
             "component": "PointLight",
