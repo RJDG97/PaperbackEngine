@@ -5,13 +5,13 @@
 
   "gateunlocked": "Resources/Dialogue/Dialogue_Play/gateunlocked.json",
   
-  "beginning": "Resources/Test/Dialogue/Dialogue_Play/beginning.json",
+  "level1_01": "Resources/Test/Dialogue/Dialogue_Play/level1_01.json",
 
-  "restarea01": "Resources/Test/Dialogue/Dialogue_Play/restarea01.json",
+  "level1_02": "Resources/Test/Dialogue/Dialogue_Play/level1_02.json",
 
-  "restarea02": "Resources/Test/Dialogue/Dialogue_Play/restarea02.json",
-  
-  "endlevel": "Resources/Test/Dialogue/Dialogue_Play/endlevel.json",
+  "level1_03": "Resources/Test/Dialogue/Dialogue_Play/level1_03.json",
+
+  "level2_01": "Resources/Level2/Dialogue/Dialogue_Play/level2_01.json",
   
   "tutorial01": "Resources/Tutorial/Dialogue/Dialogue_Play/tutorial01.json",
   
