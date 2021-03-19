@@ -30,7 +30,8 @@ class LightingSystem : public ISystem {
 	bool debug_;
 
 	std::map<std::string, Shader*> lighting_shaders_;
-	Model* light_model_;
+	Model* point_light_model_;
+	Model* cone_light_model_;
 
 	GLuint lighting_buffer;
 	GLuint lighting_texture;
@@ -44,6 +45,15 @@ class LightingSystem : public ISystem {
 	ComponentManager* component_manager_;
 
 	glm::vec2 win_size_;
+
+	std::vector<glm::vec3> color_sent;
+	std::vector<glm::vec2> pos_sent;
+	std::vector<float> intensity_sent;
+	std::vector<float> radius_sent;
+	std::vector<glm::vec2> direction_sent;
+	std::vector<float> angle_sent;
+
+	int batch_size;
 
 public:
 
@@ -152,19 +162,37 @@ public:
 /*!
 	\fn DrawPointLight(Shader* shader, PointLight* point_light, float cam_zoom)
 
-	\brief Draws the Point Light component
+	\brief Batches the Point Light component
 */
 /******************************************************************************/
-	void DrawPointLight(Shader* shader, PointLight* point_light, float cam_zoom);
+	void BatchPointLight(PointLight* point_light, float cam_zoom);
 
 /******************************************************************************/
 /*!
-	\fn DrawConeLight(Shader* shader, ConeLight* cone_light)
+	\fn DrawPointLight()
 
-	\brief Draws the Cone Light component
+	\brief Draws the Point Light batch
 */
 /******************************************************************************/
-	void DrawConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom);
+	void DrawPointLight();
+
+/******************************************************************************/
+/*!
+	\fn BatchConeLight(Shader* shader, ConeLight* cone_light)
+
+	\brief Batches the Cone Light component
+*/
+/******************************************************************************/
+	void BatchConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom);
+
+/******************************************************************************/
+/*!
+	\fn DrawConeLight()
+
+	\brief Draws the Cone Light batch
+*/
+/******************************************************************************/
+	void DrawConeLight();
 
 /******************************************************************************/
 /*!

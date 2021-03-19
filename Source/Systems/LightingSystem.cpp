@@ -57,8 +57,10 @@ void LightingSystem::Init() {
 																	  "Shaders/cone_light.frag",
 																	  "ConeLightShader");
 
+	batch_size = 200;
 
-	light_model_ = CORE->GetManager<ModelManager>()->AddTristripsModel(1, 1, "LightModel");
+	point_light_model_ = CORE->GetManager<ModelManager>()->AddPointLightBatchModel(batch_size, "PointLightModel");
+	cone_light_model_ = CORE->GetManager<ModelManager>()->AddConeLightBatchModel(batch_size, "ConeLightModel");
 
 	//Temporary before camera is component
 	std::shared_ptr<GraphicsSystem> graphics_system = CORE->GetSystem<GraphicsSystem>();
@@ -104,7 +106,6 @@ void LightingSystem::Init() {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	M_DEBUG->WriteDebugMessage("Lighting System Init\n");
-
 }
 
 void LightingSystem::Update(float frametime) {
@@ -166,7 +167,7 @@ void LightingSystem::Draw() {
 	Shader* point_light_shader = lighting_shaders_["PointLightShader"];
 	Shader* cone_light_shader = lighting_shaders_["ConeLightShader"];
 
-	glBindVertexArray(light_model_->vaoid_);
+	glBindVertexArray(cone_light_model_->vaoid_);
 	cone_light_shader->Use();
 
 	for (ConeLightIt it = cone_light_arr_->begin(); it != cone_light_arr_->end(); ++it) {
@@ -181,9 +182,12 @@ void LightingSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing cone light for entity: " + std::to_string(it->first) + "\n");
 		}
 
-		DrawConeLight(cone_light_shader, it->second, cam_zoom);
+		BatchConeLight(cone_light_shader, it->second, cam_zoom);
 	}
 
+	DrawConeLight();
+
+	glBindVertexArray(point_light_model_->vaoid_);
 	point_light_shader->Use();
 
 	for (PointLightIt it = point_light_arr_->begin(); it != point_light_arr_->end(); ++it) {
@@ -198,8 +202,15 @@ void LightingSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing point light for entity: " + std::to_string(it->first) + "\n");
 		}
 
-		DrawPointLight(point_light_shader, it->second, cam_zoom);
+		BatchPointLight(it->second, cam_zoom);
+
+		if (pos_sent.size() / 4 == 100)
+		{
+			DrawPointLight();
+		}
 	}
+
+	DrawPointLight();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, lighting_buffer);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -257,17 +268,57 @@ void LightingSystem::UpdateLightPosition(ConeLight* cone_light) {
 	cone_light->pos_ = { light_pos.x, light_pos.y };
 }
 
-void LightingSystem::DrawPointLight(Shader* shader, PointLight* point_light, float cam_zoom) {
+void LightingSystem::BatchPointLight(PointLight* point_light, float cam_zoom) {
 
-	shader->SetUniform("light_color", point_light->color_);
-	shader->SetUniform("light_center", point_light->pos_);
-	shader->SetUniform("intensity", point_light->intensity_);
-	shader->SetUniform("radius", point_light->radius_ * cam_zoom);
+	if (point_light->radius_ * cam_zoom <= 0.0f || point_light->intensity_ <= 0.0f)
+	{
+		return;
+	}
 
-	glDrawElements(GL_TRIANGLE_STRIP, light_model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+	for (int i = 0; i < 4; ++i)
+	{
+		color_sent.push_back(point_light->color_);
+		pos_sent.push_back(point_light->pos_);
+		intensity_sent.push_back(point_light->intensity_);
+		radius_sent.push_back(point_light->radius_ * cam_zoom);
+	}
 }
 
-void LightingSystem::DrawConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom) {
+void LightingSystem::DrawPointLight() {
+
+	size_t offset = sizeof(glm::vec2) * 4 * batch_size;
+
+	glNamedBufferSubData(point_light_model_->vboid_, offset,
+						 sizeof(glm::vec2) * pos_sent.size(),
+						 pos_sent.data());
+
+	offset += sizeof(glm::vec2) * 4 * batch_size;
+
+	glNamedBufferSubData(point_light_model_->vboid_, offset,
+						 sizeof(glm::vec3) * color_sent.size(),
+						 color_sent.data());
+
+	offset += sizeof(glm::vec3) * 4 * batch_size;
+
+	glNamedBufferSubData(point_light_model_->vboid_, offset,
+						 sizeof(float) * intensity_sent.size(),
+						 intensity_sent.data());
+
+	offset += sizeof(float) * 4 * batch_size;
+
+	glNamedBufferSubData(point_light_model_->vboid_, offset,
+						 sizeof(float) * radius_sent.size(),
+						 radius_sent.data());
+
+	glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(6 * pos_sent.size() / 4 - 2), GL_UNSIGNED_SHORT, NULL);
+
+	color_sent.clear();
+	pos_sent.clear();
+	intensity_sent.clear();
+	radius_sent.clear();
+}
+
+void LightingSystem::BatchConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom) {
 
 	EntityID parent = component_manager_->GetComponent<Child>(cone_light->GetOwner()->GetID())->ParentID();
 
@@ -288,15 +339,59 @@ void LightingSystem::DrawConeLight(Shader* shader, ConeLight* cone_light, float 
 		}
 	}
 
-	Vector2D direction = motion->GetVelocity();
-	shader->SetUniform("light_color", cone_light->color_);
-	shader->SetUniform("light_center", cone_light->pos_);
-	shader->SetUniform("intensity", cone_light->intensity_);
-	shader->SetUniform("radius", cone_light->radius_ * cam_zoom);
-	shader->SetUniform("direction", cone_light->direction_);
-	shader->SetUniform("angle", static_cast<float>(cone_light->angle_ / 180 * M_PI));
+	for (int i = 0; i < 4; ++i)
+	{
+		color_sent.push_back(cone_light->color_);
+		pos_sent.push_back(cone_light->pos_);
+		intensity_sent.push_back(cone_light->intensity_);
+		radius_sent.push_back(cone_light->radius_ * cam_zoom);
+		direction_sent.push_back(cone_light->direction_);
+		angle_sent.push_back(static_cast<float>(cone_light->angle_ / 180 * M_PI));
+	}
 
-	glDrawElements(GL_TRIANGLE_STRIP, light_model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+	glDrawElements(GL_TRIANGLE_STRIP, cone_light_model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
+}
+
+void LightingSystem::DrawConeLight() {
+
+	size_t offset = sizeof(glm::vec2) * 4 * batch_size;
+
+	glNamedBufferSubData(cone_light_model_->vboid_, offset,
+						 sizeof(glm::vec2) * pos_sent.size(),
+						 pos_sent.data());
+
+	offset += sizeof(glm::vec2) * 4 * batch_size;
+
+	glNamedBufferSubData(cone_light_model_->vboid_, offset,
+						 sizeof(glm::vec3) * color_sent.size(),
+						 color_sent.data());
+
+	offset += sizeof(glm::vec3) * 4 * batch_size;
+
+	glNamedBufferSubData(cone_light_model_->vboid_, offset,
+						 sizeof(float) * intensity_sent.size(),
+						 intensity_sent.data());
+
+	offset += sizeof(float) * 4 * batch_size;
+
+	glNamedBufferSubData(cone_light_model_->vboid_, offset,
+						 sizeof(glm::vec2) * direction_sent.size(),
+						 direction_sent.data());
+
+	offset += sizeof(glm::vec2) * 4 * batch_size;
+
+	glNamedBufferSubData(cone_light_model_->vboid_, offset,
+						 sizeof(float) * angle_sent.size(),
+						 angle_sent.data());
+
+	glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei>(6 * pos_sent.size() / 4 - 2), GL_UNSIGNED_SHORT, NULL);
+
+	color_sent.clear();
+	pos_sent.clear();
+	intensity_sent.clear();
+	radius_sent.clear();
+	direction_sent.clear();
+	angle_sent.clear();
 }
 
 std::string LightingSystem::GetName() {

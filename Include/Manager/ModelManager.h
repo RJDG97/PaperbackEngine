@@ -77,6 +77,10 @@ public:
 
     Model* AddTextBatchModel(int batch_size, std::string model_name);
 
+    Model* AddPointLightBatchModel(int batch_size, std::string model_name);
+
+    Model* AddConeLightBatchModel(int batch_size, std::string model_name);
+
 /******************************************************************************/
 /*!
     \fn AddTristripsModel(int slices, int stacks, std::string model_name)
