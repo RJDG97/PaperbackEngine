@@ -22,6 +22,11 @@ namespace Movable_Script
 	void UpdateMovable(const EntityID& id) {
 
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		
+		Status* player_status = component_mgr->GetComponent<Status>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
+		if (player_status->GetStatus() == StatusType::BURROW)
+			return;
+
 		GraphicsSystem* graphics = &*CORE->GetSystem< GraphicsSystem>();
 
 		AABB* aabb = component_mgr->GetComponent<AABB>(id);

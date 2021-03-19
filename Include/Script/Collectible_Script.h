@@ -36,6 +36,10 @@ namespace Collectible_Script
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
 		ForcesManager* forces_mgr = &*CORE->GetManager<ForcesManager>();
 
+		Status* player_status = component_mgr->GetComponent<Status>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
+		if (player_status->GetStatus() == StatusType::BURROW)
+			return;
+
 		// Grab relevant components
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(collectible_id);
 		Collectible* collectible = component_mgr->GetComponent<Collectible>(collectible_id);
@@ -110,6 +114,11 @@ namespace Collectible_Script
 	void InteractableResponse(const EntityID& interactable_id) {
 
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
+
+		Status* player_status = component_mgr->GetComponent<Status>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
+		if (player_status->GetStatus() == StatusType::BURROW)
+			return;
+
 		std::shared_ptr<GraphicsSystem> graphics_sys = CORE->GetSystem<GraphicsSystem>();
 		std::shared_ptr<SoundSystem> sound_sys = CORE->GetSystem<SoundSystem>();
 
