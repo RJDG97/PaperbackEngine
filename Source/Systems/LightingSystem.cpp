@@ -330,9 +330,6 @@ void LightingSystem::BatchConeLight(Shader* shader, ConeLight* cone_light, float
 		return;
 	}
 
-	//EntityID parent = component_manager_->GetComponent<Child>(cone_light->GetOwner()->GetID())->ParentID();
-	//Motion* motion = component_manager_->GetComponent<Motion>(parent);
-
 	Child* child = component_manager_->GetComponent<Child>(cone_light->GetOwner()->GetID());
 	if (child == nullptr) return;
 	Motion* motion = component_manager_->GetComponent<Motion>(child->ParentID());
@@ -383,6 +380,12 @@ void LightingSystem::DrawConeLight() {
 	glNamedBufferSubData(cone_light_model_->vboid_, offset,
 						 sizeof(float) * intensity_sent.size(),
 						 intensity_sent.data());
+
+	offset += sizeof(float) * 4 * batch_size;
+
+	glNamedBufferSubData(cone_light_model_->vboid_, offset,
+						 sizeof(float) * radius_sent.size(),
+						 radius_sent.data());
 
 	offset += sizeof(float) * 4 * batch_size;
 

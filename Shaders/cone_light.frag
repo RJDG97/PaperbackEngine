@@ -1,24 +1,24 @@
 #version 450 core
 
-layout (location=0) out vec4 fFragClr;
+layout (location=0) in vec2 center;
+layout (location=1) in vec3 color;
+layout (location=2) in float intensity;
+layout (location=3) in float radius;
+layout (location=4) in vec2 direction;
+layout (location=5) in float angle;
 
-uniform vec3 light_color;
-uniform vec2 light_center;
-uniform float intensity;
-uniform float radius;
-uniform vec2 direction;
-uniform float angle;
+layout (location=0) out vec4 fFragClr;
 
 void main () {
   
   vec2 norm_direction = direction / length(direction);
   
   float current_angle =
-	acos(dot(norm_direction, gl_FragCoord.xy - light_center) / distance(gl_FragCoord.xy, light_center));
+	acos(dot(norm_direction, gl_FragCoord.xy - center) / distance(gl_FragCoord.xy, center));
 	
   if (current_angle <= angle)
   {
-	float dist = distance(gl_FragCoord.xy, light_center);
+	float dist = distance(gl_FragCoord.xy, center);
 	float attenuation = max(0, 1 - dist/radius);
 
 	attenuation *= attenuation * attenuation;
@@ -29,7 +29,7 @@ void main () {
 		alpha *= dist/5 * dist/5;
 	}
 
-	fFragClr = alpha * intensity * attenuation * vec4(light_color, 1.0f);
+	fFragClr = alpha * intensity * attenuation * vec4(color, 1.0f);
   }
 
   else
