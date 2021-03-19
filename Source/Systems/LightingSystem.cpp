@@ -183,6 +183,11 @@ void LightingSystem::Draw() {
 		}
 
 		BatchConeLight(cone_light_shader, it->second, cam_zoom);
+
+		if (pos_sent.size() / 4 == 100)
+		{
+			DrawConeLight();
+		}
 	}
 
 	DrawConeLight();
@@ -320,6 +325,11 @@ void LightingSystem::DrawPointLight() {
 
 void LightingSystem::BatchConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom) {
 
+	if (cone_light->radius_ * cam_zoom <= 0.0f || cone_light->intensity_ <= 0.0f)
+	{
+		return;
+	}
+
 	EntityID parent = component_manager_->GetComponent<Child>(cone_light->GetOwner()->GetID())->ParentID();
 
 	Motion* motion = component_manager_->GetComponent<Motion>(parent);
@@ -348,8 +358,6 @@ void LightingSystem::BatchConeLight(Shader* shader, ConeLight* cone_light, float
 		direction_sent.push_back(cone_light->direction_);
 		angle_sent.push_back(static_cast<float>(cone_light->angle_ / 180 * M_PI));
 	}
-
-	glDrawElements(GL_TRIANGLE_STRIP, cone_light_model_->draw_cnt_, GL_UNSIGNED_SHORT, NULL);
 }
 
 void LightingSystem::DrawConeLight() {

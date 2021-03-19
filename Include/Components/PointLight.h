@@ -35,6 +35,9 @@ class PointLight : public Component {
 
 	bool alive_;
 
+	float pulse_amplitude_;
+	float pulse_duration_;
+
 public:
 
 	friend class LightingSystem;
