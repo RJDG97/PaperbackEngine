@@ -1566,7 +1566,7 @@
         },
         {
             "component": "TextureRenderer",
-            "texture": "Puddle_01_0",
+            "texture": "Watergauge_Particle_0",
             "layer": "3",
             "order in layer": "0",
             "alive": "0",

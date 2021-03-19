@@ -98,5 +98,6 @@
     "WaterGauge_Droplet": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Droplet.png 1 1",
     "WaterGauge_Leaves": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Leaves.png 1 1",
     "WaterGauge_Shine": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Shine.png 1 1",
-    "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1"
+    "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1",
+    "Watergauge_Particle": "Resources/Sprites/UI_Elements/WaterGauge/Watergauge_Particle.png 1 1"
 }
