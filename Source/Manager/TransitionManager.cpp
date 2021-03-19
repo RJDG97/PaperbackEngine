@@ -199,6 +199,10 @@ void TransitionManager::LoadTransition(std::string name, std::stringstream& data
 	transition_map_[name] = scene;
 }
 
+bool TransitionManager::CheckInTransition() const {
+
+	return current_transition_;
+}
 
 void TransitionManager::DeSerialize(const std::string& filepath) {
 

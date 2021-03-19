@@ -115,6 +115,9 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 			//check for collision between button & mouse
 		case MessageIDTypes::BUTTON: {
 
+			if (CORE->GetManager<TransitionManager>()->CheckInTransition())
+				return;
+
 			Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
 			switch (m->button_index_)

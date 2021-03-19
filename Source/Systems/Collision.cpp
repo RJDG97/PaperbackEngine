@@ -589,11 +589,6 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 			}
 			break;
 		}
-		case CollisionLayer::TILES:
-		{
-			DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
-			break;
-		}
 		case CollisionLayer::BURROWABLE:
 		{
 			DefaultResponse(aabb2, vel2, aabb1, vel1, frametime, t_first);
