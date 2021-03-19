@@ -183,7 +183,7 @@ public:
 	\brief Batches the Cone Light component
 */
 /******************************************************************************/
-	void BatchConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom);
+	void BatchConeLight(ConeLight* cone_light, float cam_zoom);
 
 /******************************************************************************/
 /*!

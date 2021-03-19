@@ -392,7 +392,7 @@ namespace Player_Scripts
 		Vector2D hp_scale = scale->GetScale() / static_cast<float>(max);
 		hp_scale.y = 0.0f;
 
-		xform->SetOffset(mod * -hp_scale / CORE->GetGlobalScale());
+		xform->SetOffset(static_cast<float>(mod) * -hp_scale / CORE->GetGlobalScale());
 	}
 }
 

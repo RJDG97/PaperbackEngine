@@ -57,7 +57,7 @@ void LightingSystem::Init() {
 																	  "Shaders/cone_light.frag",
 																	  "ConeLightShader");
 
-	batch_size = 200;
+	batch_size = 2;
 
 	point_light_model_ = CORE->GetManager<ModelManager>()->AddPointLightBatchModel(batch_size, "PointLightModel");
 	cone_light_model_ = CORE->GetManager<ModelManager>()->AddConeLightBatchModel(batch_size, "ConeLightModel");
@@ -182,7 +182,7 @@ void LightingSystem::Draw() {
 			M_DEBUG->WriteDebugMessage("Drawing cone light for entity: " + std::to_string(it->first) + "\n");
 		}
 
-		BatchConeLight(cone_light_shader, it->second, cam_zoom);
+		BatchConeLight(it->second, cam_zoom);
 
 		if (pos_sent.size() / 4 == batch_size)
 		{
@@ -323,7 +323,7 @@ void LightingSystem::DrawPointLight() {
 	radius_sent.clear();
 }
 
-void LightingSystem::BatchConeLight(Shader* shader, ConeLight* cone_light, float cam_zoom) {
+void LightingSystem::BatchConeLight(ConeLight* cone_light, float cam_zoom) {
 
 	if (cone_light->radius_ * cam_zoom <= 0.0f || cone_light->intensity_ <= 0.0f)
 	{

@@ -24,7 +24,7 @@ void DialogueSystem::Init()
 	text_speed_ = 0.0f; //speed
 	//text_speed_ = 0.02f; //normal
 	textbox_max_scale_ = { 0.0f, 0.0f };
-	textbox_scale_speed_ = 2000.0f;
+	transition_speed_ = 5.85f;
 	dialogue_status_ = DialogueStatus::INACTIVE;
 	num_characters_ = 0;
 }
@@ -70,13 +70,18 @@ void DialogueSystem::Update(float frametime)
 
 			case DialogueStatus::OPENING: {
 
-				float new_scale = dialogue_box_scale_->GetScale().y + textbox_scale_speed_ * frametime;
-				dialogue_box_scale_->SetScale({ textbox_max_scale_.x, new_scale });
+				float scaling = textbox_current_scale_.x / textbox_max_scale_.x;
 
-				if (new_scale > textbox_max_scale_.y)
+				dialogue_box_renderer_->SetOpacity(scaling * scaling);
+				textbox_current_scale_ = textbox_current_scale_ + 
+											((1.0f - scaling * scaling) * frametime * transition_speed_ + 0.01f) * textbox_max_scale_;
+
+				dialogue_box_scale_->SetScale(textbox_current_scale_);
+
+				if (textbox_current_scale_.y >= textbox_max_scale_.y)
 				{
-					new_scale = textbox_max_scale_.y;
-					dialogue_box_scale_->SetScale({ textbox_max_scale_.x, new_scale });
+					dialogue_box_scale_->SetScale(textbox_max_scale_);
+					dialogue_box_renderer_->SetOpacity(1.0f);
 					dialogue_status_ = DialogueStatus::ADVANCING;
 					
 					if (dialogue_speakername_renderer_)
@@ -93,13 +98,13 @@ void DialogueSystem::Update(float frametime)
 			case DialogueStatus::ADVANCING: {
 
 				text_elapsed_time_ += frametime;
+				FadePortraitName(frametime, true);
 
 				if (text_elapsed_time_ > text_speed_)
 				{
 					++num_characters_;
 					text_elapsed_time_ = 0.0f;
 					sound_system_->PlaySounds("TextAdvancing");
-					//sound_system_->PlayTaggedSounds("TextAdvancing");
 
 					if (num_characters_ > entire_speech_->size())
 					{
@@ -122,6 +127,7 @@ void DialogueSystem::Update(float frametime)
 
 			case DialogueStatus::FINISHED_ADVANCING: {
 
+				FadePortraitName(frametime, true);
 				break;
 			}
 
@@ -132,13 +138,18 @@ void DialogueSystem::Update(float frametime)
 					dialogue_text_renderer_->SetText(" ");
 				}
 
-				float new_scale = dialogue_box_scale_->GetScale().y - textbox_scale_speed_ * frametime;
-				dialogue_box_scale_->SetScale({ textbox_max_scale_.x, new_scale });
+				FadePortraitName(frametime, false);
+				float scaling = 1.0f - textbox_current_scale_.x / textbox_max_scale_.x;
 
-				if (new_scale < 0.0f)
+				dialogue_box_renderer_->SetOpacity(dialogue_box_renderer_->GetOpacity() - scaling * scaling);
+				textbox_current_scale_ = textbox_current_scale_ -
+										 ((scaling * scaling) * frametime * transition_speed_ + 0.03f) * textbox_max_scale_;
+
+				dialogue_box_scale_->SetScale(textbox_current_scale_);
+
+				if (textbox_current_scale_.x < 0.0f)
 				{
-					new_scale = 0.0f;
-					dialogue_box_scale_->SetScale({ textbox_max_scale_.x, new_scale });
+					dialogue_box_scale_->SetScale({ 0.0f, 0.0f });
 					dialogue_status_ = DialogueStatus::INACTIVE;
 
 					CORE->SetMovementLock();
@@ -252,6 +263,17 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 	if (dialogue_speakername_renderer_)
 	{
 		dialogue_speakername_renderer_->SetAlive(true);
+		dialogue_speakername_renderer_->SetOpacity(0.0f);
+	}
+
+	if (dialogue_portrait_renderer_left_)
+	{
+		dialogue_portrait_renderer_left_->SetOpacity(0.0f);
+	}
+
+	if (dialogue_portrait_renderer_right_)
+	{
+		dialogue_portrait_renderer_right_->SetOpacity(0.0f);
 	}
 
 	dialogue_box_scale_->SetScale({ dialogue_box_scale_->GetScale().x, 0.0f });
@@ -266,6 +288,7 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 	current_dialogue_content_ = current_dialogue_->GetContents()->begin();
 	entire_speech_ = current_dialogue_content_->GetSpeech();
 	dialogue_status_ = DialogueStatus::OPENING;
+	textbox_current_scale_ = { 0.0f, 0.0f };
 
 	CORE->SetMovementLock(true);
 }
@@ -386,4 +409,29 @@ void DialogueSystem::UpdatePortraits()
 			dialogue_portrait_renderer_right_->SetTint({ 1.0f, 1.0f, 1.0f });
 		}
 	}
+}
+
+void DialogueSystem::FadePortraitName(float frametime, bool in)
+{
+	if (!dialogue_speakername_renderer_)
+	{
+		return;
+	}
+
+	float opacity = dialogue_speakername_renderer_->GetOpacity();
+	float new_opacity;
+	
+	if (in)
+	{
+		new_opacity  = std::min(1.0f, opacity + opacity * opacity * transition_speed_ * frametime + 0.1f);
+	}
+
+	else
+	{
+		new_opacity = std::max(0.0f, opacity - (opacity * opacity * transition_speed_ * frametime + 0.1f));
+	}
+
+	dialogue_portrait_renderer_right_->SetOpacity(new_opacity);
+	dialogue_portrait_renderer_left_->SetOpacity(new_opacity);
+	dialogue_speakername_renderer_->SetOpacity(new_opacity);
 }
