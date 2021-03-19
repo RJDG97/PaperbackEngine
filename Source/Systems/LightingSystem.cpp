@@ -184,7 +184,7 @@ void LightingSystem::Draw() {
 
 		BatchConeLight(cone_light_shader, it->second, cam_zoom);
 
-		if (pos_sent.size() / 4 == 100)
+		if (pos_sent.size() / 4 == batch_size)
 		{
 			DrawConeLight();
 		}
@@ -209,7 +209,7 @@ void LightingSystem::Draw() {
 
 		BatchPointLight(it->second, cam_zoom);
 
-		if (pos_sent.size() / 4 == 100)
+		if (pos_sent.size() / 4 == batch_size)
 		{
 			DrawPointLight();
 		}

@@ -323,6 +323,9 @@ void DialogueSystem::TempCleanup()
 	dialogue_box_scale_ = nullptr;
 	dialogue_box_renderer_ = nullptr;
 	dialogue_text_renderer_ = nullptr;
+	dialogue_portrait_renderer_left_ = nullptr;
+	dialogue_portrait_renderer_right_ = nullptr;
+	dialogue_speakername_renderer_ = nullptr;
 
 	num_characters_ = 0;
 	current_speech_ = {};
