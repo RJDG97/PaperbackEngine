@@ -463,7 +463,7 @@
         },
         {
             "component": "Transform",
-            "position": "-3.200000 -4.600000",
+            "position": "-3.400000 -4.600000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -1314,7 +1314,7 @@
             "number of animations": "2",
             "add animation": "TitleText",
             "add animation": "TitleText_2",
-            "set animation": "TitleText",
+            "set animation": "TitleText_2",
             "play_animation": "1",
             "reversed": "0",
             "has_finished_animating": "0",
@@ -1322,7 +1322,7 @@
             "layer": "0",
             "order in layer": "4",
             "alive": "1",
-            "opacity": "1.000000",
+            "opacity": "0.000000",
             "tint": "1.000000 1.000000 1.000000"
         },
         {

@@ -63,15 +63,17 @@ namespace TitleCard_Script
 
 			std::string comp = animation_renderer->GetCurrentAnimation();
 
-			if (comp == "TitleText") {
-
-				graphics_sys->ChangeAnimation(animation_renderer, "TitleText_2");
-			}
-			else if (comp == "TitleText_2") {
+			if (comp == "TitleText_2") {
 
 				animation_renderer->SetAnimationStatus(false);
 			}
 		}
+
+		float opacity = animation_renderer->GetOpacity();
+		float scaling = 1 - opacity;
+		float new_opacity = std::min( 1.0f, opacity + (scaling * scaling * 0.08f) + 0.01f);
+
+		animation_renderer->SetOpacity(new_opacity);
 	}
 }
 

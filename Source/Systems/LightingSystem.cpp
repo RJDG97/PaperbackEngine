@@ -331,7 +331,12 @@ void LightingSystem::BatchConeLight(ConeLight* cone_light, float cam_zoom) {
 	}
 
 	Child* child = component_manager_->GetComponent<Child>(cone_light->GetOwner()->GetID());
-	if (child == nullptr) return;
+	
+	if (!child) {
+
+		return;
+	}
+
 	Motion* motion = component_manager_->GetComponent<Motion>(child->ParentID());
 
 

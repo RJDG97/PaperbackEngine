@@ -139,6 +139,13 @@ void DialogueSystem::Update(float frametime)
 				}
 
 				FadePortraitName(frametime, false);
+
+				//temporary delay for now
+				if (dialogue_speakername_renderer_ && dialogue_speakername_renderer_->GetOpacity() > 0.2f)
+				{
+					break;
+				}
+
 				float scaling = 1.0f - textbox_current_scale_.x / textbox_max_scale_.x;
 
 				dialogue_box_renderer_->SetOpacity(dialogue_box_renderer_->GetOpacity() - scaling * scaling);
@@ -377,35 +384,34 @@ void DialogueSystem::UpdatePortraits()
 		dialogue_portrait_renderer_left_->SetAlive(true);
 		graphics_system_->ChangeTexture(dialogue_portrait_renderer_left_, current_dialogue_content_->GetPortraitLeft());
 
-		if (current_dialogue_content_->GetLeftDarken())
-		{
+		if (current_dialogue_content_->GetLeftDarken())	{
+
 			dialogue_portrait_renderer_left_->SetTint({0.4f, 0.4f, 0.4f});
 		}
 
-		else
-		{
+		else {
+
 			dialogue_portrait_renderer_left_->SetTint({ 1.0f, 1.0f, 1.0f });
 		}
 	}
 
-	if (current_dialogue_content_->GetPortraitRight() == "None")
-	{
+	if (current_dialogue_content_->GetPortraitRight() == "None") {
+
 		dialogue_portrait_renderer_right_->SetAlive(false);
 	}
 
-	else
-	{
+	else {
 
 		dialogue_portrait_renderer_right_->SetAlive(true);
 		graphics_system_->ChangeTexture(dialogue_portrait_renderer_right_, current_dialogue_content_->GetPortraitRight());
 
-		if (current_dialogue_content_->GetRightDarken())
-		{
+		if (current_dialogue_content_->GetRightDarken()) {
+
 			dialogue_portrait_renderer_right_->SetTint({ 0.4f, 0.4f, 0.4f });
 		}
 
-		else
-		{
+		else {
+
 			dialogue_portrait_renderer_right_->SetTint({ 1.0f, 1.0f, 1.0f });
 		}
 	}
@@ -413,21 +419,21 @@ void DialogueSystem::UpdatePortraits()
 
 void DialogueSystem::FadePortraitName(float frametime, bool in)
 {
-	if (!dialogue_speakername_renderer_)
-	{
+	if (!dialogue_speakername_renderer_) {
+
 		return;
 	}
 
 	float opacity = dialogue_speakername_renderer_->GetOpacity();
 	float new_opacity;
 	
-	if (in)
-	{
+	if (in)	{
+
 		new_opacity  = std::min(1.0f, opacity + opacity * opacity * transition_speed_ * frametime + 0.1f);
 	}
 
-	else
-	{
+	else {
+
 		new_opacity = std::max(0.0f, opacity - (opacity * opacity * transition_speed_ * frametime + 0.1f));
 	}
 
