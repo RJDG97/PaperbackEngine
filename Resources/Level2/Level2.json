@@ -32,6 +32,7 @@
     "Objectives": "Resources\\Level2\\UI\\objectives.json",
     "ParticleEmitter": "Resources\\Level2\\UI\\particleemitter.json",
     "MyParticle": "Resources\\Level2\\UI\\myparticles.json",
+    "UIParticle": "Resources\\Level2\\UI\\ui_particles.json",
     "Watergauge": "Resources\\Level2\\UI\\watergauge.json",
     "Watershade": "Resources\\Level2\\UI\\watershade.json",
     "Waterbase": "Resources\\Level2\\UI\\waterbase.json",

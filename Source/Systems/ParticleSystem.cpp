@@ -21,6 +21,7 @@ void ParticleSystem::Init() {
 	
 	component_manager_ = CORE->GetManager<ComponentManager>();
 	particle_arr_ = component_manager_->GetComponentArray<Particle>();
+	ui_particle_arr_ = component_manager_->GetComponentArray<UIParticle>();
 	emitter_arr_ = component_manager_->GetComponentArray<Emitter>();
 }
 
@@ -85,6 +86,33 @@ void ParticleSystem::Update(float frametime) {
 			component_manager_->GetComponent<TextureRenderer>(id)->alive_ = false;
 			// restore quota to emitter
 			Emitter* spawner = component_manager_->GetComponent<Emitter>(particle->spawner_);
+			--spawner->current_spawn_;
+		}
+	}
+
+	for (auto& [id, ui_particle] : *ui_particle_arr_) {
+
+		if (!ui_particle->IsAlive())
+			continue;
+
+		ui_particle->lifetime_ -= frametime;
+
+		if (ui_particle->lifetime_ < 0.0f) {
+
+			if (ui_particle->has_destination_) {
+
+				Emitter* emitter = component_manager_->GetComponent<Emitter>(ui_particle->spawner_);
+				emitter->particle_destination_.Generate(CORE->GetManager<ForcesManager>(), ui_particle, id);
+				continue;
+			}
+
+			ui_particle->alive_ = false;
+			ui_particle->lifetime_ = 0.0f;
+			component_manager_->GetComponent<Motion>(id)->alive_ = false;
+			//component_manager_->GetComponent<PointLight>(id)->SetAlive(false);
+			component_manager_->GetComponent<TextureRenderer>(id)->alive_ = false;
+			// restore quota to emitter
+			Emitter* spawner = component_manager_->GetComponent<Emitter>(ui_particle->spawner_);
 			--spawner->current_spawn_;
 		}
 	}

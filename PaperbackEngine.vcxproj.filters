@@ -210,6 +210,9 @@
     <Filter Include="Entity\Components\Destination">
       <UniqueIdentifier>{645bae6a-eaa6-45aa-b141-07177de2f866}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity\Components\UIParticle">
+      <UniqueIdentifier>{b44f6991-9182-4e19-974d-bf033a7ba0a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -511,6 +514,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\Destination.cpp">
       <Filter>Entity\Components\Destination</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\UIParticle.cpp">
+      <Filter>Entity\Components\UIParticle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -876,6 +882,9 @@
     </ClInclude>
     <ClInclude Include="Include\Components\Destination.h">
       <Filter>Entity\Components\Destination</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Components\UIParticle.h">
+      <Filter>Entity\Components\UIParticle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

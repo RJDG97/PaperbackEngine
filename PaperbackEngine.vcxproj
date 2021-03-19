@@ -188,6 +188,7 @@
     <ClCompile Include="Source\Components\Scale.cpp" />
     <ClCompile Include="Source\Components\Status.cpp" />
     <ClCompile Include="Source\Components\Transform.cpp" />
+    <ClCompile Include="Source\Components\UIParticle.cpp" />
     <ClCompile Include="Source\Components\Unlockable.cpp" />
     <ClCompile Include="Source\Engine\Core.cpp" />
     <ClCompile Include="Source\Entity\Entity.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="Include\Components\Scale.h" />
     <ClInclude Include="Include\Components\Status.h" />
     <ClInclude Include="Include\Components\Transform.h" />
+    <ClInclude Include="Include\Components\UIParticle.h" />
     <ClInclude Include="Include\Components\Unlockable.h" />
     <ClInclude Include="Include\Engine\Core.h" />
     <ClInclude Include="Include\Entity\ComponentCreator.h" />

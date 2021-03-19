@@ -27,6 +27,9 @@ public:
 	using ParticleType = CMap<Particle>;
 	using ParticleIt = ParticleType::MapTypeIt;
 
+	using UIParticleType = CMap<UIParticle>;
+	using UIParticleIt = UIParticleType::MapTypeIt;
+
 	using EmitterType = CMap<Emitter>;
 	using EmitterIt = EmitterType::MapTypeIt;
 
@@ -79,6 +82,7 @@ public:
 
 private:
 	std::shared_ptr<ComponentManager> component_manager_;
+	UIParticleType* ui_particle_arr_;
 	ParticleType* particle_arr_;
 	EmitterType* emitter_arr_;
 

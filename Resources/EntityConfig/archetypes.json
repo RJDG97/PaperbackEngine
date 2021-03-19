@@ -1452,6 +1452,14 @@
             "alive": "1"
         },
         {
+            "component": "ConeLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "1.000000",
+            "intensity": "1.000000",
+            "angle": "1.000000",
+            "alive": "1"
+        },
+        {
             "component": "ParentChild",
             "my_name": ""
         }
@@ -1538,6 +1546,41 @@
             "component": "Particle"
         }
     ],
+    "UIParticle": [
+        {
+            "component": "Name",
+            "name": "UIParticle"
+        },
+        {
+            "component": "Motion",
+            "mass": "1.000000",
+            "force": "0.000000",
+            "alive": "0"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Puddle_01_0",
+            "layer": "3",
+            "order in layer": "0",
+            "alive": "0",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "Scale",
+            "scale": "16.000000 16.000000"
+        },
+        {
+            "component": "UIParticle"
+        }
+    ],
     "Objectives": [
         {
             "component": "Name",
@@ -1583,6 +1626,10 @@
         },
         {
             "component": "Emitter"
+        },
+        {
+            "component": "Child",
+            "parent_name": ""
         }
     ],
     "Player": [
@@ -1716,6 +1763,10 @@
             "component": "Collectible",
             "item name": "Puddle",
             "item description": "Wow"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": ""
         }
     ],
     "PuzzleHole": [
@@ -1942,6 +1993,14 @@
             "alive": "1"
         },
         {
+            "component": "ConeLight",
+            "color": "0.800000 0.800000 0.800000",
+            "radius": "0.800000",
+            "intensity": "0.800000",
+            "angle": "0.800000",
+            "alive": "1"
+        },
+        {
             "component": "ParentChild",
             "my_name": ""
         }
@@ -2134,7 +2193,7 @@
         },
         {
             "component": "Scale",
-            "scale": "200.000000 100.000000"
+            "scale": "220.000000 100.000000"
         },
         {
             "component": "Child",
@@ -2170,7 +2229,7 @@
         },
         {
             "component": "Scale",
-            "scale": "200.000000 100.000000"
+            "scale": "220.000000 100.000000"
         },
         {
             "component": "Child",

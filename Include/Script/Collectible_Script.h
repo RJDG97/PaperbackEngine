@@ -37,27 +37,18 @@ namespace Collectible_Script
 		ForcesManager* forces_mgr = &*CORE->GetManager<ForcesManager>();
 
 		// Grab relevant components
-		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(collectible_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(collectible_id);
 		Collectible* collectible = component_mgr->GetComponent<Collectible>(collectible_id);
 		PointLight* point_light = component_mgr->GetComponent<PointLight>(collectible_id);
-		//Transform* xform = component_mgr->GetComponent<Transform>(collectible_id);
 		AABB* aabb = component_mgr->GetComponent<AABB>(collectible_id);
-
-		// Toggle to inactive (Potentially delete them)
-		//if (animation_renderer)
-		//	animation_renderer->SetAlive(false);
-		if (texture_renderer)
-			texture_renderer->SetAlive(false);
-		if (point_light)
-			point_light->SetAlive(false);
-		if (aabb)
-			aabb->SetAlive(false);
 
 		switch (collectible->GetItemType())
 		{
 			case CollectibleType::SPORE:
 			{
+				if (point_light) point_light->SetAlive(false);
+				if (aabb) aabb->SetAlive(false);
+
 				Motion* motion = component_mgr->GetComponent<Motion>(collectible_id);
 				Transform* xform = component_mgr->GetComponent<Transform>(collectible_id);
 				Destination* des = component_mgr->GetComponent<Destination>(collectible_id);
@@ -67,21 +58,41 @@ namespace Collectible_Script
 				
 				//// This dialogue does not exist yet, add in your own version if you are interested wheeeee
 				//CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("Spore_Collected");
-				forces_mgr->AddForce(collectible_id, "Collected", 3.0f, direction * motion->GetForce());
+				forces_mgr->AddForce(collectible_id, "Collected", 5.0f, direction * motion->GetForce());
 
 				break;
 			}
 			case CollectibleType::PUDDLE:
 			{
-				//MessageBGM_Play msg{ "PlayerDrink" };
-				//CORE->BroadcastMessage(&msg);
+				Health* player_hp = component_mgr->GetComponent<Health>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
+
+				if (player_hp->GetCurrentHealth() >= player_hp->GetMaxHealth())
+					return;
+
+				if (texture_renderer) texture_renderer->SetAlive(false);
+				if (point_light) point_light->SetAlive(false);
+				if (aabb) aabb->SetAlive(false);
+
 				CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("drink");
-				// Do the UI emitter stuff here
+
+				ParentChild* pc = component_mgr->GetComponent<ParentChild>(collectible_id);
+
+				if (!pc->GetChildren().empty()) {
+					
+					EntityID emitter_id = pc->GetChildren().front()->GetID();
+					Emitter* emitter = component_mgr->GetComponent<Emitter>(emitter_id);
+
+					emitter->SetAlive(true);
+				}
 
 				break;
 			}
 			case CollectibleType::KEY:
 			{
+				if (texture_renderer) texture_renderer->SetAlive(false);
+				if (point_light) point_light->SetAlive(false);
+				if (aabb) aabb->SetAlive(false);
+
 				CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("keypickedup");
 				break;
 			}
@@ -104,12 +115,7 @@ namespace Collectible_Script
 
 		// Grab relevant components
 		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(interactable_id);
-		//Interactable* interactable = component_mgr->GetComponent<Interactable>(interactable_id);
 		AABB* aabb = component_mgr->GetComponent<AABB>(interactable_id);
-
-		// By right, switch case based on "enum" for animation changes
-		//std::string col_name = interactable->GetAnimationName("Collided");
-		//graphics_sys->ChangeAnimation(animation_renderer, col_name);
 
 		animation_renderer->SetAnimationStatus(true);
 		CORE->SetMovementLock(true);

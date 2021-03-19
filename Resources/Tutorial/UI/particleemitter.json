@@ -14,6 +14,8 @@
         },
         {
             "component": "Emitter",
+            "ui": "0",
+            "alive": "1",
             "emitter lifetime": "1000000.233028",
             "emitter spawn interval": "0.200000",
             "emitter request": "5",
@@ -27,7 +29,8 @@
             "min rotation angle range": "0.000000 45.000000",
             "max rotation angle range": "0.000000 45.000000",
             "number of textures": "1",
-            "texture": "Leaf_0"
+            "texture": "Leaf_0",
+            "has destination": "0"
         }
     ]
 }

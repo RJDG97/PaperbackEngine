@@ -20,6 +20,7 @@ void ParticleManager::Init() {
 	
 	component_manager_ = CORE->GetManager<ComponentManager>();
 	particle_arr_ = component_manager_->GetComponentArray<Particle>();
+	ui_particle_arr_ = component_manager_->GetComponentArray<UIParticle>();
 }
 
 
@@ -29,21 +30,40 @@ void ParticleManager::Update(float frametime) {
 }
 
 
-void ParticleManager::GetParticles(std::vector<EntityID>& vec, size_t count) {
+void ParticleManager::GetParticles(std::vector<EntityID>& vec, size_t count, bool ui) {
 	
 	size_t counter = count;
 
-	for (auto& [id, particle] : *particle_arr_) {
+	if (ui) {
 		
-		if (particle->IsAlive())
-			continue;
+		for (auto& [id, ui_particle] : *ui_particle_arr_) {
 
-		if (!counter)
-			return;
+			if (ui_particle->IsAlive())
+				continue;
 
-		particle->alive_ = true;
-		vec.push_back(id);
+			if (!counter)
+				return;
 
-		--counter;
+			ui_particle->alive_ = true;
+			vec.push_back(id);
+
+			--counter;
+		}
+	}
+	else {
+
+		for (auto& [id, particle] : *particle_arr_) {
+
+			if (particle->IsAlive())
+				continue;
+
+			if (!counter)
+				return;
+
+			particle->alive_ = true;
+			vec.push_back(id);
+
+			--counter;
+		}
 	}
 }

@@ -39,7 +39,7 @@ void PuzzleSystem::UpdatePuzzleEntities(AABB* aabb1, AABB* aabb2) {
 	
 	// Hole
 	EntityID hole_id = aabb2->GetOwner()->GetID();
-	Child* child = component_manager_->GetComponent<Child>(hole_id);
+	//Child* child = component_manager_->GetComponent<Child>(hole_id);
 	AnimationRenderer* anim = component_manager_->GetComponent<AnimationRenderer>(hole_id);
 
 	// Pushable

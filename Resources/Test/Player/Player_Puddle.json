@@ -37,6 +37,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_1"
         }
     ],
     "Puddle": [
@@ -77,6 +81,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_2"
         }
     ],
     "Puddle": [
@@ -117,6 +125,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_3"
         }
     ],
     "Puddle": [
@@ -157,6 +169,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_4"
         }
     ],
     "Puddle": [
@@ -197,6 +213,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_5"
         }
     ],
     "Puddle": [
@@ -237,6 +257,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_6"
         }
     ],
     "Puddle": [
@@ -277,6 +301,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_7"
         }
     ],
     "Puddle": [
@@ -317,6 +345,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_8"
         }
     ],
     "Puddle": [
@@ -357,6 +389,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_9"
         }
     ],
     "Puddle": [
@@ -397,6 +433,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_10"
         }
     ],
     "Puddle": [
@@ -437,6 +477,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_11"
         }
     ],
     "Puddle": [
@@ -477,6 +521,10 @@
             "radius": "300.000000",
             "intensity": "0.650000",
             "alive": "1"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_12"
         }
     ]
 }

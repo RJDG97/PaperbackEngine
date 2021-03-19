@@ -168,16 +168,6 @@ private:
 
 /******************************************************************************/
 /*!
-  \fn WallvEnemyResponse()
-
-  \brief Helper function to handle response of an enemy colliding
-		 with a wall
-*/
-/******************************************************************************/
-	void WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2);
-
-/******************************************************************************/
-/*!
   \fn PlayervEnemyResponse()
 
   \brief Helper function to handle response of a player colliding with an enemy

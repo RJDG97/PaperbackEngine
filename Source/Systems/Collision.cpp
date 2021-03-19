@@ -41,11 +41,6 @@
 
 // Terrible...
 void PlayGrassRustle() {
-
-	//int value = std::rand() % 5;
-	//std::string sound{ "GrassMoves_" };
-	//sound += std::to_string(value);
-	//CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
 	
 	CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("grass");
 }
@@ -269,6 +264,7 @@ bool Collision::SeparatingAxisTheorem(const AABB& a, const AABB& b) {
 
 void Collision::CheckClickableCollision(ButtonStates& state) {
 
+	LogicManager* logic_manager = &*CORE->GetManager<LogicManager>();
 	Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();
 
 	for (auto& [id, clickable] : *clickable_arr_) {
@@ -276,7 +272,6 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 		// Only if clickable is set to active
 		if (clickable->active_) {
 
-			LogicManager* logic_manager = &*CORE->GetManager<LogicManager>();
 			LogicComponent* logic = component_mgr_->GetComponent<LogicComponent>(id);
 
 			if (CheckCursorCollision(cursor_pos, clickable)) {
@@ -358,9 +353,8 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 		auto& [pushable_id, pushable_aabb] = *aabb2;
 
 		transform1->position_ += inverse_vector_1;
-		force_mgr->AddForce(pushable_id, "PlayerForce", PE_FrameRate.GetFixedDelta(), *vel1 * 5.0f); // to be replaced
+		force_mgr->AddForce(pushable_id, "PlayerForce", PE_FrameRate.GetFixedDelta(), *vel1 * 5.0f);
 	}
-	//transform2->position_ += normal; //inverse_vector_2;
 
 	// Toggle collision status (For debug boxes)
 	aabb1->second->collided = true;
@@ -401,33 +395,6 @@ void Collision::PlayerVsHoleResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec
 
 	transform1->position_ += inverse_vector_1;
 	transform2->position_ += normal;
-}
-
-void Collision::WallvEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
-
-	UNREFERENCED_PARAMETER(aabb1);
-	UNREFERENCED_PARAMETER(aabb2);
-	//AI* ai_state = component_mgr_->GetComponent<AI>(aabb2->first);
-	//switch (ai_state->GetType())
-	//{
-	//case AI::AIType::StagBeetle:
-	//	if (ai_state->GetState() == AI::AIState::Attack)
-	//	{
-	//		ai_state->SetState(AI::AIState::Withdraw);
-	//	}
-	//	break;
-	//case AI::AIType::Mite:
-	//	//if (ai_state->GetState() == AI::AIState::Chase)
-	//	//{
-	//	//	ai_state->SetState(AI::AIState::Withdraw);
-	//	//}
-	//	//else if (ai_state->GetState() != AI::AIState::Attack)
-	//	//{
-	//	//	ai_state->GetPath().clear();
-	//	//	ai_state->SetState(AI::AIState::Patrol);
-	//	//}
-	//	break;
-	//}
 }
 
 
@@ -476,13 +443,13 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 	return false;
 }
 
-void Collision::GoalResponse() {
+void Collision::GoalResponse() {																	// Is this used? Or remove
 
 	Message msg{ MessageIDTypes::GSM_WIN };
 	CORE->BroadcastMessage(&msg);
 }
 
-bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {
+bool Collision::PlayerGateResponse(AABBIt aabb1, AABBIt aabb2) {									// Is this used? Or remove
 
 	auto& [player_id, player_aabb] = *aabb1;
 	auto& [unlockable_id, unlockable_aabb] = *aabb2;
@@ -556,14 +523,6 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 	{
 	case CollisionLayer::TILES:
 	{
-		switch (layer_b)
-		{
-			case CollisionLayer::ENEMY:
-			{
-				
-				//WallvEnemyResponse(aabb1, aabb2);
-			}
-		}
 		DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
 		break;
 	}
@@ -717,6 +676,9 @@ void Collision::ProcessCollision(CollisionMapIt col_layer_a, CollisionMapIt col_
 			//skip if same 
 			if (layer_a_it->first == layer_b_it->first)
 				continue;
+			
+			if (!layer_a_it->second->alive_ || !layer_b_it->second->alive_)
+				continue;
 
 			Vector2D vel1 = motion_arr_->GetComponent(layer_a_it->first) ?
 				motion_arr_->GetComponent(layer_a_it->first)->velocity_ : Vector2D{};
@@ -725,8 +687,6 @@ void Collision::ProcessCollision(CollisionMapIt col_layer_a, CollisionMapIt col_
 
 			float t_first{};
 
-			if (!layer_a_it->second->alive_ || !layer_b_it->second->alive_)
-				continue;
 
 			if (CheckCollision(*layer_a_it->second, vel1, *layer_b_it->second, vel2, frametime, t_first)) {
 

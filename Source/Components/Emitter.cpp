@@ -63,6 +63,12 @@ void Emitter::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
 	writer->Key("component");
 	writer->String("Emitter");
 
+	writer->Key("ui");
+	writer->String(std::to_string(ui_).c_str());
+
+	writer->Key("alive");
+	writer->String(std::to_string(alive_).c_str());
+
 	writer->Key("emitter lifetime");
 	writer->String(std::to_string(lifetime_).c_str());
 
@@ -111,11 +117,14 @@ void Emitter::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
 	writer->Key("has_destination");
 	writer->String(std::to_string(particle_destination_.set_destination_).c_str());
 
-	writer->Key("destination");
-	writer->String((std::to_string(particle_destination_.destination_.x) + " " + std::to_string(particle_destination_.destination_.x)).c_str());
+	// Only write extra stuff if there is a destination
+	if (particle_destination_.set_destination_) {
+		writer->Key("destination");
+		writer->String((std::to_string(particle_destination_.destination_.x) + " " + std::to_string(particle_destination_.destination_.x)).c_str());
 
-	writer->Key("destination_time_range");
-	writer->String((std::to_string(particle_destination_.time_range_.x) + " " + std::to_string(particle_destination_.time_range_.y)).c_str());
+		writer->Key("destination_time_range");
+		writer->String((std::to_string(particle_destination_.time_range_.x) + " " + std::to_string(particle_destination_.time_range_.y)).c_str());
+	}
 
 	writer->EndObject();
 }
@@ -130,7 +139,7 @@ void Emitter::DeSerialize(std::stringstream& data) {
 void Emitter::DeSerializeClone(std::stringstream& data) {
 
 	// Initialize emitter's data
-	data >> lifetime_ >> spawn_interval_ >> request_ >> max_spawn_;
+	data >> ui_ >> alive_ >> lifetime_ >> spawn_interval_ >> request_ >> max_spawn_;
 
 	// Initialize particle's lifetime range
 	data >> particle_lifetime_.lifetime_range_.x >> particle_lifetime_.lifetime_range_.y;
@@ -160,13 +169,11 @@ void Emitter::DeSerializeClone(std::stringstream& data) {
 
 	// Initialize the particle's destination selection
 	data >> particle_destination_.set_destination_;
-	if (particle_destination_.set_destination_) {
 
-		data >> particle_destination_.destination_.x >> particle_destination_.destination_.y;
-		data >> particle_destination_.time_range_.x >> particle_destination_.time_range_.y;
-	}
+	data >> particle_destination_.destination_.x >> particle_destination_.destination_.y;
+	data >> particle_destination_.time_range_.x >> particle_destination_.time_range_.y;
 
-	alive_ = true;
+	//alive_ = true;
 }
 
 
@@ -186,27 +193,47 @@ void Emitter::SetParticle(const EntityID& id) {
 
 	// Get relevant components
 	Particle* particle = component_manager->GetComponent<Particle>(id);
+	UIParticle* ui_particle = component_manager->GetComponent<UIParticle>(id);
 	Transform* xform_p = component_manager->GetComponent<Transform>(id);
 	Transform* xform_e = component_manager->GetComponent<Transform>(GetOwner()->GetID());
 	Motion* motion = component_manager->GetComponent<Motion>(id);
 	TextureRenderer* texture_renderer = component_manager->GetComponent<TextureRenderer>(id);
 
 	// Check if all of them are valid (Might replace with DEBUG_ASSERT)
-	if (!particle || !xform_p || !xform_e || !motion || !texture_renderer)
+	if (!xform_p || !xform_e || !motion || !texture_renderer)
 		return;
 
-	particle_lifetime_.Generate(particle);
-	particle_position_.Generate(xform_p, xform_e);
-	particle_force_.Generate(forces_manager, particle, id);
-	particle_rotation_.Generate(xform_p);
-	particle_texture_.Generate(graphics_system, texture_renderer);
-	particle_destination_.Init(particle);
+	if (particle) {
 
-	// Set parent id
-	particle->spawner_ = GetOwner()->GetID();
+		particle_lifetime_.Generate(particle);
+		particle_position_.Generate(xform_p, xform_e, false);
+		particle_force_.Generate(forces_manager, particle, id);
+		particle_rotation_.Generate(xform_p);
+		particle_texture_.Generate(graphics_system, texture_renderer);
+		particle_destination_.Init(particle);
 
-	// Set active
-	particle->alive_ = true;
+		// Set parent id
+		particle->spawner_ = GetOwner()->GetID();
+
+		// Set active
+		particle->alive_ = true;
+	}
+	else if (ui_particle) {
+		
+		particle_lifetime_.Generate(ui_particle);
+		particle_position_.Generate(xform_p, xform_e, true);
+		particle_force_.Generate(forces_manager, ui_particle, id);
+		particle_rotation_.Generate(xform_p);
+		particle_texture_.Generate(graphics_system, texture_renderer);
+		particle_destination_.Init(ui_particle);
+
+		// Set parent id
+		ui_particle->spawner_ = GetOwner()->GetID();
+
+		// Set active
+		ui_particle->alive_ = true;
+		//component_manager->GetComponent<PointLight>(id)->SetAlive(true);
+	}
 	motion->alive_ = true;
 	texture_renderer->alive_ = true;
 
@@ -229,7 +256,7 @@ void Emitter::Spawn(float frametime) {
 	// Attempt to retrieve non-active particles to spawn
 	std::vector<EntityID> particles{};
 
-	CORE->GetManager<ParticleManager>()->GetParticles(particles, count_to_request_);
+	CORE->GetManager<ParticleManager>()->GetParticles(particles, count_to_request_, ui_);
 
 	if (particles.empty())
 		return;
@@ -376,18 +403,48 @@ void GenerateLifetime::Generate(Particle* particle) {
 	particle->SetLifetime(lifetime);
 }
 
-void GeneratePosition::Generate(Transform* particle_transform, Transform* emitter_transform) {
+void GenerateLifetime::Generate(UIParticle* particle) {
 
-	Vector2D spawn{};
-	spawn.x = glm::linearRand(min_pos_.x, max_pos_.x);
-	spawn.y = glm::linearRand(min_pos_.y, max_pos_.y);
+	float lifetime = glm::linearRand(lifetime_range_.x, lifetime_range_.y);
+	particle->SetLifetime(lifetime);
+}
 
-	spawn += emitter_transform->GetPosition();
+void GeneratePosition::Generate(Transform* particle_transform, Transform* emitter_transform, bool ui) {
 
-	particle_transform->SetPosition(spawn);
+	if (!ui) {
+
+		Vector2D spawn{};
+		spawn.x = glm::linearRand(min_pos_.x, max_pos_.x);
+		spawn.y = glm::linearRand(min_pos_.y, max_pos_.y);
+
+		spawn += emitter_transform->GetPosition();
+
+		particle_transform->SetPosition(spawn);
+	}
+	else {
+
+		Vector2D spawn{};
+
+		particle_transform->SetPosition(spawn);
+	}
 }
 
 void GenerateForce::Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id) {
+
+	// Rand direction
+	Vector2D vec{};
+	Matrix3x3 mtx{};
+	float direction = glm::linearRand(direction_range_.x, direction_range_.y);
+
+	Mtx33RotDeg(mtx, direction);
+	// Rand force
+	vec.x = vec.y = glm::linearRand(force_range_.x, force_range_.y);
+	vec = mtx * vec;
+
+	force_manager->AddForce(particle_id, "Particle", particle->GetLifetime(), vec);
+}
+
+void GenerateForce::Generate(std::shared_ptr<ForcesManager> force_manager, UIParticle* particle, EntityID particle_id) {
 
 	// Rand direction
 	Vector2D vec{};
@@ -433,7 +490,6 @@ void GenerateTexture::Generate(std::shared_ptr<GraphicsSystem> graphics_system, 
 void GenerateDestination::Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id) {
 
 	if (set_destination_) {
-		//Motion* motion = CORE->GetManager<ComponentManager>()->GetComponent<Motion>(particle_id);
 		CameraSystem* cam_sys = &*CORE->GetSystem<CameraSystem>();
 		Vector2D particle_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(particle_id)->GetPosition();
 		Vector2D particle_des = cam_sys->UIToGameCoords(destination_);
@@ -444,12 +500,60 @@ void GenerateDestination::Generate(std::shared_ptr<ForcesManager> force_manager,
 		particle->SetLifetime(travel_time);
 		particle->SetAlive(true);
 		particle->SetDestination(false);
-		//motion->SetVelocity(p_force);
 		force_manager->AddForce(particle_id, "Particle_To_Destination", travel_time, p_force);
 	}
 }
 
+void GenerateDestination::Generate(std::shared_ptr<ForcesManager> force_manager, UIParticle* particle, EntityID particle_id) {
+
+	if (set_destination_) {
+
+		ComponentManager* c_mgr = &*CORE->GetManager<ComponentManager>();
+		Motion* motion = c_mgr->GetComponent<Motion>(particle_id);
+		Vector2D particle_pos = c_mgr->GetComponent<Transform>(particle_id)->GetPosition();
+		Vector2D final_des{};
+
+		for (auto& [p_id, parent] : *c_mgr->GetComponentArray<ParentChild>()) {
+
+			//Name* name = c_mgr->GetComponent<Name>(p_id);
+
+			if (parent->GetName() != "Watergauge") continue;
+
+			Entity* player = CORE->GetManager<EntityManager>()->GetPlayerEntities();
+			TextureRenderer* texture = c_mgr->GetComponent<TextureRenderer>(p_id);
+			Transform* xform = c_mgr->GetComponent<Transform>(p_id);
+			Scale* scale = c_mgr->GetComponent<Scale>(p_id);
+			Health* health = c_mgr->GetComponent<Health>(player ? player->GetID() : 0);
+
+			if (!xform || !scale || !health || !texture) return;
+
+			Vector2D hp_scale = scale->GetScale() / static_cast<float>(health->GetMaxHealth());
+			hp_scale.y = 0.0f;
+			// Center of Watergauge + ( Offset to right side of Watergauge based on HP ) / Scale to convert to Screen coords
+			final_des = destination_ + ((((health->GetCurrentHealth() - health->GetMaxHealth() * 0.5f) + 2) * hp_scale) / CORE->GetGlobalScale());
+		}
+
+		float travel_time = glm::linearRand(time_range_.x, time_range_.y);
+
+		motion->SetVelocity(Vector2D{});
+		Vector2D p_force = ( (final_des - particle_pos ) * CORE->GetGlobalScale() ) / travel_time;
+
+		particle->SetAlive(true);
+		particle->SetDestination(false);
+		particle->SetLifetime(travel_time);
+		force_manager->AddForce(particle_id, "Particle_To_Destination", travel_time, p_force * 0.25f);
+	}
+}
+
 void GenerateDestination::Init(Particle* particle) {
+
+	if (set_destination_)
+		particle->SetDestination(true);
+	else
+		particle->SetDestination(false);
+}
+
+void GenerateDestination::Init(UIParticle* particle) {
 
 	if (set_destination_)
 		particle->SetDestination(true);

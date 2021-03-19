@@ -37,6 +37,7 @@
     "Objectives": "Resources\\Test\\UI\\objectives.json",
     "ParticleEmitter": "Resources\\Test\\UI\\particleemitter.json",
     "MyParticle": "Resources\\Test\\UI\\myparticles.json",
+    "UIParticle": "Resources\\Test\\UI\\ui_particles.json",
     "Watergauge": "Resources\\Test\\UI\\watergauge.json",
     "Watershade": "Resources\\Test\\UI\\watershade.json",
     "Waterbase": "Resources\\Test\\UI\\waterbase.json",

@@ -167,6 +167,7 @@ void EntityFactory::Init() {
 	comp_mgr_->AddComponentCreator("Child", new ComponentCreator<Child>(ComponentTypes::CHILD));
 	comp_mgr_->AddComponentCreator("StopAnimation", new ComponentCreator<StopAnimation>(ComponentTypes::STOPANIMATION));
 	comp_mgr_->AddComponentCreator("Destination", new ComponentCreator<Destination>(ComponentTypes::DESTINATION));
+	comp_mgr_->AddComponentCreator("UIParticle", new ComponentCreator<UIParticle>(ComponentTypes::UIPARTICLE));
 
 	//load the levels json here
 	levels_.DeSerialize("Resources/EntityConfig/levels.json");

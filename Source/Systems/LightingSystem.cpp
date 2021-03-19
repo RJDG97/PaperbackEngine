@@ -330,9 +330,13 @@ void LightingSystem::BatchConeLight(Shader* shader, ConeLight* cone_light, float
 		return;
 	}
 
-	EntityID parent = component_manager_->GetComponent<Child>(cone_light->GetOwner()->GetID())->ParentID();
+	//EntityID parent = component_manager_->GetComponent<Child>(cone_light->GetOwner()->GetID())->ParentID();
+	//Motion* motion = component_manager_->GetComponent<Motion>(parent);
 
-	Motion* motion = component_manager_->GetComponent<Motion>(parent);
+	Child* child = component_manager_->GetComponent<Child>(cone_light->GetOwner()->GetID());
+	if (child == nullptr) return;
+	Motion* motion = component_manager_->GetComponent<Motion>(child->ParentID());
+
 
 	if (motion == nullptr)
 	{

@@ -50,6 +50,7 @@ enum class ComponentTypes {
 	PUZZLE,
 	STOPANIMATION,
 	DESTINATION,
+	UIPARTICLE,
 	MAX
 };
 

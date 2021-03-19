@@ -27,6 +27,9 @@ public:
 	using ParticleType = CMap<Particle>;
 	using ParticleIt = ParticleType::MapTypeIt;
 
+	using UIParticleType = CMap<UIParticle>;
+	using UIParticleIt = UIParticleType::MapTypeIt;
+
 
 /******************************************************************************/
 /*!
@@ -53,13 +56,13 @@ public:
   \brief Assigns a set number of particles to emitter to use
 */
 /******************************************************************************/
-	void GetParticles(std::vector<EntityID>& vec, size_t count);
+	void GetParticles(std::vector<EntityID>& vec, size_t count, bool ui);
 
 
 private:
 	std::shared_ptr<ComponentManager> component_manager_;
 	ParticleType* particle_arr_;
-
+	UIParticleType* ui_particle_arr_;
 };
 
 

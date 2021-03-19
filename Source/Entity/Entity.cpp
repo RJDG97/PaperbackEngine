@@ -262,6 +262,8 @@ ComponentTypes StringToComponentType(const std::string str) {
 		return ComponentTypes::STOPANIMATION;
 	else if (str == "Destination")
 		return ComponentTypes::DESTINATION;
+	else if (str == "UIParticle")
+		return ComponentTypes::UIPARTICLE;
 	else
 		return ComponentTypes::NONE;
 }

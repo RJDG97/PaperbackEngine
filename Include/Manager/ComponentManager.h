@@ -56,6 +56,7 @@
 #include "Components/Puzzle.h"
 #include "Components/StopAnimation.h"
 #include "Components/Destination.h"
+#include "Components/UIParticle.h"
 
 template <typename T>
 class CMap
@@ -262,7 +263,7 @@ using ComponentManager = CManager<
 	Name, AI, AABB, Scale, Status, Health, Motion, BasicAI, Clickable, Transform, PointLight, ConeLight, Camera,
 	TextRenderer, InputController, TextureRenderer, AnimationRenderer, ParentChild, LogicComponent, Inventory,
 	Emitter, Particle, SoundEmitter, Collectible, Unlockable, Interactable, DialogueTrigger, Child, Puzzle,
-	StopAnimation, Destination
+	StopAnimation, Destination, UIParticle
 >;
 
 

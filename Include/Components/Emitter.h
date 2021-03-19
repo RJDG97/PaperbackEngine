@@ -24,8 +24,8 @@
 
 class Transform;
 class Particle;
+class UIParticle;
 class TextureRenderer;
-class ForcesManager;
 class GraphicsSystem;
 
 // Particle customizations
@@ -42,6 +42,7 @@ struct GenerateLifetime
 */
 /******************************************************************************/
 	void Generate(Particle* particle);
+	void Generate(UIParticle* particle);
 };
 
 struct GeneratePosition
@@ -56,7 +57,7 @@ struct GeneratePosition
   \brief Generates a particle's position
 */
 /******************************************************************************/
-	void Generate(Transform* particle_transform, Transform* emitter_transform);
+	void Generate(Transform* particle_transform, Transform* emitter_transform, bool ui);
 };
 
 struct GenerateForce
@@ -74,6 +75,7 @@ struct GenerateForce
 */
 /******************************************************************************/
 	void Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id);
+	void Generate(std::shared_ptr<ForcesManager> force_manager, UIParticle* particle, EntityID particle_id);
 };
 
 struct GenerateRotation
@@ -128,6 +130,7 @@ struct GenerateDestination
 	*/
 	/******************************************************************************/
 	void Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id);
+	void Generate(std::shared_ptr<ForcesManager> force_manager, UIParticle* particle, EntityID particle_id);
 
 	/******************************************************************************/
 	/*!
@@ -137,12 +140,14 @@ struct GenerateDestination
 	*/
 	/******************************************************************************/
 	void Init(Particle* particle);
+	void Init(UIParticle* particle);
 };
 
 
 
 class Emitter : public Component {
 
+	bool ui_;							// UI Emitter
 	bool alive_;						// Status of emitter
 	float lifetime_;					// Lifetime of emitter
 	float interval_;					// Interval that counts down every frame, spawns once it hits < 0
@@ -157,7 +162,6 @@ class Emitter : public Component {
 	GenerateRotation particle_rotation_;
 	GenerateTexture particle_texture_;
 	GenerateDestination particle_destination_;
-
 
 /******************************************************************************/
 /*!

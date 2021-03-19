@@ -363,18 +363,33 @@ namespace Player_Scripts
 	void UpdatePlayerHealth(const EntityID& player_id, const EntityID& parent_id) {
 
 		ComponentManager* c_mgr = &*CORE->GetManager<ComponentManager>();
+		GraphicsSystem* graphics = &*CORE->GetSystem<GraphicsSystem>();
 		Name* name = c_mgr->GetComponent<Name>(parent_id);
 	
 		if (name->GetEntityName() != "Watergauge") return;
 		
+		TextureRenderer* texture = c_mgr->GetComponent<TextureRenderer>(parent_id);
 		Transform* xform = c_mgr->GetComponent<Transform>(parent_id);
 		Scale* scale = c_mgr->GetComponent<Scale>(parent_id);
 		Health* health = c_mgr->GetComponent<Health>(player_id);
 		
-		if (!xform || !scale || !health) return;
+		if (!xform || !scale || !health || !texture) return;
 
-		int mod = health->GetMaxHealth() - health->GetCurrentHealth();
-		Vector2D hp_scale = scale->GetScale() / health->GetMaxHealth();
+		int curr = health->GetCurrentHealth();
+		int max = health->GetMaxHealth();
+
+		if (curr > max / 2.0f) {
+			graphics->ChangeTexture(texture, "UI_HealthBar_Full_0");
+		}
+		else if (curr <= max / 2.0f && curr > max / 3.0f) {
+			graphics->ChangeTexture(texture, "UI_HealthBar_Half_0");
+		}
+		else {
+			graphics->ChangeTexture(texture, "UI_HealthBar_Low_0");
+		}
+
+		int mod = max - curr;
+		Vector2D hp_scale = scale->GetScale() / static_cast<float>(max);
 		hp_scale.y = 0.0f;
 
 		xform->SetOffset(mod * -hp_scale / CORE->GetGlobalScale());
