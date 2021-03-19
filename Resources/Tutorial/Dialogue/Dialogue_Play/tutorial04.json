@@ -17,7 +17,7 @@
 
     "Portrait": "Radish_Confused_0 Mushroom_Default_0 1 0",
 
-    "Radish Boy": "You're shivering all over!",
+    "Radish Boy": "You look upset?",
 
     "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
 
@@ -33,11 +33,15 @@
 
     "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
 
-    "Mushroom Girl": "I'm too scared to leave my spot.",
+    "Mushroom Girl": "I want to get it but...",
 
     "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
 
-    "Mushroom Girl": "I'm afraid of the linger shadows!",
+    "Mushroom Girl": "I'm afraid that tree might fall on me.",
+
+    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
+
+    "Mushroom Girl": "So I've being wondering what to do..",
 
     "Portrait": "Radish_Idle_0 Mushroom_Default_0 1 0",
 
@@ -47,24 +51,20 @@
 
     "Radish Boy": "I'll get it for you! Stay here.",
 
-    "Portrait": "Radish_Confused_0 None 1 0",
+    "Portrait": "Radish_Happy_0 Mushroom_Default_0 0 1",
 
-    "Radish Boy": "Hmm,,,.",
+    "Mushroom Girl": "Okay, but be careful!",
 
-    "Portrait": "Radish_Confused_0 None 1 0",
+    "Portrait": "Radish_Happy_0 Mushroom_Default_0 1 0",
 
-    "Radish Boy": "It won't be a problem to get the spore..",
+    "Radish Boy": "Oh, don't worry!",
 
-    "Portrait": "Radish_Confused_0 None 1 0",
+    "Portrait": "Radish_Happy_0 Mushroom_Default_0 1 0",
 
-    "Radish Boy": "..But that tree looks like it might fall.",
+    "Radish Boy": "The tree won't be able to hit me.",
 
-    "Portrait": "Radish_Confused_0 None 1 0",
+    "Portrait": "Radish_Happy_0 Mushroom_Default_0 1 0",
 
-    "Radish Boy": "I need to be careful...",
-
-    "Portrait": "Radish_Confused_0 None 1 0",
-
-    "Radish Boy": "..or else it might block my way."
+    "Radish Boy": "At most it'll just block my way."
 
 }

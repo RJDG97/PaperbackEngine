@@ -130,6 +130,15 @@ public:
 
 	/******************************************************************************/
 	/*!
+	  \fn CheckInTransition()
+
+	  \brief Returns bool if transition is in progress
+	*/
+	/******************************************************************************/
+	bool CheckInTransition() const;
+
+	/******************************************************************************/
+	/*!
 	  \fn DeSerialize()
 
 	  \brief Initializes data members of transition manager

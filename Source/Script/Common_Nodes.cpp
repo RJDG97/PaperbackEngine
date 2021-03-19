@@ -29,16 +29,38 @@ bool Common::CheckAlive::run()
 			respawn_timer_.TimerReset();
 			respawn_timer_.TimerStart();
 			component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(false);
-			component_mgr->GetComponent<PointLight>(id_)->SetAlive(false);
-			component_mgr->GetComponent<ConeLight>(id_)->SetAlive(false);
+			ParentChild* pc = component_mgr->GetComponent<ParentChild>(id_);
+			auto& children = pc->GetChildren();
+
+			for (auto& child : children) {
+
+				ConeLight* cone = component_mgr->GetComponent<ConeLight>(child->GetID());
+				PointLight* pt = component_mgr->GetComponent<PointLight>(child->GetID());
+
+				if (cone)
+					cone->SetAlive(false);
+				if (pt)
+					pt->SetAlive(false);
+			}
 		}
 		if (respawn_timer_.TimeElapsed(s) > 10.0f)
 		{
 			respawn_timer_.TimerStop();
 			respawn_timer_.TimerReset();
 			component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(true);
-			component_mgr->GetComponent<PointLight>(id_)->SetAlive(true);
-			component_mgr->GetComponent<ConeLight>(id_)->SetAlive(true);
+			ParentChild* pc = component_mgr->GetComponent<ParentChild>(id_);
+			auto& children = pc->GetChildren();
+
+			for (auto& child : children) {
+
+				ConeLight* cone = component_mgr->GetComponent<ConeLight>(child->GetID());
+				PointLight* pt = component_mgr->GetComponent<PointLight>(child->GetID());
+
+				if (cone)
+					cone->SetAlive(true);
+				if (pt)
+					pt->SetAlive(true);
+			}
 			obj_rigidbody_->SetPosition({
 				ai_->GetDestinations().begin()->x,
 				ai_->GetDestinations().begin()->y });
