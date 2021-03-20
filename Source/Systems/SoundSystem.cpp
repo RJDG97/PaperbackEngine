@@ -144,6 +144,7 @@ void SoundSystem::PlaySounds(std::string fileID) {
 					channel->volume_falloff_ = it->second->volume_falloff_;
 
 					channel_library_[fileID] = channel;
+					channel_library_[fileID]->channel_->setVolume(0);
 					//channel_library_.emplace(std::pair<std::string, SoundChannel*>(fileID, channel));
 				}
 			}
