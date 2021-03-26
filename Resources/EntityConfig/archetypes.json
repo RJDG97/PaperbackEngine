@@ -1656,7 +1656,8 @@
         },
         {
             "component": "AnimationRenderer",
-            "number of animations": "6",
+            "number of animations": "7",
+            "add animation": "Player_Burrow_Show",
             "add animation": "Player_Hiding",
             "add animation": "Player_Burrow_Walk",
             "add animation": "Player_Burrow_Idle",

@@ -133,34 +133,36 @@ namespace Player_Scripts
 
 		switch (status->GetStatus())
 		{
-		case StatusType::BURROW:
-		{
-			renderer->SetAnimationStatus(true);
+			renderer->SetReversed(false);
+			case StatusType::BURROW:
+			{
+				renderer->SetAnimationStatus(true);
 
-			if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
+				if (renderer->FinishedAnimating()) {
 
-				graphics->ChangeAnimation(renderer, "Player_Burrow_Idle");
+					if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
+
+						graphics->ChangeAnimation(renderer, "Player_Burrow_Idle");
+					}
+					else {
+
+						graphics->ChangeAnimation(renderer, "Player_Burrow_Walk");
+					}
+				}
+				break;
 			}
-			else {
+			case StatusType::INVISIBLE:
+			{
+				if (renderer->FinishedAnimating())
+					renderer->SetAnimationStatus(false);
 
-				graphics->ChangeAnimation(renderer, "Player_Burrow_Walk");
+				break;
 			}
-			break;
-		}
-		case StatusType::INVISIBLE:
-		{
-			if (renderer->FinishedAnimating())
-				renderer->SetAnimationStatus(false);
-
-			break;
-		}
-		default:
-		{
-			// check if hit then reset accordingly based on the timer
-
-			renderer->SetAnimationStatus(true);
-
-			if (renderer->FinishedAnimating()) {
+			default:
+			{
+				// check if hit then reset accordingly based on the timer
+			
+				renderer->SetAnimationStatus(true);
 
 				// If velocity is essentially 0, set player to idle
 				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
@@ -176,8 +178,6 @@ namespace Player_Scripts
 						CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_jump");
 				}
 			}
-		}
-
 		}
 
 		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
@@ -203,7 +203,7 @@ namespace Player_Scripts
 	void PlayerControllerScript(const EntityID& id, Message* message) {
 
 		Message_Input* m = dynamic_cast<Message_Input*>(message);
-
+		std::shared_ptr<GraphicsSystem> graphics = CORE->GetSystem<GraphicsSystem>();
 		std::shared_ptr<EntityManager> entity_mgr = CORE->GetManager<EntityManager>();
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 		std::shared_ptr<SoundSystem> sound_system = CORE->GetSystem<SoundSystem>();
@@ -293,7 +293,10 @@ namespace Player_Scripts
 					m_PlayState.SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
 
 					if (player_status->GetStatus() == StatusType::BURROW) {
-						//sound_system->PlaySounds("PlayerBurrowIn");
+
+						AnimationRenderer* renderer = component_mgr->GetComponent<AnimationRenderer>(player_id);
+						graphics->ChangeAnimation(renderer, "Player_Burrow_Show");
+
 						sound_system->PlayTaggedSounds("burrow_in");
 					}
 					else {
