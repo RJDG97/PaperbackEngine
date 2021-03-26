@@ -121,6 +121,11 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
     CORE->GetSystem<GraphicsSystem>()->ChangeLayer(this, layer);
 }
 
+void AnimationRenderer::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+    Serialize(writer);
+}
+
 void AnimationRenderer::DeSerializeClone(std::stringstream& data)
 {
     DeSerialize(data);
