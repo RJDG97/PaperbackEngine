@@ -160,21 +160,18 @@ namespace Player_Scripts
 
 			renderer->SetAnimationStatus(true);
 
-			if (renderer->FinishedAnimating()) {
+			// If velocity is essentially 0, set player to idle
+			if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
 
-				// If velocity is essentially 0, set player to idle
-				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
+				graphics->ChangeAnimation(renderer, "Player_Idle");
+			}
+			// If velocity isn't 0 set to walk
+			else {
 
-					graphics->ChangeAnimation(renderer, "Player_Idle");
-				}
-				// If velocity isn't 0 set to walk
-				else {
+				graphics->ChangeAnimation(renderer, "Player_Walk");
 
-					graphics->ChangeAnimation(renderer, "Player_Walk");
-
-					if (renderer->FinishedAnimating())
-						CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_jump");
-				}
+				if (renderer->FinishedAnimating())
+					CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_jump");
 			}
 		}
 
