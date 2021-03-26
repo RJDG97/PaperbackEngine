@@ -444,7 +444,7 @@ Model* ModelManager::AddConeLightBatchModel(int batch_size, std::string model_na
     //direction
     glEnableVertexArrayAttrib(vao_batch_, 5);
     glVertexArrayVertexBuffer(vao_batch_, 5, vbo_batch_, offset, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(vao_batch_, 5, 1, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribFormat(vao_batch_, 5, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_batch_, 5, 5);
 
     offset += sizeof(glm::vec2) * 4 * batch_size;

@@ -34,7 +34,7 @@ void SplashState::Init(std::string) {
 
 	CORE->GetManager<LayerManager>()->LoadLevelLayers("Splash");
 	FACTORY->LoadLevel("Splash");
-	CORE->GetManager<TransitionManager>()->ResetTransition("Splash_Debug", &m_MenuState);
+	CORE->GetManager<TransitionManager>()->ResetTransition("Splash", &m_MenuState);
 
 	MessageBGM_Play msg{ "Game_BGM" };
 	CORE->BroadcastMessage(&msg);

@@ -72,7 +72,7 @@ void DialogueSystem::Update(float frametime)
 
 				float scaling = textbox_current_scale_.x / textbox_max_scale_.x;
 
-				dialogue_box_renderer_->SetOpacity(scaling * scaling);
+				dialogue_box_renderer_->SetOpacity(std::min(scaling * scaling, textbox_max_opacity_));
 				textbox_current_scale_ = textbox_current_scale_ + 
 											((1.0f - scaling * scaling) * frametime * transition_speed_ + 0.01f) * textbox_max_scale_;
 
@@ -81,7 +81,7 @@ void DialogueSystem::Update(float frametime)
 				if (textbox_current_scale_.y >= textbox_max_scale_.y)
 				{
 					dialogue_box_scale_->SetScale(textbox_max_scale_);
-					dialogue_box_renderer_->SetOpacity(1.0f);
+					dialogue_box_renderer_->SetOpacity(textbox_max_opacity_);
 					dialogue_status_ = DialogueStatus::ADVANCING;
 					
 					if (dialogue_speakername_renderer_)
@@ -188,6 +188,7 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 				dialogue_box_scale_ = component_manager_->GetComponent<Scale>(it->first);
 				std::list<Entity*> children = component_manager_->GetComponent<ParentChild>(it->first)->GetChildren();
 				textbox_max_scale_ = component_manager_->GetComponent<Scale>(it->first)->GetScale();
+				textbox_max_opacity_ = dialogue_box_renderer_->GetOpacity();
 
 				auto text = std::find_if(std::begin(children), std::end(children),
 										 [&](Entity* child) {

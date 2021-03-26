@@ -44,6 +44,7 @@ private:
 	float text_speed_;
 	size_t num_characters_;
 
+	float textbox_max_opacity_;
 	Vector2D textbox_max_scale_;
 	Vector2D textbox_current_scale_;
 	float transition_speed_;
