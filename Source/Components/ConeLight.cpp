@@ -73,6 +73,11 @@ void ConeLight::DeSerializeClone(std::stringstream& data) {
 	DeSerialize(data);
 }
 
+void ConeLight::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+	Serialize(writer);
+}
+
 std::shared_ptr<Component> ConeLight::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning PointLight Component\n");
 

@@ -15,14 +15,10 @@ void MiscWindow::Init() {
 
     imgui_ = &*CORE->GetSystem<ImguiSystem>();
     layer_ = &*CORE->GetManager<LayerManager>();
-    graphics_ = &*CORE->GetSystem<GraphicsSystem>();
-    input_ = &*CORE->GetSystem<InputSystem>();
 
     assetconsole_ = &*imgui_->GetWindow<AssetConsoleWindow>();
 
-	b_draw = b_grid = b_light = b_Nlayer = b_swap = b_remove = b_notempty = false;
-
-    mousePos_ = { 0,0 };
+	b_Nlayer = b_swap = b_remove = b_notempty = false;
 
     newlayertype_ = layerjson_load_ = layername_ = {};
     label_ = assetconsole_->GetFileName(imgui_->chosenlayer_);
@@ -36,50 +32,8 @@ void MiscWindow::Init() {
 void MiscWindow::Update() {
 
 	GraphicsLayerWindow();
-	EditorSettingsWindow();
     NewLayerPopUp();
     LayerPopUps();
-}
-
-void MiscWindow::EditorSettingsWindow() {
-
-	if (imgui_->b_settings) {
-
-		ImGui::Begin("Editor Settings", &imgui_->b_settings);
-
-		DragEntityCheckBox();
-
-		ImGui::SameLine(0, 7);
-
-		if (ImGui::Checkbox("Bounding Boxes", &b_draw)) {
-
-			Message msg(MessageIDTypes::DEBUG_ALL);
-			CORE->BroadcastMessage(&msg);
-		}
-
-		ImGui::Checkbox("Toggle Lighting", &b_light);
-		graphics_->EnableLighting(b_light);
-
-		ImGui::SameLine(0, 3);
-
-		if (imgui_->GetCamera()) {
-
-			ImGui::Checkbox("Draw Grid", &b_grid);
-
-			if (!imgui_->EditorMode()) {
-
-				if (input_->IsMousePressed(0))
-					mousePos_ = input_->GetUpdatedCoords();
-
-				ImGui::Text("Current Cursor Position: %.2f, %.2f", mousePos_.x, mousePos_.y);
-			}
-		}
-
-		if (b_grid)
-			imgui_->DrawGrid();
-		
-		ImGui::End();
-	}
 }
 
 void MiscWindow::GraphicsLayerWindow() {

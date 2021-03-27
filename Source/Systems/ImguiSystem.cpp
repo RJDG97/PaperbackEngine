@@ -71,6 +71,9 @@ void ImguiSystem::Init(){
     b_add_path = false;
     b_windows = true;
     b_layers = false;
+    b_draw = b_light = b_grid = false;
+
+    mousePos_ = {0.0f, 0.0f};
 
     b_lock_entity = false;
     b_imgui_mode = false;
@@ -320,7 +323,6 @@ void ImguiSystem::ImguiMenuBar() {
 
                 if (!editor_->entity_paths_.empty()) {
                     factory_->SerializeCurrentLevelEntities(); // save each entity to their respective path
-
                     b_level_save = true;
                 }
                 else
@@ -382,7 +384,6 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::Checkbox("Toggle Inspector", &b_component);
             ImGui::Checkbox("Toggle Archetype Window", &b_archetype_win);
             ImGui::Checkbox("Toggle Layer Hierachy", &b_layers);
-            ImGui::Checkbox("Toggle Editor Settings", &b_settings);
 
             ImGui::Separator();
 
@@ -402,10 +403,8 @@ void ImguiSystem::ImguiMenuBar() {
             ImGui::EndMenu();
         }
 
-        if (ImGui::MenuItem(VisibleIcon(b_windows, ICON_FA_EYE, ICON_FA_EYE_SLASH).c_str()))
-            b_windows = !b_windows;
-
-        ImguiHelp("Toggle Visible Windows", 0);
+        ImGui::SameLine(0, 15);
+        EditorSettings();
 
         ImGui::PopFont();
     }
@@ -490,6 +489,57 @@ std::string ImguiSystem::GetArchetypePath() {
 void ImguiSystem::SetArchetypePath(std::string new_path) {
 
     archetype_path_ = new_path;
+}
+
+void ImguiSystem::EditorSettings() {
+
+    ImGui::Text("Editor Settings:  ");
+    
+    if (ImGui::MenuItem(VisibleIcon(b_windows, ICON_FA_EYE, ICON_FA_EYE_SLASH).c_str()))
+        b_windows = !b_windows;
+
+    ImguiHelp("Toggle Visible Windows", 0);
+
+    if (ImGui::MenuItem(VisibleIcon(b_lock_entity, ICON_FA_EXPAND_ARROWS_ALT, ICON_FA_COMPRESS_ARROWS_ALT).c_str()))
+        b_lock_entity = !b_lock_entity;
+
+    ImguiHelp("Toggle to Drag Entities Around",0);
+
+    if (ImGui::MenuItem(VisibleIcon(b_draw, ICON_FA_CROP, ICON_FA_CROP_ALT).c_str()))
+        b_draw = !b_draw;
+
+    ImguiHelp("Toggle to show Collision Boxes", 0);
+
+    if (b_draw) {
+
+        Message msg(MessageIDTypes::DEBUG_ALL);
+        CORE->BroadcastMessage(&msg);
+    }
+
+    if (ImGui::MenuItem(VisibleIcon(b_light, ICON_FA_SUN, ICON_FA_MOON).c_str()))
+        b_light = !b_light;
+
+    ImguiHelp("Toggle to Enable Lighting",0);
+    graphics_->EnableLighting(b_light);
+
+    if (GetCamera()) {
+
+        if (ImGui::MenuItem(VisibleIcon(b_grid, ICON_FA_BORDER_ALL, ICON_FA_BORDER_NONE).c_str()))
+            b_grid = !b_grid;
+
+        ImguiHelp("Toggle to Show the Grid",0);
+        
+        if (!EditorMode()) {
+
+            if (input_->IsMousePressed(0))
+                mousePos_ = input_->GetUpdatedCoords();
+
+            ImGui::Text("Cursor Pos: %.2f, %.2f", mousePos_.x, mousePos_.y);
+        }
+    }
+
+    if (b_grid)
+        DrawGrid();
 }
 
 void ImguiSystem::SaveCheckPopUp(const char* window_name, int exit_type) {

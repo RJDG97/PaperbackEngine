@@ -55,15 +55,6 @@ public:
 
     /******************************************************************************/
     /*!
-        \fn EditorSettingsWindow()
-
-        \brief Contains the different options for the editor
-    */
-    /******************************************************************************/
-    void EditorSettingsWindow();
-
-    /******************************************************************************/
-    /*!
         \fn GraphicsLayerWindow()
 
         \brief Shows the user the available layers, and allows users to edit layers
@@ -147,13 +138,9 @@ private:
 
     ImguiSystem* imgui_;
     LayerManager* layer_;
-    GraphicsSystem* graphics_;
-    InputSystem* input_;
     AssetConsoleWindow* assetconsole_;
 
-    bool b_draw, b_grid, b_light, b_layers, b_Nlayer, b_swap, b_remove, b_notempty;
-
-    Vector2D mousePos_;
+    bool b_layers, b_Nlayer, b_swap, b_remove, b_notempty;
 
     std::string newlayertype_, layerjson_load_, label_, layername_;
    

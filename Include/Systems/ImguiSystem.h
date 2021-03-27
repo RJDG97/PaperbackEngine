@@ -66,7 +66,7 @@ public:
 	ImFont* bold_font_, *img_font_;
 
 	bool b_entity_win, b_archetype_win, b_component, b_display, b_edit_path, b_asset, b_edit_comp, b_add_texture;
-	bool b_show_tex, b_settings, b_layers;
+	bool b_show_tex, b_layers;
 
     std::string chosenlayer_;
 
@@ -521,6 +521,15 @@ public:
 /******************************************************************************/	
 	std::string LayertoLoad(const char* filename);
 
+/******************************************************************************/
+/*!
+	\fn EditorSettings()
+
+	\brief Handles the Toggles for the different setting of the editor
+*/
+/******************************************************************************/	
+	void EditorSettings();
+
 private:
 
 	// map to store all imgui windows added to the system
@@ -556,6 +565,10 @@ private:
 	bool b_dock_space_open, b_fullscreen_persistant, b_fullscreen;
 
 	bool b_imgui_mode, b_lock_entity, b_level_save, b_add_path, b_close_confirm, b_editor, b_windows, b_entity_save;
+
+    bool b_draw, b_light, b_grid;
+
+    Vector2D mousePos_;
 
 	// imGui flags for the docking space
 	ImGuiDockNodeFlags dock_space_flags_;

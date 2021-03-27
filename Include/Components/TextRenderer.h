@@ -95,6 +95,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
+
+  \brief Serialises a component as a clone into JSON format
+*/
+/******************************************************************************/
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+
+/******************************************************************************/
+/*!
 	\fn Clone()
 
 	\brief Clones the existing component

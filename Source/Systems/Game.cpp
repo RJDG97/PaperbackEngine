@@ -51,10 +51,7 @@ void Game::Init()
 	texturefiles_to_load_ = LoadAllTextureJson();
     animationfiles_to_load_ = LoadAllAnimationJson();
 
-	//CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Menu");
 	CORE->GetManager<FontManager>()->FontBatchLoad("Menu");
-
-	//CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
 	CORE->GetManager<FontManager>()->FontBatchLoad("Play");
 
 	// to load all the files for textures

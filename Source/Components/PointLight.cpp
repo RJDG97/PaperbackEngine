@@ -70,6 +70,11 @@ void PointLight::DeSerializeClone(std::stringstream& data) {
 	DeSerialize(data);
 }
 
+void PointLight::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+    Serialize(writer);
+}
+
 std::shared_ptr<Component> PointLight::Clone() {
 	M_DEBUG->WriteDebugMessage("Cloning PointLight Component\n");
 

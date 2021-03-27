@@ -99,6 +99,16 @@ public:
 	/******************************************************************************/
 	void DeSerializeClone(std::stringstream& data) override;
 
+    /******************************************************************************/
+    /*!
+    \fn SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
+
+    \brief Serialises a component as a clone into JSON format
+    */
+    /******************************************************************************/
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+
+
 	/******************************************************************************/
 	/*!
 	  \fn Clone()

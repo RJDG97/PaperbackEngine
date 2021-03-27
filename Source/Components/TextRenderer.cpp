@@ -74,6 +74,11 @@ void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
     writer->EndObject();
 }
 
+void TextRenderer::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
+
+    Serialize(writer);
+}
+
 void TextRenderer::DeSerialize(std::stringstream& data) {
 
     int sentence_length;
