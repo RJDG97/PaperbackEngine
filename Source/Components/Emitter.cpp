@@ -105,6 +105,9 @@ void Emitter::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
 	writer->Key("max rotation angle range");
 	writer->String((std::to_string(particle_rotation_.max_rotation_range_.x) + " " + std::to_string(particle_rotation_.max_rotation_range_.y)).c_str());
 
+	writer->Key("Particle scale range");
+	writer->String((std::to_string(particle_scale_.scale_range_.x) + " " + std::to_string(particle_scale_.scale_range_.y)).c_str());
+
 	writer->Key("number of textures");
 	writer->String(std::to_string(particle_texture_.number_of_textures_).c_str());
 
@@ -157,6 +160,12 @@ void Emitter::DeSerializeClone(std::stringstream& data) {
 	data >> particle_rotation_.min_rotation_range_.x >> particle_rotation_.min_rotation_range_.y;
 	data >> particle_rotation_.max_rotation_range_.x >> particle_rotation_.max_rotation_range_.y;
 
+	// Initialize particle's scale range
+	data >> particle_scale_.scale_range_.x >> particle_scale_.scale_range_.y;
+
+	// Initialize particle's opactiy range
+	data >> particle_opacity_.opacity_range_.x >> particle_opacity_.opacity_range_.y;
+
 	// Initialize particle's texture selection
 	data >> particle_texture_.number_of_textures_;
 
@@ -195,6 +204,7 @@ void Emitter::SetParticle(const EntityID& id) {
 	Particle* particle = component_manager->GetComponent<Particle>(id);
 	UIParticle* ui_particle = component_manager->GetComponent<UIParticle>(id);
 	Transform* xform_p = component_manager->GetComponent<Transform>(id);
+	Scale* scale_p = component_manager->GetComponent<Scale>(id);
 	Transform* xform_e = component_manager->GetComponent<Transform>(GetOwner()->GetID());
 	Motion* motion = component_manager->GetComponent<Motion>(id);
 	TextureRenderer* texture_renderer = component_manager->GetComponent<TextureRenderer>(id);
@@ -224,6 +234,8 @@ void Emitter::SetParticle(const EntityID& id) {
 		particle_position_.Generate(xform_p, xform_e, true);
 		particle_force_.Generate(forces_manager, ui_particle, id);
 		particle_rotation_.Generate(xform_p);
+		particle_scale_.Generate(scale_p);
+		particle_opacity_.Generate(texture_renderer);
 		particle_texture_.Generate(graphics_system, texture_renderer);
 		particle_destination_.Init(ui_particle);
 
@@ -484,7 +496,21 @@ void GenerateTexture::Generate(std::shared_ptr<GraphicsSystem> graphics_system, 
 	if (!number_of_textures_)
 		return;
 
-	size_t index = number_of_textures_ == 1 ? 0 : glm::linearRand(0, static_cast<int>(number_of_textures_ - 1));	graphics_system->ChangeTexture(texture, texture_names_[index]);
+	size_t index = number_of_textures_ == 1 ? 0 : glm::linearRand(0, static_cast<int>(number_of_textures_ - 1));
+	graphics_system->ChangeTexture(texture, texture_names_[index]);
+}
+
+void GenerateScale::Generate(Scale* scale) {
+	
+	float updated_scale = glm::linearRand(scale_range_.x, scale_range_.y);
+
+	scale->SetScale({ updated_scale, updated_scale });
+}
+
+void GenerateOpacity::Generate(TextureRenderer* renderer) {
+
+	float updated_opacity = glm::linearRand(opacity_range_.x, opacity_range_.y);
+	renderer->SetOpacity(updated_opacity);
 }
 
 void GenerateDestination::Generate(std::shared_ptr<ForcesManager> force_manager, Particle* particle, EntityID particle_id) {
