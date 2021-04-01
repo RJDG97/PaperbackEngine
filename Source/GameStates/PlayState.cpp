@@ -76,6 +76,12 @@ void PlayState::Init(std::string)
 	
 	//MessageBGM_Play msg{ "River_1" };
 	std::string name = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
+
+	if (name == "End") {
+
+		CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
+	}
+
 	MessageBGM_Play msg{ name + "_BGM" };
 	CORE->BroadcastMessage(&msg);
 

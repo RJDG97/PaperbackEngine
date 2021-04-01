@@ -53,6 +53,19 @@
       "cutscene": "1"
     }
   ],
+  "End": [
+    {
+      "size": "4",
+      "default timer": "0.2",
+      "default transition timer": "0.2",
+      "dark timer": "0.2",
+      "name": "Cutscene_End_8_0",
+      "name": "Cutscene_End_9_0",
+      "name": "Cutscene_End_10_0",
+      "name": "Cutscene_End_11_0",
+      "cutscene": "1"
+    }
+  ],
   "Default": [
     {
       "size": "0",
