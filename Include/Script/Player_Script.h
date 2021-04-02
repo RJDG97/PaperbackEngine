@@ -208,6 +208,7 @@ namespace Player_Scripts
 		std::shared_ptr<EntityManager> entity_mgr = CORE->GetManager<EntityManager>();
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 		std::shared_ptr<SoundSystem> sound_system = CORE->GetSystem<SoundSystem>();
+		std::shared_ptr<PauseSystem> pause_system = CORE->GetSystem<PauseSystem>();
 		std::shared_ptr<Game> game = CORE->GetSystem<Game>();
 
 		InputController* controller = component_mgr->GetComponent<InputController>(id);
@@ -222,7 +223,10 @@ namespace Player_Scripts
 			CORE->ToggleCorePauseStatus(); // Disable physics update
 			CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
 
-			CORE->GetSystem<PauseSystem>()->EnableNextLayer();
+			if (pause_system->PrevLayer() > 1)
+				pause_system->RevertPreviousLayer();
+			else if (pause_system->PrevLayer() <= 1)
+				pause_system->EnableNextLayer();
 
 			//CORE->GetSystem<Collision>()->ToggleClickables(1);
 			//CORE->GetSystem<Collision>()->ToggleClickables(3);
