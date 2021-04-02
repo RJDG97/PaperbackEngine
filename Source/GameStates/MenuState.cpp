@@ -22,6 +22,7 @@
 #include "Systems/InputSystem.h"
 #include "Systems/WindowsSystem.h"
 #include "Systems/ImGuiSystem.h"
+#include "Systems/PauseSystem.h"
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
 #include "Manager/AMap.h"
@@ -62,6 +63,7 @@ void MenuState::Init(std::string)
 	CORE->GetSystem<PartitioningSystem>()->InitPartition();
 	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.8f);
+	CORE->GetSystem<PauseSystem>()->InitializeClickables();
 
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	logic_mgr_ = &*CORE->GetManager<LogicManager>();
@@ -111,98 +113,102 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 	if (game && !game->debug_) {
 
-		switch (msg->message_id_) {
+		switch (msg->message_id_)
+		{
 			//check for collision between button & mouse
-		case MessageIDTypes::BUTTON: {
+			case MessageIDTypes::BUTTON: {
 
-			if (CORE->GetManager<TransitionManager>()->CheckInTransition())
-				return;
+				if (CORE->GetManager<TransitionManager>()->CheckInTransition())
+					return;
 
-			Message_Button* m = dynamic_cast<Message_Button*>(msg);
+				Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
-			switch (m->button_index_)
-			{
-			case 1:
-			{
+				switch (m->button_index_)
+				{
+				case 1:
+				{
 
-				if (help_)
+					if (help_)
+						break;
+
+					MessageBGM_Play button{ "Click_Btn" };
+					CORE->BroadcastMessage(&button);
+
+					// Enter play state
+					//CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_CutSceneState);
+					CORE->GetSystem<Game>()->ChangeState(&m_CutSceneState);
+					return;
 					break;
+				}
+				case 2:
+				{
 
-				MessageBGM_Play button{ "Click_Btn" };
-				CORE->BroadcastMessage(&button);
+					if (help_)
+						break;
 
-				// Enter play state
-				//CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_CutSceneState);
-				CORE->GetSystem<Game>()->ChangeState(&m_CutSceneState);
-				return;
+					MessageBGM_Play button{ "Click_Btn" };
+					CORE->BroadcastMessage(&button);
+
+					CORE->GetSystem<PauseSystem>()->EnableNextLayer();
+
+					//// "How to play"
+					//CORE->GetSystem<Collision>()->ToggleClickables(2);
+					//CORE->GetSystem<Collision>()->ToggleClickables(0);
+					//help_ = true;
+					return;
+					break;
+				}
+				case 3:
+				{
+
+					if (help_)
+						break;
+
+					MessageBGM_Play button{ "Click_Btn" };
+					CORE->BroadcastMessage(&button);
+
+					// Editor mode
+					CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
+					game->ChangeState(&m_EditorState);
+					return;
+					break;
+				}
+				case 4:
+				{
+
+					if (help_)
+						break;
+
+					MessageBGM_Play button{ "Click_Btn" };
+					CORE->BroadcastMessage(&button);
+					// Toggle off game
+					CORE->SetGameActiveStatus(false);
+					return;
+					break;
+				}
+				case 7:
+				{
+
+					if (!help_)
+						break;
+
+					MessageBGM_Play button{ "Click_Btn" };
+					CORE->BroadcastMessage(&button);
+
+					//CORE->GetSystem<Collision>()->ToggleClickables(2);
+					//CORE->GetSystem<Collision>()->ToggleClickables(0);
+					help_ = false;
+					return;
+					break;
+				}
+				}
 				break;
 			}
-			case 2:
-			{
-
-				if (help_)
-					break;
-
-				MessageBGM_Play button{ "Click_Btn" };
-				CORE->BroadcastMessage(&button);
-
-				// "How to play"
-				CORE->GetSystem<Collision>()->ToggleClickables(2);
-				CORE->GetSystem<Collision>()->ToggleClickables(0);
-				help_ = true;
-				return;
+			case MessageIDTypes::M_BUTTON_PRESS: {
+				//for menu navigation in menu
+				CORE->GetSystem<PauseSystem>()->RevertPreviousLayer();
 				break;
 			}
-			case 3:
-			{
-
-				if (help_)
-					break;
-
-				MessageBGM_Play button{ "Click_Btn" };
-				CORE->BroadcastMessage(&button);
-
-				// Editor mode
-				CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
-				game->ChangeState(&m_EditorState);
-				return;
-				break;
-			}
-			case 4:
-			{
-
-				if (help_)
-					break;
-
-				MessageBGM_Play button{ "Click_Btn" };
-				CORE->BroadcastMessage(&button);
-				// Toggle off game
-				CORE->SetGameActiveStatus(false);
-				return;
-				break;
-			}
-			case 7:
-			{
-
-				if (!help_)
-					break;
-
-				MessageBGM_Play button{ "Click_Btn" };
-				CORE->BroadcastMessage(&button);
-
-				CORE->GetSystem<Collision>()->ToggleClickables(2);
-				CORE->GetSystem<Collision>()->ToggleClickables(0);
-				help_ = false;
-				return;
-				break;
-			}
-			}
-			break;
-		}
-		case MessageIDTypes::M_BUTTON_PRESS: {
-			//for menu navigation in menu
-			break;
-		}
 		}
 	}
 }

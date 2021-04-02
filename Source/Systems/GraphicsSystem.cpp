@@ -37,7 +37,7 @@ bool HasClickableAndActive(ComponentManager& mgr, EntityID id) {
 
     if (clickable) {
 
-        return (clickable->GetActive()) ? true : false;
+        return clickable->GetActive();
     }
     //no clickable but active for rendering
     return true;

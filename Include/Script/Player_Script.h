@@ -24,6 +24,7 @@
 #include "Systems/Collision.h"
 #include "Systems/DialogueSystem.h"
 #include "Systems/Game.h"
+#include "Systems/PauseSystem.h"
 #include "Manager/ComponentManager.h"
 #include "Components/LogicComponent.h"
 #include "GameStates/PlayState.h"
@@ -133,7 +134,7 @@ namespace Player_Scripts
 
 		switch (status->GetStatus())
 		{
-			renderer->SetReversed(false);
+
 			case StatusType::BURROW:
 			{
 				renderer->SetAnimationStatus(true);
@@ -217,10 +218,14 @@ namespace Player_Scripts
 
 
 		if (controller->VerifyKey("pause", m->input_)) { // "Esc" key
+
 			CORE->ToggleCorePauseStatus(); // Disable physics update
 			CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
-			CORE->GetSystem<Collision>()->ToggleClickables(1);
-			CORE->GetSystem<Collision>()->ToggleClickables(3);
+
+			CORE->GetSystem<PauseSystem>()->EnableNextLayer();
+
+			//CORE->GetSystem<Collision>()->ToggleClickables(1);
+			//CORE->GetSystem<Collision>()->ToggleClickables(3);
 
 			if (m_PlayState.GetHelp()) {
 

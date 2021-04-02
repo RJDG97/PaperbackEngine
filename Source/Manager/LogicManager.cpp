@@ -63,6 +63,8 @@ void LogicManager::Init() {
 	RegisterLogic("PauseState_HowToPlay", &Button_Script::PauseHowToPlay);
 	RegisterLogic("PauseState_ReturnToMenu", &Button_Script::PauseReturnToMenu);
 	RegisterLogic("PauseState_QuitGame", &Button_Script::PauseQuitGame);
+	RegisterLogic("PauseState_QuitGameYes", &Button_Script::PauseQuitGameYes);
+	RegisterLogic("PauseState_QuitGameNo", &Button_Script::PauseQuitGameNo);
 	RegisterLogic("WinLoseState_EnterMenuState", &Button_Script::WinLoseReturnToMenu);
 	RegisterLogic("WinLoseState_QuitGame", &Button_Script::WinLoseReturnToQuit);
 

@@ -15,6 +15,7 @@
 #include "Systems/Game.h"
 #include "GameStates/GameState.h"
 #include "Systems/InputSystem.h"
+#include "Systems/PauseSystem.h"
 #include "Engine/Core.h"
 #include "GameStates/SplashState.h"
 #include "GameStates/MenuState.h"
@@ -72,6 +73,8 @@ void Game::Init()
 // takes a pointer to a gamestate
 void Game::ChangeState(GameState* state, std::string level_name)
 {
+	CORE->GetSystem<PauseSystem>()->ClearSystem();
+
 	// Remove current state
 	if (!states_.empty()) {
 	

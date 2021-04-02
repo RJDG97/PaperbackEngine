@@ -1078,8 +1078,7 @@
             "scale": "312.000000 400.000000"
         },
         {
-            "component": "Child",
-            "parent_name": ""
+            "component": "Clickable"
         }
     ],
     "InputController": [

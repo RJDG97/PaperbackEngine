@@ -39,7 +39,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -83,7 +83,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -103,17 +103,6 @@ namespace Button_Script
 			case ButtonStates::CLICKED:
 			{
 				graphics_sys->ChangeTexture(texture_renderer, "Menu_HowToPlay_Clicked_0");
-
-				// Parent stuff
-				ParentChild* pc = component_mgr->GetComponent<ParentChild>(button_id);
-				std::list<Entity*> children = pc->GetChildren();
-				EntityID howtoplay_id = (*children.begin())->GetID();
-
-				// Child stuff
-				TextureRenderer* child_renderer = component_mgr->GetComponent<TextureRenderer>(howtoplay_id);
-				if (!child_renderer->IsAlive())
-					child_renderer->SetAlive(true);
-
 
 				// Temporary measure until the ToggleClickables are sorted out
 				Message_Button msg{ clickable->GetIndex() };
@@ -139,7 +128,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -183,7 +172,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -229,7 +218,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -273,7 +262,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -317,7 +306,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -361,7 +350,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -381,15 +370,15 @@ namespace Button_Script
 			{
 				graphics_sys->ChangeTexture(texture_renderer, "UI_Paused_HowTo_Clicked_0");
 
-				// Parent stuff
-				ParentChild* pc = component_mgr->GetComponent<ParentChild>(button_id);
-				std::list<Entity*> children = pc->GetChildren();
-				EntityID howtoplay_id = (*children.begin())->GetID();
+				//// Parent stuff
+				//ParentChild* pc = component_mgr->GetComponent<ParentChild>(button_id);
+				//std::list<Entity*> children = pc->GetChildren();
+				//EntityID howtoplay_id = (*children.begin())->GetID();
 
-				// Child stuff
-				TextureRenderer* child_renderer = component_mgr->GetComponent<TextureRenderer>(howtoplay_id);
-				if (!child_renderer->IsAlive())
-					child_renderer->SetAlive(true);
+				//// Child stuff
+				//TextureRenderer* child_renderer = component_mgr->GetComponent<TextureRenderer>(howtoplay_id);
+				//if (!child_renderer->IsAlive())
+				//	child_renderer->SetAlive(true);
 
 				// Temporary measure until the ToggleClickables are sorted out
 				Message_Button msg{ clickable->GetIndex() };
@@ -415,7 +404,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -459,7 +448,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -491,6 +480,94 @@ namespace Button_Script
 
 	/******************************************************************************/
 	/*!
+	  \fn PauseQuitGameYes()
+
+	  \brief Texture update script for the Pause State Button to Quit
+	*/
+	/******************************************************************************/
+	static void PauseQuitGameYes(const EntityID& button_id, ButtonStates& state) {
+
+		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		GraphicsSystem* graphics_sys = &*CORE->GetSystem<GraphicsSystem>();
+		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
+		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
+
+		if (!texture_renderer || !clickable)
+			return;
+
+		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
+		switch (state)
+		{
+		case ButtonStates::DEFAULT:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_QuitYes_0");
+			break;
+		}
+		case ButtonStates::HOVERED:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_QuitYes_Hovered_0");
+			break;
+		}
+		case ButtonStates::CLICKED:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_QuitYes_Clicked_0");
+
+			// Temporary measure until the ToggleClickables are sorted out
+			Message_Button msg{ clickable->GetIndex() };
+			CORE->BroadcastMessage(&msg);
+
+			break;
+		}
+		}
+	}
+
+
+	/******************************************************************************/
+	/*!
+	  \fn PauseQuitGameNo()
+
+	  \brief Texture update script for the Pause State Button to not Quit
+	*/
+	/******************************************************************************/
+	static void PauseQuitGameNo(const EntityID& button_id, ButtonStates& state) {
+
+		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		GraphicsSystem* graphics_sys = &*CORE->GetSystem<GraphicsSystem>();
+		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
+		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
+
+		if (!texture_renderer || !clickable)
+			return;
+
+		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
+		switch (state)
+		{
+		case ButtonStates::DEFAULT:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_QuitNo_0");
+			break;
+		}
+		case ButtonStates::HOVERED:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_QuitNo_Hovered_0");
+			break;
+		}
+		case ButtonStates::CLICKED:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_QuitNo_Clicked_0");
+
+			// Temporary measure until the ToggleClickables are sorted out
+			Message_Button msg{ clickable->GetIndex() };
+			CORE->BroadcastMessage(&msg);
+
+			break;
+		}
+		}
+	}
+
+
+	/******************************************************************************/
+	/*!
 	  \fn WinLoseReturnToMenu()
 
 	  \brief Texture update script for the WinLose State to Menu
@@ -503,7 +580,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
@@ -547,7 +624,7 @@ namespace Button_Script
 		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
 		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
 
-		if (!texture_renderer)
+		if (!texture_renderer || !clickable)
 			return;
 
 		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button

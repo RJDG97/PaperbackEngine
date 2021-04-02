@@ -26,6 +26,7 @@
 #include "Systems/ImguiSystem.h"
 #include "Systems/LogicSystem.h"
 #include "Systems/DialogueSystem.h"
+#include "Systems/PauseSystem.h"
 
 #include "Manager/ModelManager.h"
 #include "Manager/TextureManager.h"
@@ -93,6 +94,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<DialogueSystem>();
 		CORE->AddSystem<ParentingSystem>();
 		CORE->AddSystem<PuzzleSystem>();
+		CORE->AddSystem<PauseSystem>();
 
 		// Add Managers to the Core Engine
 		CORE->AddManager<ComponentManager>();

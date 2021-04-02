@@ -9,7 +9,8 @@
       "component": "Clickable",
       "index": "1",
       "active": "1",
-      "scale": "2.0 0.66"
+      "scale": "2.0 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
@@ -46,7 +47,8 @@
       "component": "Clickable",
       "index": "2",
       "active": "1",
-      "scale": "2.0 0.66"
+      "scale": "2.0 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
@@ -87,7 +89,8 @@
       "component": "Clickable",
       "index": "3",
       "active": "1",
-      "scale": "2.5 0.66"
+      "scale": "2.5 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
@@ -124,7 +127,8 @@
       "component": "Clickable",
       "index": "4",
       "active": "1",
-      "scale": "2.0 0.66"
+      "scale": "2.0 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
