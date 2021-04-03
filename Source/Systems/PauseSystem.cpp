@@ -95,6 +95,8 @@ void PauseSystem::InitializeClickables()
 
 void PauseSystem::ClearSystem()
 {
+    previous_layer_ = 0;
+    active_layer_ = 1;
     pause_layering_.clear();
 }
 
