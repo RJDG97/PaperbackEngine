@@ -115,7 +115,8 @@ void CutSceneState::StateInputHandler(Message* msg, Game* game) {
 			case GLFW_KEY_ENTER:
 			{
 
-				if (CORE->GetSystem<DialogueSystem>()->GetCurrentDialogueStatus() == DialogueSystem::DialogueStatus::FINISHED_ADVANCING) {
+				if (CORE->GetSystem<DialogueSystem>()->GetCurrentDialogueStatus() == DialogueSystem::DialogueStatus::FINISHED_ADVANCING 
+					|| CORE->GetSystem<DialogueSystem>()->GetCurrentDialogueStatus() == DialogueSystem::DialogueStatus::INACTIVE) {
 				
 					CORE->GetManager<TransitionManager>()->ResetCurrentTransitionTimer();
 					CORE->GetSystem<DialogueSystem>()->AdvanceText();
