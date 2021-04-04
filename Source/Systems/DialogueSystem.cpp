@@ -16,13 +16,13 @@
 
 void DialogueSystem::Init()
 {
+	camera_system_ = &*CORE->GetSystem<CameraSystem>();
 	dialogue_manager_ = &*CORE->GetManager<DialogueManager>();
 	sound_system_ = &*CORE->GetSystem<SoundSystem>();
 	component_manager_ = &*CORE->GetManager<ComponentManager>();
 	graphics_system_ = &*CORE->GetSystem<GraphicsSystem>();
 
-	text_speed_ = 0.0f; //speed
-	//text_speed_ = 0.02f; //normal
+	text_speed_ = 0.00f;
 	textbox_max_scale_ = { 0.0f, 0.0f };
 	transition_speed_ = 5.85f;
 	dialogue_status_ = DialogueStatus::INACTIVE;
@@ -90,6 +90,24 @@ void DialogueSystem::Update(float frametime)
 					}
 
 					UpdatePortraits();
+
+					DialogueCameraEffect* effect = current_dialogue_content_->GetDialogueCameraEffect();
+					
+					if (effect->type_ == CameraEffectType::CAMERA_NONE)
+					{
+						camera_system_->TargetPlayer();
+					}
+
+					else if (effect->type_ == CameraEffectType::CAMERA_SHAKE)
+					{
+						camera_system_->ScreenShake(effect->amplitude_, effect->duration_);
+					}
+
+					else if (effect->type_ == CameraEffectType::CAMERA_MOVE)
+					{
+						dialogue_camera_destination = { effect->destination_ };
+						camera_system_->TargetVector(&dialogue_camera_destination);
+					}
 				}
 
 				break;
@@ -327,6 +345,7 @@ void DialogueSystem::AdvanceText()
 				num_characters_ = 0;
 				current_speech_ = {};
 				dialogue_status_ = DialogueStatus::CLOSING;
+				camera_system_->TargetPlayer();
 			}
 
 			else
@@ -334,6 +353,23 @@ void DialogueSystem::AdvanceText()
 				num_characters_ = 0;
 				++current_dialogue_content_;
 				entire_speech_ = current_dialogue_content_->GetSpeech();
+				DialogueCameraEffect* effect = current_dialogue_content_->GetDialogueCameraEffect();
+
+				if (effect->type_ == CameraEffectType::CAMERA_NONE)
+				{
+					camera_system_->TargetPlayer();
+				}
+
+				else if (effect->type_ == CameraEffectType::CAMERA_SHAKE)
+				{
+					camera_system_->ScreenShake(effect->amplitude_, effect->duration_);
+				}
+
+				else if (effect->type_ == CameraEffectType::CAMERA_MOVE)
+				{
+					dialogue_camera_destination = { effect->destination_ };
+					camera_system_->TargetVector(&dialogue_camera_destination);
+				}
 
 				if (dialogue_speakername_renderer_)
 				{

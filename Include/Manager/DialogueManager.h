@@ -16,12 +16,29 @@
 #include "../rapidjson/filereadstream.h"
 #include "../rapidjson/document.h"
 #include "prettywriter.h"
+#include "MathLib/Vector2D.h"
 #include <vector>
 #include <string>
 #include <map>
 
+enum CameraEffectType {
+
+	CAMERA_NONE,
+	CAMERA_SHAKE,
+	CAMERA_MOVE
+};
+
+struct DialogueCameraEffect
+{
+	CameraEffectType type_;
+	Vector2D destination_;
+	float amplitude_;
+	float duration_;
+};
+
 class DialogueContent
 {
+	DialogueCameraEffect effect_;
 	std::string left_portrait_;
 	std::string right_portrait_;
 	std::string name_;
@@ -47,12 +64,22 @@ public:
   \brief Constructor for DialogueContent
 */
 /******************************************************************************/
-	DialogueContent(std::string left_portrait,
+	DialogueContent(DialogueCameraEffect effect,
+					std::string left_portrait,
 					std::string right_portrait,
 					std::string name,
 					std::string speech,
 					bool left_darken,
 					bool right_darken);
+
+/******************************************************************************/
+/*!
+	\fn GetDialogueCameraEffect()
+
+	\brief Get dialogue camera effect
+*/
+/******************************************************************************/
+	DialogueCameraEffect* GetDialogueCameraEffect();
 
 /******************************************************************************/
 /*!

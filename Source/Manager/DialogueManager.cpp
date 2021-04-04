@@ -14,13 +14,15 @@
 #include "Manager/DialogueManager.h"
 #include "Systems/Game.h"
 
-DialogueContent::DialogueContent(std::string left_portrait,
+DialogueContent::DialogueContent(DialogueCameraEffect effect,
+                                 std::string left_portrait,
                                  std::string right_portrait,
                                  std::string name,
                                  std::string speech,
 					             bool left_darken,
 					             bool right_darken)
-    : left_portrait_ { left_portrait },
+    : effect_ { effect },
+      left_portrait_ { left_portrait },
       right_portrait_{ right_portrait },
       name_{ name },
       speech_ {speech},
@@ -30,11 +32,15 @@ DialogueContent::DialogueContent(std::string left_portrait,
 
 }
 
-
 Dialogue::Dialogue(std::vector<DialogueContent> contents)
     : contents_ { contents }
 {
 
+}
+
+DialogueCameraEffect* DialogueContent::GetDialogueCameraEffect()
+{
+    return &effect_;
 }
 
 std::string* DialogueContent::GetSpeech()
@@ -103,6 +109,43 @@ void DialogueManager::LoadDialogue(std::string dialogue_name, std::string path)
     std::vector<DialogueContent> contents;
 
     for (rapidjson::Value::ConstMemberIterator file_it = files_arr.MemberBegin(); file_it != files_arr.MemberEnd(); ++file_it) {
+        
+        std::stringstream camera_effect{};
+        camera_effect << file_it->value.GetString();
+        
+        DialogueCameraEffect effect;
+        std::string effect_type;
+        camera_effect >> effect_type;
+
+        if (effect_type == "Shake")
+        {
+            effect.type_ = CAMERA_SHAKE;
+            float amplitude;
+            float duration;
+            camera_effect >> amplitude >> duration;
+            effect.amplitude_ = amplitude;
+            effect.duration_ = duration;
+        }
+
+        else if (effect_type == "Move")
+        {
+            effect.type_ = CAMERA_MOVE;
+            Vector2D position;
+            camera_effect >> position.x >> position.y;
+            effect.destination_ = position;
+        }
+
+        else if (effect_type == "None")
+        {
+            effect.type_ = CAMERA_NONE;
+        }
+        
+        else
+        {
+            DEBUG_ASSERT(false, "Invalid camera effect!");
+        }
+        
+        ++file_it;
 
         std::stringstream portrait;
         portrait << file_it->value.GetString();
@@ -115,10 +158,11 @@ void DialogueManager::LoadDialogue(std::string dialogue_name, std::string path)
         portrait >> left_portrait >> right_portrait >> left_darken >> right_darken;
 
         ++file_it;
+
         std::string name = file_it->name.GetString();
         std::string speech = file_it->value.GetString();
         
-        contents.push_back({ left_portrait, right_portrait, name, speech, !left_darken, !right_darken });
+        contents.push_back({ effect, left_portrait, right_portrait, name, speech, !left_darken, !right_darken });
     }
 
     dialogues_[dialogue_name] = { contents };

@@ -1,28 +1,42 @@
 {
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 Potato_Happy_0 0 1",
 
     "Potato Elder": "Splendid work with that burrowing!",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
     "Potato Elder": "However, don't do it for too long.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
 
     "Potato Elder": "It takes up a lot of water from you.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
 
     "Potato Elder": "You may faint from dehydration!",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
     "Potato Elder": "*yawn* It's getting late.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 Potato_Happy_0 0 1",
 
     "Potato Elder": "I'll see you around. Take care, young 'un.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Happy_0 Potato_Happy_0 1 0",
 
     "Radish Boy": "Okay, goodnight!"

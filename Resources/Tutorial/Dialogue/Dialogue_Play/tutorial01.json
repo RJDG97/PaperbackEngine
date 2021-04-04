@@ -1,20 +1,30 @@
 {
+	"Effect": "Shake 1.0 1.0",
+	
     "Portrait": "Radish_Shocked_0 None 1 0",
-
+	
     "Radish Boy": "Wow! It's already so dark outside.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Happy_0 None 1 0",
 
     "Radish Boy": "I promised to go play with my friends tonight.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 None 1 0",
 
     "Radish Boy": "I'll go see if Mushroom Girl's ready first.",
 
+	"Effect": "Move 60.0 -100.0",
+	
     "Portrait": "Radish_Idle_0 None 1 0",
 
     "Radish Boy": "Her house is located at the east side of town.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 None 1 0",
 
     "Radish Boy": "[Use WASD to move.]"

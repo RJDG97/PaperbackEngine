@@ -158,10 +158,19 @@ public:
 /*!
   \fn GetPosition()
 
-  \brief Returns the rotation of the component
+  \brief Returns the position of the component
 */
 /******************************************************************************/
 	Vector2D GetPosition() const;
+
+/******************************************************************************/
+/*!
+	\fn GetPositionPtr()
+
+	\brief Returns the pointer to the position of the component
+*/
+/******************************************************************************/
+	Vector2D* GetPositionPtr();
 
 /******************************************************************************/
 /*!
