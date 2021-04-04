@@ -289,7 +289,7 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 				std::string state_name = CORE->GetSystem<Game>()->GetStateName();
 
 				// Only if the index == 4 (Return to menu) or index == 1 (Enter play) do we return - This is because of the clickable array being updated
-				if (state == ButtonStates::CLICKED && ((index == 4 && state_name == "Play") || (index == 1 && state_name == "SplashState")) )
+				if (state == ButtonStates::CLICKED && ((index == 4 && state_name == "Play") || (index == 1 && state_name == "SplashState") || state_name == "WinLose"))
 					return;
 			}
 			else {
