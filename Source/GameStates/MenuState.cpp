@@ -125,82 +125,64 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 				switch (m->button_index_)
 				{
-				case 1:
-				{
+					// Case 1: Enter playstate
+					case 1:
+					{
+						MessageBGM_Play button{ "Click_Btn" };
+						CORE->BroadcastMessage(&button);
 
-					if (help_)
+						CORE->GetSystem<Game>()->ChangeState(&m_CutSceneState);
+						return;
 						break;
+					}
+					// Case 2: How to play menu
+					case 2:
+					{
+						MessageBGM_Play button{ "Click_Btn" };
+						CORE->BroadcastMessage(&button);
 
-					MessageBGM_Play button{ "Click_Btn" };
-					CORE->BroadcastMessage(&button);
+						CORE->GetSystem<PauseSystem>()->EnableNextLayer();
 
-					// Enter play state
-					//CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_CutSceneState);
-					CORE->GetSystem<Game>()->ChangeState(&m_CutSceneState);
-					return;
-					break;
-				}
-				case 2:
-				{
-
-					if (help_)
+						return;
 						break;
+					}
+					// Case 3: Editor mode
+					case 3:
+					{
+						MessageBGM_Play button{ "Click_Btn" };
+						CORE->BroadcastMessage(&button);
 
-					MessageBGM_Play button{ "Click_Btn" };
-					CORE->BroadcastMessage(&button);
-
-					CORE->GetSystem<PauseSystem>()->EnableNextLayer();
-
-					//// "How to play"
-					//CORE->GetSystem<Collision>()->ToggleClickables(2);
-					//CORE->GetSystem<Collision>()->ToggleClickables(0);
-					//help_ = true;
-					return;
-					break;
-				}
-				case 3:
-				{
-
-					if (help_)
+						// Editor mode
+						CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
+						game->ChangeState(&m_EditorState);
+						return;
 						break;
+					}
+					// Case 4: Toggle quit game
+					case 4:
+					{
+						MessageBGM_Play button{ "Click_Btn" };
+						CORE->BroadcastMessage(&button);
+						CORE->GetSystem<PauseSystem>()->SetActiveLayer(3);
 
-					MessageBGM_Play button{ "Click_Btn" };
-					CORE->BroadcastMessage(&button);
-
-					// Editor mode
-					CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
-					game->ChangeState(&m_EditorState);
-					return;
-					break;
-				}
-				case 4:
-				{
-
-					if (help_)
+						return;
 						break;
-
-					MessageBGM_Play button{ "Click_Btn" };
-					CORE->BroadcastMessage(&button);
-					// Toggle off game
-					CORE->SetGameActiveStatus(false);
-					return;
-					break;
-				}
-				case 7:
-				{
-
-					if (!help_)
+					}
+					// Case 5 = Quit Game
+					case 5:
+					{
+						Message mesg{ MessageIDTypes::EXIT };
+						CORE->BroadcastMessage(&mesg);
 						break;
-
-					MessageBGM_Play button{ "Click_Btn" };
-					CORE->BroadcastMessage(&button);
-
-					//CORE->GetSystem<Collision>()->ToggleClickables(2);
-					//CORE->GetSystem<Collision>()->ToggleClickables(0);
-					help_ = false;
-					return;
-					break;
-				}
+					}
+					// Case 6 = Return to previous layer (Return to pause menu layer)
+					case 6:
+					{
+						MessageBGM_Play button{ "Click_Btn" };
+						CORE->BroadcastMessage(&button);
+						CORE->GetSystem<PauseSystem>()->SetActiveLayer(1);
+						break;
+					}
 				}
 				break;
 			}

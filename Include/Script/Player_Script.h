@@ -219,6 +219,9 @@ namespace Player_Scripts
 
 
 		if (controller->VerifyKey("pause", m->input_)) { // "Esc" key
+			
+			if (CORE->GetSystem<PauseSystem>()->GetState())
+				return;
 
 			CORE->ToggleCorePauseStatus(); // Disable physics update
 			CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
