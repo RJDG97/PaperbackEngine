@@ -25,7 +25,6 @@ bool Common::CheckAlive::run()
 		respawn_timer_.TimerUpdate();
 		// If Timer has not started, start
 		if (respawn_timer_.TimeElapsed(s) == 0) {
-			respawn_timer_.TimerStop();
 			respawn_timer_.TimerReset();
 			respawn_timer_.TimerStart();
 			component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(false);
@@ -45,7 +44,6 @@ bool Common::CheckAlive::run()
 		}
 		if (respawn_timer_.TimeElapsed(s) > 10.0f)
 		{
-			respawn_timer_.TimerStop();
 			respawn_timer_.TimerReset();
 			component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(true);
 			ParentChild* pc = component_mgr->GetComponent<ParentChild>(id_);

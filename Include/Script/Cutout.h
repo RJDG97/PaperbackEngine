@@ -2,6 +2,7 @@
 #define _CUTOUT_H_
 
 #include "Script/Common_Nodes.h"
+#include "Entity/ComponentTypes.h"
 
 class Cutout : public Behaviour
 {
@@ -109,19 +110,30 @@ public:
 	{
 		EntityID id_;
 		ComponentManager* component_mgr;
-		PointLight* pointlight;
-		ConeLight* conelight;
+		ParentChild* pc;
+		PointLight* pt;
+		ConeLight* cone;
 	public:
 		Detected(EntityID id) : id_(id) {
 			component_mgr = &*CORE->GetManager<ComponentManager>();
-			pointlight = component_mgr->GetComponent<PointLight>(id_);
-			conelight = component_mgr->GetComponent<ConeLight>(id_);
 		}
 
 		bool run() override
 		{
-			conelight->SetColor({1, 0, 0});
-			pointlight->SetColor({0, 0, 0});
+			if (!pc) {
+				pc = component_mgr->GetComponent<ParentChild>(id_);
+				auto& children = pc->GetChildren();
+
+				for (auto& child : children) {
+					cone = component_mgr->GetComponent<ConeLight>(child->GetID());
+					pt = component_mgr->GetComponent<PointLight>(child->GetID());
+				}
+			}
+
+			if(cone)
+				cone->SetColor({1, 0, 0});
+			if(pt)
+				pt->SetColor({1, 0, 0});
 			return true;
 		}
 	};
@@ -129,10 +141,12 @@ public:
 	class Flip :public Node
 	{
 		EntityID id_;
+		EntityID child_id_;
 		ComponentManager* component_mgr;
-		AI* ai;
-		PointLight* pointlight;
-		ConeLight* conelight;
+
+		ParentChild* pc;
+		PointLight* pt;
+		ConeLight* cone;
 
 		std::shared_ptr<GraphicsSystem> graphics;
 		Motion* motion;
@@ -141,25 +155,41 @@ public:
 	public:
 		Flip(EntityID id) : id_(id) {
 			component_mgr = &*CORE->GetManager<ComponentManager>();
-			ai = component_mgr->GetComponent<AI>(id_);
-			pointlight = component_mgr->GetComponent<PointLight>(id_);
 			motion = component_mgr->GetComponent<Motion>(id_);
-			conelight = component_mgr->GetComponent<ConeLight>(id_);
+
 			graphics = CORE->GetSystem<GraphicsSystem>();
 			renderer = component_mgr->GetComponent<TextureRenderer>(id_);
-			timer.TimerReset();
+
 			timer.TimerStart();
 		}
 
 		bool run() override
 		{
+			if (!pc) {
+				pc = component_mgr->GetComponent<ParentChild>(id_);
+				auto& children = pc->GetChildren();
+
+				for (auto& child : children) {
+					cone = component_mgr->GetComponent<ConeLight>(child->GetID());
+					pt = component_mgr->GetComponent<PointLight>(child->GetID());
+				}
+			}
+
 			timer.TimerUpdate();
-			conelight->SetColor({ 1, 0, 0 });
-			pointlight->SetColor({ 0, 0, 0 });
+			if(cone)
+				cone->SetColor({ 1, 1, 1 });
+			if(pt)
+				pt->SetColor({ 1, 1, 1 });
 
 			if (timer.TimeElapsed(s) > 3.0f)
 			{
 				motion->SetIsLeft(!motion->IsLeft());
+				if (motion->IsLeft()) {
+					motion->SetVelocity({ -0.1f, 0.0f });
+				}
+				else
+					motion->SetVelocity({ 0.1f, 0.0f });
+
 				graphics->FlipTextureY(renderer);
 				timer.TimerReset();
 			}
