@@ -173,12 +173,13 @@ void PlayState::Update(Game* game, float frametime)
 
 			int new_hp = health->GetCurrentHealth() - 1;
 			health->SetCurrentHealth(new_hp);
+			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_deplete");
 			timer_ = 5.0f;
 		}
 
 		if (health && health->GetCurrentHealth() <= 0) {
 
-			//CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerDies_0");
+			CORE->GetSystem<SoundSystem>()->PlaySounds("player_dead");
 			game->ChangeState(&m_WinLoseState, "Lose");
 		}
 	}

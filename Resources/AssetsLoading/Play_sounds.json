@@ -1389,6 +1389,26 @@
             "tag": "tutorial_BGM"
         }
     ],
+    "Intro_BGM": [
+        {
+            "path": "Resources/SoundCache/States/Cutscene_Mode/Intro_BGM.wav",
+            "volume": "0.050000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "intro_BGM"
+        }
+    ],
+    "End_BGM": [
+        {
+            "path": "Resources/SoundCache/States/Cutscene_Mode/End_BGM.wav",
+            "volume": "0.050000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "end_BGM"
+        }
+    ],
     "Click_Btn": [
         {
             "path": "Resources/SoundCache/UI/Click_Button/Click_Btn.wav",

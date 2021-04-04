@@ -47,9 +47,14 @@ void CutSceneState::Init(std::string) {
 		CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_PlayState);
 	}
 	else {
-
-		MessageBGM_Play msg{ "Tutorial_BGM" };
-		CORE->BroadcastMessage(&msg);
+		if (name == "LevelOne") {
+			MessageBGM_Play msg{ "Intro_BGM" };
+			CORE->BroadcastMessage(&msg);
+		}
+		else {
+			MessageBGM_Play msg{ name + "_BGM" };
+			CORE->BroadcastMessage(&msg);
+		}
 
 		CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 
