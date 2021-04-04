@@ -92,7 +92,7 @@ public:
 	  \brief Returns the name of the current state
 	*/
 	/******************************************************************************/
-	std::string GetStateName() { return "SplashState"; }
+	std::string GetStateName() { return "CutsceneState"; }
 };
 
 extern CutSceneState m_CutSceneState;

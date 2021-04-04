@@ -18,6 +18,7 @@
 #include "GameStates/CutSceneState.h"
 #include "GameStates/EditorState.h"
 #include "GameStates/WinLoseState.h"
+#include "GameStates/CreditsState.h"
 
 #include "Systems/InputSystem.h"
 #include "Systems/WindowsSystem.h"
@@ -200,6 +201,13 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 					help_ = false;
 					return;
 					break;
+				}
+				case 10:
+				{
+					if (help_)
+						break;
+
+					CORE->GetSystem<Game>()->ChangeState(&m_CreditsState);
 				}
 				}
 				break;
