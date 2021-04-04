@@ -30,7 +30,7 @@ public:
 	{
 		StagBeetle,
 		Mite,
-		Hornet
+		Cutout
 	};
 
 	enum AIState

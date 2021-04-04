@@ -333,6 +333,7 @@
     <ClInclude Include="Include\Script\Button_Script.h" />
     <ClInclude Include="Include\Script\Collectible_Script.h" />
     <ClInclude Include="Include\Script\Common_Nodes.h" />
+    <ClInclude Include="Include\Script\Cutout.h" />
     <ClInclude Include="Include\Script\DialogueTrigger_Script.h" />
     <ClInclude Include="Include\Script\Mite_Tree.h" />
     <ClInclude Include="Include\Script\Movable_Script.h" />

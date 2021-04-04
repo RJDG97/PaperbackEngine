@@ -164,11 +164,12 @@ bool Common::PlayerWithinVision::run() {
 				// Change angle from rad to degrees
 				angle *= 180 / 3.14159f;
 				// If within view, return detected
-				if (angle > (-45.0f - (Alert::level * 5)) && angle < (45.0f + (Alert::level * 5)))
+				if (angle > (-45.0f - (Alert::level * 5)) && angle < (45.0f + (Alert::level * 5))) {
 					// Note: will have to check for object obstruction in the line of sight
 					ai_->GetPath().clear();
-				Alert::increment();
-				return true;
+					Alert::increment();
+					return true;
+				}	
 			}
 		}
 		else {
@@ -183,11 +184,12 @@ bool Common::PlayerWithinVision::run() {
 				// Change angle from rad to degrees
 				angle *= 180 / 3.14159f;
 				// If within view, return detected
-				if (angle > -45.0f && angle < 45.0f)
+				if (angle > -45.0f && angle < 45.0f) {
 					// Note: will have to check for object obstruction in the line of sight
 					ai_->GetPath().clear();
-				Alert::increment();
-				return true;
+					Alert::increment();
+					return true;
+				}
 			}
 		}
 	}

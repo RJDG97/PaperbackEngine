@@ -2472,6 +2472,12 @@
             "component": "Name",
             "name": "StagTarget"
         },
+        {
+            "component": "Motion",
+            "mass": "8.000000",
+            "force": "0.000000",
+            "alive": "1"
+        },
 
         {
             "component": "Transform",
@@ -2497,6 +2503,30 @@
         {
             "component": "Scale",
             "scale": "180.000000 180.000000"
+        },
+        {
+            "component": "AI",
+            "AIType": "Cutout",
+            "level": "0",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "1",
+            "destination1": "27.660000 -79.400002"
+        },
+        {
+            "component": "PointLight",
+            "color": "0.900000 0.600000 0.600000",
+            "radius": "1000.000000",
+            "intensity": "0.600000",
+            "alive": "1"
+        },
+        {
+            "component": "ConeLight",
+            "color": "0.800000 0.800000 0.800000",
+            "radius": "0.800000",
+            "intensity": "0.800000",
+            "angle": "0.800000",
+            "alive": "1"
         }
     ],
     "EyeLights": [

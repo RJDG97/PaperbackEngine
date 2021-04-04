@@ -216,6 +216,9 @@
     <Filter Include="Systems\PauseSystem">
       <UniqueIdentifier>{4e0073cc-a58a-48f5-a09f-4ef74fe3cd21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Cutout">
+      <UniqueIdentifier>{af70bb11-490d-4785-abdc-2c8372483f11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -894,6 +897,9 @@
     </ClInclude>
     <ClInclude Include="Include\Systems\PauseSystem.h">
       <Filter>Systems\PauseSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Cutout.h">
+      <Filter>Scripts\Cutout</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
