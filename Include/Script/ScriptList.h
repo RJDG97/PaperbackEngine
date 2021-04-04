@@ -15,5 +15,6 @@
 
 #include "Stag_Tree.h"
 #include "Mite_Tree.h"
+#include "Cutout.h"
 
 #endif

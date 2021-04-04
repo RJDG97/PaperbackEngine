@@ -94,6 +94,15 @@ public:
 
 /******************************************************************************/
 /*!
+  \fn SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
+
+  \brief Serialises a component as a clone into JSON format
+*/
+/******************************************************************************/
+	void SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) override;
+
+/******************************************************************************/
+/*!
 	\fn DeSerializeClone(std::stringstream& data)
 
 	\brief Serializes data members within the Component

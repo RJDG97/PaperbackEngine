@@ -136,7 +136,6 @@ private:
 
 	LogicType* logic_arr_;
 	InputType* input_arr_;
-
 	ComponentManager* component_mgr_;
 	LogicManager* logic_mgr_;
 	EntityManager* entity_mgr_;

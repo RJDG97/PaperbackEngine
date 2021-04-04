@@ -91,6 +91,9 @@ void AI::SetRoot(AIType type){
 	case Mite:
 		root_ = new Mite_Tree::MiteRoot(GetOwner()->GetID());
 		break;
+	case Cutout:
+		root_ = new Cutout::CutoutRoot(GetOwner()->GetID());
+		break;
 	}
 }
 
@@ -100,8 +103,8 @@ AI::AIType AI::GetType(std::string type)
 		return StagBeetle;
 	else if (type == "Mite")
 		return Mite;
-	else if (type == "Hornet")
-		return Hornet;
+	else if (type == "Cutout")
+		return Cutout;
 	// replace with exception
 	return StagBeetle;
 }

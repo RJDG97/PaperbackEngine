@@ -176,12 +176,22 @@ public:
 /******************************************************************************/
 	std::vector<std::string> LoadAllTextureJson();
 
+/******************************************************************************/
+/*!
+  \fn LoadAllAnimationJson()
+
+  \brief Load all animations from a specific path
+*/
+/******************************************************************************/
+	std::vector<std::string> LoadAllAnimationJson();
+
 private:
 	bool debug_;
 
 	// stack to hold the states
 	std::vector<GameState*> states_;
-	std::vector<std::string> files_to_load_;
+	std::vector<std::string> texturefiles_to_load_;
+	std::vector<std::string> animationfiles_to_load_;
 	// for the game loop
 	bool b_running_;
 

@@ -1078,8 +1078,7 @@
             "scale": "312.000000 400.000000"
         },
         {
-            "component": "Child",
-            "parent_name": ""
+            "component": "Clickable"
         }
     ],
     "InputController": [
@@ -1656,7 +1655,8 @@
         },
         {
             "component": "AnimationRenderer",
-            "number of animations": "6",
+            "number of animations": "7",
+            "add animation": "Player_Burrow_Show",
             "add animation": "Player_Hiding",
             "add animation": "Player_Burrow_Walk",
             "add animation": "Player_Burrow_Idle",
@@ -2472,6 +2472,12 @@
             "component": "Name",
             "name": "StagTarget"
         },
+        {
+            "component": "Motion",
+            "mass": "8.000000",
+            "force": "0.000000",
+            "alive": "1"
+        },
 
         {
             "component": "Transform",
@@ -2497,6 +2503,19 @@
         {
             "component": "Scale",
             "scale": "180.000000 180.000000"
+        },
+        {
+            "component": "AI",
+            "AIType": "Cutout",
+            "level": "0",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "1",
+            "destination1": "27.660000 -79.400002"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": ""
         }
     ],
     "EyeLights": [

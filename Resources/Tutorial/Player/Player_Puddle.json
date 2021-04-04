@@ -30,6 +30,10 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_1"
         }
     ],
     "Puddle": [
@@ -63,6 +67,10 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_2"
         }
     ],
     "Puddle": [
@@ -96,6 +104,10 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_3"
         }
     ],
     "Puddle": [
@@ -129,6 +141,10 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_4"
         }
     ],
     "Puddle": [
@@ -162,6 +178,10 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_5"
         }
     ],
     "Puddle": [
@@ -195,6 +215,10 @@
             "number_of_fns": "1",
             "name": "Collectible",
             "function": "Environment_Collectible"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "Puddle_6"
         }
     ]
 }

@@ -8,6 +8,12 @@
             "aabb offset": "0.000000 0.400000"
         },
         {
+            "component": "Motion",
+            "mass": "8.000000",
+            "force": "0.000000",
+            "alive": "1"
+        },
+        {
             "component": "TextureRenderer",
             "texture": "Stag_Target_0",
             "layer": "1",
@@ -24,6 +30,20 @@
         {
             "component": "Scale",
             "scale": "180.000000 180.000000"
+        },
+        {
+            "component": "AI",
+            "AIType": "Cutout",
+            "level": "0",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "2",
+            "destination1": "18.000000 -81.500000",
+            "destination1": "20.000000 -81.500000"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "StagTarget1"
         }
     ],
     "StagTarget": [
@@ -35,6 +55,12 @@
             "aabb offset": "0.000000 0.400000"
         },
         {
+            "component": "Motion",
+            "mass": "8.000000",
+            "force": "0.000000",
+            "alive": "1"
+        },
+        {
             "component": "TextureRenderer",
             "texture": "Stag_Target_0",
             "layer": "1",
@@ -51,6 +77,20 @@
         {
             "component": "Scale",
             "scale": "180.000000 180.000000"
+        },
+        {
+            "component": "AI",
+            "AIType": "Cutout",
+            "level": "0",
+            "range": "5.000000",
+            "speed": "200.000000",
+            "dest": "2",
+            "destination1": "26.0 -79.400002",
+            "destination1": "28.0 -79.400002"
+        },
+        {
+            "component": "ParentChild",
+            "my_name": "StagTarget2"
         }
     ]
 }

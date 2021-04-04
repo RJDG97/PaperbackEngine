@@ -9,7 +9,8 @@
       "component": "Clickable",
       "index": "1",
       "active": "1",
-      "scale": "2.0 0.66"
+      "scale": "2.0 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
@@ -46,7 +47,8 @@
       "component": "Clickable",
       "index": "2",
       "active": "1",
-      "scale": "2.0 0.66"
+      "scale": "2.0 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
@@ -87,7 +89,8 @@
       "component": "Clickable",
       "index": "3",
       "active": "1",
-      "scale": "2.5 0.66"
+      "scale": "2.5 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
@@ -117,14 +120,15 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.16 -3.2",
+      "position": "0.16 -4.5",
       "rotation": "0.0"
     },
     {
       "component": "Clickable",
       "index": "4",
       "active": "1",
-      "scale": "2.0 0.66"
+      "scale": "2.0 0.66",
+      "group": "1"
     },
     {
       "component": "Scale",
@@ -149,6 +153,44 @@
       "number_of_fns": "1",
       "name": "ButtonUpdateTexture",
       "function": "MenuState_QuitGame"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.16 -3.2",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "10",
+      "active": "1",
+      "scale": "2.0 0.66",
+      "group": "1"
+    },
+    {
+      "component": "Scale",
+      "scale": "120.0 40.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "2.0 0.66",
+      "layer": "6"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "Menu_Quit_0",
+      "layer": "0",
+      "order in layer": "2",
+      "alive": "1",
+      "opacity": "1.0",
+      "tint": "1.0 1.0 1.0"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "MenuState_Credits"
     }
   ]
 }

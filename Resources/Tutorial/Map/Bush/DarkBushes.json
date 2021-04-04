@@ -32,7 +32,7 @@
             "position": "38.599998 -105.300003",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -0.400000"
         },
         {
             "component": "TextureRenderer",
@@ -59,7 +59,7 @@
             "position": "23.400000 -62.200001",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -0.400000"
         },
         {
             "component": "TextureRenderer",
@@ -72,7 +72,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.000000 0.800000",
             "layer": "9"
         },
         {
@@ -86,7 +86,7 @@
             "position": "15.200000 -60.500000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -0.400000"
         },
         {
             "component": "TextureRenderer",
@@ -167,7 +167,7 @@
             "position": "16.600000 -85.599998",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -0.300000"
         },
         {
             "component": "TextureRenderer",
@@ -180,7 +180,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.000000 0.600000",
             "layer": "9"
         },
         {
@@ -221,7 +221,7 @@
             "position": "25.400000 -61.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -0.500000"
         },
         {
             "component": "TextureRenderer",
@@ -248,7 +248,7 @@
             "position": "19.299999 -60.500000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
+            "aabb offset": "0.000000 -0.300000"
         },
         {
             "component": "TextureRenderer",
@@ -261,7 +261,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.000000 1.000000",
+            "scale": "1.000000 0.600000",
             "layer": "9"
         },
         {

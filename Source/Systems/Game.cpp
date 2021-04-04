@@ -15,6 +15,7 @@
 #include "Systems/Game.h"
 #include "GameStates/GameState.h"
 #include "Systems/InputSystem.h"
+#include "Systems/PauseSystem.h"
 #include "Engine/Core.h"
 #include "GameStates/SplashState.h"
 #include "GameStates/MenuState.h"
@@ -48,17 +49,21 @@ void Game::Init()
 	status_arr_ = comp_mgr->GetComponentArray<Status>();
 	basicai_arr_ = comp_mgr->GetComponentArray<BasicAI>();
 
-	files_to_load_ = LoadAllTextureJson();
+	texturefiles_to_load_ = LoadAllTextureJson();
+    animationfiles_to_load_ = LoadAllAnimationJson();
 
-	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Menu");
+	//CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Menu");
 	CORE->GetManager<FontManager>()->FontBatchLoad("Menu");
 
-	CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
+	//CORE->GetManager<AnimationManager>()->AnimationBatchLoad("Play");
 	CORE->GetManager<FontManager>()->FontBatchLoad("Play");
 
 	// to load all the files for textures
-	for (int i = 0; i < files_to_load_.size(); ++i)
-		CORE->GetManager<TextureManager>()->TextureBatchLoad(files_to_load_[i]);
+	for (int i = 0; i < texturefiles_to_load_.size(); ++i)
+		CORE->GetManager<TextureManager>()->TextureBatchLoad(texturefiles_to_load_[i]);
+
+    for (int i = 0; i < animationfiles_to_load_.size(); ++i)
+        CORE->GetManager<AnimationManager>()->AnimationBatchLoad(animationfiles_to_load_[i]);
 
 	ChangeState(&m_SplashState);
 
@@ -68,6 +73,8 @@ void Game::Init()
 // takes a pointer to a gamestate
 void Game::ChangeState(GameState* state, std::string level_name)
 {
+	CORE->GetSystem<PauseSystem>()->ClearSystem();
+
 	// Remove current state
 	if (!states_.empty()) {
 	
@@ -124,8 +131,10 @@ void Game::Free()
 		states_.pop_back();
 	}
 
-	if (!files_to_load_.empty())
-		files_to_load_.clear();
+	if (!texturefiles_to_load_.empty() && !animationfiles_to_load_.empty()) {
+		texturefiles_to_load_.clear();
+		animationfiles_to_load_.clear(); 
+	}
 }
 
 std::string Game::GetStateName() {
@@ -193,3 +202,25 @@ std::vector<std::string> Game::LoadAllTextureJson() {
 
 	return tempfiles;
 }
+
+std::vector<std::string> Game::LoadAllAnimationJson() {
+
+	std::string filename = {};
+	std::string file = {};
+	std::vector<std::string> tempfiles = {};
+	for (auto& texjson : fs::directory_iterator("Resources/AssetsLoading")) {
+
+		if (fs::is_regular_file(texjson) && texjson.path().extension() == ".json" && texjson.path().filename().generic_string().find("animation") != texjson.path().filename().generic_string().npos) {
+
+			filename = texjson.path().filename().generic_string().c_str();
+
+			if (filename.find("_") != filename.npos)
+				file = filename.substr(0, filename.find("_"));
+
+			tempfiles.push_back(file);
+		}
+	}
+
+	return tempfiles;
+}
+

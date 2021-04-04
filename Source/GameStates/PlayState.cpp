@@ -25,6 +25,7 @@
 #include "Systems/ImguiSystem.h"
 #include "Systems/Partitioning.h"
 #include "Systems/Collision.h"
+#include "Systems/PauseSystem.h"
 
 #include "Components/Transform.h"
 #include "Components/Motion.h"
@@ -76,6 +77,12 @@ void PlayState::Init(std::string)
 	
 	//MessageBGM_Play msg{ "River_1" };
 	std::string name = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
+
+	if (name == "End") {
+
+		CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
+	}
+
 	MessageBGM_Play msg{ name + "_BGM" };
 	CORE->BroadcastMessage(&msg);
 
@@ -84,6 +91,7 @@ void PlayState::Init(std::string)
 	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.7f);
 	CORE->GetSystem<CameraSystem>()->TargetPlayer();
+	CORE->GetSystem<PauseSystem>()->InitializeClickables();
 
 	CORE->GetManager<DialogueManager>()->LoadDialogueSet("Play");
 	//CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("beginning");
@@ -165,12 +173,13 @@ void PlayState::Update(Game* game, float frametime)
 
 			int new_hp = health->GetCurrentHealth() - 1;
 			health->SetCurrentHealth(new_hp);
+			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_deplete");
 			timer_ = 5.0f;
 		}
 
 		if (health && health->GetCurrentHealth() <= 0) {
 
-			//CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerDies_0");
+			CORE->GetSystem<SoundSystem>()->PlaySounds("player_dead");
 			game->ChangeState(&m_WinLoseState, "Lose");
 		}
 	}
@@ -259,80 +268,109 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 			switch (msg->message_id_) {
 				//check for collision between button & mouse
-			case MessageIDTypes::BUTTON: {
+				case MessageIDTypes::BUTTON: {
 
-				if (CORE->GetManager<TransitionManager>()->CheckInTransition())
-					return;
+					if (CORE->GetManager<TransitionManager>()->CheckInTransition())
+						return;
 
-				Message_Button* m = dynamic_cast<Message_Button*>(msg);
+					Message_Button* m = dynamic_cast<Message_Button*>(msg);
 
-				switch (m->button_index_)
-				{
-				case 9:
-				case 1:
-				{
-					if (help_)
-						break;
+					switch (m->button_index_)
+					{
+						// Case 1 & 2 = Pause & Resume Buttons
+						case 1:
+							[[fallthrough]];
+						case 2:
+						{
+							// If current state is already "Paused" - PrevLayer > 1 means Pause Menu is open at the very least
+							if (m->button_index_ == 1 && CORE->GetSystem<PauseSystem>()->PrevLayer() > 1)
+								break;
 
-					CORE->ToggleCorePauseStatus(); // Disable physics update
-					CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
-					CORE->GetSystem<Collision>()->ToggleClickables(1);
-					CORE->GetSystem<Collision>()->ToggleClickables(3);
+							// Disable physics update
+							CORE->ToggleCorePauseStatus();
+							// Toggle game's pause menu
+							CORE->ToggleGamePauseStatus();
 
-					if (CORE->GetCorePauseStatus()) {
-						
-						Message pause{ MessageIDTypes::BGM_PAUSE };
-						CORE->BroadcastMessage(&pause);
+							// Enable pause menu
+							if (m->button_index_ == 1)
+								CORE->GetSystem<PauseSystem>()->EnableNextLayer();
+							else if (m->button_index_ == 2)
+								CORE->GetSystem<PauseSystem>()->RevertPreviousLayer();
+
+							// Play button click sfx
+							MessageBGM_Play button{ "Click_Btn" };
+							CORE->BroadcastMessage(&button);
+
+							// Toggle BGMs
+							if (CORE->GetCorePauseStatus()) {
+
+								Message pause{ MessageIDTypes::BGM_PAUSE };
+								CORE->BroadcastMessage(&pause);
+							}
+							else {
+
+								Message pause{ MessageIDTypes::BGM_RESUME };
+								CORE->BroadcastMessage(&pause);
+							}
+
+							break;
+						}
+						// Case 3 = Toggle how to play menu
+						case 3:
+						{
+							// Play button click sfx
+							MessageBGM_Play button{ "Click_Btn" };
+							CORE->BroadcastMessage(&button);
+
+							// Enable how_to_play menu
+							CORE->GetSystem<PauseSystem>()->EnableNextLayer();
+							break;
+						}
+						// Case 4 = Return to main menu
+						case 4:
+						{
+							// Play button click sfx
+							MessageBGM_Play button{ "Click_Btn" };
+							CORE->BroadcastMessage(&button);
+
+							// Return to menu
+							CORE->GetSystem<DialogueSystem>()->TempCleanup();
+							CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
+							return;
+							break;
+						}
+						// Case 5 = Exit game (Add an additional layer afterwards for the confirmation check)
+						case 5:
+						{
+							CORE->GetSystem<PauseSystem>()->SetActiveLayer(4);
+							break;
+						}
+						// Case 6 & 7 = Quit Game / Return to previous layer
+						case 6:
+						{
+							Message mesg{ MessageIDTypes::EXIT };
+							CORE->BroadcastMessage(&mesg);
+							break;
+						}
+						case 7:
+						{
+							CORE->GetSystem<PauseSystem>()->SetActiveLayer(2);
+							break;
+						}
+						case 10:
+						{
+							CORE->GetSystem<WindowsSystem>()->ToggleFullScreen();
+							break;
+						}
 					}
-					else {
-
-						Message pause{ MessageIDTypes::BGM_RESUME };
-						CORE->BroadcastMessage(&pause);
-					}
-
 					break;
 				}
-				case 7:
-				case 2:
-				{
-					
-					MessageBGM_Play button{ "Click_Btn" };
-					CORE->BroadcastMessage(&button);
-
-					CORE->GetSystem<Collision>()->ToggleClickables(2);
-					CORE->GetSystem<Collision>()->ToggleClickables(1);
-					help_ = !help_;
+				case MessageIDTypes::M_BUTTON_PRESS: {
+					//for menu navigation in menu
+					if (CORE->GetSystem<PauseSystem>()->PrevLayer() == 3)
+						CORE->GetSystem<PauseSystem>()->RevertPreviousLayer();
 					break;
 				}
-				case 3:
-				{
-					if (help_)
-						break;
-
-					MessageBGM_Play button{ "Click_Btn" };
-					CORE->BroadcastMessage(&button);
-					CORE->GetSystem<DialogueSystem>()->TempCleanup();
-					CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
-					return;
-					break;
-				}
-				case 4:
-				{
-					if (help_)
-						break;
-
-					Message mesg{ MessageIDTypes::EXIT };
-					CORE->BroadcastMessage(&mesg);
-					break;
-				}
-				case 8:
-				{
-
-					CORE->GetSystem<WindowsSystem>()->ToggleFullScreen();
-					break;
-				}
-				}
-			}
 			}
 		}
 	}

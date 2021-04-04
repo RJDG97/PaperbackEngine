@@ -39,6 +39,16 @@ bool Clickable::GetActive() {
 	return active_;
 }
 
+void Clickable::SetActive(bool status) {
+
+	active_ = status;
+}
+
+size_t Clickable::GetGroup() {
+
+	return group_;
+}
+
 Clickable::~Clickable() {
 	//CORE->GetSystem<Collision>()->RemoveClickableComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<Clickable>(Component::GetOwner()->GetID());

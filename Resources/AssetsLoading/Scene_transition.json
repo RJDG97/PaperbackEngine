@@ -53,6 +53,36 @@
       "cutscene": "1"
     }
   ],
+  "End": [
+    {
+      "size": "6",
+      "default timer": "0.2",
+      "default transition timer": "0.2",
+      "dark timer": "0.2",
+      "name": "Cutscene_End_8_0",
+      "name": "Cutscene_End_9_0",
+      "name": "Cutscene_End_10_0",
+      "name": "Cutscene_End_11_0",
+      "name": "Cutscene_End_12_0",
+      "name": "Cutscene_End_13_0",
+      "cutscene": "1"
+    }
+  ],
+  "Credits": [
+    {
+      "size": "6",
+      "default timer": "0.2",
+      "default transition timer": "0.2",
+      "dark timer": "0.2",
+      "name": "Cutscene_End_8_0",
+      "name": "Cutscene_End_9_0",
+      "name": "Cutscene_End_10_0",
+      "name": "Cutscene_End_11_0",
+      "name": "Cutscene_End_12_0",
+      "name": "Cutscene_End_13_0",
+      "cutscene": "1"
+    }
+  ],
   "Default": [
     {
       "size": "0",

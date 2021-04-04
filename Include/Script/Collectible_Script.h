@@ -35,7 +35,7 @@ namespace Collectible_Script
 
 		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
 		ForcesManager* forces_mgr = &*CORE->GetManager<ForcesManager>();
-
+		std::shared_ptr<SoundSystem> sound_sys = CORE->GetSystem<SoundSystem>();
 		Status* player_status = component_mgr->GetComponent<Status>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
 		if (player_status->GetStatus() == StatusType::BURROW)
 			return;
@@ -59,7 +59,7 @@ namespace Collectible_Script
 
 				Vector2D direction = des->GetDestination() - xform->GetOffsetAABBPos();
 				Vector2DNormalize(direction, direction);
-				
+				sound_sys->PlayTaggedSounds("player_sprout");
 				//// This dialogue does not exist yet, add in your own version if you are interested wheeeee
 				//CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("Spore_Collected");
 				forces_mgr->AddForce(collectible_id, "Collected", 5.0f, direction * motion->GetForce());
@@ -77,7 +77,7 @@ namespace Collectible_Script
 				if (point_light) point_light->SetAlive(false);
 				if (aabb) aabb->SetAlive(false);
 
-				CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("drink");
+				sound_sys->PlayTaggedSounds("drink");
 
 				ParentChild* pc = component_mgr->GetComponent<ParentChild>(collectible_id);
 

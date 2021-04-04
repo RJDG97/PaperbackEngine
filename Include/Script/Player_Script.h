@@ -24,6 +24,7 @@
 #include "Systems/Collision.h"
 #include "Systems/DialogueSystem.h"
 #include "Systems/Game.h"
+#include "Systems/PauseSystem.h"
 #include "Manager/ComponentManager.h"
 #include "Components/LogicComponent.h"
 #include "GameStates/PlayState.h"
@@ -133,34 +134,36 @@ namespace Player_Scripts
 
 		switch (status->GetStatus())
 		{
-		case StatusType::BURROW:
-		{
-			renderer->SetAnimationStatus(true);
 
-			if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
+			case StatusType::BURROW:
+			{
+				renderer->SetAnimationStatus(true);
 
-				graphics->ChangeAnimation(renderer, "Player_Burrow_Idle");
+				if (renderer->FinishedAnimating()) {
+
+					if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
+
+						graphics->ChangeAnimation(renderer, "Player_Burrow_Idle");
+					}
+					else {
+
+						graphics->ChangeAnimation(renderer, "Player_Burrow_Walk");
+					}
+				}
+				break;
 			}
-			else {
+			case StatusType::INVISIBLE:
+			{
+				if (renderer->FinishedAnimating())
+					renderer->SetAnimationStatus(false);
 
-				graphics->ChangeAnimation(renderer, "Player_Burrow_Walk");
+				break;
 			}
-			break;
-		}
-		case StatusType::INVISIBLE:
-		{
-			if (renderer->FinishedAnimating())
-				renderer->SetAnimationStatus(false);
-
-			break;
-		}
-		default:
-		{
-			// check if hit then reset accordingly based on the timer
-
-			renderer->SetAnimationStatus(true);
-
-			if (renderer->FinishedAnimating()) {
+			default:
+			{
+				// check if hit then reset accordingly based on the timer
+			
+				renderer->SetAnimationStatus(true);
 
 				// If velocity is essentially 0, set player to idle
 				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
@@ -176,8 +179,6 @@ namespace Player_Scripts
 						CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_jump");
 				}
 			}
-		}
-
 		}
 
 		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
@@ -203,10 +204,11 @@ namespace Player_Scripts
 	void PlayerControllerScript(const EntityID& id, Message* message) {
 
 		Message_Input* m = dynamic_cast<Message_Input*>(message);
-
+		std::shared_ptr<GraphicsSystem> graphics = CORE->GetSystem<GraphicsSystem>();
 		std::shared_ptr<EntityManager> entity_mgr = CORE->GetManager<EntityManager>();
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 		std::shared_ptr<SoundSystem> sound_system = CORE->GetSystem<SoundSystem>();
+		std::shared_ptr<PauseSystem> pause_system = CORE->GetSystem<PauseSystem>();
 		std::shared_ptr<Game> game = CORE->GetSystem<Game>();
 
 		InputController* controller = component_mgr->GetComponent<InputController>(id);
@@ -217,10 +219,17 @@ namespace Player_Scripts
 
 
 		if (controller->VerifyKey("pause", m->input_)) { // "Esc" key
+
 			CORE->ToggleCorePauseStatus(); // Disable physics update
 			CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
-			CORE->GetSystem<Collision>()->ToggleClickables(1);
-			CORE->GetSystem<Collision>()->ToggleClickables(3);
+
+			if (pause_system->PrevLayer() > 1)
+				pause_system->RevertPreviousLayer();
+			else if (pause_system->PrevLayer() <= 1)
+				pause_system->EnableNextLayer();
+
+			//CORE->GetSystem<Collision>()->ToggleClickables(1);
+			//CORE->GetSystem<Collision>()->ToggleClickables(3);
 
 			if (m_PlayState.GetHelp()) {
 
@@ -293,7 +302,10 @@ namespace Player_Scripts
 					m_PlayState.SetStatus("Player", StatusType::BURROW, 0.0f, &*CORE->GetSystem<Game>()); // "N"
 
 					if (player_status->GetStatus() == StatusType::BURROW) {
-						//sound_system->PlaySounds("PlayerBurrowIn");
+
+						AnimationRenderer* renderer = component_mgr->GetComponent<AnimationRenderer>(player_id);
+						graphics->ChangeAnimation(renderer, "Player_Burrow_Show");
+
 						sound_system->PlayTaggedSounds("burrow_in");
 					}
 					else {
