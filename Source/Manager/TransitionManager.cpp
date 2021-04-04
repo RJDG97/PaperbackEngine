@@ -66,7 +66,7 @@ bool TransitionManager::ResetTransition(const std::string& id, GameState* next_s
 		graphics_system_->SetVignetteSize(clear_current_size_);
 		graphics_system_->SetMaxVignetteSize(current_size_);
 		current_transition_ = &*it->second;
-		transition_speed_ = max_size_ / current_transition_->default_transition_timer_;
+		transition_speed_ = max_size_ / current_transition_->default_transition_timer_ * 0.5f;
 
 		if (current_transition_->skip_) {
 
@@ -111,7 +111,10 @@ bool TransitionManager::DelayTransition(const float& frametime) {
 
 void TransitionManager::OpenTransition(const float& frametime) {
 
-	current_size_ += transition_speed_ * frametime;
+	float scaling = current_size_.x / max_size_.x;
+	scaling *= scaling;
+	scaling *= scaling;
+	current_size_ += transition_speed_ * frametime * (1.0f - scaling + 0.01f);
 	clear_current_size_ = { std::max(0.0f, current_size_.x - 320.0f), std::max(0.0f, current_size_.y - 180.0f) };
 
 	if (clear_current_size_.x > max_clear_size_.x && clear_current_size_.y > max_clear_size_.y) {
