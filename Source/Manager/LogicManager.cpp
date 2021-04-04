@@ -53,6 +53,7 @@ void LogicManager::Init() {
 	RegisterLogic("MenuState_HowToPlay", &Button_Script::MenuHowToPlay);
 	RegisterLogic("MenuState_EnterEditorState", &Button_Script::MenuEnterEditor);
 	RegisterLogic("MenuState_QuitGame", &Button_Script::MenuQuitGame);
+	RegisterLogic("MenuState_Credits", &Button_Script::MenuCredits);
 	RegisterLogic("MenuState_TitleCard", &TitleCard_Script::TitleCardAnim);
 	RegisterLogic("MenuState_TitleText", &TitleCard_Script::TitleTextAnim);
 

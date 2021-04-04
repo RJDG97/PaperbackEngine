@@ -58,6 +58,7 @@ void WinLoseState::Draw(Game* game) {
 
 void WinLoseState::Free() {
 
+	CORE->GetSystem<SoundSystem>()->StopSound("All", true);
 	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();

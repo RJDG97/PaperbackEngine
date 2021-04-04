@@ -1309,6 +1309,26 @@
             "tag": "wind"
         }
     ],
+    "Win": [
+        {
+            "path": "Resources/SoundCache/States/Win_Lose_Mode/Win.wav",
+            "volume": "0.050000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "win"
+        }
+    ],
+    "Lose": [
+        {
+            "path": "Resources/SoundCache/States/Win_Lose_Mode/Lose.wav",
+            "volume": "0.050000",
+            "min distance": "0.000000",
+            "volume falloff": "0.000000",
+            "loop": "1",
+            "tag": "lose"
+        }
+    ],
     "Game_BGM": [
         {
             "path": "Resources/SoundCache/States/Game_Mode/Game_BGM.wav",
