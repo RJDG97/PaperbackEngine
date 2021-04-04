@@ -87,7 +87,32 @@ public:
 	/******************************************************************************/
 	void ClearSystem();
 
+	/******************************************************************************/
+	/*!
+	  \fn PrevLayer()
+
+	  \brief Retrieves the previous layer value
+	*/
+	/******************************************************************************/
 	const int& PrevLayer() const;
+
+	/******************************************************************************/
+	/*!
+	  \fn TerminateState()
+
+	  \brief Set to true to pause controls indefinitely
+	*/
+	/******************************************************************************/
+	void TerminateState(bool status);
+
+	/******************************************************************************/
+	/*!
+	  \fn GetState()
+
+	  \brief Retrieves the state ended status
+	*/
+	/******************************************************************************/
+	bool GetState() const;
 
 	/******************************************************************************/
 	/*!
@@ -119,7 +144,7 @@ private:
 	std::shared_ptr<ComponentManager> mgr;
 	ClickableMap* click_map_;
 	PauseMap pause_layering_;
-	bool delay_;
+	bool ended_;
 
 	// Previous active_layer_
 	int previous_layer_;

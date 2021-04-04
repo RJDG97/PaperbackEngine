@@ -42,6 +42,8 @@
 #include "Systems/DialogueSystem.h"
 #include "Systems/Parenting.h"
 
+#include "GameStates/CutSceneState.h"
+
 #include <memory>
 
 // Play state
@@ -121,13 +123,21 @@ void PlayState::Update(Game* game, float frametime)
 
 	if (win_) {
 		
-		game->ChangeState(&m_WinLoseState, "Win");
+		CORE->ToggleCorePauseStatus(); // Disable physics update
+		CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+		CORE->GetSystem<PauseSystem>()->TerminateState(true);
+		CORE->GetSystem<PauseSystem>()->SetActiveLayer(5);
+		//game->ChangeState(&m_WinLoseState, "Win");
 		return;
 	}
 
 	if (lose_) {
 		
-		game->ChangeState(&m_WinLoseState, "Lose");
+		CORE->ToggleCorePauseStatus(); // Disable physics update
+		CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+		CORE->GetSystem<PauseSystem>()->TerminateState(true);
+		CORE->GetSystem<PauseSystem>()->SetActiveLayer(6);
+		//game->ChangeState(&m_WinLoseState, "Lose");
 		return;
 	}
 
@@ -179,8 +189,12 @@ void PlayState::Update(Game* game, float frametime)
 
 		if (health && health->GetCurrentHealth() <= 0) {
 
-			CORE->GetSystem<SoundSystem>()->PlaySounds("player_dead");
-			game->ChangeState(&m_WinLoseState, "Lose");
+			CORE->ToggleCorePauseStatus(); // Disable physics update
+			CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+			CORE->GetSystem<PauseSystem>()->TerminateState(true);
+			CORE->GetSystem<PauseSystem>()->SetActiveLayer(6);
+			//CORE->GetSystem<SoundSystem>()->PlaySounds("player_dead");
+			//game->ChangeState(&m_WinLoseState, "Lose");
 		}
 	}
 }
@@ -339,25 +353,67 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 							return;
 							break;
 						}
-						// Case 5 = Exit game (Add an additional layer afterwards for the confirmation check)
+						// Case 5 = Exit game (Jump to confirm quit layer)
 						case 5:
 						{
 							CORE->GetSystem<PauseSystem>()->SetActiveLayer(4);
 							break;
 						}
-						// Case 6 & 7 = Quit Game / Return to previous layer
+						// Case 6 = Quit Game
 						case 6:
 						{
 							Message mesg{ MessageIDTypes::EXIT };
 							CORE->BroadcastMessage(&mesg);
 							break;
 						}
+						// Case 7 = Return to previous layer (Return to pause menu layer)
 						case 7:
 						{
 							CORE->GetSystem<PauseSystem>()->SetActiveLayer(2);
 							break;
 						}
+						// Case 8 = Win current level
+						case 8:
+						{
+							Levels* levels = CORE->GetSystem<EntityFactory>()->GetLevelsFile();
+							Level* curr_play = levels->GetLastPlayLevel();
+
+							if (curr_play->optional_next_ != "") {
+
+								//there is successive level
+								levels->GetPlayLevel(curr_play->optional_next_);
+								game->ChangeState(&m_CutSceneState);
+								return;
+							}
+							else {
+
+								//last level
+								levels->ResetPlayLevels();
+								game->ChangeState(&m_MenuState);
+								return;
+							}
+							return;
+							break;
+						}
+						// Case 9 = Lose current level
+						case 9:
+						{
+							std::string previous_state = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
+							game->ChangeState(&m_PlayState, previous_state);
+							return;
+							break;
+						}
+						// Case 10 & 11 = Return to menu state
 						case 10:
+							[[fallthrough]];
+						case 11:
+						{
+							game->ChangeState(&m_MenuState);
+							return;
+							break;
+						}
+						// Case 20 = Toggle fullscreen
+						case 20:
 						{
 							CORE->GetSystem<WindowsSystem>()->ToggleFullScreen();
 							break;

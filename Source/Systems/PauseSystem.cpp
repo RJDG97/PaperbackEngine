@@ -21,6 +21,7 @@ void PauseSystem::Init()
     pause_layering_.clear();
     previous_layer_ = 0;
     active_layer_ = 1;
+    ended_ = false;
 }
 
 
@@ -95,6 +96,7 @@ void PauseSystem::InitializeClickables()
 
 void PauseSystem::ClearSystem()
 {
+    ended_ = false;
     previous_layer_ = 0;
     active_layer_ = 1;
     pause_layering_.clear();
@@ -103,4 +105,14 @@ void PauseSystem::ClearSystem()
 const int& PauseSystem::PrevLayer() const
 {
     return previous_layer_;
+}
+
+void PauseSystem::TerminateState(bool status)
+{
+    ended_ = status;
+}
+
+bool PauseSystem::GetState() const
+{
+    return ended_;
 }

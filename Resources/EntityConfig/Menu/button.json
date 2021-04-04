@@ -158,6 +158,82 @@
   "button": [
     {
       "component": "Transform",
+      "position": "-2.0 -1.75",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "5",
+      "active": "0",
+      "scale": "0.5 0.5",
+      "group": "3"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "4.0 4.0",
+      "layer": "6"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_QuitYes_0",
+      "layer": "0",
+      "order in layer": "2",
+      "alive": "0",
+      "opacity": "1.0",
+      "tint": "1.0 1.0 1.0"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "PauseState_QuitGameYes"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "2.0 -1.75",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "6",
+      "active": "0",
+      "scale": "0.5 0.5",
+      "group": "3"
+    },
+    {
+      "component": "Scale",
+      "scale": "32.0 32.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "4.0 4.0",
+      "layer": "6"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_QuitNo_0",
+      "layer": "0",
+      "order in layer": "2",
+      "alive": "0",
+      "opacity": "1.0",
+      "tint": "1.0 1.0 1.0"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "ButtonUpdateTexture",
+      "function": "PauseState_QuitGameNo"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
       "position": "0.16 -3.2",
       "rotation": "0.0"
     },
@@ -191,6 +267,38 @@
       "number_of_fns": "1",
       "name": "ButtonUpdateTexture",
       "function": "MenuState_Credits"
+    }
+  ],
+  "button": [
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "100",
+      "active": "0",
+      "scale": "0.0001 0.0001",
+      "group": "3"
+    },
+    {
+      "component": "Scale",
+      "scale": "240.0 180.0"
+    },
+    {
+      "component": "AABB",
+      "scale": "4.0 4.0",
+      "layer": "6"
+    },
+    {
+      "component": "TextureRenderer",
+      "texture": "UI_QuitGame_0",
+      "layer": "0",
+      "order in layer": "1",
+      "alive": "0",
+      "opacity": "1.0",
+      "tint": "1.0 1.0 1.0"
     }
   ]
 }
