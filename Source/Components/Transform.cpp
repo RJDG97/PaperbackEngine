@@ -96,6 +96,11 @@ Vector2D Transform::GetPosition() const {
 	return position_;
 }
 
+Vector2D* Transform::GetPositionPtr() {
+
+	return &position_;
+}
+
 void Transform::SetPosition(const Vector2D& pos) {
 
 	position_ = pos;

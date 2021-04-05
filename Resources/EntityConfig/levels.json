@@ -10,7 +10,9 @@
   
   "LevelOne": "Resources/Test/Level1.json LevelTwo",
 
-  "LevelTwo": "Resources/Level2/Level2.json",
+  "LevelTwo": "Resources/Level2/Level2.json End",
+  
+  "End": "Resources/EntityConfig/LevelEnd.json",
   
   "Win": "Resources/EntityConfig/win.json",
 

@@ -80,7 +80,14 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 	switch (button)
 	{
 	case GLFW_MOUSE_BUTTON_LEFT:
+	{
+		if (action == GLFW_PRESS)
+		{
+			Message msg(MessageIDTypes::M_BUTTON_PRESS);
+			CORE->BroadcastMessage(&msg);
+		}
 		break;
+	}
 	case GLFW_MOUSE_BUTTON_RIGHT:
 		break;
 	case GLFW_MOUSE_BUTTON_MIDDLE:

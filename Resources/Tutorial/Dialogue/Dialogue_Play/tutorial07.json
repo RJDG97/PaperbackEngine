@@ -1,16 +1,24 @@
 {
+	"Effect": "None",
+	
     "Portrait": "Radish_Shocked_0 None 1 0",
 
     "Radish Boy": "Whoa! Are those cutouts of insects?",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 None 1 0",
 
     "Radish Boy": "I remember being taught that we could hide from them.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 None 1 0",
 
     "Radish Boy": "Maybe I could try that in the grass here.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 None 1 0",
 
     "Radish Boy": "[Press Space to toggle hiding while in grass.]"

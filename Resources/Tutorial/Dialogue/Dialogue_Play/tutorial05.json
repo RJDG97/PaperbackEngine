@@ -1,32 +1,48 @@
 {
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 Mushroom_Happy_0 0 1",
 
     "Mushroom Girl": "Thank you, Radish Boy!",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 Mushroom_Happy_0 0 1",
 
     "Mushroom Girl": "It's a relief to have my spores come back to me!",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Happy_0 Mushroom_Happy_0 1 0",
 
     "Radish Boy": "You're welcome! Do you wanna go play yet?",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Happy_0 Mushroom_Default_0 0 1",
 
     "Mushroom Girl": "Ehehe, I still have to get ready.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Happy_0 Mushroom_Determined_0 0 1",
 
     "Mushroom Girl": "Why don't you check on Carrot Boy first?",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Happy_0 Mushroom_Determined_0 0 1",
 
     "Mushroom Girl": "I'll wait for you guys at the village exit.",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Happy_0 Mushroom_Determined_0 1 0",
 
     "Radish Boy": "Okay, see ya!",
 
+	"Effect": "None",
+	
     "Portrait": "Radish_Idle_0 None 1 0",
 
     "Radish Boy": "Time to head to Carrot Boy's house nearby."

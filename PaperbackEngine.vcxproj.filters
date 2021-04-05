@@ -213,6 +213,12 @@
     <Filter Include="Entity\Components\UIParticle">
       <UniqueIdentifier>{b44f6991-9182-4e19-974d-bf033a7ba0a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\PauseSystem">
+      <UniqueIdentifier>{4e0073cc-a58a-48f5-a09f-4ef74fe3cd21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Cutout">
+      <UniqueIdentifier>{af70bb11-490d-4785-abdc-2c8372483f11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -517,6 +523,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\UIParticle.cpp">
       <Filter>Entity\Components\UIParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\PauseSystem.cpp">
+      <Filter>Systems\PauseSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -885,6 +894,12 @@
     </ClInclude>
     <ClInclude Include="Include\Components\UIParticle.h">
       <Filter>Entity\Components\UIParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\PauseSystem.h">
+      <Filter>Systems\PauseSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Script\Cutout.h">
+      <Filter>Scripts\Cutout</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -245,6 +245,7 @@
     <ClCompile Include="Source\Systems\Parenting.cpp" />
     <ClCompile Include="Source\Systems\ParticleSystem.cpp" />
     <ClCompile Include="Source\Systems\Partitioning.cpp" />
+    <ClCompile Include="Source\Systems\PauseSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics.cpp" />
     <ClCompile Include="Source\Systems\PuzzleSystem.cpp" />
     <ClCompile Include="Source\Systems\SoundSystem.cpp" />
@@ -332,6 +333,7 @@
     <ClInclude Include="Include\Script\Button_Script.h" />
     <ClInclude Include="Include\Script\Collectible_Script.h" />
     <ClInclude Include="Include\Script\Common_Nodes.h" />
+    <ClInclude Include="Include\Script\Cutout.h" />
     <ClInclude Include="Include\Script\DialogueTrigger_Script.h" />
     <ClInclude Include="Include\Script\Mite_Tree.h" />
     <ClInclude Include="Include\Script\Movable_Script.h" />
@@ -357,6 +359,7 @@
     <ClInclude Include="Include\Systems\Parenting.h" />
     <ClInclude Include="Include\Systems\ParticleSystem.h" />
     <ClInclude Include="Include\Systems\Partitioning.h" />
+    <ClInclude Include="Include\Systems\PauseSystem.h" />
     <ClInclude Include="Include\Systems\Physics.h" />
     <ClInclude Include="Include\Systems\PuzzleSystem.h" />
     <ClInclude Include="Include\Systems\SoundSystem.h" />

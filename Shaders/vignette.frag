@@ -2,6 +2,7 @@
 
 layout (location=0) out vec4 fFragClr;
 
+uniform vec3 color;
 uniform vec2 center;
 uniform vec2 clear_size;
 uniform vec2 max_size;
@@ -47,12 +48,12 @@ void main () {
 	
 	if (dist < clear_dist)
 	{
-		fFragClr = vec4(0.0f, 0.0f, 0.0f, 0.0f) * opacity;
+		fFragClr = vec4(color, 0.0f) * opacity;
 	}
 	
 	else if (dist >= max_dist || max_dist <= 0.0f)
 	{
-		fFragClr = vec4(0.0f, 0.0f, 0.0f, 1.0f) * opacity;
+		fFragClr = vec4(color, 1.0f) * opacity;
 	}
 
 	else
@@ -71,6 +72,6 @@ void main () {
 		}
 
 		intensity *= intensity;
-		fFragClr = vec4(0.0f, 0.0f, 0.0f, intensity) * opacity;
+		fFragClr = vec4(color, intensity) * opacity;
 	}
 }

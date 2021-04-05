@@ -24,6 +24,7 @@
 #include "Systems/Collision.h"
 #include "Systems/DialogueSystem.h"
 #include "Systems/Game.h"
+#include "Systems/PauseSystem.h"
 #include "Manager/ComponentManager.h"
 #include "Components/LogicComponent.h"
 #include "GameStates/PlayState.h"
@@ -133,7 +134,7 @@ namespace Player_Scripts
 
 		switch (status->GetStatus())
 		{
-			renderer->SetReversed(false);
+
 			case StatusType::BURROW:
 			{
 				renderer->SetAnimationStatus(true);
@@ -207,6 +208,7 @@ namespace Player_Scripts
 		std::shared_ptr<EntityManager> entity_mgr = CORE->GetManager<EntityManager>();
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 		std::shared_ptr<SoundSystem> sound_system = CORE->GetSystem<SoundSystem>();
+		std::shared_ptr<PauseSystem> pause_system = CORE->GetSystem<PauseSystem>();
 		std::shared_ptr<Game> game = CORE->GetSystem<Game>();
 
 		InputController* controller = component_mgr->GetComponent<InputController>(id);
@@ -217,10 +219,20 @@ namespace Player_Scripts
 
 
 		if (controller->VerifyKey("pause", m->input_)) { // "Esc" key
+			
+			if (CORE->GetSystem<PauseSystem>()->GetState())
+				return;
+
 			CORE->ToggleCorePauseStatus(); // Disable physics update
 			CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
-			CORE->GetSystem<Collision>()->ToggleClickables(1);
-			CORE->GetSystem<Collision>()->ToggleClickables(3);
+
+			if (pause_system->PrevLayer() > 1)
+				pause_system->RevertPreviousLayer();
+			else if (pause_system->PrevLayer() <= 1)
+				pause_system->EnableNextLayer();
+
+			//CORE->GetSystem<Collision>()->ToggleClickables(1);
+			//CORE->GetSystem<Collision>()->ToggleClickables(3);
 
 			if (m_PlayState.GetHelp()) {
 

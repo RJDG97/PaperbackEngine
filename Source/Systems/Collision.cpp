@@ -269,10 +269,15 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 
 	for (auto& [id, clickable] : *clickable_arr_) {
 		
+		size_t index = clickable->index_;
+
 		// Only if clickable is set to active
 		if (clickable->active_) {
 
 			LogicComponent* logic = component_mgr_->GetComponent<LogicComponent>(id);
+
+			if (!logic)
+				continue;
 
 			if (CheckCursorCollision(cursor_pos, clickable)) {
 
@@ -281,6 +286,15 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 
 				logic_manager->Exec(UpdateTexture, id, state);
 
+				std::string state_name = CORE->GetSystem<Game>()->GetStateName();
+
+				// Only if the index == 4 (Return to menu) or index == 1 (Enter play) do we return - This is because of the clickable array being updated
+				/*
+				 && ((index == 1 && state_name == "Play") ||
+													  ((index == 1 || index == 8 || index == 9 || index == 10) && state_name == "SplashState") ||
+													  ((index == 10 || index == 11) && state_name == "Menu") || 
+														state_name == "WinLose")
+				*/
 				if (state == ButtonStates::CLICKED)
 					return;
 			}
@@ -1103,7 +1117,7 @@ void Collision::SendMessageD(Message* m) {
 		for (auto& [id, click] : *clickable_arr_) {
 			
 			ParentChild* pc = component_mgr_->GetComponent<ParentChild>(id);
-			if (pc->GetChildren().empty())
+			if (!pc || pc->GetChildren().empty())
 				continue;
 
 			std::list<Entity*> children = pc->GetChildren();

@@ -31,6 +31,8 @@ public:
 	};
 
 private:
+
+	CameraSystem* camera_system_;
 	DialogueManager* dialogue_manager_;
 	SoundSystem* sound_system_;
 	ComponentManager* component_manager_;
@@ -56,6 +58,8 @@ private:
 	TextureRenderer* dialogue_portrait_renderer_left_;
 	TextureRenderer* dialogue_portrait_renderer_right_;
 	TextRenderer* dialogue_speakername_renderer_;
+
+	Vector2D dialogue_camera_destination{};
 
 public:
 

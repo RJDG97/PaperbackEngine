@@ -144,7 +144,7 @@ void CameraSystem::CameraUpdate(Camera* camera)
 
     if (camera->target_)
     {
-        Vector2D target_position = camera->target_->GetPosition();
+        Vector2D target_position = *camera->target_;
         Vector2D move_dir = (target_position - position) * camera->speed_;
         component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->SetPosition(
                                                 position + move_dir + shake_offset * total_magnitude);
@@ -257,6 +257,11 @@ void CameraSystem::TargetPlayer()
 
     if (player)
     {
-        GetMainCamera()->target_ = component_manager_->GetComponent<Transform>(player->GetID());
+        GetMainCamera()->target_ = component_manager_->GetComponent<Transform>(player->GetID())->GetPositionPtr();
     }
+}
+
+void CameraSystem::TargetVector(Vector2D* target)
+{
+    GetMainCamera()->target_ = target;
 }

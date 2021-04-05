@@ -191,6 +191,8 @@ public:
 	void ScreenShake(float duration, float magnitude);
 
 	void TargetPlayer();
+
+	void TargetVector(Vector2D* target);
 };
 
 #endif

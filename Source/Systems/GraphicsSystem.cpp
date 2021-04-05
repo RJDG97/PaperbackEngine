@@ -37,7 +37,7 @@ bool HasClickableAndActive(ComponentManager& mgr, EntityID id) {
 
     if (clickable) {
 
-        return (clickable->GetActive()) ? true : false;
+        return clickable->GetActive();
     }
     //no clickable but active for rendering
     return true;
@@ -142,6 +142,8 @@ void GraphicsSystem::Init() {
 
     //For UI and text
     projection = glm::ortho(0.0f, win_size_.x, 0.0f, win_size_.y);
+
+    SetVignetteColor({ 0.0f, 0.0f, 0.0f });
 
     M_DEBUG->WriteDebugMessage("Graphics System Init\n");
 }
@@ -273,6 +275,7 @@ void GraphicsSystem::DrawVignette(float opacity) {
     glBindVertexArray(graphic_models_["BoxModel"]->vaoid_);
     glBindTexture(GL_TEXTURE_2D, graphic_models_["BoxModel"]->vaoid_);
 
+    graphic_shaders_["VignetteShader"]->SetUniform("color", vignette_color);
     graphic_shaders_["VignetteShader"]->SetUniform("center", { windows_system_->GetWinWidth() / 2,  windows_system_->GetWinHeight() / 2 });
     graphic_shaders_["VignetteShader"]->SetUniform("clear_size", vignette_size);
     graphic_shaders_["VignetteShader"]->SetUniform("max_size", max_vignette_size);
@@ -964,6 +967,16 @@ void GraphicsSystem::DrawDebugLines(Points points, glm::vec4 color, float width)
     glDrawElements(GL_LINES, static_cast<GLsizei>(points.size() * 2), GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
     shader->UnUse();
+}
+
+void GraphicsSystem::SetVignetteColor(glm::vec3 color)
+{
+    vignette_color = color;
+}
+
+glm::vec3 GraphicsSystem::GetVignetteColor()
+{
+    return vignette_color;
 }
 
 void GraphicsSystem::SetVignetteSize(glm::vec2 size)

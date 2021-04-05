@@ -19,12 +19,14 @@
 #include "MathLib/Vector2D.h"
 #include "Components/IComponent.h"
 #include "Manager/ForcesManager.h"
+#include <algorithm>
 #include <sstream>
 #include <memory>
 
 class Transform;
 class Particle;
 class UIParticle;
+class Scale;
 class TextureRenderer;
 class GraphicsSystem;
 
@@ -112,6 +114,36 @@ struct GenerateTexture
 	void Generate(std::shared_ptr<GraphicsSystem> graphics_system, TextureRenderer* texture);
 };
 
+struct GenerateScale
+{
+	// Different available textures
+	Vector2D scale_range_;
+
+/******************************************************************************/
+/*!
+  \fn Generate()
+
+  \brief Generates a particle's scale
+*/
+/******************************************************************************/
+	void Generate(Scale* scale);
+};
+
+struct GenerateOpacity
+{
+	// Different available textures
+	Vector2D opacity_range_;
+
+	/******************************************************************************/
+	/*!
+	  \fn Generate()
+
+	  \brief Generates a particle's opacity
+	*/
+	/******************************************************************************/
+	void Generate(TextureRenderer* renderer);
+};
+
 struct GenerateDestination
 {
 	// Coordinate of End Destination
@@ -156,10 +188,13 @@ class Emitter : public Component {
 	size_t current_spawn_;				// Current number of particles the emitter has spawned
 	size_t max_spawn_;					// Maximum number of particles the emitter can spawn at any time
 
+
 	GenerateLifetime particle_lifetime_;
 	GeneratePosition particle_position_;
 	GenerateForce particle_force_;
 	GenerateRotation particle_rotation_;
+	GenerateScale particle_scale_;
+	GenerateOpacity particle_opacity_;
 	GenerateTexture particle_texture_;
 	GenerateDestination particle_destination_;
 

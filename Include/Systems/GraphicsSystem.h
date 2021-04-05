@@ -73,6 +73,7 @@ class GraphicsSystem : public ISystem {
     std::vector<float> texture_id_sent;
     std::map<GLuint, GLuint> texture_handles;
 
+    glm::vec3 vignette_color;
     glm::vec2 vignette_size;
     glm::vec2 max_vignette_size;
 
@@ -438,6 +439,24 @@ public:
 */
 /******************************************************************************/
     GLuint GetFramebuffer();
+
+/******************************************************************************/
+/*!
+    \fn SetVignetteSize(glm::vec3 color)
+
+    \brief Set vignette's color
+*/
+/******************************************************************************/
+    void SetVignetteColor(glm::vec3 color);
+
+/******************************************************************************/
+/*!
+    \fn GetVignetteSize(glm::vec3 color)
+
+    \brief Set vignette's color
+*/
+/******************************************************************************/
+    glm::vec3 GetVignetteColor();
 
 /******************************************************************************/
 /*!

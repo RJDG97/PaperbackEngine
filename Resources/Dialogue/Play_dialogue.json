@@ -1,10 +1,4 @@
 {
-  "intro": "Resources/Dialogue/Dialogue_Play/intro.json",
-
-  "keypickedup": "Resources/Dialogue/Dialogue_Play/keypickedup.json",
-
-  "gateunlocked": "Resources/Dialogue/Dialogue_Play/gateunlocked.json",
-  
   "level1_01": "Resources/Test/Dialogue/Dialogue_Play/level1_01.json",
 
   "level1_02": "Resources/Test/Dialogue/Dialogue_Play/level1_02.json",

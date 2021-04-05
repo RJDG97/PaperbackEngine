@@ -13,9 +13,9 @@
   "Splash": [
     {
       "size": "3",
-      "default timer": "2.0",
-      "default transition timer": "2.0",
-      "dark timer": "2.0",
+      "default timer": "1.5",
+      "default transition timer": "1.0",
+      "dark timer": "0.4",
       "name": "Splash_DigipenLogo_0",
       "name": "Splash_FmodLogo_0",
       "name": "Splash_MonkeyLogo_0"
@@ -50,6 +50,36 @@
       "name": "Cutscene_Start_5_0",
       "name": "Cutscene_Start_6_0",
       "name": "Cutscene_Start_7_0",
+      "cutscene": "1"
+    }
+  ],
+  "End": [
+    {
+      "size": "6",
+      "default timer": "0.2",
+      "default transition timer": "0.2",
+      "dark timer": "0.2",
+      "name": "Cutscene_End_8_0",
+      "name": "Cutscene_End_9_0",
+      "name": "Cutscene_End_10_0",
+      "name": "Cutscene_End_11_0",
+      "name": "Cutscene_End_12_0",
+      "name": "Cutscene_End_13_0",
+      "cutscene": "1"
+    }
+  ],
+  "Credits": [
+    {
+      "size": "6",
+      "default timer": "0.2",
+      "default transition timer": "0.2",
+      "dark timer": "0.2",
+      "name": "Cutscene_End_8_0",
+      "name": "Cutscene_End_9_0",
+      "name": "Cutscene_End_10_0",
+      "name": "Cutscene_End_11_0",
+      "name": "Cutscene_End_12_0",
+      "name": "Cutscene_End_13_0",
       "cutscene": "1"
     }
   ],
