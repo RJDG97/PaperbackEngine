@@ -7,37 +7,25 @@
 
 	"Effect": "None",
 	
-    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
+    "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
 
-    "Potato Elder": "However, don't do it for too long.",
+    "Potato Elder": "However, you'll sweat a lot while burrowed!",
 
 	"Effect": "None",
 	
     "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
 
-    "Potato Elder": "It takes up a lot of water from you.",
-
-	"Effect": "None",
-	
-    "Portrait": "Radish_Idle_0 Potato_Angry_0 0 1",
-
-    "Potato Elder": "You may faint from dehydration!",
-
-	"Effect": "None",
-	
-    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
-
-    "Potato Elder": "*yawn* It's getting late.",
+    "Potato Elder": "You may faint from dehydration if you do it for too long.",
 
 	"Effect": "None",
 	
     "Portrait": "Radish_Idle_0 Potato_Happy_0 0 1",
 
-    "Potato Elder": "I'll see you around. Take care, young 'un.",
+    "Potato Elder": "*yawn* It's getting late. I'll see you around, young 'un.",
 
 	"Effect": "None",
 	
     "Portrait": "Radish_Happy_0 Potato_Happy_0 1 0",
 
-    "Radish Boy": "Okay, goodnight!"
+    "Radish Boy": "Goodnight!"
 }

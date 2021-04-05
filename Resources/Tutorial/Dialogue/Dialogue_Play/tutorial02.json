@@ -1,61 +1,55 @@
 {
-	"Effect": "None",
-	
+    "Effect": "None",
+
     "Portrait": "Radish_Shocked_0 Potato_Default_0 1 0",
 
     "Radish Boy": "Oh, Grandpa Potato! What are you doing out so late?",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Shocked_0 Potato_Default_0 0 1",
+    "Effect": "None",
+
+    "Portrait": "Radish_Shocked_0 Potato_Happy_0 0 1",
 
     "Potato Elder": "I should be the one saying that young 'un!",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Shocked_0  Potato_Happy_0 0 1",
+    "Effect": "None",
 
-    "Potato Elder": "Anyway, I'm in the middle of my workout.",
+    "Portrait": "Radish_Idle_0  Potato_Happy_0 1 0",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Potato_Default_0 1 0",
+    "Radish Boy": "You look pretty sweaty too. What's up?",
 
-    "Radish Boy": "Work out?",
+    "Effect": "None",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
-    "Potato Elder": "*cough* *cough* You see those bushes there?",
+    "Potato Elder": "*cough* *cough* You see these bushes here?",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
+    "Effect": "None",
 
-    "Potato Elder": " I work out by burrowing through them..",
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
+    "Potato Elder": " I was working out by burrowing through them..",
+
+    "Effect": "None",
+
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
     "Potato Elder": "..and burrowing out from the other side.",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Potato_Happy_0 0 1",
+    "Effect": "None",
+
+    "Portrait": "Radish_Idle_0 Potato_Happy_0 0 1",
 
     "Potato Elder": "It helps to keep me hidden from dangerous bugs too.",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
+    "Effect": "None",
+
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
 
     "Potato Elder": "*cough* *cough* Why don't you give it a try?",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Potato_Default_0 0 1",
+    "Effect": "None",
 
-    "Potato Elder": "[Press E to burrow in and out.]"
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 0",
+
+    " ": "[Press E to burrow in and out.]"
 }

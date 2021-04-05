@@ -1,31 +1,37 @@
 {
-	"Effect": "Shake 1.0 1.0",
-	
+    "Effect": "Shake -0.5 0.5",
+
     "Portrait": "Radish_Shocked_0 None 1 0",
-	
+
     "Radish Boy": "Wow! It's already so dark outside.",
 
-	"Effect": "None",
-	
+    "Effect": "None",
+
     "Portrait": "Radish_Happy_0 None 1 0",
 
-    "Radish Boy": "I promised to go play with my friends tonight.",
+    "Radish Boy": "I'd better hurry, I'm supposed to meet my friends to play.",
 
-	"Effect": "None",
-	
+    "Effect": "None",
+
+    "Portrait": "Radish_Happy_0 None 1 0",
+
+    "Radish Boy": "We're going to a secret place outside the village today.",
+
+    "Effect": "Move 60.0 -100.0",
+
     "Portrait": "Radish_Idle_0 None 1 0",
 
-    "Radish Boy": "I'll go see if Mushroom Girl's ready first.",
+    "Radish Boy": "Mushroom Girl said she'd go ahead and find a way out.",
 
-	"Effect": "Move 60.0 -100.0",
-	
+    "Effect": "None",
+
     "Portrait": "Radish_Idle_0 None 1 0",
 
-    "Radish Boy": "Her house is located at the east side of town.",
+    "Radish Boy": "She told me to follow her spores to where she'll be.",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Idle_0 None 1 0",
+    "Effect": "None",
 
-    "Radish Boy": "[Use WASD to move.]"
+    "Portrait": "Radish_Idle_0 None 0 0",
+
+    " ": "[Use WASD to move.]"
 }
