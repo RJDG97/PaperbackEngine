@@ -52,6 +52,7 @@
 #include "Systems/Debug.h"
 #include "Systems/Parenting.h"
 #include "Systems/PuzzleSystem.h"
+#include "Systems/EffectsSystem.h"
 #include <sstream>
 
 int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR cmdLine, INT cmdCount) {
@@ -95,6 +96,7 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<ParentingSystem>();
 		CORE->AddSystem<PuzzleSystem>();
 		CORE->AddSystem<PauseSystem>();
+		CORE->AddSystem<EffectsSystem>();
 
 		// Add Managers to the Core Engine
 		CORE->AddManager<ComponentManager>();

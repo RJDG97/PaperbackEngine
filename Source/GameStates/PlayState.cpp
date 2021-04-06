@@ -41,6 +41,7 @@
 
 #include "Systems/DialogueSystem.h"
 #include "Systems/Parenting.h"
+#include "Systems/EffectsSystem.h"
 
 #include "GameStates/CutSceneState.h"
 
@@ -184,6 +185,10 @@ void PlayState::Update(Game* game, float frametime)
 			int new_hp = health->GetCurrentHealth() - 1;
 			health->SetCurrentHealth(new_hp);
 			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_deplete");
+			CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f);
+			CORE->GetSystem<EffectsSystem>()->color_effect_.SetTimer(0.5f);
+			CORE->GetSystem<EffectsSystem>()->color_effect_.SetStartVignetteColor({1, 0, 0});
+			CORE->GetSystem<EffectsSystem>()->color_effect_.SetEndVignetteColor({0, 0, 0});
 			timer_ = 5.0f;
 		}
 

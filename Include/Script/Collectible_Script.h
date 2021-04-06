@@ -21,6 +21,7 @@
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"
 #include "Components/LogicComponent.h"
+#include "Systems/EffectsSystem.h"
 
 namespace Collectible_Script
 {
@@ -50,7 +51,7 @@ namespace Collectible_Script
 		{
 			case CollectibleType::SPORE:
 			{
-				if (point_light) point_light->SetAlive(false);
+				//if (point_light) point_light->SetAlive(false);
 				if (aabb) aabb->SetAlive(false);
 
 				Motion* motion = component_mgr->GetComponent<Motion>(collectible_id);
@@ -77,6 +78,7 @@ namespace Collectible_Script
 				if (point_light) point_light->SetAlive(false);
 				if (aabb) aabb->SetAlive(false);
 
+				CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f, false);
 				sound_sys->PlayTaggedSounds("drink");
 
 				ParentChild* pc = component_mgr->GetComponent<ParentChild>(collectible_id);

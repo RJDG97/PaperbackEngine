@@ -18,6 +18,7 @@
 #include "Systems/Factory.h"
 #include "Systems/Game.h"
 #include "Systems/Debug.h"
+#include "Systems/EffectsSystem.h"
 #include "Systems/InputSystem.h"
 #include "Systems/DialogueSystem.h" //temporary
 #include "Manager/ForcesManager.h"
@@ -289,14 +290,15 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 				std::string state_name = CORE->GetSystem<Game>()->GetStateName();
 
 				// Only if the index == 4 (Return to menu) or index == 1 (Enter play) do we return - This is because of the clickable array being updated
-				/*
-				 && ((index == 1 && state_name == "Play") ||
-													  ((index == 1 || index == 8 || index == 9 || index == 10) && state_name == "SplashState") ||
-													  ((index == 10 || index == 11) && state_name == "Menu") || 
-														state_name == "WinLose")
-				*/
+				
+				//if (state == ButtonStates::CLICKED && ((index == 1 && state_name == "Play") ||
+				//									  ((index == 1 || index == 8 || index == 9 || index == 10) && state_name == "SplashState") ||
+				//									  ((index == 10 || index == 11) && state_name == "Menu") || 
+				//										state_name == "WinLose"))
+				//	return;
 				if (state == ButtonStates::CLICKED)
 					return;
+					
 			}
 			else {
 				
@@ -558,6 +560,10 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 
 				// Comment this if you would like players to be able to phase through enemies
 				// when colliding and status is set to "Hit" (Player invulnerable for a set time)
+				CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f);
+				CORE->GetSystem<EffectsSystem>()->color_effect_.SetTimer(0.5f);
+				CORE->GetSystem<EffectsSystem>()->color_effect_.SetStartVignetteColor({ 1, 0, 0 });
+				CORE->GetSystem<EffectsSystem>()->color_effect_.SetEndVignetteColor({ 0, 0, 0 });
 				DefaultResponse(aabb1, vel1, aabb2, vel2, frametime, t_first);
 			}
 			break;
