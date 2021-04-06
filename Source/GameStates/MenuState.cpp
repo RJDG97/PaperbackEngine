@@ -196,7 +196,8 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 			}
 			case MessageIDTypes::M_BUTTON_PRESS: {
 				//for menu navigation in menu
-				CORE->GetSystem<PauseSystem>()->RevertPreviousLayer();
+				if (CORE->GetSystem<PauseSystem>()->PrevLayer() == 2)
+					CORE->GetSystem<PauseSystem>()->RevertPreviousLayer();
 				break;
 			}
 		}

@@ -86,7 +86,7 @@ bool PauseSystem::RevertPreviousLayer()
 void PauseSystem::InitializeClickables()
 {
     // Remove previous level's clickables
-    pause_layering_.clear();
+    ClearSystem();
 
     for (auto& [id, click] : *click_map_)
     {
