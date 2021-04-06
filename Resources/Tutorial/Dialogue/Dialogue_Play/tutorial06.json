@@ -1,49 +1,43 @@
 {
-	"Effect": "None",
-	
+    "Effect": "None",
+
     "Portrait": "Radish_Happy_0 Carrot_Default_0 1 0",
 
-    "Radish Boy": "Hey Carrot Boy! What are you doing?",
+    "Radish Boy": "Carrot Boy! Did Mushroom Girl tell you about the spores?",
 
-	"Effect": "None",
-	
+    "Effect": "None",
+
     "Portrait": "Radish_Happy_0 Carrot_Determined_0 0 1",
 
-    "Carrot Boy": "Hehe! I was buildling these muscles of mine.",
+    "Carrot Boy": "Yup, but I'll finish my workout before going to play!",
 
-	"Effect": "None",
-	
+    "Effect": "None",
+
     "Portrait": "Radish_Happy_0 Carrot_Determined_0 0 1",
 
-    "Carrot Boy": "I've been pushing boulders into the holes nearby.",
+    "Carrot Boy": "See these boulders here?",
+
+    "Effect": "None",
+
+    "Portrait": "Radish_Happy_0 Carrot_Determined_0 0 1",
+
+    "Carrot Boy": "I've been pushing them around to the holes nearby.",
     
-	"Effect": "None",
-	
-    "Portrait": "Radish_Shocked_0 Carrot_Determined_0 1 0",
+    "Effect": "None",
 
-    "Radish Boy": "It sure looks like it's working!",
-    
-	"Effect": "None",
-	
-    "Portrait": "Radish_Idle_0 Carrot_Determined_0 1 0",
+    "Portrait": "Radish_Happy_0 Carrot_Happy_0 0 1",
 
-    "Radish Boy": "By the way, are you ready to go play?",
+    "Carrot Boy": "I think my muscles are developing nicely!",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Idle_0 Carrot_Happy_0 0 1",
+    "Effect": "None",
 
-    "Carrot Boy": "Hmm, I need to go get the ball and net first.",
+    "Portrait": "Radish_Happy_0 Carrot_Happy_0 1 0",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Idle_0 Carrot_Determined_0 0 1",
+    "Radish Boy": "Sure looks like they are!",
 
-    "Carrot Boy": "In the meantime, why don't you try the boulders out?",
+    "Effect": "None",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Happy_0 Carrot_Determined_0 1 0",
+    "Portrait": "Radish_Happy_0 Carrot_Happy_0 0 1",
 
-    "Carrot Boy": "Ooh alright, looks like fun!"
+    "Carrot Boy": "Hehe! Why don't you try it too?"
 }

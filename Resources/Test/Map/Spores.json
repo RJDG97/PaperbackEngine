@@ -30,13 +30,6 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "300.000000",
-            "intensity": "0.650000",
-            "alive": "1"
         }
     ],
     "Spores": [
@@ -70,13 +63,6 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "300.000000",
-            "intensity": "0.650000",
-            "alive": "1"
         }
     ],
     "Spores": [
@@ -110,13 +96,6 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "300.000000",
-            "intensity": "0.650000",
-            "alive": "1"
         }
     ],
     "Spores": [
@@ -150,13 +129,6 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "300.000000",
-            "intensity": "0.650000",
-            "alive": "1"
         }
     ]
 }

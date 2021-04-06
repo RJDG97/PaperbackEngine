@@ -2,7 +2,7 @@
     "Player": [
         {
             "component": "Transform",
-            "position": "22.41 -103.75",
+            "position": "22.41 -105.05",
             "rotation": "0.000000",
             "offset": "0.000000 -1.000000",
             "aabb offset": "0.000000 -0.600000"
@@ -73,6 +73,13 @@
             "function": "Player_UpdateInput",
             "name": "UpdateTexture",
             "function": "Player_UpdateTexture"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "500.000000",
+            "intensity": "0.750000",
+            "alive": "1"
         }
     ]
 }

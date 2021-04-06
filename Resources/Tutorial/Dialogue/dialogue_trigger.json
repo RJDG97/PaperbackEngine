@@ -74,7 +74,7 @@
     "tutorial05": [
         {
             "component": "Transform",
-            "position": "63.3 -98.40",
+            "position": "50.10 -88.30",
             "rotation": "0.000000",
             "offset": "0.000000 -1.000000",
             "aabb offset": "-0.400000 -1.400000"
@@ -85,7 +85,7 @@
         },
         {
             "component": "AABB",
-            "scale": "1.400000 0.500000",
+            "scale": "1.700000 1.000000",
             "layer": "12"
         }
     ],
@@ -122,6 +122,24 @@
         {
             "component": "AABB",
             "scale": "1.500000 4.200000",
+            "layer": "12"
+        }
+    ],
+    "tutorial08": [
+        {
+            "component": "Transform",
+            "position": "22.41 -57.53",
+            "rotation": "0.000000",
+            "offset": "0.000000 -1.000000",
+            "aabb offset": "0.000000 -0.600000"
+        },
+        {
+            "component": "DialogueTrigger",
+            "dialogue name": "tutorial08"
+        },
+        {
+            "component": "AABB",
+            "scale": "3.800000 1.300000",
             "layer": "12"
         }
     ]

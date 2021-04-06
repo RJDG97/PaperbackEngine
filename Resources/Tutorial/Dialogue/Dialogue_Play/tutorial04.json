@@ -1,43 +1,19 @@
 {
-	"Effect": "None",
-	
-    "Portrait": "Radish_Happy_0 Mushroom_Default_0 1 0",
+    "Effect": "None",
 
-    "Radish Boy": "Hey Mushroom Girl!",
+    "Portrait": "None None 0 0",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Happy_0 Mushroom_Default_0 0 1",
+    "Sign": "Out now. Will be back soon! - Mushroom Girl",
 
-    "Mushroom Girl": "Radish Boy! Oh no, it's terrible!",
+    "Effect": "None",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 1 0",
+    "Portrait": "Radish_Idle_0 None 1 0",
 
-    "Radish Boy": "What's wrong?",
+    "Radish Boy": "Looks like Mushroom Girl has left already.",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
+    "Effect": "None",
 
-    "Mushroom Girl": "One of my spores got stuck on that tree!",
+    "Portrait": "Radish_Happy_0 None 1 0",
 
-	"Effect": "None",
-	
-    "Portrait": "Radish_Confused_0 Mushroom_Default_0 0 1",
-
-    "Mushroom Girl": "I'm afraid the tree will fall on me if I tried to get it.",
-
-	"Effect": "None",
-	
-    "Portrait": "Radish_Angry_0 Mushroom_Default_0 1 0",
-
-    "Radish Boy": "Don't worry Mushroom Girl, I'll get it for you.",
-
-	"Effect": "None",
-	
-    "Portrait": "Radish_Angry_0 Mushroom_Default_0 1 0",
-
-    "Radish Boy": "The tree may fall and block my way, but I'll be careful."
+    "Radish Boy": "Guess I'll continue following her spores to her."
 }
