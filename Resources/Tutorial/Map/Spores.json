@@ -33,7 +33,7 @@
         },
         {
             "component": "Destination",
-            "destination": "64.800000 -102.000000",
+            "destination": "18.450000 -55.1600000",
             "is_ui_layer": "0"
         }
     ],
@@ -71,7 +71,7 @@
         },
         {
             "component": "Destination",
-            "destination": "64.800000 -102.000000",
+            "destination": "18.450000 -55.1600000",
             "is_ui_layer": "0"
         }
     ],
@@ -109,7 +109,7 @@
         },
         {
             "component": "Destination",
-            "destination": "64.800000 -102.000000",
+            "destination": "18.450000 -55.1600000",
             "is_ui_layer": "0"
         }
     ]

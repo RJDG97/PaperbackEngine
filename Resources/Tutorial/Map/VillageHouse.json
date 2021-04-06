@@ -2,7 +2,7 @@
     "VillageHouse": [
         {
             "component": "Transform",
-            "position": "24.200001 -73.099998",
+            "position": "24.80 -73.90",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -0.900000"
@@ -83,7 +83,7 @@
     "VillageHouse": [
         {
             "component": "Transform",
-            "position": "66.000000 -96.800003",
+            "position": "68.80 -96.80",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.500000"
