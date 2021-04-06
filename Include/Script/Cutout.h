@@ -35,8 +35,8 @@ public:
 		EntityID id_;
 	public:
 		DetectPlayer(EntityID id) : id_(id) {
-			addChild(new Common::PlayerWithinDistance(id_, 2.0f));
-			addChild(new PlayerWithinVision(id_, 4.0f));
+			addChild(new Common::PlayerWithinDistance(id_, 3.0f));
+			addChild(new PlayerWithinVision(id_, 4.5f));
 			addChild(new Flip(id_));
 		}
 	};
