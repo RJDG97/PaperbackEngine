@@ -1748,10 +1748,10 @@
         },
         {
             "component": "PointLight",
-            "color": "73604148164365473808384.000000 0.000000 0.000000",
-            "radius": "0.000000",
-            "intensity": "0.000000",
-            "alive": "100"
+            "color": "0.4 0.850 0.8",
+            "radius": "100.000000",
+            "intensity": "0.600000",
+            "alive": "1"
         },
         {
             "component": "LogicComponent",
@@ -2053,6 +2053,43 @@
             "radius": "200.000000",
             "intensity": "2.000000",
             "alive": "1"
+        }
+    ],
+    "Crockpot": [
+        {
+            "component": "Name",
+            "name": "Crockpot"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Crockpot_Idle",
+            "set animation": "Crockpot_Idle",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 3.000000",
+            "layer": "0"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 190.000000"
         }
     ],
     "UIText": [
@@ -2388,6 +2425,13 @@
             "alive": "1",
             "opacity": "1.000000",
             "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "500.000000",
+            "intensity": "0.600000",
+            "alive": "1"
         }
     ],
     "MushroomNPC": [
@@ -2425,6 +2469,13 @@
             "alive": "1",
             "opacity": "1.000000",
             "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "500.000000",
+            "intensity": "0.600000",
+            "alive": "1"
         }
     ],
 
@@ -2463,6 +2514,13 @@
             "alive": "1",
             "opacity": "1.000000",
             "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "PointLight",
+            "color": "1.000000 1.000000 1.000000",
+            "radius": "500.000000",
+            "intensity": "0.600000",
+            "alive": "1"
         }
     ],
 

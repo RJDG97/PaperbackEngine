@@ -23,6 +23,8 @@
 
 	"Log Animations": "Resources/AssetsLoading/Animation/log_animations.json",
 
+	"Crockpot Animations": "Resources/AssetsLoading/Animation/crockpot_animations.json",
+
 	"Spore Animations": "Resources/AssetsLoading/Animation/spore_animations.json",
 
 	"Healthbar Water Animations": "Resources/AssetsLoading/Animation/healthbar_water_animations.json",
