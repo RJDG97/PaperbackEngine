@@ -1,0 +1,11 @@
+{
+    "Cutout_Spritesheet_(256x256).png": [ 
+        {
+            "Folder": "Props/Props_Anims",
+            "Animation Batch Name": "Cutout_Animations",
+            "Columns": "16",
+            "Rows": "1",
+            "Animation Name, Number of Frames, Frame Duration": "CutOut_Detect 10 0.06"
+        }
+    ]
+  }

@@ -29,5 +29,9 @@
 
 	"Healthbar Water Animations": "Resources/AssetsLoading/Animation/healthbar_water_animations.json",
 
-	"Healthbar Bubble Animations": "Resources/AssetsLoading/Animation/healthbar_bubble_animations.json"
+	"Healthbar Bubble Animations": "Resources/AssetsLoading/Animation/healthbar_bubble_animations.json",
+
+    "Stag CutOut Animations": "Resources/AssetsLoading/Animation/stagcutout_animations.json",
+
+    "Lose Screen Animations": "Resources/AssetsLoading/Animation/losescreen_animations.json"
 }

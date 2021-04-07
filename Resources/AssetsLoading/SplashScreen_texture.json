@@ -14,5 +14,11 @@
     "Cutscene_End_13": "Resources/Sprites/splash_screens/Cutscene_End_13.png 1 1",
     "Splash_DigipenLogo": "Resources/Sprites/splash_screens/DigiPen_Singapore_White.png 1 1",
     "Splash_FmodLogo": "Resources/Sprites/splash_screens/Fmod_Logo.png 1 1",
-    "Splash_MonkeyLogo": "Resources/Sprites/splash_screens/MonkeyTypewriter_Logo.png 1 1"
+    "Splash_MonkeyLogo": "Resources/Sprites/splash_screens/MonkeyTypewriter_Logo.png 1 1",
+    "Credits_01": "Resources/Sprites/splash_screens/Credits_00.png 1 1",
+    "Credits_02": "Resources/Sprites/splash_screens/Credits_01.png 1 1",
+    "Credits_03": "Resources/Sprites/splash_screens/Credits_02.png 1 1",
+    "Credits_04": "Resources/Sprites/splash_screens/Credits_03.png 1 1",
+    "Credits_05": "Resources/Sprites/splash_screens/Credits_04.png 1 1",
+    "Credits_06": "Resources/Sprites/splash_screens/Credits_05.png 1 1"
 }

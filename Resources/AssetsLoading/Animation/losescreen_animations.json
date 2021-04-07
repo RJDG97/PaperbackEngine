@@ -1,0 +1,12 @@
+{
+	"Defeat_Spritesheet_(512x512).png": [
+		{
+			"Folder": "UI_Elements/Lose",
+			"Animation Batch Name": "losescreen_Animations",
+			"Columns": "8",
+			"Rows": "2",
+			"Animation Name, Number of Frames, Frame Duration": "Lose_grow 8 0.06",
+            "Animation Name, Number of Frames, Frame Duration": "Lose_Static 3 0.06"
+		}
+	]
+}
