@@ -219,6 +219,9 @@
     <Filter Include="Scripts\Cutout">
       <UniqueIdentifier>{af70bb11-490d-4785-abdc-2c8372483f11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Effects System">
+      <UniqueIdentifier>{5d48154b-bfb2-4dd1-90f1-fc7f16563600}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\AABB.cpp">
@@ -526,6 +529,9 @@
     </ClCompile>
     <ClCompile Include="Source\Systems\PauseSystem.cpp">
       <Filter>Systems\PauseSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\EffectsSystem.cpp">
+      <Filter>Systems\Effects System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -900,6 +906,9 @@
     </ClInclude>
     <ClInclude Include="Include\Script\Cutout.h">
       <Filter>Scripts\Cutout</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Systems\EffectsSystem.h">
+      <Filter>Systems\Effects System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

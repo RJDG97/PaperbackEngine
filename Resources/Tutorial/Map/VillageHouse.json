@@ -2,10 +2,10 @@
     "VillageHouse": [
         {
             "component": "Transform",
-            "position": "24.200001 -73.099998",
+            "position": "24.80 -81.00",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -0.900000"
+            "aabb offset": "0.000000 0.200000"
         },
         {
             "component": "TextureRenderer",
@@ -18,7 +18,7 @@
         },
         {
             "component": "AABB",
-            "scale": "4.900000 3.300000",
+            "scale": "4.900000 3.90000",
             "layer": "1"
         },
         {
@@ -83,7 +83,7 @@
     "VillageHouse": [
         {
             "component": "Transform",
-            "position": "66.000000 -96.800003",
+            "position": "68.80 -96.80",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -1.500000"

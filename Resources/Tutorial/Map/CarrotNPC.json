@@ -3,7 +3,7 @@
      
         {
             "component": "Transform",
-            "position": "41.100000 -95.100000",
+            "position": "40.490000 -91.220000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -0.300000"
@@ -15,7 +15,7 @@
         },
         {
             "component": "Scale",
-            "scale": "-100.000000 100.000000"
+            "scale": "100.000000 100.000000"
         },
         {
             "component": "AnimationRenderer",

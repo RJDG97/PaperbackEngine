@@ -169,12 +169,8 @@
     ],
     "LightSpot": [
         {
-            "component": "Name",
-            "name": "LightSpot"
-        },
-        {
             "component": "Transform",
-            "position": "40.92 -95.56",
+            "position": "46.00 -103.77",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -186,34 +182,9 @@
         },
         {
             "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "600.000000",
-            "intensity": "0.60000",
-            "alive": "1"
-        }
-    ],
-    "LightSpot": [
-        {
-            "component": "Name",
-            "name": "LightSpot"
-        },
-        {
-            "component": "Transform",
-            "position": "22.60 -111.70",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
-        },
-        {
-            "component": "PointLight",
-            "color": "1.000000 1.000000 1.000000",
-            "radius": "600.000000",
-            "intensity": "0.60000",
+            "color": "0.900000 0.500000 0.100000",
+            "radius": "500.000000",
+            "intensity": "0.800000",
             "alive": "1"
         }
     ]

@@ -2,31 +2,7 @@
     "Boulder": [
         {
             "component": "Transform",
-            "position": "35.720001 -92.709999",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -0.900000"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.600000 0.600000",
-            "layer": "11"
-        },
-        {
-            "component": "Scale",
-            "scale": "140.000000 140.000000"
-        },
-        {
-            "component": "LogicComponent",
-            "number_of_fns": "1",
-            "name": "UpdateAnimation",
-            "function": "Environmental_AnimUpdate"
-        }
-    ],
-    "Boulder": [
-        {
-            "component": "Transform",
-            "position": "41.220001 -96.410004",
+            "position": "35.92 -94.11",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -0.900000"

@@ -233,6 +233,7 @@
     <ClCompile Include="Source\Systems\Collision.cpp" />
     <ClCompile Include="Source\Systems\Debug.cpp" />
     <ClCompile Include="Source\Systems\DialogueSystem.cpp" />
+    <ClCompile Include="Source\Systems\EffectsSystem.cpp" />
     <ClCompile Include="Source\Systems\Factory.cpp" />
     <ClCompile Include="Source\Systems\FrameRateController.cpp" />
     <ClCompile Include="Source\Systems\Game.cpp" />
@@ -346,6 +347,7 @@
     <ClInclude Include="Include\Systems\Collision.h" />
     <ClInclude Include="Include\Systems\Debug.h" />
     <ClInclude Include="Include\Systems\DialogueSystem.h" />
+    <ClInclude Include="Include\Systems\EffectsSystem.h" />
     <ClInclude Include="Include\Systems\Factory.h" />
     <ClInclude Include="Include\Systems\FrameRateController.h" />
     <ClInclude Include="Include\Systems\Game.h" />
