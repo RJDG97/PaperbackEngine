@@ -25,7 +25,7 @@ class CutSceneState : public GameState
 	bool exiting_;
 	ComponentManager* component_mgr_;
 	EntityManager* entity_mgr_;
-	const float set_time_{ 4.6f };
+	const float set_time_{ 6.0f };
 	float timer_;
 
 public:
