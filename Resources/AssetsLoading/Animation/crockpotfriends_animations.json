@@ -2,8 +2,8 @@
     "Crockpot_Friends_Spritesheet_(512x512).png": [ 
       {
         "Folder": "character_spritesheets",
-        "Animation Batch Name": "Stagbeetle_Animations",
-        "Columns": "16",
+        "Animation Batch Name": "CrockPotFriends_Animations",
+        "Columns": "8",
         "Rows": "4",
         "Animation Name, Number of Frames, Frame Duration": "Crockpot_Fall 8 0.06",
         "Animation Name, Number of Frames, Frame Duration": "Crockpot_Cooking_1 8 0.06",
