@@ -158,7 +158,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "-2.0 -1.75",
+      "position": "-2.0 -3.14",
       "rotation": "0.0"
     },
     {
@@ -196,7 +196,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "2.0 -1.75",
+      "position": "2.0 -3.14",
       "rotation": "0.0"
     },
     {
@@ -272,7 +272,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.0 0.0",
+      "position": "0.0 -1.58",
       "rotation": "0.0"
     },
     {
