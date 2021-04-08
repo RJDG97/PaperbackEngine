@@ -11,12 +11,23 @@ Common::CheckAlive::CheckAlive(EntityID id) : id_(id) {
 	component_mgr = &*CORE->GetManager<ComponentManager>();
 	ai_ = component_mgr->GetComponent<AI>(id_);
 	obj_rigidbody_ = component_mgr->GetComponent<Transform>(id_);
+	graphics = CORE->GetSystem<GraphicsSystem>();
+	renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
 	respawn_timer_.TimerStop();
 	respawn_timer_.TimerReset();
 }
 
+void Common::CheckAlive::PlayerInit()
+{
+	player_id_ = CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID();
+	player_rigidbody_ = component_mgr->GetComponent<Transform>(player_id_);
+}
+
 bool Common::CheckAlive::run()
 {
+	if (!player_id_)
+		PlayerInit();
+
 	if (ai_->GetLife()) {
 		return true;
 	}
@@ -27,10 +38,10 @@ bool Common::CheckAlive::run()
 		if (respawn_timer_.TimeElapsed(s) == 0) {
 			respawn_timer_.TimerReset();
 			respawn_timer_.TimerStart();
-			component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(false);
 			ParentChild* pc = component_mgr->GetComponent<ParentChild>(id_);
 			auto& children = pc->GetChildren();
 
+			renderer->SetAlive(false);
 			for (auto& child : children) {
 
 				ConeLight* cone = component_mgr->GetComponent<ConeLight>(child->GetID());
@@ -42,13 +53,14 @@ bool Common::CheckAlive::run()
 					pt->SetAlive(false);
 			}
 		}
-		if (respawn_timer_.TimeElapsed(s) > 10.0f)
+		if (respawn_timer_.TimeElapsed(s) > 10.0f && 
+			Vector2DDistance(player_rigidbody_->GetOffsetAABBPos(), obj_rigidbody_->GetOffsetAABBPos()) > 5.0f)
 		{
 			respawn_timer_.TimerReset();
-			component_mgr->GetComponent<AnimationRenderer>(id_)->SetAlive(true);
 			ParentChild* pc = component_mgr->GetComponent<ParentChild>(id_);
 			auto& children = pc->GetChildren();
 
+			renderer->SetAlive(true);
 			for (auto& child : children) {
 
 				ConeLight* cone = component_mgr->GetComponent<ConeLight>(child->GetID());

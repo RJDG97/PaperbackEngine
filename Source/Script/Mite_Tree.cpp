@@ -63,10 +63,8 @@ bool Mite_Tree::DetectAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Patrol) {
 		ai_->SetState(AI::AIState::Detected);
-		//MessageBGM_Play msg{ "EnemyDetect" };
-		//CORE->BroadcastMessage(&msg);
 		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_detect");
-		graphics->ChangeAnimation(renderer, "mite_detect");
+		graphics->ChangeAnimation(renderer, "Mite_Alert");
 	}
 
 	if (ai_->GetState() == AI::AIState::Detected && !renderer->FinishedAnimating()) {
@@ -155,14 +153,16 @@ bool Mite_Tree::AttackAnim::run() {
 	if (!renderer || !ai_ || !motion || !name)
 		return false;
 
-	if (ai_->GetState() != AI::AIState::Attack && player_status_->GetStatus() != StatusType::BURROW) {
-		ai_->SetState(AI::AIState::Attack);
-		graphics->ChangeAnimation(renderer, "Mite_Explode");
-		return true;
+	if (ai_->GetState() != AI::AIState::Attack) {
+		if (player_status_->GetStatus() != StatusType::BURROW) {
+			ai_->SetState(AI::AIState::Attack);
+			graphics->ChangeAnimation(renderer, "Mite_Explode");
+			return true;
+		}
 	}
-	if (ai_->GetState() == AI::AIState::Attack && !renderer->FinishedAnimating()) {
+	else if (!renderer->FinishedAnimating()) {
 		motion->SetForce(0);
-		motion->SetVelocity({0.0f, 0.0f});
+		motion->SetVelocity({ 0.0f, 0.0f });
 
 		if (motion->GetVelocity().x > 0 && motion->IsLeft()) {
 			graphics->FlipTextureY(renderer);
@@ -174,30 +174,31 @@ bool Mite_Tree::AttackAnim::run() {
 		}
 		return true;
 	}
-	else if (ai_->GetState() == AI::AIState::Attack && renderer->FinishedAnimating()) {
+	else {
 		float distance = Vector2DDistance(player_rigidbody_->GetOffsetAABBPos(), obj_rigidbody_->GetOffsetAABBPos());
 
-		if (distance < 1.0f && player_status_->GetStatus() != StatusType::BURROW) {
+		if (distance < 4.0f && player_status_->GetStatus() != StatusType::BURROW) {
 			player_status_->SetStatus(StatusType::HIT);
+			player_status_->SetStatusTimer(2.0f);
 			player_health_->SetCurrentHealth(player_health_->GetCurrentHealth() - 1);
 
 			graphics->ChangeAnimation(player_renderer_, "Player_Hit");
 
-			//MessageBGM_Play player_msg{ "PlayerHurt" };
-			//CORE->BroadcastMessage(&player_msg);
 			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_hurt");
+
+			ForcesManager* force_mgr = &*CORE->GetManager<ForcesManager>();
+
+			Vector2D new_vel;
+			Vector2DNormalize(new_vel, player_rigidbody_->GetOffsetAABBPos() - obj_rigidbody_->GetOffsetAABBPos());
+
+			force_mgr->AddForce(player_id_, "PlayerForce", PE_FrameRate.GetFixedDelta() * 3, new_vel * 3000.0f);
 		}
 
-		//MessageBGM_Play msg{ "EnemyExplode" };
-		//CORE->BroadcastMessage(&msg);
-
 		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_explode");
-		renderer->SetAnimationStatus(false);
+
 		ai_->SetLife(false);
 		return true;
 	}
-	if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y))
-		graphics->ChangeAnimation(renderer, "Mite_Idle");
 	return true;
 }
 
@@ -219,8 +220,6 @@ bool Mite_Tree::ConfusedAnim::run() {
 
 	if (ai_->GetState() == AI::AIState::Chase || ai_->GetState() == AI::AIState::Detected) {
 		ai_->SetState(AI::AIState::Confused);
-		//MessageBGM_Play msg{ "EnemyLostSight" };
-		//CORE->BroadcastMessage(&msg);
 		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_lost");
 		graphics->ChangeAnimation(renderer, "Mite_Confused");
 		return true;
@@ -282,7 +281,7 @@ bool Mite_Tree::IdleAnim::run() {
 		}
 	}
 
-	return false;
+	return true;
 }
 
 Mite_Tree::SearchCheck::SearchCheck(EntityID id) :id_(id) {

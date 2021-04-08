@@ -27,7 +27,12 @@ public:
 		AI* ai_;
 		Transform* obj_rigidbody_;
 		ComponentManager* component_mgr;
+		std::shared_ptr<GraphicsSystem> graphics;
+		AnimationRenderer* renderer;
 		Time_Channel respawn_timer_;
+
+		EntityID player_id_;
+		Transform* player_rigidbody_;
 	public:
 		/******************************************************************************/
 		/*!
@@ -37,6 +42,8 @@ public:
 		*/
 		/******************************************************************************/
 		CheckAlive(EntityID id);
+
+		void PlayerInit();
 		  /******************************************************************************/
 		  /*!
 			\fn run()
