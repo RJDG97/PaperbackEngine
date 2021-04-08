@@ -20,7 +20,7 @@
   "level1_02": [
     {
         "component": "Transform",
-        "position": "-1.82 2.94",
+        "position": "-18.62 -11.36",
         "rotation": "0.000000",
         "offset": "0.000000 -1.000000",
         "aabb offset": "0.000000 -0.600000"
@@ -31,14 +31,14 @@
     },
     {
         "component": "AABB",
-        "scale": "1.900000 0.600000",
+        "scale": "1.300000 3.700000",
         "layer": "12"
     }
   ],
   "level1_03": [
     {
         "component": "Transform",
-        "position": "10.30 -20.63",
+        "position": "35.90 -16.43",
         "rotation": "0.000000",
         "offset": "0.000000 -1.000000",
         "aabb offset": "0.000000 -0.600000"
@@ -49,7 +49,7 @@
     },
     {
         "component": "AABB",
-        "scale": "2.200000 1.200000",
+        "scale": "0.600000 2.100000",
         "layer": "12"
     }
   ]
