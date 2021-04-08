@@ -1,9 +1,15 @@
 {
 	"Effect": "None",
 	
+    "Portrait": "Radish_Shocked_0 None 1 0",
+
+    "Radish Boy": "Even more bugs!",
+
+	"Effect": "None",
+	
     "Portrait": "Radish_Sad_0 None 1 0",
 
-    "Radish Boy": "Where are my friends?",
+    "Radish Boy": "But still no sight of my friends yet.",
 
 	"Effect": "None",
 	
@@ -13,13 +19,7 @@
 
 	"Effect": "None",
 	
-    "Portrait": "Radish_Sad_0 None 1 0",
-
-    "Radish Boy": "It's scary for me, but...",
-
-	"Effect": "None",
-	
     "Portrait": "Radish_Cry_0 None 1 0",
 
-    "Radish Boy": "It must be even scarier for them."
+    "Radish Boy": "It must be really scary for them."
 }

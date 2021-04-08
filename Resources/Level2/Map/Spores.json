@@ -30,6 +30,11 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "Destination",
+            "destination": "28.57 -65.06",
+            "is_ui_layer": "0"
         }
     ],
     "Spores": [
@@ -63,39 +68,11 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
-        }
-    ],
-    "Spores": [
-        {
-            "component": "Transform",
-            "position": "22.80 -58.40",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
         },
         {
-            "component": "AnimationRenderer",
-            "number of animations": "1",
-            "add animation": "Spore_Idle",
-            "set animation": "Spore_Idle",
-            "play_animation": "1",
-            "reversed_": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.0",
-            "layer": "1",
-            "order in layer": "2",
-            "alive": "1",
-            "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "8"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
+            "component": "Destination",
+            "destination": "28.57 -65.06",
+            "is_ui_layer": "0"
         }
     ],
     "Spores": [
@@ -129,6 +106,11 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "Destination",
+            "destination": "28.57 -65.06",
+            "is_ui_layer": "0"
         }
     ],
     "Spores": [
@@ -162,6 +144,11 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "Destination",
+            "destination": "28.57 -65.06",
+            "is_ui_layer": "0"
         }
     ]
 }

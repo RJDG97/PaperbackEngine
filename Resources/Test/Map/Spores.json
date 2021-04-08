@@ -8,19 +8,19 @@
             "aabb offset": "0.000000 0.000000"
         },
         {
-          "component": "AnimationRenderer",
-          "number of animations": "1",
-          "add animation": "Spore_Idle",
-          "set animation": "Spore_Idle",
-          "play_animation": "1",
-          "reversed_": "0",
-          "has_finished_animating": "0",
-          "animation_speed": "1.0",
-          "layer": "1",
-          "order in layer": "2",
-          "alive": "1",
-          "opacity": "1.0",
-          "tint": "1.0 1.0 1.0"
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "Spore_Idle",
+            "set animation": "Spore_Idle",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "2",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -30,6 +30,11 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "Destination",
+            "destination": "38.56 -16.75",
+            "is_ui_layer": "0"
         }
     ],
     "Spores": [
@@ -63,6 +68,11 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "Destination",
+            "destination": "38.56 -16.75",
+            "is_ui_layer": "0"
         }
     ],
     "Spores": [
@@ -96,6 +106,11 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "Destination",
+            "destination": "38.56 -16.75",
+            "is_ui_layer": "0"
         }
     ],
     "Spores": [
@@ -129,6 +144,11 @@
         {
             "component": "Scale",
             "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "Destination",
+            "destination": "38.56 -16.75",
+            "is_ui_layer": "0"
         }
     ]
 }
