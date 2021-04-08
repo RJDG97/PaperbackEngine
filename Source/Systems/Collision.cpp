@@ -270,7 +270,7 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 
 	for (auto& [id, clickable] : *clickable_arr_) {
 		
-		size_t index = clickable->index_;
+		//size_t index = clickable->index_;
 
 		// Only if clickable is set to active
 		if (clickable->active_) {
@@ -439,6 +439,15 @@ bool Collision::PlayervEnemyResponse(AABBIt aabb1, AABBIt aabb2) {
 			//MessageBGM_Play msg{ "PlayerHurt" };
 			//CORE->BroadcastMessage(&msg);
 			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_hurt");
+
+			//do knockback logic
+			ForcesManager* force_mgr = &*CORE->GetManager<ForcesManager>();
+
+			//get unit vector direction based on dist from player pos to enemy pos
+			Vector2D new_vel;
+			Vector2DNormalize(new_vel, component_mgr_->GetComponent<Transform>(aabb2->first)->GetOffsetAABBPos() - component_mgr_->GetComponent<Transform>(aabb1->first)->GetOffsetAABBPos());
+			
+			force_mgr->AddForce(aabb2->first, "PlayerForce", PE_FrameRate.GetFixedDelta() * 3, new_vel * 3000.0f);
 
 			return true;
 		}

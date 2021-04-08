@@ -223,17 +223,17 @@ namespace Button_Script
 		{
 		case ButtonStates::DEFAULT:
 		{
-			graphics_sys->ChangeTexture(texture_renderer, "Menu_Quit_0");
+			graphics_sys->ChangeTexture(texture_renderer, "Menu_Credits_0");
 			break;
 		}
 		case ButtonStates::HOVERED:
 		{
-			graphics_sys->ChangeTexture(texture_renderer, "Menu_Quit_Hover_0");
+			graphics_sys->ChangeTexture(texture_renderer, "Menu_Credits_Hovered_0");
 			break;
 		}
 		case ButtonStates::CLICKED:
 		{
-			graphics_sys->ChangeTexture(texture_renderer, "Menu_Quit_Clicked_0");
+			graphics_sys->ChangeTexture(texture_renderer, "Menu_Credits_0");
 
 			// Temporary measure until the ToggleClickables are sorted out
 			Message_Button msg{ clickable->GetIndex() };
