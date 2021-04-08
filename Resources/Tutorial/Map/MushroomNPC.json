@@ -2,7 +2,7 @@
     "MushroomNPC": [
         {
             "component": "Transform",
-            "position": "18.45 -55.16",
+            "position": "18.45 -56.96",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -0.200000"

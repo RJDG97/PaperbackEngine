@@ -33,14 +33,14 @@
         },
         {
             "component": "Destination",
-            "destination": "18.450000 -55.1600000",
+            "destination": "18.45 -56.96",
             "is_ui_layer": "0"
         }
     ],
     "Spores": [
         {
             "component": "Transform",
-            "position": "41.390000 -108.4500000",
+            "position": "41.390000 -109.3500000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -71,7 +71,7 @@
         },
         {
             "component": "Destination",
-            "destination": "18.450000 -55.1600000",
+            "destination": "18.45 -56.96",
             "is_ui_layer": "0"
         }
     ],
@@ -109,7 +109,7 @@
         },
         {
             "component": "Destination",
-            "destination": "18.450000 -55.1600000",
+            "destination": "18.45 -56.96",
             "is_ui_layer": "0"
         }
     ],
@@ -147,7 +147,7 @@
         },
         {
             "component": "Destination",
-            "destination": "18.450000 -55.1600000",
+            "destination": "18.45 -56.96",
             "is_ui_layer": "0"
         }
     ],
@@ -185,7 +185,7 @@
         },
         {
             "component": "Destination",
-            "destination": "18.450000 -55.1600000",
+            "destination": "18.45 -56.96",
             "is_ui_layer": "0"
         }
     ],
@@ -223,7 +223,7 @@
         },
         {
             "component": "Destination",
-            "destination": "18.450000 -55.1600000",
+            "destination": "18.45 -56.96",
             "is_ui_layer": "0"
         }
     ],
@@ -261,7 +261,7 @@
         },
         {
             "component": "Destination",
-            "destination": "18.450000 -55.1600000",
+            "destination": "18.45 -56.96",
             "is_ui_layer": "0"
         }
     ],
@@ -299,14 +299,14 @@
         },
         {
             "component": "Destination",
-            "destination": "18.450000 -55.1600000",
+            "destination": "18.45 -56.96",
             "is_ui_layer": "0"
         }
     ],
     "Spores": [
         {
             "component": "Transform",
-            "position": "21.80 -67.09",
+            "position": "21.80 -64.89",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -337,7 +337,7 @@
         },
         {
             "component": "Destination",
-            "destination": "18.450000 -55.1600000",
+            "destination": "18.45 -56.96",
             "is_ui_layer": "0"
         }
     ]

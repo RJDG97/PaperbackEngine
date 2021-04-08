@@ -1,5 +1,5 @@
 {
-    "Effect": "Shake -0.5 0.5",
+    "Effect": "None",
 
     "Portrait": "Radish_Shocked_0 None 1 0",
 
@@ -17,13 +17,13 @@
 
     "Radish Boy": "We're going to a secret place outside the village today.",
 
-    "Effect": "Move 60.0 -100.0",
+    "Effect": "None",
 
     "Portrait": "Radish_Idle_0 None 1 0",
 
     "Radish Boy": "Mushroom Girl said she'd go ahead and find a way out.",
 
-    "Effect": "None",
+    "Effect": "Move 22.29 -110.65",
 
     "Portrait": "Radish_Idle_0 None 1 0",
 

@@ -29,6 +29,33 @@
     "BushLight": [
         {
             "component": "Transform",
+            "position": "53.40 -109.80",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 -0.400000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "Bush_Four_0",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 0.700000",
+            "layer": "9"
+        },
+        {
+            "component": "Scale",
+            "scale": "200.000000 200.000000"
+        }
+    ],
+    "BushLight": [
+        {
+            "component": "Transform",
             "position": "25.400000 -88.300003",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
@@ -326,7 +353,7 @@
     "BushLight": [
         {
             "component": "Transform",
-            "position": "19.20 -86.00",
+            "position": "19.20 -85.60",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 -0.700000"

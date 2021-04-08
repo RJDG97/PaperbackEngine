@@ -37,7 +37,42 @@
     "Grass": [
         {
             "component": "Transform",
-            "position": "14.76 -83.06",
+            "position": "14.76 -83.26",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 -1.300000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.500000 0.700000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Grass_Light",
+            "add animation": "Grass_Heavy",
+            "set animation": "Grass_Light",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ],
+    "Grass": [
+        {
+            "component": "Transform",
+            "position": "17.16 -83.16",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 -1.300000"
@@ -178,6 +213,76 @@
         {
             "component": "Transform",
             "position": "17.16 -80.86",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 -1.300000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.500000 0.700000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Grass_Light",
+            "add animation": "Grass_Heavy",
+            "set animation": "Grass_Light",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ],
+    "Grass": [
+        {
+            "component": "Transform",
+            "position": "17.06 -78.26",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "-0.200000 -1.300000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.500000 0.700000",
+            "layer": "4"
+        },
+        {
+            "component": "Scale",
+            "scale": "140.000000 140.000000"
+        },
+
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Grass_Light",
+            "add animation": "Grass_Heavy",
+            "set animation": "Grass_Light",
+            "play_animation": "1",
+            "reversed_": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.0",
+            "layer": "1",
+            "order in layer": "1",
+            "alive": "1",
+            "opacity": "1.0",
+            "tint": "1.0 1.0 1.0"
+        }
+    ],
+    "Grass": [
+        {
+            "component": "Transform",
+            "position": "19.26 -74.76",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "-0.200000 -1.300000"

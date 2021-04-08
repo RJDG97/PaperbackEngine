@@ -10,7 +10,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Potato_House_0",
-            "layer": "1",
+            "layer": "0",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000",
@@ -18,7 +18,7 @@
         },
         {
             "component": "AABB",
-            "scale": "4.900000 3.90000",
+            "scale": "4.900000 4.20000",
             "layer": "1"
         },
         {
@@ -37,7 +37,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Carrot_House_0",
-            "layer": "1",
+            "layer": "0",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000",
@@ -64,7 +64,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Radish_House_0",
-            "layer": "1",
+            "layer": "0",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000",
@@ -91,7 +91,7 @@
         {
             "component": "TextureRenderer",
             "texture": "Mushroom_House_0",
-            "layer": "1",
+            "layer": "0",
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000",
