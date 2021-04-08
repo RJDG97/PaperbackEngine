@@ -367,6 +367,52 @@
             "number_of_fns": "0"
         }
     ],
+    "AnimatedButton": [
+        {
+            "component": "Name",
+            "name": "AnimatedButton"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Win_Grow",
+            "add animation": "Win_Static",
+            "set animation": "Win_Grow",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "0",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "0.500000 0.500000",
+            "layer": "6"
+        },
+        {
+            "component": "Scale",
+            "scale": "32.000000 32.000000"
+        },
+        {
+            "component": "Clickable",
+            "scale": "1.000000 1.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "0"
+        }
+    ],
     "Camera": [
         {
             "component": "Name",
@@ -1319,7 +1365,7 @@
             "has_finished_animating": "0",
             "animation_speed": "1.300000",
             "layer": "0",
-            "order in layer": "4",
+            "order in layer": "3",
             "alive": "1",
             "opacity": "0.000000",
             "tint": "1.000000 1.000000 1.000000"
@@ -1363,7 +1409,7 @@
             "has_finished_animating": "0",
             "animation_speed": "1.000000",
             "layer": "0",
-            "order in layer": "3",
+            "order in layer": "2",
             "alive": "1",
             "opacity": "1.000000",
             "tint": "1.000000 1.000000 1.000000"

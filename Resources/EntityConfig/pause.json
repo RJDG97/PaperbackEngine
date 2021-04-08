@@ -1,5 +1,7 @@
 {  
   "Button": "Resources/EntityConfig/Pause/button.json",
   
+  "AnimatedButton": "Resources/EntityConfig/Pause/AnimatedButton.json",
+  
   "HowToPlay": "Resources/EntityConfig/Pause/howtoplay.json"
 }

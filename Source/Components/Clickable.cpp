@@ -26,7 +26,8 @@ Clickable::Clickable() :
 	collided_{ false },
 	active_{ true },
 	index_{},
-	group_{}
+	group_{},
+	order_{}
 {}
 
 size_t Clickable::GetIndex() {
@@ -89,17 +90,20 @@ void Clickable::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>*
 	writer->Key("group");
 	writer->String(std::to_string(group_).c_str());
 
+	writer->Key("order_in_group");
+	writer->String(std::to_string(order_).c_str());
+
 	writer->EndObject();
 }
 
 void Clickable::DeSerialize(std::stringstream& data) {
 
-	data >> scale_.x >> scale_.y >> active_ >> group_;
+	data >> scale_.x >> scale_.y >> active_ >> group_ >> order_;
 }
 
 void Clickable::DeSerializeClone(std::stringstream& data) {
 	
-	data >> index_ >> active_ >> scale_.x >> scale_.y >> group_;
+	data >> index_ >> active_ >> scale_.x >> scale_.y >> group_ >> order_;
 }
 
 std::shared_ptr<Component> Clickable::Clone() {
@@ -112,6 +116,7 @@ std::shared_ptr<Component> Clickable::Clone() {
 	cloned->active_ = active_;
 	cloned->scale_ = scale_;
 	cloned->group_ = group_;
+	cloned->order_ = order_;
 
 	return cloned;
 }

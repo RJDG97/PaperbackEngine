@@ -51,7 +51,6 @@ namespace Collectible_Script
 		{
 			case CollectibleType::SPORE:
 			{
-				//if (point_light) point_light->SetAlive(false);
 				if (aabb) aabb->SetAlive(false);
 
 				Motion* motion = component_mgr->GetComponent<Motion>(collectible_id);

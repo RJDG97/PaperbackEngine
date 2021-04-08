@@ -165,6 +165,9 @@ namespace Player_Scripts
 			
 				renderer->SetAnimationStatus(true);
 
+				if (!renderer->FinishedAnimating())
+					return;
+
 				// If velocity is essentially 0, set player to idle
 				if (VerifyZeroFloat(motion->GetVelocity().x) && VerifyZeroFloat(motion->GetVelocity().y)) {
 
