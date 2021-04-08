@@ -26,7 +26,7 @@ class CreditsState : public GameState
 	bool exiting_;
 	ComponentManager* component_mgr_;
 	EntityManager* entity_mgr_;
-	const float set_time_{ 2.5f };
+	const float set_time_{ 4.5f };
 	float timer_;
 
 public:
