@@ -33,5 +33,7 @@
 
     "Stag CutOut Animations": "Resources/AssetsLoading/Animation/stagcutout_animations.json",
 
-    "Lose Screen Animations": "Resources/AssetsLoading/Animation/losescreen_animations.json"
+    "Lose Screen Animations": "Resources/AssetsLoading/Animation/losescreen_animations.json",
+
+    "CrockPot Friends Animations": "Resources/AssetsLoading/Animation/crockpotfriends_animations.json"
 }
