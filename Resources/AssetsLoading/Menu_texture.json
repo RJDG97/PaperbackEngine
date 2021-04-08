@@ -29,6 +29,8 @@
     "Menu_Start": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play.png 1 1",
     "Menu_Start_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Clicked.png 1 1",
     "Menu_Start_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Play_Hover.png 1 1",
+    "Menu_Credits": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Credits.png 1 1",
+    "Menu_Credits_Hovered": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_Hover.png 1 1",
     "Temp_Background": "Resources/Sprites/Background.png 1 1",
     "UI_Cutscene_Bar": "Resources/Sprites/UI_Elements/Dialogue/UI_Cutscene_Bar.png 1 1",
     "UI_DialogueBox": "Resources/Sprites/UI_Elements/Dialogue/UI_DialogueBox.png 1 1",
