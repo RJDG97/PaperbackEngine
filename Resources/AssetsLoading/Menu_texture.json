@@ -14,7 +14,6 @@
     "Level2_Background09": "Resources/Sprites/Level2_Background/Level_02_09.png 1 1",
     "Menu_Background": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen.png 1 1",
     "Menu_CloudOne": "Resources/Sprites/UI_Elements/Menu/Clouds_01.png 1 1",
-    "Menu_CloudTwo": "Resources/Sprites/UI_Elements/Menu/Clouds_02.png 1 1",
     "Menu_Editor": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor.png 1 1",
     "Menu_Editor_Clicked": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Clicked.png 1 1",
     "Menu_Editor_Hover": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen_LevelEditor_Hover.png 1 1",
