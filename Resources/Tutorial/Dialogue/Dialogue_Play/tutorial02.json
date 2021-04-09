@@ -40,6 +40,12 @@
     "Portrait": "Radish_Idle_0 Potato_Happy_0 0 1",
 
     "Potato Elder": "It helps to keep me hidden from dangerous bugs too.",
+    
+    "Effect": "Move 55.75 -110.23",
+
+    "Portrait": "Radish_Idle_0 Potato_Default_0 0 1",
+
+    "Potato Elder": "You can't burrow while on or through gravel though.",
 
     "Effect": "None",
 
