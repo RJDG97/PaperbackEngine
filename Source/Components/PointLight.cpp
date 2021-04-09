@@ -158,3 +158,8 @@ void PointLight::SetAlive(bool alive)
 {
 	alive_ = alive;
 }
+
+void PointLight::SetPulse(bool value)
+{
+	pulse_ = value;
+}

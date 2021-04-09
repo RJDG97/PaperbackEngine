@@ -14,12 +14,14 @@
 
 #include "Engine/Core.h"
 #include "Systems/Game.h"
+#include "Systems/EffectsSystem.h"
 #include "Manager/TransitionManager.h"
 
 
 TransitionManager::TransitionManager() :
 	transition_speed_{ },
 	max_size_{ 800.0f, 450.0f },
+	custom_max_size_{ 800.0f, 450.0f },
 	max_clear_size_{ 320.0f, 180.0f },
 	current_size_{ },
 	current_transition_{ nullptr },
@@ -49,13 +51,10 @@ void TransitionManager::ResetCurrentTransitionTimer() {
 		current_transition_->timer_ = -0.2f;
 }
 
-bool TransitionManager::ResetTransition(const std::string& id, GameState* next_state) {
+bool TransitionManager::ResetTransition(const std::string& id, GameState* next_state, bool size_cap) {
 
-	/*if (current_transition_)
-		return false;
-	*/
 	SceneTransitionsIt it = transition_map_.find(id);
-
+	custom_ = size_cap;
 	// This works based on the assumption that there is at least 1 texture name loaded in from the json
 	// and there is only 1 texture renderer component (Single entity)
 
@@ -66,7 +65,11 @@ bool TransitionManager::ResetTransition(const std::string& id, GameState* next_s
 		graphics_system_->SetVignetteSize(clear_current_size_);
 		graphics_system_->SetMaxVignetteSize(current_size_);
 		current_transition_ = &*it->second;
-		transition_speed_ = max_size_ / current_transition_->default_transition_timer_ * 0.30f;
+
+		// For testing
+		custom_max_size_ = max_size_;
+
+		transition_speed_ = custom_max_size_ / current_transition_->default_transition_timer_ * 0.30f;
 
 		if (current_transition_->skip_) {
 
@@ -111,7 +114,7 @@ bool TransitionManager::DelayTransition(const float& frametime) {
 
 void TransitionManager::OpenTransition(const float& frametime) {
 
-	float scaling = current_size_.x / max_size_.x;
+	float scaling = current_size_.x / custom_max_size_.x;
 	scaling *= scaling;
 	scaling *= scaling;
 	current_size_ += transition_speed_ * frametime * (1.0f - scaling + 0.01f);
@@ -122,11 +125,11 @@ void TransitionManager::OpenTransition(const float& frametime) {
 		clear_current_size_ = max_clear_size_;
 	}
 
-	if (current_size_.x > max_size_.x && current_size_.y > max_size_.y) {
+	if (current_size_.x > custom_max_size_.x && current_size_.y > custom_max_size_.y) {
 
 		begin_ = false;
-		current_size_ = max_size_;
-		clear_current_size_ = max_clear_size_;
+		current_size_ = custom_max_size_;
+		//clear_current_size_ = max_clear_size_; // Not sure if it's required
 
 		// If the current transition is null, reset
 		if (current_transition_->current_texture_ == current_transition_->texture_sequence_.end()) {
@@ -143,7 +146,7 @@ void TransitionManager::OpenTransition(const float& frametime) {
 
 void TransitionManager::CloseTransition(const float& frametime) {
 
-	float scaling = 1.0f - current_size_.x / max_size_.x;
+	float scaling = 1.0f - current_size_.x / custom_max_size_.x;
 	scaling *= scaling;
 	scaling *= scaling;
 	current_size_ -= transition_speed_ * frametime * (1.0f - scaling + 0.01f);
@@ -171,6 +174,9 @@ void TransitionManager::CloseTransition(const float& frametime) {
 
 			// change state
 			CORE->GetSystem<Game>()->ChangeState(next_state_);
+
+			if (custom_)
+				custom_max_size_ = CORE->GetSystem<EffectsSystem>()->spore_size_effect_.curr_size_;
 
 			// Last scene is completed
 			begin_ = true;

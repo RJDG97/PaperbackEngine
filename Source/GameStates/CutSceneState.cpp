@@ -19,6 +19,7 @@
 #include "Systems/Factory.h"
 #include "Systems/DialogueSystem.h"
 #include "Systems/Parenting.h"
+#include "Systems/EffectsSystem.h"
 
 CutSceneState m_CutSceneState;
 
@@ -38,14 +39,17 @@ void CutSceneState::Init(std::string) {
 
 	CORE->GetManager<LayerManager>()->LoadLevelLayers("Cutscene");
 	FACTORY->LoadLevel("Cutscene");
+	CORE->GetSystem<EffectsSystem>()->Reset();
 
 	//used to skip transitions if they dont exist
 	std::string name = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
-	exiting_ = !CORE->GetManager<TransitionManager>()->ResetTransition(name, &m_PlayState);
+
+	exiting_ = !CORE->GetManager<TransitionManager>()->ResetTransition(name, &m_PlayState, true);
 
 	if (exiting_) {
 
-		CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_PlayState);
+		CORE->GetSystem<EffectsSystem>()->Reset();
+		CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_PlayState, true);
 	}
 	else {
 		if (name == "LevelOne") {
@@ -58,7 +62,6 @@ void CutSceneState::Init(std::string) {
 		}
 
 		CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
-
 		CORE->GetManager<DialogueManager>()->LoadDialogueSet("Cutscene_" + name);
 		CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("text");
 
@@ -79,7 +82,6 @@ void CutSceneState::Free() {
 	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();
-
 	FACTORY->DestroyAllEntities();
 }
 

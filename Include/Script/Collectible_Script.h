@@ -60,7 +60,8 @@ namespace Collectible_Script
 				Vector2D direction = des->GetDestination() - xform->GetOffsetAABBPos();
 				Vector2DNormalize(direction, direction);
 				sound_sys->PlayTaggedSounds("player_sprout");
-				//// This dialogue does not exist yet, add in your own version if you are interested wheeeee
+				CORE->GetSystem<EffectsSystem>()->spore_size_effect_.SetStatus(0.5f);
+				// This dialogue does not exist yet, add in your own version if you are interested wheeeee
 				//CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("Spore_Collected");
 				forces_mgr->AddForce(collectible_id, "Collected", 5.0f, direction * motion->GetForce());
 
@@ -77,7 +78,7 @@ namespace Collectible_Script
 				if (point_light) point_light->SetAlive(false);
 				if (aabb) aabb->SetAlive(false);
 
-				CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f, false);
+				//CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f, false);
 				sound_sys->PlayTaggedSounds("drink");
 
 				ParentChild* pc = component_mgr->GetComponent<ParentChild>(collectible_id);

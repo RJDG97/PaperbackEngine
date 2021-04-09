@@ -90,7 +90,7 @@ public:
 	  \brief Resets the transition to a closed type and sets the transition type
 	*/
 	/******************************************************************************/
-	bool ResetTransition(const std::string& id, GameState* state);
+	bool ResetTransition(const std::string& id, GameState* state, bool size_cap = false);
 
 	/******************************************************************************/
 	/*!
@@ -160,7 +160,7 @@ private:
 	TextureRendererType* texture_arr_;
 
 	glm::vec2 transition_speed_;
-	glm::vec2 max_size_;
+	glm::vec2 max_size_, custom_max_size_;
 	glm::vec2 max_clear_size_;
 	glm::vec2 current_size_;
 	glm::vec2 clear_current_size_;
@@ -169,7 +169,7 @@ private:
 	SceneTransitions transition_map_;
 	SceneTransition* current_transition_;
 	GameState* next_state_;
-	bool begin_, end_;
+	bool begin_, end_, custom_;
 };
 
 

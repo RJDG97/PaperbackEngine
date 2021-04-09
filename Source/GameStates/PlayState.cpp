@@ -82,7 +82,10 @@ void PlayState::Init(std::string)
 
 	if (name == "End") {
 
+		Levels* levels = CORE->GetSystem<EntityFactory>()->GetLevelsFile();
+		levels->ResetPlayLevels();
 		CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
+		return;
 	}
 
 	MessageBGM_Play msg{ name + "_BGM" };
@@ -94,7 +97,7 @@ void PlayState::Init(std::string)
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.7f);
 	CORE->GetSystem<CameraSystem>()->TargetPlayer();
 	CORE->GetSystem<PauseSystem>()->InitializeClickables();
-	CORE->GetManager<TransitionManager>()->ResetVignetteScale();
+	CORE->GetSystem<EffectsSystem>()->spore_size_effect_.Initialize();
 
 	CORE->GetManager<DialogueManager>()->LoadDialogueSet("Play");
 }
@@ -184,7 +187,7 @@ void PlayState::Update(Game* game, float frametime)
 			int new_hp = health->GetCurrentHealth() - 1;
 			health->SetCurrentHealth(new_hp);
 			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_deplete");
-			CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f);
+			//CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f);
 			CORE->GetSystem<EffectsSystem>()->color_effect_.SetTimer(0.5f);
 			CORE->GetSystem<EffectsSystem>()->color_effect_.SetStartVignetteColor({1, 0, 0});
 			CORE->GetSystem<EffectsSystem>()->color_effect_.SetEndVignetteColor({0, 0, 0});
@@ -385,6 +388,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 							if (curr_play->optional_next_ != "") {
 
 								//there is successive level
+								CORE->GetSystem<EffectsSystem>()->Reset();
 								levels->GetPlayLevel(curr_play->optional_next_);
 								game->ChangeState(&m_CutSceneState);
 								return;
@@ -403,6 +407,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 						// Case 9 = Lose current level
 						case 9:
 						{
+							CORE->GetSystem<EffectsSystem>()->Reset();
 							std::string previous_state = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
 							game->ChangeState(&m_PlayState, previous_state);
 							return;
@@ -413,7 +418,8 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 							[[fallthrough]];
 						case 11:
 						{
-							game->ChangeState(&m_MenuState);
+							//game->ChangeState(&m_MenuState);
+							CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
 							return;
 							break;
 						}

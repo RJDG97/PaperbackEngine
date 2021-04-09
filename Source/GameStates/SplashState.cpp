@@ -18,6 +18,7 @@
 #include "Systems/PauseSystem.h"
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
+#include "Systems/EffectsSystem.h"
 
 SplashState m_SplashState;
 
@@ -39,7 +40,7 @@ void SplashState::Init(std::string) {
 	CORE->GetManager<TransitionManager>()->ResetTransition("Splash_Debug", &m_MenuState);
 	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 	CORE->GetSystem<PauseSystem>()->InitializeClickables();
-	CORE->GetManager<TransitionManager>()->ResetVignetteScale();
+	CORE->GetSystem<EffectsSystem>()->spore_size_effect_.Initialize();
 
 	MessageBGM_Play msg{ "Game_BGM" };
 	CORE->BroadcastMessage(&msg);

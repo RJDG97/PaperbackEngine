@@ -110,7 +110,7 @@ void ForcesManager::Update(float frametime) {
 
 			if (RemoveVecCheck(begin)) {
 
-				RemoveExpiredCollectibles(begin_map); // This might crash when removing expired moving Spores
+				RemoveExpiredCollectibles(begin_map);
 				begin = begin_map->second.vec_.erase(begin);
 				continue;
 			}

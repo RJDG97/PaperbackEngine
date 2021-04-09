@@ -51,10 +51,30 @@ struct VignetteSizeEffect
     void Update(const float& dt, const EntityID& id = 0);
 };
 
+struct VignetteSporeSizeEffect
+{
+    float effect_timer_, current_;
+    glm::vec2 max_clear_, curr_clear_;
+    glm::vec2 min_size_, max_size_, curr_size_;
+
+    glm::vec2 rate_;
+    bool decrease_;
+    int count_;
+
+    void SetStatus(float dur);
+    void SetMinSize(glm::vec2 min);
+    void SetMaxSize(glm::vec2 max);
+
+    void Initialize();
+    void Update(const float& dt, const EntityID& id = 0);
+};
+
 
 class EffectsSystem : public ISystem
 {
 public:
+
+    using CollectibleMap = CMap<Collectible>;
 
     /******************************************************************************/
     /*!
@@ -85,6 +105,15 @@ public:
 
     /******************************************************************************/
     /*!
+      \fn Reset()
+
+      \brief Reset all values to default
+    */
+    /******************************************************************************/
+    void Reset();
+
+    /******************************************************************************/
+    /*!
       \fn SendMessageD()
 
       \brief Handles incoming messages and sorts based on message id
@@ -94,12 +123,13 @@ public:
         (void)m;
     }
 
-    VignetteColorEffect color_effect_; // collision and game
-    VignetteSizeEffect size_effect_; // only here
+    VignetteColorEffect color_effect_;
+    VignetteSizeEffect size_effect_;
+    VignetteSporeSizeEffect spore_size_effect_;
 
 private:
 
-
+    CollectibleMap* collectible_map_;
     EntityManager* entity_manager_;
     ComponentManager* component_manager_;
     GraphicsSystem* graphics_system_;
