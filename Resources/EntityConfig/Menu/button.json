@@ -2,7 +2,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.16 0.45",
+      "position": "0.16 0.1",
       "rotation": "0.0"
     },
     {
@@ -14,7 +14,7 @@
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "105.0 35.0"
     },
     {
       "component": "AABB",
@@ -40,7 +40,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.16 -0.75",
+      "position": "0.16 -0.9",
       "rotation": "0.0"
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "105.0 35.0"
     },
     {
       "component": "AABB",
@@ -94,7 +94,7 @@
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "105.0 35.0"
     },
     {
       "component": "AABB",
@@ -120,7 +120,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.16 -4.5",
+      "position": "0.16 -3.9",
       "rotation": "0.0"
     },
     {
@@ -132,7 +132,7 @@
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "105.0 35.0"
     },
     {
       "component": "AABB",
@@ -234,7 +234,7 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.16 -3.2",
+      "position": "0.16 -2.9",
       "rotation": "0.0"
     },
     {
@@ -246,7 +246,7 @@
     },
     {
       "component": "Scale",
-      "scale": "120.0 40.0"
+      "scale": "105.0 35.0"
     },
     {
       "component": "AABB",
