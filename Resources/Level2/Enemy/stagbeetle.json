@@ -278,10 +278,10 @@
             "range": "6.000000",
             "speed": "200.000000",
             "dest": "4",
-            "destination1": "13.07 -61.31",
-            "destination2": "13.07 -57.96",
-            "destination3": "7.34 -57.96",
-            "destination4": "7.34 -61.31"
+            "destination1": "9.45 -55.45",
+            "destination2": "9.45 -61.55",
+            "destination3": "12.70 -61.55",
+            "destination4": "12.70 -55.45"
         },
         {
             "component": "AnimationRenderer",

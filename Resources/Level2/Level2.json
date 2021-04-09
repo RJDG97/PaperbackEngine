@@ -43,5 +43,6 @@
     "PuzzleHole": "Resources\\Level2\\Map\\Hole.json",
     "DialogueTriggerBox": "Resources\\Level2\\Dialogue\\dialogue_trigger.json",
     "Floor": "Resources\\Level2\\Map\\Floor_Layout.json",
-    "EyeLights": "Resources\\Level2\\Enemy\\eyelights.json"
+    "EyeLights": "Resources\\Level2\\Enemy\\eyelights.json",
+    "CrockpotFriends": "Resources\\Level2\\Map\\Crockpot_Friends.json"
 }
