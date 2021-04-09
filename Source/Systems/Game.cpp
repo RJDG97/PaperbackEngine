@@ -16,6 +16,7 @@
 #include "GameStates/GameState.h"
 #include "Systems/InputSystem.h"
 #include "Systems/PauseSystem.h"
+#include "Manager/TransitionManager.h"
 #include "Engine/Core.h"
 #include "GameStates/SplashState.h"
 #include "GameStates/MenuState.h"

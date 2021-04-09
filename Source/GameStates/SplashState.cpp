@@ -14,6 +14,7 @@
 #include "GameStates/SplashState.h"
 #include "GameStates/MenuState.h"
 #include "Manager/TransitionManager.h"
+#include "Systems/Parenting.h"
 #include "Systems/PauseSystem.h"
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
@@ -36,7 +37,9 @@ void SplashState::Init(std::string) {
 	CORE->GetManager<LayerManager>()->LoadLevelLayers("Splash");
 	FACTORY->LoadLevel("Splash");
 	CORE->GetManager<TransitionManager>()->ResetTransition("Splash_Debug", &m_MenuState);
+	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 	CORE->GetSystem<PauseSystem>()->InitializeClickables();
+	CORE->GetManager<TransitionManager>()->ResetVignetteScale();
 
 	MessageBGM_Play msg{ "Game_BGM" };
 	CORE->BroadcastMessage(&msg);

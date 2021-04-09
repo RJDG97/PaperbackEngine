@@ -210,6 +210,12 @@ bool TransitionManager::CheckInTransition() const {
 	return current_transition_;
 }
 
+void TransitionManager::ResetVignetteScale()
+{
+	graphics_system_->SetMaxVignetteSize(max_size_);
+	graphics_system_->SetVignetteSize(max_clear_size_);
+}
+
 void TransitionManager::DeSerialize(const std::string& filepath) {
 
 	// Parse the stringstream into document (DOM) format

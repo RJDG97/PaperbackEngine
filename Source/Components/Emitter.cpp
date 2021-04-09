@@ -219,6 +219,8 @@ void Emitter::SetParticle(const EntityID& id) {
 		particle_position_.Generate(xform_p, xform_e, false);
 		particle_force_.Generate(forces_manager, particle, id);
 		particle_rotation_.Generate(xform_p);
+		particle_scale_.Generate(scale_p);
+		particle_opacity_.Generate(texture_renderer);
 		particle_texture_.Generate(graphics_system, texture_renderer);
 		particle_destination_.Init(particle);
 

@@ -270,8 +270,6 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 	Vector2D cursor_pos = CORE->GetSystem<InputSystem>()->GetCursorPosition();
 
 	for (auto& [id, clickable] : *clickable_arr_) {
-		
-		//size_t index = clickable->index_;
 
 		// Only if clickable is set to active
 		if (clickable->active_) {
@@ -281,7 +279,7 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 			if (!logic)
 				continue;
 
-			if (CheckCursorCollision(cursor_pos, clickable)) {
+			if (CheckCursorCollision(cursor_pos, clickable)) { // Clickable uses transform's position + clickable's scale
 
 				// Run logic script to change texture to be "Hovered"
 				std::string UpdateTexture = logic->GetLogic("ButtonUpdateTexture");
