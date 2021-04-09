@@ -78,7 +78,6 @@ void PlayState::Init(std::string)
 
 	CORE->GetSystem<GraphicsSystem>()->EnableLighting(true);
 	
-	//MessageBGM_Play msg{ "River_1" };
 	std::string name = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
 
 	if (name == "End") {
@@ -95,9 +94,9 @@ void PlayState::Init(std::string)
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.7f);
 	CORE->GetSystem<CameraSystem>()->TargetPlayer();
 	CORE->GetSystem<PauseSystem>()->InitializeClickables();
+	CORE->GetManager<TransitionManager>()->ResetVignetteScale();
 
 	CORE->GetManager<DialogueManager>()->LoadDialogueSet("Play");
-	//CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("beginning");
 }
 
 void PlayState::Free()
@@ -394,7 +393,8 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 
 								//last level
 								levels->ResetPlayLevels();
-								game->ChangeState(&m_MenuState);
+								CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
+								//game->ChangeState(&m_MenuState);
 								return;
 							}
 							return;

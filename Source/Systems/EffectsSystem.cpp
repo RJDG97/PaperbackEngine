@@ -35,7 +35,7 @@ void EffectsSystem::Update(float frametime)
         : 0;
 
     color_effect_.Update(frametime, player_id);
-    size_effect_.Update(frametime, player_id);
+    //size_effect_.Update(frametime, player_id);
 }
 
 
