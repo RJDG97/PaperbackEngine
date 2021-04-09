@@ -93,5 +93,6 @@
     "UI_Replay": "Resources/Sprites/UI_Elements/Lose/UI_ReplayButton.png 1 1",
     "UI_Replay_Clicked": "Resources/Sprites/UI_Elements/Lose/UI_ReplayButton_Clicked.png 1 1",
     "UI_Replay_Hovered": "Resources/Sprites/UI_Elements/Lose/UI_ReplayButton_Hover.png 1 1",
-    "UI_Dialogue_Enter": "Resources/Sprites/UI_Elements/Dialogue/UI_Enter.png 1 1"
+    "UI_Dialogue_Enter": "Resources/Sprites/UI_Elements/Dialogue/UI_Enter.png 1 1",
+    "Watergauge_Particle": "Resources/Sprites/UI_Elements/Healthbar/Watergauge_Particle.png 1 1"
 }
