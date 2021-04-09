@@ -1216,6 +1216,54 @@
             "alive": "1"
         }
     ],
+    "CrockpotFriends": [
+        {
+            "component": "Name",
+            "name": "CrockpotFriends"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "1.600000 -2.200000"
+        },
+        {
+            "component": "AnimationRenderer",
+            "number of animations": "2",
+            "add animation": "Crockpot_Fall_t",
+            "add animation": "Crockpot_Cooking_t",
+            "set animation": "Crockpot_Cooking_t",
+            "play_animation": "1",
+            "reversed": "0",
+            "has_finished_animating": "0",
+            "animation_speed": "1.000000",
+            "layer": "1",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.000000",
+            "layer": "12"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 256.000000"
+        },
+        {
+            "component": "LogicComponent",
+            "number_of_fns": "1",
+            "name": "Interactable",
+            "function": "Interactable_Response"
+        },
+        {
+            "component": "Interactable",
+            "size": "0"
+        }
+    ],
     "Log": [
         {
             "component": "Name",

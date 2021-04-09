@@ -37,5 +37,7 @@
 
     "Win Screen Animations": "Resources/AssetsLoading/Animation/winscreen_animations.json",
 
-    "CrockPot Friends Animations": "Resources/AssetsLoading/Animation/crockpotfriends_animations.json"
+    "CrockPot Friends Animations": "Resources/AssetsLoading/Animation/crockpotfriends_animations.json",
+    
+    "CrockPot Friends Temp Animations": "Resources/AssetsLoading/Animation/crockpotfriends_temp_animations.json"
 }
