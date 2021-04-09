@@ -171,3 +171,8 @@ void ConeLight::SetAlive(bool alive) {
 
 	alive_ = alive;
 }
+
+void ConeLight::SetPulse(bool value)
+{
+	pulse_ = value;
+}

@@ -25,6 +25,14 @@ void EffectsSystem::Init()
     size_effect_.SetMinSize({ 400.0f, 225.0f });
     size_effect_.effect_timer_ = 0.5f;
     size_effect_.max_clear_ = { 320.0f, 180.0f };
+
+    
+    spore_size_effect_.SetMaxSize({ 800.0f, 450.0f });
+    spore_size_effect_.SetMinSize({ 400.0f, 225.0f });
+    spore_size_effect_.effect_timer_ = 0.5f;
+    spore_size_effect_.max_clear_ = { 320.0f, 180.0f };
+
+    collectible_map_ = component_manager_->GetComponentArray<Collectible>();
 }
 
 
@@ -35,7 +43,46 @@ void EffectsSystem::Update(float frametime)
         : 0;
 
     color_effect_.Update(frametime, player_id);
-    //size_effect_.Update(frametime, player_id);
+    spore_size_effect_.Update(frametime, player_id);
+
+    for (auto& [id, collectible] : *collectible_map_)
+    {
+        Name* name = component_manager_->GetComponent<Name>(id);
+        Motion* motion = component_manager_->GetComponent<Motion>(id);
+        PointLight* light = component_manager_->GetComponent<PointLight>(id);
+        AnimationRenderer* anim = component_manager_->GetComponent<AnimationRenderer>(id);
+
+        if (!motion || !anim || !name || !light || name->GetEntityName() != "Spore")
+            continue;
+
+        if (std::abs(motion->GetVelocity().x) > 0 || std::abs(motion->GetVelocity().y) > 0)
+        {
+            light->SetPulse(false);
+
+            float opacity = anim->GetOpacity();
+            float radius = light->GetRadius();
+            float new_opacity = std::max(0.0f, opacity *= 0.99f);
+            float new_radius = std::max(0.0f, radius *= 0.99f);
+
+            anim->SetOpacity(new_opacity);
+            light->SetRadius(new_radius);
+        }
+    }
+}
+
+void EffectsSystem::Reset()
+{
+    size_effect_.SetMaxSize({ 800.0f, 450.0f });
+    size_effect_.SetMinSize({ 400.0f, 225.0f });
+    size_effect_.effect_timer_ = 0.5f;
+    size_effect_.max_clear_ = { 320.0f, 180.0f };
+
+    spore_size_effect_.SetMaxSize({ 800.0f, 450.0f });
+    spore_size_effect_.SetMinSize({ 400.0f, 225.0f });
+    spore_size_effect_.effect_timer_ = 0.5f;
+    spore_size_effect_.max_clear_ = { 320.0f, 180.0f };
+
+    spore_size_effect_.Initialize();
 }
 
 
@@ -103,10 +150,8 @@ void VignetteSizeEffect::SetMaxSize(glm::vec2 max)
 
 void VignetteSizeEffect::Update(const float& dt, const EntityID& id)
 {
-
     UNREFERENCED_PARAMETER(id);
     GraphicsSystem* graphics = &*CORE->GetSystem<GraphicsSystem>();
-    //ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
 
     // Update vignette size
     if (current_ > 0.0f)
@@ -116,6 +161,70 @@ void VignetteSizeEffect::Update(const float& dt, const EntityID& id)
         rate_ = decrease_ ? rate_ : -rate_;
 
         curr_size_ -= rate_ * dt;
+        curr_clear_ = { std::max(0.0f, curr_size_.x - max_clear_.x), std::max(0.0f, curr_size_.y - max_clear_.y) };
+
+        if (curr_clear_.x > max_clear_.x && curr_clear_.y > max_clear_.y)
+        {
+            curr_clear_ = max_clear_;
+        }
+
+        graphics->SetMaxVignetteSize(curr_size_);
+        graphics->SetVignetteSize(curr_clear_);
+
+        current_ -= dt;
+    }
+}
+
+
+
+
+
+void VignetteSporeSizeEffect::SetStatus(float dur)
+{
+    current_ = dur;
+}
+
+void VignetteSporeSizeEffect::SetMinSize(glm::vec2 min)
+{
+    min_size_ = min;
+    curr_size_ = min;
+}
+
+void VignetteSporeSizeEffect::SetMaxSize(glm::vec2 max)
+{
+    max_size_ = max;
+}
+
+void VignetteSporeSizeEffect::Initialize()
+{
+    count_ = 0;
+
+    GraphicsSystem* graphics = &*CORE->GetSystem<GraphicsSystem>();
+    ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+    CMap<Collectible>* collectible_map = component_mgr->GetComponentArray<Collectible>();
+
+    // Initialize counter
+    for (auto& [id, collectible] : *collectible_map)
+    {
+        if (collectible->GetItemName() == "Spore")
+            ++count_;
+    }
+}
+
+// Update the transition system's "ResetTransition" function to include an additional flag
+// which determines if there is a limitation to the size of the vignette from the EffectsSystem
+void VignetteSporeSizeEffect::Update(const float& dt, const EntityID& id)
+{
+    UNREFERENCED_PARAMETER(id);
+    GraphicsSystem* graphics = &*CORE->GetSystem<GraphicsSystem>();
+
+    // Update vignette size
+    if (current_ > 0.0f)
+    {
+
+        rate_ = ((max_size_ - min_size_) / static_cast<float>(count_)) / effect_timer_;
+
+        curr_size_ += rate_ * dt;
         curr_clear_ = { std::max(0.0f, curr_size_.x - max_clear_.x), std::max(0.0f, curr_size_.y - max_clear_.y) };
 
         if (curr_clear_.x > max_clear_.x && curr_clear_.y > max_clear_.y)

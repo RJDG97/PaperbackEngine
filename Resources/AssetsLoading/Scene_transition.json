@@ -85,7 +85,7 @@
     {
       "size": "0",
       "default timer": "1.5",
-      "default transition timer": "1.0",
+      "default transition timer": "0.6",
       "dark timer": "0.4"
     }
   ]
