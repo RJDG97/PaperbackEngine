@@ -1,0 +1,24 @@
+{
+    "CrockpotFriends": [
+        {
+            "component": "Name",
+            "name": "CrockpotFriends"
+        },
+        {
+            "component": "Transform",
+            "position": "25.72 -64.24",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "1.600000 -1.300000"
+        },
+        {
+            "component": "AABB",
+            "scale": "1.000000 1.700000",
+            "layer": "12"
+        },
+        {
+            "component": "Scale",
+            "scale": "256.000000 256.000000"
+        }
+    ]
+}
