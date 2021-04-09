@@ -1,26 +1,23 @@
 {
   "Splash_Debug": [
     {
-      "size": "4",
+      "size": "2",
       "default timer": "0.1",
       "default transition timer": "0.1",
       "dark timer": "0.1",
       "name": "Splash_DigipenLogo_0",
-      "name": "Splash_FmodLogo_0",
-      "name": "Splash_VeggieEscape_0",
-      "name": "Splash_MonkeyLogo_0"
+      "name": "Splash_VeggieEscape_0"
     }
   ],
   "Splash": [
     {
-      "size": "4",
+      "size": "2",
       "default timer": "1.5",
       "default transition timer": "1.0",
       "dark timer": "0.4",
       "name": "Splash_DigipenLogo_0",
-      "name": "Splash_FmodLogo_0",
-      "name": "Splash_VeggieEscape_0",
-      "name": "Splash_MonkeyLogo_0"
+      "name": "Splash_VeggieEscape_0"
+
     }
   ],
   "LevelOne": [
@@ -73,16 +70,15 @@
   "Credits": [
     {
       "size": "6",
-      "default timer": "0.2",
-      "default transition timer": "0.2",
-      "dark timer": "0.2",
+      "default timer": "1.5",
+      "default transition timer": "0.75",
+      "dark timer": "0.1",
       "name": "Credits_01_0",
-      "name": "Credits_06_0",
       "name": "Credits_02_0",
       "name": "Credits_03_0",
       "name": "Credits_04_0",
       "name": "Credits_05_0",
-      "cutscene": "1"
+      "name": "Splash_FmodLogo_0"
     }
   ],
   "Default": [
