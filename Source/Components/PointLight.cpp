@@ -32,6 +32,7 @@ void PointLight::Init() {
 
 	//CORE->GetSystem<LightingSystem>()->AddLightComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<PointLight>(Component::GetOwner()->GetID(), this);
+	CORE->GetSystem<LightingSystem>()->RandomizePulse(this);
 }
 
 void PointLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
@@ -62,7 +63,8 @@ void PointLight::DeSerialize(std::stringstream& data) {
 
 	data >> color_.x >> color_.y >> color_.z
 		 >> radius_ >> intensity_ >> alive_
-		 >> pulse_amplitude_ >> pulse_duration_;
+		 >> pulse_ >> max_radius_ >> min_radius_
+		 >> max_intensity_ >> min_intensity_ >> cycle_duration_;
 }
 
 void PointLight::DeSerializeClone(std::stringstream& data) {
@@ -86,8 +88,12 @@ std::shared_ptr<Component> PointLight::Clone() {
 	cloned->shdr_pgm_ = shdr_pgm_;
 	cloned->radius_ = radius_;
 	cloned->alive_ = alive_;
-	cloned->pulse_amplitude_ = pulse_amplitude_;
-	cloned->pulse_duration_ = pulse_duration_;
+	cloned->pulse_ = pulse_;
+	cloned->max_radius_ = max_radius_;
+	cloned->min_radius_ = min_radius_;
+	cloned->max_intensity_ = max_intensity_;
+	cloned->min_intensity_ = min_intensity_;
+	cloned->cycle_duration_ = cycle_duration_;
 
 	return cloned;
 }

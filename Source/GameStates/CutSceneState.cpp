@@ -30,6 +30,7 @@ void CutSceneState::Init(std::string) {
 	
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	entity_mgr_ = &*CORE->GetManager<EntityManager>();
+	CORE->GetSystem<GraphicsSystem>()->EnableLighting(false);
 
 	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();

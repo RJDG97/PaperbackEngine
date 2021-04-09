@@ -14,11 +14,13 @@
 #include "Systems/CameraSystem.h"
 #include "Engine/Core.h"
 #include "Manager/EntityManager.h"
+#include "Systems/Game.h"
 
-CameraSystem::Shake::Shake(float duration, float amplitude) :
+CameraSystem::Shake::Shake(float duration, float amplitude, float delay) :
     duration_ { duration },
     elapsed_time_ { 0.0f },
-    amplitude_ { amplitude }
+    amplitude_ { amplitude },
+    delay_ {delay}
 {
 
 }
@@ -45,6 +47,13 @@ void CameraSystem::Update(float frametime)
     {
         for (auto it = shakes_.begin(); it != shakes_.end(); )
         {
+            if (it->delay_ > 0.0f)
+            {
+                it->delay_ -= frametime;
+                ++it;
+                continue;
+            }
+
             it->elapsed_time_ += frametime;
             it->amplitude_ *= (1.0f - it->elapsed_time_ / it->duration_);
             total_magnitude = it->amplitude_;
@@ -117,7 +126,7 @@ void CameraSystem::SendMessageD(Message* m)
         case MessageIDTypes::CHANGE_ANIMATION_1: {
 
             //TargetPlayer();
-            ScreenShake(3.0f, 0.3f);
+            ScreenShake(70.0f, 0.6f, 0.0f);
             break;
         }
 
@@ -148,6 +157,12 @@ void CameraSystem::CameraUpdate(Camera* camera)
         Vector2D move_dir = (target_position - position) * camera->speed_;
         component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->SetPosition(
                                                 position + move_dir + shake_offset * total_magnitude);
+    }
+
+    else if (CORE->GetSystem<Game>()->GetStateName() != "Editor")
+    {
+        component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->SetPosition(
+            Vector2D{0.0f, 0.0f} + shake_offset * total_magnitude);
     }
 
     position *= global_scale;
@@ -241,9 +256,9 @@ Vector2D CameraSystem::GameCoordsToUI(const Vector2D& go_pos) {
     return {};
 }
 
-void CameraSystem::ScreenShake(float duration, float magnitude) {
+void CameraSystem::ScreenShake(float duration, float magnitude, float delay) {
 
-    shakes_.push_back({ duration, magnitude });
+    shakes_.push_back({ duration, magnitude, delay });
 
     if (shakes_.size() == 0)
     {

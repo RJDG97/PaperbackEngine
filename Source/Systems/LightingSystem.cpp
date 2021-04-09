@@ -129,6 +129,7 @@ void LightingSystem::Update(float frametime) {
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Point light position updated)\n");
 		}
 
+		UpdateLightPulse(it->second, frametime);
 		UpdateLightPosition(it->second);
 	}
 
@@ -144,6 +145,7 @@ void LightingSystem::Update(float frametime) {
 			M_DEBUG->WriteDebugMessage("Updating entity: " + std::to_string(it->first) + " (Point light position updated)\n");
 		}
 
+		UpdateLightPulse(it->second, frametime);
 		UpdateLightPosition(it->second);
 	}
 }
@@ -239,6 +241,44 @@ GLuint* LightingSystem::GetLightingTexture() {
 GLuint* LightingSystem::GetAdditionTexture() {
 
 	return &addition_texture;
+}
+
+void LightingSystem::UpdateLightPulse(PointLight* point_light, float frametime)
+{
+	if (point_light->pulse_)
+	{
+		point_light->elapsed_time_ += frametime;
+
+		if (point_light->elapsed_time_ > point_light->cycle_duration_)
+		{
+			point_light->elapsed_time_ = 0.0f;
+		}
+
+		float scale_factor = point_light->elapsed_time_ / (point_light->cycle_duration_ / 2);
+		scale_factor = scale_factor > 1.0f ? 2.0f - scale_factor : scale_factor;
+
+		point_light->intensity_ = point_light->min_intensity_ + point_light->max_intensity_ * scale_factor;
+		point_light->radius_ = point_light->min_radius_ + point_light->max_intensity_ * scale_factor;
+	}
+}
+
+void LightingSystem::UpdateLightPulse(ConeLight* cone_light, float frametime)
+{
+	if (cone_light->pulse_)
+	{
+		cone_light->elapsed_time_ += frametime;
+
+		if (cone_light->elapsed_time_ > cone_light->cycle_duration_)
+		{
+			cone_light->elapsed_time_ = 0.0f;
+		}
+
+		float scale_factor = cone_light->elapsed_time_ / (cone_light->cycle_duration_ / 2);
+		scale_factor = scale_factor > 1.0f ? 2.0f - scale_factor : scale_factor;
+
+		cone_light->intensity_ = cone_light->min_intensity_ + cone_light->max_intensity_ * scale_factor;
+		cone_light->radius_ = cone_light->min_radius_ + cone_light->max_intensity_ * scale_factor;
+	}
 }
 
 void LightingSystem::UpdateLightPosition(PointLight* point_light) {
@@ -432,4 +472,14 @@ std::string LightingSystem::GetName() {
 void LightingSystem::SendMessageD(Message* m) {
 
 	UNREFERENCED_PARAMETER(m);
+}
+
+void LightingSystem::RandomizePulse(PointLight* point_light)
+{
+	point_light->elapsed_time_ = distribution(generator);
+}
+
+void LightingSystem::RandomizePulse(ConeLight* cone_light)
+{
+	cone_light->elapsed_time_ = distribution(generator);
 }

@@ -44,9 +44,10 @@ class CameraSystem : public ISystem {
 		float duration_;
 		float elapsed_time_;
 		float amplitude_;
+		float delay_;
 
 		Shake() = default;
-		Shake(float duration, float amplitude);
+		Shake(float duration, float amplitude, float delay);
 	};
 
 	std::vector<Shake> shakes_; // first is duration and second is magnitude
@@ -188,7 +189,7 @@ public:
 
 	Vector2D GameCoordsToUI(const Vector2D & go_pos);
 
-	void ScreenShake(float duration, float magnitude);
+	void ScreenShake(float duration, float magnitude, float delay);
 
 	void TargetPlayer();
 

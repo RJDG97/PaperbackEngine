@@ -573,7 +573,7 @@ void GraphicsSystem::CheckDrawBatch(GLuint vbo_hdl, RenderLayer* render_layer, R
     }
 }
 
-void GraphicsSystem::DrawSpriteBatch(GLuint vbo_hdl, LayerType layer_type)
+void GraphicsSystem::DrawSpriteBatch(GLuint vbo_hdl, LayerType layer_type, bool reject)
 {
     for (auto tex_it = texture_handles.begin(); tex_it != texture_handles.end(); ++tex_it) {
 
@@ -630,6 +630,7 @@ void GraphicsSystem::DrawSpriteBatch(GLuint vbo_hdl, LayerType layer_type)
 
             Shader* shader = graphic_shaders_["UISpriteShader"];
             shader->SetUniform("projection", projection);
+            shader->SetUniform("reject", reject);
             auto loc = glGetUniformLocation(shader->GetHandle(), "uTex2d");
             glUniform1iv(loc, 20, texture_samplers);
             break;
@@ -729,7 +730,7 @@ void GraphicsSystem::DrawHealthbar(Model* model, IRenderer* i_renderer)
                         });
     
     BatchSpriteObject(static_cast<SpriteRenderer*>(component_manager_->GetComponent<TextureRenderer>((*to_render)->GetID())), true);
-    DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE);
+    DrawSpriteBatch(model->GetVBOHandle(), LayerType::UI_SPRITE, true);
 
     glStencilFunc(GL_EQUAL, 1, 0xFF);
     glStencilMask(0xFF);

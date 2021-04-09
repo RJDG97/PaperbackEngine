@@ -13,14 +13,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "0.500000 0.850000 0.200000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -41,14 +53,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "0.500000 0.850000 0.200000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -69,14 +93,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "0.500000 0.850000 0.200000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -97,14 +133,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "0.500000 0.850000 0.200000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -125,14 +173,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "0.500000 0.850000 0.200000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -153,14 +213,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "0.500000 0.850000 0.200000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -181,14 +253,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "0.500000 0.850000 0.200000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -209,14 +293,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "0.500000 0.850000 0.200000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -237,14 +333,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -265,14 +373,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -293,14 +413,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -321,14 +453,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -349,14 +493,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -377,14 +533,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -405,14 +573,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -433,14 +613,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -461,14 +653,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -489,14 +693,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -517,14 +733,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -545,14 +773,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -573,14 +813,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",
@@ -601,14 +853,26 @@
             "radius": "570.000000",
             "intensity": "2.300000",
             "angle": "35.000000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "50",
+			"min radius": "555",
+			"max intensity": "0.2",
+			"min intensity": "2.2",
+			"cycle duration": "3.0"
         },
         {
             "component": "PointLight",
             "color": "1.000000 0.30000 0.450000",
             "radius": "110.000000",
             "intensity": "0.85000",
-            "alive": "1"
+            "alive": "1",
+			"pulse": "1",
+			"max radius": "40",
+			"min radius": "90",
+			"max intensity": "0.1",
+			"min intensity": "0.80",
+			"cycle duration": "3.0"
         },
         {
             "component": "Child",

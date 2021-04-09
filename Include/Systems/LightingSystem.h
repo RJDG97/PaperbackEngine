@@ -53,6 +53,9 @@ class LightingSystem : public ISystem {
 	std::vector<glm::vec2> direction_sent;
 	std::vector<float> angle_sent;
 
+	std::default_random_engine generator;
+	std::uniform_real_distribution<float> distribution{ 0.0f, 2.0f };
+
 	int batch_size;
 
 public:
@@ -142,6 +145,24 @@ public:
 
 /******************************************************************************/
 /*!
+	\fn UpdateLightPulse(PointLight* point_light, float frametime)
+
+	\brief Updates the light position of a Light component from the Lighting Component's map
+*/
+/******************************************************************************/
+	void UpdateLightPulse(PointLight* point_light, float frametime);
+
+/******************************************************************************/
+/*!
+	\fn UpdateLightPulse(ConeLight* cone_light, float frametime)
+
+	\brief Updates the light position of a Light component from the Lighting Component's map
+*/
+/******************************************************************************/
+	void UpdateLightPulse(ConeLight* cone_light, float frametime);
+
+/******************************************************************************/
+/*!
 	\fn UpdateLightPosition(PointLight* point_light)
 
 	\brief Updates the light position of a Light component from the Lighting Component's map
@@ -151,7 +172,7 @@ public:
 
 /******************************************************************************/
 /*!
-	\fn UpdateLightPosition(ConeLight* cone_light, float cam_zoom, glm::vec2 cam_pos)
+	\fn UpdateLightPosition(ConeLight* cone_light)
 
 	\brief Updates the light position of a Light component from the Lighting Component's map
 */
@@ -211,6 +232,25 @@ public:
 */
 /******************************************************************************/
 	void SendMessageD(Message* m);
+
+/******************************************************************************/
+/*!
+	\fn RandomizePulse(ConeLight* cone_light)
+
+	\brief Randomizes starting pulse
+*/
+/******************************************************************************/
+	void RandomizePulse(PointLight* point_light);
+
+/******************************************************************************/
+/*!
+	\fn RandomizePulse(ConeLight* cone_light)
+
+	\brief Randomizes starting pulse
+*/
+/******************************************************************************/
+	void RandomizePulse(ConeLight* cone_light);
+
 };
 
 #endif

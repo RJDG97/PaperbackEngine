@@ -37,6 +37,14 @@ class ConeLight : public Component {
 
 	bool alive_;
 
+	bool pulse_;
+	float max_radius_;
+	float min_radius_;
+	float max_intensity_;
+	float min_intensity_;
+	float cycle_duration_;
+	float elapsed_time_{0.0f};
+
 public:
 
 	friend class LightingSystem;

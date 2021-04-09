@@ -274,12 +274,12 @@ public:
 
 /******************************************************************************/
 /*!
-    \fn DrawSpriteBatch(GLuint vbo_hdl, LayerType layer_type)
+    \fn DrawSpriteBatch(GLuint vbo_hdl, LayerType layer_type, bool reject)
 
     \brief Draw all objects in the batch
 */
 /******************************************************************************/
-    void DrawSpriteBatch(GLuint vbo_hdl, LayerType layer_type);
+    void DrawSpriteBatch(GLuint vbo_hdl, LayerType layer_type, bool reject = false);
 
 /******************************************************************************/
 /*!

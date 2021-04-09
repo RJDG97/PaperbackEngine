@@ -34,6 +34,7 @@ struct DialogueCameraEffect
 	Vector2D destination_;
 	float amplitude_;
 	float duration_;
+	float delay_;
 };
 
 class DialogueContent

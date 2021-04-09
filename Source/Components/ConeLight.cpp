@@ -32,6 +32,7 @@ void ConeLight::Init() {
 
 	//CORE->GetSystem<LightingSystem>()->AddLightComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<ConeLight>(Component::GetOwner()->GetID(), this);
+	CORE->GetSystem<LightingSystem>()->RandomizePulse(this);
 }
 
 void ConeLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
@@ -65,7 +66,8 @@ void ConeLight::DeSerialize(std::stringstream& data) {
 
 	data >> color_.x >> color_.y >> color_.z
 		 >> radius_ >> intensity_ >> angle_
-		 >> alive_;
+		 >> alive_ >> pulse_ >> max_radius_ >> min_radius_
+		 >> max_intensity_ >> min_intensity_ >> cycle_duration_;
 }
 
 void ConeLight::DeSerializeClone(std::stringstream& data) {
@@ -90,6 +92,12 @@ std::shared_ptr<Component> ConeLight::Clone() {
 	cloned->radius_ = radius_;
 	cloned->angle_ = angle_;
 	cloned->alive_ = alive_;
+	cloned->pulse_ = pulse_;
+	cloned->max_radius_ = max_radius_;
+	cloned->min_radius_ = min_radius_;
+	cloned->max_intensity_ = max_intensity_;
+	cloned->min_intensity_ = min_intensity_;
+	cloned->cycle_duration_ = cycle_duration_;
 
 	return cloned;
 }

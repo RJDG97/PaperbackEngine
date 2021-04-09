@@ -100,7 +100,7 @@ void DialogueSystem::Update(float frametime)
 
 					else if (effect->type_ == CameraEffectType::CAMERA_SHAKE)
 					{
-						camera_system_->ScreenShake(effect->amplitude_, effect->duration_);
+						camera_system_->ScreenShake(effect->amplitude_, effect->duration_, effect->delay_);
 					}
 
 					else if (effect->type_ == CameraEffectType::CAMERA_MOVE)
@@ -362,7 +362,7 @@ void DialogueSystem::AdvanceText()
 
 				else if (effect->type_ == CameraEffectType::CAMERA_SHAKE)
 				{
-					camera_system_->ScreenShake(effect->amplitude_, effect->duration_);
+					camera_system_->ScreenShake(effect->amplitude_, effect->duration_, effect->delay_);
 				}
 
 				else if (effect->type_ == CameraEffectType::CAMERA_MOVE)

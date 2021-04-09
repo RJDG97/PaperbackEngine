@@ -8,12 +8,13 @@ layout (location=3) in vec3 tint;
 layout (location=0) out vec4 fFragClr;
 
 uniform sampler2D uTex2d[20];
+uniform bool reject;
 
 void main () {
     
     vec4 color =  texture(uTex2d[int(tex_id)], vTexCoord);
     
-    if (color.a <= 0.6f)
+    if (reject && color.a <= 0.6f)
     {
         discard;
     }
