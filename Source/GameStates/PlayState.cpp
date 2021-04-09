@@ -84,6 +84,7 @@ void PlayState::Init(std::string)
 
 		Levels* levels = CORE->GetSystem<EntityFactory>()->GetLevelsFile();
 		levels->ResetPlayLevels();
+		CORE->GetManager<TransitionManager>()->ResetCustom();
 		CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
 		return;
 	}

@@ -222,6 +222,11 @@ void TransitionManager::ResetVignetteScale()
 	graphics_system_->SetVignetteSize(max_clear_size_);
 }
 
+void TransitionManager::ResetCustom()
+{
+	custom_ = false;
+}
+
 void TransitionManager::DeSerialize(const std::string& filepath) {
 
 	// Parse the stringstream into document (DOM) format
