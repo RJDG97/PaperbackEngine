@@ -33,6 +33,8 @@ void CreditsState::Init(std::string) {
 
 	CORE->GetManager<LayerManager>()->LoadLevelLayers("Cutscene");
 	FACTORY->LoadLevel("Cutscene");
+	MessageBGM_Play msg{ "Tutorial_BGM" };
+	CORE->BroadcastMessage(&msg);
 
 	exiting_ = CORE->GetManager<TransitionManager>()->ResetTransition("Credits", &m_MenuState);
 
