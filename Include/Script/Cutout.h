@@ -16,8 +16,10 @@ public:
 			setChild(new ActionSequence(id));
 		}
 
-		void CollisionResponse(EntityID obj) override
-		{}
+		void CollisionResponse(EntityID obj) override {
+			
+			UNREFERENCED_PARAMETER(obj);
+		}
 	};
 
 	class ActionSequence : public Sequence
@@ -110,30 +112,46 @@ public:
 	{
 		EntityID id_;
 		ComponentManager* component_mgr;
+		AI* ai_;
 		ParentChild* pc;
 		PointLight* pt;
 		ConeLight* cone;
+
+		std::shared_ptr<GraphicsSystem> graphics;
+		AnimationRenderer* renderer;
 	public:
 		Detected(EntityID id) : id_(id) {
 			component_mgr = &*CORE->GetManager<ComponentManager>();
+			ai_ = component_mgr->GetComponent<AI>(id_);
+			graphics = CORE->GetSystem<GraphicsSystem>();
+			renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
 		}
 
 		bool run() override
 		{
-			if (!pc) {
-				pc = component_mgr->GetComponent<ParentChild>(id_);
-				auto& children = pc->GetChildren();
+			if (ai_->GetState() != AI::AIState::Detected) {
+				ai_->SetState(AI::AIState::Detected);
+				graphics->ChangeAnimation(renderer, "CutOut_Detect");
+				renderer->SetReversed(false);
+				renderer->SetAnimationStatus(true);
+				if (!pc) {
+					pc = component_mgr->GetComponent<ParentChild>(id_);
+					auto& children = pc->GetChildren();
 
-				for (auto& child : children) {
-					cone = component_mgr->GetComponent<ConeLight>(child->GetID());
-					pt = component_mgr->GetComponent<PointLight>(child->GetID());
+					for (auto& child : children) {
+						cone = component_mgr->GetComponent<ConeLight>(child->GetID());
+						pt = component_mgr->GetComponent<PointLight>(child->GetID());
+					}
 				}
-			}
 
-			if(cone)
-				cone->SetColor({1, 0, 0});
-			if(pt)
-				pt->SetColor({1, 0, 0});
+				if (cone)
+					cone->SetColor({ 1, 0, 0 });
+				if (pt)
+					pt->SetColor({ 1, 0, 0 });
+			}
+			else if(renderer->FinishedAnimating()){
+				renderer->SetAnimationStatus(false);
+			}
 			return true;
 		}
 	};
@@ -143,6 +161,7 @@ public:
 		EntityID id_;
 		EntityID child_id_;
 		ComponentManager* component_mgr;
+		AI* ai_;
 
 		ParentChild* pc;
 		PointLight* pt;
@@ -150,21 +169,29 @@ public:
 
 		std::shared_ptr<GraphicsSystem> graphics;
 		Motion* motion;
-		TextureRenderer* renderer;
+		AnimationRenderer* renderer;
 		Time_Channel timer;
 	public:
 		Flip(EntityID id) : id_(id) {
 			component_mgr = &*CORE->GetManager<ComponentManager>();
 			motion = component_mgr->GetComponent<Motion>(id_);
-
+			ai_ = component_mgr->GetComponent<AI>(id_);
 			graphics = CORE->GetSystem<GraphicsSystem>();
-			renderer = component_mgr->GetComponent<TextureRenderer>(id_);
+			renderer = component_mgr->GetComponent<AnimationRenderer>(id_);
 
 			timer.TimerStart();
 		}
 
 		bool run() override
 		{
+			if (ai_->GetState() == AI::AIState::Detected) {
+				ai_->SetState(AI::AIState::Search);
+				renderer->SetReversed(true);
+				renderer->SetAnimationStatus(true);
+			}
+			else if(renderer->FinishedAnimating()){
+				renderer->SetAnimationStatus(false);
+			}
 			if (!pc) {
 				pc = component_mgr->GetComponent<ParentChild>(id_);
 				auto& children = pc->GetChildren();
@@ -176,9 +203,9 @@ public:
 			}
 
 			timer.TimerUpdate();
-			if(cone)
+			if (cone)
 				cone->SetColor({ 1, 1, 1 });
-			if(pt)
+			if (pt)
 				pt->SetColor({ 1, 1, 1 });
 
 			if (timer.TimeElapsed(s) > 3.0f)
@@ -189,7 +216,6 @@ public:
 				}
 				else
 					motion->SetVelocity({ 0.1f, 0.0f });
-
 				graphics->FlipTextureY(renderer);
 				timer.TimerReset();
 			}

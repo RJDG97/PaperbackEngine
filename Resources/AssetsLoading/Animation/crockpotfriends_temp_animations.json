@@ -1,0 +1,14 @@
+{
+    "Crockpot_Friends_Spritesheet_(512x512)_temp.png": [ 
+      {
+        "Folder": "character_spritesheets",
+        "Animation Batch Name": "CrockPotFriends_Animations",
+        "Columns": "10",
+        "Rows": "4",
+        "Animation Name, Number of Frames, Frame Duration": "Crockpot_Fall_t 8 0.06",
+        "Animation Name, Number of Frames, Frame Duration": "Crockpot_Cooking_t 10 0.06",
+        "Animation Name, Number of Frames, Frame Duration": "Blank 0 0",
+        "Animation Name, Number of Frames, Frame Duration": "Blank 0 0"
+      }
+    ]
+  }

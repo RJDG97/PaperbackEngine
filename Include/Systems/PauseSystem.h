@@ -17,6 +17,8 @@
 
 #include <map>
 #include "Manager/ComponentManager.h"
+#include "Manager/LogicManager.h"
+#include "Systems/GraphicsSystem.h"
 #include "Systems/ISystem.h"
 
 class PauseSystem : public ISystem
@@ -137,11 +139,18 @@ public:
 
 private:
 
+	using Group = int;
+	using OrderInGroup = int;
+
 	using ClickableMap = CMap<Clickable>;
 	using ClickableIt = ClickableMap::MapTypeIt;
-	using PauseMap = std::map< int, std::vector<EntityID> >;
+
+	using PauseMap = std::map< Group, std::map< OrderInGroup, std::vector<EntityID> > >;
+	//using PauseMap = std::map< int, std::vector<EntityID> >;
 
 	std::shared_ptr<ComponentManager> mgr;
+	std::shared_ptr<LogicManager> logic_mgr;
+	std::shared_ptr<GraphicsSystem> graphics;
 	ClickableMap* click_map_;
 	PauseMap pause_layering_;
 	bool ended_;
@@ -154,6 +163,8 @@ private:
 	// then set active_layer_'s entities to Alive, and set previous_layer_ to 
 	// active_layer
 	int active_layer_;
+
+	size_t order_;
 };
 
 

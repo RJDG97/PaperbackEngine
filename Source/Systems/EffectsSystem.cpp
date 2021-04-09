@@ -103,8 +103,10 @@ void VignetteSizeEffect::SetMaxSize(glm::vec2 max)
 
 void VignetteSizeEffect::Update(const float& dt, const EntityID& id)
 {
+
+    UNREFERENCED_PARAMETER(id);
     GraphicsSystem* graphics = &*CORE->GetSystem<GraphicsSystem>();
-    ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+    //ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
 
     // Update vignette size
     if (current_ > 0.0f)

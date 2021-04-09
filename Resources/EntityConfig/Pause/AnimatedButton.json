@@ -1,0 +1,94 @@
+{
+    "AnimatedButton": [
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "100",
+      "active": "0",
+      "scale": "0.0001 0.0001",
+      "group": "5",
+      "order_in_group": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "320.000000 280.000000"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.0 0.0",
+      "layer": "6"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "2",
+      "add animation": "Win_Grow",
+      "add animation": "Win_Static",
+      "set animation": "Win_Grow",
+      "play_animation": "1",
+      "reversed": "0",
+      "has_finished_animating": "0",
+      "animation_speed": "1.000000",
+      "layer": "4",
+      "order in layer": "0",
+      "alive": "0",
+      "opacity": "1.000000",
+      "tint": "1.000000 1.000000 1.000000"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdatePauseAnimation",
+      "function": "Button_WinAnimation"
+    }
+  ],
+  "AnimatedButton": [
+    {
+      "component": "Transform",
+      "position": "0.0 0.0",
+      "rotation": "0.0"
+    },
+    {
+      "component": "Clickable",
+      "index": "100",
+      "active": "0",
+      "scale": "0.0001 0.0001",
+      "group": "6",
+      "order_in_group": "0"
+    },
+    {
+      "component": "Scale",
+      "scale": "320.000000 280.000000"
+    },
+    {
+      "component": "AABB",
+      "scale": "0.0 0.0",
+      "layer": "6"
+    },
+    {
+      "component": "AnimationRenderer",
+      "number of animations": "2",
+      "add animation": "Lose_Grow",
+      "add animation": "Lose_Static",
+      "set animation": "Lose_Grow",
+      "play_animation": "1",
+      "reversed": "0",
+      "has_finished_animating": "0",
+      "animation_speed": "1.000000",
+      "layer": "4",
+      "order in layer": "0",
+      "alive": "0",
+      "opacity": "1.000000",
+      "tint": "1.000000 1.000000 1.000000"
+    },
+    {
+      "component": "LogicComponent",
+      "number_of_fns": "1",
+      "name": "UpdatePauseAnimation",
+      "function": "Button_LoseAnimation"
+    }
+  ]
+}

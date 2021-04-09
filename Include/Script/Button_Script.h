@@ -609,6 +609,72 @@ namespace Button_Script
 
 	/******************************************************************************/
 	/*!
+	  \fn PauseWinAnim()
+
+	  \brief Animation update script for the win Pause animation to "Reset" or "Stop"
+	*/
+	/******************************************************************************/
+	static void PauseWinAnim(const EntityID& button_id, ButtonStates& state) {
+
+		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		GraphicsSystem* graphics_sys = &*CORE->GetSystem<GraphicsSystem>();
+		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(button_id);
+
+		if (!animation_renderer)
+			return;
+
+		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
+		switch (state)
+		{
+			case ButtonStates::DEFAULT:
+			{
+				graphics_sys->ChangeAnimation(animation_renderer, "Win_grow");
+				break;
+			}
+			case ButtonStates::ENDED:
+			{
+				graphics_sys->ChangeAnimation(animation_renderer, "Win_Static");
+				break;
+			}
+		}
+	}
+
+
+	/******************************************************************************/
+	/*!
+	  \fn PauseLoseAnim()
+
+	  \brief Animation update script for the lose Pause animation to "Reset" or "Stop"
+	*/
+	/******************************************************************************/
+	static void PauseLoseAnim(const EntityID& button_id, ButtonStates& state) {
+
+		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		GraphicsSystem* graphics_sys = &*CORE->GetSystem<GraphicsSystem>();
+		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(button_id);
+
+		if (!animation_renderer)
+			return;
+
+		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
+		switch (state)
+		{
+		case ButtonStates::DEFAULT:
+		{
+			graphics_sys->ChangeAnimation(animation_renderer, "Lose_grow");
+			break;
+		}
+		case ButtonStates::ENDED:
+		{
+			graphics_sys->ChangeAnimation(animation_renderer, "Lose_Static");
+			break;
+		}
+		}
+	}
+
+
+	/******************************************************************************/
+	/*!
 	  \fn WinLoseReturnToMenu()
 
 	  \brief Texture update script for the WinLose State to Menu

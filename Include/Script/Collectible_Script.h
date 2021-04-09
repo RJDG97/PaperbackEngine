@@ -51,7 +51,6 @@ namespace Collectible_Script
 		{
 			case CollectibleType::SPORE:
 			{
-				//if (point_light) point_light->SetAlive(false);
 				if (aabb) aabb->SetAlive(false);
 
 				Motion* motion = component_mgr->GetComponent<Motion>(collectible_id);
@@ -113,7 +112,7 @@ namespace Collectible_Script
 	  \brief Interactable update script for Logs
 	*/
 	/******************************************************************************/
-	void InteractableResponse(const EntityID& interactable_id) {
+	/*void InteractableResponse(const EntityID& interactable_id) {
 
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 
@@ -129,6 +128,48 @@ namespace Collectible_Script
 		AABB* aabb = component_mgr->GetComponent<AABB>(interactable_id);
 
 		animation_renderer->SetAnimationStatus(true);
+		CORE->SetMovementLock(true);
+
+		//sound_sys->PlaySounds("PlayerPushTree");
+		sound_sys->PlayTaggedSounds("tree_fall");
+
+		if (animation_renderer->FinishedAnimating()) {
+
+			if (aabb) {
+
+				aabb->SetAlive(false);
+				animation_renderer->SetAnimationStatus(false);
+				CORE->SetMovementLock(false);
+			}
+		}
+	}*/
+
+	/******************************************************************************/
+	/*!
+	  \fn InteractableResponse()
+
+	  \brief Interactable update script for friend crockpot
+	*/
+	/******************************************************************************/
+	void InteractableResponse(const EntityID& interactable_id) {
+
+		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
+
+		Status* player_status = component_mgr->GetComponent<Status>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
+		if (player_status->GetStatus() == StatusType::BURROW)
+			return;
+
+		std::shared_ptr<GraphicsSystem> graphics_sys = CORE->GetSystem<GraphicsSystem>();
+		std::shared_ptr<SoundSystem> sound_sys = CORE->GetSystem<SoundSystem>();
+
+		// Grab relevant components
+		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(interactable_id);
+		AABB* aabb = component_mgr->GetComponent<AABB>(interactable_id);
+
+		if (animation_renderer->GetCurrentAnimation() == "Crockpot_Cooking_t") {
+
+			graphics_sys->ChangeAnimation(animation_renderer, "Crockpot_Fall_t");
+		}
 		CORE->SetMovementLock(true);
 
 		//sound_sys->PlaySounds("PlayerPushTree");

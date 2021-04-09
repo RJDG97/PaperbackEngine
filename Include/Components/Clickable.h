@@ -25,7 +25,8 @@ enum class ButtonStates
 {
 	DEFAULT = 0,
 	HOVERED,
-	CLICKED
+	CLICKED,
+	ENDED
 };
 
 class Clickable : public Component {
@@ -35,6 +36,7 @@ class Clickable : public Component {
 	bool collided_, active_; // double check if needed
 	size_t index_;
 	size_t group_;
+	size_t order_;
 
 public:
 	friend class Collision;

@@ -5,8 +5,8 @@
 			"Animation Batch Name": "winscreen_Animations",
 			"Columns": "8",
 			"Rows": "2",
-			"Animation Name, Number of Frames, Frame Duration": "Win_grow 8 0.06",
-            "Animation Name, Number of Frames, Frame Duration": "Win_Static 4 0.06"
+			"Animation Name, Number of Frames, Frame Duration": "Win_Grow 8 0.06",
+      "Animation Name, Number of Frames, Frame Duration": "Win_Static 4 0.2"
 		}
 	]
 }

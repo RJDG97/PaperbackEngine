@@ -14,13 +14,19 @@
             "alive": "1"
         },
         {
-            "component": "TextureRenderer",
-            "texture": "Stag_Target_0",
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "CutOut_Detect",
+            "set animation": "CutOut_Detect",
+            "play_animation": "0",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
             "layer": "1",
-            "order in layer": "0",
+			"order in layer": "1",
             "alive": "1",
-            "opacity": "1.000000",
-            "tint": "1.000000 1.000000 1.000000"
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -61,13 +67,19 @@
             "alive": "1"
         },
         {
-            "component": "TextureRenderer",
-            "texture": "Stag_Target_0",
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "CutOut_Detect",
+            "set animation": "CutOut_Detect",
+            "play_animation": "0",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
             "layer": "1",
-            "order in layer": "0",
+			"order in layer": "1",
             "alive": "1",
-            "opacity": "1.000000",
-            "tint": "1.000000 1.000000 1.000000"
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",
@@ -108,13 +120,19 @@
             "alive": "1"
         },
         {
-            "component": "TextureRenderer",
-            "texture": "Stag_Target_0",
+            "component": "AnimationRenderer",
+            "number of animations": "1",
+            "add animation": "CutOut_Detect",
+            "set animation": "CutOut_Detect",
+            "play_animation": "0",
+			"reversed_": "0",
+            "has_finished_animating": "0",
+			"animation_speed": "1.0",
             "layer": "1",
-            "order in layer": "0",
+			"order in layer": "1",
             "alive": "1",
-            "opacity": "1.000000",
-            "tint": "1.000000 1.000000 1.000000"
+			"opacity": "1.0",
+			"tint": "1.0 1.0 1.0"
         },
         {
             "component": "AABB",

@@ -98,12 +98,27 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
 
     data >> num_animations;
 
+    // Clear the data from Archetype
+    if (num_animations > 0)
+        animation_names_.clear();
+
     for (int i = 0; i < num_animations; ++i) {
 
         std::string temp;
         data >> temp;
 
         animation_names_.push_back(temp);
+    }
+
+    // Clear the data from Init()
+    if (num_animations > 0)
+    {
+        obj_animations_.clear();
+
+        for (int i = 0; i < animation_names_.size(); ++i) {
+
+            CORE->GetSystem<GraphicsSystem>()->AddAnimation(this, animation_names_[i]);
+        }
     }
 
     int layer;
@@ -118,6 +133,8 @@ void AnimationRenderer::DeSerialize(std::stringstream& data) {
          >> opacity_
          >> tint_.x >> tint_.y >> tint_.z;
 
+    // Re-initialize current animation
+    CORE->GetSystem<GraphicsSystem>()->SetAnimation(this, current_animation_name_);
     CORE->GetSystem<GraphicsSystem>()->ChangeLayer(this, layer);
 }
 
