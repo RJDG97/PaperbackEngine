@@ -290,11 +290,11 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 
 				if (state == ButtonStates::CLICKED)
 				{
-					// I believe this fixes the one in menu state for fullscreen (Layer 2 = PauseMenu in game)
-					// If returning to menu, StateName will be "Menu"
-					// If quitting, it does not matter
-					if (CORE->GetSystem<Game>()->GetStateName() != "SplashState" && CORE->GetSystem<PauseSystem>()->PrevLayer() != 2)
-						return;
+					//// I believe this fixes the one in menu state for fullscreen (Layer 2 = PauseMenu in game)
+					//// If returning to menu, StateName will be "Menu"
+					//// If quitting, it does not matter
+					//if (CORE->GetSystem<Game>()->GetStateName() != "SplashState" && CORE->GetSystem<PauseSystem>()->PrevLayer() != 2)
+					return;
 				}
 					
 			}

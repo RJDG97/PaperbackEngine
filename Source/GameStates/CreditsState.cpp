@@ -16,6 +16,7 @@
 #include "Manager/TransitionManager.h"
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
+#include "Systems/SoundSystem.h"
 
 CreditsState m_CreditsState;
 
@@ -52,7 +53,7 @@ void CreditsState::Free() {
 	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();
-
+	CORE->GetSystem<SoundSystem>()->StopSound("All", true);
 	FACTORY->DestroyAllEntities();
 }
 

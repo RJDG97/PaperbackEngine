@@ -129,6 +129,8 @@ void PlayState::Update(Game* game, float frametime)
 		
 		CORE->ToggleCorePauseStatus(); // Disable physics update
 		CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+		CORE->GetSystem<SoundSystem>()->StopSound("All", true);
+		CORE->GetSystem<SoundSystem>()->PlaySounds("Win");
 		CORE->GetSystem<PauseSystem>()->TerminateState(true);
 		CORE->GetSystem<PauseSystem>()->SetActiveLayer(5);
 		//game->ChangeState(&m_WinLoseState, "Win");
@@ -139,6 +141,8 @@ void PlayState::Update(Game* game, float frametime)
 		
 		CORE->ToggleCorePauseStatus(); // Disable physics update
 		CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+		CORE->GetSystem<SoundSystem>()->StopSound("All", true);
+		CORE->GetSystem<SoundSystem>()->PlaySounds("Lose");
 		CORE->GetSystem<PauseSystem>()->TerminateState(true);
 		CORE->GetSystem<PauseSystem>()->SetActiveLayer(6);
 		//game->ChangeState(&m_WinLoseState, "Lose");
