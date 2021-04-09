@@ -55,7 +55,7 @@ void CameraSystem::Update(float frametime)
             }
 
             it->elapsed_time_ += frametime;
-            it->amplitude_ *= (1.0f - it->elapsed_time_ / it->duration_);
+            it->amplitude_ *= (1.0f - 0.5f * it->elapsed_time_ / it->duration_);
             total_magnitude = it->amplitude_;
 
             if (it->elapsed_time_ >= it->duration_)
@@ -74,8 +74,8 @@ void CameraSystem::Update(float frametime)
         if (shake_angle_timer <= 0.0f)
         {
             shake_angle += 180.0f + distribution(generator);
-            shake_offset = { sin(shake_angle), cos(shake_angle)};
-            shake_angle_timer = max(0.05f, total_magnitude * total_magnitude);
+            shake_offset = { sinf(shake_angle), cosf(shake_angle)};
+            shake_angle_timer = max(0.05f, 0.1f * total_magnitude * total_magnitude);
         }
     }
 
@@ -126,7 +126,7 @@ void CameraSystem::SendMessageD(Message* m)
         case MessageIDTypes::CHANGE_ANIMATION_1: {
 
             //TargetPlayer();
-            ScreenShake(70.0f, 0.6f, 0.0f);
+            ScreenShake(5.0f, 0.4f, 0.0f);
             break;
         }
 
@@ -161,8 +161,9 @@ void CameraSystem::CameraUpdate(Camera* camera)
 
     else if (CORE->GetSystem<Game>()->GetStateName() != "Editor")
     {
+        Vector2D move_dir = Vector2D{0.0f, 0.0f} - position * camera->speed_;
         component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID())->SetPosition(
-            Vector2D{0.0f, 0.0f} + shake_offset * total_magnitude);
+                                                position + move_dir + shake_offset * total_magnitude);
     }
 
     position *= global_scale;
