@@ -23,7 +23,7 @@
     "LightSpot": [
         {
             "component": "Transform",
-            "position": "-28.799999 9.000000",
+            "position": "-8.10 -21.000000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -65,27 +65,6 @@
     "LightSpot": [
         {
             "component": "Transform",
-            "position": "-12.400000 11.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
-        },
-        {
-            "component": "PointLight",
-            "color": "0.900000 0.500000 0.100000",
-            "radius": "500.000000",
-            "intensity": "0.750000",
-            "alive": "1"
-        }
-    ],
-    "LightSpot": [
-        {
-            "component": "Transform",
             "position": "-4.000000 -5.100000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
@@ -107,7 +86,7 @@
     "LightSpot": [
         {
             "component": "Transform",
-            "position": "0.400000 -12.200000",
+            "position": "6.200000 -13.100000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -129,27 +108,6 @@
         {
             "component": "Transform",
             "position": "14.000000 7.100000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 1.000000",
-            "layer": "0"
-        },
-        {
-            "component": "PointLight",
-            "color": "0.900000 0.500000 0.100000",
-            "radius": "500.000000",
-            "intensity": "0.750000",
-            "alive": "1"
-        }
-    ],
-    "LightSpot": [
-        {
-            "component": "Transform",
-            "position": "19.000000 -8.300000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"

@@ -139,6 +139,15 @@ public:
 
 	/******************************************************************************/
 	/*!
+	  \fn ResetVignetteScale()
+
+	  \brief Reset the vignette size at the start of each level
+	*/
+	/******************************************************************************/
+	void ResetVignetteScale();
+
+	/******************************************************************************/
+	/*!
 	  \fn DeSerialize()
 
 	  \brief Initializes data members of transition manager

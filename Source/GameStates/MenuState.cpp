@@ -65,6 +65,7 @@ void MenuState::Init(std::string)
 	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 	CORE->GetSystem<CameraSystem>()->CameraZoom(CORE->GetSystem<CameraSystem>()->GetMainCamera(), 0.8f);
 	CORE->GetSystem<PauseSystem>()->InitializeClickables();
+	CORE->GetManager<TransitionManager>()->ResetVignetteScale();
 
 	component_mgr_ = &*CORE->GetManager<ComponentManager>();
 	logic_mgr_ = &*CORE->GetManager<LogicManager>();

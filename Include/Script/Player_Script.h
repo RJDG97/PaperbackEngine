@@ -124,6 +124,7 @@ namespace Player_Scripts
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 
 		AnimationRenderer* renderer = component_mgr->GetComponent<AnimationRenderer>(parent_id);
+		Transform* xform = component_mgr->GetComponent<Transform>(parent_id);
 		Status* status = component_mgr->GetComponent<Status>(parent_id);
 		Motion* motion = component_mgr->GetComponent<Motion>(parent_id);
 		Name* name = component_mgr->GetComponent<Name>(parent_id);
@@ -149,6 +150,18 @@ namespace Player_Scripts
 
 						graphics->ChangeAnimation(renderer, "Player_Burrow_Walk");
 					}
+
+					// lol save me pls
+					ParentChild* pc = component_mgr->GetComponent<ParentChild>(parent_id);
+
+					if (!pc->GetChildren().empty()) {
+
+						EntityID emitter_id = pc->GetChildren().front()->GetID();
+						Emitter* emitter = component_mgr->GetComponent<Emitter>(emitter_id);
+
+						emitter->SetLifeTime(0.3f);
+						emitter->SetAlive(true);
+					}
 				}
 				break;
 			}
@@ -165,7 +178,7 @@ namespace Player_Scripts
 			
 				renderer->SetAnimationStatus(true);
 
-				if (!renderer->FinishedAnimating())
+				if (!renderer->FinishedAnimating() && renderer->GetCurrentAnimation() == "Player_Hit")
 					return;
 
 				// If velocity is essentially 0, set player to idle

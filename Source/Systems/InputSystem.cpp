@@ -109,21 +109,25 @@ void ScrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 
 	// If cursor is within a window, disable scroll to zoom
 	ImguiSystem* imgui = &*CORE->GetSystem<ImguiSystem>();
-	if (imgui->EditorMode())
-		return;
 
-	// Zoom in
-	if (yOffset > 0.0f) {
+    if (CORE->GetSystem<Game>()->GetStateName() == "Editor") {
+        
+        if (imgui->EditorMode())
+		    return;
+            
+	    // Zoom in
+    	if (yOffset > 0.0f) {
 
-		Message msg(MessageIDTypes::CAM_ZOOM_IN);
-		CORE->BroadcastMessage(&msg);
-	}
-	// Zoom out
-	else if (yOffset < 0.0f) {
-		
-		Message msg(MessageIDTypes::CAM_ZOOM_OUT);
-		CORE->BroadcastMessage(&msg);
-	}
+    		Message msg(MessageIDTypes::CAM_ZOOM_IN);
+    		CORE->BroadcastMessage(&msg);
+    	}
+    	// Zoom out
+    	else if (yOffset < 0.0f) {
+        
+    		Message msg(MessageIDTypes::CAM_ZOOM_OUT);
+    		CORE->BroadcastMessage(&msg);
+    	}
+    }
 }
 
 /******************************************************************************/

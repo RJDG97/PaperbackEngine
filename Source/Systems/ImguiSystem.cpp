@@ -505,16 +505,14 @@ void ImguiSystem::EditorSettings() {
 
     ImguiHelp("Toggle to Drag Entities Around",0);
 
-    if (ImGui::MenuItem(VisibleIcon(b_draw, ICON_FA_CROP, ICON_FA_CROP_ALT).c_str()))
-        b_draw = !b_draw;
-
-    ImguiHelp("Toggle to show Collision Boxes", 0);
-
-    if (b_draw) {
+    if (ImGui::MenuItem(VisibleIcon(b_draw, ICON_FA_CROP_ALT, ICON_FA_CROP).c_str())) {
 
         Message msg(MessageIDTypes::DEBUG_ALL);
         CORE->BroadcastMessage(&msg);
+        b_draw = !b_draw;
     }
+
+    ImguiHelp("Toggle to show Collision Boxes", 0);
 
     if (ImGui::MenuItem(VisibleIcon(b_light, ICON_FA_SUN, ICON_FA_MOON).c_str()))
         b_light = !b_light;

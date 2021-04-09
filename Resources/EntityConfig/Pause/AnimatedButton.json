@@ -33,7 +33,7 @@
       "has_finished_animating": "0",
       "animation_speed": "1.000000",
       "layer": "4",
-      "order in layer": "0",
+      "order in layer": "2",
       "alive": "0",
       "opacity": "1.000000",
       "tint": "1.000000 1.000000 1.000000"
@@ -79,7 +79,7 @@
       "has_finished_animating": "0",
       "animation_speed": "1.000000",
       "layer": "4",
-      "order in layer": "0",
+      "order in layer": "2",
       "alive": "0",
       "opacity": "1.000000",
       "tint": "1.000000 1.000000 1.000000"
