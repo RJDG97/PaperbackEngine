@@ -126,7 +126,7 @@ void CameraSystem::SendMessageD(Message* m)
         case MessageIDTypes::CHANGE_ANIMATION_1: {
 
             //TargetPlayer();
-            ScreenShake(5.0f, 0.4f, 0.0f);
+            ScreenShake(3.0f, 0.1f, 0.0f);
             break;
         }
 
@@ -194,10 +194,11 @@ void CameraSystem::CameraZoom(Camera* camera, float zoom)
 }
 
 void CameraSystem::CameraMove(Camera* camera, Vector2D displacement)
-{
+{   
+    Vector2D scaled_displacement = PE_FrameRate.GetFixedDelta() * displacement;
     Transform* transform = component_manager_->GetComponent<Transform>(camera->GetOwner()->GetID());
     Vector2D position = transform->GetPosition();
-    transform->SetPosition({ position.x + displacement.x * 0.05f, position.y + displacement.y * 0.05f });
+    transform->SetPosition({ position.x + scaled_displacement.x, position.y + scaled_displacement.y});
 }
 
 void CameraSystem::CameraSetPosition(Camera* camera, Vector2D position)

@@ -56,6 +56,27 @@ void PointLight::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* wri
 	writer->Key("alive");
 	writer->String(std::to_string(alive_).c_str());
 
+	writer->Key("pulse");
+	writer->String(std::to_string(pulse_).c_str());
+
+	writer->Key("max_radius");
+	writer->String(std::to_string(max_radius_).c_str());
+
+	writer->Key("min_radius");
+	writer->String(std::to_string(min_radius_).c_str());
+
+	writer->Key("max_intensity");
+	writer->String(std::to_string(max_intensity_).c_str());
+
+	writer->Key("min_intensity");
+	writer->String(std::to_string(min_intensity_).c_str());
+
+	writer->Key("max_intensity");
+	writer->String(std::to_string(max_intensity_).c_str());
+
+	writer->Key("cycle_duration");
+	writer->String(std::to_string(cycle_duration_).c_str());
+
 	writer->EndObject();
 }
 

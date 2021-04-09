@@ -717,58 +717,6 @@
             "scale": "80.000000 80.000000"
         }
     ],
-    "FakeWall": [
-        {
-            "component": "Name",
-            "name": "FakeWall"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 1.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Rock_Three_0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.000000",
-            "tint": "1.000000 1.000000 1.000000"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        }
-    ],
-    "FakeWallTwo": [
-        {
-            "component": "Name",
-            "name": "FakeWallTwo"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 2.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Environment_Tiles_20",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.000000",
-            "tint": "1.000000 1.000000 1.000000"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        }
-    ],
     "Floor": [
         {
             "component": "Name",
@@ -806,49 +754,6 @@
 			"max intensity": "0.2",
 			"min intensity": "2.0",
 			"cycle duration": "1.0"
-        }
-    ],
-    "Gate": [
-        {
-            "component": "Name",
-            "name": "Gate"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "AnimationRenderer",
-            "number of animations": "2",
-            "add animation": "Gate_Idle",
-            "add animation": "Gate_Opening",
-            "set animation": "Gate_Idle",
-            "play_animation": "1",
-            "reversed": "0",
-            "has_finished_animating": "0",
-            "animation_speed": "1.000000",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.000000",
-            "tint": "1.000000 1.000000 1.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "1.000000 0.500000",
-            "layer": "7"
-        },
-        {
-            "component": "Scale",
-            "scale": "260.000000 180.000000"
-        },
-        {
-            "component": "Collectible",
-            "item name": "1",
-            "item description": "Key"
         }
     ],
     "Goal": [
@@ -1052,68 +957,6 @@
             "number_of_fns": "1",
             "name": "UpdateTexture",
             "function": "HideIcon_UpdateTexture"
-        }
-    ],
-    "HillNormal": [
-        {
-            "component": "Name",
-            "name": "HillNormal"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 -1.500000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Hill_One_0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.000000",
-            "tint": "1.000000 1.000000 1.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "6.000000 3.500000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "530.000000 530.000000"
-        }
-    ],
-    "HillTShaped": [
-        {
-            "component": "Name",
-            "name": "HillTShaped"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Hill_Two_0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.000000",
-            "tint": "1.000000 1.000000 1.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "6.000000 3.500000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "250.000000 250.000000"
         }
     ],
     "HowToPlay": [
@@ -2280,44 +2123,6 @@
             "order in layer": "0",
             "alive": "1",
             "opacity": "1.000000"
-        }
-    ],
-    "Wall": [
-        {
-            "component": "Name",
-            "name": "Wall"
-        },
-        {
-            "component": "Transform",
-            "position": "0.000000 0.000000",
-            "rotation": "0.000000",
-            "offset": "0.000000 0.000000",
-            "aabb offset": "0.000000 0.000000"
-        },
-        {
-            "component": "TextureRenderer",
-            "texture": "Rock_Three_0",
-            "layer": "0",
-            "order in layer": "0",
-            "alive": "1",
-            "opacity": "1.000000",
-            "tint": "1.000000 1.000000 1.000000"
-        },
-        {
-            "component": "AABB",
-            "scale": "0.500000 0.500000",
-            "layer": "1"
-        },
-        {
-            "component": "Scale",
-            "scale": "32.000000 32.000000"
-        },
-        {
-            "component": "PointLight",
-            "color": "0.500000 1.000000 1.000000",
-            "radius": "200.000000",
-            "intensity": "2.000000",
-            "alive": "1"
         }
     ],
     "WaterParticleEmitter": [

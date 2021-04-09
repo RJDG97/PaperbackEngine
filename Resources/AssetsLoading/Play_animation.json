@@ -11,17 +11,11 @@
 
 	"Stagbeetle Animations": "Resources/AssetsLoading/Animation/stagbeetle_animations.json",
 
-	"Key Animations": "Resources/AssetsLoading/Animation/key_animations.json",
-
 	"Torch Animations": "Resources/AssetsLoading/Animation/torch_animations.json",
-
-	"Gate Animations": "Resources/AssetsLoading/Animation/gate_animations.json",
 
 	"Grass Animations": "Resources/AssetsLoading/Animation/grass_animations.json",
 
 	"Rock Animations": "Resources/AssetsLoading/Animation/rock_animations.json",
-
-	"Log Animations": "Resources/AssetsLoading/Animation/log_animations.json",
 
 	"Crockpot Animations": "Resources/AssetsLoading/Animation/crockpot_animations.json",
 

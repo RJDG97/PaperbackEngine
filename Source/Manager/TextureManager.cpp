@@ -151,7 +151,6 @@ void TextureManager::CreateQuadTexture(std::string texture_name, unsigned char r
 void TextureManager::LoadMiscTextures() {
 
     CreateQuadTexture("DarknessTexture", 100, 65, 80, 255);
-    //CreateQuadTexture("WhiteQuad", 255, 255, 255, 255);
 }
 
 std::vector<GLuint> TextureManager::LoadImageFile(const char* filename) {

@@ -1,5 +1,4 @@
 {
-    "Environment_Tiles": "Resources/Sprites/tiles.png 3 7",
     "HowTo_Ability": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Ability.png 1 1",
     "HowTo_Movement": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Movement.png 1 1",
     "HowTo_Pause": "Resources/Sprites/UI_Elements/HowTo/UI_HowToPlay_Pause.png 1 1",
@@ -13,7 +12,6 @@
     "Level2_Background07": "Resources/Sprites/Level2_Background/Level_02_07.png 1 1",
     "Level2_Background08": "Resources/Sprites/Level2_Background/Level_02_08.png 1 1",
     "Level2_Background09": "Resources/Sprites/Level2_Background/Level_02_09.png 1 1",
-    "Lose_Background": "Resources/Sprites/UI_Elements/Lose/UI_Defeat.png 1 1",
     "Menu_Background": "Resources/Sprites/UI_Elements/Menu/UI_TitleScreen.png 1 1",
     "Menu_CloudOne": "Resources/Sprites/UI_Elements/Menu/Clouds_01.png 1 1",
     "Menu_CloudTwo": "Resources/Sprites/UI_Elements/Menu/Clouds_02.png 1 1",
@@ -93,13 +91,7 @@
     "UI_QuitYes_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Clicked.png 1 1",
     "UI_QuitYes_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Hover.png 1 1",
     "UI_RightButton": "Resources/Sprites/UI_Elements/HowTo/UI_RightButton.png 1 1",
-    "UI_Win": "Resources/Sprites/UI_Elements/Win/UI_Win.png 1 1",
     "UI_Replay": "Resources/Sprites/UI_Elements/Lose/UI_ReplayButton.png 1 1",
     "UI_Replay_Clicked": "Resources/Sprites/UI_Elements/Lose/UI_ReplayButton_Clicked.png 1 1",
-    "UI_Replay_Hovered": "Resources/Sprites/UI_Elements/Lose/UI_ReplayButton_Hover.png 1 1",
-    "WaterGauge_Droplet": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Droplet.png 1 1",
-    "WaterGauge_Leaves": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Leaves.png 1 1",
-    "WaterGauge_Shine": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Shine.png 1 1",
-    "WaterGauge_Water": "Resources/Sprites/UI_Elements/WaterGauge/UI_Watergauge_Water.png 1 1",
-    "Watergauge_Particle": "Resources/Sprites/UI_Elements/WaterGauge/Watergauge_Particle.png 1 1"
+    "UI_Replay_Hovered": "Resources/Sprites/UI_Elements/Lose/UI_ReplayButton_Hover.png 1 1"
 }
