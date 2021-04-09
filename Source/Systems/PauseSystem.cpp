@@ -31,11 +31,12 @@ void PauseSystem::Init()
 void PauseSystem::Update(float frametime)
 {
     // Note: Expecting that every single button contains a Texture Renderer Component
+    UNREFERENCED_PARAMETER(frametime);
 
     if (active_layer_ > 0)
     {
         // Retrieve the current layer to be updated
-        decltype(auto) new_layer = pause_layering_[active_layer_][order_];
+        decltype(auto) new_layer = pause_layering_[active_layer_][static_cast<const int>(order_)];
 
         // Enable the next layer
         for (const auto& id : new_layer)
@@ -71,7 +72,7 @@ void PauseSystem::Update(float frametime)
 
                     TextureRenderer* texture = mgr->GetComponent<TextureRenderer>(id);
                     AnimationRenderer* anim = mgr->GetComponent<AnimationRenderer>(id);
-                    LogicComponent* logic = mgr->GetComponent<LogicComponent>(id);
+                    //LogicComponent* logic = mgr->GetComponent<LogicComponent>(id);
 
                     if (texture)
                         texture->SetAlive(false);
@@ -92,7 +93,7 @@ void PauseSystem::Update(float frametime)
     if (order_ + 1 < pause_layering_[previous_layer_].size())
     {
         bool done = false;
-        decltype(auto) layer = pause_layering_[previous_layer_][order_];
+        decltype(auto) layer = pause_layering_[previous_layer_][static_cast<const int>(order_)];
 
         for (const auto& id : layer)
         {
@@ -116,7 +117,7 @@ void PauseSystem::Update(float frametime)
             ++order_;
 
             // Retrieve the current layer to be updated
-            decltype(auto) new_layer = pause_layering_[previous_layer_][order_];
+            decltype(auto) new_layer = pause_layering_[previous_layer_][static_cast<const int>(order_)];
 
             // Enable the next layer
             for (const auto& id : new_layer)
@@ -214,7 +215,7 @@ void PauseSystem::InitializeClickables()
 
     for (auto& [id, click] : *click_map_)
     {
-        pause_layering_[ click->group_ ][ click->order_ ].push_back( id );
+        pause_layering_[static_cast<const int>(click->group_) ][static_cast<const int>(click->order_) ].push_back( id );
     }
 }
 

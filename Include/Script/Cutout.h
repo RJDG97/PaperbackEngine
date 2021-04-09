@@ -16,8 +16,10 @@ public:
 			setChild(new ActionSequence(id));
 		}
 
-		void CollisionResponse(EntityID obj) override
-		{}
+		void CollisionResponse(EntityID obj) override {
+			
+			UNREFERENCED_PARAMETER(obj);
+		}
 	};
 
 	class ActionSequence : public Sequence
