@@ -228,9 +228,7 @@ void GraphicsSystem::Draw() {
 
     for (auto it = render_layers_->begin(); it != render_layers_->end(); ++it)
     {
-        //temporary, will be removed after lighting layers is implemented!
-
-        if ((it->second.GetLayerType() == UI_TEXT || it->second.GetLayerType() == UI_SPRITE) &&
+        if ((it->second.GetLayerType() == UI_TEXT || it->second.GetLayerType() == UI_SPRITE || it->second.GetLayerType() == VIGNETTE) &&
             render_lights_now && lighting_enabled_) {
 
             glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
