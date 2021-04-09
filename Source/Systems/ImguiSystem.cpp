@@ -505,11 +505,11 @@ void ImguiSystem::EditorSettings() {
 
     ImguiHelp("Toggle to Drag Entities Around",0);
 
-    if (ImGui::MenuItem(VisibleIcon(b_draw, ICON_FA_CROP, ICON_FA_CROP_ALT).c_str())) {
+    if (ImGui::MenuItem(VisibleIcon(b_draw, ICON_FA_CROP_ALT, ICON_FA_CROP).c_str())) {
 
         Message msg(MessageIDTypes::DEBUG_ALL);
         CORE->BroadcastMessage(&msg);
-
+        b_draw = !b_draw;
     }
 
     ImguiHelp("Toggle to show Collision Boxes", 0);
