@@ -177,7 +177,7 @@ bool Mite_Tree::AttackAnim::run() {
 	else {
 		float distance = Vector2DDistance(player_rigidbody_->GetOffsetAABBPos(), obj_rigidbody_->GetOffsetAABBPos());
 
-		if (distance < 4.0f && player_status_->GetStatus() != StatusType::BURROW) {
+		if (!CORE->GetGodMode() && distance < 4.0f && player_status_->GetStatus() == StatusType::NONE) {
 			player_status_->SetStatus(StatusType::HIT);
 			player_status_->SetStatusTimer(2.0f);
 			player_health_->SetCurrentHealth(player_health_->GetCurrentHealth() - 1);
