@@ -56,6 +56,7 @@ bool Common::CheckAlive::run()
 		if (respawn_timer_.TimeElapsed(s) > 10.0f && 
 			Vector2DDistance(player_rigidbody_->GetOffsetAABBPos(), obj_rigidbody_->GetOffsetAABBPos()) > 5.0f)
 		{
+			respawn_timer_.TimerStop();
 			respawn_timer_.TimerReset();
 			ParentChild* pc = component_mgr->GetComponent<ParentChild>(id_);
 			auto& children = pc->GetChildren();
