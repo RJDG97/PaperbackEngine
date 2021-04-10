@@ -146,7 +146,23 @@ public:
 	/******************************************************************************/
 	void ResetVignetteScale();
 
+	/******************************************************************************/
+	/*!
+	  \fn ResetCustom()
+
+	  \brief Reset the vignette size at the start of each level
+	*/
+	/******************************************************************************/
 	void ResetCustom();
+
+	/******************************************************************************/
+	/*!
+	  \fn SkipTransition()
+
+	  \brief Jumps to the end of the transition
+	*/
+	/******************************************************************************/
+	void SkipTransition();
 
 	/******************************************************************************/
 	/*!
@@ -171,7 +187,7 @@ private:
 	SceneTransitions transition_map_;
 	SceneTransition* current_transition_;
 	GameState* next_state_;
-	bool begin_, end_, custom_;
+	bool begin_, end_, custom_, skipping_;
 };
 
 

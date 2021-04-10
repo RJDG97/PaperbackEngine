@@ -124,7 +124,7 @@ namespace Player_Scripts
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 
 		AnimationRenderer* renderer = component_mgr->GetComponent<AnimationRenderer>(parent_id);
-		Transform* xform = component_mgr->GetComponent<Transform>(parent_id);
+		//Transform* xform = component_mgr->GetComponent<Transform>(parent_id);
 		Status* status = component_mgr->GetComponent<Status>(parent_id);
 		Motion* motion = component_mgr->GetComponent<Motion>(parent_id);
 		Name* name = component_mgr->GetComponent<Name>(parent_id);
