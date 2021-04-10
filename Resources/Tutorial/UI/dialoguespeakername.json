@@ -8,7 +8,7 @@
             "component": "Transform",
             "position": "0.000000 0.000000",
             "rotation": "0.000000",
-            "offset": "-3.70000 0.30000",
+            "offset": "-2.650 0.30000",
             "aabb offset": "0.000000 0.000000"
         },
         {
@@ -22,7 +22,7 @@
             "order in layer": "2",
             "alive": "0",
             "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+			"center align": "1"
             },
         {
             "component": "Child",

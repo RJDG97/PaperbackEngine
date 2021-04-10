@@ -31,6 +31,7 @@ class TextRenderer : public IRenderer {
 	std::string text_;
 	glm::vec3 color_;
 	float scale_;
+	bool center_align_;
 
 public:
 
@@ -119,6 +120,34 @@ public:
 */
 /******************************************************************************/
 	void SetText(std::string text);
+
+/******************************************************************************/
+/*!
+  \fn SetColor()
+
+  \brief Sets color
+*/
+/******************************************************************************/
+	void SetColor(glm::vec3 color) { color_ = color; }
+
+/******************************************************************************/
+/*!
+	\fn SetColor()
+
+	\brief Sets scale
+*/
+/******************************************************************************/
+	void SetScale(float scale) { scale_ = scale; }
+
+/******************************************************************************/
+/*!
+	\fn SetCenterAlign()
+
+	\brief Sets center align
+*/
+/******************************************************************************/
+	void SetCenterAlign(float value) { center_align_ = value; }
+
 };
 
 #endif

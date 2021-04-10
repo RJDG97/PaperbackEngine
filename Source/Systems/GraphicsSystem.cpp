@@ -513,6 +513,19 @@ void GraphicsSystem::BatchTextObject(TextRenderer* text_renderer, bool ui, GLuin
         scale = text_renderer->scale_ * cam_zoom;
     }
 
+    if (text_renderer->center_align_) {
+
+        float total_length{};
+
+        for (auto c = text_renderer->text_.begin(); c != text_renderer->text_.end(); c++) {
+
+            Character ch = (*text_renderer->font_->GetCharacters())[*c];
+            total_length += (ch.GetAdvance() >> 6) * scale;
+        }
+
+        pos.x -= total_length / 2;
+    }
+
     for (auto c = text_renderer->text_.begin(); c != text_renderer->text_.end(); c++) {
 
         Character ch = (*text_renderer->font_->GetCharacters())[*c];
@@ -551,7 +564,6 @@ void GraphicsSystem::BatchTextObject(TextRenderer* text_renderer, bool ui, GLuin
         }
 
         pos.x += (ch.GetAdvance() >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
-
     }
 }
 

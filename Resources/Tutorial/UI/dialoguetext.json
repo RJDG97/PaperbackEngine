@@ -22,7 +22,7 @@
             "order in layer": "0",
             "alive": "0",
             "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+			"center align": "0"
             },
         {
             "component": "Child",

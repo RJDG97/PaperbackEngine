@@ -71,6 +71,9 @@ void TextRenderer::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
     writer->Key("opacity");
     writer->String(std::to_string(opacity_).c_str());
 
+    writer->Key("center align");
+    writer->String(std::to_string(center_align_).c_str());
+
     writer->EndObject();
 }
 
@@ -100,7 +103,8 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
           >> layer
           >> order_in_layer_
           >> alive_
-          >> opacity_;
+          >> opacity_
+          >> center_align_;
 
      CORE->GetSystem<GraphicsSystem>()->ChangeLayer(this, layer);
 }
@@ -128,6 +132,7 @@ std::shared_ptr<Component> TextRenderer::Clone() {
     cloned->text_ = text_;
     cloned->color_ = color_;
     cloned->scale_ = scale_;
+    cloned->center_align_ = center_align_;
 
     return cloned;
 }

@@ -530,7 +530,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "0",
-            "opacity": "1.000000"
+            "opacity": "1.000000",
+			"center align": "0"
         },
         {
             "component": "Child",
@@ -559,7 +560,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "0",
-            "opacity": "1.000000"
+            "opacity": "1.000000",
+			"center align": "1"
         },
         {
             "component": "Child",
@@ -2122,7 +2124,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.000000"
+            "opacity": "1.000000",
+			"center align": "0"
         }
     ],
     "WaterParticleEmitter": [
@@ -2325,7 +2328,8 @@
             "layer": "0",
             "order in layer": "0",
             "alive": "1",
-            "opacity": "1.000000"
+            "opacity": "1.000000",
+			"center align": "0"
         }
     ],
     "VillageHouse": [
