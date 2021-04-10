@@ -427,8 +427,9 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 							[[fallthrough]];
 						case 11:
 						{
-							//game->ChangeState(&m_MenuState);
-							CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
+							CORE->GetManager<TransitionManager>()->ResetVignetteScale();
+							game->ChangeState(&m_MenuState);
+							//CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
 							return;
 							break;
 						}

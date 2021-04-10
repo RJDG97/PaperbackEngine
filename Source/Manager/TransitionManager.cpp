@@ -191,9 +191,6 @@ void TransitionManager::SpecialCloseTransition(const float& frametime) {
 			CORE->GetSystem<Game>()->ChangeState(next_state_);
 
 			//assumes that next state changed by init of next state
-
-			if (custom_)
-				custom_max_size_ = CORE->GetSystem<EffectsSystem>()->spore_size_effect_.curr_size_;
 		}
 	}
 
