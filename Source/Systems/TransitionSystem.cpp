@@ -36,6 +36,12 @@ void TransitionSystem::Update(float frametime) {
 	if (transition_manager_->DelayTransition(frametime))
 		return;
 
+	if (transition_manager_->special_) {
+
+		transition_manager_->SpecialCloseTransition(frametime);
+		return;
+	}
+
 	if (transition_manager_->begin_) {
 
 		transition_manager_->OpenTransition(frametime);

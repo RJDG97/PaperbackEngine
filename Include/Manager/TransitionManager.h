@@ -90,7 +90,7 @@ public:
 	  \brief Resets the transition to a closed type and sets the transition type
 	*/
 	/******************************************************************************/
-	bool ResetTransition(const std::string& id, GameState* state, bool size_cap = false);
+	bool ResetTransition(const std::string& id, GameState* state, bool size_cap = false, bool special = false);
 
 	/******************************************************************************/
 	/*!
@@ -118,6 +118,15 @@ public:
 	*/
 	/******************************************************************************/
 	void CloseTransition(const float& frametime);
+
+	/******************************************************************************/
+	/*!
+	  \fn SpecialCloseTransition()
+
+	  \brief Special closing transition that just closes
+	*/
+	/******************************************************************************/
+	void SpecialCloseTransition(const float& frametime);
 
 	/******************************************************************************/
 	/*!
@@ -187,7 +196,7 @@ private:
 	SceneTransitions transition_map_;
 	SceneTransition* current_transition_;
 	GameState* next_state_;
-	bool begin_, end_, custom_, skipping_;
+	bool begin_, end_, custom_, skipping_, special_;
 };
 
 

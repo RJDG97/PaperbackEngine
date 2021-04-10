@@ -139,27 +139,24 @@ void CutSceneState::StateInputHandler(Message* msg, Game* game) {
 			}
 			}
 		}
-		else {
-			
-			switch (msg->message_id_) {
-				//check for collision between button & mouse
-			case MessageIDTypes::M_BUTTON_TRIGGERED: {
+		switch (msg->message_id_) {
+			//check for collision between button & mouse
+		case MessageIDTypes::M_BUTTON_TRIGGERED: {
 
-				Message_Input* m = dynamic_cast<Message_Input*>(msg);
+			Message_Input* m = dynamic_cast<Message_Input*>(msg);
 
-				switch (m->input_)
-				{
-				case GLFW_KEY_ESCAPE:
-				{
+			switch (m->input_)
+			{
+			case GLFW_KEY_ESCAPE:
+			{
 
-					CORE->GetManager<TransitionManager>()->SkipTransition();
-					CORE->GetSystem<DialogueSystem>()->TempCleanup();
-					break;
-				}
-				}
+				CORE->GetManager<TransitionManager>()->SkipTransition();
+				CORE->GetSystem<DialogueSystem>()->TempCleanup();
 				break;
 			}
 			}
+			break;
+		}
 		}
 	}
 }
