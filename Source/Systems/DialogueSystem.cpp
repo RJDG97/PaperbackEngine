@@ -46,9 +46,10 @@ void DialogueSystem::Update(float frametime)
 		switch (dialogue_status_)
 		{
 			case DialogueStatus::INACTIVE: {
-
+				
 				dialogue_box_renderer_->SetAlive(false);
 				dialogue_text_renderer_->SetAlive(false);
+				dialogue_enter_renderer_->SetAlive(false);
 
 				if (dialogue_portrait_renderer_left_)
 				{
@@ -71,7 +72,6 @@ void DialogueSystem::Update(float frametime)
 			case DialogueStatus::OPENING: {
 
 				float scaling = textbox_current_scale_.x / textbox_max_scale_.x;
-
 				dialogue_box_renderer_->SetOpacity(std::min(scaling * scaling, textbox_max_opacity_));
 				textbox_current_scale_ = textbox_current_scale_ + 
 											((1.0f - scaling * scaling) * frametime * transition_speed_ + 0.01f) * textbox_max_scale_;
@@ -146,6 +146,8 @@ void DialogueSystem::Update(float frametime)
 			case DialogueStatus::FINISHED_ADVANCING: {
 
 				FadePortraitName(frametime, true);
+				blink_elapsed_time += frametime;
+				dialogue_enter_renderer_->SetOpacity(abs(sinf(blink_elapsed_time * 1.5f)));
 				break;
 			}
 
@@ -165,6 +167,7 @@ void DialogueSystem::Update(float frametime)
 				}
 
 				float scaling = 1.0f - textbox_current_scale_.x / textbox_max_scale_.x;
+				dialogue_enter_renderer_->SetOpacity(scaling * dialogue_enter_renderer_->GetOpacity());
 
 				dialogue_box_renderer_->SetOpacity(dialogue_box_renderer_->GetOpacity() - scaling * scaling);
 				textbox_current_scale_ = textbox_current_scale_ -
@@ -220,6 +223,19 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 										 });
 
 				dialogue_text_renderer_ = component_manager_->GetComponent<TextRenderer>((*text)->GetID());
+
+				auto enter = std::find_if(std::begin(children), std::end(children),
+					[&](Entity* child) {
+						if (component_manager_->GetComponent<Name>(
+							child->GetID())->GetName() == "DialogueEnter") {
+
+							return true;
+						}
+
+						return false;
+					});
+
+				dialogue_enter_renderer_ = component_manager_->GetComponent<TextureRenderer>((*enter)->GetID());
 
 				auto speaker_name = std::find_if(std::begin(children), std::end(children),
 												 [&](Entity* child) {
@@ -285,6 +301,7 @@ void DialogueSystem::SetCurrentDialogue(std::string dialogue_name)
 	num_characters_ = 0;
 	dialogue_box_renderer_->SetAlive(true);
 	dialogue_text_renderer_->SetAlive(true);
+	dialogue_enter_renderer_->SetAlive(true);
 
 	if (dialogue_speakername_renderer_)
 	{
@@ -344,6 +361,7 @@ void DialogueSystem::AdvanceText()
 			{
 				num_characters_ = 0;
 				current_speech_ = {};
+				blink_elapsed_time = 0.0f;
 				dialogue_status_ = DialogueStatus::CLOSING;
 				camera_system_->TargetPlayer();
 			}
@@ -377,6 +395,8 @@ void DialogueSystem::AdvanceText()
 				}
 
 				UpdatePortraits();
+				blink_elapsed_time = 0.0f;
+				dialogue_enter_renderer_->SetOpacity(0.0f);
 				dialogue_status_ = DialogueStatus::ADVANCING;
 			}
 
@@ -389,6 +409,7 @@ void DialogueSystem::TempCleanup()
 {
 	dialogue_box_scale_ = nullptr;
 	dialogue_box_renderer_ = nullptr;
+	dialogue_enter_renderer_ = nullptr;
 	dialogue_text_renderer_ = nullptr;
 	dialogue_portrait_renderer_left_ = nullptr;
 	dialogue_portrait_renderer_right_ = nullptr;

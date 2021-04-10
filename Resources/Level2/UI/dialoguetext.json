@@ -8,7 +8,7 @@
             "component": "Transform",
             "position": "0.000000 0.000000",
             "rotation": "0.000000",
-            "offset": "-3.400000 -0.400000",
+            "offset": "-4.200000 -0.450000",
             "aabb offset": "0.000000 0.000000"
         },
         {
@@ -17,7 +17,7 @@
             "sentence length": "0",
             "text": "",
             "color": "0.300000 0.550000 0.200000",
-            "scale": "0.350000",
+            "scale": "0.40000",
             "layer": "5",
             "order in layer": "0",
             "alive": "0",

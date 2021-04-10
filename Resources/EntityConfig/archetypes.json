@@ -495,7 +495,7 @@
         },
         {
             "component": "Scale",
-            "scale": "340.000000 170.000000"
+            "scale": "416.000000 208.000000"
         },
         {
             "component": "ParentChild",
@@ -1239,7 +1239,7 @@
         },
         {
             "component": "Transform",
-            "position": "4.600000 -1.900000",
+            "position": "5.700000 -1.950000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -2613,5 +2613,35 @@
             "component": "Child",
             "parent_name": ""
         }
-    ]
+    ],
+	"DialogueEnter": [
+        {
+            "component": "Name",
+            "name": "DialogueEnter"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "0.000000 0.000000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "UI_Dialogue_Enter_0",
+            "layer": "0",
+            "order in layer": "0",
+            "alive": "1",
+            "opacity": "1.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "Child",
+            "parent_name": ""
+        },
+        {
+            "component": "Scale",
+            "scale": "44.0 22.0"
+        }
+	]
 }

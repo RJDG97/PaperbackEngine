@@ -125,22 +125,16 @@ void CameraSystem::SendMessageD(Message* m)
 
         case MessageIDTypes::CHANGE_ANIMATION_1: {
 
-            //TargetPlayer();
-            ScreenShake(3.0f, 0.1f, 0.0f);
             break;
         }
 
         case MessageIDTypes::CAM_ZOOM_IN: {
 
-            Camera* camera = GetMainCamera();
-            CameraZoom(camera, camera->cam_zoom_ + 0.1f);
             break;
         }
 
         case MessageIDTypes::CAM_ZOOM_OUT: {
 
-            Camera* camera = GetMainCamera();
-            CameraZoom(camera, camera->cam_zoom_ - 0.1f);
             break;
         }
     }
