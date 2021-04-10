@@ -48,6 +48,7 @@ struct VignetteSporeSizeEffect
     void SetStatus(float dur);
     void SetMinSize(glm::vec2 min);
     void SetMaxSize(glm::vec2 max);
+    void ResetSizeOnDeath();
 
     void Initialize();
     void Update(const float& dt, const EntityID& id = 0);

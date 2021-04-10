@@ -416,6 +416,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 						case 9:
 						{
 							CORE->GetSystem<EffectsSystem>()->Reset();
+							CORE->GetSystem<EffectsSystem>()->spore_size_effect_.ResetSizeOnDeath();
 							std::string previous_state = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
 							game->ChangeState(&m_PlayState, previous_state);
 							return;

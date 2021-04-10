@@ -133,11 +133,21 @@ void VignetteSporeSizeEffect::SetMaxSize(glm::vec2 max)
     max_size_ = max;
 }
 
+void VignetteSporeSizeEffect::ResetSizeOnDeath()
+{
+    GraphicsSystem* graphics = &*CORE->GetSystem<GraphicsSystem>();
+
+    curr_clear_ = { std::max(0.0f, curr_size_.x - max_clear_.x), 
+                    std::max(0.0f, curr_size_.y - max_clear_.y) };
+
+    graphics->SetMaxVignetteSize(curr_size_);
+    graphics->SetVignetteSize(curr_clear_);
+}
+
 void VignetteSporeSizeEffect::Initialize()
 {
     count_ = 0;
 
-    GraphicsSystem* graphics = &*CORE->GetSystem<GraphicsSystem>();
     ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
     CMap<Collectible>* collectible_map = component_mgr->GetComponentArray<Collectible>();
 
