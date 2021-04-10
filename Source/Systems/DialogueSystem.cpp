@@ -13,6 +13,7 @@
 
 #include "Systems/DialogueSystem.h"
 #include "Engine/Core.h"
+#include "Systems/Game.h"
 
 void DialogueSystem::Init()
 {
@@ -31,7 +32,7 @@ void DialogueSystem::Init()
 
 void DialogueSystem::Update(float frametime)
 {
-	if (CORE->GetCorePauseStatus() && CORE->GetGamePauseStatus())
+	if (CORE->GetCorePauseStatus() && CORE->GetGamePauseStatus() || CORE->GetSystem<Game>()->GetStateName() == "Editor")
 	{
 		return;
 	}

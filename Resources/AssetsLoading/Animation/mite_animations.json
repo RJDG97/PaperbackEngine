@@ -3,16 +3,13 @@
     {
 	  "Folder": "character_spritesheets",
 	  "Animation Batch Name": "Mite_Animations",
-	  "Columns": "16",
-	  "Rows": "8",
+	  "Columns": "13",
+	  "Rows": "5",
       "Animation Name, Number of Frames, Frame Duration": "Mite_Alert 8 0.05",
 	  "Animation Name, Number of Frames, Frame Duration": "Mite_Explode 14 0.05",
 	  "Animation Name, Number of Frames, Frame Duration": "Mite_Idle 8 0.05",
 	  "Animation Name, Number of Frames, Frame Duration": "Mite_Walk 11 0.05",
-	  "Animation Name, Number of Frames, Frame Duration": "Mite_Confused 5 0.10",
-	  "Animation Name, Number of Frames, Frame Duration": "Empty 0 0",
-	  "Animation Name, Number of Frames, Frame Duration": "Empty 0 0",
-	  "Animation Name, Number of Frames, Frame Duration": "Empty 0 0"
+	  "Animation Name, Number of Frames, Frame Duration": "Mite_Confused 5 0.10"
     }
   ]
 }

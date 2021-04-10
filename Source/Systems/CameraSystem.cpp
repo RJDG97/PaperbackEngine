@@ -130,10 +130,22 @@ void CameraSystem::SendMessageD(Message* m)
 
         case MessageIDTypes::CAM_ZOOM_IN: {
 
+            if (CORE->GetSystem<Game>()->GetStateName() == "Editor")
+            {
+                Camera* camera = GetMainCamera();
+                CameraZoom(camera, camera->cam_zoom_ + 0.1f);
+            }
+
             break;
         }
 
         case MessageIDTypes::CAM_ZOOM_OUT: {
+
+            if (CORE->GetSystem<Game>()->GetStateName() == "Editor")
+            {
+                Camera* camera = GetMainCamera();
+                CameraZoom(camera, camera->cam_zoom_ - 0.1f);
+            }
 
             break;
         }

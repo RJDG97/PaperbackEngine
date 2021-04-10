@@ -197,7 +197,7 @@ void PlayState::Update(Game* game, float frametime)
 			CORE->GetSystem<EffectsSystem>()->health_effect_.SetStatus(0.8f);
 
 			CORE->GetSystem<EffectsSystem>()->color_effect_.SetTimer(0.5f);
-			CORE->GetSystem<EffectsSystem>()->color_effect_.SetStartVignetteColor({1, 0, 0});
+			CORE->GetSystem<EffectsSystem>()->color_effect_.SetStartVignetteColor({0.3, 0, 0});
 			CORE->GetSystem<EffectsSystem>()->color_effect_.SetEndVignetteColor({0, 0, 0});
 			timer_ = 5.0f;
 		}
