@@ -64,7 +64,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_Resume_0",
-      "layer": "4",
+      "layer": "6",
       "order in layer": "1",
       "alive": "0",
       "opacity": "1.0",
@@ -103,7 +103,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_HowTo_0",
-      "layer": "4",
+      "layer": "6",
       "order in layer": "1",
       "alive": "0",
       "opacity": "1.0",
@@ -146,7 +146,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_Return_0",
-      "layer": "4",
+      "layer": "6",
       "order in layer": "1",
       "alive": "0",
       "opacity": "1.0",
@@ -185,7 +185,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_Paused_QuitGame_0",
-      "layer": "4",
+      "layer": "6",
       "order in layer": "1",
       "alive": "0",
       "opacity": "1.0",
@@ -225,7 +225,7 @@
       "component": "TextureRenderer",
       "texture": "UI_QuitYes_0",
       "layer": "4",
-      "order in layer": "1",
+      "order in layer": "4",
       "alive": "0",
       "opacity": "1.0",
       "tint": "1.0 1.0 1.0"
@@ -264,7 +264,7 @@
       "component": "TextureRenderer",
       "texture": "UI_QuitNo_0",
       "layer": "4",
-      "order in layer": "1",
+      "order in layer": "4",
       "alive": "0",
       "opacity": "1.0",
       "tint": "1.0 1.0 1.0"
@@ -497,7 +497,7 @@
     {
       "component": "TextureRenderer",
       "texture": "UI_PauseMenu_0",
-      "layer": "4",
+      "layer": "6",
       "order in layer": "0",
       "alive": "0",
       "opacity": "1.0",
