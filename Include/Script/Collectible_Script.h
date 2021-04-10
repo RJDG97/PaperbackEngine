@@ -78,7 +78,7 @@ namespace Collectible_Script
 				if (point_light) point_light->SetAlive(false);
 				if (aabb) aabb->SetAlive(false);
 
-				//CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f, false);
+				CORE->GetSystem<EffectsSystem>()->health_effect_.SetStatus(0.8f, false);
 				sound_sys->PlayTaggedSounds("drink");
 
 				ParentChild* pc = component_mgr->GetComponent<ParentChild>(collectible_id);

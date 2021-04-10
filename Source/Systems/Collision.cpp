@@ -567,7 +567,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 
 				// Comment this if you would like players to be able to phase through enemies
 				// when colliding and status is set to "Hit" (Player invulnerable for a set time)
-				//CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f);
+				CORE->GetSystem<EffectsSystem>()->health_effect_.SetStatus(0.8f);
 				CORE->GetSystem<EffectsSystem>()->color_effect_.SetTimer(0.5f);
 				CORE->GetSystem<EffectsSystem>()->color_effect_.SetStartVignetteColor({ 1, 0, 0 });
 				CORE->GetSystem<EffectsSystem>()->color_effect_.SetEndVignetteColor({ 0, 0, 0 });
