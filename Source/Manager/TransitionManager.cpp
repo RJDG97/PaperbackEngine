@@ -28,7 +28,8 @@ TransitionManager::TransitionManager() :
 	next_state_{ nullptr },
 	begin_{ false },
 	end_{ false },
-	skipping_{ false }
+	skipping_{ false },
+	special_{ false }
 {
 
 }
@@ -38,6 +39,7 @@ void TransitionManager::Init() {
 
 	current_transition_ = nullptr;
 	begin_ = false;
+	special_ = false;
 
 	graphics_system_ = CORE->GetSystem<GraphicsSystem>();
 	component_manager_ = CORE->GetManager<ComponentManager>();
