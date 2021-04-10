@@ -260,7 +260,7 @@ void AssetConsoleWindow::DisplayAudioJson() {
 
 							if (ImGui::Button("Update")) {
 
-								std::string selectedpath = imgui_->OpenSaveDialog("(*.mp3) Audio Files\0* .mp3\0", 0);
+								std::string selectedpath = imgui_->OpenSaveDialog("(*.wav) Audio Files\0* .wav\0", 0);
 
 								if (!selectedpath.empty())
 									it->second.path = selectedpath;
@@ -598,7 +598,6 @@ void AssetConsoleWindow::DisplayAnimationBatchJson() {
 
 						ImGui::Text("Animation Name: %s, Number of Frames: %d, Frame Duration: %.2f", info->second[i].anim_name_.c_str(), info->second[i].num_frames_, info->second[i].frame_duration_);
 					}
-
 					ImGui::TreePop();
 				}
 			}
@@ -726,7 +725,7 @@ void AssetConsoleWindow::AddNewAsset() {
 
 					if (!std::string(buffer).empty()) {
 
-						if (imgui_->CheckString(imgui_->GetAssetAdd(), ".mp3")) {
+						if (imgui_->CheckString(imgui_->GetAssetAdd(), ".wav")) {
 
 							newsound.path = imgui_->GetAssetAdd();
 							newsound.volume = 1.0f;
@@ -1234,7 +1233,7 @@ void AssetConsoleWindow::WrongTypePopup() {
 			ImGui::Text("The Asset you are trying to load in:\n%s\nis of the wrong format.\nOnly Png Image Files", imgui_->GetAssetAdd().c_str());
 
 		else if (type == AddFile::ADDAUDIO)
-			ImGui::Text("The Asset you are trying to load in:\n%s\nis of the wrong format.\nOnly Mp3 Audio Files", imgui_->GetAssetAdd().c_str());
+			ImGui::Text("The Asset you are trying to load in:\n%s\nis of the wrong format.\nOnly Wav Audio Files", imgui_->GetAssetAdd().c_str());
 
 
 		if (ImGui::Button("OK")) {
