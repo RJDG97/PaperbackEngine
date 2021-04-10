@@ -27,7 +27,8 @@ TransitionManager::TransitionManager() :
 	current_transition_{ nullptr },
 	next_state_{ nullptr },
 	begin_{ false },
-	end_{ false }
+	end_{ false },
+	skipping_{ false }
 {
 
 }
@@ -136,6 +137,7 @@ void TransitionManager::OpenTransition(const float& frametime) {
 
 			current_transition_ = nullptr;
 			next_state_ = nullptr;
+			skipping_ = false;
 		}
 	}
 
@@ -225,6 +227,26 @@ void TransitionManager::ResetVignetteScale()
 void TransitionManager::ResetCustom()
 {
 	custom_ = false;
+}
+
+void TransitionManager::SkipTransition() {
+
+	if (!current_transition_ || skipping_)
+		return;
+
+	// change state
+	CORE->GetSystem<Game>()->ChangeState(next_state_);
+
+	if (custom_)
+		custom_max_size_ = CORE->GetSystem<EffectsSystem>()->spore_size_effect_.curr_size_;
+
+	// Last scene is completed
+	begin_ = true;
+
+	graphics_system_->SetVignetteSize({ 0.0f, 0.0f });
+	current_transition_->current_texture_ = current_transition_->texture_sequence_.end();
+
+	skipping_ = true;
 }
 
 void TransitionManager::DeSerialize(const std::string& filepath) {

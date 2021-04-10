@@ -72,6 +72,25 @@ void SplashState::Draw(Game* game) {
 
 void SplashState::StateInputHandler(Message* msg, Game* game) {
 	
-	(void)msg;
-	(void)game;
+	if (game) {
+
+		switch (msg->message_id_) {
+			//check for collision between button & mouse
+		case MessageIDTypes::M_BUTTON_TRIGGERED: {
+
+			Message_Input* m = dynamic_cast<Message_Input*>(msg);
+
+			switch (m->input_)
+			{
+			case GLFW_KEY_ESCAPE:
+			{
+
+				CORE->GetManager<TransitionManager>()->SkipTransition();
+				break;
+			}
+			}
+			break;
+		}
+		}
+	}
 }

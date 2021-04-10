@@ -110,31 +110,56 @@ void CutSceneState::Draw(Game* game) {
 
 void CutSceneState::StateInputHandler(Message* msg, Game* game) {
 	
-	if (game && !exiting_) {
+	if (game) {
 
-		switch (msg->message_id_) {
-			//check for collision between button & mouse
-		case MessageIDTypes::M_BUTTON_TRIGGERED: {
+		if (!exiting_) {
 
-			Message_Input* m = dynamic_cast<Message_Input*>(msg);
+			switch (msg->message_id_) {
+				//check for collision between button & mouse
+			case MessageIDTypes::M_BUTTON_TRIGGERED: {
 
-			switch (m->input_)
-			{
-			case GLFW_KEY_ENTER:
-			{
+				Message_Input* m = dynamic_cast<Message_Input*>(msg);
 
-				if (CORE->GetSystem<DialogueSystem>()->GetCurrentDialogueStatus() == DialogueSystem::DialogueStatus::FINISHED_ADVANCING 
-					|| CORE->GetSystem<DialogueSystem>()->GetCurrentDialogueStatus() == DialogueSystem::DialogueStatus::INACTIVE) {
-				
-					CORE->GetManager<TransitionManager>()->ResetCurrentTransitionTimer();
-					CORE->GetSystem<DialogueSystem>()->AdvanceText();
-					exiting_ = true;
+				switch (m->input_)
+				{
+				case GLFW_KEY_ENTER:
+				{
+
+					if (CORE->GetSystem<DialogueSystem>()->GetCurrentDialogueStatus() == DialogueSystem::DialogueStatus::FINISHED_ADVANCING
+						|| CORE->GetSystem<DialogueSystem>()->GetCurrentDialogueStatus() == DialogueSystem::DialogueStatus::INACTIVE) {
+
+						CORE->GetManager<TransitionManager>()->ResetCurrentTransitionTimer();
+						CORE->GetSystem<DialogueSystem>()->AdvanceText();
+						exiting_ = true;
+					}
+					break;
+				}
 				}
 				break;
 			}
 			}
-			break;
 		}
+		else {
+			
+			switch (msg->message_id_) {
+				//check for collision between button & mouse
+			case MessageIDTypes::M_BUTTON_TRIGGERED: {
+
+				Message_Input* m = dynamic_cast<Message_Input*>(msg);
+
+				switch (m->input_)
+				{
+				case GLFW_KEY_ESCAPE:
+				{
+
+					CORE->GetManager<TransitionManager>()->SkipTransition();
+					CORE->GetSystem<DialogueSystem>()->TempCleanup();
+					break;
+				}
+				}
+				break;
+			}
+			}
 		}
 	}
 }
