@@ -84,8 +84,8 @@
   "Default": [
     {
       "size": "0",
-      "default timer": "1.5",
-      "default transition timer": "0.6",
+      "default timer": "0.15",
+      "default transition timer": "0.15",
       "dark timer": "0.4"
     }
   ]

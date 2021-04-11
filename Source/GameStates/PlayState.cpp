@@ -84,6 +84,7 @@ void PlayState::Init(std::string)
 
 		Levels* levels = CORE->GetSystem<EntityFactory>()->GetLevelsFile();
 		levels->ResetPlayLevels();
+		CORE->GetManager<TransitionManager>()->ResetCustom();
 		CORE->GetSystem<Game>()->ChangeState(&m_MenuState);
 		return;
 	}
@@ -128,6 +129,8 @@ void PlayState::Update(Game* game, float frametime)
 		
 		CORE->ToggleCorePauseStatus(); // Disable physics update
 		CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+		CORE->GetSystem<SoundSystem>()->StopSound("All", true);
+		CORE->GetSystem<SoundSystem>()->PlaySounds("Win");
 		CORE->GetSystem<PauseSystem>()->TerminateState(true);
 		CORE->GetSystem<PauseSystem>()->SetActiveLayer(5);
 		//game->ChangeState(&m_WinLoseState, "Win");
@@ -138,6 +141,8 @@ void PlayState::Update(Game* game, float frametime)
 		
 		CORE->ToggleCorePauseStatus(); // Disable physics update
 		CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
+		CORE->GetSystem<SoundSystem>()->StopSound("All", true);
+		CORE->GetSystem<SoundSystem>()->PlaySounds("Lose");
 		CORE->GetSystem<PauseSystem>()->TerminateState(true);
 		CORE->GetSystem<PauseSystem>()->SetActiveLayer(6);
 		//game->ChangeState(&m_WinLoseState, "Lose");
@@ -188,8 +193,11 @@ void PlayState::Update(Game* game, float frametime)
 			health->SetCurrentHealth(new_hp);
 			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_deplete");
 			//CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f);
+
+			CORE->GetSystem<EffectsSystem>()->health_effect_.SetStatus(0.8f);
+
 			CORE->GetSystem<EffectsSystem>()->color_effect_.SetTimer(0.5f);
-			CORE->GetSystem<EffectsSystem>()->color_effect_.SetStartVignetteColor({1, 0, 0});
+			CORE->GetSystem<EffectsSystem>()->color_effect_.SetStartVignetteColor({0.3, 0, 0});
 			CORE->GetSystem<EffectsSystem>()->color_effect_.SetEndVignetteColor({0, 0, 0});
 			timer_ = 5.0f;
 		}
@@ -408,6 +416,7 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 						case 9:
 						{
 							CORE->GetSystem<EffectsSystem>()->Reset();
+							CORE->GetSystem<EffectsSystem>()->spore_size_effect_.ResetSizeOnDeath();
 							std::string previous_state = CORE->GetSystem<EntityFactory>()->GetLevelsFile()->GetLastPlayLevel()->name_;
 							game->ChangeState(&m_PlayState, previous_state);
 							return;
@@ -418,8 +427,9 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 							[[fallthrough]];
 						case 11:
 						{
-							//game->ChangeState(&m_MenuState);
-							CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
+							CORE->GetManager<TransitionManager>()->ResetVignetteScale();
+							game->ChangeState(&m_MenuState);
+							//CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
 							return;
 							break;
 						}

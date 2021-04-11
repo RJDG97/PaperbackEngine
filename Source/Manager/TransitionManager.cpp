@@ -27,7 +27,9 @@ TransitionManager::TransitionManager() :
 	current_transition_{ nullptr },
 	next_state_{ nullptr },
 	begin_{ false },
-	end_{ false }
+	end_{ false },
+	skipping_{ false },
+	special_{ false }
 {
 
 }
@@ -37,6 +39,7 @@ void TransitionManager::Init() {
 
 	current_transition_ = nullptr;
 	begin_ = false;
+	special_ = false;
 
 	graphics_system_ = CORE->GetSystem<GraphicsSystem>();
 	component_manager_ = CORE->GetManager<ComponentManager>();
@@ -51,7 +54,7 @@ void TransitionManager::ResetCurrentTransitionTimer() {
 		current_transition_->timer_ = -0.2f;
 }
 
-bool TransitionManager::ResetTransition(const std::string& id, GameState* next_state, bool size_cap) {
+bool TransitionManager::ResetTransition(const std::string& id, GameState* next_state, bool size_cap, bool special) {
 
 	SceneTransitionsIt it = transition_map_.find(id);
 	custom_ = size_cap;
@@ -60,8 +63,16 @@ bool TransitionManager::ResetTransition(const std::string& id, GameState* next_s
 
 	if (it != transition_map_.end()) {
 
-		current_size_ = {};
-		clear_current_size_ = {};
+		if (!special) {
+		
+			current_size_ = {};
+			clear_current_size_ = {};
+		}
+		else {
+
+			special_ = true;
+		}
+
 		graphics_system_->SetVignetteSize(clear_current_size_);
 		graphics_system_->SetMaxVignetteSize(current_size_);
 		current_transition_ = &*it->second;
@@ -136,6 +147,7 @@ void TransitionManager::OpenTransition(const float& frametime) {
 
 			current_transition_ = nullptr;
 			next_state_ = nullptr;
+			skipping_ = false;
 		}
 	}
 
@@ -143,6 +155,50 @@ void TransitionManager::OpenTransition(const float& frametime) {
 	graphics_system_->SetVignetteSize(clear_current_size_);
 }
 
+void TransitionManager::SpecialCloseTransition(const float& frametime) {
+
+	float scaling = 1.0f - current_size_.x / custom_max_size_.x;
+	scaling *= scaling;
+	scaling *= scaling;
+	current_size_ -= transition_speed_ * frametime * (1.0f - scaling + 0.01f);
+	clear_current_size_ = { std::max(0.0f, current_size_.x - 320.0f), std::max(0.0f, current_size_.y - 180.0f) };
+
+	if (clear_current_size_.x > max_clear_size_.x && clear_current_size_.y > max_clear_size_.y) {
+
+		clear_current_size_ = max_clear_size_;
+	}
+
+	if (current_size_.x < 0.0f && current_size_.y < 0.0f) {
+
+		end_ = false;
+		current_size_ = { 0.0f, 0.0f };
+		clear_current_size_ = { 0.0f, 0.0f };
+
+		if (current_transition_->current_texture_ != current_transition_->texture_sequence_.end() &&
+			++current_transition_->current_texture_ != current_transition_->texture_sequence_.end()) {
+
+			graphics_system_->ChangeTexture(texture_arr_->GetComponent(1), *current_transition_->current_texture_);
+			current_transition_->dark_timer_ = current_transition_->default_dark_timer_;
+		}
+
+		else {
+
+			// special closing complete, clear and stand by
+			begin_ = false; 
+			current_transition_ = nullptr;
+			skipping_ = false;
+			special_ = false;
+
+			// change state
+			CORE->GetSystem<Game>()->ChangeState(next_state_);
+
+			//assumes that next state changed by init of next state
+		}
+	}
+
+	graphics_system_->SetMaxVignetteSize(current_size_);
+	graphics_system_->SetVignetteSize(clear_current_size_);
+}
 
 void TransitionManager::CloseTransition(const float& frametime) {
 
@@ -220,6 +276,31 @@ void TransitionManager::ResetVignetteScale()
 {
 	graphics_system_->SetMaxVignetteSize(max_size_);
 	graphics_system_->SetVignetteSize(max_clear_size_);
+}
+
+void TransitionManager::ResetCustom()
+{
+	custom_ = false;
+}
+
+void TransitionManager::SkipTransition() {
+
+	if (!current_transition_ || skipping_)
+		return;
+
+	// change state
+	CORE->GetSystem<Game>()->ChangeState(next_state_);
+
+	if (custom_)
+		custom_max_size_ = CORE->GetSystem<EffectsSystem>()->spore_size_effect_.curr_size_;
+
+	// Last scene is completed
+	begin_ = true;
+
+	graphics_system_->SetVignetteSize({ 0.0f, 0.0f });
+	current_transition_->current_texture_ = current_transition_->texture_sequence_.end();
+
+	skipping_ = true;
 }
 
 void TransitionManager::DeSerialize(const std::string& filepath) {

@@ -1,7 +1,7 @@
 /**********************************************************************************
 *\file         PauseSystem.cpp
 *\brief        Contains definition of functions and variables used for
-*               the Parenting System
+*              the Pause System
 *
 *\author       Jun Pu, Lee, 100% Code Contribution
 *
@@ -140,44 +140,6 @@ void PauseSystem::Update(float frametime)
             }
         }
     }
-
-
-
-
-
-
-
-
-
-    // If a layer has been toggled on (Not -1)
-    //if (active_layer_ > 0)
-    //{
-    //    // Retrieve the current layer to be updated
-    //    decltype(auto) new_layer = pause_layering_[active_layer_];
-
-    //    // Enable the next layer
-    //    for (auto id : new_layer)
-    //    {
-    //        mgr->GetComponent<Clickable>(id)->SetActive(true);
-    //        mgr->GetComponent<TextureRenderer>(id)->SetAlive(true);
-    //    }
-
-    //    // Disable the previous "Active" layer
-    //    if (previous_layer_ > 0)
-    //    {
-    //        decltype(auto) prev_layer = pause_layering_[previous_layer_];
-
-    //        for (auto id : prev_layer)
-    //        {
-    //            mgr->GetComponent<Clickable>(id)->SetActive(false);
-    //            mgr->GetComponent<TextureRenderer>(id)->SetAlive(false);
-    //        }
-    //    }
-
-    //    // Reset both indexes (Do not place outside the if check)
-    //    previous_layer_ = active_layer_;
-    //    active_layer_ = -1;
-    //}
 }
 
 // Do avoid using this function if possible (I guess)

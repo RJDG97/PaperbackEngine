@@ -8,7 +8,7 @@
             "component": "Transform",
             "position": "0.000000 0.000000",
             "rotation": "0.000000",
-            "offset": "-2.500000 1.50000",
+            "offset": "-2.500000 1.60000",
             "aabb offset": "0.000000 0.000000"
         },
         {
@@ -34,7 +34,7 @@
             "component": "Transform",
             "position": "0.000000 0.000000",
             "rotation": "0.000000",
-            "offset": "2.500000 1.50000",
+            "offset": "2.500000 1.60000",
             "aabb offset": "0.000000 0.000000"
         },
         {

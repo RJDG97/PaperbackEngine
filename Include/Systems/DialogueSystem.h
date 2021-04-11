@@ -55,9 +55,12 @@ private:
 	Scale* dialogue_box_scale_;
 	TextureRenderer* dialogue_box_renderer_;
 	TextRenderer* dialogue_text_renderer_;
+	TextureRenderer* dialogue_enter_renderer_;
 	TextureRenderer* dialogue_portrait_renderer_left_;
 	TextureRenderer* dialogue_portrait_renderer_right_;
 	TextRenderer* dialogue_speakername_renderer_;
+
+	float blink_elapsed_time{0.0f};
 
 	Vector2D dialogue_camera_destination{};
 

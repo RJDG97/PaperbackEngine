@@ -90,7 +90,7 @@ public:
 	  \brief Resets the transition to a closed type and sets the transition type
 	*/
 	/******************************************************************************/
-	bool ResetTransition(const std::string& id, GameState* state, bool size_cap = false);
+	bool ResetTransition(const std::string& id, GameState* state, bool size_cap = false, bool special = false);
 
 	/******************************************************************************/
 	/*!
@@ -121,6 +121,15 @@ public:
 
 	/******************************************************************************/
 	/*!
+	  \fn SpecialCloseTransition()
+
+	  \brief Special closing transition that just closes
+	*/
+	/******************************************************************************/
+	void SpecialCloseTransition(const float& frametime);
+
+	/******************************************************************************/
+	/*!
 	  \fn LoadTransition()
 
 	  \brief Given a transition name and a stream, initialize a transition scene
@@ -148,6 +157,24 @@ public:
 
 	/******************************************************************************/
 	/*!
+	  \fn ResetCustom()
+
+	  \brief Reset the vignette size at the start of each level
+	*/
+	/******************************************************************************/
+	void ResetCustom();
+
+	/******************************************************************************/
+	/*!
+	  \fn SkipTransition()
+
+	  \brief Jumps to the end of the transition
+	*/
+	/******************************************************************************/
+	void SkipTransition();
+
+	/******************************************************************************/
+	/*!
 	  \fn DeSerialize()
 
 	  \brief Initializes data members of transition manager
@@ -169,7 +196,7 @@ private:
 	SceneTransitions transition_map_;
 	SceneTransition* current_transition_;
 	GameState* next_state_;
-	bool begin_, end_, custom_;
+	bool begin_, end_, custom_, skipping_, special_;
 };
 
 

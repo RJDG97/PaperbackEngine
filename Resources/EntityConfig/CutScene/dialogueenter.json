@@ -1,0 +1,28 @@
+{
+    "DialogueEnter": [
+        {
+            "component": "Name",
+            "name": "DialogueEnter"
+        },
+        {
+            "component": "Transform",
+            "position": "0.000000 0.000000",
+            "rotation": "0.000000",
+            "offset": "7.50000 -0.370000",
+            "aabb offset": "0.000000 0.000000"
+        },
+        {
+            "component": "TextureRenderer",
+            "texture": "UI_Dialogue_Enter_0",
+            "layer": "1",
+            "order in layer": "10",
+            "alive": "0",
+            "opacity": "0.000000",
+            "tint": "1.000000 1.000000 1.000000"
+        },
+        {
+            "component": "Child",
+            "parent_name": "DialogueBox1"
+        }
+    ]
+}

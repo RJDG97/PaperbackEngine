@@ -17,6 +17,10 @@
         {
             "component": "ParentChild",
             "my_name": "WinLoseBackground"
+        },
+        {
+            "component": "Scale",
+            "scale": "200.000000 200.000000"
         }
     ]
 }

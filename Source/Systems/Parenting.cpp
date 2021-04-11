@@ -36,7 +36,6 @@ void ParentingSystem::Update(float frametime) {
 	for (auto& [p_id, parent] : *parent_arr_) {
 
 		UpdateChildOffset(p_id);
-		logic_manager_->Exec("Player_UpdateHealth", playerid, p_id);
 	}
 }
 

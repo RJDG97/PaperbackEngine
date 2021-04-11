@@ -195,7 +195,7 @@ bool Mite_Tree::AttackAnim::run() {
 		}
 
 		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("mite_explode");
-
+		renderer->SetAlive(false);
 		ai_->SetLife(false);
 		return true;
 	}

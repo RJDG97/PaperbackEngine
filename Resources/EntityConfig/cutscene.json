@@ -2,5 +2,6 @@
   "MenuBG": "Resources/EntityConfig/CutScene/background.json",
   "Camera": "Resources/EntityConfig/CutScene/Camera.json",
   "DialogueText": "Resources/EntityConfig/CutScene/dialoguetext.json",
-  "DialogueBox": "Resources/EntityConfig/CutScene/dialoguebox.json"
+  "DialogueBox": "Resources/EntityConfig/CutScene/dialoguebox.json",
+  "DialogueEnter": "Resources/EntityConfig/CutScene/dialogueenter.json"
 }

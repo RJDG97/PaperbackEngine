@@ -36,7 +36,6 @@ void LogicManager::Init() {
 	RegisterLogic("Player_UpdateChildOffset", &Player_Scripts::UpdateChildOffset);
 	RegisterLogic("Player_UpdateInput", &Player_Scripts::PlayerControllerScript);
 	RegisterLogic("Player_Collectible", &Player_Scripts::CollectedCollectible);
-	RegisterLogic("Player_UpdateHealth", &Player_Scripts::UpdatePlayerHealth);
 
 	// Register Burrow UI helper function
 	RegisterLogic("BurrowIcon_UpdateTexture", &UI_Script::BurrowUI_TextureUpdateScript);

@@ -120,9 +120,6 @@ void DialogueManager::LoadDialogue(std::string dialogue_name, std::string path)
         if (effect_type == "Shake")
         {
             effect.type_ = CAMERA_SHAKE;
-            float amplitude;
-            float duration;
-            float delay;
             camera_effect >> effect.amplitude_ >> effect.duration_ >> effect.delay_;
         }
 

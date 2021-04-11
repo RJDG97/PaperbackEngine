@@ -35,22 +35,6 @@ struct VignetteColorEffect
     void Update(const float& dt, const EntityID& id = 0);
 };
 
-struct VignetteSizeEffect
-{
-    float effect_timer_, current_;
-    glm::vec2 max_clear_, curr_clear_;
-    glm::vec2 min_size_, max_size_, curr_size_;
-
-    glm::vec2 rate_;
-    bool decrease_;
-
-    void SetStatus(float dur, bool decrease = true);
-    void SetMinSize(glm::vec2 min);
-    void SetMaxSize(glm::vec2 max);
-
-    void Update(const float& dt, const EntityID& id = 0);
-};
-
 struct VignetteSporeSizeEffect
 {
     float effect_timer_, current_;
@@ -64,9 +48,23 @@ struct VignetteSporeSizeEffect
     void SetStatus(float dur);
     void SetMinSize(glm::vec2 min);
     void SetMaxSize(glm::vec2 max);
+    void ResetSizeOnDeath();
 
     void Initialize();
     void Update(const float& dt, const EntityID& id = 0);
+};
+
+struct HealthEffect
+{
+    using ParentMap = CMap<ParentChild>;
+
+    float effect_timer_, current_;
+    float rate_;
+    bool decrease_;
+
+    void SetStatus(float dur, bool decrease = true);
+
+    void Update(const float& dt);
 };
 
 
@@ -123,8 +121,8 @@ public:
         (void)m;
     }
 
+    HealthEffect health_effect_;
     VignetteColorEffect color_effect_;
-    VignetteSizeEffect size_effect_;
     VignetteSporeSizeEffect spore_size_effect_;
 
 private:

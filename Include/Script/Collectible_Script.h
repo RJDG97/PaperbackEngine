@@ -78,7 +78,7 @@ namespace Collectible_Script
 				if (point_light) point_light->SetAlive(false);
 				if (aabb) aabb->SetAlive(false);
 
-				//CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f, false);
+				CORE->GetSystem<EffectsSystem>()->health_effect_.SetStatus(0.8f, false);
 				sound_sys->PlayTaggedSounds("drink");
 
 				ParentChild* pc = component_mgr->GetComponent<ParentChild>(collectible_id);
@@ -162,6 +162,7 @@ namespace Collectible_Script
 
 		std::shared_ptr<GraphicsSystem> graphics_sys = CORE->GetSystem<GraphicsSystem>();
 		std::shared_ptr<SoundSystem> sound_sys = CORE->GetSystem<SoundSystem>();
+		std::shared_ptr<CameraSystem> camera_sys = CORE->GetSystem<CameraSystem>();
 
 		// Grab relevant components
 		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(interactable_id);
@@ -170,6 +171,7 @@ namespace Collectible_Script
 		if (animation_renderer->GetCurrentAnimation() == "Crockpot_Cooking_t") {
 
 			graphics_sys->ChangeAnimation(animation_renderer, "Crockpot_Fall_t");
+			camera_sys->ScreenShake(5.0f, 0.6f, 0.32f);
 		}
 		CORE->SetMovementLock(true);
 

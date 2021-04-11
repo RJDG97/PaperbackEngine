@@ -32,6 +32,7 @@
     "DialogueBox": "Resources\\Test\\UI\\dialoguebox.json",
     "DialogueText": "Resources\\Test\\UI\\dialoguetext.json",
     "DialoguePortrait": "Resources\\Test\\UI\\dialogueportrait.json",
+    "DialogueEnter": "Resources\\Test\\UI\\dialogueenter.json",
     "HideIcon": "Resources\\Test\\UI\\hideui.json",
     "Objectives": "Resources\\Test\\UI\\objectives.json",
     "Log": "Resources\\Test\\Map\\Log.json",

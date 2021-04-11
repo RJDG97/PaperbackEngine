@@ -37,6 +37,7 @@
     "DialogueBox": "Resources\\Tutorial\\UI\\dialoguebox.json",
     "DialogueSpeakerName": "Resources\\Tutorial\\UI\\dialoguespeakername.json",
     "DialoguePortrait": "Resources\\Tutorial\\UI\\dialogueportrait.json",
+    "DialogueEnter": "Resources\\Tutorial\\UI\\dialogueenter.json",
     "HideIcon": "Resources\\Tutorial\\UI\\hideui.json",
     "Objectives": "Resources\\Tutorial\\UI\\objectives.json",
     "ParticleEmitter": "Resources\\Tutorial\\UI\\particleemitter.json",

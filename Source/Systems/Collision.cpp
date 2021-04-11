@@ -290,11 +290,11 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 
 				if (state == ButtonStates::CLICKED)
 				{
-					// I believe this fixes the one in menu state for fullscreen (Layer 2 = PauseMenu in game)
-					// If returning to menu, StateName will be "Menu"
-					// If quitting, it does not matter
-					if (CORE->GetSystem<Game>()->GetStateName() != "SplashState" && CORE->GetSystem<PauseSystem>()->PrevLayer() != 2)
-						return;
+					//// I believe this fixes the one in menu state for fullscreen (Layer 2 = PauseMenu in game)
+					//// If returning to menu, StateName will be "Menu"
+					//// If quitting, it does not matter
+					//if (CORE->GetSystem<Game>()->GetStateName() != "SplashState" && CORE->GetSystem<PauseSystem>()->PrevLayer() != 2)
+					return;
 				}
 					
 			}
@@ -567,7 +567,7 @@ void Collision::CollisionResponse(const CollisionLayer& layer_a, const Collision
 
 				// Comment this if you would like players to be able to phase through enemies
 				// when colliding and status is set to "Hit" (Player invulnerable for a set time)
-				//CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f);
+				CORE->GetSystem<EffectsSystem>()->health_effect_.SetStatus(0.8f);
 				CORE->GetSystem<EffectsSystem>()->color_effect_.SetTimer(0.5f);
 				CORE->GetSystem<EffectsSystem>()->color_effect_.SetStartVignetteColor({ 1, 0, 0 });
 				CORE->GetSystem<EffectsSystem>()->color_effect_.SetEndVignetteColor({ 0, 0, 0 });

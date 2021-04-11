@@ -28,6 +28,7 @@
     "DialogueText": "Resources\\Level2\\UI\\dialoguetext.json",
     "DialogueSpeakerName": "Resources\\Level2\\UI\\dialoguespeakername.json",
     "DialoguePortrait": "Resources\\Level2\\UI\\dialogueportrait.json",
+    "DialogueEnter": "Resources\\Level2\\UI\\dialogueenter.json",
     "HideIcon": "Resources\\Level2\\UI\\hideui.json",
     "Objectives": "Resources\\Level2\\UI\\objectives.json",
     "ParticleEmitter": "Resources\\Level2\\UI\\particleemitter.json",

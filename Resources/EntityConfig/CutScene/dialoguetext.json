@@ -8,7 +8,7 @@
             "component": "Transform",
             "position": "0.000000 0.000000",
             "rotation": "0.000000",
-            "offset": "-6.600000 -0.100000",
+            "offset": "-6.600000 0.100000",
             "aabb offset": "0.000000 0.000000"
         },
         {
@@ -17,12 +17,12 @@
             "sentence length": "0",
             "text": "",
             "color": "1.000000 1.000000 1.000000",
-            "scale": "0.350000",
+            "scale": "0.36000",
             "layer": "2",
             "order in layer": "0",
             "alive": "0",
             "opacity": "1.0",
-            "tint": "1.0 1.0 1.0"
+			"center align": "0"
             },
         {
             "component": "Child",

@@ -2,7 +2,7 @@
     "DialogueBox": [
         {
             "component": "Transform",
-            "position": "0.000000 -4.300000",
+            "position": "0.000000 -4.250000",
             "rotation": "0.000000",
             "offset": "0.000000 0.000000",
             "aabb offset": "0.000000 0.000000"
@@ -28,7 +28,7 @@
         },
         {
             "component": "Scale",
-            "scale": "640.0 80.0"
+            "scale": "640.0 90.0"
         }
     ]
 }

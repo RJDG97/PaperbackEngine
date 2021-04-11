@@ -133,7 +133,8 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 						MessageBGM_Play button{ "Click_Btn" };
 						CORE->BroadcastMessage(&button);
 
-						CORE->GetSystem<Game>()->ChangeState(&m_CutSceneState);
+						//CORE->GetSystem<Game>()->ChangeState(&m_CutSceneState);
+						CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_CutSceneState, false, true);
 						return;
 						break;
 					}
