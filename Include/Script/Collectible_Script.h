@@ -162,6 +162,7 @@ namespace Collectible_Script
 
 		std::shared_ptr<GraphicsSystem> graphics_sys = CORE->GetSystem<GraphicsSystem>();
 		std::shared_ptr<SoundSystem> sound_sys = CORE->GetSystem<SoundSystem>();
+		std::shared_ptr<CameraSystem> camera_sys = CORE->GetSystem<CameraSystem>();
 
 		// Grab relevant components
 		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(interactable_id);
@@ -170,6 +171,7 @@ namespace Collectible_Script
 		if (animation_renderer->GetCurrentAnimation() == "Crockpot_Cooking_t") {
 
 			graphics_sys->ChangeAnimation(animation_renderer, "Crockpot_Fall_t");
+			camera_sys->ScreenShake(5.0f, 0.6f, 0.32f);
 		}
 		CORE->SetMovementLock(true);
 
