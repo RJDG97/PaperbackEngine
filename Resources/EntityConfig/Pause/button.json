@@ -225,7 +225,7 @@
       "component": "TextureRenderer",
       "texture": "UI_QuitYes_0",
       "layer": "4",
-      "order in layer": "1",
+      "order in layer": "5",
       "alive": "0",
       "opacity": "1.0",
       "tint": "1.0 1.0 1.0"
@@ -264,7 +264,7 @@
       "component": "TextureRenderer",
       "texture": "UI_QuitNo_0",
       "layer": "4",
-      "order in layer": "1",
+      "order in layer": "5",
       "alive": "0",
       "opacity": "1.0",
       "tint": "1.0 1.0 1.0"
