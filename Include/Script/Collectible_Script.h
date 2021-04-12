@@ -61,8 +61,6 @@ namespace Collectible_Script
 				Vector2DNormalize(direction, direction);
 				sound_sys->PlayTaggedSounds("player_sprout");
 				CORE->GetSystem<EffectsSystem>()->spore_size_effect_.SetStatus(0.5f);
-				// This dialogue does not exist yet, add in your own version if you are interested wheeeee
-				//CORE->GetSystem<DialogueSystem>()->SetCurrentDialogue("Spore_Collected");
 				forces_mgr->AddForce(collectible_id, "Collected", 5.0f, direction * motion->GetForce());
 
 				break;
@@ -105,46 +103,6 @@ namespace Collectible_Script
 		}
 	}
 
-
-	/******************************************************************************/
-	/*!
-	  \fn InteractableResponse()
-
-	  \brief Interactable update script for Logs
-	*/
-	/******************************************************************************/
-	/*void InteractableResponse(const EntityID& interactable_id) {
-
-		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
-
-		Status* player_status = component_mgr->GetComponent<Status>(CORE->GetManager<EntityManager>()->GetPlayerEntities()->GetID());
-		if (player_status->GetStatus() == StatusType::BURROW)
-			return;
-
-		std::shared_ptr<GraphicsSystem> graphics_sys = CORE->GetSystem<GraphicsSystem>();
-		std::shared_ptr<SoundSystem> sound_sys = CORE->GetSystem<SoundSystem>();
-
-		// Grab relevant components
-		AnimationRenderer* animation_renderer = component_mgr->GetComponent<AnimationRenderer>(interactable_id);
-		AABB* aabb = component_mgr->GetComponent<AABB>(interactable_id);
-
-		animation_renderer->SetAnimationStatus(true);
-		CORE->SetMovementLock(true);
-
-		//sound_sys->PlaySounds("PlayerPushTree");
-		sound_sys->PlayTaggedSounds("tree_fall");
-
-		if (animation_renderer->FinishedAnimating()) {
-
-			if (aabb) {
-
-				aabb->SetAlive(false);
-				animation_renderer->SetAnimationStatus(false);
-				CORE->SetMovementLock(false);
-			}
-		}
-	}*/
-
 	/******************************************************************************/
 	/*!
 	  \fn InteractableResponse()
@@ -175,7 +133,6 @@ namespace Collectible_Script
 		}
 		CORE->SetMovementLock(true);
 
-		//sound_sys->PlaySounds("PlayerPushTree");
 		sound_sys->PlayTaggedSounds("tree_fall");
 
 		if (animation_renderer->FinishedAnimating()) {

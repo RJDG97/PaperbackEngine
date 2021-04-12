@@ -25,7 +25,7 @@
             "particle max pos": "50.000000 55.000000",
             "particle force range": "25.000000 100.000000",
             "particle direction range": "135.000000 270.000000",
-            "particle rotation speed": "2.000000 5.000000",
+            "particle rotation speed": "0.500000 1.000000",
             "min rotation angle range": "0.000000 0.000000",
             "max rotation angle range": "0.000000 45.000000",
             "particle scale range": "32.0 32.0",

@@ -157,14 +157,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	// but since they are temporary, not converting
 	if (action == GLFW_PRESS && !imgui_) {
 		switch (key) {
-
-		case GLFW_KEY_B: 	//'B'
-		{
-			//for debug bomb
-			Message msg(MessageIDTypes::DEBUG_ALL);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
 		case GLFW_KEY_F:
 		{
 			CORE->GetSystem<WindowsSystem>()->ToggleFullScreen();

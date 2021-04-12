@@ -113,8 +113,6 @@ void WindowsSystem::DeSerialize() {
 	}
 
 	stream >> windows_name_ >> width_ >> height_;
-
-	std::cout << windows_name_ << " " << width_ << " " << height_ << std::endl;
 }
 
 void WindowsSystem::Update(float frametime)

@@ -357,7 +357,6 @@ void Collision::DefaultResponse(AABBIt aabb1, Vec2* vel1, AABBIt aabb2, Vec2* ve
 		if (player_status->GetStatus() == StatusType::BURROW)
 			return;
 
-		//CORE->GetSystem<SoundSystem>()->PlaySounds("PlayerMovesStone");
 		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("stone_roll");
 
 		Vector2D push_force{};

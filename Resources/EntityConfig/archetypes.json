@@ -1665,12 +1665,12 @@
             "radius": "500.000000",
             "intensity": "0.850000",
             "alive": "1",
-			"pulse": "1",
-			"max radius": "100",
-			"min radius": "500",
-			"max intensity": "0.1",
-			"min intensity": "0.750",
-			"cycle duration": "3.0"
+            "pulse": "1",
+            "max radius": "100",
+            "min radius": "500",
+            "max intensity": "0.1",
+            "min intensity": "0.750",
+            "cycle duration": "3.0"
         },
         {
             "component": "InputController"

@@ -57,16 +57,12 @@ void CoreEngine::GameLoop() {
 		
 		for (int steps = 0; steps < PE_FrameRate.GetSteps(); ++steps)
 		{
-			if (input->IsKeyTriggered(GLFW_KEY_B)) {
-				debug_ = !debug_;
-			}
-
 			if (debug_)
 				M_DEBUG->WriteDebugMessage("Core Engine System Update:\n");
 
 			PE_FrameRate.FrameRateLoop();
 
-			glfwSetWindowTitle(win->ptr_window, (win->GetWindowName() + " | " + std::to_string(PE_FrameRate.GetFPS()) + " FPS").c_str());
+			glfwSetWindowTitle(win->ptr_window, win->GetWindowName().c_str());
 
 			for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
 				// Placeholder
