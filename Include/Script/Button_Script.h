@@ -759,6 +759,94 @@ namespace Button_Script
 			}
 		}
 	}
+
+
+	/******************************************************************************/
+	/*!
+	  \fn WinLoseReturnToMenu()
+
+	  \brief Texture update script for the WinLose State to Menu
+	*/
+	/******************************************************************************/
+	static void WinLoseContinue(const EntityID& button_id, ButtonStates& state) {
+
+		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		GraphicsSystem* graphics_sys = &*CORE->GetSystem<GraphicsSystem>();
+		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
+		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
+
+		if (!texture_renderer || !clickable)
+			return;
+
+		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
+		switch (state)
+		{
+		case ButtonStates::DEFAULT:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_NextLevel_0");
+			break;
+		}
+		case ButtonStates::HOVERED:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_NextLevel_Hovered_0");
+			break;
+		}
+		case ButtonStates::CLICKED:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_NextLevel_Clicked_0");
+
+			// Temporary measure until the ToggleClickables are sorted out
+			Message_Button msg{ clickable->GetIndex() };
+			CORE->BroadcastMessage(&msg);
+
+			break;
+		}
+		}
+	}
+
+
+	/******************************************************************************/
+	/*!
+	  \fn WinLoseReturnToQuit()
+
+	  \brief Texture update script for the WinLose State to Quit
+	*/
+	/******************************************************************************/
+	static void WinLoseBackToMenu(const EntityID& button_id, ButtonStates& state) {
+
+		ComponentManager* component_mgr = &*CORE->GetManager<ComponentManager>();
+		GraphicsSystem* graphics_sys = &*CORE->GetSystem<GraphicsSystem>();
+		Clickable* clickable = component_mgr->GetComponent<Clickable>(button_id);
+		TextureRenderer* texture_renderer = component_mgr->GetComponent<TextureRenderer>(button_id);
+
+		if (!texture_renderer || !clickable)
+			return;
+
+		// Assumption is that the Texture Renderer component is GUARANTEED to exist for each button
+		switch (state)
+		{
+		case ButtonStates::DEFAULT:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_QuitToHomeButton_0");
+			break;
+		}
+		case ButtonStates::HOVERED:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_QuitToHomeButton_Hovered_0");
+			break;
+		}
+		case ButtonStates::CLICKED:
+		{
+			graphics_sys->ChangeTexture(texture_renderer, "UI_QuitToHomeButton_Clicked_0");
+
+			// Temporary measure until the ToggleClickables are sorted out
+			Message_Button msg{ clickable->GetIndex() };
+			CORE->BroadcastMessage(&msg);
+
+			break;
+		}
+		}
+	}
 }
 
 #endif

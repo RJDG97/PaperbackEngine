@@ -89,6 +89,14 @@
     "UI_QuitYes": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes.png 1 1",
     "UI_QuitYes_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Clicked.png 1 1",
     "UI_QuitYes_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_QuitGame_Yes_Hover.png 1 1",
+    
+    "UI_QuitToHomeButton": "Resources/Sprites/UI_Elements/Quit/UI_QuitToHomeButton.png 1 1",
+    "UI_QuitToHomeButton_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_QuitToHomeButton_Clicked.png 1 1",
+    "UI_QuitToHomeButton_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_QuitToHomeButton_Hover.png 1 1",
+    "UI_NextLevel": "Resources/Sprites/UI_Elements/Quit/UI_NextLevel.png 1 1",
+    "UI_NextLevel_Clicked": "Resources/Sprites/UI_Elements/Quit/UI_NextLevel_Clicked.png 1 1",
+    "UI_NextLevel_Hovered": "Resources/Sprites/UI_Elements/Quit/UI_NextLevel_Hover.png 1 1",
+    
     "UI_RightButton": "Resources/Sprites/UI_Elements/HowTo/UI_RightButton.png 1 1",
     "UI_Replay": "Resources/Sprites/UI_Elements/Lose/UI_ReplayButton.png 1 1",
     "UI_Replay_Clicked": "Resources/Sprites/UI_Elements/Lose/UI_ReplayButton_Clicked.png 1 1",

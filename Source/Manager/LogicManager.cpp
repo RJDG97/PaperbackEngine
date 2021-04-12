@@ -69,6 +69,8 @@ void LogicManager::Init() {
 	RegisterLogic("Button_LoseAnimation", &Button_Script::PauseLoseAnim);
 	RegisterLogic("WinLoseState_EnterMenuState", &Button_Script::WinLoseReturnToMenu);
 	RegisterLogic("WinLoseState_QuitGame", &Button_Script::WinLoseReturnToQuit);
+	RegisterLogic("WinLoseState_Continue", &Button_Script::WinLoseContinue);
+	RegisterLogic("WinLoseState_BackToMenu", &Button_Script::WinLoseBackToMenu);
 
 	// Environmental entity helper functions
 	RegisterLogic("Environmental_AnimUpdate", &Movable_Script::UpdateMovable);

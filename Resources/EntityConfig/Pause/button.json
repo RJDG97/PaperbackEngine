@@ -301,7 +301,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "UI_QuitYes_0",
+      "texture": "UI_NextLevel_0",
       "layer": "4",
       "order in layer": "3",
       "alive": "0",
@@ -312,7 +312,7 @@
       "component": "LogicComponent",
       "number_of_fns": "1",
       "name": "ButtonUpdateTexture",
-      "function": "PauseState_QuitGameYes"
+      "function": "WinLoseState_Continue"
     }
   ],
   "button": [
@@ -340,7 +340,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "UI_QuitYes_0",
+      "texture": "UI_NextLevel_0",
       "layer": "4",
       "order in layer": "3",
       "alive": "0",
@@ -351,7 +351,7 @@
       "component": "LogicComponent",
       "number_of_fns": "1",
       "name": "ButtonUpdateTexture",
-      "function": "PauseState_QuitGameYes"
+      "function": "WinLoseState_Continue"
     }
   ],
   "button": [
@@ -379,7 +379,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "UI_QuitNo_0",
+      "texture": "UI_QuitToHomeButton_0",
       "layer": "4",
       "order in layer": "3",
       "alive": "0",
@@ -390,7 +390,7 @@
       "component": "LogicComponent",
       "number_of_fns": "1",
       "name": "ButtonUpdateTexture",
-      "function": "PauseState_QuitGameNo"
+      "function": "WinLoseState_BackToMenu"
     }
   ],
   "button": [
@@ -418,7 +418,7 @@
     },
     {
       "component": "TextureRenderer",
-      "texture": "UI_QuitNo_0",
+      "texture": "UI_QuitToHomeButton_0",
       "layer": "4",
       "order in layer": "3",
       "alive": "0",
@@ -429,7 +429,7 @@
       "component": "LogicComponent",
       "number_of_fns": "1",
       "name": "ButtonUpdateTexture",
-      "function": "PauseState_QuitGameNo"
+      "function": "WinLoseState_BackToMenu"
     }
   ],
   "button": [
