@@ -1,5 +1,7 @@
 {
   "Background": "0 UI_Sprite",
 
-  "Vignette": "0 Vignette"
+  "Vignette": "0 Vignette",
+  
+  "Particles": "0 World_Sprite"
 }

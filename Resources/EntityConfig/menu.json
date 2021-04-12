@@ -13,5 +13,9 @@
   
   "MenuTitle": "Resources/EntityConfig/Menu/titlecardtext.json",
   
-  "MenuRadish": "Resources/EntityConfig/Menu/menuradish.json"
+  "MenuRadish": "Resources/EntityConfig/Menu/menuradish.json",
+  
+  "ParticleEmitter": "Resources/EntityConfig/Menu/particleemitter.json",
+    
+  "MyParticle": "Resources/EntityConfig/Menu/myparticles.json"
 }

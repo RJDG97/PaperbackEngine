@@ -208,8 +208,7 @@ void PlayState::Update(Game* game, float frametime)
 			CORE->ToggleGamePauseStatus(); // Toggle game's pause menu
 			CORE->GetSystem<PauseSystem>()->TerminateState(true);
 			CORE->GetSystem<PauseSystem>()->SetActiveLayer(6);
-			//CORE->GetSystem<SoundSystem>()->PlaySounds("player_dead");
-			//game->ChangeState(&m_WinLoseState, "Lose");
+			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_dead");
 		}
 	}
 }
