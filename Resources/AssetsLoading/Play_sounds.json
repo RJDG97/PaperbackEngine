@@ -420,6 +420,24 @@
             "tag": "stag_convo"
         }
     ],
+    "Fire": [
+        {
+            "path": "Resources/SoundCache/Environment/Fire/Fire_1.wav",
+            "volume": "0.400000",
+            "min distance": "3.000000",
+            "volume falloff": "0.050000",
+            "loop": "1"
+        }
+    ],
+    "Lake": [
+        {
+            "path": "Resources/SoundCache/Environment/Lake/Lake_1.mp3",
+            "volume": "0.600000",
+            "min distance": "3.000000",
+            "volume falloff": "0.030000",
+            "loop": "1"
+        }
+    ],
     "Grass_1": [
         {
             "path": "Resources/SoundCache/Environment/Grass_Rustle/Grass_1.wav",
