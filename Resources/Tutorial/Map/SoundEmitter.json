@@ -2,8 +2,47 @@
     "SoundEmitter": [
         {
             "component": "SoundEmitter",
-            "sound name": "0",
-            "number of sound lines": "0"
+            "sound name": "Fire",
+            "number of sound lines": "9",
+            "start": "16 -95",
+            "end": "16 -99",
+            "start": "30.5 -93",
+            "end": "30.5 -97",
+            "start": "53.5 -97",
+            "end": "53.5 -101",
+            "start": "41 -85.5",
+            "end": "41 -89.5",
+            "start": "58.5 -82",
+            "end": "58.5 -86",
+            "start": "75.5 -90.5",
+            "end": "75.5 -94.5",
+            "start": "44 -104.5",
+            "end": "46.5 -104.5",
+            "start": "5.5 -83",
+            "end": "5.5 -87",
+            "start": "18 -62",
+            "end": "18 -66"
+        }
+    ],
+    "SoundEmitter": [
+        {
+            "component": "SoundEmitter",
+            "sound name": "Lake",
+            "number of sound lines": "7",
+            "start": "8.25 -116",
+            "end": "11.25 -116",
+            "start": "65.5 -110",
+            "end": "65.5 -115",
+            "start": "65.5 -110",
+            "end": "83.0 -110",
+            "start": "64.5 -86",
+            "end": "80 -86",
+            "start": "63.9 -83",
+            "end": "64.5 -86",
+            "start": "63.75 -75",
+            "end": "39.5 -75",
+            "start": "39.5 -75",
+            "end": "39.5 -52"
         }
     ]
 }
