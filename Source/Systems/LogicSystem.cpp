@@ -34,11 +34,9 @@ void LogicSystem::Update(float frametime)
 
 void LogicSystem::Draw()
 {
-	//std::cout << "LogicSystem::Draw" << std::endl;
 }
 
 void LogicSystem::SendMessageD(Message *m)
 {
 	(void)m;
-	//std::cout << "LogicSystem::SendMessageD" << std::endl;
 }

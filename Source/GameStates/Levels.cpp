@@ -98,7 +98,7 @@ Levels::Levels() :
 {
 }
 
-void Levels::DeSerialize(const std::string filepath) { //needs to directly load from doc format
+void Levels::DeSerialize(const std::string filepath) {
 
 	rapidjson::Document doc;
 	DeSerializeJSON(filepath, doc);
@@ -272,7 +272,7 @@ Level* Levels::GetPlayLevel(size_t index) {
 	// Check if index is valid before returning
 	if (index <= plays_.size()) {
 
-		current_play_index_ = index; // double check on this
+		current_play_index_ = index;
 		return &plays_[index];
 	}
 

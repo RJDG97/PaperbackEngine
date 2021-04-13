@@ -374,9 +374,6 @@
     <ClCompile Include="Source\GameStates\EditorState.cpp">
       <Filter>Systems\Scene/State Manager\Game States</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameStates\WinLoseState.cpp">
-      <Filter>Systems\Scene/State Manager\Game States</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp">
       <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
@@ -710,9 +707,6 @@
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Include\GameStates\EditorState.h">
-      <Filter>Systems\Scene/State Manager\Game States</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\GameStates\WinLoseState.h">
       <Filter>Systems\Scene/State Manager\Game States</Filter>
     </ClInclude>
     <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h">

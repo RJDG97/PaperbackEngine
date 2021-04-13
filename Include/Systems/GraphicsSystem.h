@@ -535,13 +535,6 @@ public:
     using AnimRendererIt = AnimationRendererType::MapTypeIt;
     AnimationRendererType* anim_renderer_arr_;
 
-    //using IRenderOrderIt = std::multimap<int, IRenderer*>::iterator;
-    //using TextRenderOrderIt = std::multimap<int, TextRenderer*>::iterator;
-    //std::multimap<int, IRenderer*> worldobj_renderers_in_order_;
-    //std::multimap<int, TextRenderer*> worldtext_renderers_in_order_;
-    //std::multimap<int, IRenderer*> uirenderers_in_order_;
-    //std::multimap<int, TextRenderer*> uitext_renderers_in_order_;
-
     std::map<int, RenderLayer>* render_layers_;
 };
 

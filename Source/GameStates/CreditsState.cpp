@@ -49,7 +49,6 @@ void CreditsState::Free() {
 
 	CORE->SetMovementLock(false);
 
-	//CORE->GetSystem<SoundSystem>()->StopSound("All", true);
 	CORE->ResetGodMode();
 	CORE->ResetCorePauseStatus();
 	CORE->ResetGamePauseStatus();

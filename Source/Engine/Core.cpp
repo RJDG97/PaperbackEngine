@@ -64,7 +64,7 @@ void CoreEngine::GameLoop() {
 			glfwSetWindowTitle(win->ptr_window, win->GetWindowName().c_str());
 
 			for (SystemIt system = systems_.begin(); system != systems_.end(); ++system) {
-				// Placeholder
+				
 				PE_FrameRate.StartSystemTimer();
 
 				system->second->Update(PE_FrameRate.GetFixedDelta());

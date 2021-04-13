@@ -25,7 +25,7 @@
 struct Level {
 	std::string name_;
 	std::string path_;
-	std::string optional_next_; // used to set next "play"
+	std::string optional_next_;
 	using EntityPaths = std::unordered_map<std::string, std::string>;
 	using EntityPathsIt = EntityPaths::iterator;
 	EntityPaths entity_paths_;

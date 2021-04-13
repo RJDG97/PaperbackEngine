@@ -157,40 +157,38 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	// but since they are temporary, not converting
 	if (action == GLFW_PRESS && !imgui_) {
 		switch (key) {
-		case GLFW_KEY_F:
-		{
-			CORE->GetSystem<WindowsSystem>()->ToggleFullScreen();
-			break;
-		}
-		case GLFW_KEY_U:
-		{
-			Message msg(MessageIDTypes::CHANGE_ANIMATION_1);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		case GLFW_KEY_I:
-		{
-			Message msg(MessageIDTypes::CHANGE_ANIMATION_2);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		case GLFW_KEY_O:
-		{
-			Message msg(MessageIDTypes::CAM_ZOOM_IN);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		case GLFW_KEY_P:
-		{
-			Message msg(MessageIDTypes::CAM_ZOOM_OUT);
-			CORE->BroadcastMessage(&msg);
-			break;
-		}
-		case GLFW_KEY_T:
-		{
-			//GeneralScripts::map_->Pathing({-5, 0}, {0, 0});
-			//GeneralScripts::map_->DrawMap();
-		}
+			case GLFW_KEY_F:
+			{
+				CORE->GetSystem<WindowsSystem>()->ToggleFullScreen();
+				break;
+			}
+			case GLFW_KEY_U:
+			{
+				Message msg(MessageIDTypes::CHANGE_ANIMATION_1);
+				CORE->BroadcastMessage(&msg);
+				break;
+			}
+			case GLFW_KEY_I:
+			{
+				Message msg(MessageIDTypes::CHANGE_ANIMATION_2);
+				CORE->BroadcastMessage(&msg);
+				break;
+			}
+			case GLFW_KEY_O:
+			{
+				Message msg(MessageIDTypes::CAM_ZOOM_IN);
+				CORE->BroadcastMessage(&msg);
+				break;
+			}
+			case GLFW_KEY_P:
+			{
+				Message msg(MessageIDTypes::CAM_ZOOM_OUT);
+				CORE->BroadcastMessage(&msg);
+				break;
+			}
+			case GLFW_KEY_T:
+			{
+			}
 		}
 	}
 }

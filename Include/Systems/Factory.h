@@ -37,19 +37,16 @@ class EntityFactory : public ISystem {
 	// 
 	using EntityIdMapType = EntityManager::EntityIdMapType;
 	using EntityIdMapTypeIt = EntityIdMapType::iterator;
-	//EntityIdMapType entity_id_map_;
 
 	// 
 	using EntityArchetypeMapType = EntityManager::EntityArchetypeMapType;
 	using EntityArchetypeMapTypeIt = EntityArchetypeMapType::iterator;
-	//EntityArchetypeMapType entity_archetype_map_;
 
 	// For storing entities that are to be deleted in update loop
 	using EntityIt = std::set<Entity*>::iterator;
 	std::set<Entity*> objects_to_delete;
 
-	//will contain the additional details about what files are loaded
-	//possibly shifted to entity manager if need be
+	// Will contain the additional details about what files are loaded
 	Levels levels_;
 
 	ComponentManager* comp_mgr_;

@@ -54,8 +54,6 @@ void PuzzleSystem::UpdatePuzzleEntities(AABB* aabb1, AABB* aabb2) {
 		graphics_system_->ChangeAnimation(anim, "Stone_Fall_One");
 		b_anim->SetAlive(false);
 		aabb1->SetAlive(false);
-
-		//CORE->SetMovementLock(true);
 	}
 	// After animation has been set once already
 	else {
@@ -71,10 +69,6 @@ void PuzzleSystem::UpdatePuzzleEntities(AABB* aabb1, AABB* aabb2) {
 
 			// Disable boulder collider
 			aabb1->SetAlive(false);
-
-			// Disable hole collider
-			//aabb2->SetAlive(false);
-
 			//CORE->SetMovementLock(false);
 			anim->SetAnimationStatus(false);
 		}

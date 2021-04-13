@@ -42,10 +42,6 @@ EditorState m_EditorState;
 
 void EditorState::Init(std::string)
 {
-	std::cout << "-----------------------------" << std::endl << std::endl;
-	std::cout << "EditorState init Successful" << std::endl;
-	std::cout << "-----------------------------" << std::endl << std::endl;
-	
 	CORE->ResetCorePauseStatus();
 	CORE->GetManager<LayerManager>()->GetRenderLayers()->clear();
 	CORE->GetManager<LayerManager>()->LoadLevelLayers("Play");

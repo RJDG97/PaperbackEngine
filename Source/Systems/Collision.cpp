@@ -20,7 +20,7 @@
 #include "Systems/Debug.h"
 #include "Systems/EffectsSystem.h"
 #include "Systems/InputSystem.h"
-#include "Systems/DialogueSystem.h" //temporary
+#include "Systems/DialogueSystem.h"
 #include "Systems/PauseSystem.h"
 #include "Manager/ForcesManager.h"
 #include "Manager/LogicManager.h"
@@ -41,7 +41,6 @@
 
 #define EPSILON 0.001f
 
-// Terrible...
 void PlayGrassRustle() {
 	
 	CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("grass");
@@ -138,7 +137,7 @@ bool Collision::CheckCollision(const AABB& aabb1, const Vec2& vel1,
 	// AABB_2
 	Vector2D aab2_bot_left = aabb2.GetBottomLeft();
 	Vector2D aab2_top_right = aabb2.GetTopRight();
-	float tLast = dt; // g_dt does not exist yet
+	float tLast = dt;
 	tFirst = {};
 
 	if (SeparatingAxisTheorem(aabb1, aabb2))
@@ -289,14 +288,7 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 				std::string state_name = CORE->GetSystem<Game>()->GetStateName();
 
 				if (state == ButtonStates::CLICKED)
-				{
-					//// I believe this fixes the one in menu state for fullscreen (Layer 2 = PauseMenu in game)
-					//// If returning to menu, StateName will be "Menu"
-					//// If quitting, it does not matter
-					//if (CORE->GetSystem<Game>()->GetStateName() != "SplashState" && CORE->GetSystem<PauseSystem>()->PrevLayer() != 2)
 					return;
-				}
-					
 			}
 			else {
 				
@@ -521,10 +513,6 @@ void Collision::PlayerScenarioResponse(AABBIt aabb1, AABBIt aabb2, std::string s
 	
 	auto& [player_id, player_aabb] = *aabb1;
 	auto& [scenario_id, scenario_aabb] = *aabb2;
-
-	/*Status* player_status = component_mgr_->GetComponent<Status>(player_id);
-	if (player_status->GetStatus() == StatusType::BURROW)
-		return;*/
 
 	LogicComponent* player_logic = component_mgr_->GetComponent<LogicComponent>(player_id);
 	LogicComponent* scenario_logic = component_mgr_->GetComponent<LogicComponent>(scenario_id);
@@ -1043,12 +1031,6 @@ void Collision::Update(float frametime) {
 
 	ButtonStates state = ButtonStates::HOVERED;
 	CheckClickableCollision(state);
-
-	// Possibly to toggle off debug mode
-	if (debug_)
-	{
-
-	}
 }
 
 

@@ -16,7 +16,6 @@
 #include "Systems/Game.h"
 #include "GameStates/PlayState.h"
 #include "GameStates/MenuState.h"
-#include "GameStates/WinLoseState.h"
 
 #include "Systems/InputSystem.h"
 
@@ -49,11 +48,6 @@
 
 // Play state
 PlayState m_PlayState;
-
-// Temp declaration
-void ScaleEntityBig(Scale* scale, bool yes);
-void RotateLeft(Transform* xform, bool yes);
-
 
 
 void PlayState::Init(std::string)
@@ -133,7 +127,6 @@ void PlayState::Update(Game* game, float frametime)
 		CORE->GetSystem<SoundSystem>()->PlaySounds("Win");
 		CORE->GetSystem<PauseSystem>()->TerminateState(true);
 		CORE->GetSystem<PauseSystem>()->SetActiveLayer(5);
-		//game->ChangeState(&m_WinLoseState, "Win");
 		return;
 	}
 
@@ -145,7 +138,6 @@ void PlayState::Update(Game* game, float frametime)
 		CORE->GetSystem<SoundSystem>()->PlaySounds("Lose");
 		CORE->GetSystem<PauseSystem>()->TerminateState(true);
 		CORE->GetSystem<PauseSystem>()->SetActiveLayer(6);
-		//game->ChangeState(&m_WinLoseState, "Lose");
 		return;
 	}
 
@@ -192,7 +184,6 @@ void PlayState::Update(Game* game, float frametime)
 			int new_hp = health->GetCurrentHealth() - 1;
 			health->SetCurrentHealth(new_hp);
 			CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("player_deplete");
-			//CORE->GetSystem<EffectsSystem>()->size_effect_.SetStatus(0.5f);
 
 			CORE->GetSystem<EffectsSystem>()->health_effect_.SetStatus(0.8f);
 
@@ -405,7 +396,6 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 								//last level
 								levels->ResetPlayLevels();
 								CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
-								//game->ChangeState(&m_MenuState);
 								return;
 							}
 							return;
@@ -428,7 +418,6 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 						{
 							CORE->GetManager<TransitionManager>()->ResetVignetteScale();
 							game->ChangeState(&m_MenuState);
-							//CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
 							return;
 							break;
 						}
@@ -503,34 +492,4 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 		}
 		}
 	}
-}
-
-void ScaleEntityBig(Scale* scale, bool yes) {
-
-	Vector2D new_scale;
-
-	if (yes) {
-
-		new_scale = { 5.0f, 5.0f };
-	}
-	else {
-		new_scale = { -5.0f, -5.0f };
-	}
-
-	new_scale += scale->GetScale();
-	scale->SetScale(new_scale);
-}
-
-void RotateLeft(Transform* xform, bool yes) {
-	float new_rotation;
-
-	if (yes) {
-		new_rotation = 1.0f;
-	}
-	else {
-		new_rotation = -1.0f;
-	}
-
-	new_rotation += xform->GetRotation();
-	xform->SetRotation(new_rotation);
 }

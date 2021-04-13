@@ -263,8 +263,6 @@ void EntityFactory::CreateAllArchetypes(const std::string& filename) {
 
 				DEBUG_ASSERT((creator != nullptr), "Component Creator does not exist");
 
-				//creator = component_it->second;
-
 				component = creator->Create();
 
 				//stores the data into a stream that is easier to read data from
@@ -283,7 +281,6 @@ void EntityFactory::CreateAllArchetypes(const std::string& filename) {
 			}
 		}
 
-		//entity_archetype_map_[var_it->name.GetString()] = archetype;
 		entity_mgr_->AddNewArchetype(var_it->name.GetString(), archetype);
 
 		// Sets the owner of the component to be "archetype" (*this) and adds the relevant
@@ -468,7 +465,7 @@ void EntityFactory::SendMessageD(Message* msg) {
 	
 	switch (msg->message_id_)
 	{
-	case MessageIDTypes::FTY_PURGE: // Delete all entities
+	case MessageIDTypes::FTY_PURGE:
 	{
 		DestroyAllEntities();
 		break;

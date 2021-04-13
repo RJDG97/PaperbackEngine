@@ -17,16 +17,10 @@
 #define _COLLISION_H_
 
 #include <string>
+#include "ISystem.h"
 #include "MathLib/MathHelper.h"
 #include "Systems/Message.h"
 #include "Systems/Partitioning.h"
-#include "ISystem.h"
-#include "Components/AABB.h"
-#include "Components/Clickable.h"
-#include "Components/Motion.h"
-#include "Components/Status.h"
-#include "Components/Transform.h"
-#include "Components/Scale.h"
 #include "Components/InputController.h"
 #include "Manager/ComponentManager.h"
 #include "Manager/EntityManager.h"

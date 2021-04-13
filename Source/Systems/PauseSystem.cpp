@@ -67,12 +67,8 @@ void PauseSystem::Update(float frametime)
             {
                 for (auto id : vectors)
                 {
-                    //mgr->GetComponent<Clickable>(id)->SetActive(false);
-                    //mgr->GetComponent<TextureRenderer>(id)->SetAlive(false);
-
                     TextureRenderer* texture = mgr->GetComponent<TextureRenderer>(id);
                     AnimationRenderer* anim = mgr->GetComponent<AnimationRenderer>(id);
-                    //LogicComponent* logic = mgr->GetComponent<LogicComponent>(id);
 
                     if (texture)
                         texture->SetAlive(false);

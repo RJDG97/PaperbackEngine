@@ -69,63 +69,8 @@ void PartitioningSystem::Update(float frametime) {
 
 		InitEntityInPartition(id);
 	}
-
-	//for (auto& [id, texture] : *texture_map_) {
-	//	
-	//	if (texture->IsAlive())
-	//		InitRendererInPartition(id);
-	//}
-
-	//for (auto& [id, animation] : *animation_map_) {
-	//	
-	//	if (animation->IsAlive())
-	//		InitRendererInPartition(id);
-	//}
 	
 	ComputePartitionedEntities();
-
-
-
-	//for (AABBMapIt it = aabb_map_->begin(); it != aabb_map_->end(); ++it) {
-	//	
-	//	if (it->second->GetLayer() == static_cast<size_t>(CollisionLayer::BACKGROUND) ||
-	//		it->second->GetLayer() == static_cast<size_t>(CollisionLayer::UI_ELEMENTS))
-	//		continue;
-
-	//	float min_x, min_y, max_x, max_y, pos_x, pos_y;
-	//	
-	//	Transform* xform = transform_map_->GetComponent(it->first);
-
-	//	if (!xform)
-	//		continue;
-
-	//	// Computing the position of the entity
-	//	pos_x = xform->GetOffsetAABBPos().x + abs_bottom_left_.x;
-	//	pos_y = xform->GetOffsetAABBPos().y + abs_bottom_left_.y;
-
-	//	Vector2D aabb_scale_ = it->second->GetAABBScale();
-
-	//	// Computing the min and max pos of the entity
-	//	min_x = (pos_x - aabb_scale_.x) / grid_size_;
-	//	RoundDown(min_x);
-	//	min_y = (pos_y - aabb_scale_.y) / grid_size_;
-	//	RoundDown(min_y);
-	//	max_x = (pos_x + aabb_scale_.x) / grid_size_;
-	//	RoundUp(max_x);
-	//	max_y = (pos_y + aabb_scale_.y) / grid_size_;
-	//	RoundUp(max_y);
-
-	//	// Setting the bits for the grid based on entity location
-	//	for (int j = static_cast<int>(min_x); j < max_x; ++j) {
-	//		if (j >= 0 && j < x_.size())
-	//			x_[j].set(it->first);
-	//	}
-	//	for (int i = static_cast<int>(min_y); i < max_y; ++i) {
-	//		if (i >= 0 && i < y_.size())
-	//			y_[i].set(it->first);
-	//	}
-	//}
-
 }
 
 

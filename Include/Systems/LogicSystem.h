@@ -27,7 +27,6 @@ using AIIt = AIType::MapTypeIt;
 
 class LogicSystem: public ISystem{
 
-	//std::unordered_map<EntityID, AI*> ai_arr_;
 	AIType* ai_arr_;
 	ComponentManager* comp_mgr;
 

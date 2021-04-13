@@ -134,10 +134,6 @@ void AMap::SetNodeNeighbours() {
 			for (int y = -1; y < 2; ++y) {
 				for (int x = -1; x < 2; ++x) {
 
-					//if corners are hit then skip
-					//if ((y == -1 && (x == -1 || x == 1) || (y == 1 && (x == -1 || x == 1))))
-					//	continue;
-
 					int height = i + y;
 					int width = j + x;
 

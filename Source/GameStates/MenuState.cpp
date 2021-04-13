@@ -17,7 +17,6 @@
 #include "GameStates/MenuState.h"
 #include "GameStates/CutSceneState.h"
 #include "GameStates/EditorState.h"
-#include "GameStates/WinLoseState.h"
 #include "GameStates/CreditsState.h"
 
 #include "Systems/InputSystem.h"
@@ -102,7 +101,6 @@ void MenuState::Update(Game* game, float frametime)
 
 void MenuState::Draw(Game* game)
 {
-	//GraphicsSystem::Instance().Draw();
 	UNREFERENCED_PARAMETER(game);
 }
 

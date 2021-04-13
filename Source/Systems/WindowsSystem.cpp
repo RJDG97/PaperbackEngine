@@ -53,7 +53,7 @@ void WindowsSystem::Init() {
 	glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); // window dimensions are static
 
-	ptr_window = glfwCreateWindow(width_, height_, windows_name_.c_str()/*"Veggie Escape"*/, NULL, NULL);
+	ptr_window = glfwCreateWindow(width_, height_, windows_name_.c_str(), NULL, NULL);
 
 	if (!ptr_window) {
 		std::cerr << "GLFW unable to create OpenGL context - abort program\n";
