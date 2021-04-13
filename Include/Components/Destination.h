@@ -18,7 +18,6 @@
 #include "MathLib/Vector2D.h"
 #include "IComponent.h"
 
-// Contains data about the health of an entity that the component will be attached to
 class Destination : public Component
 {
 	Vector2D destination_;
@@ -100,6 +99,13 @@ public:
 	/******************************************************************************/
 	std::shared_ptr<Component> Clone() override;
 
+	/******************************************************************************/
+	/*!
+	  \fn GetDestination()
+
+	  \brief Gets the destination of the entity
+	*/
+	/******************************************************************************/
 	const Vector2D& GetDestination() const;
 };
 

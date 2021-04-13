@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -55,10 +55,6 @@ std::shared_ptr<Component> Inventory::Clone() {
 
 	M_DEBUG->WriteDebugMessage("Cloning Inventory Component\n");
 	std::shared_ptr<Inventory> cloned = std::make_shared<Inventory>();
-
-	//cloned->current_capacity_ = current_capacity_;
-	//cloned->max_capacity_ = max_capacity_;
-	//cloned->inventory_ = inventory_;
 
 	return cloned;
 }

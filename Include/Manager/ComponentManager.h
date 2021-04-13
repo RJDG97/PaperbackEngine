@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -297,8 +297,6 @@ void CMap<T>::AddComponent(EntityID id, T* component) {
 template <typename T>
 void CMap<T>::RemoveComponent(EntityID id) {
 
-	//DEBUG_ASSERT(component_map_.find(id) != component_map_.end(), "Component does not exist for entity!");
-
 	if (component_map_.find(id) != component_map_.end()) {
 		
 		component_map_.erase(id);
@@ -312,7 +310,6 @@ void CMap<T>::RemoveComponent(EntityID id) {
 template <typename T>
 T* CMap<T>::GetComponent(EntityID id) {
 
-	//DEBUG_ASSERT(component_map_.find(id) == component_map_.end(), "Component does not exist for entity!");
 	return (component_map_.find(id) == component_map_.end()) ? nullptr : component_map_[id];
 }
 
@@ -332,12 +329,12 @@ CMap<T>::~CMap() {
 
 template <typename... Ts>
 CManager<Ts...>::CManager() {
-	// Possibly something uwuz
+	
 }
 
 template <typename... Ts>
 void CManager<Ts...>::Init() {
-	// Add component creators here
+	
 }
 
 template <typename... Ts>
@@ -402,8 +399,5 @@ CManager<Ts...>::~CManager() {
 		delete it->second;
 	}
 }
-
-
-
 
 #endif

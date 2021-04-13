@@ -5,7 +5,7 @@
 *
 *\author	   Renzo Garcia, 100% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -180,7 +180,6 @@ std::map<std::string, float>& FrameRateController::GetSystemPerformance()
 
 void FrameRateController::PrintSystemPerformance() {
 	total_time = 0.0f;
-	std::cout << "=========================================\nDisplaying System Performance Data:" << std::endl;
 	// To compute total time taken for 1 update loop
 	for (PerformanceIt begin = system_performance_.begin(); begin != system_performance_.end(); ++begin) {
 		total_time += begin->second;
@@ -189,5 +188,4 @@ void FrameRateController::PrintSystemPerformance() {
 	for (PerformanceIt begin = system_performance_.begin(); begin != system_performance_.end(); ++begin) {
 		std::cout << begin->first << ": " << begin->second / total_time * 100 << "%" << std::endl;
 	}
-	std::cout << "=========================================\n" << std::endl;
 }

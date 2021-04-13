@@ -24,11 +24,6 @@ class Child : public Component
 private:
 	std::string parent_name_;
 	EntityID parent_id_; // Used to de-allocate assigned pointer data when destroying the child
-	// EntityID parent_id_; // By right it should be parent id but when we create the "child"
-							// in a fresh scene, the ids will be jumbled up so we have to restart
-							// the scene potentially before assigning the id which is very complex.
-							// Similarly when we delete entities, the ID will have to be updated for
-							// for all parents within the scene.
 
 public:
 

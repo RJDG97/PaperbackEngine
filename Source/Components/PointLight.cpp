@@ -5,7 +5,7 @@
 *
 *\author	   Mok Wen Qing, 100% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -24,13 +24,11 @@ PointLight::PointLight() {
 
 PointLight::~PointLight() {
 
-	//CORE->GetSystem<LightingSystem>()->RemoveLightComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<PointLight>(Component::GetOwner()->GetID());
 }
 
 void PointLight::Init() {
 
-	//CORE->GetSystem<LightingSystem>()->AddLightComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<PointLight>(Component::GetOwner()->GetID(), this);
 	CORE->GetSystem<LightingSystem>()->RandomizePulse(this);
 }

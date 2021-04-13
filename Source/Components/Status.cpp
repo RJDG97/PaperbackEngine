@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -41,9 +41,6 @@ Status::Status() :
 /******************************************************************************/
 void Status::Init() {
 
-	//CORE->GetSystem<Game>()->AddStatusComponent(GetOwner()->GetID(), this);
-	//CORE->GetSystem<Collision>()->AddStatusComponent(GetOwner()->GetID(), this);
-	//CORE->GetSystem<Physics>()->AddStatusComponent(GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<Status>(GetOwner()->GetID(), this);
 }
 
@@ -65,10 +62,8 @@ void Status::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer)
 */
 /******************************************************************************/
 void Status::DeSerialize(std::stringstream& data) {
+
 	(void)data;
-    /*
-    data >> status_;
-    */
 }
 
 std::shared_ptr<Component> Status::Clone() {
@@ -85,9 +80,6 @@ std::shared_ptr<Component> Status::Clone() {
 
 Status::~Status() {
 
-	//CORE->GetSystem<Game>()->RemoveStatusComponent(Component::GetOwner()->GetID());
-	//CORE->GetSystem<Collision>()->RemoveStatusComponent(Component::GetOwner()->GetID());
-	//CORE->GetSystem<Physics>()->RemoveStatusComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<Status>(Component::GetOwner()->GetID());
 }
 

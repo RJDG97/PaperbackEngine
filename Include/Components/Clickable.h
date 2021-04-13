@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -30,10 +30,10 @@ enum class ButtonStates
 };
 
 class Clickable : public Component {
-	Vector2D scale_; // double check if needed
+	Vector2D scale_;
 	Vector2D top_right_;
     Vector2D bottom_left_;
-	bool collided_, active_; // double check if needed
+	bool collided_, active_;
 	size_t index_;
 	size_t group_;
 	size_t order_;

@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -51,13 +51,12 @@ size_t Clickable::GetGroup() {
 }
 
 Clickable::~Clickable() {
-	//CORE->GetSystem<Collision>()->RemoveClickableComponent(Component::GetOwner()->GetID());
+
 	CORE->GetManager<ComponentManager>()->RemoveComponent<Clickable>(Component::GetOwner()->GetID());
 }
 
 void Clickable::Init() {
 
-	//CORE->GetSystem<Collision>()->AddClickableComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<Clickable>(Component::GetOwner()->GetID(), this);
 }
 

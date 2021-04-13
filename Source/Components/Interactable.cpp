@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -56,15 +56,6 @@ void Interactable::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
 
 void Interactable::DeSerialize(std::stringstream& data) {
 
-	//size_t sz{};
-	//std::string key{}, val{};
-	//data >> sz;
-
-	//for (size_t i = 0; i < sz; ++i) {
-	//	
-	//	data >> key >> val;
-	//	event_animations_[key] = val;
-	//}
 	(void)data;
 }
 
@@ -85,8 +76,6 @@ std::shared_ptr<Component> Interactable::Clone() {
 
 	M_DEBUG->WriteDebugMessage("Cloning Inventory Component\n");
 	std::shared_ptr<Interactable> cloned = std::make_shared<Interactable>();
-
-	//cloned->event_animations_ = event_animations_;
 
 	return cloned;
 }

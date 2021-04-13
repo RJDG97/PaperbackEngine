@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -26,13 +26,11 @@ InputController::InputController() :
 
 InputController::~InputController() {
 
-	//CORE->GetSystem<Game>()->RemoveInputControllerComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<InputController>(Component::GetOwner()->GetID());
 }
 
 void InputController::Init() {
 
-	//CORE->GetSystem<Game>()->AddInputControllerComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<InputController>(Component::GetOwner()->GetID(), this);
 }
 
@@ -54,9 +52,6 @@ void InputController::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
 
 	writer->Key("component");
 	writer->String("InputController");
-
-	//writer->Key("scale");
-	//writer->String((std::to_string(scale_.x) + " " + std::to_string(scale_.y)).c_str());
 
 	writer->EndObject();
 }
@@ -87,7 +82,6 @@ void InputController::DeSerialize(std::stringstream& data) {
 
 void InputController::DeSerializeClone(std::stringstream& data) {
 
-	//first value denotes how many times to loop
 	data >> num_entries_; 
 	std::string buffer;
 	int key_val;

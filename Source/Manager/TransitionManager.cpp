@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -140,7 +140,6 @@ void TransitionManager::OpenTransition(const float& frametime) {
 
 		begin_ = false;
 		current_size_ = custom_max_size_;
-		//clear_current_size_ = max_clear_size_; // Not sure if it's required
 
 		// If the current transition is null, reset
 		if (current_transition_->current_texture_ == current_transition_->texture_sequence_.end()) {

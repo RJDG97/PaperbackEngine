@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -28,13 +28,11 @@ BasicAI::BasicAI() :
 
 BasicAI::~BasicAI() {
 
-	//CORE->GetSystem<Game>()->RemoveBasicAIComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<BasicAI>(Component::GetOwner()->GetID());
 }
 
 void BasicAI::Init() {
 	// Create the map afterwards
-	//CORE->GetSystem<Game>()->AddBasicAIComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<BasicAI>(Component::GetOwner()->GetID(), this);
 }
 
@@ -73,14 +71,11 @@ void BasicAI::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* w
 
 void BasicAI::DeSerialize(std::stringstream& data) {
 	
-	// assume archetype only sets speed
-	// 1st data will be magnitude of velocity
 	data >> speed;
 }
 
 void BasicAI::DeSerializeClone(std::stringstream& data) {
 
-	// clone data will be for number of destinations and destinations
 	data >> num_destinations_;
 
 	DEBUG_ASSERT((num_destinations_ >= 2), "Empty destinations in JSON");

@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -32,16 +32,12 @@ Transform::Transform() :
 
 Transform::~Transform() {
 
-	//CORE->GetSystem<Physics>()->RemoveTransformComponent(Component::GetOwner()->GetID());
-	//CORE->GetSystem<Collision>()->RemoveTransformComponent(Component::GetOwner()->GetID());
 	CORE->GetManager<ComponentManager>()->RemoveComponent<Transform>(Component::GetOwner()->GetID());
 
 }
 
 void Transform::Init() {
 
-	//CORE->GetSystem<Physics>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
-	//CORE->GetSystem<Collision>()->AddTransformComponent(Component::GetOwner()->GetID(), this);
 	CORE->GetManager<ComponentManager>()->AddComponent<Transform>(Component::GetOwner()->GetID(), this);
 }
 

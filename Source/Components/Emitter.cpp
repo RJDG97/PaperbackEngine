@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -181,8 +181,6 @@ void Emitter::DeSerializeClone(std::stringstream& data) {
 
 	data >> particle_destination_.destination_.x >> particle_destination_.destination_.y;
 	data >> particle_destination_.time_range_.x >> particle_destination_.time_range_.y;
-
-	//alive_ = true;
 }
 
 

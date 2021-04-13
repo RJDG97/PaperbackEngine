@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -34,10 +34,6 @@ void PlayBurrow(Status* status) {
 
 	if (status->GetStatus() == StatusType::BURROW) {
 
-		//int value = std::rand() % 3;
-		//std::string sound{ "PlayerBurrowing_" };
-		//sound += std::to_string(value);
-		//CORE->GetSystem<SoundSystem>()->PlaySounds(sound);
 		CORE->GetSystem<SoundSystem>()->PlayTaggedSounds("burrow");
 	}
 }
@@ -124,7 +120,6 @@ namespace Player_Scripts
 		std::shared_ptr<ComponentManager> component_mgr = CORE->GetManager<ComponentManager>();
 
 		AnimationRenderer* renderer = component_mgr->GetComponent<AnimationRenderer>(parent_id);
-		//Transform* xform = component_mgr->GetComponent<Transform>(parent_id);
 		Status* status = component_mgr->GetComponent<Status>(parent_id);
 		Motion* motion = component_mgr->GetComponent<Motion>(parent_id);
 		Name* name = component_mgr->GetComponent<Name>(parent_id);
@@ -246,9 +241,6 @@ namespace Player_Scripts
 				pause_system->RevertPreviousLayer();
 			else if (pause_system->PrevLayer() <= 1)
 				pause_system->EnableNextLayer();
-
-			//CORE->GetSystem<Collision>()->ToggleClickables(1);
-			//CORE->GetSystem<Collision>()->ToggleClickables(3);
 
 			if (m_PlayState.GetHelp()) {
 

@@ -6,7 +6,7 @@
 *\author	   Jun Pu, Lee, 50% Code Contribution
 *\author	   Low Shun Qiang, Bryan, 50% Code Contribution
 *
-*\copyright    Copyright (c) 2020 DigiPen Institute of Technology. Reproduction
+*\copyright    Copyright (c) 2021 DigiPen Institute of Technology. Reproduction
 			   or disclosure of this file or its contents without the prior
 			   written consent of DigiPen Institute of Technology is prohibited.
 **********************************************************************************/
@@ -44,9 +44,6 @@ bool ComponentLocator(std::shared_ptr<Component> check, ComponentTypes id) {
 };
 
 void Entity::Init() {
-
-	//inits all components owned by entity and set the component's owner
-	//allows each component to be initialised separate from ctor
 
 	M_DEBUG->WriteDebugMessage("Initialising entity\n");
 
@@ -267,10 +264,3 @@ ComponentTypes StringToComponentType(const std::string str) {
 	else
 		return ComponentTypes::NONE;
 }
-
-
-
-
-
-
-

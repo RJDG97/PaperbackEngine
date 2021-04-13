@@ -43,7 +43,7 @@ void Child::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) 
 
 void Child::SerializeClone(rapidjson::PrettyWriter<rapidjson::StringBuffer>* writer) {
 
-	Serialize(writer); // Required because of potential ""
+	Serialize(writer);
 }
 
 
