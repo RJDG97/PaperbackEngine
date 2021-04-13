@@ -189,7 +189,9 @@ public:
 	\brief Creates a quad texture that is just a single color
 */
 /******************************************************************************/
-	void CreateQuadTexture(std::string texture_name, unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
+	void CreateQuadTexture(std::string texture_name, unsigned char red,
+						   unsigned char green, unsigned char blue,
+						   unsigned char alpha);
 
 /******************************************************************************/
 /*!

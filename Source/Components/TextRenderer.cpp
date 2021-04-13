@@ -110,8 +110,8 @@ void TextRenderer::DeSerialize(std::stringstream& data) {
 }
 
 
-void TextRenderer::DeSerializeClone(std::stringstream& data)
-{
+void TextRenderer::DeSerializeClone(std::stringstream& data) {
+
     DeSerialize(data);
 }
 
@@ -137,7 +137,7 @@ std::shared_ptr<Component> TextRenderer::Clone() {
     return cloned;
 }
 
-void TextRenderer::SetText(std::string text)
-{
+void TextRenderer::SetText(std::string text) {
+
     text_ = text;
 }

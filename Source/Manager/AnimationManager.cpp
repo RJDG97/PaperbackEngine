@@ -185,8 +185,8 @@ bool AnimationManager::UnloadAnimationSet(std::vector<std::pair<std::string, int
 	return false;
 }
 
-void AnimationManager::UnloadAllAnimationSets()
-{
+void AnimationManager::UnloadAllAnimationSets() {
+
 	for (auto it = animation_sets_.begin(); it != animation_sets_.end(); ++it) {
 
 		it->second.UnloadAnimationSet();

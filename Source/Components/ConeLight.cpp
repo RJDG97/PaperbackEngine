@@ -170,7 +170,62 @@ void ConeLight::SetAlive(bool alive) {
 	alive_ = alive;
 }
 
-void ConeLight::SetPulse(bool value)
-{
+bool ConeLight::GetPulse() {
+
+	return pulse_;
+}
+
+void ConeLight::SetPulse(bool value) {
+
 	pulse_ = value;
+}
+
+float ConeLight::GetMaxRadius() {
+
+	return max_radius_;
+}
+
+void ConeLight::SetMaxRadius(float value) {
+
+	max_radius_ = value;
+}
+
+float ConeLight::GetMinRadius() {
+
+	return min_radius_;
+}
+
+void ConeLight::SetMinRadius(float value) {
+
+	min_radius_ = value;
+}
+
+float ConeLight::GetMaxIntensity() {
+
+	return max_intensity_;
+}
+
+void ConeLight::SetMaxIntensity(float value) {
+
+	max_intensity_ = value;
+}
+
+float ConeLight::GetMinIntensity() {
+
+	return min_intensity_;
+}
+
+void ConeLight::SetMinIntensity(float value) {
+
+	min_intensity_ = value;
+}
+
+float ConeLight::GetCycleDuration() {
+
+	return cycle_duration_;
+}
+
+void ConeLight::GetCycleDuration(float value) {
+
+	cycle_duration_ = value;
 }

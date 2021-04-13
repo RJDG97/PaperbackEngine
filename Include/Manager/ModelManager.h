@@ -75,10 +75,37 @@ public:
 /******************************************************************************/
     Model* AddTristripsBatchModel(int batch_size, std::string model_name);
 
+/******************************************************************************/
+/*!
+    \fn AddTristripsBatchModel(int batch_size, std::string model_name)
+
+    \brief Adds a triangle strips model specifically used for text (with
+           batch_size being the number of objects rendered) and adds the
+           model to the Model Manager's map
+*/
+/******************************************************************************/
     Model* AddTextBatchModel(int batch_size, std::string model_name);
 
+/******************************************************************************/
+/*!
+    \fn AddTristripsBatchModel(int batch_size, std::string model_name)
+
+    \brief Adds a triangle strips model specifically used for point light (with
+            batch_size being the number of objects rendered) and adds the
+            model to the Model Manager's map
+*/
+/******************************************************************************/
     Model* AddPointLightBatchModel(int batch_size, std::string model_name);
 
+/******************************************************************************/
+/*!
+    \fn AddConeLightBatchModel(int batch_size, std::string model_name)
+
+    \brief Adds a triangle strips model specifically used for cone light (with
+           batch_size being the number of objects rendered) and adds the
+           model to the Model Manager's map
+*/
+/******************************************************************************/
     Model* AddConeLightBatchModel(int batch_size, std::string model_name);
 
 /******************************************************************************/

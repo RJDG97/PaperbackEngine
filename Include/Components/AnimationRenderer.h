@@ -137,8 +137,22 @@ public:
 /******************************************************************************/
 	std::map<std::string, Animation> GetAvailableAnimation();
 	
+/******************************************************************************/
+/*!
+	\fn FinishedAnimating()
+
+	\brief Checks if the animation has reached and finished its last frame
+*/
+/******************************************************************************/
 	bool FinishedAnimating() const;
 
+/******************************************************************************/
+/*!
+	\fn SetAnimationStatus()
+
+	\brief Sets animation to pause/play
+*/
+/******************************************************************************/
 	void SetAnimationStatus(bool status);
 
 /******************************************************************************/

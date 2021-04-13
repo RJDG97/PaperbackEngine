@@ -185,14 +185,49 @@ public:
 /******************************************************************************/
 	Vector2D GetMainCameraPos();
 
+/******************************************************************************/
+/*!
+	\fn UIToGameCoords(const Vector2D & ui_pos)
+
+	\brief Maps UI coordinates to Game World coordinates
+*/
+/******************************************************************************/
 	Vector2D UIToGameCoords(const Vector2D & ui_pos);
 
+/******************************************************************************/
+/*!
+	\fn GameCoordsToUI(const Vector2D & go_pos)
+
+	\brief Maps Game World coordinates to UI coordinates
+*/
+/******************************************************************************/
 	Vector2D GameCoordsToUI(const Vector2D & go_pos);
 
+/******************************************************************************/
+/*!
+	\fn ScreenShake(float duration, float magnitude, float delay)
+
+	\brief Adds screen shake effect to the list of current screenshakes
+*/
+/******************************************************************************/
 	void ScreenShake(float duration, float magnitude, float delay);
 
+/******************************************************************************/
+/*!
+	\fn TargetPlayer()
+
+	\brief Gets the main camera to target the player
+*/
+/******************************************************************************/
 	void TargetPlayer();
 
+/******************************************************************************/
+/*!
+	\fn TargetVector(Vector2D* target)
+
+	\brief Gets the main camera to target the specified Vecctor2D
+*/
+/******************************************************************************/
 	void TargetVector(Vector2D* target);
 };
 

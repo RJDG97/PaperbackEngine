@@ -204,6 +204,96 @@ public:
 /******************************************************************************/
 	void SetPulse(bool value);
 
+/******************************************************************************/
+/*!
+\fn GetMaxRadius()
+
+\brief Gets the max radius of the component
+*/
+/******************************************************************************/
+	float GetMaxRadius();
+
+/******************************************************************************/
+/*!
+\fn SetMaxRadius(float value)
+
+\brief Sets the max radius of the component
+*/
+/******************************************************************************/
+	void SetMaxRadius(float value);
+
+/******************************************************************************/
+/*!
+\fn GetMinRadius()
+
+\brief Gets the min radius of the component
+*/
+/******************************************************************************/
+	float GetMinRadius();
+
+/******************************************************************************/
+/*!
+\fn SetMinRadius(float value)
+
+\brief Sets the min radius of the component
+*/
+/******************************************************************************/
+	void SetMinRadius(float value);
+
+/******************************************************************************/
+/*!
+\fn GetMaxIntensity()
+
+\brief Gets the max intensity of the component
+*/
+/******************************************************************************/
+	float GetMaxIntensity();
+
+/******************************************************************************/
+/*!
+\fn SetMaxIntensity(float value)
+
+\brief Sets the max intensity of the component
+*/
+/******************************************************************************/
+	void SetMaxIntensity(float value);
+
+/******************************************************************************/
+/*!
+\fn GetMinIntensity()
+
+\brief Gets the min intensity of the component
+*/
+/******************************************************************************/
+	float GetMinIntensity();
+
+/******************************************************************************/
+/*!
+\fn SetMinIntensity(float value)
+
+\brief Sets the min intensity of the component
+*/
+/******************************************************************************/
+	void SetMinIntensity(float value);
+
+/******************************************************************************/
+/*!
+\fn GetCycleDuration()
+
+\brief Gets the cycle duration of the component
+*/
+/******************************************************************************/
+	float GetCycleDuration();
+
+/******************************************************************************/
+/*!
+\fn GetCycleDuration(float value)
+
+\brief Gets the cycle duration of the component
+*/
+/******************************************************************************/
+	void GetCycleDuration(float value);
+
 };
 
 #endif

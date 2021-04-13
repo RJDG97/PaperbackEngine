@@ -28,7 +28,8 @@ void Camera::Init()
 {
     CORE->GetManager<ComponentManager>()->AddComponent<Camera>(Component::GetOwner()->GetID(), this);
 
-    Vector2D cam_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(this->GetOwner()->GetID())->GetPosition();
+    Vector2D cam_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(
+                            this->GetOwner()->GetID())->GetPosition();
 
     glm::mat3 view_xform = { 1 , 0 , 0,
                              0 , 1 , 0,
@@ -70,7 +71,8 @@ void Camera::DeSerializeClone(std::stringstream& data)
 
     cam_size_ /= cam_zoom_;
 
-    Vector2D cam_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(this->GetOwner()->GetID())->GetPosition();
+    Vector2D cam_pos = CORE->GetManager<ComponentManager>()->GetComponent<Transform>(
+                            this->GetOwner()->GetID())->GetPosition();
 
     glm::mat3 view_xform = { 1 , 0 , 0,
                              0 , 1 , 0,
@@ -89,7 +91,8 @@ std::shared_ptr<Component> Camera::Clone()
 
     std::shared_ptr<Camera> cloned = std::make_shared<Camera>();
 
-    Vector2D cam_pos = std::reinterpret_pointer_cast<Transform>(this->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->GetPosition();
+    Vector2D cam_pos = std::reinterpret_pointer_cast<Transform>(
+                        this->GetOwner()->GetComponent(ComponentTypes::TRANSFORM))->GetPosition();
 
     cloned->cam_zoom_ = cam_zoom_;
     cloned->cam_size_ = cam_size_ / cam_zoom_;

@@ -143,8 +143,8 @@ void AnimationRenderer::SerializeClone(rapidjson::PrettyWriter<rapidjson::String
     Serialize(writer);
 }
 
-void AnimationRenderer::DeSerializeClone(std::stringstream& data)
-{
+void AnimationRenderer::DeSerializeClone(std::stringstream& data) {
+
     DeSerialize(data);
 }
 

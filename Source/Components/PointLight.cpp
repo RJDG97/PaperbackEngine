@@ -137,12 +137,12 @@ bool PointLight::GetAlive()
 	return alive_;
 }
 
-void PointLight::SetRadius(float new_radius){
+void PointLight::SetRadius(float new_radius) {
 
 	radius_ = new_radius;
 }
 
-void PointLight::SetIntensity(float new_intensity){
+void PointLight::SetIntensity(float new_intensity) {
 
 	intensity_ = new_intensity;
 
@@ -152,12 +152,62 @@ void PointLight::SetColor(glm::vec3 new_color) {
 	color_ = new_color;
 }
 
-void PointLight::SetAlive(bool alive)
-{
+void PointLight::SetAlive(bool alive) {
+
 	alive_ = alive;
 }
 
-void PointLight::SetPulse(bool value)
-{
+void PointLight::SetPulse(bool value) {
+
 	pulse_ = value;
+}
+
+float PointLight::GetMaxRadius() {
+
+	return max_radius_;
+}
+
+void PointLight::SetMaxRadius(float value) {
+
+	max_radius_ = value;
+}
+
+float PointLight::GetMinRadius() {
+
+	return min_radius_;
+}
+
+void PointLight::SetMinRadius(float value) {
+
+	min_radius_ = value;
+}
+
+float PointLight::GetMaxIntensity() {
+
+	return max_intensity_;
+}
+
+void PointLight::SetMaxIntensity(float value) {
+
+	max_intensity_ = value;
+}
+
+float PointLight::GetMinIntensity() {
+
+	return min_intensity_;
+}
+
+void PointLight::SetMinIntensity(float value) {
+
+	min_intensity_ = value;
+}
+
+float PointLight::GetCycleDuration() {
+
+	return cycle_duration_;
+}
+
+void PointLight::GetCycleDuration(float value) {
+
+	cycle_duration_ = value;
 }
