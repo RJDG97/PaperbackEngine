@@ -216,7 +216,7 @@ public:
 				addChild(new Common::PlayerWithinVision(id_, 5.0f));
 			}
 			else {
-				addChild(new Common::PlayerWithinDistance(id_, 2.0f));
+				addChild(new Common::PlayerWithinDistance(id_, 3.0f));
 				addChild(new Common::PlayerWithinVision(id_, 4.0f));
 			}
 		}
