@@ -812,7 +812,7 @@
     "Hurt_1": [
         {
             "path": "Resources/SoundCache/Player/Radish_Hurt/Hurt_1.wav",
-            "volume": "0.400000",
+            "volume": "0.200000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -822,7 +822,7 @@
     "Hurt_2": [
         {
             "path": "Resources/SoundCache/Player/Radish_Hurt/Hurt_2.wav",
-            "volume": "0.400000",
+            "volume": "0.200000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -832,7 +832,7 @@
     "Hurt_3": [
         {
             "path": "Resources/SoundCache/Player/Radish_Hurt/Hurt_3.wav",
-            "volume": "0.400000",
+            "volume": "0.200000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
@@ -842,7 +842,7 @@
     "Hurt_4": [
         {
             "path": "Resources/SoundCache/Player/Radish_Hurt/Hurt_4.wav",
-            "volume": "0.400000",
+            "volume": "0.200000",
             "min distance": "0.000000",
             "volume falloff": "0.000000",
             "loop": "0",
