@@ -37,6 +37,7 @@ class WindowsSystem : public ISystem{
 	int width_, height_;
 	std::string windows_name_;
 	bool fullscreen_;
+	GLFWcursor* cursor_;
 
 public:
 

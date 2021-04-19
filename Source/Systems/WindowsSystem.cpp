@@ -27,7 +27,8 @@ WindowsSystem::WindowsSystem() :
 	hwnd{},
 	width_{}, 
 	height_{},
-	fullscreen_{ true }
+	fullscreen_{ true },
+	cursor_{ nullptr }
 {
 }
 
@@ -73,6 +74,9 @@ void WindowsSystem::Init() {
 		std::exit(EXIT_FAILURE);
 	}
 
+	cursor_ = glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR);
+
+	glfwSetCursor(ptr_window, cursor_);
 	//glfwSetWindowMonitor(ptr_window, glfwGetPrimaryMonitor(), 0, 0, width_, height_, GLFW_DONT_CARE);
 
 	M_DEBUG->WriteDebugMessage("Window System Init\n");

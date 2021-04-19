@@ -45,6 +45,20 @@ void SendHoldMessage(size_t key_val) {
 void CursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
 {
 	UNREFERENCED_PARAMETER(window);
+	int height, width;
+	glfwGetWindowSize(window, &width, &height);
+
+	if (xPos > static_cast<double>(width) - 10)
+		xPos = 11;// static_cast<double>(width) - 5;
+	else if (xPos < 10)
+		xPos = static_cast<double>(width) - 11;//5;
+
+	if (yPos > (static_cast<double>(height) - 10))
+		yPos = 11;//static_cast<double>(height) - 5;
+	else if (yPos < 10)
+		yPos = static_cast<double>(height) - 11;//5;
+
+	glfwSetCursorPos(window, xPos, yPos);
 	CORE->GetSystem<InputSystem>()->SetCursorPosition(xPos, yPos);
 }
 
@@ -61,7 +75,26 @@ void CursorEnterCallback(GLFWwindow* window, int entered)
 	if (entered)
 	{}
 	else
-	{}
+	{
+		//if outside of window, force set to within confines of window
+		int height, width;
+		glfwGetWindowSize(window, &width, &height);
+
+		double xPos, yPos;
+		glfwGetCursorPos(window, &xPos, &yPos);
+
+		if (xPos > static_cast<double>(width) - 10)
+			xPos = 11;// static_cast<double>(width) - 5;
+		else if (xPos < 10)
+			xPos = static_cast<double>(width) - 11;//5;
+
+		if (yPos > (static_cast<double>(height) - 10))
+			yPos = 11;//static_cast<double>(height) - 5;
+		else if (yPos < 10)
+			yPos = static_cast<double>(height) - 11;//5;
+
+		glfwSetCursorPos(window, xPos, yPos);
+	}
 }
 
 
