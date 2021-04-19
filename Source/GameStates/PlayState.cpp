@@ -21,7 +21,6 @@
 
 #include "Engine/Core.h"
 #include "Systems/Factory.h"
-#include "Systems/ImguiSystem.h"
 #include "Systems/Partitioning.h"
 #include "Systems/Collision.h"
 #include "Systems/PauseSystem.h"
@@ -101,7 +100,6 @@ void PlayState::Free()
 {
 	CORE->GetSystem<SoundSystem>()->StopSound("All", true);
 
-	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 	FACTORY->DestroyAllEntities();
 
 	CORE->GetSystem<DialogueSystem>()->TempCleanup();

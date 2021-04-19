@@ -123,15 +123,6 @@
     <Filter Include="Systems\Input System">
       <UniqueIdentifier>{e34f2000-4d88-49ed-86d2-3f2dfcaf1f87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systems\Imgui System">
-      <UniqueIdentifier>{8b0c5799-936b-431d-8470-034f324d4ffb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Systems\Imgui System\ImguiFiles">
-      <UniqueIdentifier>{dcd95455-fba2-4267-93a7-83e2ff3ac8b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Systems\Imgui System\ImguiWindows">
-      <UniqueIdentifier>{f6f019ce-bee4-46e8-9d65-5a5ea603ddfb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Systems\Graphics System">
       <UniqueIdentifier>{707765b0-cef9-4294-91e4-211866991ae3}</UniqueIdentifier>
     </Filter>
@@ -323,9 +314,6 @@
     <ClCompile Include="Source\Components\Clickable.cpp">
       <Filter>Entity\Components\Clickable</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Systems\ImguiSystem.cpp">
-      <Filter>Systems\Imgui System</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Manager\ForcesManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
@@ -371,29 +359,11 @@
     <ClCompile Include="Source\Manager\EntityManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameStates\EditorState.cpp">
-      <Filter>Systems\Scene/State Manager\Game States</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Manager\AMap.cpp">
       <Filter>Systems\AMap System</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\Partitioning.cpp">
       <Filter>Systems\Partitioning System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\SystemWindow.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
     <ClCompile Include="Source\MathLib\MathHelper.cpp">
       <Filter>Systems\MathLibrary</Filter>
@@ -422,12 +392,6 @@
     <ClCompile Include="Source\Components\Emitter.cpp">
       <Filter>Entity\Components\Emitter</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\AssetConsoleWindow.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Components\SoundEmitter.cpp">
       <Filter>Entity\Components\SoundEmitter</Filter>
     </ClCompile>
@@ -452,24 +416,6 @@
     <ClCompile Include="Source\Manager\LogicManager.cpp">
       <Filter>ResourceManagers</Filter>
     </ClCompile>
-    <ClCompile Include="lib\DearImGui\imgui.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\DearImGui\imgui_demo.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\DearImGui\imgui_draw.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\DearImGui\imgui_impl_glfw.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\DearImGui\imgui_impl_opengl3.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\DearImGui\imgui_widgets.cpp">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Components\Collectible.cpp">
       <Filter>Entity\Components\Collectible</Filter>
     </ClCompile>
@@ -493,9 +439,6 @@
     </ClCompile>
     <ClCompile Include="Source\Components\Dialogue.cpp">
       <Filter>Entity\Components\Dialogue</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ImguiWindows\MiscWindow.cpp">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\Child.cpp">
       <Filter>Entity\Components\Child</Filter>
@@ -652,9 +595,6 @@
     <ClInclude Include="Include\Components\Clickable.h">
       <Filter>Entity\Components\Clickable</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Systems\ImguiSystem.h">
-      <Filter>Systems\Imgui System</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Manager\ForcesManager.h">
       <Filter>ResourceManagers</Filter>
     </ClInclude>
@@ -663,9 +603,6 @@
     </ClInclude>
     <ClInclude Include="Include\Components\TextRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\IWindow.h">
-      <Filter>Systems\Imgui System</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\InputController.h">
       <Filter>Entity\Components\InputController</Filter>
@@ -706,32 +643,14 @@
     <ClInclude Include="Include\Script\ScriptList.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GameStates\EditorState.h">
-      <Filter>Systems\Scene/State Manager\Game States</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\EntityWindow.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Manager\AMap.h">
       <Filter>Systems\AMap System</Filter>
     </ClInclude>
     <ClInclude Include="Include\Systems\Partitioning.h">
       <Filter>Systems\Partitioning System</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\SystemWindow.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Components\IRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\AssetWindow.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
     <ClInclude Include="Include\MathLib\MathHelper.h">
       <Filter>Systems\MathLibrary</Filter>
@@ -763,12 +682,6 @@
     <ClInclude Include="Include\Components\Emitter.h">
       <Filter>Entity\Components\Emitter</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\TextureTilesWindow.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\AssetConsoleWindow.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Components\SoundEmitter.h">
       <Filter>Entity\Components\SoundEmitter</Filter>
     </ClInclude>
@@ -792,33 +705,6 @@
     </ClInclude>
     <ClInclude Include="Include\Manager\LogicManager.h">
       <Filter>ResourceManagers</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\DearImGui\IconsFontAwesome5.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\DearImGui\imconfig.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\DearImGui\imgui.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\DearImGui\imgui_impl_glfw.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\DearImGui\imgui_impl_opengl3.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\DearImGui\imgui_internal.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\DearImGui\imstb_rectpack.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\DearImGui\imstb_textedit.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\DearImGui\imstb_truetype.h">
-      <Filter>Systems\Imgui System\ImguiFiles</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\Collectible.h">
       <Filter>Entity\Components\Collectible</Filter>
@@ -861,9 +747,6 @@
     </ClInclude>
     <ClInclude Include="Include\Components\SpriteRenderer.h">
       <Filter>Entity\Components\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\ImguiWindows\MiscWindow.h">
-      <Filter>Systems\Imgui System\ImguiWindows</Filter>
     </ClInclude>
     <ClInclude Include="Include\Components\Child.h">
       <Filter>Entity\Components\Child</Filter>

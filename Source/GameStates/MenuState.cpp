@@ -16,12 +16,11 @@
 #include "Systems/Game.h"
 #include "GameStates/MenuState.h"
 #include "GameStates/CutSceneState.h"
-#include "GameStates/EditorState.h"
 #include "GameStates/CreditsState.h"
 
 #include "Systems/InputSystem.h"
 #include "Systems/WindowsSystem.h"
-#include "Systems/ImGuiSystem.h"
+#include "Systems/SoundSystem.h"
 #include "Systems/PauseSystem.h"
 #include "Manager/TextureManager.h"
 #include "Manager/AnimationManager.h"
@@ -33,7 +32,6 @@
 #include "Systems/GraphicsSystem.h"
 #include "Systems/Factory.h"
 #include "Systems/Collision.h"
-#include "Systems/ImguiSystem.h"
 #include "Systems/Parenting.h"
 
 #include "Components/Status.h"
@@ -82,7 +80,6 @@ void MenuState::Free()
 	CORE->ResetGamePauseStatus();
 
 	FACTORY->DestroyAllEntities();
-	CORE->GetSystem<ImguiSystem>()->ResetSelectedEntity();
 
 	help_ = false;
 }
@@ -144,18 +141,6 @@ void MenuState::StateInputHandler(Message* msg, Game* game) {
 
 						CORE->GetSystem<PauseSystem>()->EnableNextLayer();
 
-						return;
-						break;
-					}
-					// Case 3: Editor mode
-					case 3:
-					{
-						MessageBGM_Play button{ "Click_Btn" };
-						CORE->BroadcastMessage(&button);
-
-						// Editor mode
-						CORE->GetSystem<ImguiSystem>()->SetImguiBool(true);
-						game->ChangeState(&m_EditorState);
 						return;
 						break;
 					}

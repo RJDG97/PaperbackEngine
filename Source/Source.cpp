@@ -23,7 +23,6 @@
 #include "GameStates/MenuState.h"
 #include "Systems/GraphicsSystem.h"
 #include "Systems/LightingSystem.h"
-#include "Systems/ImguiSystem.h"
 #include "Systems/LogicSystem.h"
 #include "Systems/DialogueSystem.h"
 #include "Systems/PauseSystem.h"
@@ -87,7 +86,6 @@ int WINAPI WinMain(HINSTANCE currentInstance, HINSTANCE previousInstance, PSTR c
 		CORE->AddSystem<PartitioningSystem>();
 		CORE->AddSystem<Collision>();
 		CORE->AddSystem<ParticleSystem>();
-		CORE->AddSystem<ImguiSystem>();
 		CORE->AddSystem<SoundSystem>();
 		CORE->AddSystem<Game>();
 		CORE->AddSystem<LogicSystem>();

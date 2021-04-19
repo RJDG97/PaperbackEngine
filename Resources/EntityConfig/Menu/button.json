@@ -82,44 +82,6 @@
   "button": [
     {
       "component": "Transform",
-      "position": "0.16 -1.9",
-      "rotation": "0.0"
-    },
-    {
-      "component": "Clickable",
-      "index": "3",
-      "active": "1",
-      "scale": "2.5 0.66",
-      "group": "1"
-    },
-    {
-      "component": "Scale",
-      "scale": "105.0 35.0"
-    },
-    {
-      "component": "AABB",
-      "scale": "2.0 0.66",
-      "layer": "6"
-    },
-    {
-      "component": "TextureRenderer",
-      "texture": "Menu_Editor_0",
-      "layer": "0",
-      "order in layer": "2",
-      "alive": "1",
-      "opacity": "1.0",
-      "tint": "1.0 1.0 1.0"
-    },
-    {
-      "component": "LogicComponent",
-      "number_of_fns": "1",
-      "name": "ButtonUpdateTexture",
-      "function": "MenuState_EnterEditorState"
-    }
-  ],
-  "button": [
-    {
-      "component": "Transform",
       "position": "0.16 -3.9",
       "rotation": "0.0"
     },

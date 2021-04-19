@@ -151,12 +151,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lib\DearImGui\imgui.cpp" />
-    <ClCompile Include="lib\DearImGui\imgui_demo.cpp" />
-    <ClCompile Include="lib\DearImGui\imgui_draw.cpp" />
-    <ClCompile Include="lib\DearImGui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="lib\DearImGui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="lib\DearImGui\imgui_widgets.cpp" />
     <ClCompile Include="Source\Components\AABB.cpp" />
     <ClCompile Include="Source\Components\AI.cpp" />
     <ClCompile Include="Source\Components\AnimationRenderer.cpp" />
@@ -194,19 +188,10 @@
     <ClCompile Include="Source\Entity\Entity.cpp" />
     <ClCompile Include="Source\GameStates\CreditsState.cpp" />
     <ClCompile Include="Source\GameStates\CutSceneState.cpp" />
-    <ClCompile Include="Source\GameStates\EditorState.cpp" />
     <ClCompile Include="Source\GameStates\Levels.cpp" />
     <ClCompile Include="Source\GameStates\MenuState.cpp" />
     <ClCompile Include="Source\GameStates\PlayState.cpp" />
     <ClCompile Include="Source\GameStates\SplashState.cpp" />
-    <ClCompile Include="Source\ImguiWindows\ArchetypeWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\AssetConsoleWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\AssetWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\EntityPathWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\EntityWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\MiscWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\SystemWindow.cpp" />
-    <ClCompile Include="Source\ImguiWindows\TextureTilesWindow.cpp" />
     <ClCompile Include="Source\Manager\AMap.cpp" />
     <ClCompile Include="Source\Manager\AnimationManager.cpp" />
     <ClCompile Include="Source\Manager\BehaviourTree.cpp" />
@@ -237,7 +222,6 @@
     <ClCompile Include="Source\Systems\FrameRateController.cpp" />
     <ClCompile Include="Source\Systems\Game.cpp" />
     <ClCompile Include="Source\Systems\GraphicsSystem.cpp" />
-    <ClCompile Include="Source\Systems\ImguiSystem.cpp" />
     <ClCompile Include="Source\Systems\InputSystem.cpp" />
     <ClCompile Include="Source\Systems\LightingSystem.cpp" />
     <ClCompile Include="Source\Systems\LogicSystem.cpp" />
@@ -295,21 +279,11 @@
     <ClInclude Include="Include\Entity\Entity.h" />
     <ClInclude Include="Include\GameStates\CreditsState.h" />
     <ClInclude Include="Include\GameStates\CutSceneState.h" />
-    <ClInclude Include="Include\GameStates\EditorState.h" />
     <ClInclude Include="Include\GameStates\GameState.h" />
     <ClInclude Include="Include\GameStates\Levels.h" />
     <ClInclude Include="Include\GameStates\MenuState.h" />
     <ClInclude Include="Include\GameStates\PlayState.h" />
     <ClInclude Include="Include\GameStates\SplashState.h" />
-    <ClInclude Include="Include\ImguiWindows\ArchetypeWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\AssetConsoleWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\AssetWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\EntityPathWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\EntityWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\IWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\MiscWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\SystemWindow.h" />
-    <ClInclude Include="Include\ImguiWindows\TextureTilesWindow.h" />
     <ClInclude Include="Include\Manager\AMap.h" />
     <ClInclude Include="Include\Manager\AnimationManager.h" />
     <ClInclude Include="Include\Manager\BehaviourTree.h" />
@@ -350,7 +324,6 @@
     <ClInclude Include="Include\Systems\FrameRateController.h" />
     <ClInclude Include="Include\Systems\Game.h" />
     <ClInclude Include="Include\Systems\GraphicsSystem.h" />
-    <ClInclude Include="Include\Systems\ImguiSystem.h" />
     <ClInclude Include="Include\Systems\InputSystem.h" />
     <ClInclude Include="Include\Systems\ISystem.h" />
     <ClInclude Include="Include\Systems\LightingSystem.h" />
@@ -365,15 +338,6 @@
     <ClInclude Include="Include\Systems\SoundSystem.h" />
     <ClInclude Include="Include\Systems\TransitionSystem.h" />
     <ClInclude Include="Include\Systems\WindowsSystem.h" />
-    <ClInclude Include="lib\DearImGui\IconsFontAwesome5.h" />
-    <ClInclude Include="lib\DearImGui\imconfig.h" />
-    <ClInclude Include="lib\DearImGui\imgui.h" />
-    <ClInclude Include="lib\DearImGui\imgui_impl_glfw.h" />
-    <ClInclude Include="lib\DearImGui\imgui_impl_opengl3.h" />
-    <ClInclude Include="lib\DearImGui\imgui_internal.h" />
-    <ClInclude Include="lib\DearImGui\imstb_rectpack.h" />
-    <ClInclude Include="lib\DearImGui\imstb_textedit.h" />
-    <ClInclude Include="lib\DearImGui\imstb_truetype.h" />
     <ClInclude Include="Source\Source.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

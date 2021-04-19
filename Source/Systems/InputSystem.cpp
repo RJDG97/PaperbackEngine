@@ -17,7 +17,6 @@
 #include "GameStates/MenuState.h"
 #include "Systems/Debug.h"
 #include "Systems/GraphicsSystem.h"
-#include "Systems/ImguiSystem.h"
 #include "Manager/AMap.h"
 
 InputSystem sys_input_;
@@ -139,28 +138,7 @@ void ScrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 {
 	UNREFERENCED_PARAMETER(window);
 	UNREFERENCED_PARAMETER(xOffset);
-
-	// If cursor is within a window, disable scroll to zoom
-	ImguiSystem* imgui = &*CORE->GetSystem<ImguiSystem>();
-
-    if (CORE->GetSystem<Game>()->GetStateName() == "Editor") {
-        
-        if (imgui->EditorMode())
-		    return;
-            
-	    // Zoom in
-    	if (yOffset > 0.0f) {
-
-    		Message msg(MessageIDTypes::CAM_ZOOM_IN);
-    		CORE->BroadcastMessage(&msg);
-    	}
-    	// Zoom out
-    	else if (yOffset < 0.0f) {
-        
-    		Message msg(MessageIDTypes::CAM_ZOOM_OUT);
-    		CORE->BroadcastMessage(&msg);
-    	}
-    }
+	UNREFERENCED_PARAMETER(yOffset);
 }
 
 /******************************************************************************/
@@ -178,7 +156,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 	// if Triggered
 	CORE->GetSystem<InputSystem>()->SetKeyState(key, action);
-	bool imgui_ = CORE->GetSystem<ImguiSystem>()->EditorMode();
+	bool imgui_ = false;
 
 	if (action == GLFW_PRESS && !imgui_)
 	{
