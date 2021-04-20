@@ -307,7 +307,7 @@ void InputSystem::Update(float frametime) {
 		SendHoldMessage(GLFW_KEY_APOSTROPHE);
 	}
 
-	if (IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT)) {
+	if (IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT) || IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT)) {
 
 		Message msg(MessageIDTypes::M_MOUSE_PRESS);
 		CORE->BroadcastMessage(&msg);

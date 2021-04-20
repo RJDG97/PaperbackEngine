@@ -83,12 +83,19 @@ void SplashState::StateInputHandler(Message* msg, Game* game) {
 			switch (m->input_)
 			{
 			case GLFW_KEY_ESCAPE:
+			case GLFW_KEY_SPACE:
+			case GLFW_KEY_ENTER:
 			{
 
 				CORE->GetManager<TransitionManager>()->SkipTransition();
 				break;
 			}
 			}
+			break;
+		}
+		case MessageIDTypes::M_MOUSE_PRESS: {
+
+			CORE->GetManager<TransitionManager>()->SkipTransition();
 			break;
 		}
 		}
