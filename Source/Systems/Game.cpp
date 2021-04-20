@@ -156,6 +156,12 @@ void Game::SendMessageD(Message* m) {
 		states_.back()->StateInputHandler(m, this);
 		break;
 	}
+	case MessageIDTypes::M_MOUSE_PRESS: 
+	{
+
+		states_.back()->StateInputHandler(m, this);
+		break;
+	}
 	case MessageIDTypes::M_BUTTON_PRESS:
 	case MessageIDTypes::M_BUTTON_TRIGGERED:
 	{
