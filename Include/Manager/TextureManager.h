@@ -167,6 +167,15 @@ public:
 	\brief Loads textures that will be used for the level
 */
 /******************************************************************************/
+	BYTE* CursorLoad(std::string level_name);
+
+/******************************************************************************/
+/*!
+	\fn TextureBatchLoad(std::string level_name)
+
+	\brief Loads textures that will be used for the level
+*/
+/******************************************************************************/
 	void TextureBatchLoad(std::string level_name);
 
 /******************************************************************************/
