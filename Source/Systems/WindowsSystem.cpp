@@ -76,16 +76,13 @@ void WindowsSystem::Init() {
 
 	std::shared_ptr<TextureManager> texture_mgr = CORE->GetManager<TextureManager>();
 
-	//unsigned char pixels[16 * 16 * 4];
-	//std::memset( pixels, reinterpret_cast<unsigned char>(texture_mgr->GetTexture("Cursor")->GetTexVtx()) , sizeof(pixels) );
-
 	GLFWimage image;
 	image.width = 16;
 	image.height = 16;
 	image.pixels = texture_mgr->PreLoad("Cursor");
 
 	cursor_ = glfwCreateCursor( &image , 0 , 0 );
-	//cursor_ = glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR);
+	glfwSetWindowIcon(ptr_window, 1, &image);
 
 	glfwSetCursor(ptr_window, cursor_);
 	//glfwSetWindowMonitor(ptr_window, glfwGetPrimaryMonitor(), 0, 0, width_, height_, GLFW_DONT_CARE);
