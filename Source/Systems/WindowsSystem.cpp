@@ -76,18 +76,14 @@ void WindowsSystem::Init() {
 
 	std::shared_ptr<TextureManager> texture_mgr = CORE->GetManager<TextureManager>();
 
-	GLFWimage cursorimage;//, windowimage;
-	cursorimage.width = 16;
-	cursorimage.height = 16;
-	cursorimage.pixels = texture_mgr->PreLoad("Cursor");
+	GLFWimage cursorimage, windowimage[2];
 
-	//windowimage.width = 16;
-	//windowimage.height = 16;
-	//windowimage.pixels = texture_mgr->PreLoad("Window");
+	windowimage[0] = { 512, 512, texture_mgr->PreLoad("Window") };
+	windowimage[1] = { 64, 64, texture_mgr->PreLoad("Window_s") };
+	glfwSetWindowIcon(ptr_window, 2, windowimage);
 
-	cursor_ = glfwCreateCursor( &cursorimage, 0 , 0 );
-	
-	glfwSetWindowIcon(ptr_window, 1, &cursorimage);
+	cursorimage = { 32, 32, texture_mgr->PreLoad("Cursor") };
+	cursor_ = glfwCreateCursor(&cursorimage, 0, 0);
 	glfwSetCursor(ptr_window, cursor_);
 	//glfwSetWindowMonitor(ptr_window, glfwGetPrimaryMonitor(), 0, 0, width_, height_, GLFW_DONT_CARE);
 
