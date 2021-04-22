@@ -16,6 +16,36 @@
 #include <FreeImage.h>
 #include <iostream>
 
+//taken from the FreeImage utilities file
+template <class T> void INPLACESWAP(T& a, T& b) {
+    a ^= b; b ^= a; a ^= b;
+}
+
+//taken from the FreeImage utilities file
+BOOL SwapRedBlue32(FIBITMAP* dib) {
+    if (FreeImage_GetImageType(dib) != FIT_BITMAP) {
+        return FALSE;
+    }
+
+    const unsigned bytesperpixel = FreeImage_GetBPP(dib) / 8;
+    if (bytesperpixel > 4 || bytesperpixel < 3) {
+        return FALSE;
+    }
+
+    const unsigned height = FreeImage_GetHeight(dib);
+    const unsigned pitch = FreeImage_GetPitch(dib);
+    const unsigned lineSize = FreeImage_GetLine(dib);
+
+    BYTE* line = FreeImage_GetBits(dib);
+    for (unsigned y = 0; y < height; ++y, line += pitch) {
+        for (BYTE* pixel = line; pixel < line + lineSize; pixel += bytesperpixel) {
+            INPLACESWAP(pixel[0], pixel[2]);
+        }
+    }
+
+    return TRUE;
+}
+
 Texture::Texture(size_t width, size_t height, GLuint tileset_handle, std::vector<glm::vec2> tex_vtx) :
     width_ {width},
     height_ {height},
@@ -74,7 +104,7 @@ void TextureManager::Init() {
     M_DEBUG->WriteDebugMessage("Texture Manager Init\n");
 }
 
-BYTE* TextureManager::CursorLoad(std::string level_name)
+BYTE* TextureManager::PreLoad(std::string level_name)
 {
     BYTE* bits = nullptr;
     rapidjson::Document textures_to_load;
@@ -122,11 +152,11 @@ BYTE* TextureManager::CursorLoad(std::string level_name)
         GLuint texobj_hdl;
 
         //check the file signature and deduce its format
-        fif = FreeImage_GetFileType(tileset_name.c_str(), 0);
+        fif = FreeImage_GetFileType(texture_path.c_str(), 0);
 
         //if format is cannot be deduced, try to guess the format from file extension
         if (fif == FIF_UNKNOWN) {
-            fif = FreeImage_GetFIFFromFilename(tileset_name.c_str());
+            fif = FreeImage_GetFIFFromFilename(texture_path.c_str());
         }
 
         //if format is still unkown, return failure
@@ -135,12 +165,12 @@ BYTE* TextureManager::CursorLoad(std::string level_name)
         //check that the plugin has reading capabilities and load the file
         if (FreeImage_FIFSupportsReading(fif)) {
 
-            dib = FreeImage_Load(fif, tileset_name.c_str(), PNG_DEFAULT);
+            dib = FreeImage_Load(fif, texture_path.c_str(), PNG_DEFAULT);
 
             //convert all images to 32 bits for reading
             if (FreeImage_GetBPP(dib) != 32) {
 
-                dib = FreeImage_ConvertTo32Bits(FreeImage_Load(fif, tileset_name.c_str(), PNG_DEFAULT));
+                dib = FreeImage_ConvertTo32Bits(FreeImage_Load(fif, texture_path.c_str(), PNG_DEFAULT));
             }
         }
 
@@ -165,9 +195,6 @@ BYTE* TextureManager::CursorLoad(std::string level_name)
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
             width, height,
             0, GL_BGRA, GL_UNSIGNED_BYTE, bits);
-
-        //Free FreeImage's copy of the data
-        FreeImage_Unload(dib);
 
         //return success
         std::cout << "Tileset successfully loaded : " << tileset_name << std::endl;
@@ -195,6 +222,13 @@ BYTE* TextureManager::CursorLoad(std::string level_name)
                                {origin.x + offset.x, origin.y + offset.y} } };
             }
         }
+
+        SwapRedBlue32(dib);
+        FreeImage_FlipVertical(dib);
+        FreeImage_ConvertToRawBits(bits, dib, 0, 0, 0, 0, 0, 0);
+
+        //Free FreeImage's copy of the data
+        FreeImage_Unload(dib);
     }
 
     return bits;

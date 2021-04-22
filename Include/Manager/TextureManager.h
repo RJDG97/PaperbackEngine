@@ -168,7 +168,7 @@ public:
 	\brief Loads textures that will be used for the level
 */
 /******************************************************************************/
-	BYTE* CursorLoad(std::string level_name);
+	BYTE* PreLoad(std::string level_name);
 
 /******************************************************************************/
 /*!
