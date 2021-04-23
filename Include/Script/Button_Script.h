@@ -411,16 +411,6 @@ namespace Button_Script
 			{
 				graphics_sys->ChangeTexture(texture_renderer, "UI_Paused_HowTo_Clicked_0");
 
-				//// Parent stuff
-				//ParentChild* pc = component_mgr->GetComponent<ParentChild>(button_id);
-				//std::list<Entity*> children = pc->GetChildren();
-				//EntityID howtoplay_id = (*children.begin())->GetID();
-
-				//// Child stuff
-				//TextureRenderer* child_renderer = component_mgr->GetComponent<TextureRenderer>(howtoplay_id);
-				//if (!child_renderer->IsAlive())
-				//	child_renderer->SetAlive(true);
-
 				// Temporary measure until the ToggleClickables are sorted out
 				Message_Button msg{ clickable->GetIndex() };
 				CORE->BroadcastMessage(&msg);
