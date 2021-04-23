@@ -278,6 +278,7 @@ void SoundSystem::PauseSound(std::string file_id, bool status, bool all) {
 
 		for (auto& [name, sound_channel] : channel_library_) {
 
+			if (name == "Click_Btn") continue;
 			sound_channel->pause_ = b_paused_;
 			sound_channel->channel_->setPaused(b_paused_);
 		}

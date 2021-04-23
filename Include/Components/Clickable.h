@@ -37,6 +37,7 @@ class Clickable : public Component {
 	size_t index_;
 	size_t group_;
 	size_t order_;
+	ButtonStates state_{ ButtonStates::DEFAULT };
 
 public:
 	friend class Collision;

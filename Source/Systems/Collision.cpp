@@ -282,6 +282,13 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 
 				// Run logic script to change texture to be "Hovered"
 				std::string UpdateTexture = logic->GetLogic("ButtonUpdateTexture");
+				
+				if (clickable->state_ != ButtonStates::HOVERED && clickable->state_ != ButtonStates::CLICKED)
+				{
+					MessageBGM_Play button{ "Click_Btn" };
+					CORE->BroadcastMessage(&button);
+				}
+				clickable->state_ = state;
 
 				logic_manager->Exec(UpdateTexture, id, state);
 
@@ -293,6 +300,7 @@ void Collision::CheckClickableCollision(ButtonStates& state) {
 			else {
 				
 				// Run logic script to change texture to be Default
+				clickable->state_ = ButtonStates::DEFAULT;
 				ButtonStates button_state = ButtonStates::DEFAULT;
 				std::string UpdateTexture = logic->GetLogic("ButtonUpdateTexture");
 
