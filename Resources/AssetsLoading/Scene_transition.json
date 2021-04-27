@@ -11,11 +11,12 @@
   ],
   "Splash": [
     {
-      "size": "2",
+      "size": "3",
       "default timer": "1.5",
       "default transition timer": "1.0",
       "dark timer": "0.4",
       "name": "Splash_DigipenLogo_0",
+      "name": "Splash_FmodLogo_0",
       "name": "Splash_VeggieEscape_0"
 
     }
