@@ -142,6 +142,7 @@ private:
 	bool win_{ false };
 	bool help_{ false };
 	bool lose_{ false };
+	bool ret_mainmenu_{ false };
 
 	// Health timer...
 	float timer_ = 5.0f;

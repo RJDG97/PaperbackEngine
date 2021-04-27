@@ -347,26 +347,43 @@ void PlayState::StateInputHandler(Message* msg, Game* game) {
 						case 4:
 						{
 							// Play button click sfx
-							MessageBGM_Play button{ "Click_Btn" };
+							/*MessageBGM_Play button{ "Click_Btn" };
 							CORE->BroadcastMessage(&button);
 
 							// Return to menu
 							CORE->GetSystem<DialogueSystem>()->TempCleanup();
 							CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
 							return;
+							break;*/
+							ret_mainmenu_ = true;
+							CORE->GetSystem<PauseSystem>()->SetActiveLayer(4);
 							break;
 						}
 						// Case 5 = Exit game (Jump to confirm quit layer)
 						case 5:
 						{
+							ret_mainmenu_ = false;
 							CORE->GetSystem<PauseSystem>()->SetActiveLayer(4);
 							break;
 						}
 						// Case 6 = Quit Game
 						case 6:
 						{
-							Message mesg{ MessageIDTypes::EXIT };
-							CORE->BroadcastMessage(&mesg);
+
+							if (!ret_mainmenu_) {
+								Message mesg{ MessageIDTypes::EXIT };
+								CORE->BroadcastMessage(&mesg);
+							}
+							else if (ret_mainmenu_) {
+
+								MessageBGM_Play button{ "Click_Btn" };
+								CORE->BroadcastMessage(&button);
+
+								// Return to menu
+								CORE->GetSystem<DialogueSystem>()->TempCleanup();
+								CORE->GetManager<TransitionManager>()->ResetTransition("Default", &m_MenuState);
+								return;
+							}
 							break;
 						}
 						// Case 7 = Return to previous layer (Return to pause menu layer)
