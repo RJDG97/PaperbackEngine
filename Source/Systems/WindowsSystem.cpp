@@ -85,7 +85,7 @@ void WindowsSystem::Init() {
 	cursorimage = { 32, 32, texture_mgr->PreLoad("Cursor") };
 	cursor_ = glfwCreateCursor(&cursorimage, 0, 0);
 	glfwSetCursor(ptr_window, cursor_);
-	//glfwSetWindowMonitor(ptr_window, glfwGetPrimaryMonitor(), 0, 0, width_, height_, GLFW_DONT_CARE);
+	glfwSetWindowMonitor(ptr_window, glfwGetPrimaryMonitor(), 0, 0, width_, height_, GLFW_DONT_CARE);
 
 	M_DEBUG->WriteDebugMessage("Window System Init\n");
 }

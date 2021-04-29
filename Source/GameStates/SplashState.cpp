@@ -37,7 +37,7 @@ void SplashState::Init(std::string) {
 
 	CORE->GetManager<LayerManager>()->LoadLevelLayers("Splash");
 	FACTORY->LoadLevel("Splash");
-	CORE->GetManager<TransitionManager>()->ResetTransition("Splash_Debug", &m_MenuState);
+	CORE->GetManager<TransitionManager>()->ResetTransition("Splash", &m_MenuState);
 	CORE->GetSystem<ParentingSystem>()->LinkParentAndChild();
 	CORE->GetSystem<PauseSystem>()->InitializeClickables();
 	CORE->GetSystem<EffectsSystem>()->spore_size_effect_.Initialize();
